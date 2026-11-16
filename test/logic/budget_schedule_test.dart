@@ -17,12 +17,10 @@ void main() {
 
   test('reste étalé mois par mois, le dernier prend le reliquat', () {
     final vSchedule = remainingSchedule(1000, 300, DateTime(2026, 11, 16));
-    expect([for (final vMonth in vSchedule) vMonth.month], [
-      '2026-11',
-      '2026-12',
-      '2027-01',
-      '2027-02',
-    ]);
+    expect(
+      [for (final vMonth in vSchedule) vMonth.month],
+      ['2026-11', '2026-12', '2027-01', '2027-02'],
+    );
     expect(vSchedule.last.amount, closeTo(100, 1e-9));
     expect(remainingSchedule(0, 300, DateTime(2026)), isEmpty);
     expect(remainingSchedule(500, 0, DateTime(2026)), isEmpty);
