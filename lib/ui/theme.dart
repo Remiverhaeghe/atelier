@@ -230,16 +230,17 @@ class IconLine extends StatelessWidget {
 /// Icônes communes aux onglets, aux résultats et aux listes.
 abstract final class AtelierIcons {
   static const room = Icons.square_foot;
-  static const parquet = Icons.table_rows_outlined;
+  static const parquet = Icons.view_stream_outlined;
   static const laying = Icons.format_list_numbered;
-  static const baseboard = Icons.content_cut;
+  static const baseboard = Icons.carpenter;
   static const guide = Icons.menu_book_outlined;
   static const area = Icons.crop_free;
-  static const planks = Icons.view_stream_outlined;
+  static const planks = Icons.reorder;
   static const underlay = Icons.layers_outlined;
   static const glue = Icons.format_color_fill;
-  static const nails = Icons.hardware_outlined;
-  static const rows = Icons.align_vertical_bottom;
+  static const nails = Icons.push_pin_outlined;
+  static const cartridges = Icons.colorize;
+  static const rows = Icons.density_medium;
   static const length = Icons.straighten;
   static const warning = Icons.warning_amber;
 }

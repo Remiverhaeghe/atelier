@@ -99,7 +99,7 @@ class _BaseboardViewState extends State<BaseboardView> {
                     color: vTheme.colorScheme.error,
                   ),
                 if (vSettings.fixing == BaseboardFixing.glued)
-                  IconLine(AtelierIcons.glue, vText.cartridges(vNeeds.cartridges))
+                  IconLine(AtelierIcons.cartridges, vText.cartridges(vNeeds.cartridges))
                 else
                   IconLine(AtelierIcons.nails, vText.fixingPoints(vNeeds.points)),
               ],
