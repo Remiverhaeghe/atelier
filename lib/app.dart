@@ -34,10 +34,7 @@ class AtelierApp extends StatelessWidget {
       return _app(const AppSettings());
     }
 
-    return ListenableBuilder(
-      listenable: vSettings,
-      builder: (_, _) => _app(vSettings.settings),
-    );
+    return ListenableBuilder(listenable: vSettings, builder: (_, _) => _app(vSettings.settings));
   }
 
   Widget _app(AppSettings pSettings) {
