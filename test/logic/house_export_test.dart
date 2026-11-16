@@ -22,7 +22,14 @@ void main() {
       ],
     );
     final vPlan = exportPlan(
-      Worksite(id: 'w', name: 'Maison', rooms: [vRoom, const Room(id: 'z', name: 'Toit')]),
+      Worksite(
+        id: 'w',
+        name: 'Maison',
+        rooms: [
+          vRoom,
+          const Room(id: 'z', name: 'Toit'),
+        ],
+      ),
     );
 
     expect(vPlan['format'], 'atelier-plan');
@@ -41,7 +48,13 @@ void main() {
     final vWindow =
         ((vExported['walls']! as List<Object?>).first! as Map<String, Object?>)['openings']!
             as List<Object?>;
-    expect(vWindow.single, {'kind': 'window', 'offset': 1000, 'width': 1200, 'height': 1250, 'sill': 900});
+    expect(vWindow.single, {
+      'kind': 'window',
+      'offset': 1000,
+      'width': 1200,
+      'height': 1250,
+      'sill': 900,
+    });
     // Le plan passe tel quel en JSON
     expect(jsonDecode(jsonEncode(vPlan)), vPlan);
   });
