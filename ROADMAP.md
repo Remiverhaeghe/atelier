@@ -26,4 +26,3 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 - Contrôle de finition : filmer une pièce et repérer ce qui est à reprendre.
 - Caméra thermique : repérer ponts thermiques et fuites d'air, en tirer des préconisations.
 - Mesure par photo ou réalité augmentée.
-- Mesures réutilisables par d'autres applications (domotique) : format d'export documenté, et vue 3D de la maison.
