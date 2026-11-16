@@ -1320,5 +1320,20 @@
   "levelDown": "Descendre d'un niveau",
   "fixtureStairwell": "Trémie d'escalier",
   "stairwellSummary": "{width} × {depth} cm, sans sol à couvrir",
-  "@stairwellSummary": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}}}
+  "@stairwellSummary": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}}},
+  "diagonalTitle": "Contrôler par la diagonale",
+  "diagonalHint": "Mesurez en travers de la pièce, du coin {from} au coin {to}, au ras du sol.",
+  "@diagonalHint": {"placeholders": {"from": {"type": "String"}, "to": {"type": "String"}}},
+  "diagonalOpposite": "Murs {first} et {second} : {gap} cm d'écart alors que la pièce est saisie d'équerre. Remesurez-les, ou mesurez la diagonale pour trouver les vrais angles.",
+  "@diagonalOpposite": {"placeholders": {"first": {"type": "int"}, "second": {"type": "int"}, "gap": {"type": "String"}}},
+  "diagonalMeasured": "Diagonale mesurée",
+  "diagonalPlan": "D'après le plan : {length} cm",
+  "@diagonalPlan": {"placeholders": {"length": {"type": "String"}}},
+  "diagonalOk": "Le plan et la pièce concordent.",
+  "diagonalGap": "{gap} cm d'écart : un angle n'est pas celui saisi, ou une longueur est fausse.",
+  "@diagonalGap": {"placeholders": {"gap": {"type": "String"}}},
+  "diagonalAngles": "Angles d'après la diagonale : {angles}",
+  "@diagonalAngles": {"placeholders": {"angles": {"type": "String"}}},
+  "diagonalFix": "Corriger les angles",
+  "close": "Fermer"
 }

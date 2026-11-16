@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Mesure assistée
+- « Contrôler par la diagonale » sous le plan : la diagonale du coin A au coin C, mesurée, est comparée à celle du plan
+- Pièce à quatre murs : les vrais angles sont recalculés depuis la diagonale (loi des cosinus) et corrigés d'un appui
+- Murs opposés de longueurs différentes signalés dans une pièce saisie d'équerre
+
 ### Plusieurs niveaux
 - Plan de la maison par niveau : rez-de-chaussée, étages et sous-sols, avec le niveau du dessous en transparence pour caler les murs
 - Une pièce monte ou descend d'un niveau depuis le plan ; « Étage » ajoute un niveau vide
