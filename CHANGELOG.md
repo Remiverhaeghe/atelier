@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Faïence et crédence
+- Nouveau calcul : pan de mur moins une fenêtre ou une niche, rangées entières depuis le bas et coupe en haut, cartons, colle et joint
+- Découpes de prises à la scie cloche et rehausses, profilés de finition, joint silicone sur le plan de travail
+
 ### Isolation
 - Nouveau calcul : épaisseur d'isolant selon la résistance R visée (combles perdus, rampants, murs, plancher bas), en une couche ou deux croisées
 - Paquets, sacs d'ouate à souffler, pare-vapeur et suspentes
