@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
+import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'dialogs.dart';
 import 'room_screen.dart';
+import 'shopping_screen.dart';
+import 'shopping_texts.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
@@ -46,7 +49,21 @@ class WorksiteScreen extends StatelessWidget {
         }
 
         return Scaffold(
-          appBar: AppBar(title: Text(vWorksite.name)),
+          appBar: AppBar(
+            title: Text(vWorksite.name),
+            actions: [
+              IconButton(
+                tooltip: vText.shoppingTitle,
+                icon: const Icon(Icons.shopping_cart_outlined),
+                onPressed: () => Navigator.push(
+                  pContext,
+                  MaterialPageRoute<void>(
+                    builder: (_) => ShoppingScreen(controller: controller, worksiteId: worksiteId),
+                  ),
+                ),
+              ),
+            ],
+          ),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () => _create(pContext),
             icon: const Icon(Icons.add),
@@ -65,7 +82,13 @@ class WorksiteScreen extends StatelessWidget {
                       ListTile(
                         leading: const Icon(Icons.crop_square),
                         title: Text(vRoom.name),
-                        subtitle: Text(vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom)))),
+                        subtitle: Text(
+                          [
+                            vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom))),
+                            if (vWorksite.prices.isNotEmpty)
+                              vText.roomCost(formatEuros(roomCost(vRoom, vWorksite.prices))),
+                          ].join(' · '),
+                        ),
                         onTap: () => _open(pContext, vRoom.id),
                         trailing: IconButton(
                           tooltip: vText.delete,

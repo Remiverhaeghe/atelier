@@ -426,5 +426,74 @@
         "type": "int"
       }
     }
-  }
+  },
+  "shoppingTitle": "Courses et budget",
+  "shoppingEmpty": "Rien à acheter pour l'instant : saisis les pièces et leurs réglages.",
+  "itemParquetPacks": "Paquets de parquet",
+  "itemUnderlayRolls": "Rouleaux de sous-couche",
+  "itemGlueBuckets": "Seaux de colle à parquet",
+  "itemNailBoxes": "Boîtes de clous",
+  "itemBaseboardBars": "Barres de plinthe",
+  "itemCartridges": "Cartouches de colle à plinthe",
+  "itemFixingPoints": "Clous, vis ou clips de plinthe",
+  "unitPrice": "Prix unitaire (€)",
+  "lineTotal": "{quantity} × {price} € = {total} €",
+  "@lineTotal": {
+    "placeholders": {
+      "quantity": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "lineNoPrice": "{quantity} à acheter, prix à saisir",
+  "@lineNoPrice": {
+    "placeholders": {
+      "quantity": {
+        "type": "int"
+      }
+    }
+  },
+  "budgetTotal": "Total : {total} €",
+  "@budgetTotal": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetIncomplete": "Des prix manquent : le total est incomplet.",
+  "roomCost": "Coût : {cost} €",
+  "@roomCost": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
+  "shareList": "Envoyer la liste",
+  "printSheet": "Fiche PDF",
+  "shoppingShareTitle": "Liste de courses : {name}",
+  "@shoppingShareTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pdfRoom": "Pièce : {name}",
+  "@pdfRoom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pdfParquet": "Parquet",
+  "pdfBaseboard": "Plinthes"
 }
