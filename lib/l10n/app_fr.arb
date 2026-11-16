@@ -2055,5 +2055,15 @@
   "schedulePaidBy": "Tout payé en {month}",
   "@schedulePaidBy": {"placeholders": {"month": {"type": "String"}}},
   "scheduleMonth": "{month} : {amount} €",
-  "@scheduleMonth": {"placeholders": {"month": {"type": "String"}, "amount": {"type": "String"}}}
+  "@scheduleMonth": {"placeholders": {"month": {"type": "String"}, "amount": {"type": "String"}}},
+  "traceTitle": "Décalquer un plan papier",
+  "traceMenu": "Décalquer un plan papier",
+  "traceUndo": "Annuler le dernier point",
+  "traceStepScale": "Touchez les deux bouts d'une cote connue (un mur dont vous connaissez la longueur), puis indiquez-la en dessous.",
+  "traceStepCorners": "Touchez les coins de la pièce un par un, dans l'ordre du tour.",
+  "traceKnown": "Longueur de la cote touchée (mm)",
+  "traceWalls": "{count} murs : {lengths} cm",
+  "@traceWalls": {"placeholders": {"count": {"type": "int"}, "lengths": {"type": "String"}}},
+  "traceCreate": "Créer les murs",
+  "traceHint": "Prenez la photo bien en face du plan, à plat, pour qu'elle ne déforme pas les longueurs. Les angles presque droits sont ramenés à 90°. Vérifiez ensuite un ou deux murs au mètre : la fermeture de la pièce dit si le tracé tombe juste."
 }

@@ -20,6 +20,7 @@ import 'parquet_view.dart';
 import 'room_plan.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
+import 'trace_screen.dart';
 import 'touch_ups_view.dart';
 import 'paint_view.dart';
 
@@ -279,11 +280,25 @@ class RoomWallsView extends StatelessWidget {
           onChanged: (pValue) => onChanged(room.copyWith(closed: pValue)),
         ),
         ListTile(title: Text(vText.wallsTitle, style: vTheme.textTheme.titleMedium)),
-        if (room.walls.isEmpty)
+        if (room.walls.isEmpty) ...[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(vText.wallsEmpty),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: OutlinedButton.icon(
+              onPressed: () async {
+                final vWalls = await tracePaperPlan(context);
+                if (vWalls != null) {
+                  onChanged(room.copyWith(walls: vWalls, closed: true));
+                }
+              },
+              icon: const Icon(Icons.document_scanner_outlined),
+              label: Text(vText.traceMenu),
+            ),
+          ),
+        ],
         for (var vIndex = 0; vIndex < room.walls.length; vIndex++)
           ListTile(
             leading: TapeLabel(formatCentimetres(room.walls[vIndex].lengthMm)),
