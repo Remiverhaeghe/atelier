@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Sauvegarde hors du téléphone
+- Rappel en haut de la liste des chantiers quand la dernière sauvegarde externe date de plus de 7 jours
+- « Sauvegarder » envoie tous les chantiers dans un fichier daté, par le partage Android (Drive, carte SD, ordinateur), sans permission réseau
+
 ### Captures Play Store
 - Workflow « Captures Play Store » : le chantier fictif parcouru sur un Android émulé au format 1080 × 1920, sept captures en artefact
 - Les tests sur émulateur ne lancent plus que le parcours, les captures ont leur propre workflow

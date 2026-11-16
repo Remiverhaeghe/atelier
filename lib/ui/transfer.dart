@@ -24,6 +24,15 @@ Future<void> exportWorksite(Worksite pWorksite) async {
   await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
 }
 
+/// Tous les chantiers dans un seul fichier daté, à envoyer hors du téléphone (Drive, carte SD).
+Future<void> exportAllWorksites(List<Worksite> pWorksites, DateTime pDay) async {
+  final vFolder = await getTemporaryDirectory();
+  final vDate = pDay.toIso8601String().substring(0, 10);
+  final vFile = File('${vFolder.path}/atelier_sauvegarde_$vDate.json');
+  await vFile.writeAsString(WorksiteStore.encode(pWorksites));
+  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+}
+
 /// Envoie le plan du chantier au format documenté (docs/format-plan.md), pour la domotique.
 Future<void> exportPlanFile(Worksite pWorksite) async {
   final vFolder = await getTemporaryDirectory();
