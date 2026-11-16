@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Recherche
+- Loupe sur l'accueil : chantiers, pièces, carnet (produits et références), calculs et fiches conseils, sans tenir compte des accents ni des majuscules
+
 ### Plan papier décalqué
 - Une pièce sans murs peut partir de la photo d'un plan papier : deux points d'une cote connue donnent l'échelle, les coins touchés dans l'ordre donnent les murs, angles presque droits ramenés à 90°
 

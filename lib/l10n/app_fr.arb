@@ -2065,5 +2065,9 @@
   "traceWalls": "{count} murs : {lengths} cm",
   "@traceWalls": {"placeholders": {"count": {"type": "int"}, "lengths": {"type": "String"}}},
   "traceCreate": "Créer les murs",
-  "traceHint": "Prenez la photo bien en face du plan, à plat, pour qu'elle ne déforme pas les longueurs. Les angles presque droits sont ramenés à 90°. Vérifiez ensuite un ou deux murs au mètre : la fermeture de la pièce dit si le tracé tombe juste."
+  "traceHint": "Prenez la photo bien en face du plan, à plat, pour qu'elle ne déforme pas les longueurs. Les angles presque droits sont ramenés à 90°. Vérifiez ensuite un ou deux murs au mètre : la fermeture de la pièce dit si le tracé tombe juste.",
+  "searchTitle": "Chercher dans l'appli",
+  "searchHint": "Pièce, référence, calcul, conseil…",
+  "searchNothing": "Rien ne correspond. Essayez un autre mot, sans accent si besoin.",
+  "searchWorksite": "Chantier"
 }

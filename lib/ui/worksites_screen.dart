@@ -13,6 +13,7 @@ import 'about_screen.dart';
 import 'calculators_screen.dart';
 import 'dialogs.dart';
 import 'plan_thumbnail.dart';
+import 'search_screen.dart';
 import 'tips_screen.dart';
 import 'transfer.dart';
 import 'worksite_screen.dart';
@@ -71,6 +72,14 @@ class WorksitesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(vText.worksitesTitle),
         actions: [
+          IconButton(
+            tooltip: vText.searchTitle,
+            icon: const Icon(Icons.search),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(builder: (_) => SearchScreen(controller: controller)),
+            ),
+          ),
           IconButton(
             tooltip: vText.importWorksites,
             icon: const Icon(Icons.file_open_outlined),
