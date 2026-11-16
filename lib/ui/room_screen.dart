@@ -241,7 +241,10 @@ class RoomWallsView extends StatelessWidget {
     final vGap = closureGapMm(room);
 
     final vWide = isWideWidth(MediaQuery.sizeOf(context).width) && room.walls.isNotEmpty;
-    final vPlan = Padding(padding: const EdgeInsets.all(16), child: RoomPlan(room: room));
+    final vPlan = Padding(
+      padding: const EdgeInsets.all(16),
+      child: RoomPlan(room: room),
+    );
     final vList = ListView(
       padding: const EdgeInsets.only(bottom: 96),
       children: [
