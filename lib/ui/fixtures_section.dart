@@ -29,8 +29,7 @@ String fixtureLabel(AppLocalizations pText, FixtureKind pKind) => switch (pKind)
 /// Hauteur à monter proposée : plafond plus l'épaisseur d'un plancher.
 /// Hauteur à monter proposée : jusqu'à la mezzanine si elle a sa hauteur, sinon le plafond plus
 /// l'épaisseur d'un plancher.
-int defaultRiseMm(Room pRoom) =>
-    mezzanineFloorMm(pRoom.fixtures) ?? pRoom.ceilingHeightMm + 200;
+int defaultRiseMm(Room pRoom) => mezzanineFloorMm(pRoom.fixtures) ?? pRoom.ceilingHeightMm + 200;
 
 /// Prises, interrupteurs, escalier, mezzanine et fenêtres de toit de la pièce.
 class FixturesSection extends StatelessWidget {
