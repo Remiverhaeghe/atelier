@@ -114,4 +114,24 @@ void main() {
     await pTester.pumpAndSettle();
     expect(vRoom().touchUps, isEmpty);
   });
+
+  testWidgets('un relevé thermique devient une reprise avec sa préconisation', (pTester) async {
+    tallScreen(pTester);
+    final vRoom = await pumpView(pTester, const Room(id: 't', name: 'Chambre'));
+
+    await pTester.tap(find.text('Relevé thermique'));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.text('Porte'));
+    await pTester.pump();
+    expect(find.textContaining('bas de porte'), findsOneWidget);
+    await pTester.tap(find.text('Image de la caméra'));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.text('Ajouter aux reprises'));
+    await pTester.pumpAndSettle();
+
+    final vTouchUp = vRoom().touchUps.single;
+    expect(vTouchUp.label, 'Porte');
+    expect(vTouchUp.toBuy, 'Bas de porte et joint');
+    expect(vTouchUp.photoPath, startsWith('/photos/'));
+  });
 }
