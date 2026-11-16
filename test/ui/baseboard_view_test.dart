@@ -22,7 +22,9 @@ void main() {
 
     await pTester.scrollUntilVisible(find.text('Mur 1 · 200 cm').first, 200);
     expect(
-      find.text('Début : onglet 45°, pointe longue contre le mur · Fin : biseau 45° pour joindre au morceau voisin'),
+      find.text(
+        'Début : onglet 45°, pointe longue contre le mur · Fin : biseau 45° pour joindre au morceau voisin',
+      ),
       findsOneWidget,
     );
 
@@ -34,7 +36,12 @@ void main() {
 
   testWidgets('sans murs, la vue demande de saisir la pièce', (pTester) async {
     await pTester.pumpWidget(
-      localized(BaseboardView(room: const Room(id: 'r', name: 'R'), onChanged: (_) {})),
+      localized(
+        BaseboardView(
+          room: const Room(id: 'r', name: 'R'),
+          onChanged: (_) {},
+        ),
+      ),
     );
 
     expect(find.textContaining('Saisis d\'abord les murs'), findsOneWidget);

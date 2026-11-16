@@ -26,7 +26,16 @@ void main() {
     final vPieces = baseboardPieces(rectangleRoom(), const BaseboardSettings());
 
     expect(vPieces, hasLength(8));
-    expect(vPieces.map((pPiece) => pPiece.lengthMm), [2000, 2000, 1500, 1500, 2000, 2000, 1500, 1500]);
+    expect(vPieces.map((pPiece) => pPiece.lengthMm), [
+      2000,
+      2000,
+      1500,
+      1500,
+      2000,
+      2000,
+      1500,
+      1500,
+    ]);
     expect(vPieces.first.startCut.kind, EndCutKind.insideMiter);
     expect(vPieces.first.startCut.sawAngleDeg, 45);
     expect(vPieces.first.endCut.kind, EndCutKind.scarf);

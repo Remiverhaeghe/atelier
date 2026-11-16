@@ -220,7 +220,10 @@ FixingNeeds fixingNeeds(List<BaseboardPiece> pPieces, BaseboardSettings pSetting
   final vSpacing = pSettings.fixingSpacingMm <= 0 ? 400 : pSettings.fixingSpacingMm;
   final rNeeds = FixingNeeds(
     cartridges: 0,
-    points: pPieces.fold(0, (pSum, pPiece) => pSum + (pPiece.lengthMm + vSpacing - 1) ~/ vSpacing + 1),
+    points: pPieces.fold(
+      0,
+      (pSum, pPiece) => pSum + (pPiece.lengthMm + vSpacing - 1) ~/ vSpacing + 1,
+    ),
   );
 
   return rNeeds;
