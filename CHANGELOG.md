@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Courses en magasin
+- Chaque article se coche une fois dans le chariot
+- Magasin ou rayon et référence qui convient, gardés d'une fois sur l'autre ; la liste se range par magasin
+
 ### Dépenses réelles
 - Achats faits saisis dans les courses (article, montant, ticket en photo), total payé et reste du budget prévu, dépassement signalé
 
