@@ -55,8 +55,10 @@ class WorksitesController extends ChangeNotifier {
     for (final vWorksite in _worksites) vWorksite.id == pWorksite.id ? pWorksite : vWorksite,
   ]);
 
-  Future<void> deleteWorksite(String pId) =>
-      replaceAll([for (final vWorksite in _worksites) if (vWorksite.id != pId) vWorksite]);
+  Future<void> deleteWorksite(String pId) => replaceAll([
+    for (final vWorksite in _worksites)
+      if (vWorksite.id != pId) vWorksite,
+  ]);
 
   Future<Room> addRoom(String pWorksiteId, String pName) async {
     final rRoom = Room(id: newId(), name: pName.trim());
@@ -80,7 +82,12 @@ class WorksitesController extends ChangeNotifier {
     final vWorksite = worksite(pWorksiteId)!;
 
     return updateWorksite(
-      vWorksite.copyWith(rooms: [for (final vRoom in vWorksite.rooms) if (vRoom.id != pRoomId) vRoom]),
+      vWorksite.copyWith(
+        rooms: [
+          for (final vRoom in vWorksite.rooms)
+            if (vRoom.id != pRoomId) vRoom,
+        ],
+      ),
     );
   }
 

@@ -96,7 +96,8 @@ class RoomWallsView extends StatelessWidget {
     final vWall = room.walls[pIndex];
     final vOpening = await addOpening(pContext, vWall.lengthMm);
     if (vOpening != null) {
-      final vWalls = [...room.walls]..[pIndex] = vWall.copyWith(openings: [...vWall.openings, vOpening]);
+      final vWalls = [...room.walls]
+        ..[pIndex] = vWall.copyWith(openings: [...vWall.openings, vOpening]);
       onChanged(room.copyWith(walls: vWalls));
     }
   }
@@ -137,7 +138,10 @@ class RoomWallsView extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 96),
       children: [
         if (room.walls.isNotEmpty)
-          Padding(padding: const EdgeInsets.all(16), child: RoomPlan(room: room)),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: RoomPlan(room: room),
+          ),
         if (room.closed && room.walls.length >= 3)
           ListTile(
             leading: Icon(
@@ -214,9 +218,8 @@ class RoomWallsView extends StatelessWidget {
             trailing: IconButton(
               tooltip: vText.delete,
               icon: const Icon(Icons.delete_outline),
-              onPressed: () => onChanged(
-                room.copyWith(obstacles: [...room.obstacles]..removeAt(vIndex)),
-              ),
+              onPressed: () =>
+                  onChanged(room.copyWith(obstacles: [...room.obstacles]..removeAt(vIndex))),
             ),
           ),
         Padding(

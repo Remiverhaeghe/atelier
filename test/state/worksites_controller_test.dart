@@ -24,10 +24,7 @@ void main() {
 
     final vWorksite = await vController.addWorksite('  Maison  ');
     final vRoom = await vController.addRoom(vWorksite.id, 'Salon');
-    await vController.updateRoom(
-      vWorksite.id,
-      vRoom.copyWith(walls: const [Wall(lengthMm: 4000)]),
-    );
+    await vController.updateRoom(vWorksite.id, vRoom.copyWith(walls: const [Wall(lengthMm: 4000)]));
     final vOther = await vController.addRoom(vWorksite.id, 'Chambre');
     await vController.deleteRoom(vWorksite.id, vOther.id);
 

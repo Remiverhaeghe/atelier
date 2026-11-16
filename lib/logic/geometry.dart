@@ -12,7 +12,8 @@ class PlanPoint {
   final double x;
   final double y;
 
-  double distanceTo(PlanPoint pOther) => math.sqrt(math.pow(x - pOther.x, 2) + math.pow(y - pOther.y, 2));
+  double distanceTo(PlanPoint pOther) =>
+      math.sqrt(math.pow(x - pOther.x, 2) + math.pow(y - pOther.y, 2));
 }
 
 /// Écart toléré entre la fin du dernier mur et le début du premier : 1 cm.
@@ -59,7 +60,8 @@ double outlineAreaMm2(Room pRoom) {
   final vPoints = outline(pRoom);
   var vTwiceArea = 0.0;
   for (var vIndex = 0; vIndex < vPoints.length - 1; vIndex++) {
-    vTwiceArea += vPoints[vIndex].x * vPoints[vIndex + 1].y - vPoints[vIndex + 1].x * vPoints[vIndex].y;
+    vTwiceArea +=
+        vPoints[vIndex].x * vPoints[vIndex + 1].y - vPoints[vIndex + 1].x * vPoints[vIndex].y;
   }
   final rArea = vTwiceArea.abs() / 2;
 
@@ -68,7 +70,10 @@ double outlineAreaMm2(Room pRoom) {
 
 /// Surface au sol à couvrir de parquet, en m² : contour moins les zones sans parquet.
 double floorAreaM2(Room pRoom) {
-  final vObstacles = pRoom.obstacles.fold<int>(0, (pSum, pObstacle) => pSum + pObstacle.floorAreaMm2);
+  final vObstacles = pRoom.obstacles.fold<int>(
+    0,
+    (pSum, pObstacle) => pSum + pObstacle.floorAreaMm2,
+  );
   final vArea = outlineAreaMm2(pRoom) - vObstacles;
   final rArea = vArea <= 0 ? 0.0 : vArea / 1e6;
 

@@ -19,8 +19,14 @@ Future<bool> confirmDelete(BuildContext pContext, String pName) async {
     builder: (pDialogContext) => AlertDialog(
       content: Text(vText.deleteConfirm(pName)),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(pDialogContext, false), child: Text(vText.cancel)),
-        FilledButton(onPressed: () => Navigator.pop(pDialogContext, true), child: Text(vText.delete)),
+        TextButton(
+          onPressed: () => Navigator.pop(pDialogContext, false),
+          child: Text(vText.cancel),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.pop(pDialogContext, true),
+          child: Text(vText.delete),
+        ),
       ],
     ),
   );
