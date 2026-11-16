@@ -20,8 +20,14 @@ class PlanPoint {
 /// Écart toléré entre la fin du dernier mur et le début du premier : 1 cm.
 const closureToleranceMm = 10.0;
 
+/// Contours déjà calculés : une pièce ne change jamais, on la remplace par une copie. Le plan,
+/// la pente et les meubles demandent le même contour plusieurs fois par dessin.
+final _aOutlines = Expando<List<PlanPoint>>('contour');
+
 /// Sommets du contour : le premier mur part de l'origine vers la droite, chaque coin tourne à gauche.
-List<PlanPoint> outline(Room pRoom) {
+List<PlanPoint> outline(Room pRoom) => _aOutlines[pRoom] ??= List.unmodifiable(_outline(pRoom));
+
+List<PlanPoint> _outline(Room pRoom) {
   final rPoints = <PlanPoint>[const PlanPoint(0, 0)];
   var vHeading = 0.0;
   for (final vWall in pRoom.walls) {
