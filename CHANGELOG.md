@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Calculs : placo et isolation
+- Doublage ou cloison : plaques, rails, montants (aboutés au-delà de 3 m), vis, bandes, enduit, rouleaux de laine
+- Résistance thermique de la laine selon son épaisseur et sa conductivité
+
 ### Aide à la déco
 - Couleurs des murs, du plafond et des boiseries dans l'onglet Peinture, avec un aperçu de leur part dans la pièce
 - Teintes courantes, puis accords proposés autour de la couleur des murs : teintes voisines, teinte opposée adoucie, plus claire pour le plafond, plus foncée pour un mur d'accent
