@@ -94,8 +94,9 @@ _RunResult _layRun(int pRunMm, ParquetSettings pSettings, int? pPrevious, List<i
   }
   final vCandidates = <_Start>[
     // Chutes d'abord, de la plus longue à la plus courte
-    for (final vIndex in [for (var i = 0; i < pOffcuts.length; i++) i]
-      ..sort((pA, pB) => pOffcuts[pB].compareTo(pOffcuts[pA])))
+    for (final vIndex in [
+      for (var i = 0; i < pOffcuts.length; i++) i,
+    ]..sort((pA, pB) => pOffcuts[pB].compareTo(pOffcuts[pA])))
       if (pOffcuts[vIndex] >= minPieceMm && pOffcuts[vIndex] <= vPlank)
         _Start(pOffcuts[vIndex], vIndex),
     if (pPrevious != null && pPrevious - vMinOffset >= minPieceMm)
