@@ -1,8 +1,7 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
+import 'dart:io';
 import 'dart:ui' show Locale;
-
-import 'package:flutter/services.dart';
-import 'package:home_widget/home_widget.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/home_summary.dart';
@@ -27,21 +26,28 @@ import '../logic/worksite.dart';
   return rLines;
 }
 
-/// Écrit les lignes pour le widget Android et lui demande de se redessiner.
-Future<void> publishHomeWidget(List<Worksite> pWorksites, DateTime pNow) async {
+/// Fichier lu par le widget Android (`ObjectifWidget.kt`), dans le dossier de l'appli.
+const homeWidgetFile = 'widget.json';
+
+/// Écrit les lignes du widget ; Android les relit toutes les 30 minutes ou quand on le pose.
+Future<void> publishHomeWidget(
+  Directory pFolder,
+  List<Worksite> pWorksites,
+  DateTime pNow,
+) async {
   final vLines = homeWidgetLines(
     lookupAppLocalizations(const Locale('fr')),
     homeSummary(pWorksites, pNow),
   );
+  final vFile = File('${pFolder.path}/$homeWidgetFile');
+  final vTemp = File('${vFile.path}.tmp');
   try {
-    await HomeWidget.saveWidgetData<String>('title', vLines.title);
-    await HomeWidget.saveWidgetData<String>('goal', vLines.goal);
-    await HomeWidget.saveWidgetData<String>('wait', vLines.wait);
-    await HomeWidget.updateWidget(androidName: 'ObjectifWidget');
-  } on PlatformException catch (pError) {
-    // Sans widget posé ou hors d'Android : rien à mettre à jour
-    developer.log('Widget non mis à jour : ${pError.code}', name: 'atelier');
-  } on MissingPluginException {
-    developer.log('Widget absent sur cette plateforme', name: 'atelier');
+    // Écrit à côté puis renommé : le widget ne lit jamais un fichier à moitié écrit
+    await vTemp.writeAsString(
+      jsonEncode({'title': vLines.title, 'goal': vLines.goal, 'wait': vLines.wait}),
+    );
+    await vTemp.rename(vFile.path);
+  } on FileSystemException catch (pError) {
+    developer.log('Widget non mis à jour : ${pError.message}', name: 'atelier');
   }
 }

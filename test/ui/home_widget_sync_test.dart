@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:atelier/l10n/gen/app_localizations_fr.dart';
+import 'package:atelier/logic/worksite.dart';
 import 'package:atelier/ui/home_widget_sync.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -25,5 +29,19 @@ void main() {
       nextWaitHours: null,
     ));
     expect((vIdle.goal, vIdle.wait), ('Pas d\'objectif aujourd\'hui', ''));
+  });
+
+  test('le fichier lu par le widget Android', () async {
+    final vFolder = await Directory.systemTemp.createTemp('widget');
+    addTearDown(() => vFolder.delete(recursive: true));
+    await publishHomeWidget(vFolder, const [
+      Worksite(id: 'w', name: 'Maison'),
+    ], DateTime(2026, 11, 17));
+    final vData = jsonDecode(File('${vFolder.path}/$homeWidgetFile').readAsStringSync()) as Map;
+    expect(vData['title'], 'Maison');
+    expect(vData['goal'], 'Pas d\'objectif aujourd\'hui');
+
+    // Dossier disparu : rien ne plante
+    await publishHomeWidget(Directory('${vFolder.path}/absent'), const [], DateTime(2026));
   });
 }

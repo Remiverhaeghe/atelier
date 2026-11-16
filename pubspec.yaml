@@ -32,8 +32,6 @@ dependencies:
   # Moins de 23 : la 23 tire androidx.core 1.19, qui exige le SDK Android 37
   flutter_local_notifications: ">=21.0.0 <23.0.0"
   timezone: ^0.11.0
-  # Widget d'écran d'accueil : objectif du jour et prochaine attente
-  home_widget: ^0.8.0
 
 dev_dependencies:
   flutter_test:

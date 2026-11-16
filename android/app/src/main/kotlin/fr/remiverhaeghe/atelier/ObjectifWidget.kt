@@ -1,29 +1,41 @@
 package fr.remiverhaeghe.atelier
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProvider
 import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.widget.RemoteViews
-import es.antonborri.home_widget.HomeWidgetLaunchIntent
-import es.antonborri.home_widget.HomeWidgetProvider
+import java.io.File
+import org.json.JSONObject
 
-// Widget d'écran d'accueil : l'appli écrit les lignes, le widget les affiche et ouvre l'appli
-class ObjectifWidget : HomeWidgetProvider() {
+// Widget d'écran d'accueil : l'appli écrit widget.json dans son dossier, le widget le relit
+// quand on le pose puis toutes les 30 minutes, et ouvre l'appli d'un appui
+class ObjectifWidget : AppWidgetProvider() {
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray,
-        widgetData: SharedPreferences,
     ) {
+        // Dossier de getApplicationDocumentsDirectory() côté Flutter
+        val vFile = File(context.getDir("flutter", Context.MODE_PRIVATE), "widget.json")
+        val vData = try {
+            JSONObject(vFile.readText())
+        } catch (pError: Exception) {
+            JSONObject()
+        }
+        val vOpen = PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, MainActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
         for (vWidgetId in appWidgetIds) {
             val vViews = RemoteViews(context.packageName, R.layout.objectif_widget).apply {
-                setTextViewText(R.id.widget_title, widgetData.getString("title", "Atelier"))
-                setTextViewText(R.id.widget_goal, widgetData.getString("goal", ""))
-                setTextViewText(R.id.widget_wait, widgetData.getString("wait", ""))
-                setOnClickPendingIntent(
-                    R.id.widget_root,
-                    HomeWidgetLaunchIntent.getActivity(context, MainActivity::class.java),
-                )
+                setTextViewText(R.id.widget_title, vData.optString("title", "Atelier"))
+                setTextViewText(R.id.widget_goal, vData.optString("goal", ""))
+                setTextViewText(R.id.widget_wait, vData.optString("wait", ""))
+                setOnClickPendingIntent(R.id.widget_root, vOpen)
             }
             appWidgetManager.updateAppWidget(vWidgetId, vViews)
         }
