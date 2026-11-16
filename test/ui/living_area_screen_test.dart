@@ -19,7 +19,16 @@ void main() {
           name: 'Maison',
           rooms: [
             rectangleRoom(),
-            const Room(id: 'g', name: 'Garage', walls: [Wall(lengthMm: 3000), Wall(lengthMm: 3000), Wall(lengthMm: 3000), Wall(lengthMm: 3000)]),
+            const Room(
+              id: 'g',
+              name: 'Garage',
+              walls: [
+                Wall(lengthMm: 3000),
+                Wall(lengthMm: 3000),
+                Wall(lengthMm: 3000),
+                Wall(lengthMm: 3000),
+              ],
+            ),
           ],
         ),
       ];

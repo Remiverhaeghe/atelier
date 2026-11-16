@@ -131,8 +131,7 @@ class _RoomRow extends StatelessWidget {
                 formatSquareMetres(vArea.carrez),
               ),
             ),
-            if (vLow > 0.005)
-              IconLine(Icons.height, vText.livingAreaLow(formatSquareMetres(vLow))),
+            if (vLow > 0.005) IconLine(Icons.height, vText.livingAreaLow(formatSquareMetres(vLow))),
             if (room.walls.length < 3 || !room.closed)
               IconLine(Icons.warning_amber_outlined, vText.livingAreaOpen),
           ],
