@@ -31,9 +31,7 @@ ElecRun _run(Room pRoom, FixtureKind pKind) {
   var vCurrent = vPoints.first;
   var vLength = 0.0;
   while (vLeft.isNotEmpty) {
-    vLeft.sort(
-      (pA, pB) => _distance(vCurrent, pA).compareTo(_distance(vCurrent, pB)),
-    );
+    vLeft.sort((pA, pB) => _distance(vCurrent, pA).compareTo(_distance(vCurrent, pB)));
     final vNext = vLeft.removeAt(0);
     vLength += _distance(vCurrent, vNext);
     vCurrent = vNext;
