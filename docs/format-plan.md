@@ -41,6 +41,7 @@ Toutes les longueurs sont en millimètres, les angles en degrés.
 | `rooms` | Pièces qui ont au moins trois murs ; les zones sans murs (toit, extérieur) ne sont pas exportées |
 | `closed` | Le dernier mur rejoint le premier |
 | `ceilingHeight` | Hauteur sous plafond |
+| `house` | Place de la pièce dans le plan de la maison : le contour tourne de `quarterTurns` quarts de tour (sens inverse des aiguilles d'une montre) puis se décale de `x` et `y` |
 | `floorArea` | Surface au sol en mm², zones sans parquet déduites |
 | `outline` | Un sommet par début de mur. Le premier mur part de l'origine vers les x croissants, la pièce est parcourue dans le sens inverse des aiguilles d'une montre, y vers le haut |
 | `walls[].angleToNext` | Angle intérieur avec le mur suivant : 90 pour un coin rentrant, 270 pour un coin sortant |
@@ -48,4 +49,4 @@ Toutes les longueurs sont en millimètres, les angles en degrés.
 | `openings[].offset` | Distance depuis le début du mur |
 | `openings[].sill` | Hauteur du bas de l'ouverture au-dessus du sol : 0 pour une porte |
 
-Chaque pièce a son propre repère : le format ne dit pas encore où les pièces se placent les unes par rapport aux autres. Ce sera l'objet du plan de la maison.
+Chaque pièce a son propre repère (`outline`) ; le champ `house` la place dans le plan de la maison, réglé dans Atelier par « Plan de la maison ».
