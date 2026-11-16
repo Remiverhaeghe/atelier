@@ -66,12 +66,8 @@ class _BaseboardViewState extends State<BaseboardView> {
     return ListView(
       padding: const EdgeInsets.only(bottom: 96),
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: RoomPlan(room: _room, highlightWall: _highlight),
-        ),
         Card(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
+          margin: const EdgeInsets.all(16),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -130,6 +126,10 @@ class _BaseboardViewState extends State<BaseboardView> {
                 ),
             ],
           ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: RoomPlan(room: _room, highlightWall: _highlight),
         ),
         ListTile(
           title: Text(vText.cutProgress(vDone, vPieces.length)),
