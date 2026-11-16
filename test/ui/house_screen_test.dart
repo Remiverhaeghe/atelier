@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:atelier/logic/house.dart';
 import 'package:atelier/logic/worksite.dart';
 import 'package:atelier/state/worksites_controller.dart';
+import 'package:atelier/ui/house_3d.dart';
 import 'package:atelier/ui/house_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -54,5 +55,24 @@ void main() {
     await pTester.pumpAndSettle();
     expect(vStorage.saved.single.rooms.first.houseXMm, greaterThan(vBefore));
     expect(vStorage.saved.single.rooms.first.houseXMm % 50, 0);
+  });
+
+  testWidgets('la vue 3D s\'affiche et tourne au doigt', (pTester) async {
+    final vStorage = MemoryStorage()
+      ..saved = [
+        Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom()]),
+      ];
+    final vController = WorksitesController(vStorage);
+    await vController.load();
+    await pTester.pumpWidget(localized(HouseScreen(controller: vController, worksiteId: 'w')));
+
+    await pTester.tap(find.byTooltip('Vue en 3D'));
+    await pTester.pump();
+    expect(find.byType(House3d), findsOneWidget);
+    await pTester.drag(find.byType(House3d), const Offset(120, 0));
+    await pTester.pump();
+    await pTester.tap(find.byTooltip('Plan à plat'));
+    await pTester.pump();
+    expect(find.byType(House3d), findsNothing);
   });
 }
