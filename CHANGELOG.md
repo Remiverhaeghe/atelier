@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Captures d'écran
+- Captures d'un chantier fictif à la taille d'un téléphone, en thème clair et sombre, refaites par le workflow Captures et montrées dans le README
+- Bandeau « debug » retiré
+
 ## 0.1.0 - 2026-11-16
 
 ### Publication

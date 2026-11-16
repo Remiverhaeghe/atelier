@@ -4,6 +4,14 @@ Application Android pour préparer ses travaux sans erreur : coupes, quantités 
 
 Tout reste sur le téléphone, sans compte ni connexion.
 
+## Aperçu
+
+| Chantier | Plan de la pièce | Parquet | Plan de pose | Plinthes |
+|---|---|---|---|---|
+| ![Chantier](docs/captures/02-chantier.png) | ![Pièce](docs/captures/03-piece.png) | ![Parquet](docs/captures/04-parquet.png) | ![Pose](docs/captures/05-pose.png) | ![Plinthes](docs/captures/06-plinthes.png) |
+
+Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage.
+
 ## Avancement
 
 | Lot | Contenu | État |
@@ -49,6 +57,8 @@ dart format lib test
 flutter analyze
 flutter test --coverage
 ```
+
+Les captures d'écran sont sautées par `flutter test`. Pour les refaire : `flutter test --tags captures --run-skipped --update-goldens test/captures` (la variable `FLUTTER_ROOT` doit pointer vers le SDK Flutter, pour les polices).
 
 Les règles de calcul vivent dans `lib/logic/`, sans dépendance à Flutter, et la CI exige qu'elles soient couvertes à 95 %.
 
