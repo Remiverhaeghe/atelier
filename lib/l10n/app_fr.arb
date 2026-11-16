@@ -2241,5 +2241,20 @@
   "sheetWidth": "Largeur de la pièce (mm)",
   "sheetRoll": "Largeur du rouleau",
   "sheetRepeat": "Raccord du motif, 0 sans motif (mm)",
-  "sheetHint": "5 cm de recoupe sont comptés à chaque bout de lé. Déroulez le sol 24 heures à l'avance dans la pièce. Placez les joints loin des passages et de la lumière rasante des fenêtres."
+  "sheetHint": "5 cm de recoupe sont comptés à chaque bout de lé. Déroulez le sol 24 heures à l'avance dans la pièce. Placez les joints loin des passages et de la lumière rasante des fenêtres.",
+  "wallpaperTitle": "Papier peint",
+  "wallpaperHelp": "Rouleaux selon les murs, la hauteur et le raccord du motif",
+  "wallpaperRolls": "{count, plural, =0{Aucun rouleau} =1{1 rouleau} other{{count} rouleaux}}",
+  "@wallpaperRolls": {"placeholders": {"count": {"type": "int"}}},
+  "wallpaperStrips": "{count} lés de {length} cm, un de plus compté pour les raccords",
+  "@wallpaperStrips": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}},
+  "wallpaperPerRoll": "{count, plural, =1{1 lé par rouleau} other{{count} lés par rouleau}}",
+  "@wallpaperPerRoll": {"placeholders": {"count": {"type": "int"}}},
+  "wallpaperTooHigh": "Plus haut qu'un rouleau : chaque lé se raboute de deux rouleaux, le raccord du motif devient délicat",
+  "wallpaperGlue": "{count, plural, =1{1 paquet de colle} other{{count} paquets de colle}}",
+  "@wallpaperGlue": {"placeholders": {"count": {"type": "int"}}},
+  "wallpaperLength": "Longueur de murs à couvrir (mm)",
+  "wallpaperHeight": "Hauteur des murs (mm)",
+  "wallpaperRepeat": "Raccord du motif, 0 sans motif (mm)",
+  "wallpaperHint": "Rouleau courant de 0,53 × 10,05 m, 10 cm de recoupe par lé. Achetez tous les rouleaux du même numéro de bain : les teintes changent d'un bain à l'autre."
 }
