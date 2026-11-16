@@ -9,6 +9,7 @@ import '../logic/units.dart';
 import 'color_picker.dart';
 import 'parquet_view.dart';
 import 'shopping_texts.dart';
+import 'slope_editor.dart';
 import 'theme.dart';
 
 /// Peinture de la pièce : surfaces, litres, pots les moins chers et fournitures.
@@ -51,6 +52,7 @@ class PaintView extends StatelessWidget {
           parse: parseCentimetres,
           onValue: (pValue) => onChanged(room.copyWith(ceilingHeightMm: pValue)),
         ),
+        SlopeEditor(room: room, onChanged: onChanged),
         const SizedBox(height: 12),
         Text(vText.paintWhat, style: vTheme.textTheme.titleMedium),
         vSwitch(vText.paintWallsSwitch, vSettings.walls, (pValue) {

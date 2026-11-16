@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../logic/fixtures.dart';
 import '../logic/geometry.dart';
 import '../logic/room.dart';
+import '../logic/slope.dart';
 import '../logic/units.dart';
 import 'theme.dart';
 
@@ -172,6 +173,15 @@ class _RoomPlanPainter extends CustomPainter {
     final vRoomPath = Path()
       ..addPolygon([for (final vPoint in vPoints) vAt(vPoint.x, vPoint.y)], room.closed);
     pCanvas.drawPath(vRoomPath, Paint()..color = paper);
+
+    // Partie sous la pente du toit, grisée comme sous un rampant sur un plan d'architecte
+    final vSloped = slopedOutline(room);
+    if (vSloped.length >= 3) {
+      pCanvas.drawPath(
+        Path()..addPolygon([for (final vPoint in vSloped) vAt(vPoint.x, vPoint.y)], true),
+        Paint()..color = colors.grid,
+      );
+    }
 
     for (var vIndex = 0; vIndex < room.walls.length; vIndex++) {
       final vWall = room.walls[vIndex];
