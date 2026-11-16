@@ -119,4 +119,38 @@ void main() {
     await pTester.pumpAndSettle();
     expect(find.textContaining('Pas compris : « bonjour »'), findsOneWidget);
   });
+
+  testWidgets('mode nuit : fond noir et textes rouges, puis retour', (pTester) async {
+    tallScreen(pTester);
+    final vController = WorksitesController(
+      MemoryStorage()
+        ..saved = [
+          Worksite(id: 'w', name: 'Maison démo', rooms: [rectangleRoom()]),
+        ],
+    );
+    await vController.load();
+    await pTester.pumpWidget(
+      localized(
+        SiteModeScreen(
+          controller: vController,
+          worksiteId: 'w',
+          roomId: 'salon',
+          speaker: (_) async {},
+          awake: (_) async {},
+        ),
+      ),
+    );
+    await pTester.pumpAndSettle();
+    Color? vBackground() =>
+        Theme.of(pTester.element(find.byType(Scaffold))).scaffoldBackgroundColor;
+    expect(vBackground(), isNot(Colors.black));
+
+    await pTester.tap(find.byTooltip('Mode nuit'));
+    await pTester.pumpAndSettle();
+    expect(vBackground(), Colors.black);
+
+    await pTester.tap(find.byTooltip('Quitter le mode nuit'));
+    await pTester.pumpAndSettle();
+    expect(vBackground(), isNot(Colors.black));
+  });
 }

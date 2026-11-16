@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Mode nuit
+- Le mode chantier a un mode nuit : fond noir, rouge sombre qui n'éblouit pas sous les combles, textes agrandis
+
 ### Livraison vérifiée
 - Dans les courses, « Vérifier une livraison » compte ce qui est arrivé ligne par ligne contre la commande, signale les manques et le surplus, et rappelle comment noter des réserves
 
