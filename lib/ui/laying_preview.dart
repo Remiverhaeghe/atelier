@@ -107,7 +107,12 @@ class _LayingPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     )..layout();
     final vStart = (pSize.height + vWidth * vScale) / 2;
-    final vRect = Rect.fromLTWH(vLeft + 4, vStart - vLabel.height - 8, vLabel.width + 12, vLabel.height + 4);
+    final vRect = Rect.fromLTWH(
+      vLeft + 4,
+      vStart - vLabel.height - 8,
+      vLabel.width + 12,
+      vLabel.height + 4,
+    );
     pCanvas.drawRRect(
       RRect.fromRectAndRadius(vRect, const Radius.circular(4)),
       Paint()..color = colors.tape,

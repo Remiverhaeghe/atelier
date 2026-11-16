@@ -70,7 +70,8 @@ List<LayingDirection> layingDirections(Room pRoom, ParquetSettings pSettings) {
         wallIndex: vGroup.bestWall,
         angleDeg: vGroup.angle,
         wallsLengthMm: vGroup.total,
-        rowCount: splitRows(pRoom, pSettings.copyWith(layingWallIndex: vGroup.bestWall))?.rowCount ?? 0,
+        rowCount:
+            splitRows(pRoom, pSettings.copyWith(layingWallIndex: vGroup.bestWall))?.rowCount ?? 0,
         recommended: vGroup.total == vLongest,
       ),
   ];
