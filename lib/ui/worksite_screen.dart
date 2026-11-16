@@ -18,6 +18,7 @@ import 'theme.dart';
 import 'time_screen.dart';
 import 'transfer.dart';
 import 'goal_card.dart';
+import 'heating_screen.dart';
 import 'house_screen.dart';
 import 'journal_screen.dart';
 import 'living_area_screen.dart';
@@ -217,6 +218,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.menu_book_outlined,
         vText.journalMenu,
         () => JournalScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.local_fire_department_outlined,
+        vText.heatTitle,
+        () => HeatingScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.timer_outlined,

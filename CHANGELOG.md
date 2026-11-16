@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Chauffage
+- Tuile « Chauffage » : puissance par pièce habitable selon le volume, l'isolation et la température de base, radiateurs courants conseillés, pertes des plexis, brasseur d'air sous grande hauteur
+
 ### Avant / après
 - Une entrée du carnet reçoit sa photo d'avant ; avec celle d'après, « Avant / après » les superpose et la séparation suit le doigt
 
