@@ -4,6 +4,7 @@ library;
 import 'baseboard.dart';
 import 'fixtures.dart';
 import 'furniture.dart';
+import 'hidden_networks.dart';
 import 'paint.dart';
 import 'parquet.dart';
 import 'slope.dart';
@@ -195,6 +196,7 @@ class Room {
     this.level = 0,
     this.usage = RoomUsage.habitable,
     this.furniture = const [],
+    this.networks = const [],
   });
 
   final String id;
@@ -246,6 +248,9 @@ class Room {
   /// Meubles posés sur le plan pour vérifier la place avant l'achat.
   final List<Furniture> furniture;
 
+  /// Gaines, tuyaux et câbles relevés dans les murs, pour savoir où ne pas percer.
+  final List<HiddenRun> networks;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -270,6 +275,7 @@ class Room {
     int? level,
     RoomUsage? usage,
     List<Furniture>? furniture,
+    List<HiddenRun>? networks,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -293,6 +299,7 @@ class Room {
     level: level ?? this.level,
     usage: usage ?? this.usage,
     furniture: furniture ?? this.furniture,
+    networks: networks ?? this.networks,
   );
 
   Map<String, Object?> toJson() => {
@@ -318,6 +325,7 @@ class Room {
     if (level != 0) 'level': level,
     if (usage != RoomUsage.habitable) 'usage': usage.name,
     if (furniture.isNotEmpty) 'furniture': [for (final vItem in furniture) vItem.toJson()],
+    if (networks.isNotEmpty) 'networks': [for (final vRun in networks) vRun.toJson()],
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -369,6 +377,10 @@ class Room {
     furniture: [
       for (final vItem in (pJson['furniture'] as List<Object?>?) ?? const [])
         Furniture.fromJson(vItem! as Map<String, Object?>),
+    ],
+    networks: [
+      for (final vRun in (pJson['networks'] as List<Object?>?) ?? const [])
+        HiddenRun.fromJson(vRun! as Map<String, Object?>),
     ],
   );
 }

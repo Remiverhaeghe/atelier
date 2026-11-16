@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Réseaux cachés
+- Gaines, tuyaux et câbles relevés mur par mur, dessinés en couleur sur le plan et exportés avec le plan
+- « Puis-je percer ici ? » : réseau relevé le plus proche, bandes où passent souvent les conduits, rappel du détecteur
+
 ### Grandes hauteurs
 - Hauteur du plancher d'une mezzanine : sa surface compte en surface habitable s'il reste 1,80 m au-dessus, et l'escalier proposé monte jusqu'à elle
 - Échafaudage roulant conseillé en peinture au-delà de 3 m sous plafond

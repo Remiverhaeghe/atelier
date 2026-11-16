@@ -8,6 +8,7 @@ import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/slope.dart';
 import '../logic/units.dart';
+import 'networks_section.dart';
 import 'theme.dart';
 
 /// Repère sur le plan : numéro de la reprise et position en millimètres.
@@ -218,6 +219,22 @@ class _RoomPlanPainter extends CustomPainter {
           vAlong((vObstacle.offsetMm + vObstacle.widthMm).toDouble(), vDepth),
           vAlong(vObstacle.offsetMm.toDouble(), vDepth),
         ]);
+      }
+
+      // Réseaux cachés : un trait de couleur contre le mur, là où ils passent
+      if (!compact) {
+        for (final vRun in room.networks.where((pRun) => pRun.wallIndex == vIndex)) {
+          final vPaint = Paint()
+            ..color = networkColor(vRun.kind)
+            ..strokeWidth = 4
+            ..strokeCap = StrokeCap.round;
+          final vInside = 10 / vScale;
+          pCanvas.drawLine(
+            vAlong(vRun.fromAlongMm.toDouble(), vInside),
+            vAlong(vRun.toAlongMm.toDouble(), vInside),
+            vPaint,
+          );
+        }
       }
 
       final vHighlighted = vIndex == highlightWall;
