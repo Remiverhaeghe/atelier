@@ -190,6 +190,7 @@ class Room {
     this.houseQuarterTurns = 0,
     this.fixtures = const [],
     this.slope,
+    this.slope2,
     this.level = 0,
     this.usage = RoomUsage.habitable,
   });
@@ -231,6 +232,9 @@ class Room {
   /// Plafond rampant ; null pour un plafond plat.
   final Slope? slope;
 
+  /// Second pan, sur un autre mur : combles avec une pente de chaque côté.
+  final Slope? slope2;
+
   /// Niveau de la maison : 0 pour le rez-de-chaussée, 1 pour le premier étage, -1 pour le sous-sol.
   final int level;
 
@@ -256,6 +260,8 @@ class Room {
     List<Fixture>? fixtures,
     Slope? slope,
     bool clearSlope = false,
+    Slope? slope2,
+    bool clearSlope2 = false,
     int? level,
     RoomUsage? usage,
   }) => Room(
@@ -277,6 +283,7 @@ class Room {
     houseQuarterTurns: (houseQuarterTurns ?? this.houseQuarterTurns) % 4,
     fixtures: fixtures ?? this.fixtures,
     slope: clearSlope ? null : (slope ?? this.slope),
+    slope2: clearSlope2 ? null : (slope2 ?? this.slope2),
     level: level ?? this.level,
     usage: usage ?? this.usage,
   );
@@ -300,6 +307,7 @@ class Room {
     'houseQuarterTurns': houseQuarterTurns,
     if (fixtures.isNotEmpty) 'fixtures': [for (final vFixture in fixtures) vFixture.toJson()],
     if (slope != null) 'slope': slope!.toJson(),
+    if (slope2 != null) 'slope2': slope2!.toJson(),
     if (level != 0) 'level': level,
     if (usage != RoomUsage.habitable) 'usage': usage.name,
   };
@@ -345,6 +353,9 @@ class Room {
         Fixture.fromJson(vFixture! as Map<String, Object?>),
     ],
     slope: pJson['slope'] == null ? null : Slope.fromJson(pJson['slope']! as Map<String, Object?>),
+    slope2: pJson['slope2'] == null
+        ? null
+        : Slope.fromJson(pJson['slope2']! as Map<String, Object?>),
     level: (pJson['level'] as int?) ?? 0,
     usage: RoomUsage.values.asNameMap()[pJson['usage']] ?? RoomUsage.habitable,
   );
