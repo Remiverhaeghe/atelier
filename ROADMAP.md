@@ -7,7 +7,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
 - 79 bis. **Notification Android des attentes** : la même échéance en notification locale (permission de notification à demander).
-- 86. **Avant / après** : deux photos comparées au doigt.
 - 87. **Chauffage** : déperditions par pièce et puissance de radiateur, brasseur d'air sous grande hauteur.
 - 88. **Escalier dessiné** : marches en coupe, échappée de 1,90 m, débit des limons.
 - 89. **Électricité depuis le plan** : circuits, gaine et fil d'après les prises et interrupteurs posés.

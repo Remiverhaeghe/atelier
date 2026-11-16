@@ -1894,5 +1894,9 @@
   "ventMainRooms": "Pièces principales (séjour et chambres)",
   "ventBathrooms": "Salles d'eau",
   "ventToilets": "WC séparés",
-  "ventHint": "Débits de pointe couramment repris de l'arrêté du 24 mars 1982. Dans des combles isolés, gainez en isolé hors du volume chauffé. La notice du caisson fait foi."
+  "ventHint": "Débits de pointe couramment repris de l'arrêté du 24 mars 1982. Dans des combles isolés, gainez en isolé hors du volume chauffé. La notice du caisson fait foi.",
+  "beforeAfterTitle": "Avant / après",
+  "beforeLabel": "Avant",
+  "afterLabel": "Après",
+  "beforePhoto": "Photo d'avant"
 }

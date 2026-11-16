@@ -10,6 +10,7 @@ import '../logic/time_tracking.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
+import 'before_after.dart';
 import 'photos.dart';
 import 'shopping_texts.dart';
 import 'theme.dart';
@@ -88,13 +89,14 @@ class _JournalScreenState extends State<JournalScreen> {
     }
   }
 
-  Future<void> _attach(Worksite pWorksite, JournalEntry pEntry, {required bool pInvoice}) async {
-    final vPath = await (widget.photos ?? takePhoto)('${pEntry.id}-${pInvoice ? 'f' : 'p'}');
+  Future<void> _attach(Worksite pWorksite, JournalEntry pEntry, String pWhat) async {
+    final vPath = await (widget.photos ?? takePhoto)('${pEntry.id}-$pWhat');
     if (vPath != null) {
-      _replace(
-        pWorksite,
-        pInvoice ? pEntry.copyWith(invoicePath: vPath) : pEntry.copyWith(photoPath: vPath),
-      );
+      _replace(pWorksite, switch (pWhat) {
+        'facture' => pEntry.copyWith(invoicePath: vPath),
+        'avant' => pEntry.copyWith(beforePath: vPath),
+        _ => pEntry.copyWith(photoPath: vPath),
+      });
     }
   }
 
@@ -202,6 +204,13 @@ class _JournalScreenState extends State<JournalScreen> {
                         Wrap(
                           spacing: 8,
                           children: [
+                            if (hasBeforeAfter(vEntry))
+                              ActionChip(
+                                avatar: const Icon(Icons.compare, size: 18),
+                                label: Text(vText.beforeAfterTitle),
+                                onPressed: () =>
+                                    showBeforeAfter(context, vEntry.beforePath!, vEntry.photoPath!),
+                              ),
                             for (final vPath in [vEntry.photoPath, vEntry.invoicePath].nonNulls)
                               GestureDetector(
                                 onTap: () => showPhoto(context, vPath),
@@ -225,9 +234,11 @@ class _JournalScreenState extends State<JournalScreen> {
                       onSelected: (pAction) {
                         switch (pAction) {
                           case 'photo':
-                            _attach(vWorksite, vEntry, pInvoice: false);
+                            _attach(vWorksite, vEntry, 'apres');
                           case 'invoice':
-                            _attach(vWorksite, vEntry, pInvoice: true);
+                            _attach(vWorksite, vEntry, 'facture');
+                          case 'before':
+                            _attach(vWorksite, vEntry, 'avant');
                           case 'delete':
                             _controller.updateWorksite(
                               vWorksite.copyWith(
@@ -241,6 +252,7 @@ class _JournalScreenState extends State<JournalScreen> {
                       },
                       itemBuilder: (_) => [
                         PopupMenuItem(value: 'photo', child: Text(vText.takePhoto)),
+                        PopupMenuItem(value: 'before', child: Text(vText.beforePhoto)),
                         PopupMenuItem(value: 'invoice', child: Text(vText.journalInvoice)),
                         PopupMenuItem(value: 'delete', child: Text(vText.delete)),
                       ],
