@@ -1,4 +1,5 @@
 import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/touch_up.dart';
 import 'package:atelier/logic/worksite.dart';
 
 /// Chantier fictif des captures : un salon avec porte et radiateur, une chambre en L.
@@ -24,6 +25,32 @@ Worksite demoWorksite() => const Worksite(
       laidRows: [1, 2, 3],
       cutPieces: [0, 1],
       doneSteps: ['acclimatise'],
+      touchUps: [
+        TouchUp(
+          id: 't1',
+          label: 'Peinture du mur de la fenêtre',
+          passes: 3,
+          donePasses: 1,
+          markerXMm: 2100,
+          markerYMm: 3300,
+        ),
+        TouchUp(
+          id: 't2',
+          label: 'Reboucher les trous de chevilles',
+          passes: 2,
+          donePasses: 2,
+          markerXMm: 600,
+          markerYMm: 1800,
+        ),
+        TouchUp(
+          id: 't3',
+          label: 'Changer la prise près de la porte',
+          note: 'Prise 16 A avec terre',
+          toBuy: 'Prise murale blanche',
+          markerXMm: 3900,
+          markerYMm: 500,
+        ),
+      ],
     ),
     Room(
       id: 'chambre',

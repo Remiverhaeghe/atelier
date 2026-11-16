@@ -6,9 +6,9 @@ Tout reste sur le téléphone, sans compte ni connexion.
 
 ## Aperçu
 
-| Chantier | Plan de la pièce | Parquet | Plan de pose | Plinthes |
+| Chantier | Reprises | Parquet | Plan de pose | Plinthes |
 |---|---|---|---|---|
-| ![Chantier](docs/captures/02-chantier.png) | ![Pièce](docs/captures/03-piece.png) | ![Parquet](docs/captures/04-parquet.png) | ![Pose](docs/captures/05-pose.png) | ![Plinthes](docs/captures/06-plinthes.png) |
+| ![Chantier](docs/captures/02-chantier.png) | ![Reprises](docs/captures/10-reprises.png) | ![Parquet](docs/captures/04-parquet.png) | ![Pose](docs/captures/05-pose.png) | ![Plinthes](docs/captures/06-plinthes.png) |
 
 Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage.
 
@@ -27,6 +27,7 @@ Captures faites sur un chantier fictif par le workflow Captures (`test/captures/
 | 8 | Version 0.1.0, APK jointes aux releases | fait |
 | 9 | Captures d'écran | fait |
 | 10 | Habillage et prise en main | fait |
+| 11 | Reprises : liste à cocher, repère sur le plan, photo | fait |
 
 La suite est dans [ROADMAP.md](ROADMAP.md).
 

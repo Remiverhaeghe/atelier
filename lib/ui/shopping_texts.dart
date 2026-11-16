@@ -33,6 +33,13 @@ String shoppingText(AppLocalizations pText, Worksite pWorksite) {
   if (budgetIncomplete(vLines)) {
     rText.writeln(pText.budgetIncomplete);
   }
+  final vPurchases = worksitePurchases(pWorksite);
+  if (vPurchases.isNotEmpty) {
+    rText.writeln(pText.touchUpsToBuyTitle);
+    for (final vPurchase in vPurchases) {
+      rText.writeln('- ${vPurchase.item} (${vPurchase.room})');
+    }
+  }
 
   return rText.toString().trimRight();
 }
