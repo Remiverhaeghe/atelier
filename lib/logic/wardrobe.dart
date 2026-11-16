@@ -28,10 +28,7 @@ class WardrobeDesign {
     this.depthMm = 600,
     this.thicknessMm = 18,
     this.material = ShelfMaterial.particleBoard,
-    this.compartments = const [
-      Compartment(kind: CompartmentKind.hanging),
-      Compartment(),
-    ],
+    this.compartments = const [Compartment(kind: CompartmentKind.hanging), Compartment()],
     this.doors = true,
   });
 
@@ -126,18 +123,25 @@ WardrobePlan planWardrobe(WardrobeDesign pDesign) {
   }
   final vDoorsPerCompartment = vCompartment > maxDoorWidthMm ? 2 : 1;
   final vDoorCount = pDesign.doors ? vCount * vDoorsPerCompartment : 0;
-  final vDoorWidth = (pDesign.widthMm - (vDoorCount + 1) * doorGapMm) ~/ (vDoorCount == 0 ? 1 : vDoorCount);
+  final vDoorWidth =
+      (pDesign.widthMm - (vDoorCount + 1) * doorGapMm) ~/ (vDoorCount == 0 ? 1 : vDoorCount);
   final vDoorHeight = pDesign.heightMm - 2 * doorGapMm;
   final rPlan = WardrobePlan(
     parts: [
       (name: sidePart, count: 2, lengthMm: pDesign.heightMm, widthMm: pDesign.depthMm),
-      (name: topBottomPart, count: 2, lengthMm: pDesign.widthMm - 2 * vThick, widthMm: pDesign.depthMm),
+      (
+        name: topBottomPart,
+        count: 2,
+        lengthMm: pDesign.widthMm - 2 * vThick,
+        widthMm: pDesign.depthMm,
+      ),
       if (vCount > 1)
         (name: dividerPart, count: vCount - 1, lengthMm: vInnerHeight, widthMm: pDesign.depthMm),
       if (vShelves > 0)
         (name: shelfPart, count: vShelves, lengthMm: vCompartment, widthMm: vShelfDepth),
       (name: backPart, count: 1, lengthMm: pDesign.heightMm, widthMm: pDesign.widthMm),
-      if (vDoorCount > 0) (name: doorPart, count: vDoorCount, lengthMm: vDoorHeight, widthMm: vDoorWidth),
+      if (vDoorCount > 0)
+        (name: doorPart, count: vDoorCount, lengthMm: vDoorHeight, widthMm: vDoorWidth),
       if (vRails > 0) (name: railPart, count: vRails, lengthMm: vCompartment, widthMm: 0),
     ],
     compartmentWidthMm: vCompartment,
