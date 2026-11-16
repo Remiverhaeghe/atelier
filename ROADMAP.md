@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 114. **Écran « Nouveautés »** après une mise à jour.
 - 115. **Dupliquer une pièce**, ou la faire en miroir.
 - 116. **Outillage prêté** avec rappel.
 - 117. **Liste de courses en texte simple** à envoyer par SMS.
