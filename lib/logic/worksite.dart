@@ -3,6 +3,7 @@ library;
 
 import 'expenses.dart';
 import 'goals.dart';
+import 'offcuts.dart';
 import 'room.dart';
 
 class Worksite {
@@ -20,6 +21,7 @@ class Worksite {
     this.bought = const [],
     this.stores = const {},
     this.references = const {},
+    this.offcuts = const [],
   });
 
   final String id;
@@ -54,6 +56,9 @@ class Worksite {
   final Map<String, String> stores;
   final Map<String, String> references;
 
+  /// Chutes gardées pour d'autres coupes.
+  final List<Offcut> offcuts;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -68,6 +73,7 @@ class Worksite {
     List<String>? bought,
     Map<String, String>? stores,
     Map<String, String>? references,
+    List<Offcut>? offcuts,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -82,6 +88,7 @@ class Worksite {
     bought: bought ?? this.bought,
     stores: stores ?? this.stores,
     references: references ?? this.references,
+    offcuts: offcuts ?? this.offcuts,
   );
 
   Map<String, Object?> toJson() => {
@@ -98,6 +105,7 @@ class Worksite {
     if (bought.isNotEmpty) 'bought': bought,
     if (stores.isNotEmpty) 'stores': stores,
     if (references.isNotEmpty) 'references': references,
+    if (offcuts.isNotEmpty) 'offcuts': [for (final vOffcut in offcuts) vOffcut.toJson()],
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -128,6 +136,10 @@ class Worksite {
     bought: [for (final vItem in (pJson['bought'] as List<Object?>?) ?? const []) vItem! as String],
     stores: _texts(pJson['stores']),
     references: _texts(pJson['references']),
+    offcuts: [
+      for (final vOffcut in (pJson['offcuts'] as List<Object?>?) ?? const [])
+        Offcut.fromJson(vOffcut! as Map<String, Object?>),
+    ],
   );
 }
 

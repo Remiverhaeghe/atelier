@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Chutes réutilisables
+- « Chutes » dans le menu du chantier : on note les chutes de lame ou de plinthe gardées
+- L'appli attribue chaque chute au plus long morceau qu'elle peut fournir, dans toutes les pièces, trait de scie compté
+
 ### Liste de coupes
 - Bouton ciseaux en haut d'une pièce : liste de coupes imprimable (PDF), plinthes et lames recoupées
 - Morceaux identiques regroupés, de la plus longue à la plus courte, avec les murs ou rangées concernés et une case à cocher
