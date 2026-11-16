@@ -13,7 +13,10 @@ void main() {
     expect(find.text('5 rangées entières depuis le bas, coupe de 9 cm en haut'), findsOneWidget);
     expect(find.textContaining('240 cm'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Prises et interrupteurs dans la faïence'), '3');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Prises et interrupteurs dans la faïence'),
+      '3',
+    );
     await pTester.pump();
     expect(find.textContaining('3 découpes'), findsOneWidget);
 
