@@ -1,5 +1,4 @@
 import 'package:atelier/logic/furniture.dart';
-import 'package:atelier/logic/room.dart';
 import 'package:atelier/ui/furniture_section.dart';
 import 'package:atelier/ui/room_plan.dart';
 import 'package:flutter/material.dart';
