@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Livraison vérifiée
+- Dans les courses, « Vérifier une livraison » compte ce qui est arrivé ligne par ligne contre la commande, signale les manques et le surplus, et rappelle comment noter des réserves
+
 ### Achat relié à son ticket
 - Une dépense peut couvrir des articles cochés dans les courses ; la ligne achetée rappelle alors le ticket (jour, magasin, montant) et en ouvre la photo, pour une garantie ou un retour
 
