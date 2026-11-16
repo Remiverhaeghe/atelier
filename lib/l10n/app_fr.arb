@@ -2162,5 +2162,16 @@
   "expenseItems": "Articles payés par ce ticket",
   "lineTicket": "Ticket du {day}, {store} : {amount} €",
   "@lineTicket": {"placeholders": {"day": {"type": "String"}, "store": {"type": "String"}, "amount": {"type": "String"}}},
-  "lineTicketShow": "Voir le ticket"
+  "lineTicketShow": "Voir le ticket",
+  "deliveryTitle": "Vérifier une livraison",
+  "deliveryHelp": "Comptez ce qui est arrivé avant de signer le bon",
+  "deliveryDone": "Tout est arrivé",
+  "deliveryOrdered": "{item} : {count} commandés",
+  "@deliveryOrdered": {"placeholders": {"item": {"type": "String"}, "count": {"type": "int"}}},
+  "deliveryMissing": "{item} : il en manque {count}",
+  "@deliveryMissing": {"placeholders": {"item": {"type": "String"}, "count": {"type": "int"}}},
+  "deliveryExtra": "{item} : {count} en trop",
+  "@deliveryExtra": {"placeholders": {"item": {"type": "String"}, "count": {"type": "int"}}},
+  "deliveryReceived": "Reçus",
+  "deliveryHint": "Ouvrez et comptez devant le livreur. Un colis abîmé ou incomplet se note avec des réserves précises sur le bon de livraison (« 2 paquets de parquet écrasés »), puis se confirme au vendeur ou au transporteur par écrit, en général dans les 3 jours. Photographiez les dégâts."
 }
