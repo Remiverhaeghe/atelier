@@ -19,14 +19,14 @@ void main() {
     );
     expect(find.textContaining('Rien à peindre'), findsOneWidget);
 
-    await pTester.tap(find.text('Murs'));
+    await pTester.tap(find.text('Murs').first);
     await pTester.pump();
     expect(vRoom.paint.walls, isTrue);
     // 14 m × 2,5 m, deux couches à 10 m²/L, 10 % de marge : 7,7 L, un pot de 10 L
     expect(find.text('35 m² de murs'), findsOneWidget);
     expect(find.text('Peinture murs : 7,7 L, soit 1 × 10 L'), findsOneWidget);
 
-    await pTester.tap(find.text('Plafond'));
+    await pTester.tap(find.text('Plafond').first);
     await pTester.pump();
     expect(find.text('Plafond : 12 m²'), findsOneWidget);
     expect(find.textContaining('Peinture plafond : 2,6 L'), findsOneWidget);
