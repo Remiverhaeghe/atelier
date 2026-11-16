@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Douche de plain-pied
+- Nouveau calcul : pente de 2 % vers la bonde ou le caniveau, hauteur à réserver au-dessus de la dalle avec le siphon et la pente du tuyau, surfaces d'étanchéité sous carrelage et bandes d'angle
+
 ### Isolation phonique
 - Nouveau calcul : cloison ou plancher de mezzanine, plaques phoniques, laine, bande résiliente, mastic acoustique, suspentes antivibratiles et sous-couche, avec les gestes qui évitent les fuites de bruit
 
