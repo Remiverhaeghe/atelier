@@ -13,7 +13,10 @@ void main() {
     expect(find.text('2 limons de 524,8 cm à débiter'), findsOneWidget);
     expect(find.textContaining('Trémie d\'au moins 308 cm'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Longueur de la trémie existante (cm), si vous l\'avez'), '250');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Longueur de la trémie existante (cm), si vous l\'avez'),
+      '250',
+    );
     await pTester.pump();
     expect(find.textContaining('on se cogne la tête'), findsOneWidget);
   });
