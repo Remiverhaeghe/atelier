@@ -11,7 +11,12 @@ void main() {
 
   test('chaque chute va au plus long morceau qu\'elle peut fournir, de la bonne matière', () {
     final vUses = offcutUses(
-      Worksite(id: 'w', name: 'Maison démo', rooms: [rectangleRoom()], offcuts: const [vTiny, vBoard, vPlank]),
+      Worksite(
+        id: 'w',
+        name: 'Maison démo',
+        rooms: [rectangleRoom()],
+        offcuts: const [vTiny, vBoard, vPlank],
+      ),
     );
 
     expect(vUses.map((pUse) => pUse.offcut.id).toSet(), {'a', 'b'});
@@ -32,7 +37,10 @@ void main() {
       const Worksite(id: 'w', name: 'Maison démo', offcuts: [vPlank, vBoard]).toJson(),
     );
 
-    expect(vBack.offcuts.map((pOffcut) => pOffcut.material), [OffcutMaterial.plank, OffcutMaterial.baseboard]);
+    expect(vBack.offcuts.map((pOffcut) => pOffcut.material), [
+      OffcutMaterial.plank,
+      OffcutMaterial.baseboard,
+    ]);
     expect(vBack.offcuts.last.lengthMm, 3100);
     expect(const Worksite(id: 'w', name: 'Vide').toJson().containsKey('offcuts'), isFalse);
   });
