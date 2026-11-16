@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../logic/worksite.dart';
+import 'backups.dart';
 
 /// Lecture et écriture de tous les chantiers ; remplacée par une version en mémoire dans les tests.
 abstract interface class WorksiteStorage {
@@ -15,9 +16,12 @@ abstract interface class WorksiteStorage {
 
 /// Lit et écrit tous les chantiers dans un seul fichier, réécrit en entier à chaque changement.
 class WorksiteStore implements WorksiteStorage {
-  WorksiteStore(this.file);
+  WorksiteStore(this.file, {this.backups});
 
   final File file;
+
+  /// Copie du jour gardée à part : une fausse manipulation se rattrape le lendemain.
+  final Backups? backups;
 
   /// Version du format, pour pouvoir le faire évoluer sans perdre de chantier.
   static const formatVersion = 1;
@@ -37,8 +41,10 @@ class WorksiteStore implements WorksiteStorage {
     await file.parent.create(recursive: true);
     // Écriture dans un fichier temporaire puis renommage : un arrêt brutal ne laisse pas un fichier coupé.
     final vTemporary = File('${file.path}.tmp');
-    await vTemporary.writeAsString(encode(pWorksites), flush: true);
+    final vContent = encode(pWorksites);
+    await vTemporary.writeAsString(vContent, flush: true);
     await vTemporary.rename(file.path);
+    await backups?.record(vContent);
   }
 
   static String encode(List<Worksite> pWorksites) {

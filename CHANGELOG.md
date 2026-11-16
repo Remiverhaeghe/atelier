@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Sauvegardes
+- Copie quotidienne de tous les chantiers sur le téléphone, les 14 derniers jours gardés
+- Restauration en un geste depuis « À propos », après confirmation
+
 ## 0.2.0 - 2026-11-16
 
 ### Conseils et tutos
