@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Isolation
+- Nouveau calcul : épaisseur d'isolant selon la résistance R visée (combles perdus, rampants, murs, plancher bas), en une couche ou deux croisées
+- Paquets, sacs d'ouate à souffler, pare-vapeur et suspentes
+
 ### Plexis de toiture
 - Une fenêtre de toit peut être marquée « plexi ou panneau fixe »
 - Écran « Plexis à remplacer » : surface totale et tailles avec leurs pièces
