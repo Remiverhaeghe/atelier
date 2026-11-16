@@ -67,6 +67,15 @@ class ShoppingScreen extends StatelessWidget {
                 ),
               ),
               IconButton(
+                tooltip: vText.shortListShare,
+                icon: const Icon(Icons.sms_outlined),
+                onPressed: vLines.isEmpty
+                    ? null
+                    : () => SharePlus.instance.share(
+                        ShareParams(text: shortShoppingText(vText, vWorksite)),
+                      ),
+              ),
+              IconButton(
                 tooltip: vText.shareList,
                 icon: const Icon(Icons.share),
                 onPressed: vLines.isEmpty && vPurchases.isEmpty
