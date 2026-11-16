@@ -89,9 +89,9 @@ class WorksitesScreen extends StatelessWidget {
                       [
                         vText.roomCount(vWorksite.rooms.length),
                         if (vWorksite.rooms.isNotEmpty)
-                          formatSquareMetres(
+                          vText.totalArea(formatSquareMetres(
                             vWorksite.rooms.fold(0.0, (pSum, pRoom) => pSum + floorAreaM2(pRoom)),
-                          ),
+                          )),
                       ].join(' · '),
                     ),
                     onTap: () => Navigator.push(

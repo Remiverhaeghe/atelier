@@ -146,14 +146,19 @@ ThemeData atelierTheme(Brightness pBrightness) {
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: vScheme.surfaceContainerLow,
-      border: OutlineInputBorder(
+      fillColor: vScheme.surfaceContainer,
+      // Libellé dans la case remplie, et non sur un trait qui chevaucherait le champ du dessus
+      border: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: vScheme.outlineVariant),
+        borderSide: BorderSide.none,
       ),
-      enabledBorder: OutlineInputBorder(
+      enabledBorder: UnderlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: vScheme.outlineVariant),
+        borderSide: BorderSide.none,
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: vScheme.primary, width: 2),
       ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -213,7 +218,9 @@ class IconLine extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: color ?? vColors.primary),
           const SizedBox(width: 10),
-          Expanded(child: Text(text, style: TextStyle(color: color))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: color)),
+          ),
         ],
       ),
     );
