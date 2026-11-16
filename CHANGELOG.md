@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Porte intérieure
+- Nouveau calcul : bloc-porte standard qui entre dans l'ouverture brute, jeu à caler, hauteur, cloison épaisse, sens d'ouverture poussant droit ou gauche
+
 ### Chevilles et vis
 - Nouveau calcul : cheville, foret, vis et nombre de points selon le support (placo, béton, brique, béton cellulaire, bois) et le poids à accrocher
 

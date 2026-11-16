@@ -5,6 +5,7 @@ import '../logic/room.dart';
 import '../l10n/gen/app_localizations.dart';
 import 'deck_calculator.dart';
 import 'conditions_calculator.dart';
+import 'door_calculator.dart';
 import 'drywall_calculator.dart';
 import 'fixings_calculator.dart';
 import 'frame_calculator.dart';
@@ -99,6 +100,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.conditionsHelp,
       icon: Icons.thermostat_auto_outlined,
       builder: (_) => const ConditionsCalculator(),
+    ),
+    (
+      title: pText.doorTitle,
+      help: pText.doorHelp,
+      icon: Icons.door_front_door_outlined,
+      builder: (_) => const DoorCalculator(),
     ),
     (
       title: pText.fixingsTitle,
