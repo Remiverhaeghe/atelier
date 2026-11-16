@@ -14,14 +14,7 @@ const pipeSlopePercent = 1.0;
 /// Hauteur de l'étanchéité sur les murs de la douche.
 const specWallHeightMm = 2000;
 
-typedef Shower = ({
-  int widthMm,
-  int depthMm,
-  DrainKind drain,
-  int siphonMm,
-  int pipeMm,
-  int walls,
-});
+typedef Shower = ({int widthMm, int depthMm, DrainKind drain, int siphonMm, int pipeMm, int walls});
 
 typedef ShowerPlan = ({
   int runMm,
@@ -35,8 +28,7 @@ typedef ShowerPlan = ({
 
 /// Plus longue distance que l'eau parcourt jusqu'à l'évacuation.
 int showerRunMm(Shower pShower) => switch (pShower.drain) {
-  DrainKind.centre =>
-    (pShower.widthMm > pShower.depthMm ? pShower.widthMm : pShower.depthMm) ~/ 2,
+  DrainKind.centre => (pShower.widthMm > pShower.depthMm ? pShower.widthMm : pShower.depthMm) ~/ 2,
   DrainKind.channel => pShower.depthMm,
 };
 
