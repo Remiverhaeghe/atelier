@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Faire soi-même ou faire faire
+- Nouveau calcul : le devis de l'artisan face au matériel, aux outils et au temps (compté double la première fois), aides réservées aux artisans RGE déduites, et ce que rapporte chaque heure passée
+
 ### Gravats et déchetterie
 - Nouveau calcul : volume en vrac et poids de ce qu'on démolit, big bags et voyages de remorque comptés benne par benne, conseils de tri
 
