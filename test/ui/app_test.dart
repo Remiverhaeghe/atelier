@@ -5,6 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../support/memory_storage.dart';
 
+/// Liste verticale de l'écran (les onglets ont aussi une zone qui défile, horizontale).
+Finder verticalList() => find
+    .byWidgetPredicate((pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down)
+    .first;
+
 /// Remplit la boîte de dialogue ouverte et l'enregistre.
 Future<void> fillAndSave(WidgetTester pTester, String pText) async {
   await pTester.pumpAndSettle();
@@ -45,7 +50,7 @@ void main() {
       await pTester.scrollUntilVisible(
         find.text('Ajouter un mur'),
         200,
-        scrollable: find.byType(Scrollable).first,
+        scrollable: verticalList(),
       );
       await pTester.tap(find.text('Ajouter un mur'));
       await fillAndSave(pTester, vLength);
@@ -54,13 +59,13 @@ void main() {
     await pTester.scrollUntilVisible(
       find.text('Mur 4'),
       200,
-      scrollable: find.byType(Scrollable).first,
+      scrollable: verticalList(),
     );
     expect(find.text('Mur 4'), findsOneWidget);
     await pTester.scrollUntilVisible(
       find.textContaining('les mesures sont cohérentes'),
       -200,
-      scrollable: find.byType(Scrollable).first,
+      scrollable: verticalList(),
     );
     expect(find.textContaining('les mesures sont cohérentes'), findsOneWidget);
     expect(find.textContaining('12,00 m²'), findsWidgets);
