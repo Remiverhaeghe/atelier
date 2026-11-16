@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Humidité avant la pose
+- Nouvelle tuile : relevés de l'humidimètre pour la chape ciment, la chape anhydrite et le bois, feu vert pour poser le parquet et jours restants estimés au rythme du séchage
+
 ### Format des données
 - Les chantiers enregistrés passent par des étapes de migration numérotées : un changement de format ne casse plus les sauvegardes existantes
 - Un fichier d'une version plus récente de l'appli est refusé avec un message clair, et un fichier illisible est copié à part (`chantiers.json.illisible`) avant de repartir de zéro

@@ -2140,5 +2140,22 @@
   "@voiceNotUnderstood": {"placeholders": {"heard": {"type": "String"}}},
   "voiceNoted": "C'est noté.",
   "voiceNothingLeft": "Il ne reste rien à faire de ce côté.",
-  "importNewer": "Ce fichier vient d'une version plus récente d'Atelier : mettez l'appli à jour avant de l'importer."
+  "importNewer": "Ce fichier vient d'une version plus récente d'Atelier : mettez l'appli à jour avant de l'importer.",
+  "moistureTitle": "Humidité avant la pose",
+  "moistureMenu": "Humidité",
+  "moistureAdd": "Noter un relevé",
+  "moistureEmpty": "Notez les relevés de votre humidimètre : chape au carbure, bois à pointes.",
+  "moistureCement": "Chape ciment (méthode CM)",
+  "moistureAnhydrite": "Chape anhydrite (méthode CM)",
+  "moistureWood": "Lames de bois (humidimètre à pointes)",
+  "moistureValue": "Humidité mesurée (%)",
+  "moistureReady": "{percent} % : vous pouvez poser",
+  "@moistureReady": {"placeholders": {"percent": {"type": "String"}}},
+  "moistureTooDry": "{percent} % : bois trop sec, laissez-le reprendre l'humidité de la pièce",
+  "@moistureTooDry": {"placeholders": {"percent": {"type": "String"}}},
+  "moistureTooWet": "{percent} % : trop humide, attendez de passer sous {max} %",
+  "@moistureTooWet": {"placeholders": {"percent": {"type": "String"}, "max": {"type": "String"}}},
+  "moistureDays": "{days, plural, =1{Encore environ 1 jour au rythme actuel} other{Encore environ {days} jours au rythme actuel}}",
+  "@moistureDays": {"placeholders": {"days": {"type": "int"}}},
+  "moistureHint": "Seuils courants pour un parquet : 2 % pour une chape ciment, 0,5 % pour une chape anhydrite, 7 à 11 % pour le bois. La notice du parquet et de la colle priment. Chauffer ou aérer accélère le séchage, sans chauffage au sol à fond les premières semaines."
 }
