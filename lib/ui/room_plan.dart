@@ -208,6 +208,15 @@ class _RoomPlanPainter extends CustomPainter {
         if (vOpenStart > vFrom) {
           pCanvas.drawLine(vAlong(vFrom), vAlong(vOpenStart), vWallPaint);
         }
+        if (vOpening.kind == OpeningKind.window) {
+          // Fenêtre : le mur continue, en double trait fin comme sur un plan d'architecte
+          final vWindow = Paint()
+            ..color = vWallPaint.color
+            ..strokeWidth = compact ? vWallPaint.strokeWidth : 1.5;
+          final vSide = compact ? 0.0 : 3 / vScale;
+          pCanvas.drawLine(vAlong(vOpenStart, vSide), vAlong(vOpenEnd, vSide), vWindow);
+          pCanvas.drawLine(vAlong(vOpenStart, -vSide), vAlong(vOpenEnd, -vSide), vWindow);
+        }
         if (vOpening.kind == OpeningKind.door && !compact) {
           _paintDoor(
             pCanvas,

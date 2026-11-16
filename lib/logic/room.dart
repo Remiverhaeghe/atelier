@@ -2,27 +2,48 @@
 library;
 
 import 'baseboard.dart';
+import 'paint.dart';
 import 'parquet.dart';
 import 'touch_up.dart';
 
 /// Ouverture dans un mur, sans plinthe sur sa largeur.
-enum OpeningKind { door, passage }
+enum OpeningKind { door, passage, window }
+
+/// Hauteur de départ d'une ouverture, modifiable : porte standard, fenêtre courante.
+int defaultOpeningHeightMm(OpeningKind pKind) => pKind == OpeningKind.window ? 1250 : 2040;
+
+/// Allège d'une fenêtre courante : hauteur du bas de la fenêtre au-dessus du sol.
+const defaultSillMm = 900;
 
 /// Élément qui gêne la pose : zone sans parquet ou plinthe interrompue.
 enum ObstacleKind { radiator, pipe, cupboard, fireplace, stairFoot }
 
-/// Porte ou passage, placé depuis le début du mur.
+/// Porte, passage ou fenêtre, placé depuis le début du mur.
 class Opening {
   const Opening({
     required this.kind,
     required this.offsetMm,
     required this.widthMm,
     this.threshold = false,
+    this.heightMm,
+    this.sillMm,
   });
 
   final OpeningKind kind;
   final int offsetMm;
   final int widthMm;
+
+  /// Hauteur de l'ouverture ; valeur courante si non saisie.
+  final int? heightMm;
+
+  /// Allège d'une fenêtre ; une porte ou un passage part du sol.
+  final int? sillMm;
+
+  int get height => heightMm ?? defaultOpeningHeightMm(kind);
+  int get sill => kind == OpeningKind.window ? (sillMm ?? defaultSillMm) : 0;
+
+  /// Une fenêtre laisse passer la plinthe ; une porte ou un passage la coupe.
+  bool get cutsBaseboard => kind != OpeningKind.window;
 
   /// Barre de seuil sous l'ouverture, comptée dans cette pièce seulement : une porte entre deux
   /// pièces est saisie des deux côtés, la barre ne doit être achetée qu'une fois.
@@ -33,6 +54,8 @@ class Opening {
     'offsetMm': offsetMm,
     'widthMm': widthMm,
     if (threshold) 'threshold': true,
+    if (heightMm != null) 'heightMm': heightMm,
+    if (sillMm != null) 'sillMm': sillMm,
   };
 
   static Opening fromJson(Map<String, Object?> pJson) => Opening(
@@ -40,6 +63,8 @@ class Opening {
     offsetMm: pJson['offsetMm']! as int,
     widthMm: pJson['widthMm']! as int,
     threshold: (pJson['threshold'] as bool?) ?? false,
+    heightMm: pJson['heightMm'] as int?,
+    sillMm: pJson['sillMm'] as int?,
   );
 }
 
@@ -142,6 +167,8 @@ class Room {
     this.cutPieces = const [],
     this.doneSteps = const [],
     this.touchUps = const [],
+    this.ceilingHeightMm = 2500,
+    this.paint = const PaintSettings(),
   });
 
   final String id;
@@ -166,6 +193,10 @@ class Room {
   /// Choses à faire ou à reprendre dans la pièce.
   final List<TouchUp> touchUps;
 
+  /// Hauteur sous plafond, la même pour toute la pièce.
+  final int ceilingHeightMm;
+  final PaintSettings paint;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -177,6 +208,8 @@ class Room {
     List<int>? cutPieces,
     List<String>? doneSteps,
     List<TouchUp>? touchUps,
+    int? ceilingHeightMm,
+    PaintSettings? paint,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -189,6 +222,8 @@ class Room {
     cutPieces: cutPieces ?? this.cutPieces,
     doneSteps: doneSteps ?? this.doneSteps,
     touchUps: touchUps ?? this.touchUps,
+    ceilingHeightMm: ceilingHeightMm ?? this.ceilingHeightMm,
+    paint: paint ?? this.paint,
   );
 
   Map<String, Object?> toJson() => {
@@ -203,6 +238,8 @@ class Room {
     'cutPieces': cutPieces,
     'doneSteps': doneSteps,
     'touchUps': [for (final vTouchUp in touchUps) vTouchUp.toJson()],
+    'ceilingHeightMm': ceilingHeightMm,
+    'paint': paint.toJson(),
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -234,5 +271,9 @@ class Room {
       for (final vTouchUp in (pJson['touchUps'] as List<Object?>?) ?? const [])
         TouchUp.fromJson(vTouchUp! as Map<String, Object?>),
     ],
+    ceilingHeightMm: (pJson['ceilingHeightMm'] as int?) ?? 2500,
+    paint: pJson['paint'] == null
+        ? const PaintSettings()
+        : PaintSettings.fromJson(pJson['paint']! as Map<String, Object?>),
   );
 }

@@ -156,7 +156,8 @@ class _Segment {
 
 /// Parties du mur entre les ouvertures ; coupe droite contre chaque chambranle.
 List<_Segment> _segments(Wall pWall, EndCut pStartCut, EndCut pEndCut) {
-  final vOpenings = [...pWall.openings]..sort((pA, pB) => pA.offsetMm.compareTo(pB.offsetMm));
+  final vOpenings = [...pWall.openings.where((pOpening) => pOpening.cutsBaseboard)]
+    ..sort((pA, pB) => pA.offsetMm.compareTo(pB.offsetMm));
   final rSegments = <_Segment>[];
   var vPosition = 0;
   var vCut = pStartCut;
