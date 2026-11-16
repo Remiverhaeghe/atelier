@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/reminders.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
+import 'reminder_alarm.dart';
 
 String waitLabel(AppLocalizations pText, WaitKind pKind) => switch (pKind) {
   WaitKind.acclimatise => pText.waitAcclimatise,
@@ -34,6 +35,14 @@ class RemindersCard extends StatelessWidget {
     );
     if (vReminder != null) {
       onChanged(worksite.copyWith(reminders: [...worksite.reminders, vReminder]));
+      if (pContext.mounted) {
+        final vText = AppLocalizations.of(pContext);
+        await aReminderAlarm.schedule(
+          vReminder,
+          vText.reminderNotifyTitle,
+          vReminder.label.isEmpty ? waitLabel(vText, vReminder.kind) : vReminder.label,
+        );
+      }
     }
   }
 
@@ -82,14 +91,17 @@ class RemindersCard extends StatelessWidget {
                 trailing: IconButton(
                   tooltip: vText.delete,
                   icon: const Icon(Icons.close),
-                  onPressed: () => onChanged(
-                    worksite.copyWith(
-                      reminders: [
-                        for (final vOther in worksite.reminders)
-                          if (vOther.id != vReminder.id) vOther,
-                      ],
-                    ),
-                  ),
+                  onPressed: () {
+                    onChanged(
+                      worksite.copyWith(
+                        reminders: [
+                          for (final vOther in worksite.reminders)
+                            if (vOther.id != vReminder.id) vOther,
+                        ],
+                      ),
+                    );
+                    aReminderAlarm.cancel(vReminder);
+                  },
                 ),
               ),
           ],

@@ -74,3 +74,13 @@ int hoursLeft(Reminder pReminder, DateTime pNow) {
 
   return rHours;
 }
+
+/// Numéro de notification d'un rappel, stable d'un lancement à l'autre (FNV-1a sur 31 bits).
+int notificationId(String pId) {
+  var vHash = 0x811c9dc5;
+  for (final vUnit in pId.codeUnits) {
+    vHash = ((vHash ^ vUnit) * 0x01000193) & 0xffffffff;
+  }
+
+  return vHash & 0x7fffffff;
+}

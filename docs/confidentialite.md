@@ -22,6 +22,8 @@ Désinstaller l'application efface ces données.
 
 Une photo passe par l'appareil photo ou la galerie du téléphone, à votre demande. Atelier ne demande pas la permission caméra et ne lit pas votre galerie en dehors de l'image que vous choisissez.
 
+La permission de notification sert seulement à prévenir de la fin d'une attente lancée sur le chantier (séchage, acclimatation). La notification est programmée sur le téléphone ; rien n'est envoyé.
+
 ## Lecture à voix haute
 
 Le mode chantier lit la prochaine coupe avec le moteur de synthèse vocale installé sur le téléphone. Le texte lu ne quitte pas l'appareil par Atelier.
