@@ -111,6 +111,8 @@ class WorksiteScreen extends StatelessWidget {
                       exportPlanFile(vWorksite);
                     case 'gltf':
                       exportGltfFile(vWorksite);
+                    case 'dxf':
+                      exportDxfFile(vWorksite);
                     case 'homeAssistant':
                       exportHomeAssistantFile(vWorksite);
                     case 'guide':
@@ -123,6 +125,7 @@ class WorksiteScreen extends StatelessWidget {
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
                   PopupMenuItem(value: 'gltf', child: Text(vText.exportGltf)),
+                  PopupMenuItem(value: 'dxf', child: Text(vText.exportDxf)),
                   PopupMenuItem(value: 'homeAssistant', child: Text(vText.exportHomeAssistant)),
                   PopupMenuItem(
                     value: 'guide',

@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/data_format.dart';
+import '../logic/dxf.dart';
 import '../logic/gltf.dart';
 import '../logic/home_assistant.dart';
 import '../logic/house.dart';
@@ -60,6 +61,15 @@ Future<void> exportGltfFile(Worksite pWorksite) async {
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
   final vFile = File('${vFolder.path}/maison_$vName.gltf');
   await vFile.writeAsString(jsonEncode(buildGltf(houseRooms(pWorksite))));
+  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+}
+
+/// Plan de la maison en DXF, pour un logiciel de dessin, envoyé par le partage du téléphone.
+Future<void> exportDxfFile(Worksite pWorksite) async {
+  final vFolder = await getTemporaryDirectory();
+  final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
+  final vFile = File('${vFolder.path}/plan_$vName.dxf');
+  await vFile.writeAsString(buildDxf(houseRooms(pWorksite)));
   await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
 }
 

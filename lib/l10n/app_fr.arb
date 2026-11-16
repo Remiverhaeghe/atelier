@@ -2356,5 +2356,6 @@
   "laserError": "La liaison avec le télémètre a échoué : rapprochez-le, rallumez son Bluetooth et réessayez.",
   "laserHint": "Télémètres Bosch reliés en Bluetooth basse consommation : GLM 50 C, GLM 50-27 C et CG, GLM 100 C, GLM 120 C, PLR 30 C, 40 C et 50 C. Un appareil en Bluetooth classique, comme certains GLM 100 C, n'est pas reconnu. Protocole relevé par d'autres utilisateurs, sans garantie de Bosch.",
   "undo": "Annuler la dernière modification",
-  "redo": "Refaire la modification annulée"
+  "redo": "Refaire la modification annulée",
+  "exportDxf": "Exporter le plan en DXF"
 }
