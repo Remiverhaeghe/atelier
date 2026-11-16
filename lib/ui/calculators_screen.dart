@@ -22,6 +22,7 @@ import 'shelf_calculator.dart';
 import 'tiling_calculator.dart';
 import 'wall_tiling_calculator.dart';
 import 'wardrobe_calculator.dart';
+import 'ventilation_calculator.dart';
 import 'welding_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
@@ -100,6 +101,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.conditionsHelp,
       icon: Icons.thermostat_auto_outlined,
       builder: (_) => const ConditionsCalculator(),
+    ),
+    (
+      title: pText.ventTitle,
+      help: pText.ventHelp,
+      icon: Icons.air,
+      builder: (_) => const VentilationCalculator(),
     ),
     (
       title: pText.doorTitle,

@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Ventilation
+- Nouveau calcul VMC simple flux : débits extraits par pièce humide selon le nombre de pièces, bouches et gaines, entrées d'air, détalonnage des portes
+
 ### Porte intérieure
 - Nouveau calcul : bloc-porte standard qui entre dans l'ouverture brute, jeu à caler, hauteur, cloison épaisse, sens d'ouverture poussant droit ou gauche
 
