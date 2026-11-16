@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Export du plan
+- « Exporter le plan » dans le menu du chantier : pièces, contours, hauteurs, murs et ouvertures en JSON, pour une application de domotique ou une vue 3D
+- Format décrit et versionné dans docs/format-plan.md
+
 ### Caméra thermique
 - « Relevé thermique » dans les reprises : image de la caméra prise dans la galerie, défaut choisi (fenêtre, porte, prise, pont thermique, plafond, coffre de volet)
 - Préconisation et matériel à acheter repris dans la reprise, à placer ensuite sur le plan ; isolation signalée comme à faire chiffrer
