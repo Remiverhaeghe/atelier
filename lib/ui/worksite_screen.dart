@@ -19,6 +19,7 @@ import 'time_screen.dart';
 import 'transfer.dart';
 import 'goal_card.dart';
 import 'house_screen.dart';
+import 'living_area_screen.dart';
 import 'offcuts_screen.dart';
 
 /// Pièces d'un chantier.
@@ -120,6 +121,14 @@ class WorksiteScreen extends StatelessWidget {
                       exportGltfFile(vWorksite);
                     case 'homeAssistant':
                       exportHomeAssistantFile(vWorksite);
+                    case 'living':
+                      Navigator.push(
+                        pContext,
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              LivingAreaScreen(controller: controller, worksiteId: worksiteId),
+                        ),
+                      );
                     case 'offcuts':
                       Navigator.push(
                         pContext,
@@ -137,6 +146,7 @@ class WorksiteScreen extends StatelessWidget {
                 itemBuilder: (_) => [
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
                   PopupMenuItem(value: 'house', child: Text(vText.houseTitle)),
+                  PopupMenuItem(value: 'living', child: Text(vText.livingAreaMenu)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
                   PopupMenuItem(value: 'gltf', child: Text(vText.exportGltf)),
                   PopupMenuItem(value: 'homeAssistant', child: Text(vText.exportHomeAssistant)),
