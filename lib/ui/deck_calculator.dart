@@ -33,7 +33,11 @@ class _DeckCalculatorState extends State<DeckCalculator> {
             height: 200,
             child: CustomPaint(
               size: Size.infinite,
-              painter: _DeckPainter(design: _design, needs: vNeeds, colors: AtelierColors.of(context)),
+              painter: _DeckPainter(
+                design: _design,
+                needs: vNeeds,
+                colors: AtelierColors.of(context),
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -48,7 +52,11 @@ class _DeckCalculatorState extends State<DeckCalculator> {
                   IconLine(Icons.crop_free, vText.totalArea(formatDecimal(vNeeds.areaM2))),
                   IconLine(
                     Icons.view_week_outlined,
-                    vText.deckJoists(vNeeds.joists, formatCentimetres(vNeeds.joistSpacingMm), vNeeds.joistBars),
+                    vText.deckJoists(
+                      vNeeds.joists,
+                      formatCentimetres(vNeeds.joistSpacingMm),
+                      vNeeds.joistBars,
+                    ),
                   ),
                   IconLine(Icons.adjust, vText.deckPlots(vNeeds.plots)),
                   IconLine(Icons.hardware_outlined, vText.deckScrews(vNeeds.screws)),
@@ -60,15 +68,27 @@ class _DeckCalculatorState extends State<DeckCalculator> {
           ),
           const SizedBox(height: 4),
           for (final (vLabel, vValue, vApply) in [
-            (vText.deckLength, _design.lengthMm, (int pValue) => _design.copyWith(lengthMm: pValue)),
+            (
+              vText.deckLength,
+              _design.lengthMm,
+              (int pValue) => _design.copyWith(lengthMm: pValue),
+            ),
             (vText.deckWidth, _design.widthMm, (int pValue) => _design.copyWith(widthMm: pValue)),
-            (vText.deckBoardWidth, _design.boardWidthMm, (int pValue) => _design.copyWith(boardWidthMm: pValue)),
+            (
+              vText.deckBoardWidth,
+              _design.boardWidthMm,
+              (int pValue) => _design.copyWith(boardWidthMm: pValue),
+            ),
             (
               vText.deckBoardThickness,
               _design.boardThicknessMm,
               (int pValue) => _design.copyWith(boardThicknessMm: pValue),
             ),
-            (vText.deckBoardLength, _design.boardLengthMm, (int pValue) => _design.copyWith(boardLengthMm: pValue)),
+            (
+              vText.deckBoardLength,
+              _design.boardLengthMm,
+              (int pValue) => _design.copyWith(boardLengthMm: pValue),
+            ),
           ])
             NumberField(
               label: vLabel,
@@ -101,9 +121,10 @@ class _DeckPainter extends CustomPainter {
     if (needs.rows == 0) {
       return;
     }
-    final vScale = [pSize.width / design.lengthMm, pSize.height / design.widthMm].reduce(
-      (pA, pB) => pA < pB ? pA : pB,
-    );
+    final vScale = [
+      pSize.width / design.lengthMm,
+      pSize.height / design.widthMm,
+    ].reduce((pA, pB) => pA < pB ? pA : pB);
     final vWidth = design.lengthMm * vScale;
     final vHeight = design.widthMm * vScale;
     final vLeft = (pSize.width - vWidth) / 2;
@@ -124,7 +145,11 @@ class _DeckPainter extends CustomPainter {
       final vOffset = (vRow.isEven ? 0 : design.boardLengthMm / 2) * vScale;
       for (var vX = vLeft + vOffset; vX < vLeft + vWidth; vX += design.boardLengthMm * vScale) {
         if (vX > vLeft) {
-          pCanvas.drawLine(Offset(vX, vY), Offset(vX, vY + vRowHeight), Paint()..color = colors.ink);
+          pCanvas.drawLine(
+            Offset(vX, vY),
+            Offset(vX, vY + vRowHeight),
+            Paint()..color = colors.ink,
+          );
         }
       }
     }
