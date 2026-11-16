@@ -29,3 +29,10 @@ Future<void> scrollToFirst(WidgetTester pTester, Finder pFinder) async {
   await pTester.ensureVisible(pFinder.first);
   await pTester.pump();
 }
+
+/// Écran haut, pour qu'une vue longue tienne sans défilement.
+void tallScreen(WidgetTester pTester) {
+  pTester.view.physicalSize = const Size(800, 2400);
+  pTester.view.devicePixelRatio = 1;
+  addTearDown(pTester.view.reset);
+}
