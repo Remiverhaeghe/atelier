@@ -9,6 +9,7 @@ class Worksite {
     required this.name,
     this.rooms = const [],
     this.prices = const {},
+    this.showGuidance = true,
   });
 
   final String id;
@@ -18,11 +19,21 @@ class Worksite {
   /// Prix unitaires saisis, par nom d'article (voir ShoppingItem).
   final Map<String, double> prices;
 
-  Worksite copyWith({String? name, List<Room>? rooms, Map<String, double>? prices}) => Worksite(
-    id: id,
+  /// Onglet Guide affiché ; masquable pour qui ne veut que les calculs.
+  final bool showGuidance;
+
+  Worksite copyWith({
+    String? id,
+    String? name,
+    List<Room>? rooms,
+    Map<String, double>? prices,
+    bool? showGuidance,
+  }) => Worksite(
+    id: id ?? this.id,
     name: name ?? this.name,
     rooms: rooms ?? this.rooms,
     prices: prices ?? this.prices,
+    showGuidance: showGuidance ?? this.showGuidance,
   );
 
   Map<String, Object?> toJson() => {
@@ -30,6 +41,7 @@ class Worksite {
     'name': name,
     'rooms': [for (final vRoom in rooms) vRoom.toJson()],
     'prices': prices,
+    'showGuidance': showGuidance,
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -43,5 +55,6 @@ class Worksite {
       for (final vEntry in ((pJson['prices'] as Map<String, Object?>?) ?? const {}).entries)
         vEntry.key: (vEntry.value! as num).toDouble(),
     },
+    showGuidance: (pJson['showGuidance'] as bool?) ?? true,
   );
 }

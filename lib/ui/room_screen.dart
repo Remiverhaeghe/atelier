@@ -7,6 +7,7 @@ import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
 import 'dialogs.dart';
+import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
@@ -44,6 +45,7 @@ class RoomScreen extends StatelessWidget {
       listenable: controller,
       builder: (pContext, _) {
         final vRoom = _room();
+        final vGuide = controller.worksite(worksiteId)?.showGuidance ?? true;
         if (vRoom == null) {
           return const Scaffold();
         }
@@ -52,7 +54,7 @@ class RoomScreen extends StatelessWidget {
         void vSave(Room pRoom) => controller.updateRoom(worksiteId, pRoom);
 
         return DefaultTabController(
-          length: 4,
+          length: vGuide ? 5 : 4,
           child: Scaffold(
             appBar: AppBar(
               title: Text(vRoom.name),
@@ -63,6 +65,7 @@ class RoomScreen extends StatelessWidget {
                   Tab(text: vText.tabParquet),
                   Tab(text: vText.tabLaying),
                   Tab(text: vText.tabBaseboard),
+                  if (vGuide) Tab(text: vText.tabGuide),
                 ],
               ),
             ),
@@ -72,6 +75,7 @@ class RoomScreen extends StatelessWidget {
                 ParquetView(room: vRoom, onChanged: vSave),
                 LayingView(room: vRoom, onChanged: vSave),
                 BaseboardView(room: vRoom, onChanged: vSave),
+                if (vGuide) GuideView(room: vRoom, onChanged: vSave),
               ],
             ),
           ),

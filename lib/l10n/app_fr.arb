@@ -495,5 +495,66 @@
     }
   },
   "pdfParquet": "Parquet",
-  "pdfBaseboard": "Plinthes"
+  "pdfBaseboard": "Plinthes",
+  "tabGuide": "Guide",
+  "guideParquet": "Parquet, étape par étape",
+  "guideBaseboard": "Plinthes, étape par étape",
+  "guideTools": "Outils à préparer",
+  "guideProgress": "{done, plural, =0{Aucune étape faite} =1{1 étape faite} other{{done} étapes faites}} sur {total}",
+  "@guideProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "stepAcclimatise": "Laisser les paquets fermés 48 heures dans la pièce, à plat",
+  "stepPrepareFloor": "Sol propre, sec et plan : pas plus de 2 mm d'écart sous une règle de 2 m",
+  "stepUnrollUnderlay": "Dérouler la sous-couche bord à bord, sans chevauchement, joints scotchés",
+  "stepSpreadGlue": "Étaler la colle à la spatule crantée, par zones d'un mètre carré environ",
+  "stepFixJoists": "Fixer les lambourdes, perpendiculaires au sens de pose des lames",
+  "stepTraceAxis": "Tracer l'axe au cordeau au centre de la pièce : le motif part de là",
+  "stepFirstRow": "Poser la première rangée, languette côté mur, recoupée en largeur si l'onglet Parquet le demande",
+  "stepSpacers": "Glisser des cales le long des murs pour garder le jeu de dilatation",
+  "stepNailInTongue": "Clouer chaque lame en biais dans la languette",
+  "stepLastRow": "Recouper la dernière rangée en largeur, en gardant le jeu contre le mur",
+  "stepRemoveSpacers": "Retirer les cales une fois la pose finie",
+  "stepCutBaseboards": "Couper les plinthes d'après la liste de l'onglet Plinthes",
+  "stepDryFitCorners": "Présenter les coins à blanc avant de fixer",
+  "stepFixBaseboards": "Fixer les plinthes au mur, jamais au parquet",
+  "stepSealJoints": "Reboucher les joints et les coins au mastic",
+  "toolTapeMeasure": "Mètre ruban ou télémètre",
+  "toolPencilSquare": "Crayon et équerre",
+  "toolMiterSaw": "Scie à onglet",
+  "toolJigsaw": "Scie sauteuse",
+  "toolSpacers": "Cales de dilatation",
+  "toolTappingBlock": "Maillet et cale de frappe",
+  "toolPullBar": "Tire-lame",
+  "toolNotchedTrowel": "Spatule crantée",
+  "toolNailer": "Cloueur ou marteau et chasse-clou",
+  "toolChalkLine": "Cordeau à tracer",
+  "toolCaulkGun": "Pistolet à mastic",
+  "toolLevel": "Niveau",
+  "guideHidden": "Masquer le guide",
+  "guideShown": "Afficher le guide",
+  "exportWorksite": "Exporter le chantier",
+  "importWorksites": "Importer un chantier",
+  "importDone": "{count, plural, =1{1 chantier importé} other{{count} chantiers importés}}",
+  "@importDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importFailed": "Ce fichier n'est pas un export d'Atelier.",
+  "aboutTitle": "À propos",
+  "aboutText": "Atelier prépare tes travaux sans connexion : tout reste sur le téléphone. Les valeurs proposées sont des points de départ, la notice du fabricant l'emporte.",
+  "crashLogTitle": "Journal des plantages",
+  "crashLogEmpty": "Aucun plantage enregistré.",
+  "crashLogShare": "Partager le journal",
+  "crashLogHelp": "Ce journal reste sur le téléphone. Il ne contient que des messages d'erreur, aucune donnée de chantier."
 }
