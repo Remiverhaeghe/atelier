@@ -28,7 +28,8 @@ void main() {
     ];
     final vSizes = plexiSizes(vRooms);
 
-    expect(vSizes.first, (widthMm: 780, heightMm: 980, count: 3, rooms: ['Salon', 'Chambre']));
+    expect((vSizes.first.widthMm, vSizes.first.heightMm, vSizes.first.count), (780, 980, 3));
+    expect(vSizes.first.rooms, ['Salon', 'Chambre']);
     expect(vSizes.last.count, 1);
     expect(plexiAreaM2(vRooms), closeTo(3 * 0.7644 + 0.2475, 1e-9));
     expect(plexiSizes([rectangleRoom()]), isEmpty);
