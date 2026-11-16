@@ -7,6 +7,7 @@ import 'deck_calculator.dart';
 import 'conditions_calculator.dart';
 import 'door_calculator.dart';
 import 'drywall_calculator.dart';
+import 'debris_calculator.dart';
 import 'fixings_calculator.dart';
 import 'frame_calculator.dart';
 import 'electricity_calculator.dart';
@@ -120,6 +121,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.doorHelp,
       icon: Icons.door_front_door_outlined,
       builder: (_) => const DoorCalculator(),
+    ),
+    (
+      title: pText.debrisTitle,
+      help: pText.debrisHelp,
+      icon: Icons.delete_sweep_outlined,
+      builder: (_) => const DebrisCalculator(),
     ),
     (
       title: pText.fixingsTitle,
