@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Avant de commencer
+- Sous la prochaine étape du guide : coupures et protections à prévoir (courant, eau, masque FFP2, lunettes, casque, gants, genouillères, aération), à cocher d'un geste
+
 ### Charpente et couverture
 - Nouveau calcul pour un pan de toit : chevrons, contre-liteaux, liteaux selon le pureau, tuiles ou ardoises avec la casse, faîtières, rives et écran sous toiture
 
