@@ -14,6 +14,7 @@ enum ShoppingItem {
   underlayRolls,
   glueBuckets,
   nailBoxes,
+  thresholdBars,
   baseboardBars,
   cartridges,
   fixingPoints,
@@ -40,6 +41,7 @@ Map<ShoppingItem, int> roomQuantities(Room pRoom) {
     rQuantities[ShoppingItem.underlayRolls] = vParquet.underlayRolls;
     rQuantities[ShoppingItem.glueBuckets] = vParquet.glueBuckets;
     rQuantities[ShoppingItem.nailBoxes] = vParquet.nailBoxes;
+    rQuantities[ShoppingItem.thresholdBars] = thresholdBars(pRoom, pRoom.parquet);
   }
   final vPieces = baseboardPieces(pRoom, pRoom.baseboard);
   final vBars = planBars(

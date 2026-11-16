@@ -143,6 +143,16 @@ class ParquetView extends StatelessWidget {
             onValue: (pValue) => _update(vSettings.copyWith(nailsPerBox: pValue)),
           ),
         ],
+        NumberField(
+          label: vText.thresholdBarLength,
+          initial: formatCentimetres(vSettings.thresholdBarLengthMm),
+          parse: parseCentimetres,
+          onValue: (pValue) => _update(vSettings.copyWith(thresholdBarLengthMm: pValue)),
+        ),
+        const SizedBox(height: 16),
+        Text(vText.junctionTitle, style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 4),
+        IconLine(Icons.door_sliding_outlined, vText.junctionAdvice),
       ],
     );
   }
@@ -160,6 +170,7 @@ class _ParquetResults extends StatelessWidget {
     final vEstimate = estimateParquet(room, room.parquet);
     final vRows = vEstimate.rows;
 
+    final vThresholds = thresholdBars(room, room.parquet);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -189,6 +200,8 @@ class _ParquetResults extends StatelessWidget {
               IconLine(AtelierIcons.glue, vText.resultGlue(vEstimate.glueBuckets)),
             if (vEstimate.nailBoxes > 0)
               IconLine(AtelierIcons.nails, vText.resultNails(vEstimate.nailBoxes)),
+            if (vThresholds > 0)
+              IconLine(Icons.door_sliding_outlined, vText.resultThresholds(vThresholds)),
             const Divider(height: 24),
             Text(vText.rowsTitle, style: vTheme.textTheme.titleSmall),
             if (vRows == null)

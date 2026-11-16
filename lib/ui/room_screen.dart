@@ -104,9 +104,11 @@ class RoomWallsView extends StatelessWidget {
     final vSummary = pWall.freeEndAfter
         ? pText.freeEndSummary(vLength)
         : pText.wallSummary(vLength, formatAngle(pWall.angleToNextDeg), vKind);
-    final rSummary = pWall.openings.isEmpty
-        ? vSummary
-        : '$vSummary · ${pText.openings(pWall.openings.length)}';
+    final rSummary = [
+      vSummary,
+      if (pWall.openings.isNotEmpty) pText.openings(pWall.openings.length),
+      if (pWall.openings.any((pOpening) => pOpening.threshold)) pText.openingThresholdSummary,
+    ].join(' · ');
 
     return rSummary;
   }
