@@ -110,7 +110,9 @@ class _RoofMatch extends StatelessWidget {
           Icons.window_outlined,
           vText.roofNearest(formatCentimetres(vMatch.widthMm), formatCentimetres(vMatch.heightMm)),
         ),
-        Text('${_change(vText, vMatch.widenMm, true)}, ${_change(vText, vMatch.heightenMm, false)}'),
+        Text(
+          '${_change(vText, vMatch.widenMm, true)}, ${_change(vText, vMatch.heightenMm, false)}',
+        ),
       ],
     );
   }
