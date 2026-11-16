@@ -24,11 +24,11 @@ Future<void> exportWorksite(Worksite pWorksite) async {
 Future<void> importWorksites(BuildContext pContext, WorksitesController pController) async {
   final vText = AppLocalizations.of(pContext);
   final vMessenger = ScaffoldMessenger.of(pContext);
-  final vResult = await FilePicker.platform.pickFiles(withData: true);
-  final vBytes = vResult?.files.single.bytes;
-  if (vBytes == null) {
+  final vFile = await FilePicker.pickFile();
+  if (vFile == null) {
     return;
   }
+  final vBytes = await vFile.readAsBytes();
   try {
     final vCount = await pController.importWorksites(WorksiteStore.decode(utf8.decode(vBytes)));
     vMessenger.showSnackBar(SnackBar(content: Text(vText.importDone(vCount))));
