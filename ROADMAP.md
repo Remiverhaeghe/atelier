@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 126. **Modèles de chantier** : étapes, attentes et courses types.
 - 127. **Annuler et refaire** sur les murs et le plan.
 - 128. **Export du plan en DXF**.
 - 129. **Dossier pour demander des devis** : surfaces, plan et photos en PDF.
