@@ -94,10 +94,8 @@ class GuideView extends StatelessWidget {
           leading: Icon(Icons.tips_and_updates_outlined, color: vTheme.colorScheme.primary),
           title: Text(vText.tipsLink),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute<void>(builder: (_) => const TipsScreen()),
-          ),
+          onTap: () =>
+              Navigator.push(context, MaterialPageRoute<void>(builder: (_) => const TipsScreen())),
         ),
         ListTile(title: Text(vText.guideTools, style: vTheme.textTheme.titleMedium)),
         for (final vTool in toolsFor(room.parquet.type, room.baseboard.fixing))
