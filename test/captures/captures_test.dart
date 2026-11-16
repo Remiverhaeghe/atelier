@@ -88,6 +88,7 @@ void main() {
     await capture('03-piece');
 
     for (final (vTab, vName) in [
+      ('Reprises', '10-reprises'),
       ('Parquet', '04-parquet'),
       ('Pose', '05-pose'),
       ('Plinthes', '06-plinthes'),
