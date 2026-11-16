@@ -25,7 +25,10 @@ void main() {
     final vTheirs = Worksite(
       id: 'w',
       name: 'Maison',
-      rooms: [vSalon, const Room(id: 'cuisine', name: 'Cuisine')],
+      rooms: [
+        vSalon,
+        const Room(id: 'cuisine', name: 'Cuisine'),
+      ],
       prices: const {'Colle': 15, 'Joint': 8},
       ownedTools: const ['Scie', 'Ponceuse'],
       expenses: const [
