@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import 'drywall_calculator.dart';
 import 'garden_calculator.dart';
 import 'shelf_calculator.dart';
+import 'wardrobe_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 typedef Calculator = ({String title, String help, IconData icon, WidgetBuilder builder});
@@ -18,6 +19,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.shelfHelp,
       icon: Icons.shelves,
       builder: (_) => const ShelfCalculator(),
+    ),
+    (
+      title: pText.wardrobeTitle,
+      help: pText.wardrobeHelp,
+      icon: Icons.door_sliding_outlined,
+      builder: (_) => const WardrobeCalculator(),
     ),
     (
       title: pText.gardenTitle,
