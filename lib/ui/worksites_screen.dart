@@ -67,24 +67,28 @@ class WorksitesScreen extends StatelessWidget {
   }
 
   /// Nouveautés montrées une fois après la mise à jour, puis notées comme vues.
+  ///
+  /// Après l'affichage : changer les réglages pendant la construction redessinerait l'appli
+  /// en pleine construction.
   void _showNewsOnce(BuildContext pContext) {
     final vSettings = settings;
     if (vSettings == null || vSettings.settings.newsSeen >= newsVersion) {
       return;
     }
-    final vShow = shouldShowNews(
-      pSeen: vSettings.settings.newsSeen,
-      pHasData: controller.worksites.isNotEmpty,
-    );
-    // Noté tout de suite : la boîte ne revient pas à chaque reconstruction
-    vSettings.update(vSettings.settings.copyWith(newsSeen: newsVersion));
-    if (vShow) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (pContext.mounted) {
-          showNews(pContext);
-        }
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Plusieurs constructions avant ce rappel : seul le premier passe
+      if (vSettings.settings.newsSeen >= newsVersion) {
+        return;
+      }
+      final vShow = shouldShowNews(
+        pSeen: vSettings.settings.newsSeen,
+        pHasData: controller.worksites.isNotEmpty,
+      );
+      vSettings.update(vSettings.settings.copyWith(newsSeen: newsVersion));
+      if (vShow && pContext.mounted) {
+        showNews(pContext);
+      }
+    });
   }
 
   @override
