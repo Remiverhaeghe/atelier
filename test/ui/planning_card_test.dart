@@ -13,7 +13,11 @@ void main() {
       laidRows: [for (var vRow = 1; vRow <= 40; vRow++) vRow],
     );
     await pTester.pumpWidget(
-      localized(PlanningCard(worksite: Worksite(id: 'w', name: 'Maison', rooms: [vRoom]))),
+      localized(
+        PlanningCard(
+          worksite: Worksite(id: 'w', name: 'Maison', rooms: [vRoom]),
+        ),
+      ),
     );
     expect(find.textContaining('Salon : « poser le parquet » est fait'), findsOneWidget);
   });
