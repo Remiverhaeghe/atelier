@@ -79,4 +79,16 @@ void main() {
 
     expect(worksitePurchases(vWorksite), [(item: 'Applique murale', room: 'Bureau')]);
   });
+
+  test('stock restant après le chantier : au-delà du besoin, et ce qui ne sert pas', () {
+    final vBase = Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom()]);
+    final vNeeded = shoppingList(
+      vBase,
+    ).firstWhere((pLine) => pLine.item == ShoppingItem.parquetPacks).quantity;
+    final vWorksite = vBase.copyWith(stock: {'parquetPacks': vNeeded + 2, 'thresholdBars': 3});
+    final vLeft = leftoverStock(vWorksite);
+    expect(vLeft[ShoppingItem.parquetPacks], 2);
+    expect(vLeft[ShoppingItem.thresholdBars], 3);
+    expect(leftoverStock(vBase), isEmpty);
+  });
 }
