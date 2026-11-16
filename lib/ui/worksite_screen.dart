@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
+import '../logic/progress.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
+import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import 'dialogs.dart';
 import 'room_screen.dart';
 import 'shopping_screen.dart';
 import 'shopping_texts.dart';
+import 'plan_thumbnail.dart';
+import 'theme.dart';
 import 'transfer.dart';
 
 /// Pièces d'un chantier.
@@ -22,6 +26,13 @@ class WorksiteScreen extends StatelessWidget {
     pContext,
     MaterialPageRoute<void>(
       builder: (_) => RoomScreen(controller: controller, worksiteId: worksiteId, roomId: pRoomId),
+    ),
+  );
+
+  void _openShopping(BuildContext pContext) => Navigator.push(
+    pContext,
+    MaterialPageRoute<void>(
+      builder: (_) => ShoppingScreen(controller: controller, worksiteId: worksiteId),
     ),
   );
 
@@ -90,40 +101,104 @@ class WorksiteScreen extends StatelessWidget {
             label: Text(vText.newRoom),
           ),
           body: vWorksite.rooms.isEmpty
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Text(vText.roomsEmpty, textAlign: TextAlign.center),
-                  ),
-                )
+              ? EmptyState(icon: Icons.square_foot, text: vText.roomsEmpty)
               : ListView(
+                  padding: const EdgeInsets.only(top: 8, bottom: 96),
                   children: [
+                    _Summary(worksite: vWorksite, onShopping: () => _openShopping(pContext)),
                     for (final vRoom in vWorksite.rooms)
-                      ListTile(
-                        leading: const Icon(Icons.crop_square),
-                        title: Text(vRoom.name),
-                        subtitle: Text(
-                          [
-                            vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom))),
-                            if (vWorksite.prices.isNotEmpty)
-                              vText.roomCost(formatEuros(roomCost(vRoom, vWorksite.prices))),
-                          ].join(' · '),
-                        ),
-                        onTap: () => _open(pContext, vRoom.id),
-                        trailing: IconButton(
-                          tooltip: vText.delete,
-                          icon: const Icon(Icons.delete_outline),
-                          onPressed: () async {
-                            if (await confirmDelete(pContext, vRoom.name)) {
-                              await controller.deleteRoom(worksiteId, vRoom.id);
-                            }
-                          },
+                      Card(
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
+                          leading: PlanThumbnail(room: vRoom, icon: Icons.square_foot),
+                          title: Text(vRoom.name, style: Theme.of(pContext).textTheme.titleMedium),
+                          subtitle: _RoomSubtitle(
+                            text: [
+                              vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom))),
+                              if (vWorksite.prices.isNotEmpty)
+                                vText.roomCost(formatEuros(roomCost(vRoom, vWorksite.prices))),
+                            ].join(' · '),
+                            progress: roomProgress(vRoom),
+                          ),
+                          onTap: () => _open(pContext, vRoom.id),
+                          trailing: IconButton(
+                            tooltip: vText.delete,
+                            icon: const Icon(Icons.delete_outline),
+                            onPressed: () async {
+                              if (await confirmDelete(pContext, vRoom.name)) {
+                                await controller.deleteRoom(worksiteId, vRoom.id);
+                              }
+                            },
+                          ),
                         ),
                       ),
                   ],
                 ),
         );
       },
+    );
+  }
+}
+
+/// Résumé du chantier : surface, budget et accès direct aux courses.
+class _Summary extends StatelessWidget {
+  const _Summary({required this.worksite, required this.onShopping});
+
+  final Worksite worksite;
+  final VoidCallback onShopping;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vArea = worksite.rooms.fold(0.0, (pSum, pRoom) => pSum + floorAreaM2(pRoom));
+    final vLines = shoppingList(worksite);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BigFigure(vText.totalArea(formatSquareMetres(vArea))),
+            IconLine(Icons.door_front_door_outlined, vText.roomCount(worksite.rooms.length)),
+            if (worksite.prices.isNotEmpty)
+              IconLine(Icons.euro, vText.budgetTotal(formatEuros(budgetTotal(vLines)))),
+            const SizedBox(height: 8),
+            FilledButton.tonalIcon(
+              onPressed: onShopping,
+              icon: const Icon(Icons.shopping_cart_outlined),
+              label: Text(vText.shoppingTitle),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Surface, coût et barre d'avancement d'une pièce.
+class _RoomSubtitle extends StatelessWidget {
+  const _RoomSubtitle({required this.text, required this.progress});
+
+  final String text;
+  final RoomProgress progress;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(text),
+        if (progress.total > 0) ...[
+          const SizedBox(height: 6),
+          LinearProgressIndicator(
+            value: progress.ratio,
+            semanticsLabel: vText.roomProgress(progress.done, progress.total),
+          ),
+        ],
+      ],
     );
   }
 }

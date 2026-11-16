@@ -69,4 +69,24 @@ void main() {
     expect(find.textContaining('12,00 m²'), findsWidgets);
     expect(vStorage.saved.single.rooms.single.walls, hasLength(4));
   });
+
+  testWidgets('« Mur suivant » enchaîne la saisie des murs', (pTester) async {
+    await vController.load();
+    await pTester.pumpWidget(AtelierApp(controller: vController));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.text('Nouveau chantier'));
+    await fillAndSave(pTester, 'Maison');
+    await pTester.tap(find.text('Nouvelle pièce'));
+    await fillAndSave(pTester, 'Entrée');
+
+    await pTester.tap(find.text('Ajouter un mur'));
+    await pTester.pumpAndSettle();
+    await pTester.enterText(find.byType(TextField).first, '250');
+    await pTester.tap(find.text('Mur suivant'));
+    await pTester.pumpAndSettle();
+    expect(find.text('Mur 2'), findsWidgets);
+    await fillAndSave(pTester, '180');
+
+    expect(vStorage.saved.single.rooms.single.walls.map((pWall) => pWall.lengthMm), [2500, 1800]);
+  });
 }

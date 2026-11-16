@@ -2,6 +2,14 @@
 
 ## Non publié
 
+### Habillage et prise en main
+- Thème propre à Atelier : vert sapin, jaune mètre ruban réservé aux mesures, polices Barlow embarquées, thème sombre accordé
+- Plan coté sur papier quadrillé : cotes jaunes, numéros des murs, portes avec leur ouverture, obstacles hachurés
+- Vignette de la forme de chaque pièce dans les listes, résumé du chantier (surface, budget, accès direct aux courses), avancement de chaque pièce
+- Aperçu des rangées en lames de chêne, plus foncées une fois posées
+- Icônes sur les onglets, les résultats et les outils du guide
+- Saisie des murs à la suite : « Mur suivant » enregistre et ouvre le mur d'après, la touche Entrée aussi
+
 ### Captures d'écran
 - Captures d'un chantier fictif à la taille d'un téléphone, en thème clair et sombre, refaites par le workflow Captures et montrées dans le README
 - Bandeau « debug » retiré
