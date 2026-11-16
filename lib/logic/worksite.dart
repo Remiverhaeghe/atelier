@@ -1,6 +1,7 @@
 /// Chantier : un nom et des pièces.
 library;
 
+import 'expenses.dart';
 import 'goals.dart';
 import 'room.dart';
 
@@ -15,6 +16,7 @@ class Worksite {
     this.goalsReached = 0,
     this.ownedTools = const [],
     this.stock = const {},
+    this.expenses = const [],
   });
 
   final String id;
@@ -39,6 +41,9 @@ class Worksite {
   /// Articles déjà en stock, par nom d'article (voir ShoppingItem).
   final Map<String, int> stock;
 
+  /// Achats réellement faits.
+  final List<Expense> expenses;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -49,6 +54,7 @@ class Worksite {
     int? goalsReached,
     List<String>? ownedTools,
     Map<String, int>? stock,
+    List<Expense>? expenses,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -59,6 +65,7 @@ class Worksite {
     goalsReached: goalsReached ?? this.goalsReached,
     ownedTools: ownedTools ?? this.ownedTools,
     stock: stock ?? this.stock,
+    expenses: expenses ?? this.expenses,
   );
 
   Map<String, Object?> toJson() => {
@@ -71,6 +78,7 @@ class Worksite {
     'goalsReached': goalsReached,
     if (ownedTools.isNotEmpty) 'ownedTools': ownedTools,
     if (stock.isNotEmpty) 'stock': stock,
+    if (expenses.isNotEmpty) 'expenses': [for (final vExpense in expenses) vExpense.toJson()],
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -94,5 +102,9 @@ class Worksite {
       for (final vEntry in ((pJson['stock'] as Map<String, Object?>?) ?? const {}).entries)
         vEntry.key: vEntry.value! as int,
     },
+    expenses: [
+      for (final vExpense in (pJson['expenses'] as List<Object?>?) ?? const [])
+        Expense.fromJson(vExpense! as Map<String, Object?>),
+    ],
   );
 }
