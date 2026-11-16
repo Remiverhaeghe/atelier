@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Plexis et relevé thermique
+- Le relevé thermique d'une pièce à plexis de toit les rappelle en tête, et ouvre le calcul du cadre qui les remplacera
+
 ### Électricité du plan
 - Tuile « Électricité du plan » : circuits de prises et d'éclairage, gaines, fils et boîtes d'après les prises et interrupteurs posés sur les plans
 
