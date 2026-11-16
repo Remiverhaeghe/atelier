@@ -22,6 +22,10 @@ Désinstaller l'application efface ces données.
 
 Une photo passe par l'appareil photo ou la galerie du téléphone, à votre demande. Atelier ne demande pas la permission caméra et ne lit pas votre galerie en dehors de l'image que vous choisissez.
 
+## Lecture à voix haute
+
+Le mode chantier lit la prochaine coupe avec le moteur de synthèse vocale installé sur le téléphone. Le texte lu ne quitte pas l'appareil par Atelier.
+
 ## Partage
 
 Les données ne quittent le téléphone que si vous le décidez : export d'un chantier, d'un plan ou d'un PDF, que vous envoyez ensuite par l'application de votre choix. Ce qui se passe après dépend de cette application.

@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 47. **Mode chantier** : gros boutons, écran allumé, lecture vocale de l'étape et de la coupe suivante.
 - 48. **Liste de coupes imprimable** : plinthes et parquet triés par longueur, PDF par pièce.
 - 49. **Chutes réutilisables** : chutes gardées et proposées pour la rangée suivante ou une autre pièce.
 - 50. **Export Home Assistant** : pièces, prises et interrupteurs au format de ses zones.
