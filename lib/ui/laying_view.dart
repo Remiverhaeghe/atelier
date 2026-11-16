@@ -35,10 +35,6 @@ class LayingView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.only(bottom: 96),
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-          child: LayingPreview(plan: vPlan, laidRows: room.laidRows),
-        ),
         ListTile(
           title: Text(
             vText.layingSummary(vPlan.rows.length, vPlan.planksUsed),
@@ -51,6 +47,10 @@ class LayingView extends StatelessWidget {
           child: LinearProgressIndicator(value: vPlan.rows.isEmpty ? 0 : vDone / vPlan.rows.length),
         ),
         ListTile(dense: true, title: Text(vText.layingProgress(vDone, vPlan.rows.length))),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: LayingPreview(plan: vPlan, laidRows: room.laidRows),
+        ),
         if (vProblems.isNotEmpty)
           ListTile(
             leading: Icon(Icons.warning_amber, color: vTheme.colorScheme.error),

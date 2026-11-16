@@ -26,7 +26,7 @@ void main() {
     await pTester.tap(find.byType(Checkbox).first);
     await pTester.pump();
     expect(vRoom.laidRows, [1]);
-    await pTester.drag(verticalList(), const Offset(0, 300));
+    await pTester.drag(verticalList(), const Offset(0, 3000));
     await pTester.pump();
     expect(find.text('1 rangée posée sur 16'), findsOneWidget);
 
