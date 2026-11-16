@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 52. **Thème et taille de texte** réglables depuis « À propos ».
 - 53. **Captures par le test d'intégration** pour la fiche du Play Store.
 - 54. **Sauvegarde par le partage Android** avec rappel hebdomadaire.
 - 55. **Location ou achat d'outil** : à partir de combien de jours acheter.

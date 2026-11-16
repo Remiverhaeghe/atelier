@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Affichage
+- Dans « À propos » : thème du téléphone, clair ou sombre, et taille du texte normale, grande ou très grande
+- Réglages gardés dans un petit fichier, lus avant le premier affichage
+
 ### Export 3D
 - « Exporter la maison en 3D (glTF) » : sols, murs, portes et fenêtres, étages empilés, en mètres
 - Fichier .gltf autonome, lisible par Blender, Sweet Home 3D (après conversion) ou un visualiseur web
