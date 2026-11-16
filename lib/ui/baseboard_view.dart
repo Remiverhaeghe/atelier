@@ -9,6 +9,7 @@ import 'dialogs.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
 import 'theme.dart';
+import 'cut_diagram.dart';
 
 /// Texte d'une coupe de bout de plinthe.
 String cutLabel(AppLocalizations pText, EndCut pCut) => switch (pCut.kind) {
@@ -168,7 +169,7 @@ class _BaseboardViewState extends State<BaseboardView> {
         ),
         ListTile(
           title: Text(vText.cutProgress(vDone, vPieces.length)),
-          subtitle: Text(vText.baseboardHelp),
+          subtitle: Text('${vText.baseboardHelp}\n${vText.cutDiagramHelp}'),
         ),
         for (var vIndex = 0; vIndex < vPieces.length; vIndex++)
           CheckboxListTile(
@@ -183,14 +184,21 @@ class _BaseboardViewState extends State<BaseboardView> {
                 formatCentimetres(vPieces[vIndex].lengthMm),
               ),
             ),
-            subtitle: Text(
-              [
-                vText.pieceCuts(
-                  cutLabel(vText, vPieces[vIndex].startCut),
-                  cutLabel(vText, vPieces[vIndex].endCut),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  [
+                    vText.pieceCuts(
+                      cutLabel(vText, vPieces[vIndex].startCut),
+                      cutLabel(vText, vPieces[vIndex].endCut),
+                    ),
+                    if (vBars.barOf(vIndex) != null) vText.pieceInBar(vBars.barOf(vIndex)!),
+                  ].join('\n'),
                 ),
-                if (vBars.barOf(vIndex) != null) vText.pieceInBar(vBars.barOf(vIndex)!),
-              ].join('\n'),
+                const SizedBox(height: 6),
+                CutDiagram(piece: vPieces[vIndex]),
+              ],
             ),
           ),
       ],

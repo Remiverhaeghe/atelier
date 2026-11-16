@@ -33,6 +33,35 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "cutDiagramLabel": "Schéma de la coupe du morceau",
+  "cutBack": "Dos, contre le guide de la scie",
+  "cutFace": "Face, vers toi",
+  "squareCutShort": "droit",
+  "degrees": "{angle}°",
+  "@degrees": {
+    "placeholders": {
+      "angle": {
+        "type": "String"
+      }
+    }
+  },
+  "cutDiagramHelp": "Chaque schéma montre la plinthe vue de dessus, posée debout sur la scie à onglet : la lame suit le trait jaune, ce qui dépasse part en chute.",
+  "measureAngle": "Mesurer l'angle",
+  "measureAngleHelp": "Fais un repère sur chaque mur à 50 cm du coin, au ras du sol, puis mesure l'écart entre les deux repères.",
+  "markOnWall": "Repère sur ce mur",
+  "markOnNextWall": "Repère sur le mur suivant",
+  "markGap": "Écart entre les repères",
+  "outsideCornerMeasure": "Coin sortant (repères pris à l'extérieur)",
+  "measuredAngle": "Angle du coin : {angle}°",
+  "@measuredAngle": {
+    "placeholders": {
+      "angle": {
+        "type": "String"
+      }
+    }
+  },
+  "impossibleTriangle": "Ces trois mesures ne forment pas un triangle : vérifie-les.",
+  "useAngle": "Utiliser cet angle",
   "tabTouchUps": "Reprises",
   "touchUpsEmpty": "Rien à reprendre ici pour l'instant. Note ce qu'il reste à faire, même sans avoir saisi les murs.",
   "addTouchUp": "Ajouter une reprise",
