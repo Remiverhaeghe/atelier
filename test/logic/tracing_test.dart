@@ -48,9 +48,6 @@ void main() {
     ], 10);
     expect(vWalls.any((pWall) => pWall.angleToNextDeg % 45 != 0), isTrue);
     expect(wallsFromCorners(const [PlanPoint(0, 0), PlanPoint(1, 1)], 10), isEmpty);
-    expect(
-      wallsFromCorners(const [PlanPoint(0, 0), PlanPoint(1, 1), PlanPoint(2, 0)], 0),
-      isEmpty,
-    );
+    expect(wallsFromCorners(const [PlanPoint(0, 0), PlanPoint(1, 1), PlanPoint(2, 0)], 0), isEmpty);
   });
 }
