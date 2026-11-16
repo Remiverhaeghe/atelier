@@ -31,7 +31,7 @@ StairDesign designStair(int pRiseMm, {int? pTremieMm}) {
   final vTreads = math.max(vPlan.risers - 1, 0);
   // Marches dont le nez passe à moins de 1,90 m sous le plancher du haut
   final vClear = (pRiseMm - upperFloorMm - minHeadroomMm) / vPlan.riserMm;
-  final vOpenTreads = (vTreads - math.max(0, vClear.floor())).clamp(0, vTreads);
+  final vOpenTreads = (vTreads - math.max(0, vClear.floor())).clamp(0, vTreads).toInt();
   final vTremie = vOpenTreads * vPlan.goingMm;
   final rDesign = (
     plan: vPlan,
