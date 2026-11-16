@@ -154,7 +154,7 @@ Map<PaintProduct, double> paintLitres(Room pRoom, PaintSettings pSettings) {
   double vLitres(double pArea, int pCoats, double pCoverage) =>
       pCoverage <= 0 ? 0 : pArea * pCoats / pCoverage * vExtra;
   final vPrimed =
-      (pSettings.walls ? vAreas.wallsM2 : 0) + (pSettings.ceiling ? vAreas.ceilingM2 : 0);
+      (pSettings.walls ? vAreas.wallsM2 : 0.0) + (pSettings.ceiling ? vAreas.ceilingM2 : 0.0);
   final rLitres = {
     if (pSettings.walls)
       PaintProduct.walls: vLitres(vAreas.wallsM2, pSettings.coats, pSettings.coverageM2PerL),

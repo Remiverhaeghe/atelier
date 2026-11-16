@@ -58,7 +58,7 @@ void main() {
 
     expect(cheapestPots(7.7, vSizes, const {}), {10.0: 1});
     expect(cheapestPots(12, vSizes, const {}), {10.0: 1, 2.5: 1});
-    expect(cheapestPots(7.7, vSizes, const {10.0: 80, 5.0: 30, 2.5: 18}), {5.0: 2});
+    expect(cheapestPots(7.7, vSizes, {10.0: 80, 5.0: 30, 2.5: 18}), {5.0: 2});
     expect(cheapestPots(0.9, potSizes[PaintProduct.woodwork]!, const {}), {1.0: 1});
     expect(cheapestPots(0, vSizes, const {}), isEmpty);
   });
