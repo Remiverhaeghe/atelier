@@ -7,7 +7,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
 - 102 bis. **Lecture directe de la photo du ticket** : demande ML Kit, qui ajoute des dépendances Google Play et peut-être une permission réseau. À décider ; en attendant, le texte copié depuis la photo est lu dans l'appli.
-- 107. **Télémètre laser Bluetooth** (modèle à préciser).
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 

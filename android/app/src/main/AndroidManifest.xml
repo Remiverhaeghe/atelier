@@ -5,6 +5,17 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Commandes vocales du mode chantier : le micro, seulement quand on appuie dessus. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Télémètre laser en Bluetooth : recherche sans localisation sur Android 12 et plus,
+         localisation demandée seulement par Android 11 et avant pour chercher un appareil. -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
+        android:maxSdkVersion="30" />
     <!-- Lecture à voix haute du mode chantier : le moteur de synthèse vocale du téléphone. -->
     <queries>
         <intent>

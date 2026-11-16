@@ -26,6 +26,8 @@ La permission de notification sert seulement à prévenir de la fin d'une attent
 
 Le micro sert aux commandes vocales du mode chantier, seulement après un appui sur le bouton micro. La phrase est reconnue par le service de reconnaissance vocale du téléphone (celui de Google sur la plupart des appareils, qui peut l'envoyer à ses serveurs si le français n'est pas installé hors ligne). Atelier ne garde que l'action comprise, jamais l'enregistrement.
 
+Le Bluetooth sert seulement à relier un télémètre laser, quand vous ouvrez la mesure au télémètre. Atelier lit la distance mesurée et rien d'autre. Sur Android 11 et avant, le système demande aussi la localisation pour chercher un appareil Bluetooth ; Atelier ne lit pas votre position.
+
 ## Lecture à voix haute
 
 Le mode chantier lit la prochaine coupe avec le moteur de synthèse vocale installé sur le téléphone. Le texte lu ne quitte pas l'appareil par Atelier.
