@@ -3,10 +3,15 @@
     <!-- Notifications de fin d'attente, reprogrammées après un redémarrage du téléphone. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Commandes vocales du mode chantier : le micro, seulement quand on appuie dessus. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Lecture à voix haute du mode chantier : le moteur de synthèse vocale du téléphone. -->
     <queries>
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
         </intent>
     </queries>
     <application

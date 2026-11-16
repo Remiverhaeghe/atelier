@@ -2133,5 +2133,11 @@
   "widgetGoal": "Objectif du jour : {done} sur {total}",
   "@widgetGoal": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
   "widgetWait": "{hours, plural, =1{Prochaine attente finie dans 1 heure} other{Prochaine attente finie dans {hours} heures}}",
-  "@widgetWait": {"placeholders": {"hours": {"type": "int"}}}
+  "@widgetWait": {"placeholders": {"hours": {"type": "int"}}},
+  "voiceListen": "Commande vocale",
+  "voiceHelp": "Micro en haut : dites « coupe faite », « répète la rangée » ou juste « fait ».",
+  "voiceNotUnderstood": "Pas compris : « {heard} ». Essayez « coupe faite » ou « répète la rangée ».",
+  "@voiceNotUnderstood": {"placeholders": {"heard": {"type": "String"}}},
+  "voiceNoted": "C'est noté.",
+  "voiceNothingLeft": "Il ne reste rien à faire de ce côté."
 }
