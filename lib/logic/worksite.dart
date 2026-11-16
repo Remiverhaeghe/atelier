@@ -3,6 +3,7 @@ library;
 
 import 'expenses.dart';
 import 'goals.dart';
+import 'journal.dart';
 import 'offcuts.dart';
 import 'room.dart';
 import 'time_tracking.dart';
@@ -26,6 +27,7 @@ class Worksite {
     this.storePrices = const {},
     this.timeEntries = const [],
     this.timer,
+    this.journal = const [],
   });
 
   final String id;
@@ -72,6 +74,9 @@ class Worksite {
   /// Chrono en cours, gardé même si l'appli est fermée.
   final RunningTimer? timer;
 
+  /// Carnet de la maison : travaux faits, produits, photos et factures.
+  final List<JournalEntry> journal;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -91,6 +96,7 @@ class Worksite {
     List<TimeEntry>? timeEntries,
     RunningTimer? timer,
     bool clearTimer = false,
+    List<JournalEntry>? journal,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -109,6 +115,7 @@ class Worksite {
     storePrices: storePrices ?? this.storePrices,
     timeEntries: timeEntries ?? this.timeEntries,
     timer: clearTimer ? null : timer ?? this.timer,
+    journal: journal ?? this.journal,
   );
 
   Map<String, Object?> toJson() => {
@@ -129,6 +136,7 @@ class Worksite {
     if (storePrices.isNotEmpty) 'storePrices': storePrices,
     if (timeEntries.isNotEmpty) 'timeEntries': [for (final vEntry in timeEntries) vEntry.toJson()],
     if (timer != null) 'timer': timer!.toJson(),
+    if (journal.isNotEmpty) 'journal': [for (final vEntry in journal) vEntry.toJson()],
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -178,6 +186,10 @@ class Worksite {
       final Map<String, Object?> vTimer => RunningTimer.fromJson(vTimer),
       _ => null,
     },
+    journal: [
+      for (final vEntry in (pJson['journal'] as List<Object?>?) ?? const [])
+        JournalEntry.fromJson(vEntry! as Map<String, Object?>),
+    ],
   );
 }
 
