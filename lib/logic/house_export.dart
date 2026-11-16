@@ -31,7 +31,11 @@ Map<String, Object?> _room(Room pRoom) {
     'ceilingHeight': pRoom.ceilingHeightMm,
     // Plafond rampant, ajouté sans changer de version
     if (pRoom.slope != null)
-      'slope': {'wall': pRoom.slope!.wallIndex, 'low': pRoom.slope!.lowMm, 'run': pRoom.slope!.runMm},
+      'slope': {
+        'wall': pRoom.slope!.wallIndex,
+        'low': pRoom.slope!.lowMm,
+        'run': pRoom.slope!.runMm,
+      },
     // Place dans la maison : quarts de tour puis décalage, ajoutés sans changer de version
     'house': {'x': pRoom.houseXMm, 'y': pRoom.houseYMm, 'quarterTurns': pRoom.houseQuarterTurns},
     'floorArea': (floorAreaM2(pRoom) * 1e6).round(),
