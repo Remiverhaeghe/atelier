@@ -40,12 +40,20 @@ class _DrywallCalculatorState extends State<DrywallCalculator> {
                   IconLine(Icons.crop_free, vText.totalArea(formatDecimal(vNeeds.areaM2))),
                   IconLine(Icons.straighten, vText.drywallFrame(vNeeds.rails, vNeeds.studs)),
                   IconLine(Icons.hardware_outlined, vText.drywallScrews(vNeeds.screws)),
-                  IconLine(Icons.format_paint_outlined, vText.drywallJoints(vNeeds.tapeRolls, vNeeds.fillerBags)),
+                  IconLine(
+                    Icons.format_paint_outlined,
+                    vText.drywallJoints(vNeeds.tapeRolls, vNeeds.fillerBags),
+                  ),
                   if (vNeeds.insulationRolls > 0) ...[
-                    IconLine(Icons.layers_outlined, vText.drywallInsulation(vNeeds.insulationRolls)),
+                    IconLine(
+                      Icons.layers_outlined,
+                      vText.drywallInsulation(vNeeds.insulationRolls),
+                    ),
                     IconLine(
                       Icons.thermostat_outlined,
-                      vText.drywallResistance(formatDecimal((vNeeds.resistance * 100).round() / 100)),
+                      vText.drywallResistance(
+                        formatDecimal((vNeeds.resistance * 100).round() / 100),
+                      ),
                     ),
                   ],
                   const SizedBox(height: 4),
@@ -63,8 +71,16 @@ class _DrywallCalculatorState extends State<DrywallCalculator> {
             onChanged: (pValue) => vSet(_design.copyWith(partition: pValue)),
           ),
           for (final (vLabel, vValue, vApply) in [
-            (vText.drywallLength, _design.lengthMm, (int pValue) => _design.copyWith(lengthMm: pValue)),
-            (vText.drywallHeight, _design.heightMm, (int pValue) => _design.copyWith(heightMm: pValue)),
+            (
+              vText.drywallLength,
+              _design.lengthMm,
+              (int pValue) => _design.copyWith(lengthMm: pValue),
+            ),
+            (
+              vText.drywallHeight,
+              _design.heightMm,
+              (int pValue) => _design.copyWith(heightMm: pValue),
+            ),
             (
               vText.drywallSpacing,
               _design.studSpacingMm,
