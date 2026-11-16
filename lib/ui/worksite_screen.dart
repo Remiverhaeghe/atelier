@@ -134,7 +134,8 @@ class WorksiteScreen extends StatelessWidget {
                       Navigator.push(
                         pContext,
                         MaterialPageRoute<void>(
-                          builder: (_) => PlexiScreen(controller: controller, worksiteId: worksiteId),
+                          builder: (_) =>
+                              PlexiScreen(controller: controller, worksiteId: worksiteId),
                         ),
                       );
                     case 'offcuts':

@@ -60,7 +60,10 @@ void main() {
 
   testWidgets('sans plexi, l\'écran explique comment en marquer un', (pTester) async {
     final vController = WorksitesController(
-      MemoryStorage()..saved = [Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom()])],
+      MemoryStorage()
+        ..saved = [
+          Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom()]),
+        ],
     );
     await vController.load();
     await pTester.pumpWidget(localized(PlexiScreen(controller: vController, worksiteId: 'w')));
