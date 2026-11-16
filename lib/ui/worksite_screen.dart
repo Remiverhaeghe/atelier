@@ -15,6 +15,7 @@ import 'shopping_texts.dart';
 import 'plan_thumbnail.dart';
 import 'planning_card.dart';
 import 'theme.dart';
+import 'time_screen.dart';
 import 'transfer.dart';
 import 'goal_card.dart';
 import 'house_screen.dart';
@@ -78,6 +79,16 @@ class WorksiteScreen extends StatelessWidget {
                 onPressed: () => Navigator.push(
                   pContext,
                   MaterialPageRoute<void>(builder: (_) => AchievementsScreen(worksite: vWorksite)),
+                ),
+              ),
+              IconButton(
+                tooltip: vText.timeTitle,
+                icon: const Icon(Icons.timer_outlined),
+                onPressed: () => Navigator.push(
+                  pContext,
+                  MaterialPageRoute<void>(
+                    builder: (_) => TimeScreen(controller: controller, worksiteId: worksiteId),
+                  ),
                 ),
               ),
               IconButton(
