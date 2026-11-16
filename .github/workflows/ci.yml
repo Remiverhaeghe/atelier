@@ -81,7 +81,12 @@ jobs:
       # Seuls build.gradle.kts et le manifeste sont versionnés : le reste du
       # dossier android (Gradle, icônes, MainActivity) est recréé ici.
       - name: Fichiers Android
-        run: flutter create --platforms=android --org fr.remiverhaeghe --project-name atelier .
+        run: |
+          flutter create --platforms=android --org fr.remiverhaeghe --project-name atelier .
+          flutter pub get
+          # Icône et écran de démarrage dans les ressources Android recréées
+          dart run flutter_launcher_icons
+          dart run flutter_native_splash:create
 
       # Signature avec la clé personnelle si les secrets existent : l'APK remplace
       # alors celle installée. Sinon, clé de débogage.
