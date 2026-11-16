@@ -24,6 +24,7 @@ import 'heating_screen.dart';
 import 'house_screen.dart';
 import 'journal_screen.dart';
 import 'living_area_screen.dart';
+import 'moisture_screen.dart';
 import 'offcuts_screen.dart';
 import 'plexi_screen.dart';
 import 'reminders_card.dart';
@@ -230,6 +231,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.local_fire_department_outlined,
         vText.heatTitle,
         () => HeatingScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.water_drop_outlined,
+        vText.moistureMenu,
+        () => MoistureScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.timer_outlined,
