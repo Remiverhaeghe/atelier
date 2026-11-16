@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Échéancier du budget
+- Dans les courses : dépenses mois par mois, somme mise de côté chaque mois, et le reste à payer étalé jusqu'au mois où tout sera réglé
+
 ### Douche de plain-pied
 - Nouveau calcul : pente de 2 % vers la bonde ou le caniveau, hauteur à réserver au-dessus de la dalle avec le siphon et la pente du tuyau, surfaces d'étanchéité sous carrelage et bandes d'angle
 
