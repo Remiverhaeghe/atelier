@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Calculs : jardin
+- Pelouse semée ou en rouleaux, terre végétale et paillage des massifs, nombre de plants
+
 ### Calculs : étagère sur mesure
 - Nouvel écran « Calculs », depuis « Mes chantiers »
 - Étagère : liste de débit (montants, tablettes, fond), panneaux à acheter, vis, écart entre tablettes
