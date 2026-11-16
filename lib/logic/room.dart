@@ -18,6 +18,20 @@ int defaultOpeningHeightMm(OpeningKind pKind) => pKind == OpeningKind.window ? 1
 const defaultSillMm = 900;
 
 /// Élément qui gêne la pose : zone sans parquet ou plinthe interrompue.
+/// Usage de la pièce, qui décide de ce qui compte en surface habitable et en Loi Carrez.
+enum RoomUsage {
+  habitable,
+
+  /// Combles non aménagés : hors surface habitable, comptés en Loi Carrez au-dessus de 1,80 m.
+  attic,
+  cellar,
+  garage,
+  veranda,
+
+  /// Balcon, terrasse ou loggia.
+  outdoor,
+}
+
 enum ObstacleKind { radiator, pipe, cupboard, fireplace, stairFoot }
 
 /// Porte, passage ou fenêtre, placé depuis le début du mur.
@@ -177,6 +191,7 @@ class Room {
     this.fixtures = const [],
     this.slope,
     this.level = 0,
+    this.usage = RoomUsage.habitable,
   });
 
   final String id;
@@ -219,6 +234,9 @@ class Room {
   /// Niveau de la maison : 0 pour le rez-de-chaussée, 1 pour le premier étage, -1 pour le sous-sol.
   final int level;
 
+  /// Usage de la pièce : habitable par défaut.
+  final RoomUsage usage;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -239,6 +257,7 @@ class Room {
     Slope? slope,
     bool clearSlope = false,
     int? level,
+    RoomUsage? usage,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -259,6 +278,7 @@ class Room {
     fixtures: fixtures ?? this.fixtures,
     slope: clearSlope ? null : (slope ?? this.slope),
     level: level ?? this.level,
+    usage: usage ?? this.usage,
   );
 
   Map<String, Object?> toJson() => {
@@ -281,6 +301,7 @@ class Room {
     if (fixtures.isNotEmpty) 'fixtures': [for (final vFixture in fixtures) vFixture.toJson()],
     if (slope != null) 'slope': slope!.toJson(),
     if (level != 0) 'level': level,
+    if (usage != RoomUsage.habitable) 'usage': usage.name,
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -325,5 +346,6 @@ class Room {
     ],
     slope: pJson['slope'] == null ? null : Slope.fromJson(pJson['slope']! as Map<String, Object?>),
     level: (pJson['level'] as int?) ?? 0,
+    usage: RoomUsage.values.asNameMap()[pJson['usage']] ?? RoomUsage.habitable,
   );
 }
