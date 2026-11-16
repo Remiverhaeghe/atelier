@@ -38,7 +38,8 @@ class _BackupsScreenState extends State<BackupsScreen> {
       return;
     }
     try {
-      await widget.controller.replaceAll(WorksiteStore.decode(await pBackup.file.readAsString()));
+      // Petit fichier : lu d'un coup, sans attendre
+      await widget.controller.replaceAll(WorksiteStore.decode(pBackup.file.readAsStringSync()));
       vMessenger.showSnackBar(SnackBar(content: Text(vText.backupRestored(pBackup.day))));
     } on FormatException {
       vMessenger.showSnackBar(SnackBar(content: Text(vText.importFailed)));
