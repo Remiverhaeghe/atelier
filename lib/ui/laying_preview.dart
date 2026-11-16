@@ -3,7 +3,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/geometry.dart';
 import '../logic/laying_plan.dart';
+import '../logic/room.dart';
+import 'room_plan.dart';
 import 'theme.dart';
 
 /// Aperçu du plan de pose : chaque rangée en lames de chêne, plus foncées une fois posées.
@@ -123,4 +126,77 @@ class _LayingPainter extends CustomPainter {
   @override
   bool shouldRepaint(_LayingPainter pOld) =>
       pOld.plan != plan || pOld.laidRows != laidRows || pOld.colors != colors;
+}
+
+/// Motif de point de Hongrie dessiné dans la pièce : chevrons de lames à 45°, axe au centre.
+class HerringbonePreview extends StatelessWidget {
+  const HerringbonePreview({super.key, required this.room});
+
+  final Room room;
+
+  @override
+  Widget build(BuildContext context) {
+    final vTheme = Theme.of(context);
+
+    return AspectRatio(
+      aspectRatio: 4 / 3,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: vTheme.colorScheme.surfaceContainerLowest,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: vTheme.colorScheme.outlineVariant),
+        ),
+        child: CustomPaint(
+          painter: _HerringbonePainter(room: room, colors: AtelierColors.of(context)),
+        ),
+      ),
+    );
+  }
+}
+
+class _HerringbonePainter extends CustomPainter {
+  _HerringbonePainter({required this.room, required this.colors});
+
+  final Room room;
+  final AtelierColors colors;
+
+  @override
+  void paint(Canvas pCanvas, Size pSize) {
+    if (room.walls.length < 3) {
+      return;
+    }
+    final vFrame = PlanFrame(room, pSize, pMargin: 12);
+    final vPath = Path()
+      ..addPolygon([for (final vPoint in outline(room)) vFrame.toScreen(vPoint.x, vPoint.y)], true);
+    pCanvas.drawPath(vPath, Paint()..color = colors.wood);
+    pCanvas.save();
+    pCanvas.clipPath(vPath);
+    final vJoint = Paint()
+      ..color = colors.woodLaid
+      ..strokeWidth = 1.2;
+    // Lames de 60 × 9 cm environ à l'échelle : des chevrons qui montent vers l'axe central
+    final vStep = (90 * vFrame.scale).clamp(4.0, 40.0);
+    final vRise = vStep * 4;
+    for (var vX = -vRise; vX < pSize.width + vRise; vX += vRise) {
+      for (var vY = -vRise; vY < pSize.height + vRise; vY += vStep) {
+        pCanvas.drawLine(Offset(vX, vY), Offset(vX + vRise / 2, vY - vRise / 2), vJoint);
+        pCanvas.drawLine(Offset(vX + vRise / 2, vY - vRise / 2), Offset(vX + vRise, vY), vJoint);
+      }
+      final vAxis = Paint()
+        ..color = colors.woodLaid
+        ..strokeWidth = 2;
+      pCanvas.drawLine(Offset(vX + vRise / 2, 0), Offset(vX + vRise / 2, pSize.height), vAxis);
+    }
+    pCanvas.restore();
+    pCanvas.drawPath(
+      vPath,
+      Paint()
+        ..color = colors.ink
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_HerringbonePainter pOld) => pOld.room != room;
 }

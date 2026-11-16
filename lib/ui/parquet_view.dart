@@ -66,7 +66,16 @@ class ParquetView extends StatelessWidget {
           selected: selectedDirection(room, vDirections, vSettings.layingWallIndex),
           onSelected: (pDirection) =>
               _update(vSettings.copyWith(layingWallIndex: pDirection.wallIndex)),
+          extraDeg: layingAngleDeg(vSettings),
         ),
+        if (vSettings.type != ParquetType.herringbone)
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(vText.diagonalLaying),
+            subtitle: Text(vText.diagonalLayingHelp),
+            value: vSettings.diagonal,
+            onChanged: (pValue) => _update(vSettings.copyWith(diagonal: pValue)),
+          ),
         const SizedBox(height: 6),
         NumberField(
           key: ValueKey('plankLength-${vSettings.type}'),
