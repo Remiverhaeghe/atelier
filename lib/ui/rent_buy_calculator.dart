@@ -39,13 +39,18 @@ class _RentBuyCalculatorState extends State<RentBuyCalculator> {
                 children: [
                   Text(vText.resultsTitle, style: vTheme.textTheme.titleMedium),
                   IconLine(Icons.event_repeat, vText.rentCost(formatEuros(vResult.rentCost))),
-                  IconLine(Icons.shopping_bag_outlined, vText.buyCost(formatEuros(vResult.buyCost))),
+                  IconLine(
+                    Icons.shopping_bag_outlined,
+                    vText.buyCost(formatEuros(vResult.buyCost)),
+                  ),
                   if (vResult.breakEvenDays != null) ...[
                     IconLine(Icons.balance, vText.rentBreakEven(vResult.breakEvenDays!)),
                     const SizedBox(height: 8),
                     Text(
                       vResult.buy ? vText.rentVerdictBuy : vText.rentVerdictRent,
-                      style: vTheme.textTheme.titleMedium!.copyWith(color: vTheme.colorScheme.primary),
+                      style: vTheme.textTheme.titleMedium!.copyWith(
+                        color: vTheme.colorScheme.primary,
+                      ),
                     ),
                   ],
                 ],

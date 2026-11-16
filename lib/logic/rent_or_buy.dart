@@ -37,7 +37,9 @@ typedef RentOrBuyResult = ({double rentCost, double buyCost, int? breakEvenDays,
 RentOrBuyResult rentOrBuy(RentOrBuy pChoice) {
   final vRent = pChoice.dayRate * pChoice.days;
   final vBuy = pChoice.purchasePrice * (1 - pChoice.resalePercent.clamp(0, 100) / 100);
-  final vBreakEven = pChoice.dayRate <= 0 ? null : (vBuy / pChoice.dayRate - 1e-9).ceil().clamp(1, 1 << 30);
+  final vBreakEven = pChoice.dayRate <= 0
+      ? null
+      : (vBuy / pChoice.dayRate - 1e-9).ceil().clamp(1, 1 << 30);
   final rResult = (
     rentCost: vRent,
     buyCost: vBuy,
