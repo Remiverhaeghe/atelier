@@ -21,6 +21,6 @@ void main() {
     expect(loadFor(20, 3), FixingLoad.medium);
     expect(loadFor(2, 2), FixingLoad.light);
     expect(loadFor(100, 2), FixingLoad.heavy);
-    expect(loadFor(10, 0), FixingLoad.medium);
+    expect(loadFor(10, 0), FixingLoad.heavy);
   });
 }
