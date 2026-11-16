@@ -33,7 +33,14 @@ void main() {
       mezzanineLivingM2(
         rectangleRoom().copyWith(
           fixtures: const [
-            Fixture(id: 'n', kind: FixtureKind.mezzanine, xMm: 0, yMm: 0, widthMm: 1000, depthMm: 1000),
+            Fixture(
+              id: 'n',
+              kind: FixtureKind.mezzanine,
+              xMm: 0,
+              yMm: 0,
+              widthMm: 1000,
+              depthMm: 1000,
+            ),
           ],
         ),
       ),
