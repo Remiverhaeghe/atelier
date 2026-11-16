@@ -8,24 +8,37 @@ import '../support/rooms.dart';
 
 void main() {
   test('pièce droite : tout le sol compte, gaine et escalier retirés', () {
-    final vRoom = rectangleRoom(
-      pObstacles: const [
-        Obstacle(kind: ObstacleKind.pipe, wallIndex: 0, offsetMm: 0, widthMm: 200, depthMm: 500),
-        Obstacle(kind: ObstacleKind.cupboard, wallIndex: 1, offsetMm: 0, widthMm: 600, depthMm: 600),
-      ],
-    ).copyWith(
-      fixtures: const [
-        Fixture(
-          id: 'e',
-          kind: FixtureKind.stairs,
-          xMm: 3500,
-          yMm: 1500,
-          widthMm: 800,
-          depthMm: 2500,
-        ),
-        Fixture(id: 'p', kind: FixtureKind.socket, xMm: 0, yMm: 0),
-      ],
-    );
+    final vRoom =
+        rectangleRoom(
+          pObstacles: const [
+            Obstacle(
+              kind: ObstacleKind.pipe,
+              wallIndex: 0,
+              offsetMm: 0,
+              widthMm: 200,
+              depthMm: 500,
+            ),
+            Obstacle(
+              kind: ObstacleKind.cupboard,
+              wallIndex: 1,
+              offsetMm: 0,
+              widthMm: 600,
+              depthMm: 600,
+            ),
+          ],
+        ).copyWith(
+          fixtures: const [
+            Fixture(
+              id: 'e',
+              kind: FixtureKind.stairs,
+              xMm: 3500,
+              yMm: 1500,
+              widthMm: 800,
+              depthMm: 2500,
+            ),
+            Fixture(id: 'p', kind: FixtureKind.socket, xMm: 0, yMm: 0),
+          ],
+        );
     final vArea = roomLivingArea(vRoom);
 
     // 12 m² − 0,1 m² de gaine − 2 m² d'escalier ; le placard reste compté
@@ -48,7 +61,14 @@ void main() {
     final vUpstairs = rectangleRoom().copyWith(
       level: 1,
       fixtures: const [
-        Fixture(id: 't', kind: FixtureKind.stairwell, xMm: 500, yMm: 1500, widthMm: 900, depthMm: 2000),
+        Fixture(
+          id: 't',
+          kind: FixtureKind.stairwell,
+          xMm: 500,
+          yMm: 1500,
+          widthMm: 900,
+          depthMm: 2000,
+        ),
       ],
     );
     expect(roomLivingArea(vUpstairs).habitable, closeTo(10.2, 1e-9));
