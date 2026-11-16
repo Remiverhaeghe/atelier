@@ -105,6 +105,8 @@ class WorksiteScreen extends StatelessWidget {
                               HouseScreen(controller: controller, worksiteId: worksiteId),
                         ),
                       );
+                    case 'gltf':
+                      exportGltfFile(vWorksite);
                     case 'homeAssistant':
                       exportHomeAssistantFile(vWorksite);
                     case 'offcuts':
@@ -125,6 +127,7 @@ class WorksiteScreen extends StatelessWidget {
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
                   PopupMenuItem(value: 'house', child: Text(vText.houseTitle)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
+                  PopupMenuItem(value: 'gltf', child: Text(vText.exportGltf)),
                   PopupMenuItem(value: 'homeAssistant', child: Text(vText.exportHomeAssistant)),
                   PopupMenuItem(value: 'offcuts', child: Text(vText.offcutsTitle)),
                   PopupMenuItem(
