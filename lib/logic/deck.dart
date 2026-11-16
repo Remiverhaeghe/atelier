@@ -63,7 +63,16 @@ int _ceil(double pValue) => (pValue - 1e-9).ceil();
 
 DeckNeeds deckNeeds(DeckDesign pDesign) {
   if (pDesign.lengthMm <= 0 || pDesign.widthMm <= 0 || pDesign.boardWidthMm <= 0) {
-    return (areaM2: 0, rows: 0, boards: 0, joists: 0, joistSpacingMm: 0, joistBars: 0, plots: 0, screws: 0);
+    return (
+      areaM2: 0,
+      rows: 0,
+      boards: 0,
+      joists: 0,
+      joistSpacingMm: 0,
+      joistBars: 0,
+      plots: 0,
+      screws: 0,
+    );
   }
   final vRows = _ceil(pDesign.widthMm / (pDesign.boardWidthMm + pDesign.gapMm));
   final vLinear = vRows * pDesign.lengthMm * (1 + deckMarginPercent / 100);
@@ -77,7 +86,9 @@ DeckNeeds deckNeeds(DeckDesign pDesign) {
     boards: pDesign.boardLengthMm <= 0 ? 0 : _ceil(vLinear / pDesign.boardLengthMm),
     joists: vJoists,
     joistSpacingMm: vSpacing,
-    joistBars: pDesign.joistLengthMm <= 0 ? 0 : _ceil(vJoists * pDesign.widthMm / pDesign.joistLengthMm),
+    joistBars: pDesign.joistLengthMm <= 0
+        ? 0
+        : _ceil(vJoists * pDesign.widthMm / pDesign.joistLengthMm),
     plots: vJoists * vPlotsPerJoist,
     screws: vRows * vJoists * screwsPerCrossing,
   );
