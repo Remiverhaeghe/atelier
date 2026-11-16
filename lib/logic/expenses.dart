@@ -9,6 +9,7 @@ class Expense {
     required this.amount,
     required this.date,
     this.receiptPath,
+    this.items = const [],
   });
 
   final String id;
@@ -21,12 +22,16 @@ class Expense {
   final String date;
   final String? receiptPath;
 
+  /// Lignes de courses payées par ce ticket (noms des articles), pour retrouver la preuve d'achat.
+  final List<String> items;
+
   Map<String, Object?> toJson() => {
     'id': id,
     'label': label,
     'amount': amount,
     'date': date,
     if (receiptPath != null) 'receiptPath': receiptPath,
+    if (items.isNotEmpty) 'items': items,
   };
 
   static Expense fromJson(Map<String, Object?> pJson) => Expense(
@@ -35,7 +40,16 @@ class Expense {
     amount: (pJson['amount']! as num).toDouble(),
     date: pJson['date']! as String,
     receiptPath: pJson['receiptPath'] as String?,
+    items: [for (final vItem in (pJson['items'] as List<Object?>?) ?? const []) vItem! as String],
   );
+}
+
+/// Dernier ticket qui couvre l'article [pItem], pour une garantie ou un retour en magasin.
+Expense? expenseFor(List<Expense> pExpenses, String pItem) {
+  final vFound = pExpenses.where((pExpense) => pExpense.items.contains(pItem)).toList()
+    ..sort((pA, pB) => pA.date.compareTo(pB.date));
+
+  return vFound.lastOrNull;
 }
 
 /// Total payé.
