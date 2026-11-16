@@ -91,4 +91,24 @@ void main() {
     expect(vController.worksites.map((pWorksite) => pWorksite.id).toSet(), hasLength(3));
     expect(vController.worksites.last.name, 'Garage');
   });
+
+  test('annuler puis refaire un changement, enregistré à chaque fois', () async {
+    var vClock = DateTime(2026, 11, 17, 10);
+    final vStorage = MemoryStorage();
+    final vUndo = WorksitesController(vStorage, pNow: () => vClock);
+    await vUndo.load();
+    expect(vUndo.canUndo, isFalse);
+    final vSite = await vUndo.addWorksite('Maison');
+    vClock = vClock.add(const Duration(minutes: 1));
+    await vUndo.addRoom(vSite.id, 'Salon');
+    expect(vUndo.worksite(vSite.id)!.rooms, hasLength(1));
+
+    await vUndo.undo();
+    expect(vUndo.worksite(vSite.id)!.rooms, isEmpty);
+    expect(vStorage.saved.single.rooms, isEmpty);
+    expect(vUndo.canRedo, isTrue);
+
+    await vUndo.redo();
+    expect(vUndo.worksite(vSite.id)!.rooms.single.name, 'Salon');
+  });
 }
