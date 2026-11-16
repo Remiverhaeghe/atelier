@@ -42,7 +42,11 @@ class _TilingCalculatorState extends State<TilingCalculator> {
             height: 220,
             child: CustomPaint(
               size: Size.infinite,
-              painter: _TilingPainter(design: _design, needs: vNeeds, colors: AtelierColors.of(context)),
+              painter: _TilingPainter(
+                design: _design,
+                needs: vNeeds,
+                colors: AtelierColors.of(context),
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -54,7 +58,10 @@ class _TilingCalculatorState extends State<TilingCalculator> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BigFigure(vText.tilingBoxes(vNeeds.boxes)),
-                  IconLine(Icons.grid_on, vText.tilingTiles(vNeeds.tiles, formatDecimal(vNeeds.areaM2))),
+                  IconLine(
+                    Icons.grid_on,
+                    vText.tilingTiles(vNeeds.tiles, formatDecimal(vNeeds.areaM2)),
+                  ),
                   IconLine(Icons.swap_horiz, vText.tilingAlongLength(vCuts(vNeeds.alongLength))),
                   IconLine(Icons.swap_vert, vText.tilingAlongWidth(vCuts(vNeeds.alongWidth))),
                   IconLine(Icons.format_color_fill, vText.tilingGlue(vNeeds.glueKg)),
@@ -74,10 +81,22 @@ class _TilingCalculatorState extends State<TilingCalculator> {
             onChanged: (pValue) => vSet(_design.copyWith(centered: pValue)),
           ),
           for (final (vLabel, vValue, vApply) in [
-            (vText.tilingLength, _design.lengthMm, (int pValue) => _design.copyWith(lengthMm: pValue)),
+            (
+              vText.tilingLength,
+              _design.lengthMm,
+              (int pValue) => _design.copyWith(lengthMm: pValue),
+            ),
             (vText.tilingWidth, _design.widthMm, (int pValue) => _design.copyWith(widthMm: pValue)),
-            (vText.tileLength, _design.tileLengthMm, (int pValue) => _design.copyWith(tileLengthMm: pValue)),
-            (vText.tileWidth, _design.tileWidthMm, (int pValue) => _design.copyWith(tileWidthMm: pValue)),
+            (
+              vText.tileLength,
+              _design.tileLengthMm,
+              (int pValue) => _design.copyWith(tileLengthMm: pValue),
+            ),
+            (
+              vText.tileWidth,
+              _design.tileWidthMm,
+              (int pValue) => _design.copyWith(tileWidthMm: pValue),
+            ),
           ])
             NumberField(
               label: vLabel,
@@ -128,9 +147,10 @@ class _TilingPainter extends CustomPainter {
     if (design.lengthMm <= 0 || design.widthMm <= 0) {
       return;
     }
-    final vScale = [pSize.width / design.lengthMm, pSize.height / design.widthMm].reduce(
-      (pA, pB) => pA < pB ? pA : pB,
-    );
+    final vScale = [
+      pSize.width / design.lengthMm,
+      pSize.height / design.widthMm,
+    ].reduce((pA, pB) => pA < pB ? pA : pB);
     final vLeft = (pSize.width - design.lengthMm * vScale) / 2;
     final vTop = (pSize.height - design.widthMm * vScale) / 2;
     final vColumns = _sizes(needs.alongLength, design.tileLengthMm);
