@@ -197,6 +197,7 @@ class Room {
     this.usage = RoomUsage.habitable,
     this.furniture = const [],
     this.networks = const [],
+    this.stepPhotos = const {},
   });
 
   final String id;
@@ -251,6 +252,9 @@ class Room {
   /// Gaines, tuyaux et câbles relevés dans les murs, pour savoir où ne pas percer.
   final List<HiddenRun> networks;
 
+  /// Photos prises à chaque étape du guide, pour se faire ses propres tutos : étape, puis chemins.
+  final Map<String, List<String>> stepPhotos;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -276,6 +280,7 @@ class Room {
     RoomUsage? usage,
     List<Furniture>? furniture,
     List<HiddenRun>? networks,
+    Map<String, List<String>>? stepPhotos,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -300,6 +305,7 @@ class Room {
     usage: usage ?? this.usage,
     furniture: furniture ?? this.furniture,
     networks: networks ?? this.networks,
+    stepPhotos: stepPhotos ?? this.stepPhotos,
   );
 
   Map<String, Object?> toJson() => {
@@ -326,6 +332,7 @@ class Room {
     if (usage != RoomUsage.habitable) 'usage': usage.name,
     if (furniture.isNotEmpty) 'furniture': [for (final vItem in furniture) vItem.toJson()],
     if (networks.isNotEmpty) 'networks': [for (final vRun in networks) vRun.toJson()],
+    if (stepPhotos.isNotEmpty) 'stepPhotos': stepPhotos,
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -382,5 +389,9 @@ class Room {
       for (final vRun in (pJson['networks'] as List<Object?>?) ?? const [])
         HiddenRun.fromJson(vRun! as Map<String, Object?>),
     ],
+    stepPhotos: {
+      for (final vEntry in ((pJson['stepPhotos'] as Map<String, Object?>?) ?? const {}).entries)
+        vEntry.key: (vEntry.value! as List<Object?>).cast<String>(),
+    },
   );
 }
