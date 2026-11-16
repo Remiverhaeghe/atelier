@@ -6,7 +6,7 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 58. **Conditions de chantier** : température et humidité saisies, peinture, colle ou vernis possibles ou non.
+- 69. **Surface habitable et Loi Carrez** : sol des pièces moins trémies et parties sous 1,80 m, garage, cave et véranda à part, total par niveau.
 - 59. **Isolation** : rouleaux ou panneaux, épaisseur selon la résistance R visée, pare-vapeur, fourrures.
 - 60. **Faïence et crédence** : surfaces murales, découpes autour des prises, joints et croisillons.
 - 61. **Enduit et ragréage** : sacs selon épaisseur et surface, séchage dans le planning.
