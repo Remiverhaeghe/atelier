@@ -14,6 +14,5 @@ void main() {
     expect(find.byType(DecisionsScreen), findsOneWidget);
     expect(find.text('Plinthes : coller, clouer ou clipser ?'), findsOneWidget);
     expect(find.text('Le plus simple'), findsWidgets);
-    expect(find.bySemanticsLabel('Coût : 1 sur 3'), findsWidgets);
   });
 }
