@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Objectif du jour et badges
+- Objectif du jour SMART en haut du chantier : quelques rangées, des morceaux de plinthe une fois le parquet posé, des reprises jusqu'au passage suivant, daté du jour ; avancement ligne par ligne
+- Badges du chantier : première rangée, pièce finie, plinthes coupées, dix reprises, objectifs atteints, budget complet
+
 ### Peinture
 - Onglet Peinture : hauteur sous plafond par pièce, murs, plafond, portes et chambranles, sous-couche à cocher
 - Surfaces sans les portes, passages et fenêtres ; couches, rendement et marge pour les retouches réglables
