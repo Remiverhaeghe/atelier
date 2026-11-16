@@ -29,12 +29,10 @@ void main() {
     );
     final vBack = Worksite.fromJson(vWorksite.toJson()).reminders.single;
 
-    expect((vBack.kind, vBack.label, vBack.dueAt, vBack.roomId), (
-      WaitKind.glue,
-      'Plinthes',
-      DateTime(2026, 11, 17, 10),
-      null,
-    ));
+    expect(
+      (vBack.kind, vBack.label, vBack.dueAt, vBack.roomId),
+      (WaitKind.glue, 'Plinthes', DateTime(2026, 11, 17, 10), null),
+    );
     expect(Reminder.fromJson({...vBack.toJson(), 'kind': 'inconnu'}).kind, WaitKind.custom);
     expect(const Worksite(id: 'w', name: 'M').toJson().containsKey('reminders'), isFalse);
   });
