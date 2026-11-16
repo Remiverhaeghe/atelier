@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Accueil du chantier
+- Tuiles sous le résumé du chantier : plan de la maison, surface habitable, carnet, temps passé, plexis, chutes, bilan ; le menu ⋮ ne garde que les exports
+
 ### PDF lisibles
 - Fiche du chantier et liste de coupes imprimées avec la police de l'appli : le « € » et tous les accents s'affichent
 
