@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/guidance.dart';
 import '../logic/room.dart';
+import 'tips_screen.dart';
 
 String stepLabel(AppLocalizations pText, GuideStep pStep) => switch (pStep) {
   GuideStep.acclimatise => pText.stepAcclimatise,
@@ -89,6 +90,13 @@ class GuideView extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 96),
       children: [
         ListTile(title: Text(vText.guideProgress(vDone, vAll.length))),
+        ListTile(
+          leading: Icon(Icons.tips_and_updates_outlined, color: vTheme.colorScheme.primary),
+          title: Text(vText.tipsLink),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () =>
+              Navigator.push(context, MaterialPageRoute<void>(builder: (_) => const TipsScreen())),
+        ),
         ListTile(title: Text(vText.guideTools, style: vTheme.textTheme.titleMedium)),
         for (final vTool in toolsFor(room.parquet.type, room.baseboard.fixing))
           ListTile(
