@@ -143,7 +143,10 @@ class _BaseboardViewState extends State<BaseboardView> {
               _toggle(vIndex, pValue ?? false);
             },
             title: Text(
-              vText.pieceTitle(vPieces[vIndex].wallNumber, formatCentimetres(vPieces[vIndex].lengthMm)),
+              vText.pieceTitle(
+                vPieces[vIndex].wallNumber,
+                formatCentimetres(vPieces[vIndex].lengthMm),
+              ),
             ),
             subtitle: Text(
               vText.pieceCuts(
