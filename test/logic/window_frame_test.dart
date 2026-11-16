@@ -21,7 +21,10 @@ void main() {
       rectangleRoom().copyWith(
         fixtures: [_roof('a', 780, 980), _roof('b', 780, 980), _roof('c', 550, 780, pPlexi: false)],
       ),
-      const Room(id: 'ch', name: 'Chambre').copyWith(fixtures: [_roof('d', 780, 980), _roof('e', 450, 550)]),
+      const Room(
+        id: 'ch',
+        name: 'Chambre',
+      ).copyWith(fixtures: [_roof('d', 780, 980), _roof('e', 450, 550)]),
     ];
     final vSizes = plexiSizes(vRooms);
 

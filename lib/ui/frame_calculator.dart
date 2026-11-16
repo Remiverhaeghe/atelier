@@ -91,10 +91,7 @@ class _FrameCalculatorState extends State<FrameCalculator> {
                       Icons.crop_square,
                       vText.frameSection(vCm(vPlan.faceMm), vCm(vPlan.depthMm)),
                     ),
-                    IconLine(
-                      Icons.join_inner,
-                      vText.frameJoint(vCm(vPlan.faceMm)),
-                    ),
+                    IconLine(Icons.join_inner, vText.frameJoint(vCm(vPlan.faceMm))),
                     IconLine(
                       Icons.vertical_split_outlined,
                       vText.frameRebate(vCm(rebateWidthMm), vCm(vPlan.rebateDepthMm)),
@@ -115,10 +112,9 @@ class _FrameCalculatorState extends State<FrameCalculator> {
                   children: [
                     Text(vText.frameGlass, style: vTheme.textTheme.titleMedium),
                     BigFigure('${vCm(vPlan.glassWidthMm)} × ${vCm(vPlan.glassHeightMm)} cm'),
-                    Text(vText.frameGlassDetail(
-                      glazingLabel(vText, _glazing),
-                      _glazing.thicknessMm,
-                    )),
+                    Text(
+                      vText.frameGlassDetail(glazingLabel(vText, _glazing), _glazing.thicknessMm),
+                    ),
                     IconLine(Icons.horizontal_rule, vText.frameBeads(vCm(vPlan.beadsMm))),
                   ],
                 ),
