@@ -72,7 +72,10 @@ class _PlumbingCalculatorState extends State<PlumbingCalculator> {
           for (var vIndex = 0; vIndex < _runs.length; vIndex++)
             Card(
               child: ListTile(
-                leading: Icon(fixtureIcon(_runs[vIndex].fixture), color: vTheme.colorScheme.primary),
+                leading: Icon(
+                  fixtureIcon(_runs[vIndex].fixture),
+                  color: vTheme.colorScheme.primary,
+                ),
                 title: Text(fixtureLabel(vText, _runs[vIndex].fixture)),
                 subtitle: Text(
                   vText.fixtureLine(
