@@ -11,5 +11,7 @@ Widget localized(Widget pChild) => MaterialApp(
 
 /// Liste verticale de l'écran : les champs de saisie et les onglets défilent aussi.
 Finder verticalList() => find
-    .byWidgetPredicate((pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down)
+    .byWidgetPredicate(
+      (pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down,
+    )
     .first;
