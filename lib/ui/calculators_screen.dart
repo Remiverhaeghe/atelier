@@ -8,6 +8,7 @@ import 'frame_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
 import 'insulation_calculator.dart';
+import 'panel_calculator.dart';
 import 'plumbing_calculator.dart';
 import 'rent_buy_calculator.dart';
 import 'screed_calculator.dart';
@@ -108,6 +109,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.screedHelp,
       icon: Icons.format_paint_outlined,
       builder: (_) => const ScreedCalculator(),
+    ),
+    (
+      title: pText.panelTitle,
+      help: pText.panelHelp,
+      icon: Icons.dashboard_customize_outlined,
+      builder: (_) => const PanelCalculator(),
     ),
     (
       title: pText.frameTitle,

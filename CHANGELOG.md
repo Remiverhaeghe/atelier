@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Débit de panneaux
+- Nouveau calcul : pièces à tailler dans un contreplaqué, un mélaminé ou un OSB, rangées en bandes avec le trait de scie, panneaux à acheter, chutes et plan de coupe dessiné
+- Pièces tournées seulement si on l'autorise (fil du bois ou décor)
+
 ### Enduit et ragréage
 - Nouveau calcul : sacs de ragréage, d'enduit de lissage ou de rebouchage selon la surface et l'épaisseur relevée à la règle, primaire, couches et attente avant de poser le revêtement
 
