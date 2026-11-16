@@ -1382,5 +1382,10 @@
   "themeDark": "Sombre",
   "textNormal": "Normal",
   "textLarge": "Grand",
-  "textHuge": "Très grand"
+  "textHuge": "Très grand",
+  "externalBackupDue": "Sauvegarde hors du téléphone conseillée",
+  "externalBackupNever": "Jamais faite : un téléphone perdu emporte les chantiers.",
+  "externalBackupSince": "Dernière il y a {days} jours.",
+  "@externalBackupSince": {"placeholders": {"days": {"type": "int"}}},
+  "externalBackupSend": "Sauvegarder"
 }
