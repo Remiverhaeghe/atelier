@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Contrôle de finition
+- « Contrôle de finition » dans les reprises : photo de la pièce, cercles autour de ce qui ne va pas, reprise créée avec sa photo
+- Toute photo de reprise peut être annotée de la même façon ; le nombre d'endroits entourés s'affiche sur la reprise
+
 ### Pose en diagonale et point de Hongrie
 - Pose en diagonale à 45° du mur choisi : rangées et plan de pose recalculés, 5 % de chute en plus, sens dessiné en biais
 - Point de Hongrie : motif dessiné dans la pièce avec son axe, et la façon de le poser
