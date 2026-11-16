@@ -92,7 +92,7 @@ class CalculatorsScreen extends StatelessWidget {
     (
       title: pText.insulTitle,
       help: pText.insulHelp,
-      icon: Icons.blanket_outlined,
+      icon: Icons.texture,
       builder: (_) => const InsulationCalculator(),
     ),
     (
