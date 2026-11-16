@@ -63,7 +63,9 @@ void main() {
   test('chantier partagé : fusion du même chantier, ajout des autres', () async {
     await vController.load();
     final vMine = await vController.addWorksite('Maison');
-    final vTheirs = vMine.copyWith(rooms: [const Room(id: 'cuisine', name: 'Cuisine')]);
+    final vTheirs = vMine.copyWith(
+      rooms: [const Room(id: 'cuisine', name: 'Cuisine')],
+    );
     const vOther = Worksite(id: 'garage', name: 'Garage');
 
     expect(vController.sharesWorksite([vOther]), isFalse);
