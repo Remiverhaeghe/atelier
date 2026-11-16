@@ -23,8 +23,9 @@ void main() {
     expect(find.text('Spatule crantée'), findsOneWidget);
     expect(find.text('Aucune étape faite sur 13'), findsOneWidget);
 
-    await scrollToFirst(pTester, find.byType(Checkbox));
-    await pTester.tap(find.byType(Checkbox).first);
+    // Les outils sont aussi des cases : on coche l'étape par son texte
+    await scrollToFirst(pTester, find.textContaining('Laisser les paquets'));
+    await pTester.tap(find.textContaining('Laisser les paquets'));
     await pTester.pump();
 
     expect(vRoom.doneSteps, ['acclimatise']);
