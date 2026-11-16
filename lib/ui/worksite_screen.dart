@@ -23,6 +23,7 @@ import 'journal_screen.dart';
 import 'living_area_screen.dart';
 import 'offcuts_screen.dart';
 import 'plexi_screen.dart';
+import 'reminders_card.dart';
 import 'review_screen.dart';
 
 /// Pièces d'un chantier.
@@ -143,6 +144,11 @@ class WorksiteScreen extends StatelessWidget {
                       ),
                       controller: controller,
                       worksiteId: worksiteId,
+                    ),
+                    RemindersCard(
+                      worksite: vWorksite,
+                      onChanged: controller.updateWorksite,
+                      now: today ?? DateTime.now(),
                     ),
                     PlanningCard(worksite: vWorksite),
                     GoalCard(

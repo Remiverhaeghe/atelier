@@ -6,7 +6,7 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 79. **Rappels sans réseau** : fin d'acclimatation, de séchage, d'une couche d'enduit.
+- 79 bis. **Notification Android des attentes** : la même échéance en notification locale (permission de notification à demander).
 - 80. **Fenêtre de toit du commerce** : taille standard la plus proche d'un plexi, chevêtre et raccord.
 - 81. **Charpente et couverture** : chevrons, liteaux, tuiles, faîtage et rives.
 - 82. **Avant de commencer** : courant, eau, protections, à cocher par étape.
