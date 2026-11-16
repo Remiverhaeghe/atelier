@@ -142,9 +142,8 @@ class _TouchUpsViewState extends State<TouchUpsView> {
             onEdit: () => _edit(_room.touchUps[vIndex]),
             onPlace: () => setState(() => _placing = _room.touchUps[vIndex].id),
             onPhoto: () => _photo(_room.touchUps[vIndex]),
-            onDelete: () => widget.onChanged(
-              _room.copyWith(touchUps: [..._room.touchUps]..removeAt(vIndex)),
-            ),
+            onDelete: () =>
+                widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps]..removeAt(vIndex))),
           ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -270,7 +269,8 @@ class _TouchUpCard extends StatelessWidget {
                   if (touchUp.hasMarker)
                     PopupMenuItem(value: 'unplace', child: Text(vText.removeMarker)),
                   PopupMenuItem(value: 'photo', child: Text(vText.takePhoto)),
-                  if (vPhoto != null) PopupMenuItem(value: 'unphoto', child: Text(vText.removePhoto)),
+                  if (vPhoto != null)
+                    PopupMenuItem(value: 'unphoto', child: Text(vText.removePhoto)),
                   PopupMenuItem(value: 'delete', child: Text(vText.delete)),
                 ],
               ),

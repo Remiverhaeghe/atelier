@@ -68,7 +68,9 @@ void main() {
   testWidgets('la reprise se place sur le plan, prend une photo et se modifie', (pTester) async {
     final vRoom = await pumpView(
       pTester,
-      rectangleRoom().copyWith(touchUps: const [TouchUp(id: 'e', label: 'Enduit', passes: 2)]),
+      rectangleRoom().copyWith(
+        touchUps: const [TouchUp(id: 'e', label: 'Enduit', passes: 2)],
+      ),
     );
 
     await pTester.tap(find.byIcon(Icons.more_vert));
