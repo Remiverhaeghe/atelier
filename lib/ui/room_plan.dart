@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../logic/fixtures.dart';
+import '../logic/furniture.dart';
 import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/slope.dart';
@@ -266,6 +267,46 @@ class _RoomPlanPainter extends CustomPainter {
 
     for (final vFixture in room.fixtures) {
       _paintFixture(pCanvas, vFixture, vAt);
+    }
+
+    // Meubles à l'échelle, et le débattement des portes pour voir ce qui gêne
+    if (room.furniture.isNotEmpty && !compact) {
+      for (var vWall = 0; vWall < room.walls.length; vWall++) {
+        for (final vDoor in room.walls[vWall].openings.where(
+          (pOpening) => pOpening.kind == OpeningKind.door,
+        )) {
+          final vSweep = doorSweep(room, vWall, vDoor);
+          final vHinge = vAt(vSweep[0].x, vSweep[0].y);
+          final vRadius = (vAt(vSweep[1].x, vSweep[1].y) - vHinge).distance;
+          final vStart = (vAt(vSweep[1].x, vSweep[1].y) - vHinge).direction;
+          final vEnd = (vAt(vSweep[3].x, vSweep[3].y) - vHinge).direction;
+          var vSweepAngle = vEnd - vStart;
+          if (vSweepAngle > math.pi) {
+            vSweepAngle -= 2 * math.pi;
+          } else if (vSweepAngle < -math.pi) {
+            vSweepAngle += 2 * math.pi;
+          }
+          pCanvas.drawArc(
+            Rect.fromCircle(center: vHinge, radius: vRadius),
+            vStart,
+            vSweepAngle,
+            true,
+            Paint()..color = colors.tape.withValues(alpha: 0.25),
+          );
+        }
+      }
+    }
+    for (final vItem in room.furniture) {
+      final vPath = Path()
+        ..addPolygon([for (final vCorner in vItem.corners) vAt(vCorner.x, vCorner.y)], true);
+      pCanvas.drawPath(vPath, Paint()..color = colors.wood.withValues(alpha: 0.8));
+      pCanvas.drawPath(
+        vPath,
+        Paint()
+          ..color = colors.ink
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = compact ? 0.8 : 1.4,
+      );
     }
 
     if (!compact && wallNumbers) {
