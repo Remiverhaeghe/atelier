@@ -102,14 +102,15 @@ class _RoomPlanPainter extends CustomPainter {
       _paintGrid(pCanvas, pSize, vAt(vMinX, vMinY), 1000 * vScale);
     }
 
-    final vRoomPath = Path()..addPolygon([for (final vPoint in vPoints) vAt(vPoint.x, vPoint.y)], room.closed);
+    final vRoomPath = Path()
+      ..addPolygon([for (final vPoint in vPoints) vAt(vPoint.x, vPoint.y)], room.closed);
     pCanvas.drawPath(vRoomPath, Paint()..color = paper);
 
     for (var vIndex = 0; vIndex < room.walls.length; vIndex++) {
       final vWall = room.walls[vIndex];
       final vStart = vPoints[vIndex];
       final vEnd = vPoints[vIndex + 1];
-      final vLength = math.max(vWall.lengthMm.toDouble(), 1);
+      final vLength = math.max(vWall.lengthMm, 1).toDouble();
       // Direction du mur et normale vers l'intérieur (murs dans le sens inverse des aiguilles d'une montre)
       final vDirX = (vEnd.x - vStart.x) / vLength;
       final vDirY = (vEnd.y - vStart.y) / vLength;
@@ -142,7 +143,12 @@ class _RoomPlanPainter extends CustomPainter {
           pCanvas.drawLine(vAlong(vFrom), vAlong(vOpenStart), vWallPaint);
         }
         if (vOpening.kind == OpeningKind.door && !compact) {
-          _paintDoor(pCanvas, vAlong(vOpenStart), vAlong(vOpenEnd), vAlong(vOpenStart, vOpenEnd - vOpenStart));
+          _paintDoor(
+            pCanvas,
+            vAlong(vOpenStart),
+            vAlong(vOpenEnd),
+            vAlong(vOpenStart, vOpenEnd - vOpenStart),
+          );
         }
         vFrom = math.max(vFrom, vOpenEnd);
       }
