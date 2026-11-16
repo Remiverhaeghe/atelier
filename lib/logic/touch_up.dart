@@ -13,6 +13,7 @@ class TouchUp {
     this.markerXMm,
     this.markerYMm,
     this.photoPath,
+    this.photoMarks = const [],
   });
 
   final String id;
@@ -35,6 +36,9 @@ class TouchUp {
   /// Photo gardée dans le dossier de l'application.
   final String? photoPath;
 
+  /// Cercles posés sur la photo, en fraction de sa largeur et de sa hauteur (0 à 1).
+  final List<({double x, double y})> photoMarks;
+
   bool get done => donePasses >= passes;
   bool get hasMarker => markerXMm != null && markerYMm != null;
 
@@ -56,6 +60,7 @@ class TouchUp {
     String? photoPath,
     bool clearMarker = false,
     bool clearPhoto = false,
+    List<({double x, double y})>? photoMarks,
   }) {
     final vPasses = passes ?? this.passes;
 
@@ -69,6 +74,7 @@ class TouchUp {
       markerXMm: clearMarker ? null : (markerXMm ?? this.markerXMm),
       markerYMm: clearMarker ? null : (markerYMm ?? this.markerYMm),
       photoPath: clearPhoto ? null : (photoPath ?? this.photoPath),
+      photoMarks: clearPhoto ? const [] : (photoMarks ?? this.photoMarks),
     );
   }
 
@@ -82,6 +88,10 @@ class TouchUp {
     if (hasMarker) 'markerXMm': markerXMm,
     if (hasMarker) 'markerYMm': markerYMm,
     if (photoPath != null) 'photoPath': photoPath,
+    if (photoMarks.isNotEmpty)
+      'photoMarks': [
+        for (final vMark in photoMarks) [vMark.x, vMark.y],
+      ],
   };
 
   static TouchUp fromJson(Map<String, Object?> pJson) {
@@ -97,9 +107,19 @@ class TouchUp {
       markerXMm: pJson['markerXMm'] as int?,
       markerYMm: pJson['markerYMm'] as int?,
       photoPath: pJson['photoPath'] as String?,
+      photoMarks: [
+        for (final vMark in (pJson['photoMarks'] as List<Object?>?) ?? const [])
+          _mark(vMark! as List<Object?>),
+      ],
     );
   }
 }
+
+/// Repère relu depuis le JSON, ramené dans la photo.
+({double x, double y}) _mark(List<Object?> pJson) => (
+  x: (pJson[0]! as num).toDouble().clamp(0.0, 1.0),
+  y: (pJson[1]! as num).toDouble().clamp(0.0, 1.0),
+);
 
 /// Une reprise a toujours au moins un passage.
 int _atLeastOne(int pValue) => pValue < 1 ? 1 : pValue;
