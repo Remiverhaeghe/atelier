@@ -34,6 +34,9 @@ dependencies:
   timezone: ^0.11.0
   # Commandes vocales du mode chantier, par la reconnaissance vocale du téléphone
   speech_to_text: ^7.0.0
+  # Télémètres laser Bosch en Bluetooth basse consommation, et l'accord pour le Bluetooth
+  flutter_reactive_ble: ^5.4.0
+  permission_handler: ^12.0.0
 
 dev_dependencies:
   flutter_test:
