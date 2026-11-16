@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Plafond rampant
+- Dans la peinture : mur du côté bas, hauteur de ce côté et largeur de la pente au sol
+- Surfaces réelles : murs en trapèze sous la pente, plafond incliné plus grand que son ombre au sol
+- Surface où l'on tient debout (1,80 m et plus) ; partie en pente grisée sur le plan
+- Pente exportée avec le plan (champ `slope`)
+
 ### Saisie guidée et éléments du plan
 - Coins de la pièce nommés A, B, C sur le plan ; la saisie d'un mur dit « Mesurez du coin B au coin C, au ras du sol », avec le plan et le mur surligné
 - Prises, interrupteurs, escalier, mezzanine et fenêtre de toit placés d'un appui sur le plan

@@ -1302,5 +1302,12 @@
   "mezzanineSummary": "Second niveau de {area}",
   "@mezzanineSummary": {"placeholders": {"area": {"type": "String"}}},
   "roofWindowSummary": "{width} × {depth} cm, retirée du plafond à peindre",
-  "@roofWindowSummary": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}}}
+  "@roofWindowSummary": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}}},
+  "slopeSwitch": "Plafond rampant",
+  "slopeWall": "Mur du côté bas",
+  "slopeLow": "Hauteur du côté bas (cm)",
+  "slopeRun": "Largeur de la pente au sol (cm)",
+  "slopeInvalid": "Le côté bas doit être plus bas que le plafond, et la pente avoir une largeur.",
+  "slopeStanding": "{area} où l'on tient debout (1,80 m et plus)",
+  "@slopeStanding": {"placeholders": {"area": {"type": "String"}}}
 }
