@@ -15,7 +15,14 @@ void main() {
         _point('c', FixtureKind.socket, 3000, 4000),
         _point('b', FixtureKind.socket, 3000, 0),
         _point('i', FixtureKind.lightSwitch, 500, 0),
-        const Fixture(id: 'v', kind: FixtureKind.roofWindow, xMm: 0, yMm: 0, widthMm: 780, depthMm: 980),
+        const Fixture(
+          id: 'v',
+          kind: FixtureKind.roofWindow,
+          xMm: 0,
+          yMm: 0,
+          widthMm: 780,
+          depthMm: 980,
+        ),
       ],
     );
     final vPlan = elecPlan([vRoom, rectangleRoom()]);
@@ -31,7 +38,10 @@ void main() {
   test('sans point, rien ; au-delà de 12 prises, un second circuit', () {
     expect(elecPlan([rectangleRoom()]).socketCircuits, 0);
     final vMany = rectangleRoom().copyWith(
-      fixtures: [for (var vIndex = 0; vIndex < 13; vIndex++) _point('$vIndex', FixtureKind.socket, vIndex * 100, 0)],
+      fixtures: [
+        for (var vIndex = 0; vIndex < 13; vIndex++)
+          _point('$vIndex', FixtureKind.socket, vIndex * 100, 0),
+      ],
     );
     expect(elecPlan([vMany]).socketCircuits, 2);
   });
