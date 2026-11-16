@@ -53,14 +53,13 @@ class NetworksSection extends StatelessWidget {
       children: [
         ListTile(title: Text(vText.netTitle, style: vTheme.textTheme.titleMedium)),
         if (room.networks.isEmpty)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(vText.netEmpty),
-          ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Text(vText.netEmpty)),
         for (final vRun in room.networks)
           ListTile(
             leading: Icon(Icons.cable, color: networkColor(vRun.kind)),
-            title: Text('${networkLabel(vText, vRun.kind)}, ${vText.wallTitle(vRun.wallIndex + 1)}'),
+            title: Text(
+              '${networkLabel(vText, vRun.kind)}, ${vText.wallTitle(vRun.wallIndex + 1)}',
+            ),
             subtitle: Text(
               vText.netRun(
                 vCm(vRun.fromAlongMm),
@@ -174,7 +173,11 @@ class _RunDialogState extends State<_RunDialog> {
               ],
               onChanged: (pKind) => setState(() => _kind = pKind!),
             ),
-            _WallPicker(room: widget.room, value: _wall, onChanged: (pWall) => setState(() => _wall = pWall)),
+            _WallPicker(
+              room: widget.room,
+              value: _wall,
+              onChanged: (pWall) => setState(() => _wall = pWall),
+            ),
             for (var vIndex = 0; vIndex < 4; vIndex++)
               TextField(
                 controller: _fields[vIndex],
@@ -251,7 +254,11 @@ class _DrillDialogState extends State<_DrillDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _WallPicker(room: widget.room, value: _wall, onChanged: (pWall) => setState(() => _wall = pWall)),
+            _WallPicker(
+              room: widget.room,
+              value: _wall,
+              onChanged: (pWall) => setState(() => _wall = pWall),
+            ),
             TextField(
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(labelText: vText.netDrillAlong, suffixText: vText.unitCm),
@@ -259,7 +266,10 @@ class _DrillDialogState extends State<_DrillDialog> {
             ),
             TextField(
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: InputDecoration(labelText: vText.netDrillHeight, suffixText: vText.unitCm),
+              decoration: InputDecoration(
+                labelText: vText.netDrillHeight,
+                suffixText: vText.unitCm,
+              ),
               onChanged: (pText) => setState(() => _height = parseCentimetres(pText)),
             ),
             const SizedBox(height: 12),
@@ -285,9 +295,7 @@ class _DrillDialogState extends State<_DrillDialog> {
           ],
         ),
       ),
-      actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: Text(vText.close)),
-      ],
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(vText.close))],
     );
   }
 }
