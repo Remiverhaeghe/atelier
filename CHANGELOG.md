@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Plan papier décalqué
+- Une pièce sans murs peut partir de la photo d'un plan papier : deux points d'une cote connue donnent l'échelle, les coins touchés dans l'ordre donnent les murs, angles presque droits ramenés à 90°
+
 ### Échéancier du budget
 - Dans les courses : dépenses mois par mois, somme mise de côté chaque mois, et le reste à payer étalé jusqu'au mois où tout sera réglé
 
