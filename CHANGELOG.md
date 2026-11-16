@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Dossier de devis
+- Le menu du chantier prépare un PDF à envoyer aux artisans : plan et mesures de chaque pièce, travaux demandés avec photos, et ce qu'un devis doit préciser, pour comparer des devis sur la même base
+
 ### Plan en DXF
 - Le menu du chantier exporte le plan de la maison en DXF : un calque par pièce, les murs en lignes et le nom de la pièce, en millimètres, pour un logiciel de dessin
 

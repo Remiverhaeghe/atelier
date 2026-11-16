@@ -10,7 +10,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 129. **Dossier pour demander des devis** : surfaces, plan et photos en PDF.
 - 130. **Stock qui baisse** quand une pièce consomme du matériel.
 - 131. **Mode visite** : tour des pièces avec une liste à cocher et des photos.
 - 132. **Permissions expliquées** (`docs/securite.md`) et contrôle en CI du manifeste fusionné.
