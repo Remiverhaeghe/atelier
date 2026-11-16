@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import 'garden_calculator.dart';
 import 'shelf_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
@@ -16,6 +17,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.shelfHelp,
       icon: Icons.shelves,
       builder: (_) => const ShelfCalculator(),
+    ),
+    (
+      title: pText.gardenTitle,
+      help: pText.gardenHelp,
+      icon: Icons.yard_outlined,
+      builder: (_) => const GardenCalculator(),
     ),
   ];
 
