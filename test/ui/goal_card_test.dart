@@ -3,7 +3,6 @@ import 'package:atelier/logic/touch_up.dart';
 import 'package:atelier/logic/worksite.dart';
 import 'package:atelier/state/worksites_controller.dart';
 import 'package:atelier/ui/worksite_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/localized.dart';
