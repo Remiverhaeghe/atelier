@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/room.dart';
 import '../logic/touch_up.dart';
+import 'photo_annotator.dart';
 import 'photos.dart';
 import 'room_plan.dart';
 import 'theme.dart';
@@ -53,6 +54,28 @@ class _TouchUpsViewState extends State<TouchUpsView> {
         return;
       }
     }
+  }
+
+  /// Contrôle de finition : photo, cercles autour de ce qui ne va pas, reprise créée.
+  Future<void> _addFromPhoto() async {
+    final vText = AppLocalizations.of(context);
+    final vId = DateTime.now().microsecondsSinceEpoch.toString();
+    final vPath = await (widget.photos ?? takePhoto)(vId);
+    if (vPath == null || !mounted) {
+      return;
+    }
+    final vMarks = await annotatePhoto(context, vPath, const []);
+    if (vMarks == null) {
+      return;
+    }
+    widget.onChanged(
+      _room.copyWith(
+        touchUps: [
+          ..._room.touchUps,
+          TouchUp(id: vId, label: vText.finishCheckLabel, photoPath: vPath, photoMarks: vMarks),
+        ],
+      ),
+    );
   }
 
   /// Relevé de caméra thermique ajouté comme reprise, à placer ensuite sur le plan.
@@ -160,6 +183,11 @@ class _TouchUpsViewState extends State<TouchUpsView> {
             spacing: 8,
             runSpacing: 8,
             children: [
+              OutlinedButton.icon(
+                onPressed: _addFromPhoto,
+                icon: const Icon(Icons.photo_camera_outlined),
+                label: Text(vText.finishCheck),
+              ),
               FilledButton.icon(
                 onPressed: _add,
                 icon: const Icon(Icons.add),
@@ -199,6 +227,13 @@ class _TouchUpCard extends StatelessWidget {
   final VoidCallback onPhoto;
   final VoidCallback onDelete;
 
+  Future<void> _annotate(BuildContext pContext) async {
+    final vMarks = await annotatePhoto(pContext, touchUp.photoPath!, touchUp.photoMarks);
+    if (vMarks != null) {
+      onChanged(touchUp.copyWith(photoMarks: vMarks));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
@@ -234,6 +269,11 @@ class _TouchUpCard extends StatelessWidget {
                       ),
                     ),
                     if (touchUp.note.isNotEmpty) Text(touchUp.note),
+                    if (touchUp.photoMarks.isNotEmpty)
+                      Text(
+                        vText.photoMarksCount(touchUp.photoMarks.length),
+                        style: TextStyle(color: vColors.error),
+                      ),
                     if (touchUp.toBuy.isNotEmpty)
                       IconLine(Icons.shopping_cart_outlined, touchUp.toBuy),
                     Wrap(
@@ -279,6 +319,8 @@ class _TouchUpCard extends StatelessWidget {
                       onPhoto();
                     case 'unphoto':
                       onChanged(touchUp.copyWith(clearPhoto: true));
+                    case 'annotate':
+                      _annotate(context);
                     case 'delete':
                       onDelete();
                   }
@@ -289,6 +331,8 @@ class _TouchUpCard extends StatelessWidget {
                   if (touchUp.hasMarker)
                     PopupMenuItem(value: 'unplace', child: Text(vText.removeMarker)),
                   PopupMenuItem(value: 'photo', child: Text(vText.takePhoto)),
+                  if (vPhoto != null)
+                    PopupMenuItem(value: 'annotate', child: Text(vText.annotateTitle)),
                   if (vPhoto != null)
                     PopupMenuItem(value: 'unphoto', child: Text(vText.removePhoto)),
                   PopupMenuItem(value: 'delete', child: Text(vText.delete)),

@@ -1,5 +1,6 @@
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/touch_up.dart';
+import 'package:atelier/ui/photo_annotator.dart';
 import 'package:atelier/ui/room_plan.dart';
 import 'package:atelier/ui/touch_ups_view.dart';
 import 'package:flutter/material.dart';
@@ -133,5 +134,23 @@ void main() {
     expect(vTouchUp.label, 'Porte');
     expect(vTouchUp.toBuy, 'Bas de porte et joint');
     expect(vTouchUp.photoPath, startsWith('/photos/'));
+  });
+
+  testWidgets('contrôle de finition : photo, cercles, reprise créée', (pTester) async {
+    tallScreen(pTester);
+    final vRoom = await pumpView(pTester, const Room(id: 's', name: 'Salon'));
+
+    await pTester.tap(find.text('Contrôle de finition'));
+    await pTester.pumpAndSettle();
+    expect(find.text('Entourer sur la photo'), findsOneWidget);
+    await pTester.tapAt(pTester.getCenter(find.byType(MarkedPhoto)));
+    await pTester.pump();
+    await pTester.tap(find.text('Enregistrer'));
+    await pTester.pumpAndSettle();
+
+    final vTouchUp = vRoom().touchUps.single;
+    expect(vTouchUp.label, 'À reprendre d\'après la photo');
+    expect(vTouchUp.photoMarks.single.x, closeTo(0.5, 0.01));
+    expect(find.text('1 endroit entouré sur la photo'), findsOneWidget);
   });
 }
