@@ -18,6 +18,7 @@ import 'theme.dart';
 import 'transfer.dart';
 import 'goal_card.dart';
 import 'house_screen.dart';
+import 'offcuts_screen.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
@@ -104,6 +105,14 @@ class WorksiteScreen extends StatelessWidget {
                               HouseScreen(controller: controller, worksiteId: worksiteId),
                         ),
                       );
+                    case 'offcuts':
+                      Navigator.push(
+                        pContext,
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              OffcutsScreen(controller: controller, worksiteId: worksiteId),
+                        ),
+                      );
                     case 'guide':
                       controller.updateWorksite(
                         vWorksite.copyWith(showGuidance: !vWorksite.showGuidance),
@@ -114,6 +123,7 @@ class WorksiteScreen extends StatelessWidget {
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
                   PopupMenuItem(value: 'house', child: Text(vText.houseTitle)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
+                  PopupMenuItem(value: 'offcuts', child: Text(vText.offcutsTitle)),
                   PopupMenuItem(
                     value: 'guide',
                     child: Text(vWorksite.showGuidance ? vText.guideHidden : vText.guideShown),
