@@ -4,9 +4,13 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 ## Prochains lots
 
-Validés le 16 novembre 2026, dans l'ordre prévu :
+Tous les lots validés le 16 novembre 2026 sont faits. Pistes suivantes, à cadrer :
 
-- 68. **Bilan de fin de chantier** : coût réel et prévu, chutes, temps, leçons.
+- Isolation reliée aux pièces : surfaces de rampants et de murs reprises du plan au lieu d'une saisie.
+- Plexis signalés dans le relevé thermique, à côté des préconisations.
+- Meubles exportés vers la vue 3D et Home Assistant.
+- Planning qui tient compte du séchage du ragréage et de l'enduit.
+
 
 ## Organisation et motivation
 
