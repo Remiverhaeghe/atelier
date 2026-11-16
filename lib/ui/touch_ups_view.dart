@@ -114,7 +114,12 @@ class _TouchUpsViewState extends State<TouchUpsView> {
         if (_room.walls.isNotEmpty)
           Padding(
             padding: const EdgeInsets.all(16),
-            child: RoomPlan(room: _room, markers: vMarkers, onTapPlan: _place),
+            child: RoomPlan(
+              room: _room,
+              markers: vMarkers,
+              onTapPlan: _place,
+              wallNumbers: false,
+            ),
           ),
         if (_placing != null)
           Card(
