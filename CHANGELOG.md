@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Calculs : soudure
+- Procédés classés selon le métal (acier, inox, alu), l'épaisseur et le lieu (dehors, au vent) : électrode enrobée, MIG/MAG, fil fourré, TIG
+- Réglages de départ : intensité, diamètre d'électrode, de fil ou de tungstène, courant alternatif pour l'alu en TIG
+- Mise en garde : équipement de protection, aération, essai sur une chute
+
 ### Calculs : plomberie
 - Appareils à raccorder avec leur longueur de tuyau : PVC d'évacuation par diamètre, dénivelé à prévoir (1 à 3 cm par mètre), multicouche pour l'eau froide et chaude, coudes et raccords
 
