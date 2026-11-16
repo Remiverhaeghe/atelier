@@ -1,0 +1,195 @@
+import 'package:flutter/material.dart';
+
+/// Couleurs propres à Atelier, en plus du schéma Material : mesures, bois, papier quadrillé.
+@immutable
+class AtelierColors extends ThemeExtension<AtelierColors> {
+  const AtelierColors({
+    required this.tape,
+    required this.onTape,
+    required this.wood,
+    required this.woodLaid,
+    required this.grid,
+    required this.ink,
+  });
+
+  /// Jaune mètre ruban : réservé aux cotes et aux mesures.
+  final Color tape;
+  final Color onTape;
+
+  /// Lame de chêne à poser, et lame déjà posée.
+  final Color wood;
+  final Color woodLaid;
+
+  /// Quadrillage du plan, un carreau par mètre.
+  final Color grid;
+
+  /// Trait des murs.
+  final Color ink;
+
+  static AtelierColors of(BuildContext pContext) => Theme.of(pContext).extension<AtelierColors>()!;
+
+  @override
+  AtelierColors copyWith({
+    Color? tape,
+    Color? onTape,
+    Color? wood,
+    Color? woodLaid,
+    Color? grid,
+    Color? ink,
+  }) => AtelierColors(
+    tape: tape ?? this.tape,
+    onTape: onTape ?? this.onTape,
+    wood: wood ?? this.wood,
+    woodLaid: woodLaid ?? this.woodLaid,
+    grid: grid ?? this.grid,
+    ink: ink ?? this.ink,
+  );
+
+  @override
+  AtelierColors lerp(AtelierColors? pOther, double pT) {
+    if (pOther == null) {
+      return this;
+    }
+
+    return AtelierColors(
+      tape: Color.lerp(tape, pOther.tape, pT)!,
+      onTape: Color.lerp(onTape, pOther.onTape, pT)!,
+      wood: Color.lerp(wood, pOther.wood, pT)!,
+      woodLaid: Color.lerp(woodLaid, pOther.woodLaid, pT)!,
+      grid: Color.lerp(grid, pOther.grid, pT)!,
+      ink: Color.lerp(ink, pOther.ink, pT)!,
+    );
+  }
+}
+
+const _pine = Color(0xFF1F5A3A);
+const _tape = Color(0xFFF2B230);
+const _graphite = Color(0xFF24302B);
+
+/// Police du texte courant.
+const bodyFont = 'Barlow';
+
+/// Police des titres et des grands nombres, plus étroite.
+const titleFont = 'BarlowSemiCondensed';
+
+/// Thème clair ou sombre de l'application.
+ThemeData atelierTheme(Brightness pBrightness) {
+  final vDark = pBrightness == Brightness.dark;
+  final vScheme = ColorScheme.fromSeed(seedColor: _pine, brightness: pBrightness).copyWith(
+    primary: vDark ? const Color(0xFF8CCFA4) : _pine,
+    onPrimary: vDark ? const Color(0xFF0D2618) : Colors.white,
+    surface: vDark ? const Color(0xFF131A16) : const Color(0xFFF1F4F0),
+    onSurface: vDark ? const Color(0xFFE2EAE4) : _graphite,
+    surfaceContainerLowest: vDark ? const Color(0xFF0F1512) : Colors.white,
+    surfaceContainerLow: vDark ? const Color(0xFF1A221D) : const Color(0xFFFFFFFF),
+    surfaceContainer: vDark ? const Color(0xFF1D2621) : const Color(0xFFE9EEE9),
+    surfaceContainerHigh: vDark ? const Color(0xFF232D27) : const Color(0xFFE2E9E3),
+    outlineVariant: vDark ? const Color(0xFF34413A) : const Color(0xFFD3DCD5),
+    tertiary: _tape,
+    onTertiary: _graphite,
+  );
+  final vColors = AtelierColors(
+    tape: _tape,
+    onTape: _graphite,
+    wood: vDark ? const Color(0xFF6E5638) : const Color(0xFFE3C9A4),
+    woodLaid: vDark ? const Color(0xFFB58A55) : const Color(0xFFC79A63),
+    grid: vDark ? const Color(0xFF1F2924) : const Color(0xFFDDE5DF),
+    ink: vScheme.onSurface,
+  );
+  final vBase = ThemeData(colorScheme: vScheme, useMaterial3: true, fontFamily: bodyFont);
+  final vText = vBase.textTheme;
+  TextStyle vTitle(TextStyle? pStyle, FontWeight pWeight) =>
+      pStyle!.copyWith(fontFamily: titleFont, fontWeight: pWeight, letterSpacing: 0);
+  final vShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(16),
+    side: BorderSide(color: vScheme.outlineVariant),
+  );
+
+  return vBase.copyWith(
+    // Cibles tactiles larges : l'application s'utilise sur un chantier, parfois avec des gants
+    visualDensity: VisualDensity.comfortable,
+    extensions: [vColors],
+    scaffoldBackgroundColor: vScheme.surface,
+    textTheme: vText.copyWith(
+      displaySmall: vTitle(vText.displaySmall, FontWeight.w600),
+      headlineMedium: vTitle(vText.headlineMedium, FontWeight.w600),
+      headlineSmall: vTitle(vText.headlineSmall, FontWeight.w600),
+      titleLarge: vTitle(vText.titleLarge, FontWeight.w600),
+      titleMedium: vText.titleMedium!.copyWith(fontWeight: FontWeight.w600),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: vScheme.surface,
+      foregroundColor: vScheme.onSurface,
+      scrolledUnderElevation: 0,
+      titleTextStyle: vTitle(vText.titleLarge, FontWeight.w600).copyWith(
+        fontSize: 24,
+        color: vScheme.onSurface,
+      ),
+    ),
+    cardTheme: CardThemeData(
+      elevation: 0,
+      color: vScheme.surfaceContainerLow,
+      shape: vShape,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      clipBehavior: Clip.antiAlias,
+    ),
+    tabBarTheme: TabBarThemeData(
+      labelStyle: vTitle(vText.titleSmall, FontWeight.w600).copyWith(fontSize: 16),
+      unselectedLabelStyle: vTitle(vText.titleSmall, FontWeight.w500).copyWith(fontSize: 16),
+      indicatorSize: TabBarIndicatorSize.label,
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: vScheme.primary, width: 3),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
+      ),
+      dividerColor: vScheme.outlineVariant,
+      tabAlignment: TabAlignment.start,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: vScheme.surfaceContainerLow,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: vScheme.outlineVariant),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: vScheme.outlineVariant),
+      ),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: vScheme.primary,
+      foregroundColor: vScheme.onPrimary,
+      elevation: 2,
+      extendedTextStyle: vTitle(vText.titleMedium, FontWeight.w600).copyWith(fontSize: 18),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: vScheme.primary,
+      linearTrackColor: vScheme.outlineVariant,
+      linearMinHeight: 6,
+      borderRadius: BorderRadius.circular(3),
+    ),
+    dividerTheme: DividerThemeData(color: vScheme.outlineVariant, space: 1),
+    listTileTheme: const ListTileThemeData(contentPadding: EdgeInsets.symmetric(horizontal: 20)),
+  );
+}
+
+/// Grand nombre d'un résultat (paquets, barres, total), dans la police des titres.
+class BigFigure extends StatelessWidget {
+  const BigFigure(this.text, {super.key});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final vTheme = Theme.of(context);
+
+    return Text(
+      text,
+      style: vTheme.textTheme.headlineMedium!.copyWith(
+        color: vTheme.colorScheme.primary,
+        fontFeatures: const [FontFeature.tabularFigures()],
+      ),
+    );
+  }
+}

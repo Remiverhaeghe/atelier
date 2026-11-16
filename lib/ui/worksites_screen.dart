@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/geometry.dart';
+import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import '../support/crash_log.dart';
 import 'about_screen.dart';
 import 'dialogs.dart';
+import 'plan_thumbnail.dart';
 import 'transfer.dart';
 import 'worksite_screen.dart';
 
@@ -67,21 +70,30 @@ class WorksitesScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (controller.worksites.isEmpty) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Text(vText.worksitesEmpty, textAlign: TextAlign.center),
-              ),
-            );
+            return EmptyState(icon: Icons.straighten, text: vText.worksitesEmpty);
           }
 
           return ListView(
+            padding: const EdgeInsets.only(top: 8, bottom: 96),
             children: [
               for (final vWorksite in controller.worksites)
-                ListTile(
-                  leading: const Icon(Icons.home_work_outlined),
-                  title: Text(vWorksite.name),
-                  subtitle: Text(vText.roomCount(vWorksite.rooms.length)),
+                Card(
+                  child: ListTile(
+                  contentPadding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
+                  leading: PlanThumbnail(
+                    room: vWorksite.rooms.isEmpty ? null : vWorksite.rooms.first,
+                    icon: Icons.home_work_outlined,
+                  ),
+                  title: Text(vWorksite.name, style: Theme.of(pContext).textTheme.titleMedium),
+                  subtitle: Text(
+                    [
+                      vText.roomCount(vWorksite.rooms.length),
+                      if (vWorksite.rooms.isNotEmpty)
+                        formatSquareMetres(
+                          vWorksite.rooms.fold(0.0, (pSum, pRoom) => pSum + floorAreaM2(pRoom)),
+                        ),
+                    ].join(' · '),
+                  ),
                   onTap: () => Navigator.push(
                     pContext,
                     MaterialPageRoute<void>(
@@ -98,6 +110,7 @@ class WorksitesScreen extends StatelessWidget {
                       }
                     },
                   ),
+                ),
                 ),
             ],
           );

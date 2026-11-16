@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/gen/app_localizations.dart';
 import 'state/worksites_controller.dart';
 import 'support/crash_log.dart';
+import 'ui/theme.dart';
 import 'ui/worksites_screen.dart';
 
 /// Application Atelier : thème, langue et premier écran.
@@ -15,19 +16,11 @@ class AtelierApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Vert de chantier, contrasté en clair comme en sombre
-    const vSeed = Color(0xFF2E6B3A);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (pContext) => AppLocalizations.of(pContext).appTitle,
-      // Cibles tactiles larges : l'application s'utilise sur un chantier, parfois avec des gants
-      theme: ThemeData(
-        colorSchemeSeed: vSeed,
-        useMaterial3: true,
-        visualDensity: VisualDensity.comfortable,
-      ),
-      darkTheme: ThemeData(colorSchemeSeed: vSeed, brightness: Brightness.dark, useMaterial3: true),
+      theme: atelierTheme(Brightness.light),
+      darkTheme: atelierTheme(Brightness.dark),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -29,6 +29,16 @@ Future<void> loadFonts() async {
     vRoboto.addFont(Future.value(vRead(vFile)));
   }
   await vRoboto.load();
+
+  // Polices de l'application, embarquées dans assets/fonts
+  final vAssets = Directory('assets/fonts').listSync().whereType<File>().toList();
+  for (final vFamily in ['BarlowSemiCondensed', 'Barlow']) {
+    final vLoader = FontLoader(vFamily);
+    for (final vFile in vAssets.where((pFile) => vNamed(pFile, '${vFamily.toLowerCase()}-'))) {
+      vLoader.addFont(Future.value(vRead(vFile)));
+    }
+    await vLoader.load();
+  }
   final vIcons = FontLoader('MaterialIcons')
     ..addFont(Future.value(vRead(vFiles.firstWhere((pFile) => vNamed(pFile, 'materialicons')))));
   await vIcons.load();
