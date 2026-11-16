@@ -297,7 +297,8 @@ class _SafetyChecklistState extends State<_SafetyChecklist> {
                 FilterChip(
                   label: Text(safetyLabel(vText, vCheck)),
                   selected: _done.contains(vCheck),
-                  onSelected: (pOn) => setState(() => pOn ? _done.add(vCheck) : _done.remove(vCheck)),
+                  onSelected: (pOn) =>
+                      setState(() => pOn ? _done.add(vCheck) : _done.remove(vCheck)),
                 ),
             ],
           ),
