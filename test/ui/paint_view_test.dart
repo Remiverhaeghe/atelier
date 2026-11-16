@@ -71,9 +71,8 @@ void main() {
     var vRoom = rectangleRoom().copyWith(paint: const PaintSettings(walls: true, ceiling: true));
     await pTester.pumpWidget(
       StatefulBuilder(
-        builder: (pContext, pSetState) => localized(
-          PaintView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom)),
-        ),
+        builder: (pContext, pSetState) =>
+            localized(PaintView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom))),
       ),
     );
 
