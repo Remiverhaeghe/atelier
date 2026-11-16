@@ -1,5 +1,6 @@
 import 'package:atelier/logic/parquet.dart';
 import 'package:atelier/logic/room.dart';
+import 'package:atelier/ui/laying_preview.dart';
 import 'package:atelier/ui/laying_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -49,12 +50,13 @@ void main() {
     expect(find.text('1 rangée à vérifier à la main'), findsOneWidget);
   });
 
-  testWidgets('point de Hongrie : pas de plan', (pTester) async {
+  testWidgets('point de Hongrie : motif dessiné et façon de poser', (pTester) async {
     final vRoom = rectangleRoom().copyWith(
       parquet: ParquetSettings.forType(ParquetType.herringbone),
     );
     await pTester.pumpWidget(localized(LayingView(room: vRoom, onChanged: (_) {})));
 
-    expect(find.textContaining('lames droites'), findsOneWidget);
+    expect(find.byType(HerringbonePreview), findsOneWidget);
+    expect(find.textContaining('axe tracé au cordeau'), findsOneWidget);
   });
 }
