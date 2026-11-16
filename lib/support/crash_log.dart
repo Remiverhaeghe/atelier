@@ -4,7 +4,8 @@ library;
 import 'dart:io';
 
 class CrashLog {
-  CrashLog(this.file, {this.maxLines = 300, DateTime Function()? pNow}) : now = pNow ?? DateTime.now;
+  CrashLog(this.file, {this.maxLines = 300, DateTime Function()? pNow})
+    : now = pNow ?? DateTime.now;
 
   final File file;
 
@@ -18,7 +19,9 @@ class CrashLog {
       final vLines = file.existsSync() ? file.readAsLinesSync() : <String>[];
       vLines
         ..add('${now().toIso8601String()} $pError')
-        ..addAll((pStack?.toString() ?? '').split('\n').where((pLine) => pLine.trim().isNotEmpty).take(20));
+        ..addAll(
+          (pStack?.toString() ?? '').split('\n').where((pLine) => pLine.trim().isNotEmpty).take(20),
+        );
       final vKept = vLines.length > maxLines ? vLines.sublist(vLines.length - maxLines) : vLines;
       file.parent.createSync(recursive: true);
       file.writeAsStringSync('${vKept.join('\n')}\n');
