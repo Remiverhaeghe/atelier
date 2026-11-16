@@ -1,6 +1,7 @@
 /// Modèle d'une pièce saisie mur par mur, sérialisable en JSON.
 library;
 
+import 'baseboard.dart';
 import 'parquet.dart';
 
 /// Ouverture dans un mur, sans plinthe sur sa largeur.
@@ -121,6 +122,8 @@ class Room {
     this.obstacles = const [],
     this.parquet = const ParquetSettings(),
     this.laidRows = const [],
+    this.baseboard = const BaseboardSettings(),
+    this.cutPieces = const [],
   });
 
   final String id;
@@ -134,6 +137,10 @@ class Room {
 
   /// Numéros des rangées de parquet déjà posées.
   final List<int> laidRows;
+  final BaseboardSettings baseboard;
+
+  /// Index des morceaux de plinthe déjà coupés, dans la liste de baseboardPieces.
+  final List<int> cutPieces;
 
   Room copyWith({
     String? name,
@@ -142,6 +149,8 @@ class Room {
     List<Obstacle>? obstacles,
     ParquetSettings? parquet,
     List<int>? laidRows,
+    BaseboardSettings? baseboard,
+    List<int>? cutPieces,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -150,6 +159,8 @@ class Room {
     obstacles: obstacles ?? this.obstacles,
     parquet: parquet ?? this.parquet,
     laidRows: laidRows ?? this.laidRows,
+    baseboard: baseboard ?? this.baseboard,
+    cutPieces: cutPieces ?? this.cutPieces,
   );
 
   Map<String, Object?> toJson() => {
@@ -160,6 +171,8 @@ class Room {
     'obstacles': [for (final vObstacle in obstacles) vObstacle.toJson()],
     'parquet': parquet.toJson(),
     'laidRows': laidRows,
+    'baseboard': baseboard.toJson(),
+    'cutPieces': cutPieces,
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -178,5 +191,11 @@ class Room {
         ? const ParquetSettings()
         : ParquetSettings.fromJson(pJson['parquet']! as Map<String, Object?>),
     laidRows: [for (final vRow in (pJson['laidRows'] as List<Object?>?) ?? const []) vRow! as int],
+    baseboard: pJson['baseboard'] == null
+        ? const BaseboardSettings()
+        : BaseboardSettings.fromJson(pJson['baseboard']! as Map<String, Object?>),
+    cutPieces: [
+      for (final vPiece in (pJson['cutPieces'] as List<Object?>?) ?? const []) vPiece! as int,
+    ],
   );
 }
