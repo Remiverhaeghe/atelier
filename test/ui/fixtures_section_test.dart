@@ -140,4 +140,21 @@ void main() {
     expect(find.textContaining('du coin D au coin A'), findsOneWidget);
     expect(find.text('Angle au coin A (°)'), findsOneWidget);
   });
+
+  testWidgets('mezzanine avec la hauteur de son plancher, escalier jusqu\'à elle', (pTester) async {
+    tallScreen(pTester);
+    final vRoom = await pumpSection(pTester, rectangleRoom().copyWith(ceilingHeightMm: 5500));
+
+    await addFixture(pTester, 'Mezzanine');
+    await pTester.enterText(find.byType(TextField).at(2), '270');
+    await pTester.tap(find.text('Enregistrer'));
+    await pTester.pumpAndSettle();
+    expect(vRoom().fixtures.single.riseMm, 2700);
+    expect(find.textContaining('à 270 cm du sol'), findsOneWidget);
+
+    await addFixture(pTester, 'Escalier');
+    await pTester.tap(find.text('Enregistrer'));
+    await pTester.pumpAndSettle();
+    expect(vRoom().fixtures.last.riseMm, 2700);
+  });
 }

@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/house.dart';
 import '../logic/living_area.dart';
 import '../logic/room.dart';
+import '../logic/slope.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'house_screen.dart';
@@ -131,6 +132,8 @@ class _RoomRow extends StatelessWidget {
                 formatSquareMetres(vArea.carrez),
               ),
             ),
+            if (room.walls.length >= 3 && room.closed)
+              IconLine(Icons.air, vText.roomVolume(formatDecimal(roomVolumeM3(room)))),
             if (vLow > 0.005) IconLine(Icons.height, vText.livingAreaLow(formatSquareMetres(vLow))),
             if (room.walls.length < 3 || !room.closed)
               IconLine(Icons.warning_amber_outlined, vText.livingAreaOpen),
