@@ -8,6 +8,7 @@ import 'garden_calculator.dart';
 import 'plumbing_calculator.dart';
 import 'shelf_calculator.dart';
 import 'wardrobe_calculator.dart';
+import 'welding_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 typedef Calculator = ({String title, String help, IconData icon, WidgetBuilder builder});
@@ -58,6 +59,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.plumbingHelp,
       icon: Icons.plumbing,
       builder: (_) => const PlumbingCalculator(),
+    ),
+    (
+      title: pText.weldingTitle,
+      help: pText.weldingHelp,
+      icon: Icons.local_fire_department_outlined,
+      builder: (_) => const WeldingCalculator(),
     ),
   ];
 
