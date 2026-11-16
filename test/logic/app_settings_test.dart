@@ -28,4 +28,16 @@ void main() {
     vStore.file.writeAsStringSync('{pas du json');
     expect((await vStore.load()).textScale, 1.0);
   });
+
+  test('sauvegarde hors du téléphone conseillée au bout de 7 jours', () {
+    final vNow = DateTime(2026, 11, 16);
+    expect(externalBackupDue(null, vNow), isTrue);
+    expect(externalBackupDue(DateTime(2026, 11, 10), vNow), isFalse);
+    expect(externalBackupDue(DateTime(2026, 11, 9), vNow), isTrue);
+
+    final vBack = AppSettings.fromJson(AppSettings(lastExternalBackup: vNow).toJson());
+    expect(vBack.lastExternalBackup, vNow);
+    expect(const AppSettings().toJson().containsKey('lastExternalBackup'), isFalse);
+    expect(vBack.copyWith(theme: ThemeChoice.dark).lastExternalBackup, vNow);
+  });
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
+import '../logic/worksite.dart';
+import '../logic/app_settings.dart';
 import '../logic/units.dart';
 import '../state/settings_controller.dart';
 import '../state/worksites_controller.dart';
@@ -23,12 +25,26 @@ class WorksitesScreen extends StatelessWidget {
     this.crashLog,
     this.backups,
     this.settings,
+    this.onExternalBackup,
+    this.now,
   });
 
   final WorksitesController controller;
   final CrashLog? crashLog;
   final Backups? backups;
   final SettingsController? settings;
+
+  /// Envoi de la sauvegarde complète ; remplaçable dans les tests.
+  final Future<void> Function(List<Worksite> pWorksites, DateTime pDay)? onExternalBackup;
+
+  /// Heure courante ; remplaçable dans les tests.
+  final DateTime Function()? now;
+
+  Future<void> _externalBackup(SettingsController pSettings) async {
+    final vNow = (now ?? DateTime.now)();
+    await (onExternalBackup ?? exportAllWorksites)(controller.worksites, vNow);
+    await pSettings.update(pSettings.settings.copyWith(lastExternalBackup: vNow));
+  }
 
   Future<void> _create(BuildContext pContext) async {
     final vText = AppLocalizations.of(pContext);
@@ -108,9 +124,40 @@ class WorksitesScreen extends StatelessWidget {
             return EmptyState(icon: Icons.straighten, text: vText.worksitesEmpty);
           }
 
+          final vSettings = settings;
+
           return ListView(
             padding: const EdgeInsets.only(top: 8, bottom: 96),
             children: [
+              if (vSettings != null)
+                ListenableBuilder(
+                  listenable: vSettings,
+                  builder: (_, _) {
+                    final vLast = vSettings.settings.lastExternalBackup;
+                    if (!externalBackupDue(vLast, (now ?? DateTime.now)())) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return Card(
+                      color: Theme.of(pContext).colorScheme.tertiaryContainer,
+                      child: ListTile(
+                        leading: const Icon(Icons.cloud_upload_outlined),
+                        title: Text(vText.externalBackupDue),
+                        subtitle: Text(
+                          vLast == null
+                              ? vText.externalBackupNever
+                              : vText.externalBackupSince(
+                                  (now ?? DateTime.now)().difference(vLast).inDays,
+                                ),
+                        ),
+                        trailing: FilledButton(
+                          onPressed: () => _externalBackup(vSettings),
+                          child: Text(vText.externalBackupSend),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               for (final vWorksite in controller.worksites)
                 Card(
                   child: ListTile(
