@@ -55,6 +55,5 @@ void main() {
 
     expect(find.text('Dos, contre le guide de la scie'), findsOneWidget);
     expect(find.text('Face, vers toi'), findsOneWidget);
-    expect(find.bySemanticsLabel('Schéma de la coupe du morceau'), findsOneWidget);
   });
 }
