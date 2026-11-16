@@ -10,26 +10,24 @@ void main() {
 
   test('peinture acrylique : froid, humidité et condensation', () {
     expect(checkConditions(SiteProduct.acrylicPaint, pAirC: 18, pHumidity: 55), isEmpty);
-    expect(
-      checkConditions(SiteProduct.acrylicPaint, pAirC: 6, pHumidity: 60),
-      [ConditionIssue.tooCold],
-    );
-    expect(
-      checkConditions(SiteProduct.acrylicPaint, pAirC: 20, pHumidity: 85),
-      [ConditionIssue.tooHumid, ConditionIssue.condensation],
-    );
+    expect(checkConditions(SiteProduct.acrylicPaint, pAirC: 6, pHumidity: 60), [
+      ConditionIssue.tooCold,
+    ]);
+    expect(checkConditions(SiteProduct.acrylicPaint, pAirC: 20, pHumidity: 85), [
+      ConditionIssue.tooHumid,
+      ConditionIssue.condensation,
+    ]);
     // Mur froid : 11 °C quand le point de rosée est à 9,3 °C
-    expect(
-      checkConditions(SiteProduct.acrylicPaint, pAirC: 20, pHumidity: 50, pSurfaceC: 11),
-      [ConditionIssue.condensation],
-    );
+    expect(checkConditions(SiteProduct.acrylicPaint, pAirC: 20, pHumidity: 50, pSurfaceC: 11), [
+      ConditionIssue.condensation,
+    ]);
   });
 
   test('parquet : air trop sec ou trop chaud, mastic peu exigeant', () {
-    expect(
-      checkConditions(SiteProduct.parquetGlue, pAirC: 28, pHumidity: 30),
-      [ConditionIssue.tooHot, ConditionIssue.tooDry],
-    );
+    expect(checkConditions(SiteProduct.parquetGlue, pAirC: 28, pHumidity: 30), [
+      ConditionIssue.tooHot,
+      ConditionIssue.tooDry,
+    ]);
     expect(checkConditions(SiteProduct.sealant, pAirC: 35, pHumidity: 95), isEmpty);
     expect(SiteProduct.sealant.dewSensitive, isFalse);
   });
