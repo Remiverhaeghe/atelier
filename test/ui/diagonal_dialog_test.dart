@@ -44,7 +44,7 @@ void main() {
 
     await pTester.enterText(find.byType(TextField), '512');
     await pTester.pump();
-    expect(find.textContaining("cm d'écart"), findsOneWidget);
+    expect(find.textContaining("un angle n'est pas celui saisi"), findsOneWidget);
     await pTester.tap(find.text('Corriger les angles'));
     await pTester.pumpAndSettle();
 
