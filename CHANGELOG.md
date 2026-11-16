@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Avant de percer
+- « Puis-je percer ici ? » donne aussi, pour un endroit sûr, la cheville, le foret, la vis et le nombre de fixations selon la matière du mur et le poids accroché
+
 ### Humidité avant la pose
 - Nouvelle tuile : relevés de l'humidimètre pour la chape ciment, la chape anhydrite et le bois, feu vert pour poser le parquet et jours restants estimés au rythme du séchage
 
