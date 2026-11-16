@@ -74,7 +74,7 @@ class RoomScreen extends StatelessWidget {
                   tooltip: vText.cutListPrint,
                   icon: const Icon(Icons.content_cut),
                   onPressed: () => Printing.layoutPdf(
-                    name: vText.cutListTitle(vRoom.name),
+                    name: vText.roomCutsTitle(vRoom.name),
                     onLayout: (_) => buildCutListPdf(vText, vRoom),
                   ),
                 ),
