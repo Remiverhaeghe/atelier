@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Électricité du plan
+- Tuile « Électricité du plan » : circuits de prises et d'éclairage, gaines, fils et boîtes d'après les prises et interrupteurs posés sur les plans
+
 ### Escalier droit
 - Nouveau calcul : coupe dessinée, hauteurs et giron par la loi de Blondel, marches et limons à débiter, trémie nécessaire pour garder 1,90 m d'échappée
 

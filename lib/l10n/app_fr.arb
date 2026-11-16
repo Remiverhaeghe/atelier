@@ -1934,5 +1934,20 @@
   "stairRise": "Hauteur à monter, sol fini à sol fini (cm)",
   "stairWidth": "Largeur de l'escalier (cm)",
   "stairTremieField": "Longueur de la trémie existante (cm), si vous l'avez",
-  "stairHint": "Plancher du haut compté à 20 cm d'épaisseur. Un escalier à quart tournant prend moins de place au sol mais se calcule marche par marche."
+  "stairHint": "Plancher du haut compté à 20 cm d'épaisseur. Un escalier à quart tournant prend moins de place au sol mais se calcule marche par marche.",
+  "elecPlanTitle": "Électricité du plan",
+  "elecPlanEmpty": "Posez les prises et interrupteurs sur le plan des pièces (« Éléments du plan ») : l'appli en tire circuits, gaines et fils.",
+  "elecPlanCircuits": "{count, plural, =1{1 circuit} other{{count} circuits}}",
+  "@elecPlanCircuits": {"placeholders": {"count": {"type": "int"}}},
+  "elecPlanSockets": "{sockets} prises : {circuits} circuit(s) 20 A en 2,5 mm², 12 prises au plus chacun",
+  "@elecPlanSockets": {"placeholders": {"sockets": {"type": "int"}, "circuits": {"type": "int"}}},
+  "elecPlanLights": "{lights} points de commande : {circuits} circuit(s) 16 A en 1,5 mm², 8 points au plus",
+  "@elecPlanLights": {"placeholders": {"lights": {"type": "int"}, "circuits": {"type": "int"}}},
+  "elecPlanSheath": "Gaine : {big} m en 20 mm pour les prises, {small} m en 16 mm pour l'éclairage",
+  "@elecPlanSheath": {"placeholders": {"big": {"type": "String"}, "small": {"type": "String"}}},
+  "elecPlanWire": "Fil : {big} m en 2,5 mm², {small} m en 1,5 mm² (phase, neutre, terre)",
+  "@elecPlanWire": {"placeholders": {"big": {"type": "String"}, "small": {"type": "String"}}},
+  "elecPlanBoxes": "{count} boîtes d'encastrement",
+  "@elecPlanBoxes": {"placeholders": {"count": {"type": "int"}}},
+  "elecPlanHint": "Chemin de proche en proche entre les points d'une pièce, 1,20 m de descente par boîte ; la liaison au tableau n'est pas comptée. Le schéma et le raccordement suivent la norme NF C 15-100, et la mise en service demande l'attestation Consuel pour une installation neuve."
 }
