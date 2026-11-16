@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Louer ou acheter
+- Nouveau calcul : coût de la location face à l'achat (revente déduite), nombre de jours à partir duquel acheter est rentable, et conseil
+
 ### Sauvegarde hors du téléphone
 - Rappel en haut de la liste des chantiers quand la dernière sauvegarde externe date de plus de 7 jours
 - « Sauvegarder » envoie tous les chantiers dans un fichier daté, par le partage Android (Drive, carte SD, ordinateur), sans permission réseau
