@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:atelier/logic/laying_plan.dart';
 import 'package:atelier/logic/parquet.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -217,5 +218,17 @@ void main() {
       ).thresholdBarLengthMm,
       1200,
     );
+  });
+
+  test('pose en diagonale : plus de rangées et 5 % de chute en plus', () {
+    const vDiagonal = ParquetSettings(diagonal: true);
+    final vRoom = rectangleRoom();
+
+    // 400 × 300 cm vu à 45° : 494,9 cm de profondeur, moins le jeu
+    expect(splitRows(vRoom, vDiagonal)!.rowCount, 26);
+    expect(estimateParquet(vRoom, vDiagonal).packs, 7);
+    expect(estimateParquet(vRoom, const ParquetSettings()).packs, 6);
+    expect(ParquetSettings.fromJson(vDiagonal.toJson()).diagonal, isTrue);
+    expect(planLaying(vRoom, vDiagonal)!.rows, hasLength(26));
   });
 }

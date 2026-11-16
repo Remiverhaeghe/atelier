@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Pose en diagonale et point de Hongrie
+- Pose en diagonale à 45° du mur choisi : rangées et plan de pose recalculés, 5 % de chute en plus, sens dessiné en biais
+- Point de Hongrie : motif dessiné dans la pièce avec son axe, et la façon de le poser
+
 ### Calculs : carrelage et faïence
 - Calepinage centré (coupes égales, jamais plus étroites qu'un tiers de carreau) ou depuis un bord, dessiné avec les coupes en couleur
 - Carreaux et cartons marge comprise, colle, joint selon la taille et l'épaisseur des carreaux, croisillons
