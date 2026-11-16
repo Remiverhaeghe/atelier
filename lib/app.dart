@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'l10n/gen/app_localizations.dart';
+import 'state/worksites_controller.dart';
 import 'ui/worksites_screen.dart';
 
 /// Application Atelier : thème, langue et premier écran.
 class AtelierApp extends StatelessWidget {
-  const AtelierApp({super.key});
+  const AtelierApp({super.key, required this.controller});
+
+  final WorksitesController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class AtelierApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const WorksitesScreen(),
+      home: WorksitesScreen(controller: controller),
     );
   }
 }

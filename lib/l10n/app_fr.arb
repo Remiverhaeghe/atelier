@@ -2,5 +2,132 @@
   "@@locale": "fr",
   "appTitle": "Atelier",
   "worksitesTitle": "Mes chantiers",
-  "worksitesEmpty": "Aucun chantier pour l'instant.\nCrée ton premier chantier pour commencer."
+  "worksitesEmpty": "Aucun chantier pour l'instant.\nCrée ton premier chantier pour commencer.",
+  "newWorksite": "Nouveau chantier",
+  "worksiteName": "Nom du chantier",
+  "roomCount": "{count, plural, =0{Aucune pièce} =1{1 pièce} other{{count} pièces}}",
+  "@roomCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cancel": "Annuler",
+  "save": "Enregistrer",
+  "delete": "Supprimer",
+  "edit": "Modifier",
+  "deleteConfirm": "Supprimer « {name} » ?",
+  "@deleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "roomsEmpty": "Aucune pièce.\nAjoute une pièce, puis fais-en le tour mur par mur.",
+  "newRoom": "Nouvelle pièce",
+  "roomName": "Nom de la pièce",
+  "nameRequired": "Donne un nom.",
+  "wallsTitle": "Murs",
+  "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
+  "addWall": "Ajouter un mur",
+  "wallTitle": "Mur {number}",
+  "@wallTitle": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "wallSummary": "{length} cm, coin de {angle}° {kind}",
+  "@wallSummary": {
+    "placeholders": {
+      "length": {
+        "type": "String"
+      },
+      "angle": {
+        "type": "String"
+      },
+      "kind": {
+        "type": "String"
+      }
+    }
+  },
+  "cornerInside": "rentrant",
+  "cornerOutside": "sortant",
+  "freeEndSummary": "{length} cm, bout libre",
+  "@freeEndSummary": {
+    "placeholders": {
+      "length": {
+        "type": "String"
+      }
+    }
+  },
+  "wallLength": "Longueur (cm)",
+  "wallAngle": "Angle intérieur avec le mur suivant (°)",
+  "wallAngleHelp": "90 pour un coin rentrant d'équerre, 270 pour un coin sortant.",
+  "freeEnd": "La plinthe s'arrête au bout de ce mur",
+  "invalidLength": "Longueur invalide.",
+  "invalidAngle": "Angle entre 1 et 359°.",
+  "roomClosed": "Pièce fermée (le dernier mur rejoint le premier)",
+  "closureOk": "Le contour se referme : les mesures sont cohérentes.",
+  "closureGap": "Le contour ne se referme pas : il manque {gap} cm. Vérifie une longueur ou un angle.",
+  "@closureGap": {
+    "placeholders": {
+      "gap": {
+        "type": "String"
+      }
+    }
+  },
+  "areaSummary": "Surface au sol : {area} m²",
+  "@areaSummary": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "openings": "{count, plural, =0{aucune ouverture} =1{1 ouverture} other{{count} ouvertures}}",
+  "@openings": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addOpening": "Ajouter une porte ou un passage",
+  "openingKind": "Type",
+  "openingDoor": "Porte",
+  "openingPassage": "Passage",
+  "openingOffset": "Distance depuis le début du mur (cm)",
+  "openingWidth": "Largeur (cm)",
+  "openingOutside": "L'ouverture dépasse du mur.",
+  "removeOpenings": "Retirer les ouvertures",
+  "obstaclesTitle": "Obstacles",
+  "obstaclesEmpty": "Radiateur, tuyau, placard, cheminée ou pied d'escalier : ajoute-les pour que les calculs en tiennent compte.",
+  "addObstacle": "Ajouter un obstacle",
+  "obstacleRadiator": "Radiateur",
+  "obstaclePipe": "Tuyau",
+  "obstacleCupboard": "Placard",
+  "obstacleFireplace": "Cheminée",
+  "obstacleStairFoot": "Pied d'escalier",
+  "obstacleWall": "Le long du mur",
+  "obstacleDepth": "Profondeur sans parquet (cm)",
+  "obstacleSummary": "{kind}, mur {wall}, {width} cm",
+  "@obstacleSummary": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "wall": {
+        "type": "int"
+      },
+      "width": {
+        "type": "String"
+      }
+    }
+  },
+  "obstacleNeedsWall": "Ajoute d'abord un mur.",
+  "planTitle": "Plan"
 }
