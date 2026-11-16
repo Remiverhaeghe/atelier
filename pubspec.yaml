@@ -29,8 +29,8 @@ dependencies:
   flutter_tts: ^4.2.5
   wakelock_plus: ^1.8.2
   # Fin d'une attente (séchage, acclimatation) : notification programmée sur le téléphone
-  flutter_local_notifications: ^19.4.0
-  timezone: ^0.10.0
+  flutter_local_notifications: ">=21.0.0 <24.0.0"
+  timezone: ^0.11.0
 
 dev_dependencies:
   flutter_test:
