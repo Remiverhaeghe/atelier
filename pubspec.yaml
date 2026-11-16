@@ -27,6 +27,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   flutter_lints: ^6.0.0
   # Icône et écran de démarrage, générés en CI dans le dossier android recréé
   flutter_launcher_icons: ">=0.14.0 <1.0.0"
