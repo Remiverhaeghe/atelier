@@ -33,6 +33,42 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "tabTouchUps": "Reprises",
+  "touchUpsEmpty": "Rien à reprendre ici pour l'instant. Note ce qu'il reste à faire, même sans avoir saisi les murs.",
+  "addTouchUp": "Ajouter une reprise",
+  "nextTouchUp": "Reprise suivante",
+  "touchUpLabel": "Ce qu'il faut faire",
+  "touchUpLabelMissing": "Dis en quelques mots ce qu'il faut faire",
+  "touchUpPasses": "Passages",
+  "touchUpPassesHelp": "Une case par passage : 3 pour trois couches de peinture",
+  "touchUpPassesInvalid": "Au moins un passage",
+  "touchUpNote": "Note (produit, référence, mesure)",
+  "touchUpToBuy": "À acheter",
+  "touchUpsProgress": "{done, plural, =0{Aucun passage fait} =1{1 passage fait} other{{done} passages faits}} sur {total}",
+  "@touchUpsProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "passLabel": "Passage {number}",
+  "@passLabel": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "placeOnPlan": "Placer sur le plan",
+  "placeHint": "Touche le plan à l'endroit de la reprise",
+  "removeMarker": "Retirer du plan",
+  "takePhoto": "Prendre une photo",
+  "removePhoto": "Retirer la photo",
+  "touchUpsToBuyTitle": "Pour les reprises",
   "roomProgress": "{done} tâches faites sur {total}",
   "@roomProgress": {
     "placeholders": {
