@@ -19,7 +19,15 @@ Tout reste sur le téléphone, sans compte ni connexion.
 
 ## Installer
 
-Chaque exécution de la CI produit une APK (onglet Actions, artefact `atelier-apk`). Prendre `app-arm64-v8a-release.apk` pour un téléphone récent.
+Les APK de chaque version sont jointes à sa page dans [Releases](../../releases). Prendre `app-arm64-v8a-release.apk` pour un téléphone récent.
+
+Entre deux versions, chaque exécution de la CI produit aussi une APK (onglet Actions, artefact `atelier-apk`).
+
+## Publier une version
+
+1. Dans `CHANGELOG.md`, renommer `## Non publié` en `## X.Y.Z - AAAA-MM-JJ` et augmenter `version:` dans `pubspec.yaml` (le nombre après `+` à chaque fois).
+2. Sur GitHub, Releases, « Draft a new release », nouveau tag `vX.Y.Z` sur `main`, puis « Publish release ».
+3. La CI construit les APK depuis le tag et les joint à la release.
 
 ## Lancer en développement
 
