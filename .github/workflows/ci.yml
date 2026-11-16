@@ -31,9 +31,12 @@ jobs:
       - name: Textes traduits
         run: flutter gen-l10n
 
-      # Largeur des lignes fixée dans analysis_options.yaml
+      # Largeur des lignes fixée dans analysis_options.yaml ; en cas d'écart, le
+      # diff affiché donne la forme attendue.
       - name: Vérification du formatage
-        run: dart format --output=none --set-exit-if-changed lib test
+        run: |
+          dart format lib test
+          git diff --exit-code -- lib test
 
       - name: Analyse du code
         run: flutter analyze
