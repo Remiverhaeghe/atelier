@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 122. **Béton et petite maçonnerie** : dosages, sacs ou toupie.
 - 123. **Gouttières et descentes** selon la surface du toit.
 - 124. **Laine soufflée en combles**, tassement compris.
 - 125. **Garanties** des appareils et des travaux, avec rappel.

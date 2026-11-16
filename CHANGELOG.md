@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Béton
+- Nouveau calcul : volume d'une dalle ou de plots, dosage à 350 kg en sacs de ciment, sable, gravier et eau, gâchées de bétonnière, sacs prêts à gâcher, et conseil de toupie à partir d'un mètre cube
+
 ### Papier peint
 - Nouveau calcul : lés par rouleau selon la hauteur et le raccord du motif, rouleaux et colle, murs repris d'une pièce ouvertures déduites ; prévient quand les murs dépassent la longueur d'un rouleau
 
