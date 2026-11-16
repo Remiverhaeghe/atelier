@@ -126,7 +126,9 @@ class GuideView extends StatelessWidget {
             title: Text(stepLabel(vText, pStep)),
             secondary: IconButton(
               tooltip: vText.stepPhoto,
-              icon: Icon(vPhotos.isEmpty ? Icons.add_a_photo_outlined : Icons.photo_library_outlined),
+              icon: Icon(
+                vPhotos.isEmpty ? Icons.add_a_photo_outlined : Icons.photo_library_outlined,
+              ),
               onPressed: () => _photo(pStep),
             ),
           ),
