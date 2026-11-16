@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/guidance.dart';
 import '../logic/inventory.dart';
 import '../logic/room.dart';
+import 'photos.dart';
 import 'tips_screen.dart';
 
 String stepLabel(AppLocalizations pText, GuideStep pStep) => switch (pStep) {
@@ -67,6 +70,7 @@ class GuideView extends StatelessWidget {
     required this.onChanged,
     this.ownedTools = const [],
     this.onToolOwned,
+    this.photos,
   });
 
   final Room room;
@@ -75,6 +79,24 @@ class GuideView extends StatelessWidget {
   /// Outils déjà là, cochés dans la liste ; [onToolOwned] met l'inventaire à jour.
   final List<String> ownedTools;
   final void Function(Tool pTool, bool pOwned)? onToolOwned;
+
+  /// Prise de photo ; remplaçable dans les tests.
+  final PhotoTaker? photos;
+
+  /// Photo de l'étape ajoutée à celles de la pièce.
+  Future<void> _photo(GuideStep pStep) async {
+    final vPath = await (photos ?? takePhoto)('${room.id}-${pStep.name}');
+    if (vPath != null) {
+      onChanged(
+        room.copyWith(
+          stepPhotos: {
+            ...room.stepPhotos,
+            pStep.name: [...?room.stepPhotos[pStep.name], vPath],
+          },
+        ),
+      );
+    }
+  }
 
   void _toggle(GuideStep pStep, bool pDone) {
     final vDone = {...room.doneSteps};
@@ -92,11 +114,54 @@ class GuideView extends StatelessWidget {
     final vDone = vAll.where((pStep) => room.doneSteps.contains(pStep.name)).length;
     final vMissing = missingTools(room, ownedTools);
 
-    Widget vStep(GuideStep pStep) => CheckboxListTile(
-      value: room.doneSteps.contains(pStep.name),
-      onChanged: (pValue) => _toggle(pStep, pValue ?? false),
-      title: Text(stepLabel(vText, pStep)),
-    );
+    Widget vStep(GuideStep pStep) {
+      final vPhotos = room.stepPhotos[pStep.name] ?? const <String>[];
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CheckboxListTile(
+            value: room.doneSteps.contains(pStep.name),
+            onChanged: (pValue) => _toggle(pStep, pValue ?? false),
+            title: Text(stepLabel(vText, pStep)),
+            secondary: IconButton(
+              tooltip: vText.stepPhoto,
+              icon: Icon(
+                vPhotos.isEmpty ? Icons.add_a_photo_outlined : Icons.photo_library_outlined,
+              ),
+              onPressed: () => _photo(pStep),
+            ),
+          ),
+          if (vPhotos.isNotEmpty)
+            SizedBox(
+              height: 64,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                children: [
+                  for (final vPath in vPhotos)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: GestureDetector(
+                        onTap: () => showPhoto(context, vPath),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: Image.file(
+                            File(vPath),
+                            width: 64,
+                            height: 64,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, _, _) => const Icon(Icons.broken_image_outlined),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+        ],
+      );
+    }
 
     return ListView(
       padding: const EdgeInsets.only(bottom: 96),

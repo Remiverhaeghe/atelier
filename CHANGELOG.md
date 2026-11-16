@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Pas à pas en photos
+- Chaque étape du guide reçoit ses propres photos, affichées sous l'étape : on se fait ses tutos au fil des chantiers
+
 ### Carnet de la maison
 - Travaux notés pièce par pièce : date, produit, référence ou lot, coût, note, photo et photo de la facture
 - Recherche de la dernière référence pour une retouche (« blanc salon »), coût total, carnet partagé en texte

@@ -1701,5 +1701,6 @@
   "journalReference": "Référence ou numéro de lot",
   "journalCostField": "Coût",
   "journalNote": "Note",
-  "journalMenu": "Carnet de la maison"
+  "journalMenu": "Carnet de la maison",
+  "stepPhoto": "Photo de cette étape"
 }
