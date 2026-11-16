@@ -33,6 +33,26 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "toolsCheckHelp": "Coche les outils que tu as déjà : l'objectif du jour ne proposera que ce que tu peux faire.",
+  "toolsAllThere": "Tout le matériel est là.",
+  "toolsMissing": "{count, plural, =1{Il te manque 1 outil} other{Il te manque {count} outils}}, ajouté aux courses.",
+  "@toolsMissing": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toolsToGet": "Outils à te procurer",
+  "stockField": "Déjà en stock",
+  "lineInStock": "{count} pris dans le stock",
+  "@lineInStock": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "backupsTitle": "Sauvegardes",
   "backupsHelp": "Une copie de tous les chantiers est faite chaque jour où tu les modifies ; les {count} derniers jours sont gardés sur le téléphone.",
   "@backupsHelp": {

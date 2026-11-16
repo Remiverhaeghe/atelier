@@ -3,9 +3,11 @@ import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/inventory.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
+import 'guide_view.dart';
 import 'parquet_view.dart';
 import 'shopping_texts.dart';
 import 'worksite_pdf.dart';
@@ -31,6 +33,7 @@ class ShoppingScreen extends StatelessWidget {
         }
         final vLines = shoppingList(vWorksite);
         final vPurchases = worksitePurchases(vWorksite);
+        final vTools = worksiteMissingTools(vWorksite);
 
         return Scaffold(
           appBar: AppBar(
@@ -87,6 +90,18 @@ class ShoppingScreen extends StatelessWidget {
                                 style: Theme.of(pContext).textTheme.titleMedium,
                               ),
                               Text(lineDetail(vText, vLine)),
+                              if (vLine.inStock > 0) Text(vText.lineInStock(vLine.inStock)),
+                              NumberField<int>(
+                                key: ValueKey('stock-${vLine.item.name}'),
+                                label: vText.stockField,
+                                initial: '${vWorksite.stock[vLine.item.name] ?? 0}',
+                                parse: parseWhole,
+                                onValue: (pStock) => controller.updateWorksite(
+                                  vWorksite.copyWith(
+                                    stock: {...vWorksite.stock, vLine.item.name: pStock},
+                                  ),
+                                ),
+                              ),
                               NumberField<double>(
                                 key: ValueKey(vLine.item),
                                 label: vText.unitPrice,
@@ -101,6 +116,18 @@ class ShoppingScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                      ),
+                    if (vTools.isNotEmpty)
+                      ListTile(
+                        title: Text(
+                          vText.toolsToGet,
+                          style: Theme.of(pContext).textTheme.titleMedium,
+                        ),
+                      ),
+                    for (final vTool in vTools)
+                      ListTile(
+                        leading: Icon(toolIcon(vTool)),
+                        title: Text(toolLabel(vText, vTool)),
                       ),
                     if (vPurchases.isNotEmpty)
                       ListTile(

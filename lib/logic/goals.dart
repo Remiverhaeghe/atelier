@@ -2,6 +2,7 @@
 library;
 
 import 'baseboard.dart';
+import 'inventory.dart';
 import 'laying_plan.dart';
 import 'room.dart';
 import 'worksite.dart';
@@ -118,6 +119,10 @@ DailyGoal suggestGoal(Worksite pWorksite, DateTime pDay) {
           targetPasses: vTouchUp.donePasses + 1,
         ),
       );
+    }
+    // Ce qui est faisable avec le matériel déjà là : pas de pose s'il manque un outil
+    if (missingTools(vRoom, pWorksite.ownedTools).isNotEmpty) {
+      continue;
     }
     final vPlan = planLaying(vRoom, vRoom.parquet);
     final vNextRows = [
