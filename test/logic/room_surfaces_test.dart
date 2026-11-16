@@ -7,9 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../support/rooms.dart';
 
-final _attic = rectangleRoom().copyWith(
-  slope: const Slope(wallIndex: 0, lowMm: 1000, runMm: 2000),
-);
+final _attic = rectangleRoom().copyWith(slope: const Slope(wallIndex: 0, lowMm: 1000, runMm: 2000));
 
 void main() {
   test('surfaces à isoler reprises du plan', () {
