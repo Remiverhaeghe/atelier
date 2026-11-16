@@ -58,7 +58,10 @@ List<int> radiatorsFor(int pWatts) {
   }
   final vCount = (pWatts / radiatorSizes.last - 1e-9).ceil();
   final vEach = pWatts / vCount;
-  final vSize = radiatorSizes.firstWhere((pSize) => pSize >= vEach, orElse: () => radiatorSizes.last);
+  final vSize = radiatorSizes.firstWhere(
+    (pSize) => pSize >= vEach,
+    orElse: () => radiatorSizes.last,
+  );
   final rRadiators = List.filled(vCount, vSize);
 
   return rRadiators;
