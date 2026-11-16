@@ -27,8 +27,7 @@ enum SiteProduct {
   final double maxHumidity;
 
   /// Les finitions filmogènes craignent la condensation sur le support.
-  bool get dewSensitive =>
-      this == acrylicPaint || this == alkydPaint || this == floorVarnish;
+  bool get dewSensitive => this == acrylicPaint || this == alkydPaint || this == floorVarnish;
 }
 
 /// Raison d'un refus, dans l'ordre où on la vérifie.
