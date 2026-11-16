@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 61. **Enduit et ragréage** : sacs selon épaisseur et surface, séchage dans le planning.
 - 62. **Menuiserie** : débit d'une planche, liste de coupes avec le trait de scie.
 - 63. **Meubles sur le plan** : passage et ouverture des portes vérifiés avant l'achat.
 - 64. **Réseaux cachés** : gaines, tuyaux et câbles tracés dans les murs, où ne pas percer.

@@ -10,6 +10,7 @@ import 'garden_calculator.dart';
 import 'insulation_calculator.dart';
 import 'plumbing_calculator.dart';
 import 'rent_buy_calculator.dart';
+import 'screed_calculator.dart';
 import 'shelf_calculator.dart';
 import 'tiling_calculator.dart';
 import 'wall_tiling_calculator.dart';
@@ -101,6 +102,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.wallTileHelp,
       icon: Icons.view_module_outlined,
       builder: (_) => const WallTilingCalculator(),
+    ),
+    (
+      title: pText.screedTitle,
+      help: pText.screedHelp,
+      icon: Icons.format_paint_outlined,
+      builder: (_) => const ScreedCalculator(),
     ),
     (
       title: pText.frameTitle,
