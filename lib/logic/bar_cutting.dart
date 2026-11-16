@@ -20,9 +20,8 @@ class CutBar {
       : pieceLengths.fold<int>(0, (pSum, pLength) => pSum + pLength) +
             pKerfMm * (pieceLengths.length - 1);
 
-  bool fits(int pLengthMm, int pKerfMm) => pieceLengths.isEmpty
-      ? pLengthMm <= barMm
-      : usedMm(pKerfMm) + pKerfMm + pLengthMm <= barMm;
+  bool fits(int pLengthMm, int pKerfMm) =>
+      pieceLengths.isEmpty ? pLengthMm <= barMm : usedMm(pKerfMm) + pKerfMm + pLengthMm <= barMm;
 
   /// Ce qui reste de la barre après la dernière coupe ; 0 si elle est utilisée jusqu'au bout.
   int offcutMm(int pKerfMm) {
