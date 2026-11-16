@@ -29,10 +29,7 @@ void main() {
     await pTester.pumpAndSettle();
     expect(find.textContaining('remplacés par ceux du 2026-11-15'), findsOneWidget);
 
-    await pTester.runAsync(() async {
-      await pTester.tap(find.text('Restaurer').last);
-      await Future<void>.delayed(const Duration(milliseconds: 200));
-    });
+    await pTester.tap(find.text('Restaurer').last);
     await pTester.pumpAndSettle();
     expect(vStorage.saved.single.name, 'Ancien');
   });
