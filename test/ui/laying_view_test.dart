@@ -32,7 +32,8 @@ void main() {
     await pTester.pump();
     expect(find.text('1 rangée posée sur 16'), findsOneWidget);
 
-    await pTester.tap(find.byType(Checkbox).first);
+    await scrollToFirst(pTester, find.textContaining('Rangée 1 ·'));
+    await pTester.tap(find.textContaining('Rangée 1 ·'));
     await pTester.pump();
     expect(vRoom.laidRows, isEmpty);
   });
