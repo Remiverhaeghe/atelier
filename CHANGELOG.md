@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Calculs reliés aux pièces
+- Isolation, ragréage et faïence proposent « Reprendre d'une pièce » : rampants, murs, combles ou sol pour l'isolation, sol pour le ragréage, mur avec sa hauteur et sa fenêtre pour la faïence
+
 ### Accueil du chantier
 - Tuiles sous le résumé du chantier : plan de la maison, surface habitable, carnet, temps passé, plexis, chutes, bilan ; le menu ⋮ ne garde que les exports
 

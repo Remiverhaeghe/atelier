@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 75. **Calculs reliés aux pièces** : isolation, faïence et ragréage reprennent les surfaces du plan.
 - 76. **Modèle de pièce allégé** : lecture et écriture JSON à part, contour du plan mis en cache.
 - 77. **Plus de parcours sur émulateur** : photo et reprise, export, sauvegarde et restauration.
 - 78. **Niveau et rapporteur du téléphone** : pente, angle de coin, niveau de plancher.

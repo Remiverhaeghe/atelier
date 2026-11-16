@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../logic/room.dart';
+
 import '../l10n/gen/app_localizations.dart';
 import 'deck_calculator.dart';
 import 'conditions_calculator.dart';
@@ -23,9 +25,12 @@ typedef Calculator = ({String title, String help, IconData icon, WidgetBuilder b
 
 /// Calculs hors des pièces, en grille de tuiles.
 class CalculatorsScreen extends StatelessWidget {
-  const CalculatorsScreen({super.key});
+  const CalculatorsScreen({super.key, this.rooms = const []});
 
-  static List<Calculator> entries(AppLocalizations pText) => [
+  /// Pièces de tous les chantiers, dont certains calculs reprennent les surfaces.
+  final List<Room> rooms;
+
+  static List<Calculator> entries(AppLocalizations pText, [List<Room> pRooms = const []]) => [
     (
       title: pText.shelfTitle,
       help: pText.shelfHelp,
@@ -96,19 +101,19 @@ class CalculatorsScreen extends StatelessWidget {
       title: pText.insulTitle,
       help: pText.insulHelp,
       icon: Icons.texture,
-      builder: (_) => const InsulationCalculator(),
+      builder: (_) => InsulationCalculator(rooms: pRooms),
     ),
     (
       title: pText.wallTileTitle,
       help: pText.wallTileHelp,
       icon: Icons.view_module_outlined,
-      builder: (_) => const WallTilingCalculator(),
+      builder: (_) => WallTilingCalculator(rooms: pRooms),
     ),
     (
       title: pText.screedTitle,
       help: pText.screedHelp,
       icon: Icons.format_paint_outlined,
-      builder: (_) => const ScreedCalculator(),
+      builder: (_) => ScreedCalculator(rooms: pRooms),
     ),
     (
       title: pText.panelTitle,
@@ -138,7 +143,7 @@ class CalculatorsScreen extends StatelessWidget {
         crossAxisSpacing: 4,
         childAspectRatio: 0.85,
         children: [
-          for (final vEntry in entries(vText))
+          for (final vEntry in entries(vText, rooms))
             Card(
               margin: const EdgeInsets.all(4),
               child: InkWell(
