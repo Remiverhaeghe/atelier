@@ -19,10 +19,7 @@ void main() {
     expect(find.text('11 poteaux'), findsOneWidget);
     expect(find.textContaining('Dernier panneau'), findsNothing);
 
-    await pTester.enterText(
-      find.widgetWithText(TextField, 'Longueur de la clôture (mm)'),
-      '23400',
-    );
+    await pTester.enterText(find.widgetWithText(TextField, 'Longueur de la clôture (mm)'), '23400');
     await pTester.pump();
     expect(find.text('Dernier panneau recoupé à 90 cm'), findsOneWidget);
   });
