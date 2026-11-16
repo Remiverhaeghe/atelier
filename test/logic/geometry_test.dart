@@ -99,4 +99,14 @@ void main() {
     expect(lShapedRoom().walls[2].isOutsideCornerAfter, isTrue);
     expect(lShapedRoom().walls[1].isOutsideCornerAfter, isFalse);
   });
+
+  test('le contour est calculé une fois par pièce et ne se modifie pas', () {
+    final vRoom = rectangleRoom();
+
+    expect(identical(outline(vRoom), outline(vRoom)), isTrue);
+    expect(() => outline(vRoom).add(const PlanPoint(0, 0)), throwsUnsupportedError);
+    // Une copie modifiée a son propre contour
+    final vLonger = vRoom.copyWith(walls: [const Wall(lengthMm: 5000), ...vRoom.walls.skip(1)]);
+    expect(outline(vLonger)[1].x, closeTo(5000, 1e-9));
+  });
 }
