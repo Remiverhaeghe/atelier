@@ -129,5 +129,106 @@
     }
   },
   "obstacleNeedsWall": "Ajoute d'abord un mur.",
-  "planTitle": "Plan"
+  "planTitle": "Plan",
+  "tabRoom": "Pièce",
+  "tabParquet": "Parquet",
+  "parquetType": "Type de parquet",
+  "parquetFloating": "Flottant clipsable",
+  "parquetGlued": "Collé",
+  "parquetNailed": "Massif cloué",
+  "parquetHerringbone": "Point de Hongrie ou bâton rompu",
+  "parquetDefaultsHint": "Changer de type reprend ses valeurs de départ (jeu, marge) ; la notice du fabricant l'emporte.",
+  "plankLength": "Longueur d'une lame (cm)",
+  "plankWidth": "Largeur utile d'une lame (cm)",
+  "packArea": "Surface d'un paquet (m²)",
+  "layingWall": "Lames parallèles au mur",
+  "expansionGap": "Jeu de dilatation le long des murs (mm)",
+  "wastePercent": "Marge de chute (%)",
+  "minJointOffset": "Écart minimal entre joints (cm)",
+  "underlayRollArea": "Surface d'un rouleau de sous-couche (m²)",
+  "glueCoverage": "Surface encollée par seau (m²)",
+  "nailsPerM2": "Clous par m²",
+  "nailsPerBox": "Clous par boîte",
+  "invalidNumber": "Nombre invalide.",
+  "parquetNeedsRoom": "Saisis d'abord au moins trois murs de la pièce.",
+  "resultsTitle": "À acheter",
+  "resultArea": "Surface : {area} m², {withWaste} m² avec la marge",
+  "@resultArea": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      },
+      "withWaste": {
+        "type": "String"
+      }
+    }
+  },
+  "resultPacks": "{count, plural, =0{Aucun paquet} =1{1 paquet} other{{count} paquets}}",
+  "@resultPacks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultPlanks": "{count, plural, =1{1 lame} other{{count} lames}} environ",
+  "@resultPlanks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultLeftRight": "{left} lames gauches et {right} lames droites",
+  "@resultLeftRight": {
+    "placeholders": {
+      "left": {
+        "type": "int"
+      },
+      "right": {
+        "type": "int"
+      }
+    }
+  },
+  "resultUnderlay": "{count, plural, =1{1 rouleau de sous-couche} other{{count} rouleaux de sous-couche}}",
+  "@resultUnderlay": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultGlue": "{count, plural, =1{1 seau de colle} other{{count} seaux de colle}}",
+  "@resultGlue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultNails": "{count, plural, =1{1 boîte de clous} other{{count} boîtes de clous}}",
+  "@resultNails": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rowsTitle": "Rangées",
+  "rowsSummary": "{count} rangées : première de {first} cm, dernière de {last} cm",
+  "@rowsSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "first": {
+        "type": "String"
+      },
+      "last": {
+        "type": "String"
+      }
+    }
+  },
+  "rowsBalanced": "La dernière rangée aurait été trop étroite : recoupe la première lame dans sa longueur pour équilibrer les deux bords.",
+  "rowsHerringbone": "En point de Hongrie, la pose suit le motif : le plan rangée par rangée ne s'applique pas."
 }

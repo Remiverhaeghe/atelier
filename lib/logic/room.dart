@@ -1,6 +1,8 @@
 /// Modèle d'une pièce saisie mur par mur, sérialisable en JSON.
 library;
 
+import 'parquet.dart';
+
 /// Ouverture dans un mur, sans plinthe sur sa largeur.
 enum OpeningKind { door, passage }
 
@@ -117,6 +119,7 @@ class Room {
     this.walls = const [],
     this.closed = true,
     this.obstacles = const [],
+    this.parquet = const ParquetSettings(),
   });
 
   final String id;
@@ -126,13 +129,21 @@ class Room {
   /// Le dernier mur rejoint le premier ; sinon la pièce est ouverte sur un côté.
   final bool closed;
   final List<Obstacle> obstacles;
+  final ParquetSettings parquet;
 
-  Room copyWith({String? name, List<Wall>? walls, bool? closed, List<Obstacle>? obstacles}) => Room(
+  Room copyWith({
+    String? name,
+    List<Wall>? walls,
+    bool? closed,
+    List<Obstacle>? obstacles,
+    ParquetSettings? parquet,
+  }) => Room(
     id: id,
     name: name ?? this.name,
     walls: walls ?? this.walls,
     closed: closed ?? this.closed,
     obstacles: obstacles ?? this.obstacles,
+    parquet: parquet ?? this.parquet,
   );
 
   Map<String, Object?> toJson() => {
@@ -141,6 +152,7 @@ class Room {
     'walls': [for (final vWall in walls) vWall.toJson()],
     'closed': closed,
     'obstacles': [for (final vObstacle in obstacles) vObstacle.toJson()],
+    'parquet': parquet.toJson(),
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -155,5 +167,8 @@ class Room {
       for (final vObstacle in (pJson['obstacles'] as List<Object?>?) ?? const [])
         Obstacle.fromJson(vObstacle! as Map<String, Object?>),
     ],
+    parquet: pJson['parquet'] == null
+        ? const ParquetSettings()
+        : ParquetSettings.fromJson(pJson['parquet']! as Map<String, Object?>),
   );
 }

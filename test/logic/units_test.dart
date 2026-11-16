@@ -46,4 +46,19 @@ void main() {
     expect(formatSquareMetres(12), '12,00');
     expect(formatSquareMetres(12.345), '12,35');
   });
+
+  test('parseDecimal et parseWhole refusent le négatif et le texte', () {
+    expect(parseDecimal('2,13'), 2.13);
+    expect(parseDecimal('-1'), isNull);
+    expect(parseDecimal('x'), isNull);
+    expect(parseWhole('12'), 12);
+    expect(parseWhole('-2'), isNull);
+    expect(parseWhole('1,5'), isNull);
+  });
+
+  test('formatDecimal retire les zéros inutiles', () {
+    expect(formatDecimal(2.13), '2,13');
+    expect(formatDecimal(15), '15');
+    expect(formatDecimal(2.5), '2,5');
+  });
 }
