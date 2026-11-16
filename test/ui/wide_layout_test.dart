@@ -46,6 +46,6 @@ void main() {
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
     final vGrid = pTester.widget<GridView>(find.byType(GridView));
     final vDelegate = vGrid.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount;
-    expect(vDelegate.crossAxisCount, 7);
+    expect(vDelegate.crossAxisCount, 4);
   });
 }
