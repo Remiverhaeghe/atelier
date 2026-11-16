@@ -149,11 +149,17 @@ class _StairPainter extends CustomPainter {
     final vFloorPaint = Paint()..color = colors.wood;
     final vTremieStart = vRun - tremieMm.toDouble();
     pCanvas.drawRect(
-      Rect.fromPoints(vAt(-200, riseMm.toDouble()), vAt(vTremieStart, riseMm - upperFloorMm.toDouble())),
+      Rect.fromPoints(
+        vAt(-200, riseMm.toDouble()),
+        vAt(vTremieStart, riseMm - upperFloorMm.toDouble()),
+      ),
       vFloorPaint,
     );
     pCanvas.drawRect(
-      Rect.fromPoints(vAt(vRun.toDouble(), riseMm.toDouble()), vAt(vWidthMm - 200, riseMm - upperFloorMm.toDouble())),
+      Rect.fromPoints(
+        vAt(vRun.toDouble(), riseMm.toDouble()),
+        vAt(vWidthMm - 200, riseMm - upperFloorMm.toDouble()),
+      ),
       vFloorPaint,
     );
   }
