@@ -4,7 +4,6 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/reminders.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
-import 'theme.dart';
 
 String waitLabel(AppLocalizations pText, WaitKind pKind) => switch (pKind) {
   WaitKind.acclimatise => pText.waitAcclimatise,
