@@ -59,18 +59,16 @@ class _DiyCalculatorState extends State<DiyCalculator> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BigFigure(
-                    vWorth
-                        ? vText.diySaving(formatEuros(vVerdict.savingEuros))
-                        : vText.diyNoSaving,
+                    vWorth ? vText.diySaving(formatEuros(vVerdict.savingEuros)) : vText.diyNoSaving,
                   ),
                   IconLine(Icons.handyman_outlined, vText.diyCost(formatEuros(vVerdict.diyEuros))),
-                  IconLine(Icons.engineering_outlined, vText.diyPro(formatEuros(vVerdict.proEuros))),
+                  IconLine(
+                    Icons.engineering_outlined,
+                    vText.diyPro(formatEuros(vVerdict.proEuros)),
+                  ),
                   IconLine(Icons.timer_outlined, vText.diyHours(formatDecimal(vVerdict.realHours))),
                   if (vWorth)
-                    IconLine(
-                      Icons.euro,
-                      vText.diyPerHour(formatEuros(vVerdict.savingPerHour)),
-                    ),
+                    IconLine(Icons.euro, vText.diyPerHour(formatEuros(vVerdict.savingPerHour))),
                 ],
               ),
             ),
