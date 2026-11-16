@@ -27,6 +27,7 @@ Captures faites sur un chantier fictif par le workflow Captures (`test/captures/
 | 8 | Version 0.1.0, APK jointes aux releases | fait |
 | 9 | Captures d'écran | fait |
 | 10 | Habillage et prise en main | fait |
+| 11 | Reprises : liste à cocher, repère sur le plan, photo | fait |
 
 La suite est dans [ROADMAP.md](ROADMAP.md).
 

@@ -4,7 +4,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 ## Prochains lots
 
-- **Reprises** : liste des choses à faire ou à reprendre, pièce par pièce, avec plusieurs passages à cocher (trois couches de peinture, quatre passes d'enduit), un repère sur le plan pour savoir où est la reprise, et une photo.
 - **Peinture** : hauteur sous plafond par pièce, fenêtres (largeur, hauteur, allège), murs, plafond et boiseries, couches et rendement, sous-couche, pot le moins cher, fournitures.
 
 ## Organisation et motivation

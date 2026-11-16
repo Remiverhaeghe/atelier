@@ -2,6 +2,14 @@
 
 ## Non publié
 
+### Reprises
+- Onglet Reprises dans chaque pièce : choses à faire ou à reprendre, en un ou plusieurs passages à cocher (trois couches, quatre passes d'enduit)
+- Note, matériel à acheter (repris dans les courses et la liste partagée), photo prise avec l'appareil du téléphone
+- Repère numéroté sur le plan, rouge à faire, vert une fois fait
+- Zones sans murs (toit, extérieur, achats) : elles s'ouvrent directement sur leurs reprises
+- Avancement des pièces : les passages des reprises comptent
+- Saisie à la suite avec « Reprise suivante »
+
 ### Habillage et prise en main
 - Thème propre à Atelier : vert sapin, jaune mètre ruban réservé aux mesures, polices Barlow embarquées, thème sombre accordé
 - Plan coté sur papier quadrillé : cotes jaunes, numéros des murs, portes avec leur ouverture, obstacles hachurés
