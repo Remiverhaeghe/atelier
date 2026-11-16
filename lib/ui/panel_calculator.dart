@@ -25,7 +25,10 @@ class _PanelCalculatorState extends State<PanelCalculator> {
   bool _rotate = false;
 
   Future<void> _addPart() async {
-    final vPart = await showDialog<PanelPart>(context: context, builder: (_) => const _PartDialog());
+    final vPart = await showDialog<PanelPart>(
+      context: context,
+      builder: (_) => const _PartDialog(),
+    );
     if (vPart != null) {
       setState(() => _parts.add(vPart));
     }
@@ -35,13 +38,7 @@ class _PanelCalculatorState extends State<PanelCalculator> {
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
-    final vPlan = planPanels(
-      _parts,
-      _panelLength,
-      _panelWidth,
-      pKerfMm: _kerf,
-      pRotate: _rotate,
-    );
+    final vPlan = planPanels(_parts, _panelLength, _panelWidth, pKerfMm: _kerf, pRotate: _rotate);
     String vCm(int pMm) => formatCentimetres(pMm);
 
     return Scaffold(
@@ -158,7 +155,10 @@ class _PanelPainter extends CustomPainter {
       pCanvas.drawRect(vRect, Paint()..color = colors.wood);
       pCanvas.drawRect(vRect, vStroke);
       final vLabel = TextPainter(
-        text: TextSpan(text: '${vPart.partIndex + 1}', style: style.copyWith(color: colors.ink)),
+        text: TextSpan(
+          text: '${vPart.partIndex + 1}',
+          style: style.copyWith(color: colors.ink),
+        ),
         textDirection: TextDirection.ltr,
       )..layout();
       vLabel.paint(pCanvas, vRect.center - Offset(vLabel.width / 2, vLabel.height / 2));
@@ -196,7 +196,12 @@ class _PartDialogState extends State<_PartDialog> {
     final vLength = parseCentimetres(_length.text);
     final vWidth = parseCentimetres(_width.text);
     final vCount = parseWhole(_count.text);
-    if (vLength == null || vLength == 0 || vWidth == null || vWidth == 0 || vCount == null || vCount == 0) {
+    if (vLength == null ||
+        vLength == 0 ||
+        vWidth == null ||
+        vWidth == 0 ||
+        vCount == null ||
+        vCount == 0) {
       setState(() => _error = AppLocalizations.of(context).invalidLength);
       return;
     }

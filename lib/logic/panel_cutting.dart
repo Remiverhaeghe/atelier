@@ -15,8 +15,8 @@ class CutPanel {
   final int widthMm;
   final parts = <PlacedPart>[];
 
-  double get usedShare => parts.fold(0, (pSum, pPart) => pSum + pPart.lengthMm * pPart.widthMm) /
-      (lengthMm * widthMm);
+  double get usedShare =>
+      parts.fold(0, (pSum, pPart) => pSum + pPart.lengthMm * pPart.widthMm) / (lengthMm * widthMm);
 }
 
 typedef PanelPlan = ({List<CutPanel> panels, List<int> tooBig, double wasteShare});
@@ -75,9 +75,13 @@ PanelPlan planPanels(
       for (final vStrip in vStrips[vPanel]) {
         final vStart = vStrip.usedMm == 0 ? 0 : vStrip.usedMm + pKerfMm;
         if (vWidth <= vStrip.heightMm && vStart + vLength <= pPanelLengthMm) {
-          vPanels[vPanel].parts.add(
-            (partIndex: vIndex, xMm: vStart, yMm: vStrip.yMm, lengthMm: vLength, widthMm: vWidth),
-          );
+          vPanels[vPanel].parts.add((
+            partIndex: vIndex,
+            xMm: vStart,
+            yMm: vStrip.yMm,
+            lengthMm: vLength,
+            widthMm: vWidth,
+          ));
           vStrip.usedMm = vStart + vLength;
           vPlaced = true;
           break;
@@ -90,9 +94,13 @@ PanelPlan planPanels(
         if (vY + vWidth <= pPanelWidthMm) {
           final vStrip = _Strip(vY, vWidth)..usedMm = vLength;
           vStrips[vPanel].add(vStrip);
-          vPanels[vPanel].parts.add(
-            (partIndex: vIndex, xMm: 0, yMm: vY, lengthMm: vLength, widthMm: vWidth),
-          );
+          vPanels[vPanel].parts.add((
+            partIndex: vIndex,
+            xMm: 0,
+            yMm: vY,
+            lengthMm: vLength,
+            widthMm: vWidth,
+          ));
           vPlaced = true;
         }
       }
