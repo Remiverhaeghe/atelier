@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Planning du chantier
+- Prochaine étape de chaque pièce sur l'écran du chantier, dans l'ordre : reprises, plafond, murs, boiseries, parquet, plinthes, joints
+- Rappel du séchage à respecter après l'étape précédente (indicatif, la notice fait foi)
+- Peinture : plafond, murs et boiseries à cocher une fois peints
+
 ### Matériel disponible
 - Outils à cocher dans le guide : l'appli dit s'il manque quelque chose, et les outils manquants passent dans les courses
 - Stock déjà là pour chaque article des courses, déduit de ce qu'il faut acheter et du budget
