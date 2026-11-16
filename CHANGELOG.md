@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Comparer les magasins
+- Depuis la liste de courses : prix relevés par magasin, total de chacun (prix manquants signalés) et panier panaché le moins cher, avec l'économie par rapport au meilleur magasin unique
+
 ### Louer ou acheter
 - Nouveau calcul : coût de la location face à l'achat (revente déduite), nombre de jours à partir duquel acheter est rentable, et conseil
 

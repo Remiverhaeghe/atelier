@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 56. **Comparatif de magasins** : total par magasin et meilleur panier mixte.
 - 57. **Temps passé** : chrono par tâche et par pièce, estimation des suivantes.
 - 58. **Conditions de chantier** : température et humidité saisies, peinture, colle ou vernis possibles ou non.
 - 59. **Isolation** : rouleaux ou panneaux, épaisseur selon la résistance R visée, pare-vapeur, fourrures.
