@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Enduit et ragréage
+- Nouveau calcul : sacs de ragréage, d'enduit de lissage ou de rebouchage selon la surface et l'épaisseur relevée à la règle, primaire, couches et attente avant de poser le revêtement
+
 ### Faïence et crédence
 - Nouveau calcul : pan de mur moins une fenêtre ou une niche, rangées entières depuis le bas et coupe en haut, cartons, colle et joint
 - Découpes de prises à la scie cloche et rehausses, profilés de finition, joint silicone sur le plan de travail
