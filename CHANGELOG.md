@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Coupes en schéma et sens de pose
+- Schéma de chaque morceau de plinthe vu de dessus, posé sur la scie à onglet : dos contre le guide, trait de lame en jaune, angle de chaque bout, longueur au dos, chute
+- « Mesurer l'angle » dans la saisie d'un mur : deux repères à 50 cm du coin et leur écart donnent l'angle réel, pour les murs pas droits (coin rentrant ou sortant)
+- Sens de pose du parquet choisi en images : la pièce rayée de lames dans chaque sens possible, nombre de rangées, sens conseillé (dans la longueur) et conseil sur la lumière
+- Départ de la pose signalé sur l'aperçu des rangées
+
 ### Reprises
 - Onglet Reprises dans chaque pièce : choses à faire ou à reprendre, en un ou plusieurs passages à cocher (trois couches, quatre passes d'enduit)
 - Note, matériel à acheter (repris dans les courses et la liste partagée), photo prise avec l'appareil du téléphone

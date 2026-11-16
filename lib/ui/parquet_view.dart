@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/laying_direction.dart';
 import '../logic/parquet.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
+import 'direction_picker.dart';
 import 'theme.dart';
 
 /// Nom affiché d'un type de parquet.
@@ -33,6 +35,7 @@ class ParquetView extends StatelessWidget {
       );
     }
     final vDefaults = vSettings.defaults;
+    final vDirections = layingDirections(room, vSettings);
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
@@ -56,15 +59,15 @@ class ParquetView extends StatelessWidget {
             }
           },
         ),
-        DropdownButtonFormField<int>(
-          initialValue: vSettings.layingWallIndex.clamp(0, room.walls.length - 1),
-          decoration: InputDecoration(labelText: vText.layingWall),
-          items: [
-            for (var vIndex = 0; vIndex < room.walls.length; vIndex++)
-              DropdownMenuItem(value: vIndex, child: Text(vText.wallTitle(vIndex + 1))),
-          ],
-          onChanged: (pIndex) => _update(vSettings.copyWith(layingWallIndex: pIndex)),
+        const SizedBox(height: 16),
+        DirectionPicker(
+          room: room,
+          directions: vDirections,
+          selected: selectedDirection(room, vDirections, vSettings.layingWallIndex),
+          onSelected: (pDirection) =>
+              _update(vSettings.copyWith(layingWallIndex: pDirection.wallIndex)),
         ),
+        const SizedBox(height: 6),
         NumberField(
           key: ValueKey('plankLength-${vSettings.type}'),
           label: vText.plankLength,
