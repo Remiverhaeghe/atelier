@@ -15,3 +15,15 @@ Finder verticalList() => find
       (pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down,
     )
     .first;
+
+/// Fait défiler la liste jusqu'au premier élément trouvé, même s'il n'est pas encore construit.
+///
+/// `scrollUntilVisible` avec `.first` échoue tant que la liste paresseuse n'a rien construit.
+Future<void> scrollToFirst(WidgetTester pTester, Finder pFinder) async {
+  for (var vStep = 0; pFinder.evaluate().isEmpty && vStep < 50; vStep++) {
+    await pTester.drag(verticalList(), const Offset(0, -200));
+    await pTester.pump();
+  }
+  await pTester.ensureVisible(pFinder.first);
+  await pTester.pump();
+}
