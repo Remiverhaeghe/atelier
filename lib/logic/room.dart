@@ -79,13 +79,17 @@ class Wall {
   /// Coin sortant : la pointe longue de la plinthe est côté pièce.
   bool get isOutsideCornerAfter => angleToNextDeg > 180;
 
-  Wall copyWith({int? lengthMm, double? angleToNextDeg, List<Opening>? openings, bool? freeEndAfter}) =>
-      Wall(
-        lengthMm: lengthMm ?? this.lengthMm,
-        angleToNextDeg: angleToNextDeg ?? this.angleToNextDeg,
-        openings: openings ?? this.openings,
-        freeEndAfter: freeEndAfter ?? this.freeEndAfter,
-      );
+  Wall copyWith({
+    int? lengthMm,
+    double? angleToNextDeg,
+    List<Opening>? openings,
+    bool? freeEndAfter,
+  }) => Wall(
+    lengthMm: lengthMm ?? this.lengthMm,
+    angleToNextDeg: angleToNextDeg ?? this.angleToNextDeg,
+    openings: openings ?? this.openings,
+    freeEndAfter: freeEndAfter ?? this.freeEndAfter,
+  );
 
   Map<String, Object?> toJson() => {
     'lengthMm': lengthMm,
@@ -123,14 +127,13 @@ class Room {
   final bool closed;
   final List<Obstacle> obstacles;
 
-  Room copyWith({String? name, List<Wall>? walls, bool? closed, List<Obstacle>? obstacles}) =>
-      Room(
-        id: id,
-        name: name ?? this.name,
-        walls: walls ?? this.walls,
-        closed: closed ?? this.closed,
-        obstacles: obstacles ?? this.obstacles,
-      );
+  Room copyWith({String? name, List<Wall>? walls, bool? closed, List<Obstacle>? obstacles}) => Room(
+    id: id,
+    name: name ?? this.name,
+    walls: walls ?? this.walls,
+    closed: closed ?? this.closed,
+    obstacles: obstacles ?? this.obstacles,
+  );
 
   Map<String, Object?> toJson() => {
     'id': id,

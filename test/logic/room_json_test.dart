@@ -8,21 +8,28 @@ import '../support/rooms.dart';
 
 void main() {
   test('un chantier relu depuis le JSON est identique', () {
-    final vRoom = rectangleRoom(
-      pObstacles: const [
-        Obstacle(kind: ObstacleKind.cupboard, wallIndex: 1, offsetMm: 100, widthMm: 900, depthMm: 600),
-      ],
-    ).copyWith(
-      walls: [
-        const Wall(
-          lengthMm: 4000,
-          angleToNextDeg: 88.5,
-          openings: [Opening(kind: OpeningKind.door, offsetMm: 300, widthMm: 830)],
-        ),
-        const Wall(lengthMm: 3000, freeEndAfter: true),
-      ],
-      closed: false,
-    );
+    final vRoom =
+        rectangleRoom(
+          pObstacles: const [
+            Obstacle(
+              kind: ObstacleKind.cupboard,
+              wallIndex: 1,
+              offsetMm: 100,
+              widthMm: 900,
+              depthMm: 600,
+            ),
+          ],
+        ).copyWith(
+          walls: [
+            const Wall(
+              lengthMm: 4000,
+              angleToNextDeg: 88.5,
+              openings: [Opening(kind: OpeningKind.door, offsetMm: 300, widthMm: 830)],
+            ),
+            const Wall(lengthMm: 3000, freeEndAfter: true),
+          ],
+          closed: false,
+        );
     final vWorksite = Worksite(id: 'maison', name: 'Maison', rooms: [vRoom]);
 
     final vCopy = Worksite.fromJson(

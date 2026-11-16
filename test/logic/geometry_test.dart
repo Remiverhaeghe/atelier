@@ -40,7 +40,9 @@ void main() {
 
   test('un coin pas d\'équerre décale le contour', () {
     final vRoom = rectangleRoom();
-    final vSkewed = vRoom.copyWith(walls: [...vRoom.walls]..[0] = const Wall(lengthMm: 4000, angleToNextDeg: 88));
+    final vSkewed = vRoom.copyWith(
+      walls: [...vRoom.walls]..[0] = const Wall(lengthMm: 4000, angleToNextDeg: 88),
+    );
 
     expect(closesProperly(vSkewed), isFalse);
   });
@@ -55,7 +57,13 @@ void main() {
   test('les zones sans parquet sont retirées de la surface', () {
     final vRoom = rectangleRoom(
       pObstacles: const [
-        Obstacle(kind: ObstacleKind.cupboard, wallIndex: 1, offsetMm: 0, widthMm: 1000, depthMm: 600),
+        Obstacle(
+          kind: ObstacleKind.cupboard,
+          wallIndex: 1,
+          offsetMm: 0,
+          widthMm: 1000,
+          depthMm: 600,
+        ),
         Obstacle(kind: ObstacleKind.radiator, wallIndex: 0, offsetMm: 500, widthMm: 800),
       ],
     );
@@ -73,7 +81,13 @@ void main() {
   test('une surface ne devient jamais négative', () {
     final vRoom = rectangleRoom(
       pObstacles: const [
-        Obstacle(kind: ObstacleKind.fireplace, wallIndex: 0, offsetMm: 0, widthMm: 5000, depthMm: 5000),
+        Obstacle(
+          kind: ObstacleKind.fireplace,
+          wallIndex: 0,
+          offsetMm: 0,
+          widthMm: 5000,
+          depthMm: 5000,
+        ),
       ],
     );
 

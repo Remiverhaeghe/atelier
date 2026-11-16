@@ -65,9 +65,7 @@ class WorksiteScreen extends StatelessWidget {
                       ListTile(
                         leading: const Icon(Icons.crop_square),
                         title: Text(vRoom.name),
-                        subtitle: Text(
-                          vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom))),
-                        ),
+                        subtitle: Text(vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom)))),
                         onTap: () => _open(pContext, vRoom.id),
                         trailing: IconButton(
                           tooltip: vText.delete,
