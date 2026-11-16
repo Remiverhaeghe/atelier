@@ -2,6 +2,13 @@
 
 ## Non publié
 
+### Plusieurs niveaux
+- Plan de la maison par niveau : rez-de-chaussée, étages et sous-sols, avec le niveau du dessous en transparence pour caler les murs
+- Une pièce monte ou descend d'un niveau depuis le plan ; « Étage » ajoute un niveau vide
+- Vue 3D empilée : chaque étage posé sur le précédent, plancher de 20 cm compris
+- Trémie d'escalier dans les éléments du plan : sa surface est retirée du sol à couvrir
+- Niveau et altitude du sol exportés (`level`, `floorLevel`)
+
 ### Plafond rampant
 - Dans la peinture : mur du côté bas, hauteur de ce côté et largeur de la pente au sol
 - Surfaces réelles : murs en trapèze sous la pente, plafond incliné plus grand que son ombre au sol

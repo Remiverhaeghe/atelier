@@ -30,20 +30,26 @@ List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
           .map((pCorner) => (pCorner.x - vCx) * math.sin(vYaw) + (pCorner.y - vCy) * math.cos(vYaw))
           .reduce((pA, pB) => pA + pB) /
       pCorners.length;
-  final vFloors = <Face>[];
-  final vWalls = <Face>[];
+  // Faces rangées par niveau : on dessine du bas vers le haut, chaque étage cachant le précédent
+  final vFloors = <int, List<Face>>{};
+  final vWalls = <int, List<Face>>{};
   for (final vRoom in pRooms) {
     final vPoints = houseOutline(vRoom);
-    final vHeight = vRoom.ceilingHeightMm.toDouble();
+    // Chaque niveau posé sur celui du dessous
+    final vLevelBase = levelBaseMm(pRooms, vRoom.level);
+    final vBase = vLevelBase.toDouble();
+    final vRoomFloors = vFloors.putIfAbsent(vLevelBase, () => []);
+    final vRoomWalls = vWalls.putIfAbsent(vLevelBase, () => []);
+    final vHeight = vBase + vRoom.ceilingHeightMm;
     final vFloor = [
-      for (final vPoint in vPoints.take(vRoom.walls.length)) (x: vPoint.x, y: vPoint.y, z: 0.0),
+      for (final vPoint in vPoints.take(vRoom.walls.length)) (x: vPoint.x, y: vPoint.y, z: vBase),
     ];
-    vFloors.add((corners: vFloor, depth: vDepth(vFloor), kind: FaceKind.floor));
+    vRoomFloors.add((corners: vFloor, depth: vDepth(vFloor), kind: FaceKind.floor));
     for (var vIndex = 0; vIndex < vRoom.walls.length; vIndex++) {
       final vStart = vPoints[vIndex];
       final vEnd = vPoints[vIndex + 1];
-      final vWall = _quad(vStart, vEnd, 0, vHeight);
-      vWalls.add((corners: vWall, depth: vDepth(vWall), kind: FaceKind.wall));
+      final vWall = _quad(vStart, vEnd, vBase, vHeight);
+      vRoomWalls.add((corners: vWall, depth: vDepth(vWall), kind: FaceKind.wall));
       final vLength = vRoom.walls[vIndex].lengthMm.toDouble();
       for (final vOpening in vRoom.walls[vIndex].openings) {
         if (vLength <= 0) {
@@ -56,11 +62,11 @@ List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
         final vQuad = _quad(
           vAlong(vOpening.offsetMm.toDouble()),
           vAlong((vOpening.offsetMm + vOpening.widthMm).toDouble()),
-          vOpening.sill.toDouble(),
-          math.min(vOpening.sill + vOpening.height, vHeight).toDouble(),
+          vBase + vOpening.sill,
+          math.min(vBase + vOpening.sill + vOpening.height, vHeight),
         );
         // Un peu devant le mur, pour être dessinée juste après lui
-        vWalls.add((
+        vRoomWalls.add((
           corners: vQuad,
           depth: vDepth(vQuad) - 1,
           kind: vOpening.kind == OpeningKind.window ? FaceKind.window : FaceKind.door,
@@ -68,9 +74,14 @@ List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
       }
     }
   }
-  vWalls.sort((pA, pB) => pB.depth.compareTo(pA.depth));
+  final rFaces = <Face>[];
+  for (final vBase in vFloors.keys.toList()..sort()) {
+    rFaces
+      ..addAll(vFloors[vBase]!)
+      ..addAll(vWalls[vBase]!..sort((pA, pB) => pB.depth.compareTo(pA.depth)));
+  }
 
-  return [...vFloors, ...vWalls];
+  return rFaces;
 }
 
 List<Point3> _quad(PlanPoint pStart, PlanPoint pEnd, double pBottom, double pTop) => [

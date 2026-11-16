@@ -52,3 +52,37 @@ List<Room> arrangeUnplaced(List<Room> pRooms) {
 
   return rRooms;
 }
+
+/// Niveaux de la maison qui ont au moins une pièce, du plus bas au plus haut ; le
+/// rez-de-chaussée est toujours là, même vide.
+List<int> houseLevels(List<Room> pRooms) {
+  final rLevels = {0, for (final vRoom in pRooms) vRoom.level}.toList()..sort();
+
+  return rLevels;
+}
+
+/// Épaisseur d'un plancher entre deux niveaux.
+const floorThicknessMm = 200;
+
+/// Hauteur d'étage : plus haut plafond du niveau, 2,50 m s'il est vide, plus le plancher.
+int _storeyMm(List<Room> pRooms, int pLevel) {
+  final vHeights = pRooms
+      .where((pRoom) => pRoom.level == pLevel)
+      .map((pRoom) => pRoom.ceilingHeightMm);
+  final rStorey = (vHeights.isEmpty ? 2500 : vHeights.reduce(math.max)) + floorThicknessMm;
+
+  return rStorey;
+}
+
+/// Altitude du sol d'un niveau, le rez-de-chaussée à 0 et le sous-sol en dessous.
+int levelBaseMm(List<Room> pRooms, int pLevel) {
+  var rBase = 0;
+  for (var vLevel = 0; vLevel < pLevel; vLevel++) {
+    rBase += _storeyMm(pRooms, vLevel);
+  }
+  for (var vLevel = -1; vLevel >= pLevel; vLevel--) {
+    rBase -= _storeyMm(pRooms, vLevel);
+  }
+
+  return rBase;
+}
