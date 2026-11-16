@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/room.dart';
 import '../logic/touch_up.dart';
+import '../logic/work_templates.dart';
 import 'photo_annotator.dart';
 import 'photos.dart';
 import 'room_plan.dart';
 import 'theme.dart';
+import 'templates_texts.dart';
 import 'thermal_dialog.dart';
 import 'touch_up_dialog.dart';
 
@@ -41,6 +43,51 @@ class _TouchUpsViewState extends State<TouchUpsView> {
   );
 
   /// Saisie à la suite : « Reprise suivante » enregistre et rouvre la saisie.
+  /// Étapes d'un modèle ajoutées d'un coup, sans doubler celles déjà notées.
+  Future<void> _addTemplate() async {
+    final vText = AppLocalizations.of(context);
+    final vTemplate = await showDialog<WorkTemplate>(
+      context: context,
+      builder: (pDialog) => SimpleDialog(
+        title: Text(vText.templateTitle),
+        children: [
+          for (final vTemplate in WorkTemplate.values)
+            SimpleDialogOption(
+              onPressed: () => Navigator.pop(pDialog, vTemplate),
+              child: ListTile(
+                title: Text(templateLabel(vText, vTemplate)),
+                subtitle: Text(
+                  vTemplate.steps.map((pStep) => templateStepLabel(vText, pStep.$1)).join(', '),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+    if (vTemplate == null) {
+      return;
+    }
+    final vStamp = DateTime.now().microsecondsSinceEpoch;
+    final vSteps = missingSteps(
+      vTemplate,
+      {for (final vTouchUp in _room.touchUps) vTouchUp.label},
+      (pStep) => templateStepLabel(vText, pStep),
+    );
+    widget.onChanged(
+      _room.copyWith(
+        touchUps: [
+          ..._room.touchUps,
+          for (final (vIndex, (vStep, vPasses)) in vSteps.indexed)
+            TouchUp(
+              id: '$vStamp-$vIndex',
+              label: templateStepLabel(vText, vStep),
+              passes: vPasses,
+            ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _add() async {
     var vRoom = _room;
     while (mounted) {
@@ -192,6 +239,11 @@ class _TouchUpsViewState extends State<TouchUpsView> {
                 onPressed: _add,
                 icon: const Icon(Icons.add),
                 label: Text(vText.addTouchUp),
+              ),
+              OutlinedButton.icon(
+                onPressed: _addTemplate,
+                icon: const Icon(Icons.playlist_add),
+                label: Text(vText.templateTitle),
               ),
               OutlinedButton.icon(
                 onPressed: _addThermal,
