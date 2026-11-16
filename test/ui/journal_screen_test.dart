@@ -73,7 +73,9 @@ void main() {
           id: 'w',
           name: 'Maison',
           rooms: [rectangleRoom()],
-          journal: const [JournalEntry(id: 'j', roomId: 'salon', day: '2026-01-01', title: 'Joints')],
+          journal: const [
+            JournalEntry(id: 'j', roomId: 'salon', day: '2026-01-01', title: 'Joints'),
+          ],
         ),
       ];
     final vController = WorksitesController(vStorage);

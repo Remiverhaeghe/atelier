@@ -180,9 +180,7 @@ class _JournalScreenState extends State<JournalScreen> {
               else
                 IconLine(
                   Icons.euro,
-                  vText.journalCost(
-                    formatEuros(journalCost(vWorksite.journal, pRoomId: _roomId)),
-                  ),
+                  vText.journalCost(formatEuros(journalCost(vWorksite.journal, pRoomId: _roomId))),
                 ),
               for (final vEntry in vEntries)
                 Card(
@@ -193,7 +191,12 @@ class _JournalScreenState extends State<JournalScreen> {
                       children: [
                         Text('${vEntry.day}, ${vRoomName(vEntry.roomId)}'),
                         if (vEntry.product.isNotEmpty || vEntry.reference.isNotEmpty)
-                          Text([vEntry.product, vEntry.reference].where((pPart) => pPart.isNotEmpty).join(', ')),
+                          Text(
+                            [
+                              vEntry.product,
+                              vEntry.reference,
+                            ].where((pPart) => pPart.isNotEmpty).join(', '),
+                          ),
                         if (vEntry.note.isNotEmpty) Text(vEntry.note),
                         if (vEntry.cost != null) Text('${formatEuros(vEntry.cost!)} €'),
                         Wrap(
