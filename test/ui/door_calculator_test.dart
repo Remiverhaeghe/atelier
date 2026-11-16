@@ -20,7 +20,10 @@ void main() {
     await pTester.pump();
     expect(find.textContaining('huisserie à recouvrement'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Largeur de l\'ouverture brute, porte déposée (cm)'), '60');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Largeur de l\'ouverture brute, porte déposée (cm)'),
+      '60',
+    );
     await pTester.pump();
     expect(find.textContaining('trop étroite'), findsOneWidget);
   });

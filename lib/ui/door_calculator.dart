@@ -49,7 +49,10 @@ class _DoorCalculatorState extends State<DoorCalculator> {
                       _hand == DoorHand.pushRight ? vText.doorPushRight : vText.doorPushLeft,
                       style: vTheme.textTheme.titleMedium,
                     ),
-                    IconLine(Icons.swap_horiz, vText.doorWidthGap(formatCentimetres(vMatch.widthGapMm))),
+                    IconLine(
+                      Icons.swap_horiz,
+                      vText.doorWidthGap(formatCentimetres(vMatch.widthGapMm)),
+                    ),
                   ],
                   IconLine(
                     vMatch.heightFits ? Icons.check : AtelierIcons.warning,
