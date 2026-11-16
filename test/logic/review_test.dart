@@ -25,9 +25,7 @@ void main() {
         ),
       ],
       prices: const {'parquetPacks': 30},
-      expenses: const [
-        Expense(id: 'e', label: 'Parquet', amount: 300, date: '2026-11-01'),
-      ],
+      expenses: const [Expense(id: 'e', label: 'Parquet', amount: 300, date: '2026-11-01')],
       timeEntries: const [
         TimeEntry(roomId: 'salon', phase: WorkPhase.parquet, minutes: 300, day: '2026-11-02'),
         TimeEntry(roomId: 'salon', phase: WorkPhase.baseboards, minutes: 90, day: '2026-11-03'),
@@ -35,9 +33,9 @@ void main() {
       offcuts: const [Offcut(id: 'o', material: OffcutMaterial.plank, lengthMm: 600)],
       journal: const [JournalEntry(id: 'j', roomId: 'salon', day: '2026-11-03', title: 'Pose')],
     );
-    final vPacks = shoppingList(vWorksite)
-        .firstWhere((pLine) => pLine.item == ShoppingItem.parquetPacks)
-        .quantity;
+    final vPacks = shoppingList(
+      vWorksite,
+    ).firstWhere((pLine) => pLine.item == ShoppingItem.parquetPacks).quantity;
     final vReview = reviewWorksite(vWorksite);
 
     expect(vReview.plannedCost, 30.0 * vPacks);
