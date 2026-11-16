@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/app_settings.dart';
+import '../state/settings_controller.dart';
 import '../state/worksites_controller.dart';
 import '../storage/backups.dart';
 import '../support/crash_log.dart';
@@ -9,11 +11,12 @@ import 'backups_screen.dart';
 
 /// À propos, et journal des plantages à partager si quelque chose ne va pas.
 class AboutScreen extends StatelessWidget {
-  const AboutScreen({super.key, this.crashLog, this.backups, this.controller});
+  const AboutScreen({super.key, this.crashLog, this.backups, this.controller, this.settings});
 
   final CrashLog? crashLog;
   final Backups? backups;
   final WorksitesController? controller;
+  final SettingsController? settings;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class AboutScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           Text(vText.aboutText),
+          if (settings != null) _DisplaySettings(settings: settings!),
           if (backups != null && controller != null) ...[
             const SizedBox(height: 16),
             Card(
@@ -57,6 +61,73 @@ class AboutScreen extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+/// Thème et taille du texte, appliqués tout de suite.
+class _DisplaySettings extends StatelessWidget {
+  const _DisplaySettings({required this.settings});
+
+  final SettingsController settings;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vTheme = Theme.of(context);
+
+    return ListenableBuilder(
+      listenable: settings,
+      builder: (pContext, _) {
+        final vCurrent = settings.settings;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 24),
+            Text(vText.displayTitle, style: vTheme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+            SegmentedButton<ThemeChoice>(
+              segments: [
+                ButtonSegment(
+                  value: ThemeChoice.system,
+                  icon: const Icon(Icons.brightness_auto_outlined),
+                  label: Text(vText.themeSystem),
+                ),
+                ButtonSegment(
+                  value: ThemeChoice.light,
+                  icon: const Icon(Icons.light_mode_outlined),
+                  label: Text(vText.themeLight),
+                ),
+                ButtonSegment(
+                  value: ThemeChoice.dark,
+                  icon: const Icon(Icons.dark_mode_outlined),
+                  label: Text(vText.themeDark),
+                ),
+              ],
+              selected: {vCurrent.theme},
+              onSelectionChanged: (pChoice) =>
+                  settings.update(vCurrent.copyWith(theme: pChoice.single)),
+            ),
+            const SizedBox(height: 12),
+            SegmentedButton<double>(
+              segments: [
+                for (final (vIndex, vScale) in textScales.indexed)
+                  ButtonSegment(
+                    value: vScale,
+                    label: Text(
+                      [vText.textNormal, vText.textLarge, vText.textHuge][vIndex],
+                      textScaler: TextScaler.noScaling,
+                    ),
+                  ),
+              ],
+              selected: {vCurrent.textScale},
+              onSelectionChanged: (pScale) =>
+                  settings.update(vCurrent.copyWith(textScale: pScale.single)),
+            ),
+          ],
+        );
+      },
     );
   }
 }

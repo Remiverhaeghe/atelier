@@ -1375,5 +1375,12 @@
   "offcutUseWall": "{room}, plinthe du mur {wall}",
   "@offcutUseWall": {"placeholders": {"room": {"type": "String"}, "wall": {"type": "int"}}},
   "exportHomeAssistant": "Exporter pour Home Assistant",
-  "exportGltf": "Exporter la maison en 3D (glTF)"
+  "exportGltf": "Exporter la maison en 3D (glTF)",
+  "displayTitle": "Affichage",
+  "themeSystem": "Téléphone",
+  "themeLight": "Clair",
+  "themeDark": "Sombre",
+  "textNormal": "Normal",
+  "textLarge": "Grand",
+  "textHuge": "Très grand"
 }
