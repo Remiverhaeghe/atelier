@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Chantier partagé
+- À l'import d'un chantier qu'on a déjà, l'appli propose de le fusionner : pièces, dépenses, carnet, temps et outils ajoutés sans rien effacer, pièce changée des deux côtés gardée en double
+
 ### Recherche
 - Loupe sur l'accueil : chantiers, pièces, carnet (produits et références), calculs et fiches conseils, sans tenir compte des accents ni des majuscules
 
