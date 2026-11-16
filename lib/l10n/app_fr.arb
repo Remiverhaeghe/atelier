@@ -2139,5 +2139,6 @@
   "voiceNotUnderstood": "Pas compris : « {heard} ». Essayez « coupe faite » ou « répète la rangée ».",
   "@voiceNotUnderstood": {"placeholders": {"heard": {"type": "String"}}},
   "voiceNoted": "C'est noté.",
-  "voiceNothingLeft": "Il ne reste rien à faire de ce côté."
+  "voiceNothingLeft": "Il ne reste rien à faire de ce côté.",
+  "importNewer": "Ce fichier vient d'une version plus récente d'Atelier : mettez l'appli à jour avant de l'importer."
 }

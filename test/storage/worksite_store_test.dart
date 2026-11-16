@@ -40,4 +40,27 @@ void main() {
   test('le format enregistré porte sa version', () {
     expect(WorksiteStore.encode(const []), contains('"formatVersion": 1'));
   });
+
+  test('un fichier de la version 1 se relit toujours, et se réécrit sans rien perdre', () {
+    final vText = File('test/fixtures/chantiers_v1.json').readAsStringSync();
+    final vWorksite = WorksiteStore.decode(vText).single;
+
+    expect(vWorksite.rooms.single.walls.map((pWall) => pWall.lengthMm), [4000, 3000, 4000, 3000]);
+    expect(vWorksite.prices['Colle'], 12.5);
+    expect(vWorksite.goalsReached, 2);
+    expect(vWorksite.expenses.single.amount, 600);
+    expect(vWorksite.journal.single.title, 'Pose du parquet');
+    expect(vWorksite.reminders.single.dueAt, DateTime(2026, 10, 3, 10));
+    final vAgain = WorksiteStore.decode(WorksiteStore.encode([vWorksite])).single;
+    expect(vAgain.toJson(), vWorksite.toJson());
+  });
+
+  test('un fichier illisible est gardé à part avant d\'être refusé', () async {
+    final vFile = File('${vFolder.path}/chantiers.json')
+      ..writeAsStringSync('{"formatVersion": 99, "worksites": []}');
+    final vStore = WorksiteStore(vFile);
+
+    await expectLater(vStore.load(), throwsFormatException);
+    expect(File('${vFile.path}.illisible').readAsStringSync(), contains('"formatVersion": 99'));
+  });
 }
