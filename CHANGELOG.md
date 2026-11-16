@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Plan de la maison
+- « Plan de la maison » dans le menu du chantier : toutes les pièces sur le même plan, à faire glisser et à tourner d'un quart de tour, aimantées tous les 5 cm
+- Rangement automatique des pièces pas encore placées
+- La place de chaque pièce part dans l'export du plan (champ `house`, compatible avec la version 1)
+
 ### CI
 - NDK Android installé avant la construction de l'APK, avec trois essais : une coupure réseau ne fait plus échouer le passage après 15 minutes
 
