@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Tablette et paysage
+- Sur tablette ou en paysage, le plan de la pièce reste à gauche pendant qu'on parcourt les murs ; les tuiles d'accueil et les calculs prennent plus de colonnes
+
 ### Ticket de caisse
 - Dans une dépense, « Coller le texte du ticket » lit le magasin, la date et le total du texte copié depuis la photo (appareil photo ou Google Lens), sans réseau ; le sous-total est ignoré
 

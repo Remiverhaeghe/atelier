@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../logic/room.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/layout.dart';
 import 'deck_calculator.dart';
 import 'conditions_calculator.dart';
 import 'door_calculator.dart';
@@ -207,7 +208,7 @@ class CalculatorsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(vText.calculatorsTitle)),
       body: GridView.count(
-        crossAxisCount: 2,
+        crossAxisCount: gridColumns(MediaQuery.sizeOf(context).width, 180, pMin: 2),
         padding: const EdgeInsets.all(12),
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
