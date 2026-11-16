@@ -373,5 +373,58 @@
         "type": "int"
       }
     }
+  },
+  "bars": "{count, plural, =0{Aucune barre} =1{1 barre à acheter} other{{count} barres à acheter}}",
+  "@bars": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "barsTitle": "Découpe des barres",
+  "barLine": "Barre {number} : {pieces} cm",
+  "@barLine": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "pieces": {
+        "type": "String"
+      }
+    }
+  },
+  "barOffcut": "chute de {length} cm",
+  "@barOffcut": {
+    "placeholders": {
+      "length": {
+        "type": "String"
+      }
+    }
+  },
+  "barOffcutReusable": "chute de {length} cm, à garder",
+  "@barOffcutReusable": {
+    "placeholders": {
+      "length": {
+        "type": "String"
+      }
+    }
+  },
+  "barNoOffcut": "sans chute",
+  "pieceInBar": "dans la barre {number}",
+  "@pieceInBar": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "tooLongPieces": "{count, plural, =1{1 morceau plus long qu'une barre} other{{count} morceaux plus longs qu'une barre}} : vérifie la longueur des barres.",
+  "@tooLongPieces": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }
