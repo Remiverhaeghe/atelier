@@ -153,7 +153,8 @@ Map<PaintProduct, double> paintLitres(Room pRoom, PaintSettings pSettings) {
   final vExtra = 1 + pSettings.extraPercent / 100;
   double vLitres(double pArea, int pCoats, double pCoverage) =>
       pCoverage <= 0 ? 0 : pArea * pCoats / pCoverage * vExtra;
-  final vPrimed = (pSettings.walls ? vAreas.wallsM2 : 0) + (pSettings.ceiling ? vAreas.ceilingM2 : 0);
+  final vPrimed =
+      (pSettings.walls ? vAreas.wallsM2 : 0) + (pSettings.ceiling ? vAreas.ceilingM2 : 0);
   final rLitres = {
     if (pSettings.walls)
       PaintProduct.walls: vLitres(vAreas.wallsM2, pSettings.coats, pSettings.coverageM2PerL),
@@ -252,7 +253,8 @@ PaintSupplies paintSupplies(Room pRoom, PaintSettings pSettings) {
   if (pSettings.walls) {
     for (final vWall in pRoom.walls) {
       for (final vOpening in vWall.openings) {
-        vTape += 2 * vOpening.height + vOpening.widthMm * (vOpening.kind == OpeningKind.window ? 2 : 1);
+        vTape +=
+            2 * vOpening.height + vOpening.widthMm * (vOpening.kind == OpeningKind.window ? 2 : 1);
       }
     }
   }

@@ -13,9 +13,8 @@ void main() {
     var vRoom = rectangleRoom();
     await pTester.pumpWidget(
       StatefulBuilder(
-        builder: (pContext, pSetState) => localized(
-          PaintView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom)),
-        ),
+        builder: (pContext, pSetState) =>
+            localized(PaintView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom))),
       ),
     );
     expect(find.textContaining('Rien à peindre'), findsOneWidget);
@@ -40,7 +39,12 @@ void main() {
 
   testWidgets('sans murs, la vue demande de saisir la pièce', (pTester) async {
     await pTester.pumpWidget(
-      localized(PaintView(room: const Room(id: 'r', name: 'R'), onChanged: (_) {})),
+      localized(
+        PaintView(
+          room: const Room(id: 'r', name: 'R'),
+          onChanged: (_) {},
+        ),
+      ),
     );
 
     expect(find.textContaining('Saisis d\'abord les murs'), findsOneWidget);

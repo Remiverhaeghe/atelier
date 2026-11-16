@@ -237,7 +237,9 @@ class _OpeningDialog extends StatefulWidget {
 class _OpeningDialogState extends State<_OpeningDialog> {
   final _offset = TextEditingController(text: '0');
   final _width = TextEditingController(text: '83');
-  final _height = TextEditingController(text: formatCentimetres(defaultOpeningHeightMm(OpeningKind.door)));
+  final _height = TextEditingController(
+    text: formatCentimetres(defaultOpeningHeightMm(OpeningKind.door)),
+  );
   final _sill = TextEditingController(text: formatCentimetres(defaultSillMm));
   OpeningKind _kind = OpeningKind.door;
   bool _threshold = false;
@@ -258,7 +260,12 @@ class _OpeningDialogState extends State<_OpeningDialog> {
     final vWidth = parseCentimetres(_width.text);
     final vHeight = parseCentimetres(_height.text);
     final vSill = parseCentimetres(_sill.text);
-    if (vOffset == null || vWidth == null || vWidth == 0 || vHeight == null || vHeight == 0 || vSill == null) {
+    if (vOffset == null ||
+        vWidth == null ||
+        vWidth == 0 ||
+        vHeight == null ||
+        vHeight == 0 ||
+        vSill == null) {
       setState(() => _error = vText.invalidLength);
       return;
     }
@@ -325,12 +332,12 @@ class _OpeningDialogState extends State<_OpeningDialog> {
               ),
             if (_kind != OpeningKind.window)
               SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              value: _threshold,
-              title: Text(vText.thresholdHere),
-              subtitle: Text(vText.thresholdHelp),
-              onChanged: (pValue) => setState(() => _threshold = pValue),
-            ),
+                contentPadding: EdgeInsets.zero,
+                value: _threshold,
+                title: Text(vText.thresholdHere),
+                subtitle: Text(vText.thresholdHelp),
+                onChanged: (pValue) => setState(() => _threshold = pValue),
+              ),
           ],
         ),
       ),
