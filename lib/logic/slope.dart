@@ -244,3 +244,23 @@ List<(PlanPoint, PlanPoint)> lowHeadroomLines(Room pRoom, {int pHeightMm = 1800}
 
   return rLines;
 }
+
+/// Volume d'air de la pièce, en m³ : utile au chauffage et à la ventilation. Sous chaque pan,
+/// la hauteur moyenne est celle du milieu de la pente.
+double roomVolumeM3(Room pRoom) {
+  if (pRoom.walls.length < 3) {
+    return 0;
+  }
+  var vVolume = outlineAreaMm2(pRoom) * pRoom.ceilingHeightMm;
+  for (final vSlope in activeSlopes(pRoom)) {
+    vVolume -=
+        _polygonArea(_band(pRoom, vSlope, vSlope.runMm.toDouble())) *
+        (pRoom.ceilingHeightMm - vSlope.lowMm) /
+        2;
+  }
+
+  return vVolume / 1e9;
+}
+
+/// Au-delà de cette hauteur, une échelle ne suffit plus : échafaudage roulant.
+const scaffoldAboveMm = 3000;
