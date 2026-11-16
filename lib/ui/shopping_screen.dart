@@ -30,6 +30,7 @@ class ShoppingScreen extends StatelessWidget {
           return const Scaffold();
         }
         final vLines = shoppingList(vWorksite);
+        final vPurchases = worksitePurchases(vWorksite);
 
         return Scaffold(
           appBar: AppBar(
@@ -38,7 +39,7 @@ class ShoppingScreen extends StatelessWidget {
               IconButton(
                 tooltip: vText.shareList,
                 icon: const Icon(Icons.share),
-                onPressed: vLines.isEmpty
+                onPressed: vLines.isEmpty && vPurchases.isEmpty
                     ? null
                     : () => SharePlus.instance.share(
                         ShareParams(text: shoppingText(vText, vWorksite)),
@@ -54,7 +55,7 @@ class ShoppingScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: vLines.isEmpty
+          body: vLines.isEmpty && vPurchases.isEmpty
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(24),
@@ -100,6 +101,19 @@ class ShoppingScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                      ),
+                    if (vPurchases.isNotEmpty)
+                      ListTile(
+                        title: Text(
+                          vText.touchUpsToBuyTitle,
+                          style: Theme.of(pContext).textTheme.titleMedium,
+                        ),
+                      ),
+                    for (final vPurchase in vPurchases)
+                      ListTile(
+                        leading: const Icon(Icons.shopping_cart_outlined),
+                        title: Text(vPurchase.item),
+                        subtitle: Text(vPurchase.room),
                       ),
                   ],
                 ),

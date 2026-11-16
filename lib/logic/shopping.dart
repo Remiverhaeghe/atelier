@@ -5,6 +5,7 @@ import 'bar_cutting.dart';
 import 'baseboard.dart';
 import 'parquet.dart';
 import 'room.dart';
+import 'touch_up.dart';
 import 'worksite.dart';
 
 /// Articles à acheter, dans l'ordre de la liste.
@@ -91,3 +92,9 @@ double roomCost(Room pRoom, Map<String, double> pPrices) {
 
   return rCost;
 }
+
+/// Matériel à acheter pour les reprises pas finies, avec la pièce où il servira.
+List<({String item, String room})> worksitePurchases(Worksite pWorksite) => [
+  for (final vRoom in pWorksite.rooms)
+    for (final vItem in touchUpPurchases(vRoom.touchUps)) (item: vItem, room: vRoom.name),
+];

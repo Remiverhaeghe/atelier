@@ -19,6 +19,8 @@ dependencies:
   printing: ">=5.14.0 <6.0.0"
   # Envoi de la liste de courses par message
   share_plus: ^13.3.1
+  # Photo d'une reprise, par l'appareil photo du téléphone
+  image_picker: ">=1.1.0 <2.0.0"
   # Import d'un chantier exporté
   file_picker: ^13.3.3
 
