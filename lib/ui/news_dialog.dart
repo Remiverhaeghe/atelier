@@ -12,9 +12,7 @@ Future<void> showNews(BuildContext pContext) {
       icon: const Icon(Icons.auto_awesome_outlined),
       title: Text(vText.newsTitle),
       content: SingleChildScrollView(child: Text(vText.newsLines)),
-      actions: [
-        FilledButton(onPressed: () => Navigator.pop(pDialog), child: Text(vText.newsOk)),
-      ],
+      actions: [FilledButton(onPressed: () => Navigator.pop(pDialog), child: Text(vText.newsOk))],
     ),
   );
 }
