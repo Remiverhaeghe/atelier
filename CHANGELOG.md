@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Ticket de caisse
+- Dans une dépense, « Coller le texte du ticket » lit le magasin, la date et le total du texte copié depuis la photo (appareil photo ou Google Lens), sans réseau ; le sous-total est ignoré
+
 ### Chantier partagé
 - À l'import d'un chantier qu'on a déjà, l'appli propose de le fusionner : pièces, dépenses, carnet, temps et outils ajoutés sans rien effacer, pièce changée des deux côtés gardée en double
 

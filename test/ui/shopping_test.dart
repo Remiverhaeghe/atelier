@@ -8,6 +8,7 @@ import 'package:atelier/ui/shopping_screen.dart';
 import 'package:atelier/ui/shopping_texts.dart';
 import 'package:atelier/ui/worksite_pdf.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/localized.dart';
@@ -110,5 +111,40 @@ void main() {
     await pTester.tap(find.byTooltip('Supprimer'));
     await pTester.pumpAndSettle();
     expect(vStorage.saved.single.expenses, isEmpty);
+  });
+
+  testWidgets('ticket collé : achat, montant et date remplis', (pTester) async {
+    tallScreen(pTester);
+    pTester.binding.defaultBinaryMessenger.setMockMethodCallHandler(SystemChannels.platform, (
+      pCall,
+    ) async {
+      if (pCall.method == 'Clipboard.getData') {
+        return {'text': 'BRICO DÉMO\n14/11/2026\nCOLLE 24,90\nTOTAL TTC 24,90'};
+      }
+      return null;
+    });
+    addTearDown(
+      () => pTester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        null,
+      ),
+    );
+    final vStorage = MemoryStorage()..saved = [vWorksite];
+    final vController = WorksitesController(vStorage);
+    await vController.load();
+    await pTester.pumpWidget(
+      localized(ShoppingScreen(controller: vController, worksiteId: 'maison')),
+    );
+
+    await pTester.tap(find.text('Ajouter une dépense'));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.text('Coller le texte du ticket'));
+    await pTester.pumpAndSettle();
+    expect(find.text('Ticket du 2026-11-14'), findsOneWidget);
+    await pTester.tap(find.text('Enregistrer'));
+    await pTester.pumpAndSettle();
+
+    final vExpense = vStorage.saved.single.expenses.single;
+    expect((vExpense.label, vExpense.amount, vExpense.date), ('BRICO DÉMO', 24.90, '2026-11-14'));
   });
 }
