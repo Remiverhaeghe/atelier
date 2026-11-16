@@ -195,8 +195,7 @@ class _PanEditorState extends State<_PanEditor> {
               Slope(wallIndex: _slope.wallIndex, lowMm: _slope.lowMm, runMm: pValue),
             ),
           ),
-        ]
-        else ...[
+        ] else ...[
           NumberField<int>(
             key: const ValueKey('rafter'),
             label: vText.slopeRafter,
