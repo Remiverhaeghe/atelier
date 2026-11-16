@@ -10,6 +10,7 @@ import 'offcuts.dart';
 import 'reminders.dart';
 import 'room.dart';
 import 'time_tracking.dart';
+import 'warranties.dart';
 
 class Worksite {
   const Worksite({
@@ -37,6 +38,7 @@ class Worksite {
     this.moisture = const [],
     this.received = const {},
     this.loans = const [],
+    this.warranties = const [],
   });
 
   final String id;
@@ -104,6 +106,9 @@ class Worksite {
   /// Outils prêtés, en attente de retour.
   final List<Loan> loans;
 
+  /// Garanties des achats et des travaux.
+  final List<Warranty> warranties;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -130,6 +135,7 @@ class Worksite {
     List<MoistureReading>? moisture,
     Map<String, int>? received,
     List<Loan>? loans,
+    List<Warranty>? warranties,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -155,6 +161,7 @@ class Worksite {
     moisture: moisture ?? this.moisture,
     received: received ?? this.received,
     loans: loans ?? this.loans,
+    warranties: warranties ?? this.warranties,
   );
 
   Map<String, Object?> toJson() => {
@@ -182,6 +189,7 @@ class Worksite {
     if (moisture.isNotEmpty) 'moisture': [for (final vReading in moisture) vReading.toJson()],
     if (received.isNotEmpty) 'received': received,
     if (loans.isNotEmpty) 'loans': [for (final vLoan in loans) vLoan.toJson()],
+    if (warranties.isNotEmpty) 'warranties': [for (final vItem in warranties) vItem.toJson()],
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -254,6 +262,10 @@ class Worksite {
     loans: [
       for (final vLoan in (pJson['loans'] as List<Object?>?) ?? const [])
         Loan.fromJson(vLoan! as Map<String, Object?>),
+    ],
+    warranties: [
+      for (final vItem in (pJson['warranties'] as List<Object?>?) ?? const [])
+        Warranty.fromJson(vItem! as Map<String, Object?>),
     ],
   );
 }
