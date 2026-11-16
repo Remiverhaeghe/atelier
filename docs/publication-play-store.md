@@ -22,7 +22,9 @@ Les images sont dans `docs/play-store/`, refaites par `python tool/fiche_play.py
 
 - [ ] Icône 512 × 512 : `icone-512.png`.
 - [ ] Image de présentation 1024 × 500 : `presentation-1024x500.png`.
-- [ ] Captures de téléphone (au moins deux) : `capture-1.png` à `capture-6.png`, en 1080 × 1920.
+- [ ] Captures de téléphone (au moins deux), au choix :
+  - prises sur un Android émulé (Pixel 2, 1080 × 1920) par le workflow « Captures Play Store » (Actions, Run workflow), artefact `captures-play-store` ;
+  - ou `capture-1.png` à `capture-6.png`, tirées des captures de test.
 - [ ] Description courte (80 caractères au plus), par exemple : « Mesurez vos pièces, calculez parquet, plinthes et peinture, suivez le chantier. »
 - [ ] Description longue : reprendre l'« Aperçu » du README, sans promesse que l'appli ne tient pas.
 - [ ] Catégorie : Maison et intérieur. Coordonnées du développeur.
