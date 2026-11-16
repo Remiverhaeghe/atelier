@@ -16,11 +16,7 @@ Future<String?> takePhoto(String pId) => _keepPhoto(pId, ImageSource.camera);
 Future<String?> pickImage(String pId) => _keepPhoto(pId, ImageSource.gallery);
 
 Future<String?> _keepPhoto(String pId, ImageSource pSource) async {
-  final vPicked = await ImagePicker().pickImage(
-    source: pSource,
-    maxWidth: 1600,
-    imageQuality: 75,
-  );
+  final vPicked = await ImagePicker().pickImage(source: pSource, maxWidth: 1600, imageQuality: 75);
   if (vPicked == null) {
     return null;
   }
