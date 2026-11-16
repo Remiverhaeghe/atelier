@@ -23,4 +23,22 @@ void main() {
     );
     expect(vBack.expenses.map((pExpense) => pExpense.toJson()), vExpenses.map((pE) => pE.toJson()));
   });
+
+  test('ticket d\'un article : le plus récent qui le couvre, gardé avec la dépense', () {
+    const vTickets = [
+      Expense(id: 'a', label: 'Brico', amount: 300, date: '2026-11-10', items: ['parquetPacks']),
+      Expense(
+        id: 'b',
+        label: 'Brico',
+        amount: 40,
+        date: '2026-11-12',
+        items: ['parquetPacks', 'glueBuckets'],
+      ),
+      Expense(id: 'c', label: 'Quincaillerie', amount: 8, date: '2026-11-13'),
+    ];
+    expect(expenseFor(vTickets, 'parquetPacks')!.id, 'b');
+    expect(expenseFor(vTickets, 'nailBoxes'), isNull);
+    expect(Expense.fromJson(vTickets[1].toJson()).items, ['parquetPacks', 'glueBuckets']);
+    expect(vTickets[2].toJson().containsKey('items'), isFalse);
+  });
 }

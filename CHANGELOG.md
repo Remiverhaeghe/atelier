@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Achat relié à son ticket
+- Une dépense peut couvrir des articles cochés dans les courses ; la ligne achetée rappelle alors le ticket (jour, magasin, montant) et en ouvre la photo, pour une garantie ou un retour
+
 ### Avant de percer
 - « Puis-je percer ici ? » donne aussi, pour un endroit sûr, la cheville, le foret, la vis et le nombre de fixations selon la matière du mur et le poids accroché
 
