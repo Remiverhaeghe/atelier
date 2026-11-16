@@ -2289,5 +2289,20 @@
   "@gutterHooks": {"placeholders": {"count": {"type": "int"}}},
   "gutterLength": "Longueur de la gouttière (mm)",
   "gutterDepth": "Profondeur du pan mesurée au sol, de la gouttière au faîtage (mm)",
-  "gutterHint": "Règle courante : 1 cm² de section de descente par m² de toit en plan. Une région très pluvieuse demande plus. Travail en hauteur : échafaudage ou nacelle, jamais seul sur une échelle."
+  "gutterHint": "Règle courante : 1 cm² de section de descente par m² de toit en plan. Une région très pluvieuse demande plus. Travail en hauteur : échafaudage ou nacelle, jamais seul sur une échelle.",
+  "blownTitle": "Laine soufflée en combles",
+  "blownHelp": "Épaisseur pour la résistance visée, tassement compris, sacs et piges",
+  "blownGlass": "Laine de verre soufflée",
+  "blownRock": "Laine de roche soufflée",
+  "blownCellulose": "Ouate de cellulose",
+  "blownBags": "{count, plural, =0{Aucun sac} =1{1 sac} other{{count} sacs}}",
+  "@blownBags": {"placeholders": {"count": {"type": "int"}}},
+  "blownThickness": "Souffler {blown} cm, pour {settled} cm une fois tassé",
+  "@blownThickness": {"placeholders": {"blown": {"type": "String"}, "settled": {"type": "String"}}},
+  "blownRulers": "{count, plural, =0{Aucune pige} =1{1 pige de repère} other{{count} piges de repère, une pour 10 m²}}",
+  "@blownRulers": {"placeholders": {"count": {"type": "int"}}},
+  "blownMaterial": "Isolant",
+  "blownArea": "Surface du plancher des combles (m²)",
+  "blownTarget": "Résistance thermique visée (m².K/W)",
+  "blownHint": "R = 7 est le minimum demandé pour les aides en combles perdus, par un artisan RGE. Avant de souffler : capots sur les spots, écart autour du conduit de cheminée, trappe isolée, et un pare-vapeur si le plafond n'est pas étanche à l'air."
 }
