@@ -12,7 +12,9 @@ void main() {
   testWidgets('en magasin : article coché, magasin et référence gardés', (pTester) async {
     tallScreen(pTester);
     final vStorage = MemoryStorage()
-      ..saved = [Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom()])];
+      ..saved = [
+        Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom()]),
+      ];
     final vController = WorksitesController(vStorage);
     await vController.load();
     await pTester.pumpWidget(localized(ShoppingScreen(controller: vController, worksiteId: 'w')));
@@ -21,7 +23,10 @@ void main() {
     await pTester.pump();
     expect(vStorage.saved.single.bought, ['parquetPacks']);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Magasin ou rayon').first, 'Négoce bois');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Magasin ou rayon').first,
+      'Négoce bois',
+    );
     await pTester.testTextInput.receiveAction(TextInputAction.done);
     await pTester.pumpAndSettle();
     expect(vStorage.saved.single.stores, {'parquetPacks': 'Négoce bois'});

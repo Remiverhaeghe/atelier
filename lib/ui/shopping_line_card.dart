@@ -102,7 +102,12 @@ class ShoppingLineCard extends StatelessWidget {
 
 /// Champ de texte libre, enregistré quand on quitte le champ ou qu'on valide.
 class _TextSetting extends StatefulWidget {
-  const _TextSetting({super.key, required this.label, required this.initial, required this.onValue});
+  const _TextSetting({
+    super.key,
+    required this.label,
+    required this.initial,
+    required this.onValue,
+  });
 
   final String label;
   final String initial;
