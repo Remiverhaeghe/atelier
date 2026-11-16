@@ -40,9 +40,11 @@ void main() {
 
     final vTurned = planPanels(vParts, 2500, 1250, pRotate: true);
     expect(vTurned.tooBig, [3]);
-    final vPlaced = vTurned.panels.single.parts;
-    expect((vPlaced.first.lengthMm, vPlaced.first.widthMm), (2000, 1000));
-    expect((vPlaced.last.lengthMm, vPlaced.last.widthMm), (800, 400));
+    // La grande pièce occupe le premier panneau, la petite part sur un second
+    final vFirst = vTurned.panels.first.parts.single;
+    final vSecond = vTurned.panels.last.parts.single;
+    expect((vFirst.lengthMm, vFirst.widthMm), (2000, 1000));
+    expect((vSecond.lengthMm, vSecond.widthMm), (800, 400));
     expect(planPanels(const [], 2500, 1250).wasteShare, 0);
   });
 }
