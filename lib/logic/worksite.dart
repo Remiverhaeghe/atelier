@@ -71,9 +71,7 @@ class Worksite {
         vEntry.key: (vEntry.value! as num).toDouble(),
     },
     showGuidance: (pJson['showGuidance'] as bool?) ?? true,
-    goal: pJson['goal'] == null
-        ? null
-        : DailyGoal.fromJson(pJson['goal']! as Map<String, Object?>),
+    goal: pJson['goal'] == null ? null : DailyGoal.fromJson(pJson['goal']! as Map<String, Object?>),
     goalsReached: (pJson['goalsReached'] as int?) ?? 0,
   );
 }

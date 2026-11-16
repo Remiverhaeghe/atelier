@@ -8,13 +8,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../support/rooms.dart';
 
 /// Chantier d'une pièce de 400 × 300 cm (16 rangées, 8 morceaux de plinthe).
-Worksite site(Room pRoom, {DailyGoal? pGoal, int pReached = 0}) => Worksite(
-  id: 'w',
-  name: 'Maison',
-  rooms: [pRoom],
-  goal: pGoal,
-  goalsReached: pReached,
-);
+Worksite site(Room pRoom, {DailyGoal? pGoal, int pReached = 0}) =>
+    Worksite(id: 'w', name: 'Maison', rooms: [pRoom], goal: pGoal, goalsReached: pReached);
 
 final vDay = DateTime(2026, 11, 16);
 
@@ -96,11 +91,16 @@ void main() {
     final vDone = rectangleRoom().copyWith(
       laidRows: [for (var vRow = 1; vRow <= 16; vRow++) vRow],
       cutPieces: [for (var vIndex = 0; vIndex < 8; vIndex++) vIndex],
-      touchUps: [for (var vIndex = 0; vIndex < 10; vIndex++) TouchUp(id: '$vIndex', label: 'R', donePasses: 1)],
+      touchUps: [
+        for (var vIndex = 0; vIndex < 10; vIndex++)
+          TouchUp(id: '$vIndex', label: 'R', donePasses: 1),
+      ],
     );
     final vGoal = DailyGoal(
       date: '2026-11-16',
-      items: [GoalItem(kind: GoalKind.rows, roomId: vDone.id, numbers: const [1])],
+      items: [
+        GoalItem(kind: GoalKind.rows, roomId: vDone.id, numbers: const [1]),
+      ],
     );
     final vSite = site(vDone, pGoal: vGoal, pReached: 4).copyWith(
       prices: const {'parquetPacks': 30, 'underlayRolls': 20, 'baseboardBars': 6, 'cartridges': 8},

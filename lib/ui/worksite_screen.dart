@@ -19,12 +19,7 @@ import 'goal_card.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
-  const WorksiteScreen({
-    super.key,
-    required this.controller,
-    required this.worksiteId,
-    this.today,
-  });
+  const WorksiteScreen({super.key, required this.controller, required this.worksiteId, this.today});
 
   final WorksitesController controller;
   final String worksiteId;

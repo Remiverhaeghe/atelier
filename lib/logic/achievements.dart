@@ -33,7 +33,8 @@ enum Achievement {
 Set<Achievement> earnedAchievements(Worksite pWorksite) {
   final vRooms = pWorksite.rooms;
   final vPieces = [
-    for (final vRoom in vRooms) (room: vRoom, count: baseboardPieces(vRoom, vRoom.baseboard).length),
+    for (final vRoom in vRooms)
+      (room: vRoom, count: baseboardPieces(vRoom, vRoom.baseboard).length),
   ];
   final vGoals = pWorksite.goalsReached + (pWorksite.goal?.reached(pWorksite) ?? false ? 1 : 0);
   final vLines = shoppingList(pWorksite);
@@ -50,7 +51,8 @@ Set<Achievement> earnedAchievements(Worksite pWorksite) {
       Achievement.roomDone,
     if (vPieces.any((pEntry) => pEntry.count > 0) &&
         vPieces.every(
-          (pEntry) => pEntry.room.cutPieces.where((pIndex) => pIndex < pEntry.count).length == pEntry.count,
+          (pEntry) =>
+              pEntry.room.cutPieces.where((pIndex) => pIndex < pEntry.count).length == pEntry.count,
         ))
       Achievement.allBaseboardsCut,
     if (vDoneTouchUps >= 10) Achievement.tenTouchUps,

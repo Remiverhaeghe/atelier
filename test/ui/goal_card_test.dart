@@ -46,10 +46,14 @@ void main() {
 
     await vController.updateRoom(
       'w',
-      vController.worksite('w')!.rooms.first.copyWith(
-        laidRows: const [1, 2, 3, 4, 5, 6],
-        touchUps: const [TouchUp(id: 'a', label: 'Enduit', passes: 2, donePasses: 1)],
-      ),
+      vController
+          .worksite('w')!
+          .rooms
+          .first
+          .copyWith(
+            laidRows: const [1, 2, 3, 4, 5, 6],
+            touchUps: const [TouchUp(id: 'a', label: 'Enduit', passes: 2, donePasses: 1)],
+          ),
     );
     await pTester.pumpAndSettle();
     expect(find.text('Objectif atteint pour aujourd\'hui.'), findsOneWidget);

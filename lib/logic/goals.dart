@@ -37,8 +37,8 @@ class GoalItem {
     final rDone = switch (kind) {
       GoalKind.touchUp =>
         (pRoom.touchUps.where((pTouchUp) => pTouchUp.id == touchUpId).firstOrNull?.donePasses ??
-            targetPasses) >=
-        targetPasses,
+                targetPasses) >=
+            targetPasses,
       GoalKind.rows => numbers.every(pRoom.laidRows.contains),
       GoalKind.pieces => numbers.every(pRoom.cutPieces.contains),
     };
@@ -59,7 +59,9 @@ class GoalItem {
     roomId: pJson['roomId']! as String,
     touchUpId: pJson['touchUpId'] as String?,
     targetPasses: (pJson['targetPasses'] as int?) ?? 0,
-    numbers: [for (final vNumber in (pJson['numbers'] as List<Object?>?) ?? const []) vNumber! as int],
+    numbers: [
+      for (final vNumber in (pJson['numbers'] as List<Object?>?) ?? const []) vNumber! as int,
+    ],
   );
 }
 
@@ -70,7 +72,8 @@ class DailyGoal {
   final String date;
   final List<GoalItem> items;
 
-  int doneCount(Worksite pWorksite) => items.where((pItem) => pItem.isDone(_room(pWorksite, pItem))).length;
+  int doneCount(Worksite pWorksite) =>
+      items.where((pItem) => pItem.isDone(_room(pWorksite, pItem))).length;
 
   bool reached(Worksite pWorksite) => items.isNotEmpty && doneCount(pWorksite) == items.length;
 
