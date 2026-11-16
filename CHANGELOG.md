@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Icône
+- Icône d'Atelier : une équerre de mètre ruban jaune sur vert sapin, icône adaptative Android
+- Écran de démarrage aux mêmes couleurs
+
 ### Courses en magasin
 - Chaque article se coche une fois dans le chariot
 - Magasin ou rayon et référence qui convient, gardés d'une fois sur l'autre ; la liste se range par magasin
