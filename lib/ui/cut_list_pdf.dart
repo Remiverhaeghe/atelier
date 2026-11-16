@@ -11,14 +11,14 @@ import 'baseboard_view.dart';
 
 /// Liste de coupes d'une pièce à imprimer : une case à cocher par longueur, la plus longue d'abord.
 Future<Uint8List> buildCutListPdf(AppLocalizations pText, Room pRoom) {
-  final vDocument = pw.Document(title: pText.cutListTitle(pRoom.name));
+  final vDocument = pw.Document(title: pText.roomCutsTitle(pRoom.name));
   final vBaseboard = baseboardCutList(pRoom);
   final vPlanks = plankCutList(pRoom);
   vDocument.addPage(
     pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       build: (_) => [
-        pw.Header(level: 0, text: pText.cutListTitle(pRoom.name)),
+        pw.Header(level: 0, text: pText.roomCutsTitle(pRoom.name)),
         pw.Paragraph(text: pText.cutListHelp),
         if (vBaseboard.isNotEmpty) ...[
           pw.Header(level: 1, text: pText.pdfBaseboard),
