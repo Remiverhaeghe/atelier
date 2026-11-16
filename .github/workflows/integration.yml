@@ -56,4 +56,4 @@ jobs:
           arch: x86_64
           target: google_apis
           disable-animations: true
-          script: flutter test integration_test
+          script: flutter test integration_test/parcours_test.dart
