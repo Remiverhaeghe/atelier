@@ -14,7 +14,7 @@ coverage/
 # Textes générés par flutter gen-l10n
 lib/l10n/gen/
 
-# Android : seuls build.gradle.kts et le manifeste sont versionnés,
+# Android : build.gradle.kts, le manifeste et le widget d'écran d'accueil sont versionnés,
 # le reste est recréé par « flutter create --platforms=android . »
 /android/*
 !/android/app/
@@ -25,6 +25,16 @@ lib/l10n/gen/
 !/android/app/src/main/
 /android/app/src/main/*
 !/android/app/src/main/AndroidManifest.xml
+!/android/app/src/main/kotlin/
+/android/app/src/main/kotlin/**/MainActivity.kt
+!/android/app/src/main/res/
+/android/app/src/main/res/*
+!/android/app/src/main/res/layout/
+/android/app/src/main/res/layout/*
+!/android/app/src/main/res/layout/objectif_widget.xml
+!/android/app/src/main/res/xml/
+/android/app/src/main/res/xml/*
+!/android/app/src/main/res/xml/objectif_widget_info.xml
 
 # Clé de signature, jamais dans le dépôt
 *.jks
