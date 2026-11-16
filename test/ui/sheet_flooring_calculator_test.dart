@@ -8,9 +8,7 @@ import '../support/rooms.dart';
 void main() {
   testWidgets('sol souple : un lé en 4 m, puis deux lés en 2 m', (pTester) async {
     tallScreen(pTester);
-    await pTester.pumpWidget(
-      localized(SheetFlooringCalculator(rooms: [lShapedRoom()])),
-    );
+    await pTester.pumpWidget(localized(SheetFlooringCalculator(rooms: [lShapedRoom()])));
     expect(find.text('310 cm de rouleau à commander'), findsOneWidget);
     expect(find.text('1 lé de 310 cm'), findsOneWidget);
 
