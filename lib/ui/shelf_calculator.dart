@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/shelf.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
+import 'shelf_preview.dart';
 import 'theme.dart';
 
 String shelfMaterialLabel(AppLocalizations pText, ShelfMaterial pMaterial) => switch (pMaterial) {
@@ -42,6 +43,8 @@ class _ShelfCalculatorState extends State<ShelfCalculator> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
+          ShelfPreview(design: _design, tooWide: vPlan.tooWide),
+          const SizedBox(height: 12),
           Card(
             margin: EdgeInsets.zero,
             child: Padding(
