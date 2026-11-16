@@ -41,10 +41,5 @@ Worksite demoWorksite() => const Worksite(
       ],
     ),
   ],
-  prices: {
-    'parquetPacks': 32.9,
-    'underlayRolls': 19.9,
-    'baseboardBars': 6.5,
-    'cartridges': 7.9,
-  },
+  prices: {'parquetPacks': 32.9, 'underlayRolls': 19.9, 'baseboardBars': 6.5, 'cartridges': 7.9},
 );

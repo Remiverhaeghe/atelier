@@ -83,7 +83,7 @@ void main() {
       await capture(vName);
     }
 
-    await pTester.pageBack();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.byTooltip('Courses et budget'));
     await capture('08-courses');

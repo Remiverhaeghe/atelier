@@ -37,8 +37,10 @@ jobs:
           ls "$FLUTTER_ROOT/bin/cache/artifacts/material_fonts"
           flutter test --tags captures --run-skipped --update-goldens test/captures
 
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      # Même en cas d'échec, les captures déjà faites aident à comprendre
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: captures
           path: test/captures/png/*.png
-          if-no-files-found: error
+          if-no-files-found: warn
