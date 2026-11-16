@@ -63,7 +63,10 @@ void main() {
     await vController.load();
     final vExisting = await vController.addWorksite('Maison');
 
-    final vCount = await vController.importWorksites([vExisting, vExisting.copyWith(name: 'Garage')]);
+    final vCount = await vController.importWorksites([
+      vExisting,
+      vExisting.copyWith(name: 'Garage'),
+    ]);
 
     expect(vCount, 2);
     expect(vController.worksites, hasLength(3));

@@ -15,9 +15,8 @@ void main() {
     var vRoom = rectangleRoom().copyWith(parquet: ParquetSettings.forType(ParquetType.glued));
     await pTester.pumpWidget(
       StatefulBuilder(
-        builder: (pContext, pSetState) => localized(
-          GuideView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom)),
-        ),
+        builder: (pContext, pSetState) =>
+            localized(GuideView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom))),
       ),
     );
 

@@ -19,11 +19,10 @@ void main() {
   test('chaque type a ses étapes propres', () {
     expect(parquetSteps(ParquetType.glued), contains(GuideStep.spreadGlue));
     expect(parquetSteps(ParquetType.glued), isNot(contains(GuideStep.unrollUnderlay)));
-    expect(parquetSteps(ParquetType.nailed), containsAllInOrder([
-      GuideStep.fixJoists,
-      GuideStep.firstRow,
-      GuideStep.nailInTongue,
-    ]));
+    expect(
+      parquetSteps(ParquetType.nailed),
+      containsAllInOrder([GuideStep.fixJoists, GuideStep.firstRow, GuideStep.nailInTongue]),
+    );
     expect(parquetSteps(ParquetType.herringbone), contains(GuideStep.traceAxis));
     expect(parquetSteps(ParquetType.herringbone), isNot(contains(GuideStep.firstRow)));
   });
@@ -38,14 +37,14 @@ void main() {
 
     expect(vNailed.where((pTool) => pTool == Tool.nailer), hasLength(1));
     expect(vNailed, isNot(contains(Tool.tappingBlock)));
-    expect(toolsFor(ParquetType.glued, BaseboardFixing.glued), containsAll([
-      Tool.notchedTrowel,
-      Tool.caulkGun,
-    ]));
-    expect(toolsFor(ParquetType.herringbone, BaseboardFixing.clips), containsAll([
-      Tool.chalkLine,
-      Tool.pullBar,
-    ]));
+    expect(
+      toolsFor(ParquetType.glued, BaseboardFixing.glued),
+      containsAll([Tool.notchedTrowel, Tool.caulkGun]),
+    );
+    expect(
+      toolsFor(ParquetType.herringbone, BaseboardFixing.clips),
+      containsAll([Tool.chalkLine, Tool.pullBar]),
+    );
     expect(toolsFor(ParquetType.floating, BaseboardFixing.clips).first, Tool.tapeMeasure);
   });
 }
