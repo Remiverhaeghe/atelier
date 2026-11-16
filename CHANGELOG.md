@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Lot 6 : chantier, budget et partage
+- Courses et budget du chantier : quantités de toutes les pièces (chacune arrondie à l'unité vendue), prix unitaires, total, prix manquants signalés
+- Coût de chaque pièce dans la liste du chantier
+- Liste de courses envoyée par message, fiche PDF à imprimer (liste, plan, rangées de parquet et coupes de plinthe)
+
 ### Lot 5 : barres de plinthe
 - Morceaux répartis dans le moins de barres possible, les plus longs d'abord, trait de scie compris
 - Nombre de barres à acheter, contenu de chaque barre, chutes de plus de 30 cm signalées à garder
