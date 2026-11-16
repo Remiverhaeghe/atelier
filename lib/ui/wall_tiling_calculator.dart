@@ -121,8 +121,7 @@ class _WallTilingCalculatorState extends State<WallTilingCalculator> {
           const SizedBox(height: 4),
           SegmentedButton<int>(
             segments: [
-              for (final vSides in [0, 1, 2])
-                ButtonSegment(value: vSides, label: Text('$vSides')),
+              for (final vSides in [0, 1, 2]) ButtonSegment(value: vSides, label: Text('$vSides')),
             ],
             selected: {_wall.exposedSides},
             onSelectionChanged: (pChoice) => vSet(_wall.copyWith(exposedSides: pChoice.single)),
