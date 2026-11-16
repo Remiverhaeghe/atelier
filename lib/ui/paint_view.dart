@@ -5,6 +5,7 @@ import '../logic/paint.dart';
 import '../logic/planning.dart';
 import '../logic/room.dart';
 import '../logic/shopping.dart';
+import '../logic/slope.dart';
 import '../logic/units.dart';
 import 'color_picker.dart';
 import 'parquet_view.dart';
@@ -52,6 +53,8 @@ class PaintView extends StatelessWidget {
           parse: parseCentimetres,
           onValue: (pValue) => onChanged(room.copyWith(ceilingHeightMm: pValue)),
         ),
+        if (room.ceilingHeightMm > scaffoldAboveMm)
+          IconLine(Icons.construction_outlined, vText.paintScaffold),
         SlopeEditor(room: room, onChanged: onChanged),
         const SizedBox(height: 12),
         Text(vText.paintWhat, style: vTheme.textTheme.titleMedium),

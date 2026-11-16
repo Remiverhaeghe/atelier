@@ -37,9 +37,30 @@ double _countedFloorM2(Room pRoom) {
   return rArea;
 }
 
+/// Mezzanines dont le plancher est saisi et qui laissent 1,80 m au-dessus, mesuré en leur centre.
+double mezzanineLivingM2(Room pRoom) {
+  var rArea = 0.0;
+  for (final vFixture in pRoom.fixtures) {
+    final vFloor = vFixture.riseMm;
+    if (vFixture.kind != FixtureKind.mezzanine || vFloor == null) {
+      continue;
+    }
+    final vAbove =
+        ceilingHeightAt(pRoom, PlanPoint(vFixture.xMm.toDouble(), vFixture.yMm.toDouble())) -
+        vFloor;
+    if (vAbove >= minLivingHeightMm) {
+      rArea += vFixture.areaM2;
+    }
+  }
+
+  return rArea;
+}
+
 /// Surfaces d'une pièce selon son usage. Une pièce trop basse partout ne compte pas.
 LivingArea roomLivingArea(Room pRoom) {
-  final vFloor = pRoom.ceilingHeightMm < minLivingHeightMm ? 0.0 : _countedFloorM2(pRoom);
+  final vFloor = pRoom.ceilingHeightMm < minLivingHeightMm
+      ? 0.0
+      : _countedFloorM2(pRoom) + mezzanineLivingM2(pRoom);
   final rArea = (
     habitable: pRoom.usage == RoomUsage.habitable ? vFloor : 0.0,
     // Loi Carrez : combles et véranda fermée comptent, pas les caves, garages et extérieurs

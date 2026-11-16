@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 72. **Grandes hauteurs** : hauteur du plancher de mezzanine comptée en surface habitable, escalier jusqu'à elle, échafaudage conseillé au-delà de 3 m, volume de la pièce.
 - 64. **Réseaux cachés** : gaines, tuyaux et câbles tracés dans les murs, où ne pas percer.
 - 65. **Carnet de la maison** : travaux, dates, produits, références de peinture, photos et factures par pièce.
 - 66. **Pas à pas en photos** : ses propres photos rattachées aux étapes du guide.
