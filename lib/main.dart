@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'app.dart';
+import 'state/settings_controller.dart';
 import 'state/worksites_controller.dart';
 import 'storage/backups.dart';
+import 'storage/settings_store.dart';
 import 'storage/worksite_store.dart';
 import 'support/crash_log.dart';
 
@@ -28,6 +30,16 @@ Future<void> main() async {
   final vController = WorksitesController(
     WorksiteStore(File('${vFolder.path}/chantiers.json'), backups: vBackups),
   );
-  runApp(AtelierApp(controller: vController, crashLog: vCrashLog, backups: vBackups));
+  // Réglages lus avant le premier affichage : pas d'éclair blanc si le thème sombre est choisi
+  final vSettings = SettingsController(SettingsFileStore(File('${vFolder.path}/reglages.json')));
+  await vSettings.load();
+  runApp(
+    AtelierApp(
+      controller: vController,
+      crashLog: vCrashLog,
+      backups: vBackups,
+      settings: vSettings,
+    ),
+  );
   await vController.load();
 }
