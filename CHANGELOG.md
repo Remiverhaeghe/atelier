@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Escalier droit
+- Nouveau calcul : coupe dessinée, hauteurs et giron par la loi de Blondel, marches et limons à débiter, trémie nécessaire pour garder 1,90 m d'échappée
+
 ### Chauffage
 - Tuile « Chauffage » : puissance par pièce habitable selon le volume, l'isolation et la température de base, radiateurs courants conseillés, pertes des plexis, brasseur d'air sous grande hauteur
 
