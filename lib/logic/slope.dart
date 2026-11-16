@@ -159,10 +159,7 @@ double standingFloorMm2(Room pRoom, {int pHeightMm = 1800}) {
   if (vSlope == null || pHeightMm <= vSlope.lowMm) {
     return vFloor;
   }
-  final vShare = math.min(
-    (pHeightMm - vSlope.lowMm) / (pRoom.ceilingHeightMm - vSlope.lowMm),
-    1.0,
-  );
+  final vShare = math.min((pHeightMm - vSlope.lowMm) / (pRoom.ceilingHeightMm - vSlope.lowMm), 1.0);
   final rArea = vFloor - _polygonArea(_band(pRoom, vSlope, vSlope.runMm * vShare));
 
   return rArea;

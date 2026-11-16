@@ -30,7 +30,10 @@ void main() {
     expect(vRoom.slope!.lowMm, 3000);
     expect(find.textContaining('plus bas que le plafond'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Largeur de la pente au sol (cm)'), '150');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Largeur de la pente au sol (cm)'),
+      '150',
+    );
     await pTester.pumpAndSettle();
     expect(vRoom.slope!.runMm, 1500);
 
