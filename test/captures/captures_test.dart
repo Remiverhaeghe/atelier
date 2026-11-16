@@ -68,6 +68,11 @@ Future<void> openApp(WidgetTester pTester) async {
 void capturesDone() => debugDisableShadows = true;
 
 Future<void> tapAndSettle(WidgetTester pTester, Finder pFinder) async {
+  // Une liste ne construit que ce qui est à l'écran : sous les tuiles d'accueil, les pièces
+  // n'existent pas encore tant qu'on n'a pas fait défiler
+  if (pFinder.evaluate().isEmpty) {
+    await pTester.scrollUntilVisible(pFinder, 300, scrollable: find.byType(Scrollable).first);
+  }
   await pTester.ensureVisible(pFinder);
   await pTester.pumpAndSettle();
   await pTester.tap(pFinder);
