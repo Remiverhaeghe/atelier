@@ -19,6 +19,7 @@ import 'time_screen.dart';
 import 'transfer.dart';
 import 'goal_card.dart';
 import 'house_screen.dart';
+import 'journal_screen.dart';
 import 'living_area_screen.dart';
 import 'offcuts_screen.dart';
 import 'plexi_screen.dart';
@@ -138,6 +139,14 @@ class WorksiteScreen extends StatelessWidget {
                               PlexiScreen(controller: controller, worksiteId: worksiteId),
                         ),
                       );
+                    case 'journal':
+                      Navigator.push(
+                        pContext,
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              JournalScreen(controller: controller, worksiteId: worksiteId),
+                        ),
+                      );
                     case 'offcuts':
                       Navigator.push(
                         pContext,
@@ -155,6 +164,7 @@ class WorksiteScreen extends StatelessWidget {
                 itemBuilder: (_) => [
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
                   PopupMenuItem(value: 'house', child: Text(vText.houseTitle)),
+                  PopupMenuItem(value: 'journal', child: Text(vText.journalMenu)),
                   PopupMenuItem(value: 'living', child: Text(vText.livingAreaMenu)),
                   PopupMenuItem(value: 'plexi', child: Text(vText.plexiMenu)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),

@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Carnet de la maison
+- Travaux notés pièce par pièce : date, produit, référence ou lot, coût, note, photo et photo de la facture
+- Recherche de la dernière référence pour une retouche (« blanc salon »), coût total, carnet partagé en texte
+
 ### Réseaux cachés
 - Gaines, tuyaux et câbles relevés mur par mur, dessinés en couleur sur le plan et exportés avec le plan
 - « Puis-je percer ici ? » : réseau relevé le plus proche, bandes où passent souvent les conduits, rappel du détecteur
