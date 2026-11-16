@@ -24,6 +24,9 @@ void main() {
 
     Future<void> vShot(String pName) async {
       await pTester.pumpAndSettle();
+      // Le temps que l'onglet finisse de glisser et que le repère de l'appui s'efface
+      await Future<void>.delayed(const Duration(milliseconds: 1500));
+      await pTester.pumpAndSettle();
       await vBinding.takeScreenshot(pName);
     }
 
