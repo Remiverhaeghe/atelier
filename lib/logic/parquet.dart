@@ -169,8 +169,7 @@ class ParquetSettings {
       glueCoverageM2: (pJson['glueCoverageM2'] as num?)?.toDouble() ?? vBase.glueCoverageM2,
       nailsPerM2: (pJson['nailsPerM2'] as int?) ?? vBase.nailsPerM2,
       nailsPerBox: (pJson['nailsPerBox'] as int?) ?? vBase.nailsPerBox,
-      thresholdBarLengthMm:
-          (pJson['thresholdBarLengthMm'] as int?) ?? vBase.thresholdBarLengthMm,
+      thresholdBarLengthMm: (pJson['thresholdBarLengthMm'] as int?) ?? vBase.thresholdBarLengthMm,
     );
 
     return rSettings;
