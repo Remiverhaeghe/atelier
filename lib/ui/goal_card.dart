@@ -32,7 +32,8 @@ class GoalCard extends StatelessWidget {
     final rLabel = switch (pItem.kind) {
       GoalKind.touchUp => pText.goalTouchUp(
         vRoomName,
-        vRoom?.touchUps.where((pTouchUp) => pTouchUp.id == pItem.touchUpId).firstOrNull?.label ?? '',
+        vRoom?.touchUps.where((pTouchUp) => pTouchUp.id == pItem.touchUpId).firstOrNull?.label ??
+            '',
         pItem.targetPasses,
       ),
       GoalKind.rows => pText.goalRows(vRoomName, pItem.numbers.first, pItem.numbers.last),
@@ -74,7 +75,9 @@ class GoalCard extends StatelessWidget {
             else ...[
               for (final vItem in vGoal.items)
                 IconLine(
-                  vItem.isDone(worksite.rooms.where((pRoom) => pRoom.id == vItem.roomId).firstOrNull)
+                  vItem.isDone(
+                        worksite.rooms.where((pRoom) => pRoom.id == vItem.roomId).firstOrNull,
+                      )
                       ? Icons.check_circle
                       : Icons.radio_button_unchecked,
                   _itemLabel(vText, vItem),
