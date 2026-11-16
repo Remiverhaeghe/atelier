@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/guidance.dart';
 import '../logic/inventory.dart';
+import '../logic/pitfalls.dart';
 import '../logic/room.dart';
 import 'photos.dart';
+import 'theme.dart';
 import 'tips_screen.dart';
 
 String stepLabel(AppLocalizations pText, GuideStep pStep) => switch (pStep) {
@@ -62,6 +64,32 @@ String toolLabel(AppLocalizations pText, Tool pTool) => switch (pTool) {
   Tool.handSaw => pText.toolHandSaw,
 };
 
+String pitfallLabel(AppLocalizations pText, Pitfall pPitfall) => switch (pPitfall) {
+  Pitfall.openPacksEarly => pText.pitfallOpenPacksEarly,
+  Pitfall.wetScreed => pText.pitfallWetScreed,
+  Pitfall.unevenFloor => pText.pitfallUnevenFloor,
+  Pitfall.undercutTooHigh => pText.pitfallUndercutTooHigh,
+  Pitfall.underlayOverlap => pText.pitfallUnderlayOverlap,
+  Pitfall.vaporBarrierGaps => pText.pitfallVaporBarrierGaps,
+  Pitfall.glueSkinned => pText.pitfallGlueSkinned,
+  Pitfall.glueUnderdosed => pText.pitfallGlueUnderdosed,
+  Pitfall.joistsNotLevel => pText.pitfallJoistsNotLevel,
+  Pitfall.crookedFirstWall => pText.pitfallCrookedFirstWall,
+  Pitfall.plankDirection => pText.pitfallPlankDirection,
+  Pitfall.noExpansionGap => pText.pitfallNoExpansionGap,
+  Pitfall.tongueTowardsWall => pText.pitfallTongueTowardsWall,
+  Pitfall.spacersMoved => pText.pitfallSpacersMoved,
+  Pitfall.splitTongue => pText.pitfallSplitTongue,
+  Pitfall.narrowLastRow => pText.pitfallNarrowLastRow,
+  Pitfall.spacersLeft => pText.pitfallSpacersLeft,
+  Pitfall.thresholdScrewed => pText.pitfallThresholdScrewed,
+  Pitfall.miterWrongWay => pText.pitfallMiterWrongWay,
+  Pitfall.shortMeasure => pText.pitfallShortMeasure,
+  Pitfall.skipDryFit => pText.pitfallSkipDryFit,
+  Pitfall.baseboardOnFloor => pText.pitfallBaseboardOnFloor,
+  Pitfall.siliconeToPaint => pText.pitfallSiliconeToPaint,
+};
+
 /// Étapes de pose à cocher et outils à préparer pour la pièce.
 class GuideView extends StatelessWidget {
   const GuideView({
@@ -113,6 +141,7 @@ class GuideView extends StatelessWidget {
     final vAll = [...vParquet, ...vBaseboard];
     final vDone = vAll.where((pStep) => room.doneSteps.contains(pStep.name)).length;
     final vMissing = missingTools(room, ownedTools);
+    final vNext = nextStep(vAll, room.doneSteps);
 
     Widget vStep(GuideStep pStep) {
       final vPhotos = room.stepPhotos[pStep.name] ?? const <String>[];
@@ -132,6 +161,23 @@ class GuideView extends StatelessWidget {
               onPressed: () => _photo(pStep),
             ),
           ),
+          // Pièges de la prochaine étape à faire, rappelés avant qu'on s'y mette
+          if (pStep == vNext)
+            Card(
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              color: vTheme.colorScheme.tertiaryContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(vText.pitfallsTitle, style: vTheme.textTheme.titleSmall),
+                    for (final vPitfall in stepPitfalls(pStep))
+                      IconLine(AtelierIcons.warning, pitfallLabel(vText, vPitfall)),
+                  ],
+                ),
+              ),
+            ),
           if (vPhotos.isNotEmpty)
             SizedBox(
               height: 64,

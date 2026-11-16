@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Erreurs fréquentes
+- Sous la prochaine étape du guide, les erreurs classiques à éviter : jeu de dilatation, sens des lames, colle mal dosée, onglet à l'envers, plinthe fixée au parquet flottant…
+
 ### Pas à pas en photos
 - Chaque étape du guide reçoit ses propres photos, affichées sous l'étape : on se fait ses tutos au fil des chantiers
 
