@@ -54,8 +54,9 @@ class CutDiagram extends StatelessWidget {
     );
   }
 
-  String _angleText(AppLocalizations pText, EndCut pCut) =>
-      pCut.kind == EndCutKind.square ? pText.squareCutShort : pText.degrees(formatAngle(pCut.sawAngleDeg));
+  String _angleText(AppLocalizations pText, EndCut pCut) => pCut.kind == EndCutKind.square
+      ? pText.squareCutShort
+      : pText.degrees(formatAngle(pCut.sawAngleDeg));
 }
 
 class _CutPainter extends CustomPainter {
@@ -146,7 +147,11 @@ class _CutPainter extends CustomPainter {
       (pBar.bottomLeft, pBar.bottomRight),
     ]) {
       for (var vX = vFrom.dx; vX < vTo.dx; vX += 2 * vDash) {
-        pCanvas.drawLine(Offset(vX, vFrom.dy), Offset(math.min(vX + vDash, vTo.dx), vFrom.dy), vPaint);
+        pCanvas.drawLine(
+          Offset(vX, vFrom.dy),
+          Offset(math.min(vX + vDash, vTo.dx), vFrom.dy),
+          vPaint,
+        );
       }
     }
   }
@@ -168,7 +173,10 @@ class _CutPainter extends CustomPainter {
   /// Longueur mesurée au dos, sur une étiquette jaune.
   void _paintTape(Canvas pCanvas, String pText, Offset pCenter) {
     final vLabel = TextPainter(
-      text: TextSpan(text: pText, style: angleStyle.copyWith(color: colors.onTape)),
+      text: TextSpan(
+        text: pText,
+        style: angleStyle.copyWith(color: colors.onTape),
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
     final vRect = Rect.fromCenter(
