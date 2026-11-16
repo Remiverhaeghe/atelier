@@ -4,6 +4,7 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
+import '../logic/data_format.dart';
 import '../logic/worksite.dart';
 import 'backups.dart';
 
@@ -24,16 +25,23 @@ class WorksiteStore implements WorksiteStorage {
   final Backups? backups;
 
   /// Version du format, pour pouvoir le faire évoluer sans perdre de chantier.
-  static const formatVersion = 1;
+  static const formatVersion = currentFormat;
 
   @override
   Future<List<Worksite>> load() async {
     if (!file.existsSync()) {
       return const [];
     }
-    final rWorksites = decode(await file.readAsString());
+    final vText = await file.readAsString();
+    try {
+      final rWorksites = decode(vText);
 
-    return rWorksites;
+      return rWorksites;
+    } on FormatException {
+      // Copie gardée à part : si l'on continue et qu'on enregistre, l'original n'est pas perdu
+      await File('${file.path}.illisible').writeAsString(vText, flush: true);
+      rethrow;
+    }
   }
 
   @override
@@ -58,10 +66,11 @@ class WorksiteStore implements WorksiteStorage {
 
   /// Lit un contenu exporté ; lève FormatException s'il n'est pas reconnu.
   static List<Worksite> decode(String pText) {
-    final vJson = jsonDecode(pText);
-    if (vJson is! Map<String, Object?> || vJson['worksites'] is! List<Object?>) {
+    final vRaw = jsonDecode(pText);
+    if (vRaw is! Map<String, Object?> || vRaw['worksites'] is! List<Object?>) {
       throw const FormatException('Fichier de chantiers non reconnu');
     }
+    final vJson = upgradeFormat(vRaw);
     final rWorksites = [
       for (final vWorksite in vJson['worksites']! as List<Object?>)
         Worksite.fromJson(vWorksite! as Map<String, Object?>),
