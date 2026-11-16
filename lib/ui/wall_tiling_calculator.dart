@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/room.dart';
+import '../logic/room_surfaces.dart';
 import '../logic/tiling.dart';
 import '../logic/units.dart';
 import '../logic/wall_tiling.dart';
 import 'parquet_view.dart';
+import 'room_source.dart';
 import 'theme.dart';
 
 /// Faïence et crédence : pan de mur, ouverture, prises, profilés et silicone.
 class WallTilingCalculator extends StatefulWidget {
-  const WallTilingCalculator({super.key});
+  const WallTilingCalculator({super.key, this.rooms = const []});
+
+  final List<Room> rooms;
 
   @override
   State<WallTilingCalculator> createState() => _WallTilingCalculatorState();
@@ -17,6 +22,35 @@ class WallTilingCalculator extends StatefulWidget {
 
 class _WallTilingCalculatorState extends State<WallTilingCalculator> {
   var _wall = const WallTiling();
+  Room? _room;
+  int _wallIndex = 0;
+
+  /// Change quand un mur remplit les champs, pour qu'ils se redessinent avec ses cotes.
+  int _source = 0;
+
+  /// Le mur choisi donne la largeur du pan ; sa hauteur sous plafond si on ne fait pas une
+  /// crédence, ainsi que sa fenêtre ou sa porte la plus large.
+  void _fromWall() {
+    final vRoom = _room;
+    final vPanel = vRoom == null ? null : wallPanel(vRoom, _wallIndex);
+    if (vRoom == null || vPanel == null) {
+      return;
+    }
+    final vOpenings = [...vRoom.walls[_wallIndex].openings]
+      ..sort((pA, pB) => pB.widthMm.compareTo(pA.widthMm));
+    final vOpening = vOpenings.firstOrNull;
+    _source++;
+    _wall = _wall.copyWith(
+      design: _wall.design.copyWith(
+        lengthMm: vPanel.widthMm,
+        widthMm: _wall.onWorktop ? _wall.design.widthMm : vPanel.heightMm,
+      ),
+      cutOutWidthMm: vOpening?.widthMm ?? 0,
+      cutOutHeightMm: vOpening == null
+          ? 0
+          : (vOpening.heightMm ?? defaultOpeningHeightMm(vOpening.kind)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +102,38 @@ class _WallTilingCalculatorState extends State<WallTilingCalculator> {
             ),
           ),
           const SizedBox(height: 8),
+          RoomSourcePicker(
+            rooms: widget.rooms,
+            value: _room?.id,
+            onChanged: (pRoom) => setState(() {
+              _room = pRoom;
+              _wallIndex = 0;
+              _fromWall();
+            }),
+          ),
+          if (_room != null)
+            DropdownButtonFormField<int>(
+              key: ValueKey('mur-${_room!.id}'),
+              initialValue: _wallIndex,
+              decoration: InputDecoration(labelText: vText.roomSourceWall),
+              items: [
+                for (var vIndex = 0; vIndex < _room!.walls.length; vIndex++)
+                  DropdownMenuItem(value: vIndex, child: Text(vText.wallTitle(vIndex + 1))),
+              ],
+              onChanged: (pIndex) => setState(() {
+                _wallIndex = pIndex!;
+                _fromWall();
+              }),
+            ),
           NumberField<int>(
+            key: ValueKey('largeur-$_source'),
             label: vText.wallTileWidth,
             initial: formatCentimetres(vDesign.lengthMm),
             parse: parseCentimetres,
             onValue: (pValue) => vDesignSet(vDesign.copyWith(lengthMm: pValue)),
           ),
           NumberField<int>(
+            key: ValueKey('hauteur-$_source'),
             label: vText.wallTileHeight,
             initial: formatCentimetres(vDesign.widthMm),
             parse: parseCentimetres,
@@ -105,14 +164,16 @@ class _WallTilingCalculatorState extends State<WallTilingCalculator> {
             onValue: (pValue) => vSet(_wall.copyWith(sockets: pValue)),
           ),
           NumberField<int>(
+            key: ValueKey('ouverture-$_source'),
             label: vText.wallTileCutOutWidth,
-            initial: '',
+            initial: _wall.cutOutWidthMm == 0 ? '' : formatCentimetres(_wall.cutOutWidthMm),
             parse: parseCentimetres,
             onValue: (pValue) => vSet(_wall.copyWith(cutOutWidthMm: pValue)),
           ),
           NumberField<int>(
+            key: ValueKey('ouverture-h-$_source'),
             label: vText.wallTileCutOutHeight,
-            initial: '',
+            initial: _wall.cutOutHeightMm == 0 ? '' : formatCentimetres(_wall.cutOutHeightMm),
             parse: parseCentimetres,
             onValue: (pValue) => vSet(_wall.copyWith(cutOutHeightMm: pValue)),
           ),

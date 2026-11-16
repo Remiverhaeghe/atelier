@@ -1750,5 +1750,8 @@
   "reviewLessonsEmpty": "Ce qui a coincé, ce qu'il faudrait acheter avant, ce qu'on referait autrement.",
   "reviewAddLesson": "Noter une leçon",
   "reviewLesson": "Leçon",
-  "reviewMenu": "Bilan du chantier"
+  "reviewMenu": "Bilan du chantier",
+  "roomSource": "Reprendre d'une pièce",
+  "roomSourceNone": "Saisie à la main",
+  "roomSourceWall": "Mur de la pièce"
 }

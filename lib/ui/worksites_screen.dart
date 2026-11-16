@@ -81,7 +81,11 @@ class WorksitesScreen extends StatelessWidget {
             icon: const Icon(Icons.calculate_outlined),
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute<void>(builder: (_) => const CalculatorsScreen()),
+              MaterialPageRoute<void>(
+                builder: (_) => CalculatorsScreen(
+                  rooms: [for (final vWorksite in controller.worksites) ...vWorksite.rooms],
+                ),
+              ),
             ),
           ),
           IconButton(
