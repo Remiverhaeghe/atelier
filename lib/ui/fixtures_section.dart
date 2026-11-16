@@ -112,10 +112,16 @@ class FixturesSection extends StatelessWidget {
     FixtureKind.lightSwitch => pFixture.count > 1 ? pText.fixtureBlock(pFixture.count) : null,
     FixtureKind.stairs => _stairs(pText, stairPlan(pFixture.riseMm ?? defaultRiseMm(room))),
     FixtureKind.mezzanine => pText.mezzanineSummary(formatSquareMetres(pFixture.areaM2)),
-    FixtureKind.roofWindow => pText.roofWindowSummary(
-      formatCentimetres(pFixture.widthMm),
-      formatCentimetres(pFixture.depthMm),
-    ),
+    FixtureKind.roofWindow =>
+      pFixture.plexi
+          ? pText.plexiSummary(
+              formatCentimetres(pFixture.widthMm),
+              formatCentimetres(pFixture.depthMm),
+            )
+          : pText.roofWindowSummary(
+              formatCentimetres(pFixture.widthMm),
+              formatCentimetres(pFixture.depthMm),
+            ),
     FixtureKind.stairwell => pText.stairwellSummary(
       formatCentimetres(pFixture.widthMm),
       formatCentimetres(pFixture.depthMm),
@@ -240,6 +246,7 @@ class _FixtureDialogState extends State<_FixtureDialog> {
     text: widget.fixture.riseMm == null ? '' : formatCentimetres(widget.fixture.riseMm!),
   );
   late final _count = TextEditingController(text: '${widget.fixture.count}');
+  late bool _plexi = widget.fixture.plexi;
   String? _error;
 
   @override
@@ -274,7 +281,10 @@ class _FixtureDialogState extends State<_FixtureDialog> {
       setState(() => _error = vText.invalidLength);
       return;
     }
-    Navigator.pop(context, vFixture.copyWith(widthMm: vWidth, depthMm: vDepth, riseMm: vRise));
+    Navigator.pop(
+      context,
+      vFixture.copyWith(widthMm: vWidth, depthMm: vDepth, riseMm: vRise, plexi: _plexi),
+    );
   }
 
   @override
@@ -315,6 +325,13 @@ class _FixtureDialogState extends State<_FixtureDialog> {
                   suffixText: vText.unitCm,
                 ),
               ),
+              if (vKind == FixtureKind.roofWindow)
+                CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(vText.fixturePlexi),
+                  value: _plexi,
+                  onChanged: (pValue) => setState(() => _plexi = pValue!),
+                ),
               if (vKind == FixtureKind.stairs)
                 TextField(
                   controller: _rise,
