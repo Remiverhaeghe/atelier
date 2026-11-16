@@ -19,6 +19,7 @@ import 'rent_buy_calculator.dart';
 import 'roofing_calculator.dart';
 import 'screed_calculator.dart';
 import 'shelf_calculator.dart';
+import 'stair_calculator.dart';
 import 'tiling_calculator.dart';
 import 'wall_tiling_calculator.dart';
 import 'wardrobe_calculator.dart';
@@ -107,6 +108,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.ventHelp,
       icon: Icons.air,
       builder: (_) => const VentilationCalculator(),
+    ),
+    (
+      title: pText.stairTitle,
+      help: pText.stairHelp,
+      icon: Icons.stairs_outlined,
+      builder: (_) => const StairCalculator(),
     ),
     (
       title: pText.doorTitle,
