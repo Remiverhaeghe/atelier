@@ -54,11 +54,7 @@ class _DiagonalDialogState extends State<_DiagonalDialog> {
             for (final vPair in oppositeMismatches(vRoom))
               IconLine(
                 AtelierIcons.warning,
-                vText.diagonalOpposite(
-                  vPair.first,
-                  vPair.second,
-                  formatCentimetres(vPair.gapMm),
-                ),
+                vText.diagonalOpposite(vPair.first, vPair.second, formatCentimetres(vPair.gapMm)),
                 color: vColors.error,
               ),
             TextField(
@@ -77,14 +73,11 @@ class _DiagonalDialogState extends State<_DiagonalDialog> {
                 padding: const EdgeInsets.only(top: 12),
                 child: IconLine(
                   vOk ? Icons.check_circle_outline : AtelierIcons.warning,
-                  vOk
-                      ? vText.diagonalOk
-                      : vText.diagonalGap(formatCentimetres(vGap.abs().round())),
+                  vOk ? vText.diagonalOk : vText.diagonalGap(formatCentimetres(vGap.abs().round())),
                   color: vOk ? vColors.primary : vColors.error,
                 ),
               ),
-            if (vAngles != null)
-              Text(vText.diagonalAngles(vAngles.map(formatAngle).join(' · '))),
+            if (vAngles != null) Text(vText.diagonalAngles(vAngles.map(formatAngle).join(' · '))),
           ],
         ),
       ),
