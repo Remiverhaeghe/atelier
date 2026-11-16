@@ -34,16 +34,19 @@ void main() {
   });
 
   test('charnières selon la hauteur de porte', () {
-    expect([hingesPerDoor(800), hingesPerDoor(1500), hingesPerDoor(1900), hingesPerDoor(2300)], [
-      2,
-      3,
-      4,
-      5,
-    ]);
+    expect(
+      [hingesPerDoor(800), hingesPerDoor(1500), hingesPerDoor(1900), hingesPerDoor(2300)],
+      [2, 3, 4, 5],
+    );
     expect(
       const WardrobeDesign().copyWith(material: ShelfMaterial.mdf).material,
       ShelfMaterial.mdf,
     );
-    expect(planWardrobe(const WardrobeDesign(compartments: [Compartment(shelves: -2)])).parts.map((pP) => pP.name), isNot(contains(shelfPart)));
+    expect(
+      planWardrobe(
+        const WardrobeDesign(compartments: [Compartment(shelves: -2)]),
+      ).parts.map((pP) => pP.name),
+      isNot(contains(shelfPart)),
+    );
   });
 }

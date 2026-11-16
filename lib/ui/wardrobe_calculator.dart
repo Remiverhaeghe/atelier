@@ -77,7 +77,8 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                               formatCentimetres(vPart.widthMm),
                             ),
                     ),
-                  if (vPlan.hinges > 0) IconLine(Icons.door_back_door_outlined, vText.hinges(vPlan.hinges)),
+                  if (vPlan.hinges > 0)
+                    IconLine(Icons.door_back_door_outlined, vText.hinges(vPlan.hinges)),
                   if (vPlan.tooWide)
                     IconLine(
                       Icons.warning_amber,
@@ -114,7 +115,10 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                         onSelectionChanged: (pKind) => _set(
                           _design.copyWith(
                             compartments: [..._design.compartments]
-                              ..[vIndex] = Compartment(kind: pKind.first, shelves: _design.compartments[vIndex].shelves),
+                              ..[vIndex] = Compartment(
+                                kind: pKind.first,
+                                shelves: _design.compartments[vIndex].shelves,
+                              ),
                           ),
                         ),
                       ),
@@ -122,14 +126,18 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                     IconButton(
                       tooltip: vText.delete,
                       icon: const Icon(Icons.delete_outline),
-                      onPressed: () => _set(_design.copyWith(compartments: [..._design.compartments]..removeAt(vIndex))),
+                      onPressed: () => _set(
+                        _design.copyWith(compartments: [..._design.compartments]..removeAt(vIndex)),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
           OutlinedButton.icon(
-            onPressed: () => _set(_design.copyWith(compartments: [..._design.compartments, const Compartment()])),
+            onPressed: () => _set(
+              _design.copyWith(compartments: [..._design.compartments, const Compartment()]),
+            ),
             icon: const Icon(Icons.add),
             label: Text(vText.compartmentAdd),
           ),
@@ -144,13 +152,20 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
             decoration: InputDecoration(labelText: vText.shelfMaterial),
             items: [
               for (final vMaterial in ShelfMaterial.values)
-                DropdownMenuItem(value: vMaterial, child: Text(shelfMaterialLabel(vText, vMaterial))),
+                DropdownMenuItem(
+                  value: vMaterial,
+                  child: Text(shelfMaterialLabel(vText, vMaterial)),
+                ),
             ],
             onChanged: (pMaterial) => _set(_design.copyWith(material: pMaterial)),
           ),
           for (final (vLabel, vValue, vApply) in [
             (vText.shelfWidth, _design.widthMm, (int pValue) => _design.copyWith(widthMm: pValue)),
-            (vText.shelfHeight, _design.heightMm, (int pValue) => _design.copyWith(heightMm: pValue)),
+            (
+              vText.shelfHeight,
+              _design.heightMm,
+              (int pValue) => _design.copyWith(heightMm: pValue),
+            ),
             (vText.shelfDepth, _design.depthMm, (int pValue) => _design.copyWith(depthMm: pValue)),
           ])
             NumberField(
@@ -167,7 +182,12 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
 
 /// Armoire vue de face, portes ouvertes : caisson, séparations, tablettes, tringles.
 class _WardrobePainter extends CustomPainter {
-  _WardrobePainter({required this.design, required this.plan, required this.colors, required this.labelStyle});
+  _WardrobePainter({
+    required this.design,
+    required this.plan,
+    required this.colors,
+    required this.labelStyle,
+  });
 
   final WardrobeDesign design;
   final WardrobePlan plan;
@@ -232,7 +252,11 @@ class _WardrobePainter extends CustomPainter {
         }
       }
     }
-    _tape(pCanvas, formatCentimetres(design.widthMm), Offset(vLeft + vWidth / 2, vTop + vHeight + 16));
+    _tape(
+      pCanvas,
+      formatCentimetres(design.widthMm),
+      Offset(vLeft + vWidth / 2, vTop + vHeight + 16),
+    );
     _tape(pCanvas, formatCentimetres(design.heightMm), Offset(vLeft - 20, vTop + vHeight / 2));
   }
 
@@ -241,8 +265,15 @@ class _WardrobePainter extends CustomPainter {
       text: TextSpan(text: pText, style: labelStyle),
       textDirection: TextDirection.ltr,
     )..layout();
-    final vRect = Rect.fromCenter(center: pCenter, width: vLabel.width + 12, height: vLabel.height + 4);
-    pCanvas.drawRRect(RRect.fromRectAndRadius(vRect, const Radius.circular(4)), Paint()..color = colors.tape);
+    final vRect = Rect.fromCenter(
+      center: pCenter,
+      width: vLabel.width + 12,
+      height: vLabel.height + 4,
+    );
+    pCanvas.drawRRect(
+      RRect.fromRectAndRadius(vRect, const Radius.circular(4)),
+      Paint()..color = colors.tape,
+    );
     vLabel.paint(pCanvas, pCenter - Offset(vLabel.width / 2, vLabel.height / 2));
   }
 
