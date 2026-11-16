@@ -6,8 +6,15 @@ import 'dart:io';
 
 import '../logic/worksite.dart';
 
+/// Lecture et écriture de tous les chantiers ; remplacée par une version en mémoire dans les tests.
+abstract interface class WorksiteStorage {
+  Future<List<Worksite>> load();
+
+  Future<void> save(List<Worksite> pWorksites);
+}
+
 /// Lit et écrit tous les chantiers dans un seul fichier, réécrit en entier à chaque changement.
-class WorksiteStore {
+class WorksiteStore implements WorksiteStorage {
   WorksiteStore(this.file);
 
   final File file;
@@ -15,6 +22,7 @@ class WorksiteStore {
   /// Version du format, pour pouvoir le faire évoluer sans perdre de chantier.
   static const formatVersion = 1;
 
+  @override
   Future<List<Worksite>> load() async {
     if (!file.existsSync()) {
       return const [];
@@ -24,6 +32,7 @@ class WorksiteStore {
     return rWorksites;
   }
 
+  @override
   Future<void> save(List<Worksite> pWorksites) async {
     await file.parent.create(recursive: true);
     // Écriture dans un fichier temporaire puis renommage : un arrêt brutal ne laisse pas un fichier coupé.

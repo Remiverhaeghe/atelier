@@ -13,7 +13,7 @@ class WorksitesController extends ChangeNotifier {
   WorksitesController(this.store, {String Function()? pNewId})
     : newId = pNewId ?? (() => DateTime.now().microsecondsSinceEpoch.toString());
 
-  final WorksiteStore store;
+  final WorksiteStorage store;
   final String Function() newId;
 
   List<Worksite> _worksites = const [];
