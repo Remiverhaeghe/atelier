@@ -1,5 +1,6 @@
 import 'package:atelier/logic/progress.dart';
 import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/touch_up.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/rooms.dart';
@@ -20,5 +21,20 @@ void main() {
     expect(vProgress.total, 16 + 8);
     expect(vProgress.done, 2 + 3);
     expect(vProgress.ratio, closeTo(5 / 24, 1e-9));
+  });
+
+  test('les passages des reprises comptent aussi, même dans une zone sans murs', () {
+    const vZone = Room(
+      id: 'toit',
+      name: 'Toit',
+      touchUps: [
+        TouchUp(id: 'a', label: 'Nettoyage tuile', passes: 5, donePasses: 2),
+        TouchUp(id: 'b', label: 'Reprise toit'),
+      ],
+    );
+    final vProgress = roomProgress(vZone);
+
+    expect(vProgress.done, 2);
+    expect(vProgress.total, 6);
   });
 }

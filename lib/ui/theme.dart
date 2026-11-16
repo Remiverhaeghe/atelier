@@ -230,6 +230,7 @@ class IconLine extends StatelessWidget {
 /// Icônes communes aux onglets, aux résultats et aux listes.
 abstract final class AtelierIcons {
   static const room = Icons.square_foot;
+  static const touchUps = Icons.checklist;
   static const parquet = Icons.view_stream_outlined;
   static const laying = Icons.format_list_numbered;
   static const baseboard = Icons.carpenter;

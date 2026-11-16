@@ -3,6 +3,7 @@ library;
 
 import 'baseboard.dart';
 import 'parquet.dart';
+import 'touch_up.dart';
 
 /// Ouverture dans un mur, sans plinthe sur sa largeur.
 enum OpeningKind { door, passage }
@@ -125,6 +126,7 @@ class Room {
     this.baseboard = const BaseboardSettings(),
     this.cutPieces = const [],
     this.doneSteps = const [],
+    this.touchUps = const [],
   });
 
   final String id;
@@ -146,6 +148,9 @@ class Room {
   /// Étapes du guide déjà faites, par nom (voir GuideStep).
   final List<String> doneSteps;
 
+  /// Choses à faire ou à reprendre dans la pièce.
+  final List<TouchUp> touchUps;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -156,6 +161,7 @@ class Room {
     BaseboardSettings? baseboard,
     List<int>? cutPieces,
     List<String>? doneSteps,
+    List<TouchUp>? touchUps,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -167,6 +173,7 @@ class Room {
     baseboard: baseboard ?? this.baseboard,
     cutPieces: cutPieces ?? this.cutPieces,
     doneSteps: doneSteps ?? this.doneSteps,
+    touchUps: touchUps ?? this.touchUps,
   );
 
   Map<String, Object?> toJson() => {
@@ -180,6 +187,7 @@ class Room {
     'baseboard': baseboard.toJson(),
     'cutPieces': cutPieces,
     'doneSteps': doneSteps,
+    'touchUps': [for (final vTouchUp in touchUps) vTouchUp.toJson()],
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -206,6 +214,10 @@ class Room {
     ],
     doneSteps: [
       for (final vStep in (pJson['doneSteps'] as List<Object?>?) ?? const []) vStep! as String,
+    ],
+    touchUps: [
+      for (final vTouchUp in (pJson['touchUps'] as List<Object?>?) ?? const [])
+        TouchUp.fromJson(vTouchUp! as Map<String, Object?>),
     ],
   );
 }

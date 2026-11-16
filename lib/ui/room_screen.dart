@@ -12,6 +12,7 @@ import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
 import 'theme.dart';
+import 'touch_ups_view.dart';
 
 /// Une pièce : plan, murs et obstacles.
 class RoomScreen extends StatelessWidget {
@@ -55,7 +56,9 @@ class RoomScreen extends StatelessWidget {
         void vSave(Room pRoom) => controller.updateRoom(worksiteId, pRoom);
 
         return DefaultTabController(
-          length: vGuide ? 5 : 4,
+          length: vGuide ? 6 : 5,
+          // Une zone sans murs (toit, extérieur) s'ouvre directement sur ses reprises
+          initialIndex: vRoom.walls.isEmpty && vRoom.touchUps.isNotEmpty ? 1 : 0,
           child: Scaffold(
             appBar: AppBar(
               title: Text(vRoom.name),
@@ -63,6 +66,7 @@ class RoomScreen extends StatelessWidget {
                 isScrollable: true,
                 tabs: [
                   Tab(icon: const Icon(AtelierIcons.room), text: vText.tabRoom),
+                  Tab(icon: const Icon(AtelierIcons.touchUps), text: vText.tabTouchUps),
                   Tab(icon: const Icon(AtelierIcons.parquet), text: vText.tabParquet),
                   Tab(icon: const Icon(AtelierIcons.laying), text: vText.tabLaying),
                   Tab(icon: const Icon(AtelierIcons.baseboard), text: vText.tabBaseboard),
@@ -73,6 +77,7 @@ class RoomScreen extends StatelessWidget {
             body: TabBarView(
               children: [
                 RoomWallsView(room: vRoom, onChanged: vSave),
+                TouchUpsView(room: vRoom, onChanged: vSave),
                 ParquetView(room: vRoom, onChanged: vSave),
                 LayingView(room: vRoom, onChanged: vSave),
                 BaseboardView(room: vRoom, onChanged: vSave),

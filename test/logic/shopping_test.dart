@@ -1,4 +1,6 @@
+import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/shopping.dart';
+import 'package:atelier/logic/touch_up.dart';
 import 'package:atelier/logic/worksite.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -57,5 +59,24 @@ void main() {
 
     expect(vCopy.prices, {'parquetPacks': 30.5, 'baseboardBars': 8.0});
     expect(Worksite.fromJson({'id': 'w', 'name': 'W'}).prices, isEmpty);
+  });
+
+  test('les achats des reprises pas finies suivent leur pièce', () {
+    const vWorksite = Worksite(
+      id: 'w',
+      name: 'Maison',
+      rooms: [
+        Room(
+          id: 'b',
+          name: 'Bureau',
+          touchUps: [
+            TouchUp(id: '1', label: 'Applique', toBuy: 'Applique murale'),
+            TouchUp(id: '2', label: 'Grille', donePasses: 1, toBuy: 'Grille'),
+          ],
+        ),
+      ],
+    );
+
+    expect(worksitePurchases(vWorksite), [(item: 'Applique murale', room: 'Bureau')]);
   });
 }

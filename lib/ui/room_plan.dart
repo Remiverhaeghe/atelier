@@ -7,15 +7,64 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import 'theme.dart';
 
+/// Repère sur le plan : numéro de la reprise et position en millimètres.
+typedef PlanMarker = ({int number, int xMm, int yMm, bool done});
+
+/// Passage du plan (millimètres, axe vertical vers le haut) à l'écran, et retour.
+class PlanFrame {
+  PlanFrame(Room pRoom, Size pSize, {required double pMargin}) {
+    final vPoints = outline(pRoom);
+    minX = vPoints.map((pPoint) => pPoint.x).reduce(math.min);
+    final vMaxX = vPoints.map((pPoint) => pPoint.x).reduce(math.max);
+    minY = vPoints.map((pPoint) => pPoint.y).reduce(math.min);
+    final vMaxY = vPoints.map((pPoint) => pPoint.y).reduce(math.max);
+    scale = math.min(
+      (pSize.width - 2 * pMargin) / math.max(vMaxX - minX, 1),
+      (pSize.height - 2 * pMargin) / math.max(vMaxY - minY, 1),
+    );
+    // Plan centré, axe vertical inversé : il se lit comme sur papier.
+    origin = Offset(
+      (pSize.width - (vMaxX - minX) * scale) / 2,
+      (pSize.height + (vMaxY - minY) * scale) / 2,
+    );
+  }
+
+  late final double minX;
+  late final double minY;
+  late final double scale;
+  late final Offset origin;
+
+  Offset toScreen(double pX, double pY) =>
+      origin + Offset((pX - minX) * scale, -(pY - minY) * scale);
+
+  ({int xMm, int yMm}) toPlan(Offset pScreen) => (
+    xMm: ((pScreen.dx - origin.dx) / scale + minX).round(),
+    yMm: (-(pScreen.dy - origin.dy) / scale + minY).round(),
+  );
+}
+
+/// Marge autour du plan : place pour les cotes, posées à l'extérieur des murs.
+double _margin(bool pCompact) => pCompact ? 6.0 : 40.0;
+
 /// Plan coté de la pièce, sur papier quadrillé ; [highlightWall] surligne un mur.
 ///
-/// En [compact], vignette sans quadrillage ni cotes, pour les listes.
+/// En [compact], vignette sans quadrillage ni cotes, pour les listes. [markers] place les
+/// reprises ; [onTapPlan] reçoit l'endroit touché, en millimètres.
 class RoomPlan extends StatelessWidget {
-  const RoomPlan({super.key, required this.room, this.highlightWall, this.compact = false});
+  const RoomPlan({
+    super.key,
+    required this.room,
+    this.highlightWall,
+    this.compact = false,
+    this.markers = const [],
+    this.onTapPlan,
+  });
 
   final Room room;
   final int? highlightWall;
   final bool compact;
+  final List<PlanMarker> markers;
+  final void Function(int pXMm, int pYMm)? onTapPlan;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +82,9 @@ class RoomPlan extends StatelessWidget {
       ),
       highlightWall: highlightWall,
       compact: compact,
+      markers: markers,
+      markerColor: vTheme.colorScheme.error,
+      doneColor: vTheme.colorScheme.primary,
     );
     if (compact) {
       return CustomPaint(painter: vPainter);
@@ -48,7 +100,22 @@ class RoomPlan extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: CustomPaint(painter: vPainter),
+          child: onTapPlan == null || room.walls.isEmpty
+              ? CustomPaint(painter: vPainter)
+              : LayoutBuilder(
+                  builder: (pContext, pConstraints) => GestureDetector(
+                    onTapUp: (pDetails) {
+                      final vFrame = PlanFrame(
+                        room,
+                        pConstraints.biggest,
+                        pMargin: _margin(compact),
+                      );
+                      final vPoint = vFrame.toPlan(pDetails.localPosition);
+                      onTapPlan!(vPoint.xMm, vPoint.yMm);
+                    },
+                    child: CustomPaint(painter: vPainter, size: pConstraints.biggest),
+                  ),
+                ),
         ),
       ),
     );
@@ -63,9 +130,15 @@ class _RoomPlanPainter extends CustomPainter {
     required this.paper,
     required this.labelStyle,
     required this.compact,
+    required this.markers,
+    required this.markerColor,
+    required this.doneColor,
     this.highlightWall,
   });
 
+  final List<PlanMarker> markers;
+  final Color markerColor;
+  final Color doneColor;
   final Room room;
   final AtelierColors colors;
   final Color highlightColor;
@@ -80,26 +153,12 @@ class _RoomPlanPainter extends CustomPainter {
       return;
     }
     final vPoints = outline(room);
-    final vMinX = vPoints.map((pPoint) => pPoint.x).reduce(math.min);
-    final vMaxX = vPoints.map((pPoint) => pPoint.x).reduce(math.max);
-    final vMinY = vPoints.map((pPoint) => pPoint.y).reduce(math.min);
-    final vMaxY = vPoints.map((pPoint) => pPoint.y).reduce(math.max);
-    // Place pour les cotes, posées à l'extérieur des murs
-    final vMargin = compact ? 6.0 : 40.0;
-    final vScale = math.min(
-      (pSize.width - 2 * vMargin) / math.max(vMaxX - vMinX, 1),
-      (pSize.height - 2 * vMargin) / math.max(vMaxY - vMinY, 1),
-    );
-    // Plan centré, axe vertical inversé : il se lit comme sur papier.
-    final vOrigin = Offset(
-      (pSize.width - (vMaxX - vMinX) * vScale) / 2,
-      (pSize.height + (vMaxY - vMinY) * vScale) / 2,
-    );
-    Offset vAt(double pX, double pY) =>
-        vOrigin + Offset((pX - vMinX) * vScale, -(pY - vMinY) * vScale);
+    final vFrame = PlanFrame(room, pSize, pMargin: _margin(compact));
+    final vScale = vFrame.scale;
+    Offset vAt(double pX, double pY) => vFrame.toScreen(pX, pY);
 
     if (!compact) {
-      _paintGrid(pCanvas, pSize, vAt(vMinX, vMinY), 1000 * vScale);
+      _paintGrid(pCanvas, pSize, vAt(vFrame.minX, vFrame.minY), 1000 * vScale);
     }
 
     final vRoomPath = Path()
@@ -162,6 +221,23 @@ class _RoomPlanPainter extends CustomPainter {
         _paintTape(pCanvas, vAlong(vMiddle, -22 / vScale), formatCentimetres(vWall.lengthMm));
       }
     }
+
+    for (final vMarker in markers) {
+      _paintMarker(pCanvas, vAt(vMarker.xMm.toDouble(), vMarker.yMm.toDouble()), vMarker);
+    }
+  }
+
+  /// Repère d'une reprise : pastille numérotée, rouge à faire, verte une fois faite.
+  void _paintMarker(Canvas pCanvas, Offset pCenter, PlanMarker pMarker) {
+    final vColor = pMarker.done ? doneColor : markerColor;
+    final vRadius = compact ? 3.0 : 11.0;
+    pCanvas.drawCircle(pCenter, vRadius + (compact ? 0 : 2), Paint()..color = paper);
+    pCanvas.drawCircle(pCenter, vRadius, Paint()..color = vColor);
+    if (compact) {
+      return;
+    }
+    final vLabel = _layout('${pMarker.number}', labelStyle.copyWith(color: paper));
+    vLabel.paint(pCanvas, pCenter - Offset(vLabel.width / 2, vLabel.height / 2));
   }
 
   /// Papier quadrillé, un carreau par mètre, calé sur le coin du plan.
@@ -265,6 +341,7 @@ class _RoomPlanPainter extends CustomPainter {
   bool shouldRepaint(_RoomPlanPainter pOld) =>
       pOld.room != room ||
       pOld.highlightWall != highlightWall ||
+      pOld.markers != markers ||
       pOld.colors != colors ||
       pOld.compact != compact;
 }
