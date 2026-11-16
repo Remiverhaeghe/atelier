@@ -101,7 +101,7 @@ InsulationPlan planInsulation({
     achievedR: vThickness / 1000 / pInsulant.lambda,
     packs: math.max(vPacks, 0),
     // Le plancher bas et les combles perdus soufflés se passent d'un pare-vapeur posé à part
-    vaporBarrierM2: pPart == InsulatedPart.floor ? 0 : pAreaM2 * (1 + vaporOverlapPercent / 100),
+    vaporBarrierM2: pPart == InsulatedPart.floor ? 0.0 : pAreaM2 * (1 + vaporOverlapPercent / 100),
     hangers: pPart.needsFraming ? (pAreaM2 * vRows).ceil() : 0,
   );
 
