@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import 'deck_calculator.dart';
 import 'drywall_calculator.dart';
+import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
 import 'shelf_calculator.dart';
 import 'wardrobe_calculator.dart';
@@ -44,6 +45,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.drywallHelp,
       icon: Icons.view_column_outlined,
       builder: (_) => const DrywallCalculator(),
+    ),
+    (
+      title: pText.elecTitle,
+      help: pText.elecHelp,
+      icon: Icons.electrical_services,
+      builder: (_) => const ElectricityCalculator(),
     ),
   ];
 
