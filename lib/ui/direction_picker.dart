@@ -17,12 +17,16 @@ class DirectionPicker extends StatelessWidget {
     required this.directions,
     required this.selected,
     required this.onSelected,
+    this.extraDeg = 0,
   });
 
   final Room room;
   final List<LayingDirection> directions;
   final int selected;
   final ValueChanged<LayingDirection> onSelected;
+
+  /// Pose en diagonale : les lames tournent de 45° de plus.
+  final double extraDeg;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,7 @@ class DirectionPicker extends StatelessWidget {
             separatorBuilder: (_, _) => const SizedBox(width: 10),
             itemBuilder: (pContext, pIndex) => _DirectionCard(
               room: room,
+              extraDeg: extraDeg,
               direction: directions[pIndex],
               selected: pIndex == selected,
               onTap: () => onSelected(directions[pIndex]),
@@ -58,12 +63,14 @@ class DirectionPicker extends StatelessWidget {
 class _DirectionCard extends StatelessWidget {
   const _DirectionCard({
     required this.room,
+    required this.extraDeg,
     required this.direction,
     required this.selected,
     required this.onTap,
   });
 
   final Room room;
+  final double extraDeg;
   final LayingDirection direction;
   final bool selected;
   final VoidCallback onTap;
@@ -99,7 +106,7 @@ class _DirectionCard extends StatelessWidget {
                   size: Size.infinite,
                   painter: _StripesPainter(
                     room: room,
-                    angleDeg: direction.angleDeg,
+                    angleDeg: direction.angleDeg + extraDeg,
                     wood: AtelierColors.of(context).wood,
                     joint: AtelierColors.of(context).woodLaid,
                     ink: vColors.onSurface,

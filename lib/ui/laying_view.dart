@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/laying_plan.dart';
+import '../logic/parquet.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'laying_preview.dart';
+import 'theme.dart';
 
 /// Plan de pose du parquet, rangée par rangée, à cocher au fur et à mesure.
 class LayingView extends StatelessWidget {
@@ -24,6 +26,16 @@ class LayingView extends StatelessWidget {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
     final vPlan = planLaying(room, room.parquet);
+    if (vPlan == null && room.parquet.type == ParquetType.herringbone && room.walls.length >= 3) {
+      return ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          HerringbonePreview(room: room),
+          const SizedBox(height: 12),
+          IconLine(Icons.info_outline, vText.herringboneLaying),
+        ],
+      );
+    }
     if (vPlan == null) {
       return Center(
         child: Padding(padding: const EdgeInsets.all(24), child: Text(vText.layingUnavailable)),

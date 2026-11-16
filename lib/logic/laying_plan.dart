@@ -217,7 +217,11 @@ LayingPlan? planLaying(Room pRoom, ParquetSettings pSettings) {
   if (vSplit == null || pSettings.type == ParquetType.herringbone || pSettings.plankLengthMm <= 0) {
     return null;
   }
-  final vPoints = alignedOutline(pRoom, pSettings.layingWallIndex);
+  final vPoints = alignedOutline(
+    pRoom,
+    pSettings.layingWallIndex,
+    pExtraDeg: layingAngleDeg(pSettings),
+  );
   var vY = vPoints.map((pPoint) => pPoint.y).reduce(math.min) + pSettings.expansionGapMm;
   final vOffcuts = <int>[];
   int? vPrevious;

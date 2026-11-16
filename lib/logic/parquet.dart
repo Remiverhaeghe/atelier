@@ -64,6 +64,7 @@ class ParquetSettings {
     this.nailsPerM2 = 30,
     this.nailsPerBox = 500,
     this.thresholdBarLengthMm = 930,
+    this.diagonal = false,
   });
 
   /// Réglages d'un type, avec ses valeurs de départ.
@@ -105,6 +106,9 @@ class ParquetSettings {
   /// Longueur d'une barre de seuil vendue, recoupée à la largeur de la porte.
   final int thresholdBarLengthMm;
 
+  /// Pose à 45° du mur de référence : plus de coupes, donc plus de chute.
+  final bool diagonal;
+
   ParquetDefaults get defaults => parquetDefaults[type]!;
 
   ParquetSettings copyWith({
@@ -121,6 +125,7 @@ class ParquetSettings {
     int? nailsPerM2,
     int? nailsPerBox,
     int? thresholdBarLengthMm,
+    bool? diagonal,
   }) => ParquetSettings(
     type: type ?? this.type,
     plankLengthMm: plankLengthMm ?? this.plankLengthMm,
@@ -135,6 +140,7 @@ class ParquetSettings {
     nailsPerM2: nailsPerM2 ?? this.nailsPerM2,
     nailsPerBox: nailsPerBox ?? this.nailsPerBox,
     thresholdBarLengthMm: thresholdBarLengthMm ?? this.thresholdBarLengthMm,
+    diagonal: diagonal ?? this.diagonal,
   );
 
   Map<String, Object?> toJson() => {
@@ -151,6 +157,7 @@ class ParquetSettings {
     'nailsPerM2': nailsPerM2,
     'nailsPerBox': nailsPerBox,
     'thresholdBarLengthMm': thresholdBarLengthMm,
+    if (diagonal) 'diagonal': true,
   };
 
   static ParquetSettings fromJson(Map<String, Object?> pJson) {
@@ -170,6 +177,7 @@ class ParquetSettings {
       nailsPerM2: (pJson['nailsPerM2'] as int?) ?? vBase.nailsPerM2,
       nailsPerBox: (pJson['nailsPerBox'] as int?) ?? vBase.nailsPerBox,
       thresholdBarLengthMm: (pJson['thresholdBarLengthMm'] as int?) ?? vBase.thresholdBarLengthMm,
+      diagonal: (pJson['diagonal'] as bool?) ?? false,
     );
 
     return rSettings;
@@ -229,7 +237,13 @@ const minLastRowFraction = 1 / 3;
 int _ceil(double pValue) => (pValue - 1e-9).ceil();
 
 /// Contour tourné pour que le mur de référence soit horizontal : les rangées suivent l'axe x.
-List<PlanPoint> alignedOutline(Room pRoom, int pWallIndex) {
+/// Chute ajoutée à la marge pour une pose en diagonale.
+const diagonalExtraWastePercent = 5;
+
+/// Angle des lames par rapport au mur de référence.
+double layingAngleDeg(ParquetSettings pSettings) => pSettings.diagonal ? 45 : 0;
+
+List<PlanPoint> alignedOutline(Room pRoom, int pWallIndex, {double pExtraDeg = 0}) {
   final vPoints = outline(pRoom);
   if (pRoom.walls.isEmpty) {
     return vPoints;
@@ -237,7 +251,7 @@ List<PlanPoint> alignedOutline(Room pRoom, int pWallIndex) {
   final vIndex = pWallIndex.clamp(0, pRoom.walls.length - 1);
   final vStart = vPoints[vIndex];
   final vEnd = vPoints[vIndex + 1];
-  final vAngle = math.atan2(vEnd.y - vStart.y, vEnd.x - vStart.x);
+  final vAngle = math.atan2(vEnd.y - vStart.y, vEnd.x - vStart.x) + pExtraDeg * math.pi / 180;
   final vCos = math.cos(-vAngle);
   final vSin = math.sin(-vAngle);
   final rPoints = [
@@ -253,7 +267,11 @@ RowSplit? splitRows(Room pRoom, ParquetSettings pSettings) {
   if (pRoom.walls.length < 3 || pSettings.plankWidthMm <= 0) {
     return null;
   }
-  final vPoints = alignedOutline(pRoom, pSettings.layingWallIndex);
+  final vPoints = alignedOutline(
+    pRoom,
+    pSettings.layingWallIndex,
+    pExtraDeg: layingAngleDeg(pSettings),
+  );
   final vYs = vPoints.map((pPoint) => pPoint.y);
   final vDepth =
       (vYs.reduce(math.max) - vYs.reduce(math.min)).round() - 2 * pSettings.expansionGapMm;
@@ -288,7 +306,8 @@ RowSplit? splitRows(Room pRoom, ParquetSettings pSettings) {
 /// Quantités de parquet et de fournitures pour une pièce.
 ParquetEstimate estimateParquet(Room pRoom, ParquetSettings pSettings) {
   final vArea = floorAreaM2(pRoom);
-  final vWithWaste = vArea * (1 + pSettings.wastePercent / 100);
+  final vWaste = pSettings.wastePercent + (pSettings.diagonal ? diagonalExtraWastePercent : 0);
+  final vWithWaste = vArea * (1 + vWaste / 100);
   final vPlankArea = pSettings.plankLengthMm * pSettings.plankWidthMm / 1e6;
   final vPlanks = vPlankArea <= 0 || vArea == 0 ? 0 : _ceil(vWithWaste / vPlankArea);
   final vHerringbone = pSettings.type == ParquetType.herringbone;
