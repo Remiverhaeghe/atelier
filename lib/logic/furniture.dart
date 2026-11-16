@@ -100,7 +100,13 @@ class Furniture {
 /// Problème relevé sur un meuble.
 enum FurnitureIssueKind { outside, overlap, door, passage }
 
-typedef FurnitureIssue = ({FurnitureIssueKind kind, String furnitureId, int? wallIndex, int? gapMm, String? otherId});
+typedef FurnitureIssue = ({
+  FurnitureIssueKind kind,
+  String furnitureId,
+  int? wallIndex,
+  int? gapMm,
+  String? otherId,
+});
 
 /// Deux polygones convexes se chevauchent-ils ? Théorème de l'axe séparateur.
 bool _overlap(List<PlanPoint> pA, List<PlanPoint> pB) {
@@ -196,27 +202,59 @@ List<FurnitureIssue> furnitureIssues(Room pRoom) {
     final vItem = vItems[vIndex];
     final vCorners = vItem.corners;
     if (!vCorners.every((pCorner) => _inside(vOutline, pCorner))) {
-      rIssues.add((kind: FurnitureIssueKind.outside, furnitureId: vItem.id, wallIndex: null, gapMm: null, otherId: null));
+      rIssues.add((
+        kind: FurnitureIssueKind.outside,
+        furnitureId: vItem.id,
+        wallIndex: null,
+        gapMm: null,
+        otherId: null,
+      ));
       continue;
     }
     for (var vWall = 0; vWall < pRoom.walls.length; vWall++) {
-      for (final vDoor in pRoom.walls[vWall].openings.where((pOpening) => pOpening.kind == OpeningKind.door)) {
+      for (final vDoor in pRoom.walls[vWall].openings.where(
+        (pOpening) => pOpening.kind == OpeningKind.door,
+      )) {
         if (_overlap(vCorners, doorSweep(pRoom, vWall, vDoor))) {
-          rIssues.add((kind: FurnitureIssueKind.door, furnitureId: vItem.id, wallIndex: vWall, gapMm: null, otherId: null));
+          rIssues.add((
+            kind: FurnitureIssueKind.door,
+            furnitureId: vItem.id,
+            wallIndex: vWall,
+            gapMm: null,
+            otherId: null,
+          ));
         }
       }
       final vGap = _gap(vCorners, [vOutline[vWall], vOutline[(vWall + 1) % vOutline.length]]);
       if (vGap > againstWallMm && vGap < minPassageMm) {
-        rIssues.add((kind: FurnitureIssueKind.passage, furnitureId: vItem.id, wallIndex: vWall, gapMm: vGap.round(), otherId: null));
+        rIssues.add((
+          kind: FurnitureIssueKind.passage,
+          furnitureId: vItem.id,
+          wallIndex: vWall,
+          gapMm: vGap.round(),
+          otherId: null,
+        ));
       }
     }
     for (final vOther in vItems.skip(vIndex + 1)) {
       if (_overlap(vCorners, vOther.corners)) {
-        rIssues.add((kind: FurnitureIssueKind.overlap, furnitureId: vItem.id, wallIndex: null, gapMm: null, otherId: vOther.id));
+        rIssues.add((
+          kind: FurnitureIssueKind.overlap,
+          furnitureId: vItem.id,
+          wallIndex: null,
+          gapMm: null,
+          otherId: vOther.id,
+        ));
       } else {
         final vGap = _gap(vCorners, vOther.corners);
         if (vGap > againstWallMm && vGap < minPassageMm) {
-          rIssues.add((kind: FurnitureIssueKind.passage, furnitureId: vItem.id, wallIndex: null, gapMm: vGap.round(), otherId: vOther.id));
+          rIssues.add((
+            kind: FurnitureIssueKind.passage,
+            furnitureId: vItem.id,
+            wallIndex: null,
+            gapMm: vGap.round(),
+            otherId: vOther.id,
+          ));
         }
       }
     }

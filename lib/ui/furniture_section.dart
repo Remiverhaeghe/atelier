@@ -101,18 +101,20 @@ class FurnitureSection extends StatelessWidget {
   }
 
   String _issue(AppLocalizations pText, FurnitureIssue pIssue) {
-    String vName(String? pId) => switch (room.furniture.where((pItem) => pItem.id == pId).firstOrNull) {
-      final Furniture vItem => furnitureLabel(pText, vItem.kind),
-      null => '',
-    };
+    String vName(String? pId) =>
+        switch (room.furniture.where((pItem) => pItem.id == pId).firstOrNull) {
+          final Furniture vItem => furnitureLabel(pText, vItem.kind),
+          null => '',
+        };
 
     return switch (pIssue.kind) {
       FurnitureIssueKind.outside => pText.furnOutside,
       FurnitureIssueKind.overlap => pText.furnOverlap(vName(pIssue.otherId)),
       FurnitureIssueKind.door => pText.furnDoor(pIssue.wallIndex! + 1),
-      FurnitureIssueKind.passage => pIssue.otherId == null
-          ? pText.furnPassageWall(formatCentimetres(pIssue.gapMm!), pIssue.wallIndex! + 1)
-          : pText.furnPassage(formatCentimetres(pIssue.gapMm!), vName(pIssue.otherId)),
+      FurnitureIssueKind.passage =>
+        pIssue.otherId == null
+            ? pText.furnPassageWall(formatCentimetres(pIssue.gapMm!), pIssue.wallIndex! + 1)
+            : pText.furnPassage(formatCentimetres(pIssue.gapMm!), vName(pIssue.otherId)),
     };
   }
 
@@ -138,7 +140,9 @@ class FurnitureSection extends StatelessWidget {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${formatCentimetres(vItem.widthMm)} × ${formatCentimetres(vItem.depthMm)} cm'),
+                Text(
+                  '${formatCentimetres(vItem.widthMm)} × ${formatCentimetres(vItem.depthMm)} cm',
+                ),
                 for (final vIssue in vIssues.where((pIssue) => pIssue.furnitureId == vItem.id))
                   IconLine(AtelierIcons.warning, _issue(vText, vIssue)),
               ],
