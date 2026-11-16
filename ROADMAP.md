@@ -22,7 +22,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 ## Plus tard
 
-- Nouveaux travaux : carrelage et faïence, placo et isolation, électricité, plomberie, terrasse, soudure (selon le procédé), jardin, aide à la déco.
 - Contrôle de finition : filmer une pièce et repérer ce qui est à reprendre.
 - Caméra thermique : repérer ponts thermiques et fuites d'air, en tirer des préconisations.
 - Mesure par photo ou réalité augmentée.
