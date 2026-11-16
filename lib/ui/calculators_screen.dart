@@ -12,6 +12,7 @@ import 'plumbing_calculator.dart';
 import 'rent_buy_calculator.dart';
 import 'shelf_calculator.dart';
 import 'tiling_calculator.dart';
+import 'wall_tiling_calculator.dart';
 import 'wardrobe_calculator.dart';
 import 'welding_calculator.dart';
 
@@ -94,6 +95,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.insulHelp,
       icon: Icons.texture,
       builder: (_) => const InsulationCalculator(),
+    ),
+    (
+      title: pText.wallTileTitle,
+      help: pText.wallTileHelp,
+      icon: Icons.view_module_outlined,
+      builder: (_) => const WallTilingCalculator(),
     ),
     (
       title: pText.frameTitle,
