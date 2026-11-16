@@ -1,3 +1,4 @@
+import 'package:atelier/logic/paint.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/touch_up.dart';
 import 'package:atelier/logic/worksite.dart';
@@ -23,6 +24,7 @@ Worksite demoWorksite() => const Worksite(
         Obstacle(kind: ObstacleKind.radiator, wallIndex: 2, offsetMm: 1200, widthMm: 1000),
       ],
       laidRows: [1, 2, 3],
+      paint: PaintSettings(walls: true, ceiling: true, woodwork: true),
       cutPieces: [0, 1],
       doneSteps: ['acclimatise'],
       touchUps: [

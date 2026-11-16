@@ -10,6 +10,10 @@ Tout reste sur le téléphone, sans compte ni connexion.
 |---|---|---|---|---|
 | ![Chantier](docs/captures/02-chantier.png) | ![Reprises](docs/captures/10-reprises.png) | ![Parquet](docs/captures/04-parquet.png) | ![Pose](docs/captures/05-pose.png) | ![Plinthes](docs/captures/06-plinthes.png) |
 
+| Peinture | Conseil | Pièce en thème sombre |
+|---|---|---|
+| ![Peinture](docs/captures/11-peinture.png) | ![Conseil](docs/captures/12-conseil.png) | ![Pièce](docs/captures/09-piece-sombre.png) |
+
 Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage.
 
 ## Avancement
