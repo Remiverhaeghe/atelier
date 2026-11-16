@@ -90,7 +90,10 @@ void main() {
     });
 
     test('parquet collé : colle, sans sous-couche', () {
-      final vEstimate = estimateParquet(rectangleRoom(), ParquetSettings.forType(ParquetType.glued));
+      final vEstimate = estimateParquet(
+        rectangleRoom(),
+        ParquetSettings.forType(ParquetType.glued),
+      );
 
       expect(vEstimate.underlayRolls, 0);
       expect(vEstimate.glueBuckets, 1);
