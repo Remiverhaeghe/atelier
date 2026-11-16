@@ -21,7 +21,7 @@ Worksite demoWorksite() => const Worksite(
       obstacles: [
         Obstacle(kind: ObstacleKind.radiator, wallIndex: 2, offsetMm: 1200, widthMm: 1000),
       ],
-      laidRows: [0, 1, 2],
+      laidRows: [1, 2, 3],
       cutPieces: [0, 1],
       doneSteps: ['acclimatise'],
     ),
