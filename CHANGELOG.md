@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Calculs : électricité
+- Repères de quantités par pièce d'après les minimums courants de la norme NF C 15-100 : prises, points lumineux, interrupteurs, boîtes, circuits spécialisés de cuisine, gaine et fil
+- Mise en garde en tête : couper le courant, faire valider par un électricien ; pas de schéma de tableau
+
 ### Calculs : terrasse bois
 - Lames (5 % de marge), lambourdes espacées selon l'épaisseur des lames, plots, vis inox
 - Terrasse dessinée vue de dessus, joints décalés, lambourdes dessous
