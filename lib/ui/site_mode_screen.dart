@@ -41,8 +41,7 @@ Future<String?> _listen() async {
   }
   final vHeard = Completer<String?>();
   await vSpeech.listen(
-    localeId: 'fr_FR',
-    listenFor: const Duration(seconds: 6),
+    listenOptions: SpeechListenOptions(localeId: 'fr_FR', listenFor: const Duration(seconds: 6)),
     onResult: (pResult) {
       if (pResult.finalResult && !vHeard.isCompleted) {
         vHeard.complete(pResult.recognizedWords);
