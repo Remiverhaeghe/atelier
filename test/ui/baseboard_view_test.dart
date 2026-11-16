@@ -25,12 +25,15 @@ void main() {
       find.text(
         'Début : onglet 45°, pointe longue contre le mur · Fin : biseau 45° pour joindre au morceau voisin',
       ),
-      findsOneWidget,
+      findsWidgets,
     );
 
     await pTester.tap(find.byType(Checkbox).first);
     await pTester.pump();
     expect(vRoom.cutPieces, [0]);
+    // Le compteur est juste au-dessus du premier morceau : remonter un peu pour le voir.
+    await pTester.drag(verticalList(), const Offset(0, 300));
+    await pTester.pump();
     expect(find.text('1 morceau coupé sur 8'), findsOneWidget);
   });
 
