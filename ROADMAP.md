@@ -7,7 +7,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
 - 79 bis. **Notification Android des attentes** : la même échéance en notification locale (permission de notification à demander).
-- 82. **Avant de commencer** : courant, eau, protections, à cocher par étape.
 - 83. **Chevilles et vis** selon le support et la charge.
 - 84. **Porte intérieure à changer** : bâti, sens d'ouverture, taille standard.
 - 85. **Ventilation (VMC)** : débits par pièce, entrées d'air, détalonnage, gaines.
