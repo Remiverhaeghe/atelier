@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Météo des travaux extérieurs
+- Nouveau calcul : les prévisions recopiées jour par jour disent quels jours conviennent à une peinture de façade, un enduit, du béton, une lasure ou un travail sur le toit (froid, chaleur, pluie, gel après, vent)
+
 ### Liste à envoyer
 - Dans les courses, « Envoyer la liste à acheter » partage par SMS ou message ce qui reste à acheter, par magasin, avec quantités et références, sans les prix
 
