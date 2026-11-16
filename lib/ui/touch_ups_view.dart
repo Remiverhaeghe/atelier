@@ -173,7 +173,6 @@ class _TouchUpsViewState extends State<TouchUpsView> {
             ],
           ),
         ),
-        ),
       ],
     );
   }
