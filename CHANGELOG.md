@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Lot 7 : guidage et finitions
+- Onglet Guide : étapes de pose dans l'ordre selon le parquet et la fixation des plinthes, à cocher, et outils à préparer ; masquable par chantier
+- Export d'un chantier dans un fichier JSON (partage), import sous de nouveaux identifiants sans rien remplacer
+- Journal local des plantages, jamais envoyé, à partager depuis « À propos »
+- Cibles tactiles plus larges, onglets défilants
+
 ### Lot 6 : chantier, budget et partage
 - Courses et budget du chantier : quantités de toutes les pièces (chacune arrondie à l'unité vendue), prix unitaires, total, prix manquants signalés
 - Coût de chaque pièce dans la liste du chantier

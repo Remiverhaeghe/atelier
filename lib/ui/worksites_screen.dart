@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../state/worksites_controller.dart';
+import '../support/crash_log.dart';
+import 'about_screen.dart';
 import 'dialogs.dart';
+import 'transfer.dart';
 import 'worksite_screen.dart';
 
 /// Liste des chantiers.
 class WorksitesScreen extends StatelessWidget {
-  const WorksitesScreen({super.key, required this.controller});
+  const WorksitesScreen({super.key, required this.controller, this.crashLog});
 
   final WorksitesController controller;
+  final CrashLog? crashLog;
 
   Future<void> _create(BuildContext pContext) async {
     final vText = AppLocalizations.of(pContext);
@@ -33,7 +37,24 @@ class WorksitesScreen extends StatelessWidget {
     final vText = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.worksitesTitle)),
+      appBar: AppBar(
+        title: Text(vText.worksitesTitle),
+        actions: [
+          IconButton(
+            tooltip: vText.importWorksites,
+            icon: const Icon(Icons.file_open_outlined),
+            onPressed: () => importWorksites(context, controller),
+          ),
+          IconButton(
+            tooltip: vText.aboutTitle,
+            icon: const Icon(Icons.info_outline),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(builder: (_) => AboutScreen(crashLog: crashLog)),
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _create(context),
         icon: const Icon(Icons.add),
