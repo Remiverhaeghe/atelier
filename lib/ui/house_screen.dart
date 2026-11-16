@@ -7,6 +7,7 @@ import '../logic/geometry.dart';
 import '../logic/house.dart';
 import '../logic/room.dart';
 import '../state/worksites_controller.dart';
+import 'house_3d.dart';
 import 'theme.dart';
 
 /// Plan de la maison : chaque pièce se touche pour la choisir, se glisse et se tourne.
@@ -25,6 +26,9 @@ class _HouseScreenState extends State<HouseScreen> {
 
   /// Déplacement en cours, en millimètres, pas encore enregistré.
   Offset _drag = Offset.zero;
+
+  /// Vue en 3D plutôt que le plan à plat.
+  bool _view3d = false;
 
   void _save(Room pRoom) => widget.controller.updateRoom(widget.worksiteId, pRoom);
 
@@ -48,6 +52,11 @@ class _HouseScreenState extends State<HouseScreen> {
             title: Text(vText.houseTitle),
             actions: [
               IconButton(
+                tooltip: _view3d ? vText.house2d : vText.house3d,
+                icon: Icon(_view3d ? Icons.map_outlined : Icons.view_in_ar_outlined),
+                onPressed: () => setState(() => _view3d = !_view3d),
+              ),
+              IconButton(
                 tooltip: vText.houseArrange,
                 icon: const Icon(Icons.auto_awesome_mosaic_outlined),
                 onPressed: () {
@@ -66,9 +75,12 @@ class _HouseScreenState extends State<HouseScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                      child: Text(vText.houseHelp, style: vTheme.textTheme.bodySmall),
+                      child: Text(
+                        _view3d ? vText.house3dHelp : vText.houseHelp,
+                        style: vTheme.textTheme.bodySmall,
+                      ),
                     ),
-                    Expanded(
+                    if (_view3d) Expanded(child: House3d(rooms: vRooms)) else Expanded(
                       child: LayoutBuilder(
                         builder: (pContext, pConstraints) {
                           final vFrame = _HouseFrame(vRooms, pConstraints.biggest);
@@ -127,7 +139,7 @@ class _HouseScreenState extends State<HouseScreen> {
                         },
                       ),
                     ),
-                    if (vSelected != null)
+                    if (vSelected != null && !_view3d)
                       Padding(
                         padding: const EdgeInsets.all(12),
                         child: Row(
