@@ -28,6 +28,12 @@ Captures faites sur un chantier fictif par le workflow Captures (`test/captures/
 | 9 | Captures d'écran | fait |
 | 10 | Habillage et prise en main | fait |
 | 11 | Reprises : liste à cocher, repère sur le plan, photo | fait |
+| 12 | Schéma des coupes de plinthe, mesure de l'angle réel | fait |
+| 13 | Sens de pose du parquet en images | fait |
+| 14 | Jonction entre deux pièces, barres de seuil | fait |
+| 15 | Peinture, fenêtres | fait |
+| 16 | Objectif du jour et badges | fait |
+| 17 | Conseils et tutos | fait |
 
 La suite est dans [ROADMAP.md](ROADMAP.md).
 

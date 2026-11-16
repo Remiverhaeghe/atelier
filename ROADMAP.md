@@ -4,7 +4,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 ## Prochains lots
 
-- **Peinture** : hauteur sous plafond par pièce, fenêtres (largeur, hauteur, allège), murs, plafond et boiseries, couches et rendement, sous-couche, pot le moins cher, fournitures.
 
 ## Organisation et motivation
 
