@@ -1,4 +1,3 @@
-import 'package:atelier/logic/room.dart';
 import 'package:atelier/ui/slope_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
