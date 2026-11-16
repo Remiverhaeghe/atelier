@@ -7,6 +7,7 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
+import 'diagonal_dialog.dart';
 import 'dialogs.dart';
 import 'fixtures_section.dart';
 import 'guide_view.dart';
@@ -228,6 +229,20 @@ class RoomWallsView extends StatelessWidget {
                   : vText.closureGap(formatCentimetres(vGap.round())),
             ),
             subtitle: Text(vText.areaSummary(formatSquareMetres(floorAreaM2(room)))),
+          ),
+        if (room.closed && room.walls.length >= 4)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: OutlinedButton.icon(
+              onPressed: () async {
+                final vFixed = await checkDiagonal(context, room);
+                if (vFixed != null) {
+                  onChanged(vFixed);
+                }
+              },
+              icon: const Icon(Icons.call_made),
+              label: Text(vText.diagonalTitle),
+            ),
           ),
         SwitchListTile(
           value: room.closed,
