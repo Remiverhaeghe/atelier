@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/bar_cutting.dart';
 import '../logic/baseboard.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
@@ -21,6 +22,12 @@ String fixingLabel(AppLocalizations pText, BaseboardFixing pFixing) => switch (p
   BaseboardFixing.nailed => pText.fixingNailed,
   BaseboardFixing.clips => pText.fixingClips,
 };
+
+String _offcutLabel(AppLocalizations pText, int pOffcutMm) => pOffcutMm == 0
+    ? pText.barNoOffcut
+    : pOffcutMm >= reusableOffcutMm
+    ? pText.barOffcutReusable(formatCentimetres(pOffcutMm))
+    : pText.barOffcut(formatCentimetres(pOffcutMm));
 
 /// Plinthes de la pièce : réglages, fournitures et liste des coupes à cocher.
 class BaseboardView extends StatefulWidget {
@@ -60,6 +67,11 @@ class _BaseboardViewState extends State<BaseboardView> {
     final vSettings = _room.baseboard;
     final vPieces = baseboardPieces(_room, vSettings);
     final vNeeds = fixingNeeds(vPieces, vSettings);
+    final vBars = planBars(
+      [for (final vPiece in vPieces) vPiece.lengthMm],
+      vSettings.barLengthMm,
+      vSettings.kerfMm,
+    );
     final vTotal = vPieces.fold<int>(0, (pSum, pPiece) => pSum + pPiece.lengthMm);
     final vDone = _room.cutPieces.where((pIndex) => pIndex < vPieces.length).length;
 
@@ -74,7 +86,13 @@ class _BaseboardViewState extends State<BaseboardView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(vText.resultsTitle, style: vTheme.textTheme.titleMedium),
+                Text(vText.bars(vBars.bars.length), style: vTheme.textTheme.headlineSmall),
                 Text(vText.baseboardSummary(vPieces.length, formatDecimal(vTotal / 1000))),
+                if (vBars.tooLong.isNotEmpty)
+                  Text(
+                    vText.tooLongPieces(vBars.tooLong.length),
+                    style: TextStyle(color: vTheme.colorScheme.error),
+                  ),
                 if (vSettings.fixing == BaseboardFixing.glued)
                   Text(vText.cartridges(vNeeds.cartridges))
                 else
@@ -127,6 +145,18 @@ class _BaseboardViewState extends State<BaseboardView> {
             ],
           ),
         ),
+        ListTile(title: Text(vText.barsTitle, style: vTheme.textTheme.titleMedium)),
+        for (var vBar = 0; vBar < vBars.bars.length; vBar++)
+          ListTile(
+            dense: true,
+            title: Text(
+              vText.barLine(
+                vBar + 1,
+                vBars.bars[vBar].pieceLengths.map(formatCentimetres).join(' + '),
+              ),
+            ),
+            subtitle: Text(_offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm))),
+          ),
         Padding(
           padding: const EdgeInsets.all(16),
           child: RoomPlan(room: _room, highlightWall: _highlight),
@@ -149,10 +179,13 @@ class _BaseboardViewState extends State<BaseboardView> {
               ),
             ),
             subtitle: Text(
-              vText.pieceCuts(
-                cutLabel(vText, vPieces[vIndex].startCut),
-                cutLabel(vText, vPieces[vIndex].endCut),
-              ),
+              [
+                vText.pieceCuts(
+                  cutLabel(vText, vPieces[vIndex].startCut),
+                  cutLabel(vText, vPieces[vIndex].endCut),
+                ),
+                if (vBars.barOf(vIndex) != null) vText.pieceInBar(vBars.barOf(vIndex)!),
+              ].join('\n'),
             ),
           ),
       ],

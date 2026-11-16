@@ -13,7 +13,7 @@ Tout reste sur le téléphone, sans compte ni connexion.
 | 2 | Parquet : surface, paquets, rangées, sous-couche | fait |
 | 3 | Parquet : plan de pose rangée par rangée | fait |
 | 4 | Plinthes : angles et liste des coupes | fait |
-| 5 | Plinthes : optimisation des barres | à venir |
+| 5 | Plinthes : optimisation des barres | fait |
 | 6 | Chantier de plusieurs pièces, budget, liste de courses, PDF | à venir |
 | 7 | Guidage pas à pas, export, finitions | à venir |
 

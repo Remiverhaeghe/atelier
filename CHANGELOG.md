@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Lot 5 : barres de plinthe
+- Morceaux répartis dans le moins de barres possible, les plus longs d'abord, trait de scie compris
+- Nombre de barres à acheter, contenu de chaque barre, chutes de plus de 30 cm signalées à garder
+- Chaque morceau indique la barre où le tailler ; morceau plus long qu'une barre signalé
+
 ### Lot 4 : plinthes, angles et coupes
 - Onglet Plinthes : un morceau par mur, coupé entre les portes et passages, en morceaux égaux joints en biseau si le mur dépasse une barre
 - Angle de scie de chaque coin (moitié de l'écart à un mur droit : 45° pour 90°, 46° pour 88°), sens de la pointe longue dit en mots, coupe droite aux bouts libres et contre les chambranles
