@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Aucune permission réseau : tout reste sur le téléphone. -->
+    <!-- Lecture à voix haute du mode chantier : le moteur de synthèse vocale du téléphone. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
     <application
         android:label="Atelier"
         android:name="${applicationName}"

@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Mode chantier
+- Bouton chantier en haut d'une pièce : la prochaine coupe de plinthe et la prochaine rangée de parquet, en gros caractères
+- « Lire à voix haute » par le moteur vocal du téléphone, « Fait » coche la coupe ou la rangée
+- L'écran reste allumé tant que le mode est ouvert
+
 ### Mesure assistée
 - « Contrôler par la diagonale » sous le plan : la diagonale du coin A au coin C, mesurée, est comparée à celle du plan
 - Pièce à quatre murs : les vrais angles sont recalculés depuis la diagonale (loi des cosinus) et corrigés d'un appui
