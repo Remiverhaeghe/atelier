@@ -11,6 +11,7 @@ import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
+import 'theme.dart';
 
 /// Une pièce : plan, murs et obstacles.
 class RoomScreen extends StatelessWidget {
@@ -61,11 +62,11 @@ class RoomScreen extends StatelessWidget {
               bottom: TabBar(
                 isScrollable: true,
                 tabs: [
-                  Tab(text: vText.tabRoom),
-                  Tab(text: vText.tabParquet),
-                  Tab(text: vText.tabLaying),
-                  Tab(text: vText.tabBaseboard),
-                  if (vGuide) Tab(text: vText.tabGuide),
+                  Tab(icon: const Icon(AtelierIcons.room), text: vText.tabRoom),
+                  Tab(icon: const Icon(AtelierIcons.parquet), text: vText.tabParquet),
+                  Tab(icon: const Icon(AtelierIcons.laying), text: vText.tabLaying),
+                  Tab(icon: const Icon(AtelierIcons.baseboard), text: vText.tabBaseboard),
+                  if (vGuide) Tab(icon: const Icon(AtelierIcons.guide), text: vText.tabGuide),
                 ],
               ),
             ),
@@ -105,17 +106,26 @@ class RoomWallsView extends StatelessWidget {
     return rSummary;
   }
 
+  /// Saisie à la suite : « Mur suivant » enregistre et rouvre la saisie du mur d'après.
   Future<void> _addWall(BuildContext pContext) async {
-    final vWall = await editWall(pContext);
-    if (vWall != null) {
-      onChanged(room.copyWith(walls: [...room.walls, vWall]));
+    var vRoom = room;
+    while (pContext.mounted) {
+      final vEntry = await editWall(pContext, pNumber: vRoom.walls.length + 1);
+      if (vEntry == null) {
+        return;
+      }
+      vRoom = vRoom.copyWith(walls: [...vRoom.walls, vEntry.wall]);
+      onChanged(vRoom);
+      if (!vEntry.next) {
+        return;
+      }
     }
   }
 
   Future<void> _editWall(BuildContext pContext, int pIndex) async {
-    final vWall = await editWall(pContext, pWall: room.walls[pIndex]);
-    if (vWall != null) {
-      final vWalls = [...room.walls]..[pIndex] = vWall;
+    final vEntry = await editWall(pContext, pNumber: pIndex + 1, pWall: room.walls[pIndex]);
+    if (vEntry != null) {
+      final vWalls = [...room.walls]..[pIndex] = vEntry.wall;
       onChanged(room.copyWith(walls: vWalls));
     }
   }
@@ -196,6 +206,7 @@ class RoomWallsView extends StatelessWidget {
           ),
         for (var vIndex = 0; vIndex < room.walls.length; vIndex++)
           ListTile(
+            leading: TapeLabel(formatCentimetres(room.walls[vIndex].lengthMm)),
             title: Text(vText.wallTitle(vIndex + 1)),
             subtitle: Text(_wallSummary(vText, room.walls[vIndex])),
             onTap: () => _editWall(context, vIndex),

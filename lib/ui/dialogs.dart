@@ -54,7 +54,7 @@ class _NameDialogState extends State<_NameDialog> {
     super.dispose();
   }
 
-  void _submit() {
+  void _submit({bool pNext = false}) {
     if (_controller.text.trim().isEmpty) {
       setState(() => _error = AppLocalizations.of(context).nameRequired);
       return;
@@ -83,14 +83,19 @@ class _NameDialogState extends State<_NameDialog> {
 }
 
 /// Saisie ou modification d'un mur ; null si l'utilisateur annule.
-Future<Wall?> editWall(BuildContext pContext, {Wall? pWall}) => showDialog<Wall>(
-  context: pContext,
-  builder: (pDialogContext) => _WallDialog(wall: pWall),
-);
+/// Mur saisi ; [next] demande d'enchaîner sur le mur suivant.
+typedef WallEntry = ({Wall wall, bool next});
+
+Future<WallEntry?> editWall(BuildContext pContext, {required int pNumber, Wall? pWall}) =>
+    showDialog<WallEntry>(
+      context: pContext,
+      builder: (pDialogContext) => _WallDialog(number: pNumber, wall: pWall),
+    );
 
 class _WallDialog extends StatefulWidget {
-  const _WallDialog({this.wall});
+  const _WallDialog({required this.number, this.wall});
 
+  final int number;
   final Wall? wall;
 
   @override
@@ -120,7 +125,7 @@ class _WallDialogState extends State<_WallDialog> {
     super.dispose();
   }
 
-  void _submit() {
+  void _submit({bool pNext = false}) {
     final vText = AppLocalizations.of(context);
     final vLength = parseCentimetres(_length.text);
     final vAngle = parseDegrees(_angle.text);
@@ -132,10 +137,11 @@ class _WallDialogState extends State<_WallDialog> {
       return;
     }
     final vBase = widget.wall ?? Wall(lengthMm: vLength!);
-    Navigator.pop(
-      context,
-      vBase.copyWith(lengthMm: vLength, angleToNextDeg: vAngle, freeEndAfter: _freeEnd),
+    final WallEntry vEntry = (
+      wall: vBase.copyWith(lengthMm: vLength, angleToNextDeg: vAngle, freeEndAfter: _freeEnd),
+      next: pNext,
     );
+    Navigator.pop(context, vEntry);
   }
 
   @override
@@ -144,7 +150,7 @@ class _WallDialogState extends State<_WallDialog> {
     const vNumbers = TextInputType.numberWithOptions(decimal: true);
 
     return AlertDialog(
-      title: Text(vText.addWall),
+      title: Text(vText.wallTitle(widget.number)),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -153,7 +159,13 @@ class _WallDialogState extends State<_WallDialog> {
               controller: _length,
               autofocus: true,
               keyboardType: vNumbers,
-              decoration: InputDecoration(labelText: vText.wallLength, errorText: _lengthError),
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => _submit(pNext: widget.wall == null),
+              decoration: InputDecoration(
+                labelText: vText.wallLength,
+                errorText: _lengthError,
+                suffixText: vText.unitCm,
+              ),
             ),
             TextField(
               controller: _angle,
@@ -176,7 +188,12 @@ class _WallDialogState extends State<_WallDialog> {
       ),
       actions: [
         TextButton(onPressed: () => Navigator.pop(context), child: Text(vText.cancel)),
-        FilledButton(onPressed: _submit, child: Text(vText.save)),
+        if (widget.wall == null)
+          OutlinedButton(onPressed: _submit, child: Text(vText.save))
+        else
+          FilledButton(onPressed: _submit, child: Text(vText.save)),
+        if (widget.wall == null)
+          FilledButton(onPressed: () => _submit(pNext: true), child: Text(vText.nextWall)),
       ],
     );
   }
@@ -219,7 +236,7 @@ class _OpeningDialogState extends State<_OpeningDialog> {
     super.dispose();
   }
 
-  void _submit() {
+  void _submit({bool pNext = false}) {
     final vText = AppLocalizations.of(context);
     final vOffset = parseCentimetres(_offset.text);
     final vWidth = parseCentimetres(_width.text);
@@ -317,7 +334,7 @@ class _ObstacleDialogState extends State<_ObstacleDialog> {
   /// Seuls le placard et la cheminée retirent une zone au parquet.
   bool get _hasDepth => _kind == ObstacleKind.cupboard || _kind == ObstacleKind.fireplace;
 
-  void _submit() {
+  void _submit({bool pNext = false}) {
     final vText = AppLocalizations.of(context);
     final vOffset = parseCentimetres(_offset.text);
     final vWidth = parseCentimetres(_width.text);

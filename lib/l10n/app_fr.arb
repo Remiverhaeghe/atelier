@@ -32,6 +32,19 @@
   "wallsTitle": "Murs",
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
+  "nextWall": "Mur suivant",
+  "roomProgress": "{done} tâches faites sur {total}",
+  "@roomProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "unitCm": "cm",
   "wallTitle": "Mur {number}",
   "@wallTitle": {
     "placeholders": {
@@ -76,6 +89,14 @@
   "@closureGap": {
     "placeholders": {
       "gap": {
+        "type": "String"
+      }
+    }
+  },
+  "totalArea": "{area} m²",
+  "@totalArea": {
+    "placeholders": {
+      "area": {
         "type": "String"
       }
     }
