@@ -87,7 +87,9 @@ class Worksite {
     showGuidance: (pJson['showGuidance'] as bool?) ?? true,
     goal: pJson['goal'] == null ? null : DailyGoal.fromJson(pJson['goal']! as Map<String, Object?>),
     goalsReached: (pJson['goalsReached'] as int?) ?? 0,
-    ownedTools: [for (final vTool in (pJson['ownedTools'] as List<Object?>?) ?? const []) vTool! as String],
+    ownedTools: [
+      for (final vTool in (pJson['ownedTools'] as List<Object?>?) ?? const []) vTool! as String,
+    ],
     stock: {
       for (final vEntry in ((pJson['stock'] as Map<String, Object?>?) ?? const {}).entries)
         vEntry.key: vEntry.value! as int,

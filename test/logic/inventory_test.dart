@@ -15,10 +15,9 @@ void main() {
 
     final vOwned = [for (final vTool in Tool.values) vTool.name]..remove(Tool.miterSaw.name);
     expect(missingTools(vRoom, vOwned), [Tool.miterSaw]);
-    expect(
-      worksiteMissingTools(Worksite(id: 'w', name: 'M', rooms: [vRoom], ownedTools: vOwned)),
-      [Tool.miterSaw],
-    );
+    expect(worksiteMissingTools(Worksite(id: 'w', name: 'M', rooms: [vRoom], ownedTools: vOwned)), [
+      Tool.miterSaw,
+    ]);
   });
 
   test('cocher et décocher un outil garde l\'ordre des outils', () {
