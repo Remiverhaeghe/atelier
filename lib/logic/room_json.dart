@@ -29,12 +29,14 @@ Map<String, Object?> roomToJson(Room pRoom) => {
   'houseXMm': pRoom.houseXMm,
   'houseYMm': pRoom.houseYMm,
   'houseQuarterTurns': pRoom.houseQuarterTurns,
-  if (pRoom.fixtures.isNotEmpty) 'fixtures': [for (final vFixture in pRoom.fixtures) vFixture.toJson()],
+  if (pRoom.fixtures.isNotEmpty)
+    'fixtures': [for (final vFixture in pRoom.fixtures) vFixture.toJson()],
   if (pRoom.slope != null) 'slope': pRoom.slope!.toJson(),
   if (pRoom.slope2 != null) 'slope2': pRoom.slope2!.toJson(),
   if (pRoom.level != 0) 'level': pRoom.level,
   if (pRoom.usage != RoomUsage.habitable) 'usage': pRoom.usage.name,
-  if (pRoom.furniture.isNotEmpty) 'furniture': [for (final vItem in pRoom.furniture) vItem.toJson()],
+  if (pRoom.furniture.isNotEmpty)
+    'furniture': [for (final vItem in pRoom.furniture) vItem.toJson()],
   if (pRoom.networks.isNotEmpty) 'networks': [for (final vRun in pRoom.networks) vRun.toJson()],
   if (pRoom.stepPhotos.isNotEmpty) 'stepPhotos': pRoom.stepPhotos,
 };
@@ -81,9 +83,7 @@ Room roomFromJson(Map<String, Object?> pJson) => Room(
       Fixture.fromJson(vFixture! as Map<String, Object?>),
   ],
   slope: pJson['slope'] == null ? null : Slope.fromJson(pJson['slope']! as Map<String, Object?>),
-  slope2: pJson['slope2'] == null
-      ? null
-      : Slope.fromJson(pJson['slope2']! as Map<String, Object?>),
+  slope2: pJson['slope2'] == null ? null : Slope.fromJson(pJson['slope2']! as Map<String, Object?>),
   level: (pJson['level'] as int?) ?? 0,
   usage: RoomUsage.values.asNameMap()[pJson['usage']] ?? RoomUsage.habitable,
   furniture: [
