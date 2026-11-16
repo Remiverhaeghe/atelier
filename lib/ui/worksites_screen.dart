@@ -82,8 +82,7 @@ class WorksitesScreen extends StatelessWidget {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute<void>(
-                builder: (_) =>
-                    AboutScreen(
+                builder: (_) => AboutScreen(
                   crashLog: crashLog,
                   backups: backups,
                   controller: controller,
