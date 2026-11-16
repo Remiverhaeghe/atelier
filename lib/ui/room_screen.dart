@@ -6,6 +6,7 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'dialogs.dart';
+import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
 
@@ -50,7 +51,7 @@ class RoomScreen extends StatelessWidget {
         void vSave(Room pRoom) => controller.updateRoom(worksiteId, pRoom);
 
         return DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
             appBar: AppBar(
               title: Text(vRoom.name),
@@ -58,6 +59,7 @@ class RoomScreen extends StatelessWidget {
                 tabs: [
                   Tab(text: vText.tabRoom),
                   Tab(text: vText.tabParquet),
+                  Tab(text: vText.tabLaying),
                 ],
               ),
             ),
@@ -65,6 +67,7 @@ class RoomScreen extends StatelessWidget {
               children: [
                 RoomWallsView(room: vRoom, onChanged: vSave),
                 ParquetView(room: vRoom, onChanged: vSave),
+                LayingView(room: vRoom, onChanged: vSave),
               ],
             ),
           ),
