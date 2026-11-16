@@ -284,5 +284,94 @@
       }
     }
   },
-  "layingHelp": "Les longueurs sont mesurées du mur, jeu de dilatation déduit. Coche chaque rangée une fois posée."
+  "layingHelp": "Les longueurs sont mesurées du mur, jeu de dilatation déduit. Coche chaque rangée une fois posée.",
+  "tabBaseboard": "Plinthes",
+  "baseboardNeedsWalls": "Saisis d'abord les murs de la pièce.",
+  "barLength": "Longueur d'une barre (cm)",
+  "kerf": "Trait de scie (mm)",
+  "fixing": "Fixation",
+  "fixingGlued": "Collées",
+  "fixingNailed": "Clouées ou vissées",
+  "fixingClips": "Sur clips",
+  "glueMetres": "Mètres de plinthe par cartouche",
+  "fixingSpacing": "Écart entre deux fixations (cm)",
+  "baseboardSummary": "{count, plural, =1{1 morceau} other{{count} morceaux}}, {length} m de plinthe",
+  "@baseboardSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "length": {
+        "type": "String"
+      }
+    }
+  },
+  "cartridges": "{count, plural, =0{Aucune cartouche} =1{1 cartouche de colle} other{{count} cartouches de colle}}",
+  "@cartridges": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "fixingPoints": "{count} clous, vis ou clips",
+  "@fixingPoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "baseboardHelp": "Longueurs mesurées au dos de la plinthe, côté mur. Coche chaque morceau une fois coupé.",
+  "pieceTitle": "Mur {wall} · {length} cm",
+  "@pieceTitle": {
+    "placeholders": {
+      "wall": {
+        "type": "int"
+      },
+      "length": {
+        "type": "String"
+      }
+    }
+  },
+  "pieceCuts": "Début : {start} · Fin : {end}",
+  "@pieceCuts": {
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "cutSquare": "coupe droite",
+  "cutInside": "onglet {angle}°, pointe longue contre le mur",
+  "@cutInside": {
+    "placeholders": {
+      "angle": {
+        "type": "String"
+      }
+    }
+  },
+  "cutOutside": "onglet {angle}°, pointe longue côté pièce",
+  "@cutOutside": {
+    "placeholders": {
+      "angle": {
+        "type": "String"
+      }
+    }
+  },
+  "cutScarf": "biseau 45° pour joindre au morceau voisin",
+  "cutProgress": "{done, plural, =0{Aucun morceau coupé} =1{1 morceau coupé} other{{done} morceaux coupés}} sur {total}",
+  "@cutProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }
