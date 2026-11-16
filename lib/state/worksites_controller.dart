@@ -130,9 +130,8 @@ class WorksitesController extends ChangeNotifier {
   }
 
   /// Le fichier contient au moins un chantier qu'on a déjà : la fusion a un sens.
-  bool sharesWorksite(List<Worksite> pWorksites) => pWorksites.any(
-    (pTheirs) => _worksites.any((pWorksite) => pWorksite.id == pTheirs.id),
-  );
+  bool sharesWorksite(List<Worksite> pWorksites) =>
+      pWorksites.any((pTheirs) => _worksites.any((pWorksite) => pWorksite.id == pTheirs.id));
 
   Future<void> replaceAll(List<Worksite> pWorksites) async {
     _worksites = List.unmodifiable(pWorksites);
