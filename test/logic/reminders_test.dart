@@ -36,4 +36,11 @@ void main() {
     expect(Reminder.fromJson({...vBack.toJson(), 'kind': 'inconnu'}).kind, WaitKind.custom);
     expect(const Worksite(id: 'w', name: 'M').toJson().containsKey('reminders'), isFalse);
   });
+
+  test('numéro de notification stable, positif et propre à chaque rappel', () {
+    expect(notificationId('1731790000000'), notificationId('1731790000000'));
+    expect(notificationId('a'), isNot(notificationId('b')));
+    expect(notificationId(''), 0x811c9dc5 & 0x7fffffff);
+    expect(notificationId('un très long identifiant de rappel'), inInclusiveRange(0, 0x7fffffff));
+  });
 }
