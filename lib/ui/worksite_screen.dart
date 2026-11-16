@@ -1,3 +1,4 @@
+import 'achievements_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -14,13 +15,22 @@ import 'shopping_texts.dart';
 import 'plan_thumbnail.dart';
 import 'theme.dart';
 import 'transfer.dart';
+import 'goal_card.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
-  const WorksiteScreen({super.key, required this.controller, required this.worksiteId});
+  const WorksiteScreen({
+    super.key,
+    required this.controller,
+    required this.worksiteId,
+    this.today,
+  });
 
   final WorksitesController controller;
   final String worksiteId;
+
+  /// Jour de l'objectif ; aujourd'hui si absent, fixé dans les tests.
+  final DateTime? today;
 
   void _open(BuildContext pContext, String pRoomId) => Navigator.push(
     pContext,
@@ -65,6 +75,14 @@ class WorksiteScreen extends StatelessWidget {
             title: Text(vWorksite.name),
             actions: [
               IconButton(
+                tooltip: vText.badgesTitle,
+                icon: const Icon(Icons.emoji_events_outlined),
+                onPressed: () => Navigator.push(
+                  pContext,
+                  MaterialPageRoute<void>(builder: (_) => AchievementsScreen(worksite: vWorksite)),
+                ),
+              ),
+              IconButton(
                 tooltip: vText.shoppingTitle,
                 icon: const Icon(Icons.shopping_cart_outlined),
                 onPressed: () => Navigator.push(
@@ -106,6 +124,11 @@ class WorksiteScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8, bottom: 96),
                   children: [
                     _Summary(worksite: vWorksite, onShopping: () => _openShopping(pContext)),
+                    GoalCard(
+                      worksite: vWorksite,
+                      today: today ?? DateTime.now(),
+                      onChanged: controller.updateWorksite,
+                    ),
                     for (final vRoom in vWorksite.rooms)
                       Card(
                         child: ListTile(
