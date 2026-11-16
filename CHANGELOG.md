@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Bilan de fin de chantier
+- Dépensé face au prévu de la liste de courses, temps de travail et étape la plus longue, chutes gardées, reprises faites, travaux au carnet
+- Leçons notées pour le prochain chantier
+
 ### Erreurs fréquentes
 - Sous la prochaine étape du guide, les erreurs classiques à éviter : jeu de dilatation, sens des lames, colle mal dosée, onglet à l'envers, plinthe fixée au parquet flottant…
 
