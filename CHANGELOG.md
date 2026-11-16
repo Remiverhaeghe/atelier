@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Chevilles et vis
+- Nouveau calcul : cheville, foret, vis et nombre de points selon le support (placo, béton, brique, béton cellulaire, bois) et le poids à accrocher
+
 ### Avant de commencer
 - Sous la prochaine étape du guide : coupures et protections à prévoir (courant, eau, masque FFP2, lunettes, casque, gants, genouillères, aération), à cocher d'un geste
 
