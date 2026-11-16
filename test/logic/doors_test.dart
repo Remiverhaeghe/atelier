@@ -13,7 +13,10 @@ void main() {
   });
 
   test('ouverture étroite, basse, mur épais', () {
-    expect(matchDoor(pOpeningWidthMm: 680, pOpeningHeightMm: 2100, pWallMm: 100).leafWidthMm, isNull);
+    expect(
+      matchDoor(pOpeningWidthMm: 680, pOpeningHeightMm: 2100, pWallMm: 100).leafWidthMm,
+      isNull,
+    );
     final vMatch = matchDoor(pOpeningWidthMm: 815, pOpeningHeightMm: 2050, pWallMm: 160);
     expect(vMatch.leafWidthMm, 730);
     expect(vMatch.widthGapMm, 15);
