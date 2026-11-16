@@ -8,6 +8,7 @@ import '../support/crash_log.dart';
 import 'about_screen.dart';
 import 'dialogs.dart';
 import 'plan_thumbnail.dart';
+import 'tips_screen.dart';
 import 'transfer.dart';
 import 'worksite_screen.dart';
 
@@ -47,6 +48,14 @@ class WorksitesScreen extends StatelessWidget {
             tooltip: vText.importWorksites,
             icon: const Icon(Icons.file_open_outlined),
             onPressed: () => importWorksites(context, controller),
+          ),
+          IconButton(
+            tooltip: vText.tipsTitle,
+            icon: const Icon(Icons.tips_and_updates_outlined),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(builder: (_) => const TipsScreen()),
+            ),
           ),
           IconButton(
             tooltip: vText.aboutTitle,
