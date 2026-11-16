@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:atelier/app.dart';
+import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/worksite.dart';
 import 'package:atelier/state/worksites_controller.dart';
+import 'package:atelier/storage/backups.dart';
 import 'package:atelier/storage/worksite_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -52,5 +55,62 @@ void main() {
     await pTester.runAsync(vReloaded.load);
     expect(vReloaded.worksites.single.name, 'Maison démo');
     expect(vReloaded.worksites.single.rooms.single.name, 'Salon');
+  });
+
+  testWidgets('un chantier relu du téléphone donne sa surface habitable', (pTester) async {
+    // Fichier écrit comme par une session précédente, puis relu au lancement
+    final vStore = WorksiteStore(vFile);
+    await pTester.runAsync(
+      () => vStore.save(const [
+        Worksite(
+          id: 'w',
+          name: 'Maison démo',
+          rooms: [
+            Room(
+              id: 'salon',
+              name: 'Salon',
+              walls: [
+                Wall(lengthMm: 4000),
+                Wall(lengthMm: 3000),
+                Wall(lengthMm: 4000),
+                Wall(lengthMm: 3000),
+              ],
+            ),
+          ],
+        ),
+      ]),
+    );
+    final vController = WorksitesController(WorksiteStore(vFile));
+    await pTester.runAsync(vController.load);
+    await pTester.pumpWidget(AtelierApp(controller: vController));
+    await pTester.pumpAndSettle();
+
+    await pTester.tap(find.text('Maison démo'));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.byTooltip('Surface habitable'));
+    await pTester.pumpAndSettle();
+    expect(find.text('12,00 m²'), findsOneWidget);
+  });
+
+  testWidgets('chaque enregistrement laisse la sauvegarde du jour sur le téléphone', (
+    pTester,
+  ) async {
+    final vFolder = Directory('${vFile.parent.path}/sauvegardes');
+    if (vFolder.existsSync()) {
+      vFolder.deleteSync(recursive: true);
+    }
+    final vBackups = Backups(vFolder);
+    final vController = WorksitesController(WorksiteStore(vFile, backups: vBackups));
+    await pTester.runAsync(vController.load);
+    await pTester.pumpWidget(AtelierApp(controller: vController));
+    await pTester.pumpAndSettle();
+
+    await pTester.tap(find.text('Nouveau chantier'));
+    await fillAndSave(pTester, 'Atelier du fond');
+    await pTester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 500)));
+
+    final vList = vBackups.list();
+    expect(vList, hasLength(1));
+    expect(vList.single.file.readAsStringSync(), contains('Atelier du fond'));
   });
 }
