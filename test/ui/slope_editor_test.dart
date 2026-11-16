@@ -46,4 +46,47 @@ void main() {
     await pTester.pumpAndSettle();
     expect(vRoom.slope, isNull);
   });
+
+  testWidgets('second pan et saisie par le rampant', (pTester) async {
+    tallScreen(pTester);
+    var vRoom = rectangleRoom();
+    await pTester.pumpWidget(
+      StatefulBuilder(
+        builder: (pContext, pSetState) => localized(
+          SingleChildScrollView(
+            child: SlopeEditor(room: vRoom, onChanged: (pNew) => pSetState(() => vRoom = pNew)),
+          ),
+        ),
+      ),
+    );
+
+    await pTester.tap(find.text('Plafond rampant'));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.text('Longueur du rampant'));
+    await pTester.pumpAndSettle();
+    // Jambette à 1 m, plafond à 2,50 m : 250 cm de rampant font 200 cm au sol
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Longueur le long du rampant (cm)'),
+      '250',
+    );
+    await pTester.pumpAndSettle();
+    expect(vRoom.slope!.runMm, 2000);
+    expect(find.text('Largeur au sol calculée : 200 cm'), findsOneWidget);
+
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Longueur le long du rampant (cm)'),
+      '100',
+    );
+    await pTester.pumpAndSettle();
+    expect(find.textContaining('plus long que la différence'), findsOneWidget);
+
+    await pTester.tap(find.text('Second pan, de l\'autre côté'));
+    await pTester.pumpAndSettle();
+    expect(vRoom.slope2!.wallIndex, 2);
+    expect(find.byType(DropdownButtonFormField<int>), findsNWidgets(2));
+
+    await pTester.tap(find.text('Second pan, de l\'autre côté'));
+    await pTester.pumpAndSettle();
+    expect(vRoom.slope2, isNull);
+  });
 }

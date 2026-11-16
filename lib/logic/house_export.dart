@@ -41,6 +41,12 @@ Map<String, Object?> _room(Room pRoom, List<Room> pAll) {
         'low': pRoom.slope!.lowMm,
         'run': pRoom.slope!.runMm,
       },
+    if (pRoom.slope2 != null)
+      'slope2': {
+        'wall': pRoom.slope2!.wallIndex,
+        'low': pRoom.slope2!.lowMm,
+        'run': pRoom.slope2!.runMm,
+      },
     // Place dans la maison : quarts de tour puis décalage, ajoutés sans changer de version
     'house': {'x': pRoom.houseXMm, 'y': pRoom.houseYMm, 'quarterTurns': pRoom.houseQuarterTurns},
     'floorArea': (floorAreaM2(pRoom) * 1e6).round(),
