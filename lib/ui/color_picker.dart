@@ -65,7 +65,8 @@ class ColorSection extends StatelessWidget {
           Text(vText.paletteCommon),
           Wrap(
             children: [
-              for (final vRgb in wallPalette) Swatch(rgb: vRgb, onTap: () => Navigator.pop(pSheet, vRgb)),
+              for (final vRgb in wallPalette)
+                Swatch(rgb: vRgb, onTap: () => Navigator.pop(pSheet, vRgb)),
             ],
           ),
           if (vWall != null)
@@ -92,7 +93,11 @@ class ColorSection extends StatelessWidget {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
     final vRows = [
-      (vText.paintWallsSwitch, settings.wallColor, (int pRgb) => settings.copyWith(wallColor: pRgb)),
+      (
+        vText.paintWallsSwitch,
+        settings.wallColor,
+        (int pRgb) => settings.copyWith(wallColor: pRgb),
+      ),
       (
         vText.paintCeilingSwitch,
         settings.ceilingColor,
@@ -134,7 +139,10 @@ class ColorSection extends StatelessWidget {
             subtitle: Text(vRgb == null ? vText.colorNone : vText.colorChosen),
             trailing: vRgb == null
                 ? const Icon(Icons.palette_outlined)
-                : Swatch(rgb: vRgb, onTap: () => _pick(context, vLabel, (pRgb) => onChanged(vApply(pRgb)))),
+                : Swatch(
+                    rgb: vRgb,
+                    onTap: () => _pick(context, vLabel, (pRgb) => onChanged(vApply(pRgb))),
+                  ),
             onTap: () => _pick(context, vLabel, (pRgb) => onChanged(vApply(pRgb))),
           ),
       ],
