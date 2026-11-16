@@ -160,3 +160,22 @@ List<({String item, String room})> worksitePurchases(Worksite pWorksite) => [
   for (final vRoom in pWorksite.rooms)
     for (final vItem in touchUpPurchases(vRoom.touchUps)) (item: vItem, room: vRoom.name),
 ];
+
+/// Lignes regroupées par magasin ou rayon, dans l'ordre des noms ; celles sans magasin à la fin.
+List<({String store, List<ShoppingLine> lines})> groupByStore(
+  List<ShoppingLine> pLines,
+  Map<String, String> pStores,
+) {
+  final vGroups = <String, List<ShoppingLine>>{};
+  for (final vLine in pLines) {
+    final vStore = (pStores[vLine.item.name] ?? '').trim();
+    vGroups.putIfAbsent(vStore, () => []).add(vLine);
+  }
+  final vNames = vGroups.keys.where((pName) => pName.isNotEmpty).toList()..sort();
+  final rGroups = [
+    for (final vName in vNames) (store: vName, lines: vGroups[vName]!),
+    if (vGroups.containsKey('')) (store: '', lines: vGroups['']!),
+  ];
+
+  return rGroups;
+}

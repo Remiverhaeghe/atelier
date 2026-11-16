@@ -5,12 +5,11 @@ import 'package:share_plus/share_plus.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/inventory.dart';
 import '../logic/shopping.dart';
-import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'expenses_section.dart';
 import 'guide_view.dart';
 import 'photos.dart';
-import 'parquet_view.dart';
+import 'shopping_line_card.dart';
 import 'shopping_texts.dart';
 import 'worksite_pdf.dart';
 import 'theme.dart';
@@ -94,45 +93,22 @@ class ShoppingScreen extends StatelessWidget {
                       onChanged: controller.updateWorksite,
                       photos: photos,
                     ),
-                    for (final vLine in vLines)
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                itemLabel(vText, vLine.item),
-                                style: Theme.of(pContext).textTheme.titleMedium,
-                              ),
-                              Text(lineDetail(vText, vLine)),
-                              if (vLine.inStock > 0) Text(vText.lineInStock(vLine.inStock)),
-                              NumberField<int>(
-                                key: ValueKey('stock-${vLine.item.name}'),
-                                label: vText.stockField,
-                                initial: '${vWorksite.stock[vLine.item.name] ?? 0}',
-                                parse: parseWhole,
-                                onValue: (pStock) => controller.updateWorksite(
-                                  vWorksite.copyWith(
-                                    stock: {...vWorksite.stock, vLine.item.name: pStock},
-                                  ),
-                                ),
-                              ),
-                              NumberField<double>(
-                                key: ValueKey(vLine.item),
-                                label: vText.unitPrice,
-                                initial: priceField(vLine.unitPrice),
-                                parse: parseDecimal,
-                                onValue: (pPrice) => controller.updateWorksite(
-                                  vWorksite.copyWith(
-                                    prices: {...vWorksite.prices, vLine.item.name: pPrice},
-                                  ),
-                                ),
-                              ),
-                            ],
+                    for (final vGroup in groupByStore(vLines, vWorksite.stores)) ...[
+                      if (vGroup.store.isNotEmpty || vWorksite.stores.isNotEmpty)
+                        ListTile(
+                          leading: const Icon(Icons.storefront_outlined),
+                          title: Text(
+                            vGroup.store.isEmpty ? vText.noStore : vGroup.store,
+                            style: Theme.of(pContext).textTheme.titleMedium,
                           ),
                         ),
-                      ),
+                      for (final vLine in vGroup.lines)
+                        ShoppingLineCard(
+                          line: vLine,
+                          worksite: vWorksite,
+                          onChanged: controller.updateWorksite,
+                        ),
+                    ],
                     if (vTools.isNotEmpty)
                       ListTile(
                         title: Text(

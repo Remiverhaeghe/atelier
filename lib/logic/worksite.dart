@@ -17,6 +17,9 @@ class Worksite {
     this.ownedTools = const [],
     this.stock = const {},
     this.expenses = const [],
+    this.bought = const [],
+    this.stores = const {},
+    this.references = const {},
   });
 
   final String id;
@@ -44,6 +47,13 @@ class Worksite {
   /// Achats réellement faits.
   final List<Expense> expenses;
 
+  /// Articles déjà mis dans le chariot, par nom d'article.
+  final List<String> bought;
+
+  /// Magasin ou rayon de chaque article, et référence qui convient.
+  final Map<String, String> stores;
+  final Map<String, String> references;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -55,6 +65,9 @@ class Worksite {
     List<String>? ownedTools,
     Map<String, int>? stock,
     List<Expense>? expenses,
+    List<String>? bought,
+    Map<String, String>? stores,
+    Map<String, String>? references,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -66,6 +79,9 @@ class Worksite {
     ownedTools: ownedTools ?? this.ownedTools,
     stock: stock ?? this.stock,
     expenses: expenses ?? this.expenses,
+    bought: bought ?? this.bought,
+    stores: stores ?? this.stores,
+    references: references ?? this.references,
   );
 
   Map<String, Object?> toJson() => {
@@ -79,6 +95,9 @@ class Worksite {
     if (ownedTools.isNotEmpty) 'ownedTools': ownedTools,
     if (stock.isNotEmpty) 'stock': stock,
     if (expenses.isNotEmpty) 'expenses': [for (final vExpense in expenses) vExpense.toJson()],
+    if (bought.isNotEmpty) 'bought': bought,
+    if (stores.isNotEmpty) 'stores': stores,
+    if (references.isNotEmpty) 'references': references,
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -106,5 +125,13 @@ class Worksite {
       for (final vExpense in (pJson['expenses'] as List<Object?>?) ?? const [])
         Expense.fromJson(vExpense! as Map<String, Object?>),
     ],
+    bought: [for (final vItem in (pJson['bought'] as List<Object?>?) ?? const []) vItem! as String],
+    stores: _texts(pJson['stores']),
+    references: _texts(pJson['references']),
   );
 }
+
+Map<String, String> _texts(Object? pJson) => {
+  for (final vEntry in ((pJson as Map<String, Object?>?) ?? const {}).entries)
+    vEntry.key: vEntry.value! as String,
+};
