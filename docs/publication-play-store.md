@@ -31,7 +31,7 @@ Les images sont dans `docs/play-store/`, refaites par `python tool/fiche_play.py
 
 ## Formulaires de la console
 
-- [ ] **Sécurité des données** : aucune donnée collectée, aucune donnée partagée. L'appli n'a pas la permission Internet ; elle demande celle des notifications pour la fin des attentes, programmées sur le téléphone ; les exports et partages sont lancés par l'utilisateur. Revérifier si une dépendance change (`flutter pub deps`, permissions du manifeste fusionné dans `build/app/intermediates/merged_manifests`).
+- [ ] **Sécurité des données** : aucune donnée collectée, aucune donnée partagée. L'appli n'a pas la permission Internet ; elle demande celle des notifications pour la fin des attentes, programmées sur le téléphone, et celle du micro pour les commandes vocales, sans rien garder ; les exports et partages sont lancés par l'utilisateur. Revérifier si une dépendance change (`flutter pub deps`, permissions du manifeste fusionné dans `build/app/intermediates/merged_manifests`).
 - [ ] **Classification du contenu** : questionnaire IARC, appli utilitaire sans contenu sensible.
 - [ ] **Public cible** : adultes ; pas destinée aux enfants.
 - [ ] **Publicités** : non. **Accès à l'application** : tout est accessible sans compte.

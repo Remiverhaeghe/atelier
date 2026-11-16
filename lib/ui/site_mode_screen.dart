@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -10,6 +12,7 @@ import '../logic/laying_plan.dart';
 import '../logic/room.dart';
 import '../logic/site_mode.dart';
 import '../logic/units.dart';
+import '../logic/voice_command.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
 import 'theme.dart';
@@ -28,6 +31,29 @@ Future<void> _speak(String pText) async {
 
 Future<void> _keepAwake(bool pOn) => WakelockPlus.toggle(enable: pOn);
 
+/// Écoute d'une phrase au micro ; remplaçable dans les tests. Null si rien n'est entendu.
+typedef VoiceListener = Future<String?> Function();
+
+Future<String?> _listen() async {
+  final vSpeech = SpeechToText();
+  if (!await vSpeech.initialize()) {
+    return null;
+  }
+  final vHeard = Completer<String?>();
+  await vSpeech.listen(
+    localeId: 'fr_FR',
+    listenFor: const Duration(seconds: 6),
+    onResult: (pResult) {
+      if (pResult.finalResult && !vHeard.isCompleted) {
+        vHeard.complete(pResult.recognizedWords);
+      }
+    },
+  );
+
+  // Rien de dit : le micro s'arrête de lui-même, on n'attend pas plus
+  return vHeard.future.timeout(const Duration(seconds: 8), onTimeout: () => null);
+}
+
 /// Mode chantier : une seule chose à faire à la fois, en gros, lisible avec des gants.
 class SiteModeScreen extends StatefulWidget {
   const SiteModeScreen({
@@ -37,6 +63,7 @@ class SiteModeScreen extends StatefulWidget {
     required this.roomId,
     this.speaker,
     this.awake,
+    this.listener,
   });
 
   final WorksitesController controller;
@@ -44,6 +71,7 @@ class SiteModeScreen extends StatefulWidget {
   final String roomId;
   final Speaker? speaker;
   final AwakeKeeper? awake;
+  final VoiceListener? listener;
 
   @override
   State<SiteModeScreen> createState() => _SiteModeScreenState();
@@ -76,6 +104,47 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
       await (widget.speaker ?? _speak)(pText);
     } on Object catch (pError) {
       log('Lecture à voix haute indisponible : $pError', name: 'atelier');
+    }
+  }
+
+  /// Une phrase au micro : relire ou cocher la coupe ou la rangée en cours.
+  Future<void> _voice() async {
+    final vText = AppLocalizations.of(context);
+    final vMessenger = ScaffoldMessenger.of(context);
+    String? vHeard;
+    try {
+      vHeard = await (widget.listener ?? _listen)();
+    } on Object catch (pError) {
+      log('Micro indisponible : $pError', name: 'atelier');
+    }
+    final vRoom = _room();
+    if (vRoom == null) {
+      return;
+    }
+    final vCommand = vHeard == null ? null : parseVoiceCommand(vHeard);
+    final vCut = nextBaseboardCut(vRoom);
+    final vRow = nextLayingRow(vRoom);
+    final vTarget = vCommand == null
+        ? null
+        : resolveTarget(vCommand, pCutOpen: vCut != null, pRowOpen: vRow != null);
+    if (vCommand == null || vTarget == null) {
+      vMessenger.showSnackBar(SnackBar(content: Text(vText.voiceNotUnderstood(vHeard ?? ''))));
+      return;
+    }
+    void vSave(Room pRoom) => widget.controller.updateRoom(widget.worksiteId, pRoom);
+    switch ((vTarget, vCommand.action)) {
+      case (VoiceTarget.cut, VoiceAction.read) when vCut != null:
+        await _say(_cutText(vText, vCut.index, vCut.piece));
+      case (VoiceTarget.cut, VoiceAction.done) when vCut != null:
+        vSave(markCut(vRoom, vCut.index));
+        await _say(vText.voiceNoted);
+      case (VoiceTarget.row, VoiceAction.read) when vRow != null:
+        await _say(_rowText(vText, vRow));
+      case (VoiceTarget.row, VoiceAction.done) when vRow != null:
+        vSave(markLaid(vRoom, vRow.number));
+        await _say(vText.voiceNoted);
+      default:
+        await _say(vText.voiceNothingLeft);
     }
   }
 
@@ -116,11 +185,21 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
         final vHasPlan = planLaying(vRoom, vRoom.parquet) != null;
 
         return Scaffold(
-          appBar: AppBar(title: Text('${vText.siteModeTitle} · ${vRoom.name}')),
+          appBar: AppBar(
+            title: Text('${vText.siteModeTitle} · ${vRoom.name}'),
+            actions: [
+              IconButton(
+                tooltip: vText.voiceListen,
+                icon: const Icon(Icons.mic_none),
+                onPressed: _voice,
+              ),
+            ],
+          ),
           body: ListView(
             padding: const EdgeInsets.all(16),
             children: [
               IconLine(Icons.light_mode_outlined, vText.siteModeAwake),
+              IconLine(Icons.mic_none, vText.voiceHelp),
               const SizedBox(height: 12),
               _TaskCard(
                 icon: AtelierIcons.baseboard,

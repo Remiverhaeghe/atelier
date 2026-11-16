@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Commandes vocales
+- Bouton micro dans le mode chantier : « coupe faite », « répète la rangée » ou juste « fait » quand une seule tâche reste ouverte ; la réponse est lue à voix haute
+
 ### Widget d'écran d'accueil
 - Un widget Android affiche le chantier du jour, l'avancement de l'objectif et la prochaine attente ; un appui ouvre l'appli. L'appli écrit ses lignes dans un fichier, que le widget relit toutes les 30 minutes, sans dépendance de plus
 
