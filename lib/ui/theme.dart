@@ -94,15 +94,8 @@ ThemeData nightTheme(ThemeData pBase) {
     colorScheme: vScheme,
     scaffoldBackgroundColor: Colors.black,
     cardTheme: pBase.cardTheme.copyWith(color: vScheme.surfaceContainer),
-    appBarTheme: pBase.appBarTheme.copyWith(
-      backgroundColor: Colors.black,
-      foregroundColor: vRed,
-    ),
-    textTheme: pBase.textTheme.apply(
-      bodyColor: vRed,
-      displayColor: vRed,
-      fontSizeFactor: 1.15,
-    ),
+    appBarTheme: pBase.appBarTheme.copyWith(backgroundColor: Colors.black, foregroundColor: vRed),
+    textTheme: pBase.textTheme.apply(bodyColor: vRed, displayColor: vRed, fontSizeFactor: 1.15),
     iconTheme: pBase.iconTheme.copyWith(color: vRed),
   );
 
