@@ -2,6 +2,11 @@
 
 ## Non publié
 
+## 0.1.0 - 2026-11-16
+
+### Publication
+- Une release publiée sur GitHub reçoit automatiquement les APK construites depuis son tag
+
 ### Lot 7 : guidage et finitions
 - Onglet Guide : étapes de pose dans l'ordre selon le parquet et la fixation des plinthes, à cocher, et outils à préparer ; masquable par chantier
 - Export d'un chantier dans un fichier JSON (partage), import sous de nouveaux identifiants sans rien remplacer
