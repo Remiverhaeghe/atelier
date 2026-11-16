@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Dépenses réelles
+- Achats faits saisis dans les courses (article, montant, ticket en photo), total payé et reste du budget prévu, dépassement signalé
+
 ### Aide à la décision
 - Comparaison des façons de faire, notées sur le coût, le temps et la difficulté, avec points forts et points faibles : plinthes collées, clouées ou clipsées ; parquet flottant, collé ou cloué ; mur abîmé rebouché ou doublé
 - La plus simple est signalée ; accès depuis les conseils et tutos

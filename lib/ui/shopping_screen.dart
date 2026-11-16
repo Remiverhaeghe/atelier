@@ -7,7 +7,9 @@ import '../logic/inventory.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
+import 'expenses_section.dart';
 import 'guide_view.dart';
+import 'photos.dart';
 import 'parquet_view.dart';
 import 'shopping_texts.dart';
 import 'worksite_pdf.dart';
@@ -15,10 +17,18 @@ import 'theme.dart';
 
 /// Liste de courses du chantier, prix et total, envoi et impression.
 class ShoppingScreen extends StatelessWidget {
-  const ShoppingScreen({super.key, required this.controller, required this.worksiteId});
+  const ShoppingScreen({
+    super.key,
+    required this.controller,
+    required this.worksiteId,
+    this.photos,
+  });
 
   final WorksitesController controller;
   final String worksiteId;
+
+  /// Photo des tickets ; remplaçable dans les tests.
+  final PhotoTaker? photos;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +87,12 @@ class ShoppingScreen extends StatelessWidget {
                           if (budgetIncomplete(vLines)) Text(vText.budgetIncomplete),
                         ],
                       ),
+                    ),
+                    ExpensesSection(
+                      worksite: vWorksite,
+                      planned: budgetTotal(vLines),
+                      onChanged: controller.updateWorksite,
+                      photos: photos,
                     ),
                     for (final vLine in vLines)
                       Card(
