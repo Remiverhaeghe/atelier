@@ -40,7 +40,8 @@ void main() {
 
     await pTester.enterText(find.byType(TextField), 'demo');
     await pTester.pump();
-    expect(find.text('Maison démo'), findsOneWidget);
+    // Le chantier, et la pièce qui le rappelle en détail
+    expect(find.text('Maison démo'), findsNWidgets(2));
     expect(find.text('Salon'), findsOneWidget);
 
     await pTester.enterText(find.byType(TextField), 'zzz');
