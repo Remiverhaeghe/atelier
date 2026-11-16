@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Meubles en 3D
+- Les meubles posés sur le plan apparaissent en volume dans la vue 3D et le fichier glTF, à leur hauteur courante
+- L'export Home Assistant liste les meubles de chaque pièce (type, largeur, profondeur)
+
 ### Plexis et relevé thermique
 - Le relevé thermique d'une pièce à plexis de toit les rappelle en tête, et ouvre le calcul du cadre qui les remplacera
 
