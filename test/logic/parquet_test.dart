@@ -186,4 +186,36 @@ void main() {
     final vRoomCopy = Room.fromJson(jsonDecode(jsonEncode(vRoom.toJson())) as Map<String, Object?>);
     expect(vRoomCopy.parquet.layingWallIndex, 2);
   });
+
+  test('barres de seuil : seulement les ouvertures cochées, selon leur largeur', () {
+    final vRoom = rectangleRoom().copyWith(
+      walls: [
+        const Wall(
+          lengthMm: 4000,
+          openings: [
+            Opening(kind: OpeningKind.door, offsetMm: 200, widthMm: 830, threshold: true),
+            Opening(kind: OpeningKind.passage, offsetMm: 1500, widthMm: 1400, threshold: true),
+            Opening(kind: OpeningKind.door, offsetMm: 3000, widthMm: 730),
+          ],
+        ),
+        const Wall(lengthMm: 3000),
+        const Wall(lengthMm: 4000),
+        const Wall(lengthMm: 3000),
+      ],
+    );
+
+    // 83 cm : une barre de 93 cm ; 140 cm : deux barres
+    expect(thresholdBars(vRoom, const ParquetSettings()), 3);
+    expect(thresholdBars(vRoom, const ParquetSettings(thresholdBarLengthMm: 0)), 0);
+    expect(thresholdBars(vRoom, const ParquetSettings(thresholdBarLengthMm: 1500)), 2);
+
+    final vBack = Room.fromJson(vRoom.toJson());
+    expect(vBack.walls.first.openings.map((pOpening) => pOpening.threshold), [true, true, false]);
+    expect(
+      ParquetSettings.fromJson(
+        const ParquetSettings(thresholdBarLengthMm: 1200).toJson(),
+      ).thresholdBarLengthMm,
+      1200,
+    );
+  });
 }

@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Jonction entre deux pièces
+- Barre de seuil à cocher sur une porte ou un passage, dans une seule des deux pièces pour ne l'acheter qu'une fois ; longueur de barre réglable
+- Barres de seuil comptées dans le parquet et dans les courses
+- Conseils de jonction : arrêt sous la porte, jeu de dilatation, barre plate, de niveau ou de finition
+- Guide : recouper le bas des chambranles à l'égoïne, poser les barres de seuil
+
 ### Coupes en schéma et sens de pose
 - Schéma de chaque morceau de plinthe vu de dessus, posé sur la scie à onglet : dos contre le guide, trait de lame en jaune, angle de chaque bout, longueur au dos, chute
 - « Mesurer l'angle » dans la saisie d'un mur : deux repères à 50 cm du coin et leur écart donnent l'angle réel, pour les murs pas droits (coin rentrant ou sortant)

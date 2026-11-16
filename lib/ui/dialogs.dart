@@ -238,6 +238,7 @@ class _OpeningDialogState extends State<_OpeningDialog> {
   final _offset = TextEditingController(text: '0');
   final _width = TextEditingController(text: '83');
   OpeningKind _kind = OpeningKind.door;
+  bool _threshold = false;
   String? _error;
 
   @override
@@ -259,7 +260,10 @@ class _OpeningDialogState extends State<_OpeningDialog> {
       setState(() => _error = vText.openingOutside);
       return;
     }
-    Navigator.pop(context, Opening(kind: _kind, offsetMm: vOffset, widthMm: vWidth));
+    Navigator.pop(
+      context,
+      Opening(kind: _kind, offsetMm: vOffset, widthMm: vWidth, threshold: _threshold),
+    );
   }
 
   @override
@@ -290,6 +294,13 @@ class _OpeningDialogState extends State<_OpeningDialog> {
               controller: _width,
               keyboardType: vNumbers,
               decoration: InputDecoration(labelText: vText.openingWidth, errorText: _error),
+            ),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              value: _threshold,
+              title: Text(vText.thresholdHere),
+              subtitle: Text(vText.thresholdHelp),
+              onChanged: (pValue) => setState(() => _threshold = pValue),
             ),
           ],
         ),
