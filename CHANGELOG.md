@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Surface habitable
+- Surface habitable et Loi Carrez par pièce, par niveau et pour la maison, depuis le menu du chantier
+- Usage de chaque pièce (habitable, combles, cave, garage, véranda, balcon) qui décide de ce qui compte
+- Retirés : parties à moins de 1,80 m sous la pente, marches et trémies d'escalier, gaines
+
 ### Conditions de chantier
 - Nouveau calcul : avec la température, l'humidité et, si on l'a, la température du support, ce qu'on peut peindre, coller, vernir ou jointer
 - Point de rosée calculé et risque de condensation signalé pour les peintures et vernis
