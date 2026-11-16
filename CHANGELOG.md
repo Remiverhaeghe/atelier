@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Préparation du Play Store
+- Liste de publication à cocher et politique de confidentialité dans `docs/`
+- Images de la fiche (icône 512, présentation 1024 × 500, six captures en 1080 × 1920) générées par `tool/fiche_play.py`
+- Bundle `.aab` joint aux releases avec les APK
+- Niveau d'API cible au moins 36, exigé par le Play Store depuis le 31 août 2026
+
 ### Tests sur émulateur
 - Parcours lancé sur un Android émulé en CI : saisie d'un chantier et d'une pièce, écriture du fichier sur le téléphone, relecture comme au redémarrage
 

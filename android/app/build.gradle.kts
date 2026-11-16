@@ -17,7 +17,9 @@ if (keyPropertiesFile.exists()) {
 
 android {
     namespace = "fr.remiverhaeghe.atelier"
-    compileSdk = flutter.compileSdkVersion
+    // Le Play Store exige un niveau d'API cible minimal, relevé chaque année
+    // (API 36 depuis le 31 août 2026) : plancher fixé ici, Flutter peut aller au-dessus.
+    compileSdk = maxOf(flutter.compileSdkVersion, 36)
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -28,7 +30,7 @@ android {
     defaultConfig {
         applicationId = "fr.remiverhaeghe.atelier"
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = maxOf(flutter.targetSdkVersion, 36)
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
