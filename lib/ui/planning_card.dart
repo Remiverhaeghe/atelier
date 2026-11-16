@@ -30,6 +30,10 @@ class PlanningCard extends StatelessWidget {
       for (final vRoom in worksite.rooms)
         if (nextPhase(vRoom) case final vPhase?) (room: vRoom.name, phase: vPhase),
     ];
+    final vProblems = [
+      for (final vRoom in worksite.rooms)
+        for (final vProblem in orderProblems(vRoom)) (room: vRoom.name, problem: vProblem),
+    ];
     if (vNext.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -56,6 +60,15 @@ class PlanningCard extends StatelessWidget {
                   ),
                 ),
             ],
+            for (final vEntry in vProblems)
+              IconLine(
+                AtelierIcons.warning,
+                vText.planningOrder(
+                  vEntry.room,
+                  phaseLabel(vText, vEntry.problem.done),
+                  phaseLabel(vText, vEntry.problem.pending),
+                ),
+              ),
             const SizedBox(height: 4),
             Text(vText.planningHelp, style: vTheme.textTheme.bodySmall),
           ],

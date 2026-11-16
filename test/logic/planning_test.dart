@@ -46,4 +46,12 @@ void main() {
     ]);
     expect(roomPhases(const Room(id: 'z', name: 'Zone')), isEmpty);
   });
+
+  test('parquet posé avant la peinture des murs : inversion signalée', () {
+    final vRows = vFull.copyWith(laidRows: [for (var vRow = 1; vRow <= 40; vRow++) vRow]);
+    final vParquet = roomPhases(vRows).firstWhere((pState) => pState.phase == WorkPhase.parquet);
+    expect(vParquet.done, isTrue);
+    expect(orderProblems(vRows), [(done: WorkPhase.parquet, pending: WorkPhase.touchUps)]);
+    expect(orderProblems(vFull), isEmpty);
+  });
 }
