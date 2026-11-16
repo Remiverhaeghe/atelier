@@ -41,11 +41,27 @@ void main() {
     await pTester.tap(find.text('Nouvelle pièce'));
     await fillAndSave(pTester, 'Salon');
     for (final vLength in ['400', '300', '400', '300']) {
+      // Le plan prend de la place : on fait défiler jusqu'au bouton.
+      await pTester.scrollUntilVisible(
+        find.text('Ajouter un mur'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
       await pTester.tap(find.text('Ajouter un mur'));
       await fillAndSave(pTester, vLength);
     }
 
+    await pTester.scrollUntilVisible(
+      find.text('Mur 4'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('Mur 4'), findsOneWidget);
+    await pTester.scrollUntilVisible(
+      find.textContaining('les mesures sont cohérentes'),
+      -200,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.textContaining('les mesures sont cohérentes'), findsOneWidget);
     expect(find.textContaining('12,00 m²'), findsWidgets);
     expect(vStorage.saved.single.rooms.single.walls, hasLength(4));
