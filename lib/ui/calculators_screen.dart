@@ -7,6 +7,7 @@ import 'drywall_calculator.dart';
 import 'frame_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
+import 'insulation_calculator.dart';
 import 'plumbing_calculator.dart';
 import 'rent_buy_calculator.dart';
 import 'shelf_calculator.dart';
@@ -87,6 +88,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.conditionsHelp,
       icon: Icons.thermostat_auto_outlined,
       builder: (_) => const ConditionsCalculator(),
+    ),
+    (
+      title: pText.insulTitle,
+      help: pText.insulHelp,
+      icon: Icons.blanket_outlined,
+      builder: (_) => const InsulationCalculator(),
     ),
     (
       title: pText.frameTitle,
