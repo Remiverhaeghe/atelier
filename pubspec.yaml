@@ -28,6 +28,10 @@ dependencies:
   # Mode chantier : lecture à voix haute par le moteur du téléphone, écran gardé allumé
   flutter_tts: ^4.2.5
   wakelock_plus: ^1.8.2
+  # Fin d'une attente (séchage, acclimatation) : notification programmée sur le téléphone
+  # Moins de 23 : la 23 tire androidx.core 1.19, qui exige le SDK Android 37
+  flutter_local_notifications: ">=21.0.0 <23.0.0"
+  timezone: ^0.11.0
 
 dev_dependencies:
   flutter_test:

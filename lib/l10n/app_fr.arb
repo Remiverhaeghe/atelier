@@ -2126,5 +2126,6 @@
   "@fenceLast": {"placeholders": {"length": {"type": "String"}}},
   "fenceLength": "Longueur de la clôture (mm)",
   "fenceSides": "Nombre de côtés droits",
-  "fenceHint": "Renseignez-vous en mairie avant de poser : le plan local d'urbanisme peut fixer la hauteur, et une déclaration préalable peut être demandée. Avant de creuser les trous des poteaux, repérez les réseaux enterrés."
+  "fenceHint": "Renseignez-vous en mairie avant de poser : le plan local d'urbanisme peut fixer la hauteur, et une déclaration préalable peut être demandée. Avant de creuser les trous des poteaux, repérez les réseaux enterrés.",
+  "reminderNotifyTitle": "Attente terminée"
 }
