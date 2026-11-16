@@ -40,13 +40,12 @@ class DirectionPicker extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: directions.length,
             separatorBuilder: (_, _) => const SizedBox(width: 10),
-            itemBuilder: (pContext, pIndex) =>
-                _DirectionCard(
-                  room: room,
-                  direction: directions[pIndex],
-                  selected: pIndex == selected,
-                  onTap: () => onSelected(directions[pIndex]),
-                ),
+            itemBuilder: (pContext, pIndex) => _DirectionCard(
+              room: room,
+              direction: directions[pIndex],
+              selected: pIndex == selected,
+              onTap: () => onSelected(directions[pIndex]),
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -108,10 +107,7 @@ class _DirectionCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 6),
-              Text(
-                vText.alongWall(direction.wallIndex + 1),
-                style: vTheme.textTheme.titleSmall,
-              ),
+              Text(vText.alongWall(direction.wallIndex + 1), style: vTheme.textTheme.titleSmall),
               Text(vText.directionRows(direction.rowCount), style: vTheme.textTheme.bodySmall),
               if (direction.recommended)
                 Text(
