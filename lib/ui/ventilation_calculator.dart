@@ -45,10 +45,16 @@ class _VentilationCalculatorState extends State<VentilationCalculator> {
                   BigFigure(vText.ventExtracted(vPlan.extractedM3h)),
                   IconLine(Icons.kitchen_outlined, vText.ventKitchen(vFlows.kitchen)),
                   if (_bathrooms > 0)
-                    IconLine(Icons.shower_outlined, vText.ventBathroom(_bathrooms, vFlows.bathroom)),
+                    IconLine(
+                      Icons.shower_outlined,
+                      vText.ventBathroom(_bathrooms, vFlows.bathroom),
+                    ),
                   if (_toilets > 0) IconLine(Icons.wc, vText.ventToilet(_toilets, vFlows.toilet)),
                   IconLine(Icons.air, vText.ventVents(vPlan.extractVents)),
-                  IconLine(Icons.sensor_window_outlined, vText.ventInlets(vPlan.airInlets, vPlan.inletsM3h)),
+                  IconLine(
+                    Icons.sensor_window_outlined,
+                    vText.ventInlets(vPlan.airInlets, vPlan.inletsM3h),
+                  ),
                   IconLine(
                     Icons.door_back_door_outlined,
                     vText.ventUndercut(
