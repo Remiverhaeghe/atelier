@@ -18,13 +18,7 @@ const gutterSlopeMmPerM = 5;
 /// Un crochet tous les 50 cm, plus un à chaque bout.
 const hookSpacingMm = 500;
 
-typedef GutterPlan = ({
-  double roofM2,
-  int descents,
-  int diameterMm,
-  int dropMm,
-  int hooks,
-});
+typedef GutterPlan = ({double roofM2, int descents, int diameterMm, int dropMm, int hooks});
 
 double descentSectionCm2(int pDiameterMm) => math.pi * math.pow(pDiameterMm / 20, 2);
 
