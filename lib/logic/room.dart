@@ -5,6 +5,7 @@ import 'baseboard.dart';
 import 'fixtures.dart';
 import 'paint.dart';
 import 'parquet.dart';
+import 'slope.dart';
 import 'touch_up.dart';
 
 /// Ouverture dans un mur, sans plinthe sur sa largeur.
@@ -174,6 +175,7 @@ class Room {
     this.houseYMm = 0,
     this.houseQuarterTurns = 0,
     this.fixtures = const [],
+    this.slope,
   });
 
   final String id;
@@ -210,6 +212,9 @@ class Room {
   /// Prises, interrupteurs, escalier, mezzanine et fenêtres de toit posés sur le plan.
   final List<Fixture> fixtures;
 
+  /// Plafond rampant ; null pour un plafond plat.
+  final Slope? slope;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -227,6 +232,8 @@ class Room {
     int? houseYMm,
     int? houseQuarterTurns,
     List<Fixture>? fixtures,
+    Slope? slope,
+    bool clearSlope = false,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -245,6 +252,7 @@ class Room {
     houseYMm: houseYMm ?? this.houseYMm,
     houseQuarterTurns: (houseQuarterTurns ?? this.houseQuarterTurns) % 4,
     fixtures: fixtures ?? this.fixtures,
+    slope: clearSlope ? null : (slope ?? this.slope),
   );
 
   Map<String, Object?> toJson() => {
@@ -265,6 +273,7 @@ class Room {
     'houseYMm': houseYMm,
     'houseQuarterTurns': houseQuarterTurns,
     if (fixtures.isNotEmpty) 'fixtures': [for (final vFixture in fixtures) vFixture.toJson()],
+    if (slope != null) 'slope': slope!.toJson(),
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -307,5 +316,6 @@ class Room {
       for (final vFixture in (pJson['fixtures'] as List<Object?>?) ?? const [])
         Fixture.fromJson(vFixture! as Map<String, Object?>),
     ],
+    slope: pJson['slope'] == null ? null : Slope.fromJson(pJson['slope']! as Map<String, Object?>),
   );
 }

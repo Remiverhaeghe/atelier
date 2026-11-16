@@ -6,6 +6,7 @@ import 'dart:math' as math;
 import 'fixtures.dart';
 import 'geometry.dart';
 import 'room.dart';
+import 'slope.dart';
 
 /// Produits de peinture, chacun acheté à part.
 enum PaintProduct { walls, ceiling, woodwork, primer }
@@ -144,8 +145,10 @@ class PaintAreas {
 PaintAreas paintAreas(Room pRoom) {
   var vWalls = 0.0;
   var vWoodwork = 0.0;
-  for (final vWall in pRoom.walls) {
-    vWalls += vWall.lengthMm * pRoom.ceilingHeightMm.toDouble();
+  for (var vIndex = 0; vIndex < pRoom.walls.length; vIndex++) {
+    final vWall = pRoom.walls[vIndex];
+    // Hauteur variable sous un plafond rampant
+    vWalls += wallAreaMm2(pRoom, vIndex);
     for (final vOpening in vWall.openings) {
       final vHeight = math.min(vOpening.height, pRoom.ceilingHeightMm - vOpening.sill);
       vWalls -= vOpening.widthMm * math.max(vHeight, 0).toDouble();
@@ -162,7 +165,7 @@ PaintAreas paintAreas(Room pRoom) {
   final rAreas = PaintAreas(
     wallsM2: math.max(vWalls, 0) / 1e6,
     // Les fenêtres de toit ne se peignent pas
-    ceilingM2: math.max(0.0, outlineAreaMm2(pRoom) / 1e6 - roofWindowsM2(pRoom.fixtures)),
+    ceilingM2: math.max(0.0, ceilingAreaMm2(pRoom) / 1e6 - roofWindowsM2(pRoom.fixtures)),
     woodworkM2: vWoodwork / 1e6,
   );
 
