@@ -52,11 +52,12 @@ Toutes les longueurs sont en millimètres, les angles en degrés.
 | `openings[].kind` | `door`, `passage` ou `window` |
 | `openings[].offset` | Distance depuis le début du mur |
 | `openings[].sill` | Hauteur du bas de l'ouverture au-dessus du sol : 0 pour une porte |
+| `networks[]` | Réseaux cachés relevés : `kind` (`electric`, `water`, `drain`, `gas`, `heating`, `data`), `wallIndex`, `from` et `to` en [distance depuis le début du mur, hauteur] |
 | `fixtures[].kind` | `socket` (prise), `lightSwitch` (interrupteur), `stairs` (escalier), `mezzanine`, `roofWindow` (fenêtre de toit), `stairwell` (trémie d'escalier, sans sol) |
 | `fixtures[].x`, `y` | Centre de l'élément, dans le repère de la pièce |
 | `fixtures[].width`, `depth` | Taille sur le plan, le long des x et des y, pour les éléments qui ont une surface |
 | `fixtures[].count` | Nombre de prises ou d'interrupteurs regroupés au même endroit, absent pour 1 |
 
-Les champs `fixtures`, `slope`, `slope2`, `level` et `floorLevel` sont apparus après la première publication du format : un lecteur de la version 1 doit les tolérer absents.
+Les champs `fixtures`, `networks`, `slope`, `slope2`, `level` et `floorLevel` sont apparus après la première publication du format : un lecteur de la version 1 doit les tolérer absents.
 
 Chaque pièce a son propre repère (`outline`) ; le champ `house` la place dans le plan de la maison, réglé dans Atelier par « Plan de la maison ».

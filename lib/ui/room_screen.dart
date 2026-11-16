@@ -13,6 +13,7 @@ import 'diagonal_dialog.dart';
 import 'dialogs.dart';
 import 'fixtures_section.dart';
 import 'furniture_section.dart';
+import 'networks_section.dart';
 import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
@@ -350,6 +351,7 @@ class RoomWallsView extends StatelessWidget {
         ),
         FixturesSection(room: room, onChanged: onChanged),
         FurnitureSection(room: room, onChanged: onChanged),
+        NetworksSection(room: room, onChanged: onChanged),
       ],
     );
   }
