@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Calculs : terrasse bois
+- Lames (5 % de marge), lambourdes espacées selon l'épaisseur des lames, plots, vis inox
+- Terrasse dessinée vue de dessus, joints décalés, lambourdes dessous
+
 ### Calculs : armoire sur mesure
 - Compartiments de gauche à droite, en penderie (tablette haute et tringle) ou en étagères
 - Liste de débit (montants, dessus et dessous, séparations, tablettes en retrait des portes, fond, portes), tringles, charnières selon la hauteur des portes
