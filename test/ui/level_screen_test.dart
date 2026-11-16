@@ -11,7 +11,7 @@ import '../support/rooms.dart';
 
 void main() {
   testWidgets('niveau : de niveau à plat, pente affichée une fois penché', (pTester) async {
-    final vGravity = StreamController<Gravity>();
+    final vGravity = StreamController<Gravity>(sync: true);
     addTearDown(vGravity.close);
     await pTester.pumpWidget(localized(LevelScreen(gravity: vGravity.stream)));
 
@@ -31,7 +31,7 @@ void main() {
 
   testWidgets('rampant mesuré au téléphone : la largeur au sol suit l\'angle', (pTester) async {
     tallScreen(pTester);
-    final vGravity = StreamController<Gravity>.broadcast();
+    final vGravity = StreamController<Gravity>.broadcast(sync: true);
     addTearDown(vGravity.close);
     var vRoom = rectangleRoom();
     await pTester.pumpWidget(
