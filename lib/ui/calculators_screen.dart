@@ -12,6 +12,7 @@ import 'acoustics_calculator.dart';
 import 'debris_calculator.dart';
 import 'diy_calculator.dart';
 import 'fixings_calculator.dart';
+import 'kitchen_calculator.dart';
 import 'shower_calculator.dart';
 import 'frame_calculator.dart';
 import 'electricity_calculator.dart';
@@ -125,6 +126,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.doorHelp,
       icon: Icons.door_front_door_outlined,
       builder: (_) => const DoorCalculator(),
+    ),
+    (
+      title: pText.kitchenTitle,
+      help: pText.kitchenHelp,
+      icon: Icons.kitchen_outlined,
+      builder: (_) => const KitchenCalculator(),
     ),
     (
       title: pText.showerTitle,
