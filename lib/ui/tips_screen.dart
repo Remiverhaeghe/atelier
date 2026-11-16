@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/tips.dart';
+import 'decisions_screen.dart';
 import 'theme.dart';
 
 /// Nom d'un sujet de fiches.
@@ -69,6 +70,18 @@ class TipsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.only(bottom: 32),
         children: [
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.balance, color: vTheme.colorScheme.primary),
+              title: Text(vText.decisionsTitle),
+              subtitle: Text(vText.decisionsHelp, maxLines: 2, overflow: TextOverflow.ellipsis),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute<void>(builder: (_) => const DecisionsScreen()),
+              ),
+            ),
+          ),
           for (final vTopic in TipTopic.values) ...[
             ListTile(
               leading: Icon(tipTopicIcon(vTopic), color: vTheme.colorScheme.primary),
