@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/insulation.dart';
+import '../logic/room.dart';
+import '../logic/room_surfaces.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
+import 'room_source.dart';
 import 'theme.dart';
 
 String partLabel(AppLocalizations pText, InsulatedPart pPart) => switch (pPart) {
@@ -23,7 +26,9 @@ String insulantLabel(AppLocalizations pText, Insulant pInsulant) => switch (pIns
 
 /// Isolation : épaisseur selon la résistance visée, couches, paquets et pare-vapeur.
 class InsulationCalculator extends StatefulWidget {
-  const InsulationCalculator({super.key});
+  const InsulationCalculator({super.key, this.rooms = const []});
+
+  final List<Room> rooms;
 
   @override
   State<InsulationCalculator> createState() => _InsulationCalculatorState();
@@ -35,6 +40,19 @@ class _InsulationCalculatorState extends State<InsulationCalculator> {
   double _area = 20;
   double _pack = 5;
   double? _targetR;
+  Room? _room;
+
+  /// Change quand une pièce remplit les champs, pour qu'ils se redessinent avec la valeur.
+  int _source = 0;
+
+  /// La pièce choisie donne la surface de la paroi choisie.
+  void _fromRoom() {
+    final vRoom = _room;
+    if (vRoom != null) {
+      _area = (insulationAreaM2(vRoom, _part) * 100).round() / 100;
+      _source++;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +118,7 @@ class _InsulationCalculatorState extends State<InsulationCalculator> {
             onChanged: (pPart) => setState(() {
               _part = pPart!;
               _targetR = null;
+              _fromRoom();
             }),
           ),
           const SizedBox(height: 10),
@@ -112,7 +131,16 @@ class _InsulationCalculatorState extends State<InsulationCalculator> {
             ],
             onChanged: (pInsulant) => setState(() => _insulant = pInsulant!),
           ),
+          RoomSourcePicker(
+            rooms: widget.rooms,
+            value: _room?.id,
+            onChanged: (pRoom) => setState(() {
+              _room = pRoom;
+              _fromRoom();
+            }),
+          ),
           NumberField<double>(
+            key: ValueKey('surface-$_source'),
             label: vText.insulArea,
             initial: formatDecimal(_area),
             parse: parseDecimal,
