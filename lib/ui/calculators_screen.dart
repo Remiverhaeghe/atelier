@@ -14,6 +14,7 @@ import 'debris_calculator.dart';
 import 'diy_calculator.dart';
 import 'exterior_calculator.dart';
 import 'fixings_calculator.dart';
+import 'gutter_calculator.dart';
 import 'kitchen_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'sheet_flooring_calculator.dart';
@@ -131,6 +132,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.doorHelp,
       icon: Icons.door_front_door_outlined,
       builder: (_) => const DoorCalculator(),
+    ),
+    (
+      title: pText.gutterTitle,
+      help: pText.gutterHelp,
+      icon: Icons.water_outlined,
+      builder: (_) => const GutterCalculator(),
     ),
     (
       title: pText.concreteTitle,
