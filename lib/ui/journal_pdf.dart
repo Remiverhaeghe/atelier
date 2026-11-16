@@ -44,8 +44,7 @@ Future<Uint8List> buildJournalPdf(
   }
 
   List<pw.Widget> vImages(JournalEntry pEntry) => [
-    for (final vPath in [pEntry.beforePath, pEntry.photoPath, pEntry.invoicePath])
-      ?vPhoto(vPath),
+    for (final vPath in [pEntry.beforePath, pEntry.photoPath, pEntry.invoicePath]) ?vPhoto(vPath),
   ];
   final vBold = pw.TextStyle(fontWeight: pw.FontWeight.bold);
 
@@ -61,8 +60,7 @@ Future<Uint8List> buildJournalPdf(
             for (final vEntry in vEntries) ...[
               pw.Text('${vEntry.day} : ${vEntry.title}', style: vBold),
               if (vEntry.product.isNotEmpty) pw.Text(pText.journalPdfProduct(vEntry.product)),
-              if (vEntry.reference.isNotEmpty)
-                pw.Text(pText.journalPdfReference(vEntry.reference)),
+              if (vEntry.reference.isNotEmpty) pw.Text(pText.journalPdfReference(vEntry.reference)),
               if (vEntry.cost != null) pw.Text('${formatEuros(vEntry.cost!)} €'),
               if (vEntry.note.isNotEmpty) pw.Text(vEntry.note),
               if (vImages(vEntry) case final vList when vList.isNotEmpty)
