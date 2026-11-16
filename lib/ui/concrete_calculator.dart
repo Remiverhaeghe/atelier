@@ -27,9 +27,7 @@ class _ConcreteCalculatorState extends State<ConcreteCalculator> {
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
-    final vM3 = _footings
-        ? footingsM3(_count, _side, _depth)
-        : slabM3(_length, _width, _thickness);
+    final vM3 = _footings ? footingsM3(_count, _side, _depth) : slabM3(_length, _width, _thickness);
     final vPlan = planConcrete(vM3);
     NumberField<int> vField(String pLabel, int pInitial, ValueChanged<int> pSet) =>
         NumberField<int>(
