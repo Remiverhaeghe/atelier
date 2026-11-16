@@ -1387,5 +1387,19 @@
   "externalBackupNever": "Jamais faite : un téléphone perdu emporte les chantiers.",
   "externalBackupSince": "Dernière il y a {days} jours.",
   "@externalBackupSince": {"placeholders": {"days": {"type": "int"}}},
-  "externalBackupSend": "Sauvegarder"
+  "externalBackupSend": "Sauvegarder",
+  "rentTitle": "Louer ou acheter",
+  "rentHelp": "Ponceuse, perforateur, carrelette : à partir de combien de jours l'achat devient rentable.",
+  "rentCost": "Location : {cost} €",
+  "@rentCost": {"placeholders": {"cost": {"type": "String"}}},
+  "buyCost": "Achat, revente déduite : {cost} €",
+  "@buyCost": {"placeholders": {"cost": {"type": "String"}}},
+  "rentBreakEven": "{days, plural, =1{Acheter est rentable dès 1 jour} other{Acheter est rentable à partir de {days} jours}}",
+  "@rentBreakEven": {"placeholders": {"days": {"type": "int"}}},
+  "rentVerdictBuy": "Achetez : vous l'utiliserez assez longtemps.",
+  "rentVerdictRent": "Louez : l'achat ne serait pas amorti.",
+  "rentPurchase": "Prix d'achat (€)",
+  "rentDayRate": "Location par jour (€)",
+  "rentDays": "Jours d'utilisation",
+  "rentResale": "Revente après le chantier (% du prix)"
 }
