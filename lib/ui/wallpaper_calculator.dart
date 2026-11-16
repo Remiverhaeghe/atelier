@@ -54,10 +54,7 @@ class _WallpaperCalculatorState extends State<WallpaperCalculator> {
                         ? vText.wallpaperTooHigh
                         : vText.wallpaperPerRoll(vPlan.stripsPerRoll),
                   ),
-                  IconLine(
-                    Icons.format_color_fill_outlined,
-                    vText.wallpaperGlue(vPlan.gluePacks),
-                  ),
+                  IconLine(Icons.format_color_fill_outlined, vText.wallpaperGlue(vPlan.gluePacks)),
                 ],
               ),
             ),
