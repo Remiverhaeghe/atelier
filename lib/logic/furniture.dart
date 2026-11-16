@@ -201,7 +201,14 @@ List<FurnitureIssue> furnitureIssues(Room pRoom) {
   for (var vIndex = 0; vIndex < vItems.length; vIndex++) {
     final vItem = vItems[vIndex];
     final vCorners = vItem.corners;
-    if (!vCorners.every((pCorner) => _inside(vOutline, pCorner))) {
+    // Un coin posé pile contre un mur compte comme dedans
+    bool vInRoom(PlanPoint pCorner) =>
+        _inside(vOutline, pCorner) ||
+        [
+          for (var vEdge = 0; vEdge < vOutline.length; vEdge++)
+            _pointToSegment(pCorner, vOutline[vEdge], vOutline[(vEdge + 1) % vOutline.length]),
+        ].any((pDistance) => pDistance < 1);
+    if (!vCorners.every(vInRoom)) {
       rIssues.add((
         kind: FurnitureIssueKind.outside,
         furnitureId: vItem.id,
