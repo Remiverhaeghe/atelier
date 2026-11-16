@@ -10,7 +10,12 @@ void main() {
     expect(loanDays(vSander, vToday), 18);
     expect(loanOverdue(vSander, vToday), isTrue);
     expect(loanOverdue(vLevel, vToday), isFalse);
-    expect([for (final vLoan in sortedLoans([vLevel, vSander])) vLoan.id], ['a', 'b']);
+    expect(
+      [
+        for (final vLoan in sortedLoans([vLevel, vSander])) vLoan.id,
+      ],
+      ['a', 'b'],
+    );
   });
 
   test('prêt gardé avec le chantier', () {
