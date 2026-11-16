@@ -43,7 +43,7 @@ class Fixture {
   final int widthMm;
   final int depthMm;
 
-  /// Escalier : hauteur à monter, de sol fini à sol fini.
+  /// Escalier : hauteur à monter, de sol fini à sol fini. Mezzanine : hauteur de son plancher.
   final int? riseMm;
 
   /// Prises ou interrupteurs regroupés au même endroit (bloc de deux prises : 2).
@@ -113,6 +113,12 @@ double roofWindowsM2(List<Fixture> pFixtures) => pFixtures
 int stairwellsMm2(List<Fixture> pFixtures) => pFixtures
     .where((pFixture) => pFixture.kind == FixtureKind.stairwell)
     .fold(0, (pTotal, pFixture) => pTotal + pFixture.widthMm * pFixture.depthMm);
+
+/// Hauteur à monter jusqu'à la première mezzanine dont le plancher est saisi, ou null.
+int? mezzanineFloorMm(List<Fixture> pFixtures) => pFixtures
+    .where((pFixture) => pFixture.kind == FixtureKind.mezzanine && pFixture.riseMm != null)
+    .map((pFixture) => pFixture.riseMm!)
+    .firstOrNull;
 
 /// Surface des mezzanines : un second niveau de sol dans la pièce.
 double mezzaninesM2(List<Fixture> pFixtures) => pFixtures

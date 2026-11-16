@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Grandes hauteurs
+- Hauteur du plancher d'une mezzanine : sa surface compte en surface habitable s'il reste 1,80 m au-dessus, et l'escalier proposé monte jusqu'à elle
+- Échafaudage roulant conseillé en peinture au-delà de 3 m sous plafond
+- Volume de chaque pièce dans la surface habitable
+
 ### Meubles sur le plan
 - Meubles courants posés à l'échelle sur le plan d'une pièce, tournés ou déplacés d'un geste
 - Débattement des portes dessiné ; signalés : meuble qui gêne une porte, dépasse de la pièce, en chevauche un autre ou laisse un passage de moins de 60 cm
