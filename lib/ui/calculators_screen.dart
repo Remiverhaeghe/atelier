@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import 'deck_calculator.dart';
 import 'conditions_calculator.dart';
 import 'drywall_calculator.dart';
+import 'frame_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
 import 'plumbing_calculator.dart';
@@ -86,6 +87,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.conditionsHelp,
       icon: Icons.thermostat_auto_outlined,
       builder: (_) => const ConditionsCalculator(),
+    ),
+    (
+      title: pText.frameTitle,
+      help: pText.frameHelp,
+      icon: Icons.window_outlined,
+      builder: (_) => const FrameCalculator(),
     ),
   ];
 

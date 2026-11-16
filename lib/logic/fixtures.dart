@@ -31,6 +31,7 @@ class Fixture {
     this.depthMm = 0,
     this.riseMm,
     this.count = 1,
+    this.plexi = false,
   });
 
   final String id;
@@ -48,10 +49,20 @@ class Fixture {
   /// Prises ou interrupteurs regroupés au même endroit (bloc de deux prises : 2).
   final int count;
 
+  /// Fenêtre de toit fermée par un plexi ou un panneau fixe : point faible, à remplacer.
+  final bool plexi;
+
   double get areaM2 => hasArea(kind) ? widthMm * depthMm / 1e6 : 0;
 
-  Fixture copyWith({int? xMm, int? yMm, int? widthMm, int? depthMm, int? riseMm, int? count}) =>
-      Fixture(
+  Fixture copyWith({
+    int? xMm,
+    int? yMm,
+    int? widthMm,
+    int? depthMm,
+    int? riseMm,
+    int? count,
+    bool? plexi,
+  }) => Fixture(
         id: id,
         kind: kind,
         xMm: xMm ?? this.xMm,
@@ -60,6 +71,7 @@ class Fixture {
         depthMm: depthMm ?? this.depthMm,
         riseMm: riseMm ?? this.riseMm,
         count: count ?? this.count,
+        plexi: plexi ?? this.plexi,
       );
 
   Map<String, Object?> toJson() => {
@@ -71,6 +83,7 @@ class Fixture {
     if (hasArea(kind)) 'depthMm': depthMm,
     if (riseMm != null) 'riseMm': riseMm,
     if (count != 1) 'count': count,
+    if (plexi) 'plexi': true,
   };
 
   static Fixture fromJson(Map<String, Object?> pJson) => Fixture(
@@ -82,6 +95,7 @@ class Fixture {
     depthMm: (pJson['depthMm'] as int?) ?? 0,
     riseMm: pJson['riseMm'] as int?,
     count: (pJson['count'] as int?) ?? 1,
+    plexi: (pJson['plexi'] as bool?) ?? false,
   );
 }
 
