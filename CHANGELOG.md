@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Fenêtre de toit du commerce
+- Pour chaque taille de plexi : fenêtre de toit courante la plus proche et reprise du chevêtre (élargir, réduire, allonger), en évitant de couper un chevron
+
 ### Attentes en cours
 - Carte « Attentes en cours » sur le chantier : acclimatation du parquet, séchage du ragréage ou de l'enduit, couche suivante, prise de la colle, ou durée libre ; l'appli dit quand c'est prêt
 
