@@ -104,9 +104,9 @@ class RoomScreen extends StatelessWidget {
                       vWorksite.copyWith(rooms: [...vWorksite.rooms, vCopy]),
                     );
                     if (pContext.mounted) {
-                      ScaffoldMessenger.of(pContext).showSnackBar(
-                        SnackBar(content: Text(vText.copyRoomDone(vName))),
-                      );
+                      ScaffoldMessenger.of(
+                        pContext,
+                      ).showSnackBar(SnackBar(content: Text(vText.copyRoomDone(vName))));
                     }
                   },
                   itemBuilder: (_) => [
