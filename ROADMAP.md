@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 45. **Plusieurs niveaux** : étages dans le plan de la maison, escalier qui les relie, trémie retirée du sol du dessus.
 - 46. **Mesure assistée** : contrôle croisé par la diagonale, la mesure qui cloche est signalée.
 - 47. **Mode chantier** : gros boutons, écran allumé, lecture vocale de l'étape et de la coupe suivante.
 - 48. **Liste de coupes imprimable** : plinthes et parquet triés par longueur, PDF par pièce.

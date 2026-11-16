@@ -3,6 +3,7 @@ library;
 
 import 'dart:math' as math;
 
+import 'fixtures.dart';
 import 'room.dart';
 
 /// Point du plan, en millimètres.
@@ -74,7 +75,8 @@ double floorAreaM2(Room pRoom) {
     0,
     (pSum, pObstacle) => pSum + pObstacle.floorAreaMm2,
   );
-  final vArea = outlineAreaMm2(pRoom) - vObstacles;
+  // Une trémie d'escalier n'a pas de sol à couvrir
+  final vArea = outlineAreaMm2(pRoom) - vObstacles - stairwellsMm2(pRoom.fixtures);
   final rArea = vArea <= 0 ? 0.0 : vArea / 1e6;
 
   return rArea;

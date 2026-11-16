@@ -1,20 +1,22 @@
 /// Éléments posés sur le plan d'une pièce et aide à la saisie des mesures.
 library;
 
-/// Prise, interrupteur, escalier, mezzanine ou fenêtre de toit.
-enum FixtureKind { socket, lightSwitch, stairs, mezzanine, roofWindow }
+/// Prise, interrupteur, escalier, mezzanine, fenêtre de toit ou trémie (ouverture dans le sol).
+enum FixtureKind { socket, lightSwitch, stairs, mezzanine, roofWindow, stairwell }
 
 /// Les éléments ponctuels n'ont pas de surface sur le plan.
 bool hasArea(FixtureKind pKind) =>
     pKind == FixtureKind.stairs ||
     pKind == FixtureKind.mezzanine ||
-    pKind == FixtureKind.roofWindow;
+    pKind == FixtureKind.roofWindow ||
+    pKind == FixtureKind.stairwell;
 
 /// Dimensions proposées à la saisie : escalier droit, mezzanine, Velux courant (78 × 98 cm).
 ({int widthMm, int depthMm}) defaultFixtureSize(FixtureKind pKind) => switch (pKind) {
   FixtureKind.stairs => (widthMm: 800, depthMm: 3000),
   FixtureKind.mezzanine => (widthMm: 3000, depthMm: 2000),
   FixtureKind.roofWindow => (widthMm: 780, depthMm: 980),
+  FixtureKind.stairwell => (widthMm: 900, depthMm: 2800),
   FixtureKind.socket || FixtureKind.lightSwitch => (widthMm: 0, depthMm: 0),
 };
 
@@ -92,6 +94,11 @@ int fixtureCount(List<Fixture> pFixtures, FixtureKind pKind) => pFixtures
 double roofWindowsM2(List<Fixture> pFixtures) => pFixtures
     .where((pFixture) => pFixture.kind == FixtureKind.roofWindow)
     .fold(0.0, (pTotal, pFixture) => pTotal + pFixture.areaM2);
+
+/// Surface des trémies : le sol de l'étage s'arrête au-dessus de l'escalier.
+int stairwellsMm2(List<Fixture> pFixtures) => pFixtures
+    .where((pFixture) => pFixture.kind == FixtureKind.stairwell)
+    .fold(0, (pTotal, pFixture) => pTotal + pFixture.widthMm * pFixture.depthMm);
 
 /// Surface des mezzanines : un second niveau de sol dans la pièce.
 double mezzaninesM2(List<Fixture> pFixtures) => pFixtures

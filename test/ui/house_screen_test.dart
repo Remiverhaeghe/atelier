@@ -75,4 +75,37 @@ void main() {
     await pTester.pump();
     expect(find.byType(House3d), findsNothing);
   });
+
+  testWidgets('une pièce monte à l\'étage, qui s\'affiche seul', (pTester) async {
+    final vStorage = MemoryStorage()
+      ..saved = [
+        Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom(), lShapedRoom()]),
+      ];
+    final vController = WorksitesController(vStorage);
+    await vController.load();
+    await pTester.pumpWidget(localized(HouseScreen(controller: vController, worksiteId: 'w')));
+    expect(find.text('Rez-de-chaussée'), findsOneWidget);
+    await pTester.tap(find.byTooltip('Ranger les pièces pas encore placées'));
+    await pTester.pumpAndSettle();
+
+    await pTester.tapAt(roomCenter(pTester, vStorage.saved.single, 0));
+    await pTester.pump();
+    await pTester.tap(find.byTooltip("Monter d'un niveau"));
+    await pTester.pumpAndSettle();
+    expect(vStorage.saved.single.rooms.first.level, 1);
+    expect(find.text('1er étage'), findsOneWidget);
+
+    await pTester.tap(find.text('Étage'));
+    await pTester.pumpAndSettle();
+    expect(find.text('2e étage'), findsOneWidget);
+
+    await pTester.tap(find.text('Rez-de-chaussée'));
+    await pTester.pumpAndSettle();
+    await pTester.tapAt(roomCenter(pTester, vStorage.saved.single, 1));
+    await pTester.pump();
+    await pTester.tap(find.byTooltip("Descendre d'un niveau"));
+    await pTester.pumpAndSettle();
+    expect(vStorage.saved.single.rooms[1].level, -1);
+    expect(find.text('Sous-sol'), findsOneWidget);
+  });
 }
