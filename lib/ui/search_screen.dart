@@ -36,11 +36,8 @@ List<SearchItem<SearchTarget>> searchCatalog(
           detail: vWorksite.name,
           key: (
             icon: Icons.square_foot,
-            screen: () => RoomScreen(
-              controller: pController,
-              worksiteId: vWorksite.id,
-              roomId: vRoom.id,
-            ),
+            screen: () =>
+                RoomScreen(controller: pController, worksiteId: vWorksite.id, roomId: vRoom.id),
           ),
         ),
       for (final vEntry in vWorksite.journal)
@@ -103,11 +100,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ListTile(
               leading: Icon(vHit.key.icon),
               title: Text(vHit.title),
-              subtitle: Text(
-                vHit.detail.trim(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+              subtitle: Text(vHit.detail.trim(), maxLines: 1, overflow: TextOverflow.ellipsis),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute<void>(builder: (_) => vHit.key.screen()),
