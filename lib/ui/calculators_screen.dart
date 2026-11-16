@@ -17,6 +17,7 @@ import 'kitchen_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'sheet_flooring_calculator.dart';
 import 'shower_calculator.dart';
+import 'wallpaper_calculator.dart';
 import 'frame_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
@@ -129,6 +130,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.doorHelp,
       icon: Icons.door_front_door_outlined,
       builder: (_) => const DoorCalculator(),
+    ),
+    (
+      title: pText.wallpaperTitle,
+      help: pText.wallpaperHelp,
+      icon: Icons.wallpaper,
+      builder: (_) => WallpaperCalculator(rooms: pRooms),
     ),
     (
       title: pText.sheetTitle,
