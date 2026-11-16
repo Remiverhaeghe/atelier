@@ -80,10 +80,7 @@ class _AcousticsCalculatorState extends State<AcousticsCalculator> {
             onValue: (pValue) => setState(() => _perimeter = pValue),
           ),
           const SizedBox(height: 12),
-          IconLine(
-            Icons.lightbulb_outline,
-            vFloor ? vText.soundFloorTip : vText.soundPartitionTip,
-          ),
+          IconLine(Icons.lightbulb_outline, vFloor ? vText.soundFloorTip : vText.soundPartitionTip),
           Text(vText.soundHint, style: vTheme.textTheme.bodySmall),
         ],
       ),
