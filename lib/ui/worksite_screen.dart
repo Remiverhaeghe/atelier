@@ -17,6 +17,7 @@ import 'planning_card.dart';
 import 'theme.dart';
 import 'time_screen.dart';
 import 'transfer.dart';
+import 'elec_plan_screen.dart';
 import 'goal_card.dart';
 import 'heating_screen.dart';
 import 'house_screen.dart';
@@ -218,6 +219,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.menu_book_outlined,
         vText.journalMenu,
         () => JournalScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.electrical_services,
+        vText.elecPlanTitle,
+        () => ElecPlanScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.local_fire_department_outlined,

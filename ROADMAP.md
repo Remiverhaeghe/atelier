@@ -7,7 +7,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
 - 79 bis. **Notification Android des attentes** : la même échéance en notification locale (permission de notification à demander).
-- 89. **Électricité depuis le plan** : circuits, gaine et fil d'après les prises et interrupteurs posés.
 - 90. **Plexis dans le relevé thermique**.
 - 91. **Meubles en 3D et vers Home Assistant**.
 - 92. **Carnet en PDF** avec photos et références.
