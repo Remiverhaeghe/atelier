@@ -45,7 +45,8 @@ class _WeldingCalculatorState extends State<WeldingCalculator> {
         children: [
           SegmentedButton<Metal>(
             segments: [
-              for (final vMetal in Metal.values) ButtonSegment(value: vMetal, label: Text(metalLabel(vText, vMetal))),
+              for (final vMetal in Metal.values)
+                ButtonSegment(value: vMetal, label: Text(metalLabel(vText, vMetal))),
             ],
             selected: {_metal},
             onSelectionChanged: (pMetal) => setState(() => _metal = pMetal.first),
@@ -108,21 +109,23 @@ class _ProcessCard extends StatelessWidget {
                 if (best)
                   Text(
                     vText.recommended,
-                    style: vTheme.textTheme.labelMedium!.copyWith(color: vTheme.colorScheme.primary),
+                    style: vTheme.textTheme.labelMedium!.copyWith(
+                      color: vTheme.colorScheme.primary,
+                    ),
                   ),
               ],
             ),
             Text(vHelp, style: vTheme.textTheme.bodySmall),
             const SizedBox(height: 6),
             IconLine(Icons.bolt, vText.weldingAmps(setting.minAmps, setting.maxAmps)),
-            IconLine(
-              Icons.straighten,
-              switch (setting.process) {
-                WeldProcess.stick => vText.weldingElectrode(vDiameter),
-                WeldProcess.tig => vText.weldingTungsten(vDiameter, metal == Metal.aluminium ? vText.currentAc : vText.currentDc),
-                _ => vText.weldingWire(vDiameter),
-              },
-            ),
+            IconLine(Icons.straighten, switch (setting.process) {
+              WeldProcess.stick => vText.weldingElectrode(vDiameter),
+              WeldProcess.tig => vText.weldingTungsten(
+                vDiameter,
+                metal == Metal.aluminium ? vText.currentAc : vText.currentDc,
+              ),
+              _ => vText.weldingWire(vDiameter),
+            }),
           ],
         ),
       ),
