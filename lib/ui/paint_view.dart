@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/paint.dart';
+import '../logic/planning.dart';
 import '../logic/room.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
@@ -96,6 +97,26 @@ class PaintView extends StatelessWidget {
             parse: parseDecimal,
             onValue: (pValue) => _update(vSettings.copyWith(primerCoverageM2PerL: pValue)),
           ),
+        if (vSettings.ceiling || vSettings.walls || vSettings.woodwork) ...[
+          const SizedBox(height: 12),
+          Text(vText.paintDoneTitle, style: vTheme.textTheme.titleMedium),
+          for (final (vOn, vStep, vLabel) in [
+            (vSettings.ceiling, ceilingPaintedStep, vText.paintCeilingSwitch),
+            (vSettings.walls, wallsPaintedStep, vText.paintWallsSwitch),
+            (vSettings.woodwork, woodworkPaintedStep, vText.paintWoodworkSwitch),
+          ])
+            if (vOn)
+              CheckboxListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(vLabel),
+                value: room.doneSteps.contains(vStep),
+                onChanged: (pValue) {
+                  final vDone = {...room.doneSteps};
+                  (pValue ?? false) ? vDone.add(vStep) : vDone.remove(vStep);
+                  onChanged(room.copyWith(doneSteps: vDone.toList()..sort()));
+                },
+              ),
+        ],
         NumberField(
           label: vText.paintExtra,
           initial: '${vSettings.extraPercent}',
