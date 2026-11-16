@@ -112,6 +112,12 @@ void main() {
     final vFixtures = vRoom['fixtures']! as List;
 
     expect(vFixtures.first, {'kind': 'socket', 'x': 100, 'y': 0, 'count': 2});
-    expect(vFixtures.last, {'kind': 'roofWindow', 'x': 2000, 'y': 1500, 'width': 780, 'depth': 980});
+    expect(vFixtures.last, {
+      'kind': 'roofWindow',
+      'x': 2000,
+      'y': 1500,
+      'width': 780,
+      'depth': 980,
+    });
   });
 }

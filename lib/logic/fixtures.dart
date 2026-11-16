@@ -48,23 +48,17 @@ class Fixture {
 
   double get areaM2 => hasArea(kind) ? widthMm * depthMm / 1e6 : 0;
 
-  Fixture copyWith({
-    int? xMm,
-    int? yMm,
-    int? widthMm,
-    int? depthMm,
-    int? riseMm,
-    int? count,
-  }) => Fixture(
-    id: id,
-    kind: kind,
-    xMm: xMm ?? this.xMm,
-    yMm: yMm ?? this.yMm,
-    widthMm: widthMm ?? this.widthMm,
-    depthMm: depthMm ?? this.depthMm,
-    riseMm: riseMm ?? this.riseMm,
-    count: count ?? this.count,
-  );
+  Fixture copyWith({int? xMm, int? yMm, int? widthMm, int? depthMm, int? riseMm, int? count}) =>
+      Fixture(
+        id: id,
+        kind: kind,
+        xMm: xMm ?? this.xMm,
+        yMm: yMm ?? this.yMm,
+        widthMm: widthMm ?? this.widthMm,
+        depthMm: depthMm ?? this.depthMm,
+        riseMm: riseMm ?? this.riseMm,
+        count: count ?? this.count,
+      );
 
   Map<String, Object?> toJson() => {
     'id': id,

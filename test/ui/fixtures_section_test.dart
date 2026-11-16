@@ -16,10 +16,7 @@ Future<Room Function()> pumpSection(WidgetTester pTester, Room pRoom) async {
     StatefulBuilder(
       builder: (pContext, pSetState) => localized(
         SingleChildScrollView(
-          child: FixturesSection(
-            room: vRoom,
-            onChanged: (pNew) => pSetState(() => vRoom = pNew),
-          ),
+          child: FixturesSection(room: vRoom, onChanged: (pNew) => pSetState(() => vRoom = pNew)),
         ),
       ),
     ),
@@ -34,9 +31,7 @@ Future<void> addFixture(WidgetTester pTester, String pLabel) async {
   await pTester.pumpAndSettle();
   await pTester.tap(find.text(pLabel));
   await pTester.pumpAndSettle();
-  await pTester.tap(
-    find.descendant(of: find.byType(AlertDialog), matching: find.byType(RoomPlan)),
-  );
+  await pTester.tap(find.descendant(of: find.byType(AlertDialog), matching: find.byType(RoomPlan)));
   await pTester.pumpAndSettle();
 }
 
