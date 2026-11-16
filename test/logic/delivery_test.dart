@@ -12,11 +12,10 @@ void main() {
 
   test('chaque ligne commandée : manque, en trop, complète ou pas encore notée', () {
     final vCheck = checkDelivery(vLines, {'parquetPacks': 11, 'glueBuckets': 3, 'nailBoxes': 1});
-    expect([for (final vLine in vCheck) vLine.state], [
-      DeliveryState.missing,
-      DeliveryState.extra,
-      DeliveryState.complete,
-    ]);
+    expect(
+      [for (final vLine in vCheck) vLine.state],
+      [DeliveryState.missing, DeliveryState.extra, DeliveryState.complete],
+    );
     expect(deliveryDone(vCheck), isFalse);
     expect(checkDelivery(vLines, const {}).first.state, DeliveryState.unchecked);
   });
