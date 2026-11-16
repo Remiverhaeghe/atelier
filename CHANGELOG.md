@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Télémètre laser
+- Le champ de longueur d'un mur a un bouton télémètre : relié en Bluetooth à un Bosch GLM 50 C, 50-27 C et CG, 100 C, 120 C ou PLR 30, 40 et 50 C, la mesure faite avec le bouton de l'appareil remplit la longueur
+
 ### Modèles de chantier
 - Dans les reprises, « Ajouter un modèle » ajoute d'un coup les étapes types d'un rafraîchissement, d'une salle de bain ou d'un changement de sol, avec leurs passages, sans doubler celles déjà notées
 

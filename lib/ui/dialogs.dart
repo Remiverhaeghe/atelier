@@ -6,6 +6,7 @@ import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'angle_dialog.dart';
+import 'laser_screen.dart';
 import 'room_plan.dart';
 import 'theme.dart';
 
@@ -207,6 +208,16 @@ class _WallDialogState extends State<_WallDialog> {
                 labelText: vText.wallLength,
                 errorText: _lengthError,
                 suffixText: vText.unitCm,
+                suffixIcon: IconButton(
+                  tooltip: vText.laserMeasure,
+                  icon: const Icon(Icons.straighten),
+                  onPressed: () async {
+                    final vMm = await measureWithLaser(context);
+                    if (vMm != null && mounted) {
+                      setState(() => _length.text = formatCentimetres(vMm));
+                    }
+                  },
+                ),
               ),
             ),
             TextField(
