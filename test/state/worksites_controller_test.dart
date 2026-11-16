@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/worksite.dart';
 import 'package:atelier/state/worksites_controller.dart';
 import 'package:atelier/storage/worksite_store.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -57,6 +58,23 @@ void main() {
     await vController.addWorksite('Garage');
 
     expect(vNotified, 2);
+  });
+
+  test('chantier partagé : fusion du même chantier, ajout des autres', () async {
+    await vController.load();
+    final vMine = await vController.addWorksite('Maison');
+    final vTheirs = vMine.copyWith(
+      rooms: [const Room(id: 'cuisine', name: 'Cuisine')],
+    );
+    const vOther = Worksite(id: 'garage', name: 'Garage');
+
+    expect(vController.sharesWorksite([vOther]), isFalse);
+    expect(vController.sharesWorksite([vOther, vTheirs]), isTrue);
+    final vResult = await vController.mergeImport([vTheirs, vOther], 'autre');
+
+    expect((vResult.added, vResult.merged, vResult.conflicts), (1, 1, 0));
+    expect(vController.worksite(vMine.id)!.rooms.single.name, 'Cuisine');
+    expect(vController.worksite('garage'), isNotNull);
   });
 
   test('un import ajoute les chantiers sous de nouveaux identifiants', () async {

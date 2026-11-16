@@ -2069,5 +2069,14 @@
   "searchTitle": "Chercher dans l'appli",
   "searchHint": "Pièce, référence, calcul, conseil…",
   "searchNothing": "Rien ne correspond. Essayez un autre mot, sans accent si besoin.",
-  "searchWorksite": "Chantier"
+  "searchWorksite": "Chantier",
+  "mergeTitle": "Chantier déjà présent",
+  "mergeHelp": "Ce fichier contient un chantier que vous avez déjà, sans doute partagé par quelqu'un qui y travaille avec vous. La fusion ajoute ses pièces, dépenses, notes et temps sans rien effacer ; une pièce changée des deux côtés est gardée en double pour que vous choisissiez.",
+  "mergeCopy": "Ajouter en copie",
+  "mergeAction": "Fusionner",
+  "mergeSuffix": "autre",
+  "mergeDone": "{count, plural, =1{1 chantier fusionné} other{{count} chantiers fusionnés}}",
+  "@mergeDone": {"placeholders": {"count": {"type": "int"}}},
+  "mergeConflicts": "{count, plural, =0{, rien en double} =1{, 1 pièce en double à départager} other{, {count} pièces en double à départager}}",
+  "@mergeConflicts": {"placeholders": {"count": {"type": "int"}}}
 }

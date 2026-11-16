@@ -72,9 +72,41 @@ Future<void> importWorksites(BuildContext pContext, WorksitesController pControl
   }
   final vBytes = await vFile.readAsBytes();
   try {
-    final vCount = await pController.importWorksites(WorksiteStore.decode(utf8.decode(vBytes)));
+    final vWorksites = WorksiteStore.decode(utf8.decode(vBytes));
+    if (pController.sharesWorksite(vWorksites) && pContext.mounted) {
+      final vMerge = await askMerge(pContext);
+      if (vMerge == null) {
+        return;
+      }
+      if (vMerge) {
+        final vResult = await pController.mergeImport(vWorksites, vText.mergeSuffix);
+        final vMessage = vText.mergeDone(vResult.merged) + vText.mergeConflicts(vResult.conflicts);
+        vMessenger.showSnackBar(SnackBar(content: Text(vMessage)));
+        return;
+      }
+    }
+    final vCount = await pController.importWorksites(vWorksites);
     vMessenger.showSnackBar(SnackBar(content: Text(vText.importDone(vCount))));
   } on FormatException {
     vMessenger.showSnackBar(SnackBar(content: Text(vText.importFailed)));
   }
+}
+
+/// Le fichier contient un chantier déjà là : fusionner (true), ajouter une copie (false) ou
+/// renoncer (null).
+Future<bool?> askMerge(BuildContext pContext) {
+  final vText = AppLocalizations.of(pContext);
+
+  return showDialog<bool>(
+    context: pContext,
+    builder: (pDialog) => AlertDialog(
+      title: Text(vText.mergeTitle),
+      content: Text(vText.mergeHelp),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(pDialog), child: Text(vText.cancel)),
+        TextButton(onPressed: () => Navigator.pop(pDialog, false), child: Text(vText.mergeCopy)),
+        FilledButton(onPressed: () => Navigator.pop(pDialog, true), child: Text(vText.mergeAction)),
+      ],
+    ),
+  );
 }
