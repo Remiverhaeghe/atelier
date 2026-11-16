@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Isolation phonique
+- Nouveau calcul : cloison ou plancher de mezzanine, plaques phoniques, laine, bande résiliente, mastic acoustique, suspentes antivibratiles et sous-couche, avec les gestes qui évitent les fuites de bruit
+
 ### Faire soi-même ou faire faire
 - Nouveau calcul : le devis de l'artisan face au matériel, aux outils et au temps (compté double la première fois), aides réservées aux artisans RGE déduites, et ce que rapporte chaque heure passée
 
