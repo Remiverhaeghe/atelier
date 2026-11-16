@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
 import '../logic/worksite.dart';
 import '../logic/app_settings.dart';
+import '../logic/whats_new.dart';
 import '../logic/units.dart';
 import '../state/settings_controller.dart';
 import '../state/worksites_controller.dart';
@@ -13,6 +14,7 @@ import 'about_screen.dart';
 import 'calculators_screen.dart';
 import 'dialogs.dart';
 import 'plan_thumbnail.dart';
+import 'news_dialog.dart';
 import 'search_screen.dart';
 import 'tips_screen.dart';
 import 'transfer.dart';
@@ -61,6 +63,27 @@ class WorksitesScreen extends StatelessWidget {
           builder: (_) => WorksiteScreen(controller: controller, worksiteId: vWorksite.id),
         ),
       );
+    }
+  }
+
+  /// Nouveautés montrées une fois après la mise à jour, puis notées comme vues.
+  void _showNewsOnce(BuildContext pContext) {
+    final vSettings = settings;
+    if (vSettings == null || vSettings.settings.newsSeen >= newsVersion) {
+      return;
+    }
+    final vShow = shouldShowNews(
+      pSeen: vSettings.settings.newsSeen,
+      pHasData: controller.worksites.isNotEmpty,
+    );
+    // Noté tout de suite : la boîte ne revient pas à chaque reconstruction
+    vSettings.update(vSettings.settings.copyWith(newsSeen: newsVersion));
+    if (vShow) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (pContext.mounted) {
+          showNews(pContext);
+        }
+      });
     }
   }
 
@@ -133,6 +156,7 @@ class WorksitesScreen extends StatelessWidget {
           if (!controller.loaded) {
             return const Center(child: CircularProgressIndicator());
           }
+          _showNewsOnce(pContext);
           if (controller.worksites.isEmpty) {
             return EmptyState(icon: Icons.straighten, text: vText.worksitesEmpty);
           }

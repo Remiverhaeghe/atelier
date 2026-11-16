@@ -2175,5 +2175,8 @@
   "deliveryReceived": "Reçus",
   "deliveryHint": "Ouvrez et comptez devant le livreur. Un colis abîmé ou incomplet se note avec des réserves précises sur le bon de livraison (« 2 paquets de parquet écrasés »), puis se confirme au vendeur ou au transporteur par écrit, en général dans les 3 jours. Photographiez les dégâts.",
   "nightOn": "Mode nuit",
-  "nightOff": "Quitter le mode nuit"
+  "nightOff": "Quitter le mode nuit",
+  "newsTitle": "Nouveau dans Atelier",
+  "newsLines": "• Accueil en tuiles, recherche dans toute l'appli et widget d'écran d'accueil\n• Attentes avec notification, humidité de la chape avant la pose\n• Nouveaux calculs : cuisine, douche, isolation phonique, façade et clôture, gravats\n• Mode chantier : commandes vocales et mode nuit\n• Courses : tickets reliés aux achats, livraison vérifiée, échéancier du budget",
+  "newsOk": "C'est parti"
 }
