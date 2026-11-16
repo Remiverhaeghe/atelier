@@ -9,6 +9,7 @@ import '../support/rooms.dart';
 
 void main() {
   testWidgets('les quantités suivent la saisie', (pTester) async {
+    tallScreen(pTester);
     var vRoom = rectangleRoom();
     await pTester.pumpWidget(
       StatefulBuilder(
@@ -20,7 +21,7 @@ void main() {
 
     expect(find.text('6 paquets'), findsOneWidget);
     expect(find.text('1 rouleau de sous-couche'), findsOneWidget);
-    expect(find.textContaining('16 rangées'), findsOneWidget);
+    expect(find.textContaining('16 rangées'), findsWidgets);
 
     await pTester.enterText(find.widgetWithText(TextField, "Surface d'un paquet (m²)"), '1,5');
     await pTester.pump();
@@ -55,5 +56,25 @@ void main() {
     );
 
     expect(find.textContaining('au moins trois murs'), findsOneWidget);
+  });
+
+  testWidgets('le sens de pose se choisit en touchant son image', (pTester) async {
+    tallScreen(pTester);
+    var vRoom = rectangleRoom();
+    await pTester.pumpWidget(
+      StatefulBuilder(
+        builder: (pContext, pSetState) => localized(
+          ParquetView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom)),
+        ),
+      ),
+    );
+
+    expect(find.text('Le long du mur 1'), findsOneWidget);
+    expect(find.text('Conseillé'), findsOneWidget);
+    await pTester.tap(find.text('Le long du mur 2'));
+    await pTester.pump();
+
+    expect(vRoom.parquet.layingWallIndex, 1);
+    expect(find.textContaining('21 rangées'), findsWidgets);
   });
 }
