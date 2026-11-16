@@ -40,7 +40,7 @@ void main() {
         findsOneWidget,
         reason: vTile,
       );
-      await pTester.pageBack();
+      pTester.state<NavigatorState>(find.byType(Navigator).first).pop();
       await pTester.pumpAndSettle();
     }
   });
