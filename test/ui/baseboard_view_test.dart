@@ -20,7 +20,11 @@ void main() {
     expect(find.text('8 morceaux, 14 m de plinthe'), findsOneWidget);
     expect(find.text('2 cartouches de colle'), findsOneWidget);
 
-    await pTester.scrollUntilVisible(find.text('Mur 1 · 200 cm').first, 200);
+    await pTester.scrollUntilVisible(
+      find.text('Mur 1 · 200 cm').first,
+      200,
+      scrollable: verticalList(),
+    );
     expect(
       find.text(
         'Début : onglet 45°, pointe longue contre le mur · Fin : biseau 45° pour joindre au morceau voisin',
