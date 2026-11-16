@@ -20,10 +20,7 @@ void main() {
     expect(weatherIssues(OutdoorJob.concrete, vWeek, 2), [WeatherIssue.frostAfter]);
     expect(weatherIssues(OutdoorJob.woodStain, vWeek, 2), [WeatherIssue.cold]);
     expect(weatherIssues(OutdoorJob.roofing, vWeek, 4), [WeatherIssue.wind]);
-    expect(weatherIssues(OutdoorJob.render, vWeek, 4), [
-      WeatherIssue.cold,
-      WeatherIssue.wind,
-    ]);
+    expect(weatherIssues(OutdoorJob.render, vWeek, 4), [WeatherIssue.cold, WeatherIssue.wind]);
     expect(weatherIssues(OutdoorJob.roofing, vWeek, 3), isEmpty);
     const vHot = <DayForecast>[(minC: 10, maxC: 32, rain: false, windKmh: 0)];
     expect(weatherIssues(OutdoorJob.facadePaint, vHot, 0), [WeatherIssue.hot]);
