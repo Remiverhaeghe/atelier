@@ -9,6 +9,41 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 - 102 bis. **Lecture directe de la photo du ticket** : demande ML Kit, qui ajoute des dépendances Google Play et peut-être une permission réseau. À décider ; en attendant, le texte copié depuis la photo est lu dans l'appli.
 - 107. **Télémètre laser Bluetooth** (modèle à préciser).
 
+Validés le 17 novembre 2026, dans l'ordre prévu :
+
+- 109. **Humidité de la chape et du bois** : relevés de l'humidimètre, feu vert pour poser.
+- 110. **Avant de percer** : réseaux cachés, matière du mur et cheville conseillée sur un mur.
+- 111. **Achat relié à son ticket**, pour une garantie ou un retour.
+- 112. **Vérification d'une livraison** contre la commande.
+- 113. **Mode nuit de chantier** : écran rouge sombre, boutons encore plus gros.
+- 114. **Écran « Nouveautés »** après une mise à jour.
+- 115. **Dupliquer une pièce**, ou la faire en miroir.
+- 116. **Outillage prêté** avec rappel.
+- 117. **Liste de courses en texte simple** à envoyer par SMS.
+- 118. **Météo des travaux extérieurs** saisie à la main, jours possibles.
+- 119. **Ordre des travaux** entre corps de métier, planning contrôlé.
+- 120. **Sol souple et moquette**.
+- 121. **Papier peint** et raccord du motif.
+- 122. **Béton et petite maçonnerie** : dosages, sacs ou toupie.
+- 123. **Gouttières et descentes** selon la surface du toit.
+- 124. **Laine soufflée en combles**, tassement compris.
+- 125. **Garanties** des appareils et des travaux, avec rappel.
+- 126. **Modèles de chantier** : étapes, attentes et courses types.
+- 127. **Annuler et refaire** sur les murs et le plan.
+- 128. **Export du plan en DXF**.
+- 129. **Dossier pour demander des devis** : surfaces, plan et photos en PDF.
+- 130. **Stock qui baisse** quand une pièce consomme du matériel.
+- 131. **Mode visite** : tour des pièces avec une liste à cocher et des photos.
+- 132. **Permissions expliquées** (`docs/securite.md`) et contrôle en CI du manifeste fusionné.
+- 133. **Cache de l'émulateur en CI**.
+- 134. **Tests de mutation** sur `lib/logic`.
+- 135. **Textes découpés par domaine**, fusionnés avant `gen-l10n`.
+- 136. **Version anglaise**.
+- 137. **Accessibilité** : TalkBack, contrastes, grande police.
+- 138. **Temps d'affichage surveillé** pour la vue 3D et une grande maison.
+- 139. **Test fermé du Play Store** : fiche, captures et sécurité des données relues.
+- 140. **Mesure par photo** avec une carte au format bancaire comme étalon.
+
 ## Organisation et motivation
 
 - Objectif du jour, SMART : précis, mesurable (« poser les rangées 4 à 8 »), atteignable avec le temps et le matériel du jour, utile au chantier, daté.

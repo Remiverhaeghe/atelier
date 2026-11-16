@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "worksites": [
+    {
+      "id": "demo",
+      "name": "Maison fictive",
+      "rooms": [
+        {
+          "id": "salon",
+          "name": "Salon",
+          "walls": [
+            {"lengthMm": 4000, "angleToNextDeg": 90, "openings": [], "freeEndAfter": false},
+            {"lengthMm": 3000, "angleToNextDeg": 90, "openings": [], "freeEndAfter": false},
+            {"lengthMm": 4000, "angleToNextDeg": 90, "openings": [], "freeEndAfter": false},
+            {"lengthMm": 3000, "angleToNextDeg": 90, "openings": [], "freeEndAfter": false}
+          ],
+          "closed": true
+        }
+      ],
+      "prices": {"Colle": 12.5},
+      "showGuidance": true,
+      "goalsReached": 2,
+      "expenses": [{"id": "e1", "label": "Parquet", "amount": 600, "date": "2026-10-01"}],
+      "journal": [{"id": "j1", "roomId": "salon", "day": "2026-10-02", "title": "Pose du parquet"}],
+      "reminders": [
+        {"id": "r1", "kind": "acclimatise", "label": "", "dueAt": "2026-10-03T10:00:00.000"}
+      ]
+    }
+  ]
+}
