@@ -108,6 +108,7 @@ class _HouseScreenState extends State<HouseScreen> {
                               setState(() => _drag = Offset.zero);
                             },
                             child: CustomPaint(
+                              key: const ValueKey('house-plan'),
                               size: pConstraints.biggest,
                               painter: _HousePainter(
                                 rooms: vRooms,
