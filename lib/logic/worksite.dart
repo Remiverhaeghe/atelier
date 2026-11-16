@@ -22,6 +22,7 @@ class Worksite {
     this.stores = const {},
     this.references = const {},
     this.offcuts = const [],
+    this.storePrices = const {},
   });
 
   final String id;
@@ -59,6 +60,9 @@ class Worksite {
   /// Chutes gardées pour d'autres coupes.
   final List<Offcut> offcuts;
 
+  /// Prix relevés par magasin, pour comparer : magasin, puis prix par nom d'article.
+  final Map<String, Map<String, double>> storePrices;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -74,6 +78,7 @@ class Worksite {
     Map<String, String>? stores,
     Map<String, String>? references,
     List<Offcut>? offcuts,
+    Map<String, Map<String, double>>? storePrices,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -89,6 +94,7 @@ class Worksite {
     stores: stores ?? this.stores,
     references: references ?? this.references,
     offcuts: offcuts ?? this.offcuts,
+    storePrices: storePrices ?? this.storePrices,
   );
 
   Map<String, Object?> toJson() => {
@@ -106,6 +112,7 @@ class Worksite {
     if (stores.isNotEmpty) 'stores': stores,
     if (references.isNotEmpty) 'references': references,
     if (offcuts.isNotEmpty) 'offcuts': [for (final vOffcut in offcuts) vOffcut.toJson()],
+    if (storePrices.isNotEmpty) 'storePrices': storePrices,
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -140,6 +147,13 @@ class Worksite {
       for (final vOffcut in (pJson['offcuts'] as List<Object?>?) ?? const [])
         Offcut.fromJson(vOffcut! as Map<String, Object?>),
     ],
+    storePrices: {
+      for (final vStore in ((pJson['storePrices'] as Map<String, Object?>?) ?? const {}).entries)
+        vStore.key: {
+          for (final vPrice in (vStore.value! as Map<String, Object?>).entries)
+            vPrice.key: (vPrice.value! as num).toDouble(),
+        },
+    },
   );
 }
 

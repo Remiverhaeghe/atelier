@@ -11,6 +11,7 @@ import 'guide_view.dart';
 import 'photos.dart';
 import 'shopping_line_card.dart';
 import 'shopping_texts.dart';
+import 'store_compare_screen.dart';
 import 'worksite_pdf.dart';
 import 'theme.dart';
 
@@ -48,6 +49,17 @@ class ShoppingScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(vText.shoppingTitle),
             actions: [
+              IconButton(
+                tooltip: vText.storeCompareTitle,
+                icon: const Icon(Icons.compare_arrows),
+                onPressed: () => Navigator.push(
+                  pContext,
+                  MaterialPageRoute<void>(
+                    builder: (_) =>
+                        StoreCompareScreen(controller: controller, worksiteId: worksiteId),
+                  ),
+                ),
+              ),
               IconButton(
                 tooltip: vText.shareList,
                 icon: const Icon(Icons.share),
