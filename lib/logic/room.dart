@@ -3,6 +3,7 @@ library;
 
 import 'baseboard.dart';
 import 'fixtures.dart';
+import 'furniture.dart';
 import 'paint.dart';
 import 'parquet.dart';
 import 'slope.dart';
@@ -193,6 +194,7 @@ class Room {
     this.slope2,
     this.level = 0,
     this.usage = RoomUsage.habitable,
+    this.furniture = const [],
   });
 
   final String id;
@@ -241,6 +243,9 @@ class Room {
   /// Usage de la pièce : habitable par défaut.
   final RoomUsage usage;
 
+  /// Meubles posés sur le plan pour vérifier la place avant l'achat.
+  final List<Furniture> furniture;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -264,6 +269,7 @@ class Room {
     bool clearSlope2 = false,
     int? level,
     RoomUsage? usage,
+    List<Furniture>? furniture,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -286,6 +292,7 @@ class Room {
     slope2: clearSlope2 ? null : (slope2 ?? this.slope2),
     level: level ?? this.level,
     usage: usage ?? this.usage,
+    furniture: furniture ?? this.furniture,
   );
 
   Map<String, Object?> toJson() => {
@@ -310,6 +317,7 @@ class Room {
     if (slope2 != null) 'slope2': slope2!.toJson(),
     if (level != 0) 'level': level,
     if (usage != RoomUsage.habitable) 'usage': usage.name,
+    if (furniture.isNotEmpty) 'furniture': [for (final vItem in furniture) vItem.toJson()],
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -358,5 +366,9 @@ class Room {
         : Slope.fromJson(pJson['slope2']! as Map<String, Object?>),
     level: (pJson['level'] as int?) ?? 0,
     usage: RoomUsage.values.asNameMap()[pJson['usage']] ?? RoomUsage.habitable,
+    furniture: [
+      for (final vItem in (pJson['furniture'] as List<Object?>?) ?? const [])
+        Furniture.fromJson(vItem! as Map<String, Object?>),
+    ],
   );
 }
