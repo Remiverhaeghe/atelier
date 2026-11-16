@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Carnet en PDF
+- Le carnet de la maison s'imprime en PDF : pièce par pièce, produits, références, coûts, photos d'avant et d'après et factures
+
 ### Meubles en 3D
 - Les meubles posés sur le plan apparaissent en volume dans la vue 3D et le fichier glTF, à leur hauteur courante
 - L'export Home Assistant liste les meubles de chaque pièce (type, largeur, profondeur)
