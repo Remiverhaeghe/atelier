@@ -1,0 +1,39 @@
+# Flutter et Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+*.iml
+.idea/
+.vscode/
+
+# Textes générés par flutter gen-l10n
+lib/l10n/gen/
+
+# Android : seuls build.gradle.kts et le manifeste sont versionnés,
+# le reste est recréé par « flutter create --platforms=android . »
+/android/*
+!/android/app/
+/android/app/*
+!/android/app/build.gradle.kts
+!/android/app/src/
+/android/app/src/*
+!/android/app/src/main/
+/android/app/src/main/*
+!/android/app/src/main/AndroidManifest.xml
+
+# Clé de signature, jamais dans le dépôt
+*.jks
+*.keystore
+key.properties
+
+# iOS, Web et bureau non utilisés
+/ios/
+/web/
+/linux/
+/macos/
+/windows/

@@ -1,0 +1,24 @@
+name: atelier
+description: Préparer ses travaux sans erreur, coupes, quantités et budget d'un chantier.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  # Textes générés depuis lib/l10n/app_fr.arb (voir l10n.yaml)
+  generate: true
