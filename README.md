@@ -1,8 +1,8 @@
 # Atelier
 
-Application Android pour préparer ses travaux sans erreur : coupes, quantités et budget d'un chantier. Elle commence par le parquet et les plinthes ; la peinture, le carrelage, le placo, l'électricité et la plomberie suivront.
+Application Android pour préparer ses travaux sans erreur : coupes, quantités et budget d'un chantier, de la pièce saisie mur par mur jusqu'au bilan de fin de chantier.
 
-Tout reste sur le téléphone, sans compte ni connexion.
+Tout reste sur le téléphone, sans compte ni connexion : l'appli n'a pas la permission Internet.
 
 ## Aperçu
 
@@ -16,28 +16,17 @@ Tout reste sur le téléphone, sans compte ni connexion.
 
 Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage.
 
-## Avancement
+## Ce que fait l'appli
 
-| Lot | Contenu | État |
-|---|---|---|
-| 0 | Squelette, CI, APK | fait |
-| 1 | Saisie d'une pièce mur par mur, plan | fait |
-| 2 | Parquet : surface, paquets, rangées, sous-couche | fait |
-| 3 | Parquet : plan de pose rangée par rangée | fait |
-| 4 | Plinthes : angles et liste des coupes | fait |
-| 5 | Plinthes : optimisation des barres | fait |
-| 6 | Chantier de plusieurs pièces, budget, liste de courses, PDF | fait |
-| 7 | Guidage pas à pas, export, finitions | fait |
-| 8 | Version 0.1.0, APK jointes aux releases | fait |
-| 9 | Captures d'écran | fait |
-| 10 | Habillage et prise en main | fait |
-| 11 | Reprises : liste à cocher, repère sur le plan, photo | fait |
-| 12 | Schéma des coupes de plinthe, mesure de l'angle réel | fait |
-| 13 | Sens de pose du parquet en images | fait |
-| 14 | Jonction entre deux pièces, barres de seuil | fait |
-| 15 | Peinture, fenêtres | fait |
-| 16 | Objectif du jour et badges | fait |
-| 17 | Conseils et tutos | fait |
+Le détail, version par version, est dans [CHANGELOG.md](CHANGELOG.md).
+
+| Domaine | Contenu |
+|---|---|
+| Pièces et plan | Saisie mur par mur ou décalque d'un plan papier, plafonds rampants à un ou deux pans, plusieurs niveaux et mezzanine, plan de la maison, vue 3D avec les meubles, export glTF et Home Assistant |
+| Parquet et plinthes | Quantités, plan de pose rangée par rangée, diagonale et point de Hongrie, coupes de plinthes en schéma, barres optimisées, chutes réutilisables, mode chantier avec lecture à voix haute et commandes vocales |
+| Calculs | Peinture, carrelage et faïence, placo et isolation, isolation phonique, enduit et ragréage, électricité, plomberie, ventilation, chauffage, douche de plain-pied, cuisine, escalier, porte, charpente et couverture, fenêtre de toit, façade et clôture, terrasse, jardin, étagère, armoire, chevilles, soudure, gravats |
+| Chantier | Budget, courses par magasin, dépenses et tickets, échéancier, planning, temps passé, objectif du jour, attentes avec notification, widget d'écran d'accueil, carnet de la maison en PDF, avant / après, bilan, recherche dans toute l'appli, chantier partagé par fusion d'exports |
+| Aide | Conseils et tutos, erreurs fréquentes, sécurité avant de commencer, réseaux cachés, faire soi-même ou faire faire, niveau et pente au téléphone |
 
 La suite est dans [ROADMAP.md](ROADMAP.md). Le format du plan exporté est décrit dans [docs/format-plan.md](docs/format-plan.md), l'export pour Home Assistant dans [docs/home-assistant.md](docs/home-assistant.md).
 

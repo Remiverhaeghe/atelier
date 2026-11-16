@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Documentation
+- README : présentation à jour, tableau des domaines couverts à la place de l'avancement arrêté au lot 17
+
 ### Commandes vocales
 - Bouton micro dans le mode chantier : « coupe faite », « répète la rangée » ou juste « fait » quand une seule tâche reste ouverte ; la réponse est lue à voix haute
 
