@@ -105,6 +105,8 @@ class WorksiteScreen extends StatelessWidget {
                               HouseScreen(controller: controller, worksiteId: worksiteId),
                         ),
                       );
+                    case 'homeAssistant':
+                      exportHomeAssistantFile(vWorksite);
                     case 'offcuts':
                       Navigator.push(
                         pContext,
@@ -123,6 +125,7 @@ class WorksiteScreen extends StatelessWidget {
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
                   PopupMenuItem(value: 'house', child: Text(vText.houseTitle)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
+                  PopupMenuItem(value: 'homeAssistant', child: Text(vText.exportHomeAssistant)),
                   PopupMenuItem(value: 'offcuts', child: Text(vText.offcutsTitle)),
                   PopupMenuItem(
                     value: 'guide',
