@@ -46,7 +46,7 @@ class DirectionPicker extends StatelessWidget {
             separatorBuilder: (_, _) => const SizedBox(width: 10),
             itemBuilder: (pContext, pIndex) => _DirectionCard(
               room: room,
-                  extraDeg: extraDeg,
+              extraDeg: extraDeg,
               direction: directions[pIndex],
               selected: pIndex == selected,
               onTap: () => onSelected(directions[pIndex]),
