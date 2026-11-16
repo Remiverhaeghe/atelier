@@ -2,6 +2,21 @@
 
 ## Non publié
 
+### Porte intérieure
+- Nouveau calcul : bloc-porte standard qui entre dans l'ouverture brute, jeu à caler, hauteur, cloison épaisse, sens d'ouverture poussant droit ou gauche
+
+### Chevilles et vis
+- Nouveau calcul : cheville, foret, vis et nombre de points selon le support (placo, béton, brique, béton cellulaire, bois) et le poids à accrocher
+
+### Avant de commencer
+- Sous la prochaine étape du guide : coupures et protections à prévoir (courant, eau, masque FFP2, lunettes, casque, gants, genouillères, aération), à cocher d'un geste
+
+### Charpente et couverture
+- Nouveau calcul pour un pan de toit : chevrons, contre-liteaux, liteaux selon le pureau, tuiles ou ardoises avec la casse, faîtières, rives et écran sous toiture
+
+### Fenêtre de toit du commerce
+- Pour chaque taille de plexi : fenêtre de toit courante la plus proche et reprise du chevêtre (élargir, réduire, allonger), en évitant de couper un chevron
+
 ### Attentes en cours
 - Carte « Attentes en cours » sur le chantier : acclimatation du parquet, séchage du ragréage ou de l'enduit, couche suivante, prise de la colle, ou durée libre ; l'appli dit quand c'est prêt
 

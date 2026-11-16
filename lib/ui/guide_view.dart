@@ -7,6 +7,7 @@ import '../logic/guidance.dart';
 import '../logic/inventory.dart';
 import '../logic/pitfalls.dart';
 import '../logic/room.dart';
+import '../logic/safety.dart';
 import 'photos.dart';
 import 'theme.dart';
 import 'tips_screen.dart';
@@ -88,6 +89,17 @@ String pitfallLabel(AppLocalizations pText, Pitfall pPitfall) => switch (pPitfal
   Pitfall.skipDryFit => pText.pitfallSkipDryFit,
   Pitfall.baseboardOnFloor => pText.pitfallBaseboardOnFloor,
   Pitfall.siliconeToPaint => pText.pitfallSiliconeToPaint,
+};
+
+String safetyLabel(AppLocalizations pText, SafetyCheck pCheck) => switch (pCheck) {
+  SafetyCheck.powerOff => pText.safetyPowerOff,
+  SafetyCheck.waterOff => pText.safetyWaterOff,
+  SafetyCheck.dustMask => pText.safetyDustMask,
+  SafetyCheck.goggles => pText.safetyGoggles,
+  SafetyCheck.gloves => pText.safetyGloves,
+  SafetyCheck.earProtection => pText.safetyEarProtection,
+  SafetyCheck.kneePads => pText.safetyKneePads,
+  SafetyCheck.ventilate => pText.safetyVentilate,
 };
 
 /// Étapes de pose à cocher et outils à préparer pour la pièce.
@@ -174,6 +186,7 @@ class GuideView extends StatelessWidget {
                     Text(vText.pitfallsTitle, style: vTheme.textTheme.titleSmall),
                     for (final vPitfall in stepPitfalls(pStep))
                       IconLine(AtelierIcons.warning, pitfallLabel(vText, vPitfall)),
+                    if (stepSafety(pStep).isNotEmpty) _SafetyChecklist(checks: stepSafety(pStep)),
                   ],
                 ),
               ),
@@ -250,6 +263,47 @@ class GuideView extends StatelessWidget {
         ListTile(title: Text(vText.guideBaseboard, style: vTheme.textTheme.titleMedium)),
         for (final vItem in vBaseboard) vStep(vItem),
       ],
+    );
+  }
+}
+
+/// Coupures et protections de l'étape, à cocher d'un geste avant de s'y mettre.
+class _SafetyChecklist extends StatefulWidget {
+  const _SafetyChecklist({required this.checks});
+
+  final List<SafetyCheck> checks;
+
+  @override
+  State<_SafetyChecklist> createState() => _SafetyChecklistState();
+}
+
+class _SafetyChecklistState extends State<_SafetyChecklist> {
+  final _done = <SafetyCheck>{};
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(vText.safetyTitle, style: Theme.of(context).textTheme.titleSmall),
+          Wrap(
+            spacing: 6,
+            children: [
+              for (final vCheck in widget.checks)
+                FilterChip(
+                  label: Text(safetyLabel(vText, vCheck)),
+                  selected: _done.contains(vCheck),
+                  onSelected: (pOn) =>
+                      setState(() => pOn ? _done.add(vCheck) : _done.remove(vCheck)),
+                ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

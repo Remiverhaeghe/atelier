@@ -5,7 +5,9 @@ import '../logic/room.dart';
 import '../l10n/gen/app_localizations.dart';
 import 'deck_calculator.dart';
 import 'conditions_calculator.dart';
+import 'door_calculator.dart';
 import 'drywall_calculator.dart';
+import 'fixings_calculator.dart';
 import 'frame_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
@@ -14,6 +16,7 @@ import 'level_screen.dart';
 import 'panel_calculator.dart';
 import 'plumbing_calculator.dart';
 import 'rent_buy_calculator.dart';
+import 'roofing_calculator.dart';
 import 'screed_calculator.dart';
 import 'shelf_calculator.dart';
 import 'tiling_calculator.dart';
@@ -99,6 +102,18 @@ class CalculatorsScreen extends StatelessWidget {
       builder: (_) => const ConditionsCalculator(),
     ),
     (
+      title: pText.doorTitle,
+      help: pText.doorHelp,
+      icon: Icons.door_front_door_outlined,
+      builder: (_) => const DoorCalculator(),
+    ),
+    (
+      title: pText.fixingsTitle,
+      help: pText.fixingsHelp,
+      icon: Icons.hardware_outlined,
+      builder: (_) => const FixingsCalculator(),
+    ),
+    (
       title: pText.levelTitle,
       help: pText.levelHelp,
       icon: Icons.screen_rotation_alt,
@@ -109,6 +124,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.insulHelp,
       icon: Icons.texture,
       builder: (_) => InsulationCalculator(rooms: pRooms),
+    ),
+    (
+      title: pText.roofingTitle,
+      help: pText.roofingHelp,
+      icon: Icons.roofing,
+      builder: (_) => const RoofingCalculator(),
     ),
     (
       title: pText.wallTileTitle,

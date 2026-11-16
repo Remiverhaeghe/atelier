@@ -92,4 +92,26 @@ void main() {
     expect(find.textContaining('Ouvrir les paquets trop tôt'), findsNothing);
     expect(find.text('Avant de commencer, les erreurs fréquentes'), findsOneWidget);
   });
+
+  testWidgets('avant de commencer : protections de la prochaine étape, cochées d\'un geste', (
+    pTester,
+  ) async {
+    tallScreen(pTester);
+    var vRoom = rectangleRoom().copyWith(doneSteps: const ['acclimatise']);
+    await pTester.pumpWidget(
+      StatefulBuilder(
+        builder: (pContext, pSetState) =>
+            localized(GuideView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom))),
+      ),
+    );
+
+    await scrollToFirst(pTester, find.text('Avant de commencer'));
+    expect(find.text('Masque FFP2'), findsOneWidget);
+    await pTester.tap(find.text('Genouillères'));
+    await pTester.pump();
+    expect(
+      pTester.widget<FilterChip>(find.widgetWithText(FilterChip, 'Genouillères')).selected,
+      isTrue,
+    );
+  });
 }

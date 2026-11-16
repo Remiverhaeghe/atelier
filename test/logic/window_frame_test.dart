@@ -59,4 +59,15 @@ void main() {
     expect(_roof('b', 1, 1, pPlexi: false).toJson().containsKey('plexi'), isFalse);
     expect(vBack.copyWith(plexi: false).plexi, isFalse);
   });
+
+  test('fenêtre de toit courante la plus proche et reprise du chevêtre', () {
+    // Plexi de 78 × 98 : la taille courante du même nom, 2 cm de jeu au chevêtre
+    expect(nearestRoofWindow(780, 980), (widthMm: 780, heightMm: 980, widenMm: 20, heightenMm: 20));
+    // Ouverture de 80 × 120 : 78 × 118 tient sans couper de chevron
+    final vMatch = nearestRoofWindow(800, 1200);
+    expect((vMatch.widthMm, vMatch.heightMm), (780, 1180));
+    expect((vMatch.widenMm, vMatch.heightenMm), (0, 0));
+    // Ouverture étroite de 50 × 75 : la plus petite, chevêtre à agrandir
+    expect(nearestRoofWindow(500, 750).widthMm, 550);
+  });
 }
