@@ -1,0 +1,51 @@
+# Format du plan exporté
+
+Atelier exporte le plan d'un chantier dans un fichier JSON, pour qu'une autre application (domotique, vue 3D) réutilise les mesures sans les ressaisir. Menu du chantier, « Exporter le plan ».
+
+Le format est versionné. Une évolution compatible (champ ajouté) garde la version ; une évolution incompatible l'augmente.
+
+## Version 1
+
+Toutes les longueurs sont en millimètres, les angles en degrés.
+
+```json
+{
+  "format": "atelier-plan",
+  "version": 1,
+  "units": "mm",
+  "name": "Maison",
+  "rooms": [
+    {
+      "id": "1731745200000000",
+      "name": "Salon",
+      "closed": true,
+      "ceilingHeight": 2500,
+      "floorArea": 15120000,
+      "outline": [[0, 0], [4200, 0], [4200, 3600], [0, 3600]],
+      "walls": [
+        {
+          "length": 4200,
+          "angleToNext": 90,
+          "openings": [
+            { "kind": "window", "offset": 1000, "width": 1200, "height": 1250, "sill": 900 }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+| Champ | Sens |
+|---|---|
+| `rooms` | Pièces qui ont au moins trois murs ; les zones sans murs (toit, extérieur) ne sont pas exportées |
+| `closed` | Le dernier mur rejoint le premier |
+| `ceilingHeight` | Hauteur sous plafond |
+| `floorArea` | Surface au sol en mm², zones sans parquet déduites |
+| `outline` | Un sommet par début de mur. Le premier mur part de l'origine vers les x croissants, la pièce est parcourue dans le sens inverse des aiguilles d'une montre, y vers le haut |
+| `walls[].angleToNext` | Angle intérieur avec le mur suivant : 90 pour un coin rentrant, 270 pour un coin sortant |
+| `openings[].kind` | `door`, `passage` ou `window` |
+| `openings[].offset` | Distance depuis le début du mur |
+| `openings[].sill` | Hauteur du bas de l'ouverture au-dessus du sol : 0 pour une porte |
+
+Chaque pièce a son propre repère : le format ne dit pas encore où les pièces se placent les unes par rapport aux autres. Ce sera l'objet du plan de la maison.

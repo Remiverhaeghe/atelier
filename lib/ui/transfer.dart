@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/house_export.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import '../storage/worksite_store.dart';
@@ -17,6 +18,15 @@ Future<void> exportWorksite(Worksite pWorksite) async {
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
   final vFile = File('${vFolder.path}/atelier_$vName.json');
   await vFile.writeAsString(WorksiteStore.encode([pWorksite]));
+  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+}
+
+/// Envoie le plan du chantier au format documenté (docs/format-plan.md), pour la domotique.
+Future<void> exportPlanFile(Worksite pWorksite) async {
+  final vFolder = await getTemporaryDirectory();
+  final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
+  final vFile = File('${vFolder.path}/plan_$vName.json');
+  await vFile.writeAsString(const JsonEncoder.withIndent('  ').convert(exportPlan(pWorksite)));
   await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
 }
 

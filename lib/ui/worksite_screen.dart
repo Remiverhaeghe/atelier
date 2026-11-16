@@ -93,6 +93,8 @@ class WorksiteScreen extends StatelessWidget {
                   switch (pAction) {
                     case 'export':
                       exportWorksite(vWorksite);
+                    case 'plan':
+                      exportPlanFile(vWorksite);
                     case 'guide':
                       controller.updateWorksite(
                         vWorksite.copyWith(showGuidance: !vWorksite.showGuidance),
@@ -101,6 +103,7 @@ class WorksiteScreen extends StatelessWidget {
                 },
                 itemBuilder: (_) => [
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
+                  PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
                   PopupMenuItem(
                     value: 'guide',
                     child: Text(vWorksite.showGuidance ? vText.guideHidden : vText.guideShown),
