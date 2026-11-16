@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import 'deck_calculator.dart';
+import 'conditions_calculator.dart';
 import 'drywall_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
@@ -79,6 +80,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.rentHelp,
       icon: Icons.handyman_outlined,
       builder: (_) => const RentBuyCalculator(),
+    ),
+    (
+      title: pText.conditionsTitle,
+      help: pText.conditionsHelp,
+      icon: Icons.thermostat_auto_outlined,
+      builder: (_) => const ConditionsCalculator(),
     ),
   ];
 
