@@ -25,7 +25,9 @@ void main() {
   });
 
   test('au-dessus de 3 m, deux profilés par montant ; sans laine, ni rouleau ni R', () {
-    final vNeeds = drywallNeeds(const DrywallDesign(heightMm: 3200, insulationMm: 0, studSpacingMm: 0));
+    final vNeeds = drywallNeeds(
+      const DrywallDesign(heightMm: 3200, insulationMm: 0, studSpacingMm: 0),
+    );
 
     expect(vNeeds.studs, 16);
     expect(vNeeds.insulationRolls, 0);

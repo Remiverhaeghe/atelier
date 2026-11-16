@@ -18,7 +18,10 @@ void main() {
     await pTester.pump();
     expect(find.text('8 plaques'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Épaisseur de laine (cm), 0 sans isolation'), '14');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Épaisseur de laine (cm), 0 sans isolation'),
+      '14',
+    );
     await pTester.pump();
     expect(find.textContaining('R = 4'), findsOneWidget);
   });
