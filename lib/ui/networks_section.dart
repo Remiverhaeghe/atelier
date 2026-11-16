@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/fixings.dart';
 import '../logic/hidden_networks.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
+import 'fixings_calculator.dart';
 import 'theme.dart';
 
 /// Couleurs habituelles des réseaux : jaune électricité, bleu eau, rouge gaz.
@@ -237,6 +239,8 @@ class _DrillDialogState extends State<_DrillDialog> {
   int _wall = 0;
   int? _along;
   int? _height;
+  WallSupport _support = WallSupport.drywall;
+  double _weight = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -292,10 +296,59 @@ class _DrillDialogState extends State<_DrillDialog> {
               if (vCheck.technicalZone) IconLine(AtelierIcons.warning, vText.netDrillZone),
               IconLine(Icons.sensors, vText.netDrillDetector),
             ],
+            // Une fois l'endroit sûr, la cheville qui tient dans ce mur
+            const Divider(),
+            DropdownButtonFormField<WallSupport>(
+              initialValue: _support,
+              decoration: InputDecoration(labelText: vText.fixingsSupport),
+              items: [
+                for (final vSupport in WallSupport.values)
+                  DropdownMenuItem(value: vSupport, child: Text(supportLabel(vText, vSupport))),
+              ],
+              onChanged: (pSupport) => setState(() => _support = pSupport!),
+            ),
+            TextField(
+              key: const ValueKey('drill-weight'),
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration(labelText: vText.drillWeight),
+              onChanged: (pText) => setState(() => _weight = parseDecimal(pText) ?? 0),
+            ),
+            if (_weight > 0) ...[
+              const SizedBox(height: 8),
+              _FixingLines(support: _support, weightKg: _weight),
+            ],
           ],
         ),
       ),
       actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(vText.close))],
+    );
+  }
+}
+
+/// Cheville, perçage et vis pour un objet de [weightKg] sur ce support.
+class _FixingLines extends StatelessWidget {
+  const _FixingLines({required this.support, required this.weightKg});
+
+  final WallSupport support;
+  final double weightKg;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vPoints = fixingPoints(weightKg, FixingLoad.medium);
+    final vAdvice = adviseFixing(support, loadFor(weightKg, vPoints));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconLine(Icons.hardware_outlined, plugLabel(vText, vAdvice.plug)),
+        IconLine(Icons.circle_outlined, vText.fixingsDrill(vAdvice.drillMm)),
+        IconLine(
+          Icons.settings_outlined,
+          vText.fixingsScrew(vAdvice.screwDiameterMm, vAdvice.screwLengthMm),
+        ),
+        IconLine(Icons.push_pin_outlined, vText.fixingsPoints(vPoints)),
+      ],
     );
   }
 }
