@@ -154,9 +154,7 @@ double _bandsArea(Room pRoom, List<(Slope, double)> pBands) {
   if (pBands.length == 2) {
     final (vFirst, vFirstDepth) = pBands.first;
     final (vSecond, vSecondDepth) = pBands.last;
-    rArea -= _polygonArea(
-      _clip(pRoom, _band(pRoom, vFirst, vFirstDepth), vSecond, vSecondDepth),
-    );
+    rArea -= _polygonArea(_clip(pRoom, _band(pRoom, vFirst, vFirstDepth), vSecond, vSecondDepth));
   }
 
   return rArea;
@@ -196,10 +194,7 @@ double? _depthAtHeight(Room pRoom, Slope pSlope, int pHeightMm) {
   if (pHeightMm <= pSlope.lowMm) {
     return null;
   }
-  final vShare = math.min(
-    (pHeightMm - pSlope.lowMm) / (pRoom.ceilingHeightMm - pSlope.lowMm),
-    1.0,
-  );
+  final vShare = math.min((pHeightMm - pSlope.lowMm) / (pRoom.ceilingHeightMm - pSlope.lowMm), 1.0);
 
   return pSlope.runMm * vShare;
 }
