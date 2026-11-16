@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Tests sur émulateur
+- Deux parcours de plus sur Android : chantier relu du téléphone jusqu'à sa surface habitable, sauvegarde du jour écrite à chaque enregistrement
+
 ### Plan plus fluide
 - Contour de chaque pièce calculé une seule fois au lieu de plusieurs par dessin
 - Lecture et écriture JSON de la pièce dans `room_json.dart`, séparées du modèle
