@@ -14,6 +14,7 @@ import 'level_screen.dart';
 import 'panel_calculator.dart';
 import 'plumbing_calculator.dart';
 import 'rent_buy_calculator.dart';
+import 'roofing_calculator.dart';
 import 'screed_calculator.dart';
 import 'shelf_calculator.dart';
 import 'tiling_calculator.dart';
@@ -109,6 +110,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.insulHelp,
       icon: Icons.texture,
       builder: (_) => InsulationCalculator(rooms: pRooms),
+    ),
+    (
+      title: pText.roofingTitle,
+      help: pText.roofingHelp,
+      icon: Icons.roofing,
+      builder: (_) => const RoofingCalculator(),
     ),
     (
       title: pText.wallTileTitle,
