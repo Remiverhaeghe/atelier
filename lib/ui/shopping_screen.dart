@@ -9,6 +9,7 @@ import '../state/worksites_controller.dart';
 import 'parquet_view.dart';
 import 'shopping_texts.dart';
 import 'worksite_pdf.dart';
+import 'theme.dart';
 
 /// Liste de courses du chantier, prix et total, envoi et impression.
 class ShoppingScreen extends StatelessWidget {
@@ -61,13 +62,18 @@ class ShoppingScreen extends StatelessWidget {
                   ),
                 )
               : ListView(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   children: [
-                    Text(
-                      vText.budgetTotal(formatEuros(budgetTotal(vLines))),
-                      style: Theme.of(pContext).textTheme.headlineSmall,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BigFigure(vText.budgetTotal(formatEuros(budgetTotal(vLines)))),
+                          if (budgetIncomplete(vLines)) Text(vText.budgetIncomplete),
+                        ],
+                      ),
                     ),
-                    if (budgetIncomplete(vLines)) Text(vText.budgetIncomplete),
                     for (final vLine in vLines)
                       Card(
                         child: Padding(

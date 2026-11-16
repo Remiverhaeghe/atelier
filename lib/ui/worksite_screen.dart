@@ -10,6 +10,7 @@ import 'room_screen.dart';
 import 'shopping_screen.dart';
 import 'shopping_texts.dart';
 import 'transfer.dart';
+import 'plan_thumbnail.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
@@ -90,18 +91,16 @@ class WorksiteScreen extends StatelessWidget {
             label: Text(vText.newRoom),
           ),
           body: vWorksite.rooms.isEmpty
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Text(vText.roomsEmpty, textAlign: TextAlign.center),
-                  ),
-                )
+              ? EmptyState(icon: Icons.square_foot, text: vText.roomsEmpty)
               : ListView(
+                  padding: const EdgeInsets.only(top: 8, bottom: 96),
                   children: [
                     for (final vRoom in vWorksite.rooms)
-                      ListTile(
-                        leading: const Icon(Icons.crop_square),
-                        title: Text(vRoom.name),
+                      Card(
+                        child: ListTile(
+                        contentPadding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
+                        leading: PlanThumbnail(room: vRoom, icon: Icons.square_foot),
+                        title: Text(vRoom.name, style: Theme.of(pContext).textTheme.titleMedium),
                         subtitle: Text(
                           [
                             vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom))),
@@ -119,6 +118,7 @@ class WorksiteScreen extends StatelessWidget {
                             }
                           },
                         ),
+                      ),
                       ),
                   ],
                 ),

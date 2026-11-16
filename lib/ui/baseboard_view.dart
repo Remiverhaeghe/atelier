@@ -8,6 +8,7 @@ import '../logic/units.dart';
 import 'dialogs.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
+import 'theme.dart';
 
 /// Texte d'une coupe de bout de plinthe.
 String cutLabel(AppLocalizations pText, EndCut pCut) => switch (pCut.kind) {
@@ -79,14 +80,14 @@ class _BaseboardViewState extends State<BaseboardView> {
       padding: const EdgeInsets.only(bottom: 96),
       children: [
         Card(
-          margin: const EdgeInsets.all(16),
+          margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(vText.resultsTitle, style: vTheme.textTheme.titleMedium),
-                Text(vText.bars(vBars.bars.length), style: vTheme.textTheme.headlineSmall),
+                BigFigure(vText.bars(vBars.bars.length)),
                 Text(vText.baseboardSummary(vPieces.length, formatDecimal(vTotal / 1000))),
                 if (vBars.tooLong.isNotEmpty)
                   Text(

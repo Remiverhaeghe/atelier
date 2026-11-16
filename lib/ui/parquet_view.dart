@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/parquet.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
+import 'theme.dart';
 
 /// Nom affiché d'un type de parquet.
 String parquetLabel(AppLocalizations pText, ParquetType pType) => switch (pType) {
@@ -170,7 +171,7 @@ class _ParquetResults extends StatelessWidget {
                 formatSquareMetres(vEstimate.areaWithWasteM2),
               ),
             ),
-            Text(vText.resultPacks(vEstimate.packs), style: vTheme.textTheme.headlineSmall),
+            BigFigure(vText.resultPacks(vEstimate.packs)),
             if (room.parquet.type == ParquetType.herringbone)
               Text(vText.resultLeftRight(vEstimate.leftPlanks, vEstimate.rightPlanks))
             else

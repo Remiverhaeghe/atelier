@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/laying_plan.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
+import 'laying_preview.dart';
 
 /// Plan de pose du parquet, rangée par rangée, à cocher au fur et à mesure.
 class LayingView extends StatelessWidget {
@@ -34,8 +35,15 @@ class LayingView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.only(bottom: 96),
       children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          child: LayingPreview(plan: vPlan, laidRows: room.laidRows),
+        ),
         ListTile(
-          title: Text(vText.layingSummary(vPlan.rows.length, vPlan.planksUsed)),
+          title: Text(
+            vText.layingSummary(vPlan.rows.length, vPlan.planksUsed),
+            style: vTheme.textTheme.titleMedium,
+          ),
           subtitle: Text(vText.layingHelp),
         ),
         Padding(
