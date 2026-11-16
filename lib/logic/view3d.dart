@@ -35,7 +35,9 @@ List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
   for (final vRoom in pRooms) {
     final vPoints = houseOutline(vRoom);
     final vHeight = vRoom.ceilingHeightMm.toDouble();
-    final vFloor = [for (final vPoint in vPoints.take(vRoom.walls.length)) (x: vPoint.x, y: vPoint.y, z: 0.0)];
+    final vFloor = [
+      for (final vPoint in vPoints.take(vRoom.walls.length)) (x: vPoint.x, y: vPoint.y, z: 0.0),
+    ];
     vFloors.add((corners: vFloor, depth: vDepth(vFloor), kind: FaceKind.floor));
     for (var vIndex = 0; vIndex < vRoom.walls.length; vIndex++) {
       final vStart = vPoints[vIndex];
