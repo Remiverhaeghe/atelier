@@ -197,7 +197,9 @@ class Worksite {
       for (final vEntry in (pJson['journal'] as List<Object?>?) ?? const [])
         JournalEntry.fromJson(vEntry! as Map<String, Object?>),
     ],
-    lessons: [for (final vLesson in (pJson['lessons'] as List<Object?>?) ?? const []) vLesson! as String],
+    lessons: [
+      for (final vLesson in (pJson['lessons'] as List<Object?>?) ?? const []) vLesson! as String,
+    ],
   );
 }
 
