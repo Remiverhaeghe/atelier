@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Ordre des travaux
+- Le planning signale une étape faite avant une étape qui aurait dû la précéder (parquet posé avant la peinture des murs), pour protéger ce qui est fini
+
 ### Météo des travaux extérieurs
 - Nouveau calcul : les prévisions recopiées jour par jour disent quels jours conviennent à une peinture de façade, un enduit, du béton, une lasure ou un travail sur le toit (froid, chaleur, pluie, gel après, vent)
 

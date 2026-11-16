@@ -72,3 +72,25 @@ List<PhaseState> roomPhases(Room pRoom) {
 
   return (next: vPhases[vIndex].phase, after: vIndex == 0 ? null : vPhases[vIndex - 1].phase);
 }
+
+/// Phase faite avant une phase qui aurait dû la précéder : du parquet posé avant la peinture
+/// des murs doit être protégé, des plinthes posées avant les reprises seront salies.
+typedef OrderProblem = ({WorkPhase done, WorkPhase pending});
+
+/// Inversions dans l'ordre des travaux de la pièce, une par phase faite trop tôt, avec la
+/// première phase d'avant encore à faire.
+List<OrderProblem> orderProblems(Room pRoom) {
+  final vPhases = roomPhases(pRoom);
+  final rProblems = <OrderProblem>[];
+  for (var vIndex = 0; vIndex < vPhases.length; vIndex++) {
+    if (!vPhases[vIndex].done) {
+      continue;
+    }
+    final vPending = vPhases.take(vIndex).where((pState) => !pState.done).firstOrNull;
+    if (vPending != null) {
+      rProblems.add((done: vPhases[vIndex].phase, pending: vPending.phase));
+    }
+  }
+
+  return rProblems;
+}
