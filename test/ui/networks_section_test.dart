@@ -52,6 +52,11 @@ void main() {
     await pTester.enterText(vDrill.at(1), '120');
     await pTester.pump();
     expect(find.textContaining('Aucun réseau relevé à moins de 10 cm'), findsOneWidget);
+    // Endroit sûr : la cheville suit le mur et le poids
+    expect(find.textContaining('points de fixation'), findsNothing);
+    await pTester.enterText(find.byKey(const ValueKey('drill-weight')), '10');
+    await pTester.pump();
+    expect(find.textContaining('points de fixation'), findsOneWidget);
     await pTester.tap(find.text('Fermer'));
     await pTester.pumpAndSettle();
 

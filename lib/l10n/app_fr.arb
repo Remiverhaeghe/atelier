@@ -2157,5 +2157,6 @@
   "@moistureTooWet": {"placeholders": {"percent": {"type": "String"}, "max": {"type": "String"}}},
   "moistureDays": "{days, plural, =1{Encore environ 1 jour au rythme actuel} other{Encore environ {days} jours au rythme actuel}}",
   "@moistureDays": {"placeholders": {"days": {"type": "int"}}},
-  "moistureHint": "Seuils courants pour un parquet : 2 % pour une chape ciment, 0,5 % pour une chape anhydrite, 7 à 11 % pour le bois. La notice du parquet et de la colle priment. Chauffer ou aérer accélère le séchage, sans chauffage au sol à fond les premières semaines."
+  "moistureHint": "Seuils courants pour un parquet : 2 % pour une chape ciment, 0,5 % pour une chape anhydrite, 7 à 11 % pour le bois. La notice du parquet et de la colle priment. Chauffer ou aérer accélère le séchage, sans chauffage au sol à fond les premières semaines.",
+  "drillWeight": "Poids de ce que vous accrochez (kg)"
 }
