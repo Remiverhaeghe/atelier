@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'app.dart';
 import 'state/worksites_controller.dart';
+import 'storage/backups.dart';
 import 'storage/worksite_store.dart';
 import 'support/crash_log.dart';
 
@@ -23,7 +24,10 @@ Future<void> main() async {
 
     return true;
   };
-  final vController = WorksitesController(WorksiteStore(File('${vFolder.path}/chantiers.json')));
-  runApp(AtelierApp(controller: vController, crashLog: vCrashLog));
+  final vBackups = Backups(Directory('${vFolder.path}/sauvegardes'));
+  final vController = WorksitesController(
+    WorksiteStore(File('${vFolder.path}/chantiers.json'), backups: vBackups),
+  );
+  runApp(AtelierApp(controller: vController, crashLog: vCrashLog, backups: vBackups));
   await vController.load();
 }
