@@ -48,5 +48,11 @@ Toutes les longueurs sont en millimètres, les angles en degrés.
 | `openings[].kind` | `door`, `passage` ou `window` |
 | `openings[].offset` | Distance depuis le début du mur |
 | `openings[].sill` | Hauteur du bas de l'ouverture au-dessus du sol : 0 pour une porte |
+| `fixtures[].kind` | `socket` (prise), `lightSwitch` (interrupteur), `stairs` (escalier), `mezzanine`, `roofWindow` (fenêtre de toit) |
+| `fixtures[].x`, `y` | Centre de l'élément, dans le repère de la pièce |
+| `fixtures[].width`, `depth` | Taille sur le plan, le long des x et des y, pour les éléments qui ont une surface |
+| `fixtures[].count` | Nombre de prises ou d'interrupteurs regroupés au même endroit, absent pour 1 |
+
+Le champ `fixtures` est apparu après la première publication du format : un lecteur de la version 1 doit le tolérer absent.
 
 Chaque pièce a son propre repère (`outline`) ; le champ `house` la place dans le plan de la maison, réglé dans Atelier par « Plan de la maison ».
