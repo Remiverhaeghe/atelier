@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Plan en DXF
+- Le menu du chantier exporte le plan de la maison en DXF : un calque par pièce, les murs en lignes et le nom de la pièce, en millimètres, pour un logiciel de dessin
+
 ### Annuler et refaire
 - Dans une pièce, deux boutons annulent ou refont les dernières modifications (30 étapes, une saisie rapide comptant pour une seule)
 
