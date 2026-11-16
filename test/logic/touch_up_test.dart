@@ -66,4 +66,24 @@ void main() {
     expect(touchUpPasses(vList), (done: 3, total: 6));
     expect(touchUpPurchases(vList), ['Pot de peinture']);
   });
+
+  test('les cercles de la photo se relisent, ramenés dans l\'image, et partent avec elle', () {
+    const vTouchUp = TouchUp(
+      id: 'p',
+      label: 'Coulure',
+      photoPath: '/p.jpg',
+      photoMarks: [(x: 0.25, y: 0.5)],
+    );
+    final vBack = TouchUp.fromJson({
+      ...vTouchUp.toJson(),
+      'photoMarks': [
+        [0.25, 0.5],
+        [1.4, -2],
+      ],
+    });
+
+    expect(vBack.photoMarks, [(x: 0.25, y: 0.5), (x: 1.0, y: 0.0)]);
+    expect(TouchUp.fromJson(vTouchUp.toJson()).photoMarks, vTouchUp.photoMarks);
+    expect(vTouchUp.copyWith(clearPhoto: true).photoMarks, isEmpty);
+  });
 }
