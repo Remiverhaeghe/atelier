@@ -9,20 +9,21 @@ typedef StoreTotal = ({String store, double total, int missing});
 /// Total de chaque magasin, complets d'abord puis du moins cher au plus cher.
 List<StoreTotal> storeTotals(List<ShoppingLine> pLines, Map<String, Map<String, double>> pPrices) {
   final vLines = pLines.where((pLine) => pLine.quantity > 0).toList();
-  final rTotals = [
-    for (final vEntry in pPrices.entries)
-      (
-        store: vEntry.key,
-        total: vLines.fold(
-          0.0,
-          (pSum, pLine) => pSum + (vEntry.value[pLine.item.name] ?? 0) * pLine.quantity,
-        ),
-        missing: vLines.where((pLine) => !vEntry.value.containsKey(pLine.item.name)).length,
-      ),
-  ]..sort((pA, pB) {
-      final vMissing = pA.missing.compareTo(pB.missing);
-      return vMissing != 0 ? vMissing : pA.total.compareTo(pB.total);
-    });
+  final rTotals =
+      [
+        for (final vEntry in pPrices.entries)
+          (
+            store: vEntry.key,
+            total: vLines.fold(
+              0.0,
+              (pSum, pLine) => pSum + (vEntry.value[pLine.item.name] ?? 0) * pLine.quantity,
+            ),
+            missing: vLines.where((pLine) => !vEntry.value.containsKey(pLine.item.name)).length,
+          ),
+      ]..sort((pA, pB) {
+        final vMissing = pA.missing.compareTo(pB.missing);
+        return vMissing != 0 ? vMissing : pA.total.compareTo(pB.total);
+      });
 
   return rTotals;
 }
