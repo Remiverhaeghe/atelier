@@ -27,15 +27,15 @@ IconData toolIcon(Tool pTool) => switch (pTool) {
   Tool.tapeMeasure => Icons.straighten,
   Tool.pencilSquare => Icons.edit_outlined,
   Tool.miterSaw => Icons.carpenter,
-  Tool.jigsaw => Icons.content_cut,
+  Tool.jigsaw => Icons.carpenter,
   Tool.spacers => Icons.space_bar,
-  Tool.tappingBlock => Icons.gavel,
-  Tool.pullBar => Icons.horizontal_rule,
-  Tool.notchedTrowel => Icons.format_paint_outlined,
-  Tool.nailer => Icons.hardware_outlined,
+  Tool.tappingBlock => Icons.hardware_outlined,
+  Tool.pullBar => Icons.keyboard_tab,
+  Tool.notchedTrowel => Icons.texture,
+  Tool.nailer => Icons.push_pin_outlined,
   Tool.chalkLine => Icons.timeline,
   Tool.caulkGun => Icons.colorize,
-  Tool.level => Icons.water_drop_outlined,
+  Tool.level => Icons.horizontal_rule,
 };
 
 String toolLabel(AppLocalizations pText, Tool pTool) => switch (pTool) {

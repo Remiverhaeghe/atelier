@@ -162,10 +162,7 @@ class _Summary extends StatelessWidget {
             BigFigure(vText.totalArea(formatSquareMetres(vArea))),
             IconLine(Icons.door_front_door_outlined, vText.roomCount(worksite.rooms.length)),
             if (worksite.prices.isNotEmpty)
-              IconLine(
-                Icons.euro,
-                vText.budgetTotal(formatEuros(budgetTotal(vLines))),
-              ),
+              IconLine(Icons.euro, vText.budgetTotal(formatEuros(budgetTotal(vLines)))),
             const SizedBox(height: 8),
             FilledButton.tonalIcon(
               onPressed: onShopping,
