@@ -51,6 +51,7 @@ void main() {
   });
 
   testWidgets('point de Hongrie : motif dessiné et façon de poser', (pTester) async {
+    tallScreen(pTester);
     final vRoom = rectangleRoom().copyWith(
       parquet: ParquetSettings.forType(ParquetType.herringbone),
     );
