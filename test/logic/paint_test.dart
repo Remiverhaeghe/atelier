@@ -8,10 +8,7 @@ import '../support/rooms.dart';
 Room paintedRoom(PaintSettings pSettings) => rectangleRoom().copyWith(
   paint: pSettings,
   walls: const [
-    Wall(
-      lengthMm: 4000,
-      openings: [Opening(kind: OpeningKind.door, offsetMm: 300, widthMm: 830)],
-    ),
+    Wall(lengthMm: 4000, openings: [Opening(kind: OpeningKind.door, offsetMm: 300, widthMm: 830)]),
     Wall(
       lengthMm: 3000,
       openings: [Opening(kind: OpeningKind.window, offsetMm: 900, widthMm: 1200)],
@@ -33,7 +30,10 @@ void main() {
   });
 
   test('litres : couches, rendement et marge, seulement les produits choisis', () {
-    final vOnlyWalls = paintLitres(paintedRoom(const PaintSettings(walls: true)), const PaintSettings(walls: true));
+    final vOnlyWalls = paintLitres(
+      paintedRoom(const PaintSettings(walls: true)),
+      const PaintSettings(walls: true),
+    );
     expect(vOnlyWalls.keys, [PaintProduct.walls]);
     expect(vOnlyWalls[PaintProduct.walls], closeTo(6.9975, 1e-3));
 
@@ -70,7 +70,13 @@ void main() {
     expect(vSupplies.rollers, 2);
     expect(vSupplies.dropCloths, 1);
     expect(vSupplies.tapeRolls, 1);
-    expect(paintSupplies(paintedRoom(const PaintSettings(walls: false)), const PaintSettings(walls: false)).rollers, 0);
+    expect(
+      paintSupplies(
+        paintedRoom(const PaintSettings(walls: false)),
+        const PaintSettings(walls: false),
+      ).rollers,
+      0,
+    );
   });
 
   test('réglages, hauteur et fenêtres se relisent depuis le JSON', () {

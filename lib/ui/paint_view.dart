@@ -11,12 +11,7 @@ import 'theme.dart';
 
 /// Peinture de la pièce : surfaces, litres, pots les moins chers et fournitures.
 class PaintView extends StatelessWidget {
-  const PaintView({
-    super.key,
-    required this.room,
-    required this.onChanged,
-    this.prices = const {},
-  });
+  const PaintView({super.key, required this.room, required this.onChanged, this.prices = const {}});
 
   final Room room;
   final ValueChanged<Room> onChanged;
@@ -36,13 +31,12 @@ class PaintView extends StatelessWidget {
         child: Padding(padding: const EdgeInsets.all(24), child: Text(vText.paintNeedsRoom)),
       );
     }
-    Widget vSwitch(String pLabel, bool pValue, ValueChanged<bool> pOnChanged) =>
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(pLabel),
-          value: pValue,
-          onChanged: pOnChanged,
-        );
+    Widget vSwitch(String pLabel, bool pValue, ValueChanged<bool> pOnChanged) => SwitchListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(pLabel),
+      value: pValue,
+      onChanged: pOnChanged,
+    );
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
@@ -143,7 +137,10 @@ class _PaintResults extends StatelessWidget {
             Text(vText.resultsTitle, style: vTheme.textTheme.titleMedium),
             BigFigure(vText.paintArea(formatDecimal(_round(vAreas.wallsM2)))),
             if (room.paint.ceiling)
-              IconLine(Icons.crop_free, vText.paintCeilingArea(formatDecimal(_round(vAreas.ceilingM2)))),
+              IconLine(
+                Icons.crop_free,
+                vText.paintCeilingArea(formatDecimal(_round(vAreas.ceilingM2))),
+              ),
             if (room.paint.woodwork)
               IconLine(
                 Icons.door_front_door_outlined,
