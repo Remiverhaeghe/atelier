@@ -155,7 +155,9 @@ void main() {
     expect(find.text('1 endroit entouré sur la photo'), findsOneWidget);
   });
 
-  testWidgets('relevé thermique d\'une pièce à plexis : rappel et cadre à préparer', (pTester) async {
+  testWidgets('relevé thermique d\'une pièce à plexis : rappel et cadre à préparer', (
+    pTester,
+  ) async {
     tallScreen(pTester);
     await pumpView(
       pTester,
