@@ -113,6 +113,11 @@ Map<String, Object?> exportHomeAssistant(Worksite pWorksite) {
           if (vRoom.walls.length >= 3) 'area_m2': (floorAreaM2(vRoom) * 100).round() / 100,
           'sockets': fixtureCount(vRoom.fixtures, FixtureKind.socket),
           'switches': fixtureCount(vRoom.fixtures, FixtureKind.lightSwitch),
+          if (vRoom.furniture.isNotEmpty)
+            'furniture': [
+              for (final vItem in vRoom.furniture)
+                {'kind': vItem.kind.name, 'width': vItem.widthMm, 'depth': vItem.depthMm},
+            ],
         },
     ],
   };

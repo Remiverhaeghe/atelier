@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:atelier/logic/fixtures.dart';
+import 'package:atelier/logic/furniture.dart';
 import 'package:atelier/logic/home_assistant.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/worksite.dart';
@@ -34,6 +35,16 @@ void main() {
               Fixture(id: 'p', kind: FixtureKind.socket, xMm: 0, yMm: 0, count: 2),
               Fixture(id: 'i', kind: FixtureKind.lightSwitch, xMm: 0, yMm: 0),
             ],
+            furniture: const [
+              Furniture(
+                id: 'm',
+                kind: FurnitureKind.sofa,
+                xMm: 1500,
+                yMm: 1000,
+                widthMm: 2200,
+                depthMm: 900,
+              ),
+            ],
           ),
           rectangleRoom().copyWith(level: 1),
           const Room(id: 'cave', name: 'Cave', level: -2),
@@ -56,6 +67,10 @@ void main() {
     expect(vAreas[1]['floor_id'], 'niveau_1');
     expect(vAreas.last.containsKey('area_m2'), isFalse);
     expect(vAreas.last['icon'], 'mdi:stairs-down');
+    expect(vAreas.first['furniture'], [
+      {'kind': 'sofa', 'width': 2200, 'depth': 900},
+    ]);
+    expect(vAreas[1].containsKey('furniture'), isFalse);
   });
 
   test('noms d\'étages au-delà du premier', () {
