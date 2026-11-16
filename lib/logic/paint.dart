@@ -34,6 +34,9 @@ class PaintSettings {
     this.woodworkCoverageM2PerL = 12,
     this.primerCoverageM2PerL = 10,
     this.extraPercent = 10,
+    this.wallColor,
+    this.ceilingColor,
+    this.woodworkColor,
   });
 
   final bool walls;
@@ -53,6 +56,11 @@ class PaintSettings {
   /// Marge pour les retouches et les surfaces qui boivent : toujours prévoir un peu plus.
   final int extraPercent;
 
+  /// Couleurs choisies, en 0xRRGGBB ; absentes tant qu'on n'a rien choisi.
+  final int? wallColor;
+  final int? ceilingColor;
+  final int? woodworkColor;
+
   PaintSettings copyWith({
     bool? walls,
     bool? ceiling,
@@ -64,6 +72,9 @@ class PaintSettings {
     double? woodworkCoverageM2PerL,
     double? primerCoverageM2PerL,
     int? extraPercent,
+    int? wallColor,
+    int? ceilingColor,
+    int? woodworkColor,
   }) => PaintSettings(
     walls: walls ?? this.walls,
     ceiling: ceiling ?? this.ceiling,
@@ -75,6 +86,9 @@ class PaintSettings {
     woodworkCoverageM2PerL: woodworkCoverageM2PerL ?? this.woodworkCoverageM2PerL,
     primerCoverageM2PerL: primerCoverageM2PerL ?? this.primerCoverageM2PerL,
     extraPercent: extraPercent ?? this.extraPercent,
+    wallColor: wallColor ?? this.wallColor,
+    ceilingColor: ceilingColor ?? this.ceilingColor,
+    woodworkColor: woodworkColor ?? this.woodworkColor,
   );
 
   Map<String, Object?> toJson() => {
@@ -88,6 +102,9 @@ class PaintSettings {
     'woodworkCoverageM2PerL': woodworkCoverageM2PerL,
     'primerCoverageM2PerL': primerCoverageM2PerL,
     'extraPercent': extraPercent,
+    if (wallColor != null) 'wallColor': wallColor,
+    if (ceilingColor != null) 'ceilingColor': ceilingColor,
+    if (woodworkColor != null) 'woodworkColor': woodworkColor,
   };
 
   static PaintSettings fromJson(Map<String, Object?> pJson) {
@@ -104,6 +121,9 @@ class PaintSettings {
       woodworkCoverageM2PerL: vDouble('woodworkCoverageM2PerL', vBase.woodworkCoverageM2PerL),
       primerCoverageM2PerL: vDouble('primerCoverageM2PerL', vBase.primerCoverageM2PerL),
       extraPercent: (pJson['extraPercent'] as int?) ?? vBase.extraPercent,
+      wallColor: pJson['wallColor'] as int?,
+      ceilingColor: pJson['ceilingColor'] as int?,
+      woodworkColor: pJson['woodworkColor'] as int?,
     );
 
     return rSettings;

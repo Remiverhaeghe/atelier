@@ -65,4 +65,29 @@ void main() {
 
     expect(find.text('Peinture murs : 7,7 L, soit 2 × 5 L'), findsOneWidget);
   });
+
+  testWidgets('couleurs : murs choisis, puis accords proposés pour le plafond', (pTester) async {
+    tallScreen(pTester);
+    var vRoom = rectangleRoom().copyWith(paint: const PaintSettings(walls: true, ceiling: true));
+    await pTester.pumpWidget(
+      StatefulBuilder(
+        builder: (pContext, pSetState) => localized(
+          PaintView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom)),
+        ),
+      ),
+    );
+
+    await pTester.tap(find.text('Pas encore choisie').first);
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.bySemanticsLabel('#A7B8A0'));
+    await pTester.pumpAndSettle();
+    expect(vRoom.paint.wallColor, 0xA7B8A0);
+
+    await pTester.tap(find.text('Pas encore choisie').first);
+    await pTester.pumpAndSettle();
+    expect(find.text('Même teinte très claire, pour le plafond'), findsOneWidget);
+    await pTester.tap(find.bySemanticsLabel('#F3EFE6'));
+    await pTester.pumpAndSettle();
+    expect(vRoom.paint.ceilingColor, 0xF3EFE6);
+  });
 }

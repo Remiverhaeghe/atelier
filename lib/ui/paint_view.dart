@@ -6,6 +6,7 @@ import '../logic/planning.dart';
 import '../logic/room.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
+import 'color_picker.dart';
 import 'parquet_view.dart';
 import 'shopping_texts.dart';
 import 'theme.dart';
@@ -117,6 +118,8 @@ class PaintView extends StatelessWidget {
                 },
               ),
         ],
+        const SizedBox(height: 12),
+        ColorSection(settings: vSettings, onChanged: _update),
         NumberField(
           label: vText.paintExtra,
           initial: '${vSettings.extraPercent}',
