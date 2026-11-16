@@ -45,12 +45,10 @@ void main() {
     );
     final vBack = Worksite.fromJson(vWorksite.toJson()).journal.single;
 
-    expect((vBack.reference, vBack.cost, vBack.photoPath, vBack.invoicePath), (
-      'TEINTE-0412',
-      120.0,
-      '/p.jpg',
-      '/f.jpg',
-    ));
+    expect(
+      (vBack.reference, vBack.cost, vBack.photoPath, vBack.invoicePath),
+      ('TEINTE-0412', 120.0, '/p.jpg', '/f.jpg'),
+    );
     final vBare = JournalEntry.fromJson(_entries[1].toJson());
     expect((vBare.product, vBare.note, vBare.photoPath), ('', '', null));
     expect(const Worksite(id: 'w', name: 'M').toJson().containsKey('journal'), isFalse);

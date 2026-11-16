@@ -78,10 +78,8 @@ List<JournalEntry> journalOf(List<JournalEntry> pEntries, {String? pRoomId}) => 
 ]..sort((pA, pB) => pB.day.compareTo(pA.day));
 
 /// Coût total noté, pour une pièce ou toute la maison.
-double journalCost(List<JournalEntry> pEntries, {String? pRoomId}) => journalOf(
-  pEntries,
-  pRoomId: pRoomId,
-).fold(0.0, (pSum, pEntry) => pSum + (pEntry.cost ?? 0));
+double journalCost(List<JournalEntry> pEntries, {String? pRoomId}) =>
+    journalOf(pEntries, pRoomId: pRoomId).fold(0.0, (pSum, pEntry) => pSum + (pEntry.cost ?? 0));
 
 /// Dernière référence notée pour un produit qui contient [pSearch] (« blanc », « Velux ») :
 /// celle à racheter pour une retouche.
