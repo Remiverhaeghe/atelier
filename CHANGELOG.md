@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Sol souple et moquette
+- Nouveau calcul : lés selon la largeur du rouleau et le raccord du motif, sens de pose qui économise le plus, joints, colle ; dimensions reprises d'une pièce
+
 ### Ordre des travaux
 - Le planning signale une étape faite avant une étape qui aurait dû la précéder (parquet posé avant la peinture des murs), pour protéger ce qui est fini
 
