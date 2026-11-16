@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/home_assistant.dart';
 import '../logic/house_export.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
@@ -27,6 +28,17 @@ Future<void> exportPlanFile(Worksite pWorksite) async {
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
   final vFile = File('${vFolder.path}/plan_$vName.json');
   await vFile.writeAsString(const JsonEncoder.withIndent('  ').convert(exportPlan(pWorksite)));
+  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+}
+
+/// Étages et pièces pour Home Assistant, partagés comme fichier JSON (voir docs/home-assistant.md).
+Future<void> exportHomeAssistantFile(Worksite pWorksite) async {
+  final vFolder = await getTemporaryDirectory();
+  final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
+  final vFile = File('${vFolder.path}/home_assistant_$vName.json');
+  await vFile.writeAsString(
+    const JsonEncoder.withIndent('  ').convert(exportHomeAssistant(pWorksite)),
+  );
   await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
 }
 

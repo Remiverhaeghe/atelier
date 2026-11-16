@@ -1373,5 +1373,6 @@
   "offcutUseRow": "{room}, rangée {row}",
   "@offcutUseRow": {"placeholders": {"room": {"type": "String"}, "row": {"type": "int"}}},
   "offcutUseWall": "{room}, plinthe du mur {wall}",
-  "@offcutUseWall": {"placeholders": {"room": {"type": "String"}, "wall": {"type": "int"}}}
+  "@offcutUseWall": {"placeholders": {"room": {"type": "String"}, "wall": {"type": "int"}}},
+  "exportHomeAssistant": "Exporter pour Home Assistant"
 }
