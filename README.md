@@ -10,7 +10,7 @@ Tout reste sur le téléphone, sans compte ni connexion.
 |---|---|---|
 | 0 | Squelette, CI, APK | fait |
 | 1 | Saisie d'une pièce mur par mur, plan | fait |
-| 2 | Parquet : surface, paquets, rangées, sous-couche | à venir |
+| 2 | Parquet : surface, paquets, rangées, sous-couche | fait |
 | 3 | Parquet : plan de pose rangée par rangée | à venir |
 | 4 | Plinthes : angles et liste des coupes | à venir |
 | 5 | Plinthes : optimisation des barres | à venir |
