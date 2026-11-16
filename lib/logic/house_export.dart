@@ -18,7 +18,8 @@ Map<String, Object?> exportPlan(Worksite pWorksite) => {
   'units': 'mm',
   'name': pWorksite.name,
   'rooms': [
-    for (final vRoom in pWorksite.rooms.where((pRoom) => pRoom.walls.length >= 3)) _room(vRoom, pWorksite.rooms),
+    for (final vRoom in pWorksite.rooms.where((pRoom) => pRoom.walls.length >= 3))
+      _room(vRoom, pWorksite.rooms),
   ],
 };
 

@@ -66,7 +66,9 @@ const floorThicknessMm = 200;
 
 /// Hauteur d'étage : plus haut plafond du niveau, 2,50 m s'il est vide, plus le plancher.
 int _storeyMm(List<Room> pRooms, int pLevel) {
-  final vHeights = pRooms.where((pRoom) => pRoom.level == pLevel).map((pRoom) => pRoom.ceilingHeightMm);
+  final vHeights = pRooms
+      .where((pRoom) => pRoom.level == pLevel)
+      .map((pRoom) => pRoom.ceilingHeightMm);
   final rStorey = (vHeights.isEmpty ? 2500 : vHeights.reduce(math.max)) + floorThicknessMm;
 
   return rStorey;
