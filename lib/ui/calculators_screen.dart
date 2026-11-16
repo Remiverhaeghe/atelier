@@ -6,6 +6,7 @@ import 'drywall_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
 import 'plumbing_calculator.dart';
+import 'rent_buy_calculator.dart';
 import 'shelf_calculator.dart';
 import 'tiling_calculator.dart';
 import 'wardrobe_calculator.dart';
@@ -72,6 +73,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.weldingHelp,
       icon: Icons.local_fire_department_outlined,
       builder: (_) => const WeldingCalculator(),
+    ),
+    (
+      title: pText.rentTitle,
+      help: pText.rentHelp,
+      icon: Icons.handyman_outlined,
+      builder: (_) => const RentBuyCalculator(),
     ),
   ];
 
