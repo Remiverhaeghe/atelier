@@ -88,16 +88,20 @@ class _BaseboardViewState extends State<BaseboardView> {
               children: [
                 Text(vText.resultsTitle, style: vTheme.textTheme.titleMedium),
                 BigFigure(vText.bars(vBars.bars.length)),
-                Text(vText.baseboardSummary(vPieces.length, formatDecimal(vTotal / 1000))),
+                IconLine(
+                  AtelierIcons.length,
+                  vText.baseboardSummary(vPieces.length, formatDecimal(vTotal / 1000)),
+                ),
                 if (vBars.tooLong.isNotEmpty)
-                  Text(
+                  IconLine(
+                    AtelierIcons.warning,
                     vText.tooLongPieces(vBars.tooLong.length),
-                    style: TextStyle(color: vTheme.colorScheme.error),
+                    color: vTheme.colorScheme.error,
                   ),
                 if (vSettings.fixing == BaseboardFixing.glued)
-                  Text(vText.cartridges(vNeeds.cartridges))
+                  IconLine(AtelierIcons.glue, vText.cartridges(vNeeds.cartridges))
                 else
-                  Text(vText.fixingPoints(vNeeds.points)),
+                  IconLine(AtelierIcons.nails, vText.fixingPoints(vNeeds.points)),
               ],
             ),
           ),

@@ -121,10 +121,10 @@ ThemeData atelierTheme(Brightness pBrightness) {
       backgroundColor: vScheme.surface,
       foregroundColor: vScheme.onSurface,
       scrolledUnderElevation: 0,
-      titleTextStyle: vTitle(vText.titleLarge, FontWeight.w600).copyWith(
-        fontSize: 24,
-        color: vScheme.onSurface,
-      ),
+      titleTextStyle: vTitle(
+        vText.titleLarge,
+        FontWeight.w600,
+      ).copyWith(fontSize: 24, color: vScheme.onSurface),
     ),
     cardTheme: CardThemeData(
       elevation: 0,
@@ -192,4 +192,47 @@ class BigFigure extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Ligne de résultat précédée de son icône, pour lire la liste d'un coup d'œil.
+class IconLine extends StatelessWidget {
+  const IconLine(this.icon, this.text, {super.key, this.color});
+
+  final IconData icon;
+  final String text;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final vColors = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: color ?? vColors.primary),
+          const SizedBox(width: 10),
+          Expanded(child: Text(text, style: TextStyle(color: color))),
+        ],
+      ),
+    );
+  }
+}
+
+/// Icônes communes aux onglets, aux résultats et aux listes.
+abstract final class AtelierIcons {
+  static const room = Icons.square_foot;
+  static const parquet = Icons.table_rows_outlined;
+  static const laying = Icons.format_list_numbered;
+  static const baseboard = Icons.content_cut;
+  static const guide = Icons.menu_book_outlined;
+  static const area = Icons.crop_free;
+  static const planks = Icons.view_stream_outlined;
+  static const underlay = Icons.layers_outlined;
+  static const glue = Icons.format_color_fill;
+  static const nails = Icons.hardware_outlined;
+  static const rows = Icons.align_vertical_bottom;
+  static const length = Icons.straighten;
+  static const warning = Icons.warning_amber;
 }

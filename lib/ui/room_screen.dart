@@ -11,6 +11,7 @@ import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
+import 'theme.dart';
 
 /// Une pièce : plan, murs et obstacles.
 class RoomScreen extends StatelessWidget {
@@ -61,11 +62,11 @@ class RoomScreen extends StatelessWidget {
               bottom: TabBar(
                 isScrollable: true,
                 tabs: [
-                  Tab(text: vText.tabRoom),
-                  Tab(text: vText.tabParquet),
-                  Tab(text: vText.tabLaying),
-                  Tab(text: vText.tabBaseboard),
-                  if (vGuide) Tab(text: vText.tabGuide),
+                  Tab(icon: const Icon(AtelierIcons.room), text: vText.tabRoom),
+                  Tab(icon: const Icon(AtelierIcons.parquet), text: vText.tabParquet),
+                  Tab(icon: const Icon(AtelierIcons.laying), text: vText.tabLaying),
+                  Tab(icon: const Icon(AtelierIcons.baseboard), text: vText.tabBaseboard),
+                  if (vGuide) Tab(icon: const Icon(AtelierIcons.guide), text: vText.tabGuide),
                 ],
               ),
             ),

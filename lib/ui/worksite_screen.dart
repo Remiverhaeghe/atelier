@@ -98,27 +98,27 @@ class WorksiteScreen extends StatelessWidget {
                     for (final vRoom in vWorksite.rooms)
                       Card(
                         child: ListTile(
-                        contentPadding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
-                        leading: PlanThumbnail(room: vRoom, icon: Icons.square_foot),
-                        title: Text(vRoom.name, style: Theme.of(pContext).textTheme.titleMedium),
-                        subtitle: Text(
-                          [
-                            vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom))),
-                            if (vWorksite.prices.isNotEmpty)
-                              vText.roomCost(formatEuros(roomCost(vRoom, vWorksite.prices))),
-                          ].join(' · '),
+                          contentPadding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
+                          leading: PlanThumbnail(room: vRoom, icon: Icons.square_foot),
+                          title: Text(vRoom.name, style: Theme.of(pContext).textTheme.titleMedium),
+                          subtitle: Text(
+                            [
+                              vText.areaSummary(formatSquareMetres(floorAreaM2(vRoom))),
+                              if (vWorksite.prices.isNotEmpty)
+                                vText.roomCost(formatEuros(roomCost(vRoom, vWorksite.prices))),
+                            ].join(' · '),
+                          ),
+                          onTap: () => _open(pContext, vRoom.id),
+                          trailing: IconButton(
+                            tooltip: vText.delete,
+                            icon: const Icon(Icons.delete_outline),
+                            onPressed: () async {
+                              if (await confirmDelete(pContext, vRoom.name)) {
+                                await controller.deleteRoom(worksiteId, vRoom.id);
+                              }
+                            },
+                          ),
                         ),
-                        onTap: () => _open(pContext, vRoom.id),
-                        trailing: IconButton(
-                          tooltip: vText.delete,
-                          icon: const Icon(Icons.delete_outline),
-                          onPressed: () async {
-                            if (await confirmDelete(pContext, vRoom.name)) {
-                              await controller.deleteRoom(worksiteId, vRoom.id);
-                            }
-                          },
-                        ),
-                      ),
                       ),
                   ],
                 ),

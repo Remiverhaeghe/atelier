@@ -79,38 +79,38 @@ class WorksitesScreen extends StatelessWidget {
               for (final vWorksite in controller.worksites)
                 Card(
                   child: ListTile(
-                  contentPadding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
-                  leading: PlanThumbnail(
-                    room: vWorksite.rooms.isEmpty ? null : vWorksite.rooms.first,
-                    icon: Icons.home_work_outlined,
-                  ),
-                  title: Text(vWorksite.name, style: Theme.of(pContext).textTheme.titleMedium),
-                  subtitle: Text(
-                    [
-                      vText.roomCount(vWorksite.rooms.length),
-                      if (vWorksite.rooms.isNotEmpty)
-                        formatSquareMetres(
-                          vWorksite.rooms.fold(0.0, (pSum, pRoom) => pSum + floorAreaM2(pRoom)),
-                        ),
-                    ].join(' · '),
-                  ),
-                  onTap: () => Navigator.push(
-                    pContext,
-                    MaterialPageRoute<void>(
-                      builder: (_) =>
-                          WorksiteScreen(controller: controller, worksiteId: vWorksite.id),
+                    contentPadding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
+                    leading: PlanThumbnail(
+                      room: vWorksite.rooms.isEmpty ? null : vWorksite.rooms.first,
+                      icon: Icons.home_work_outlined,
+                    ),
+                    title: Text(vWorksite.name, style: Theme.of(pContext).textTheme.titleMedium),
+                    subtitle: Text(
+                      [
+                        vText.roomCount(vWorksite.rooms.length),
+                        if (vWorksite.rooms.isNotEmpty)
+                          formatSquareMetres(
+                            vWorksite.rooms.fold(0.0, (pSum, pRoom) => pSum + floorAreaM2(pRoom)),
+                          ),
+                      ].join(' · '),
+                    ),
+                    onTap: () => Navigator.push(
+                      pContext,
+                      MaterialPageRoute<void>(
+                        builder: (_) =>
+                            WorksiteScreen(controller: controller, worksiteId: vWorksite.id),
+                      ),
+                    ),
+                    trailing: IconButton(
+                      tooltip: vText.delete,
+                      icon: const Icon(Icons.delete_outline),
+                      onPressed: () async {
+                        if (await confirmDelete(pContext, vWorksite.name)) {
+                          await controller.deleteWorksite(vWorksite.id);
+                        }
+                      },
                     ),
                   ),
-                  trailing: IconButton(
-                    tooltip: vText.delete,
-                    icon: const Icon(Icons.delete_outline),
-                    onPressed: () async {
-                      if (await confirmDelete(pContext, vWorksite.name)) {
-                        await controller.deleteWorksite(vWorksite.id);
-                      }
-                    },
-                  ),
-                ),
                 ),
             ],
           );
