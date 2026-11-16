@@ -12,13 +12,10 @@ void main() {
     expect(vPlan.panels, hasLength(1));
     final vParts = vPlan.panels.single.parts;
     expect(vParts, hasLength(5));
-    expect([for (final vPart in vParts) (vPart.xMm, vPart.yMm)], [
-      (0, 0),
-      (803, 0),
-      (1606, 0),
-      (0, 403),
-      (603, 403),
-    ]);
+    expect(
+      [for (final vPart in vParts) (vPart.xMm, vPart.yMm)],
+      [(0, 0), (803, 0), (1606, 0), (0, 403), (603, 403)],
+    );
     expect(vPlan.wasteShare, closeTo(1 - 1.36 / 3.125, 1e-9));
   });
 
