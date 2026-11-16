@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
+import '../storage/backups.dart';
 import '../support/crash_log.dart';
 import 'about_screen.dart';
 import 'dialogs.dart';
@@ -14,10 +15,11 @@ import 'worksite_screen.dart';
 
 /// Liste des chantiers.
 class WorksitesScreen extends StatelessWidget {
-  const WorksitesScreen({super.key, required this.controller, this.crashLog});
+  const WorksitesScreen({super.key, required this.controller, this.crashLog, this.backups});
 
   final WorksitesController controller;
   final CrashLog? crashLog;
+  final Backups? backups;
 
   Future<void> _create(BuildContext pContext) async {
     final vText = AppLocalizations.of(pContext);
@@ -62,7 +64,7 @@ class WorksitesScreen extends StatelessWidget {
             icon: const Icon(Icons.info_outline),
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute<void>(builder: (_) => AboutScreen(crashLog: crashLog)),
+              MaterialPageRoute<void>(builder: (_) => AboutScreen(crashLog: crashLog, backups: backups, controller: controller)),
             ),
           ),
         ],
