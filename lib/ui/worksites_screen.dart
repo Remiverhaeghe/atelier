@@ -7,6 +7,7 @@ import '../state/worksites_controller.dart';
 import '../storage/backups.dart';
 import '../support/crash_log.dart';
 import 'about_screen.dart';
+import 'calculators_screen.dart';
 import 'dialogs.dart';
 import 'plan_thumbnail.dart';
 import 'tips_screen.dart';
@@ -50,6 +51,14 @@ class WorksitesScreen extends StatelessWidget {
             tooltip: vText.importWorksites,
             icon: const Icon(Icons.file_open_outlined),
             onPressed: () => importWorksites(context, controller),
+          ),
+          IconButton(
+            tooltip: vText.calculatorsTitle,
+            icon: const Icon(Icons.calculate_outlined),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(builder: (_) => const CalculatorsScreen()),
+            ),
           ),
           IconButton(
             tooltip: vText.tipsTitle,
