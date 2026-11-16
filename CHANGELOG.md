@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Plan plus fluide
+- Contour de chaque pièce calculé une seule fois au lieu de plusieurs par dessin
+- Lecture et écriture JSON de la pièce dans `room_json.dart`, séparées du modèle
+
 ### Calculs reliés aux pièces
 - Isolation, ragréage et faïence proposent « Reprendre d'une pièce » : rampants, murs, combles ou sol pour l'isolation, sol pour le ragréage, mur avec sa hauteur et sa fenêtre pour la faïence
 
