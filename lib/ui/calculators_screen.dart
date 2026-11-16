@@ -9,6 +9,7 @@ import 'conditions_calculator.dart';
 import 'door_calculator.dart';
 import 'drywall_calculator.dart';
 import 'acoustics_calculator.dart';
+import 'blown_insulation_calculator.dart';
 import 'concrete_calculator.dart';
 import 'debris_calculator.dart';
 import 'diy_calculator.dart';
@@ -132,6 +133,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.doorHelp,
       icon: Icons.door_front_door_outlined,
       builder: (_) => const DoorCalculator(),
+    ),
+    (
+      title: pText.blownTitle,
+      help: pText.blownHelp,
+      icon: Icons.air,
+      builder: (_) => const BlownInsulationCalculator(),
     ),
     (
       title: pText.gutterTitle,
