@@ -44,11 +44,10 @@ void main() {
     expect(vExport['format'], 'atelier-home-assistant');
 
     final vFloors = vExport['floors']! as List;
-    expect([for (final vFloor in vFloors) (vFloor as Map)['name']], [
-      'Sous-sol 2',
-      'Rez-de-chaussée',
-      '1er étage',
-    ]);
+    expect(
+      [for (final vFloor in vFloors) (vFloor as Map)['name']],
+      ['Sous-sol 2', 'Rez-de-chaussée', '1er étage'],
+    );
     final vAreas = [for (final vArea in vExport['areas']! as List) vArea as Map<String, Object?>];
     expect([for (final vArea in vAreas) vArea['area_id']], ['salon', 'salon_2', 'cave']);
     expect(vAreas.first['sockets'], 2);
@@ -61,7 +60,11 @@ void main() {
 
   test('noms d\'étages au-delà du premier', () {
     final vExport = exportHomeAssistant(
-      Worksite(id: 'w', name: 'Tour', rooms: [rectangleRoom().copyWith(level: 3), rectangleRoom().copyWith(level: -1)]),
+      Worksite(
+        id: 'w',
+        name: 'Tour',
+        rooms: [rectangleRoom().copyWith(level: 3), rectangleRoom().copyWith(level: -1)],
+      ),
     );
     final vNames = [for (final vFloor in vExport['floors']! as List) (vFloor as Map)['name']];
     expect(vNames, ['Sous-sol', 'Rez-de-chaussée', '3e étage']);

@@ -14,14 +14,27 @@ const homeAssistantVersion = 1;
 /// Identifiant à la manière de Home Assistant : minuscules sans accent, mots reliés par « _ ».
 String haSlug(String pName) {
   const vAccents = {
-    'à': 'a', 'â': 'a', 'ä': 'a', 'ç': 'c', 'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
-    'î': 'i', 'ï': 'i', 'ô': 'o', 'ö': 'o', 'ù': 'u', 'û': 'u', 'ü': 'u', 'ÿ': 'y',
-    'œ': 'oe', 'æ': 'ae',
+    'à': 'a',
+    'â': 'a',
+    'ä': 'a',
+    'ç': 'c',
+    'é': 'e',
+    'è': 'e',
+    'ê': 'e',
+    'ë': 'e',
+    'î': 'i',
+    'ï': 'i',
+    'ô': 'o',
+    'ö': 'o',
+    'ù': 'u',
+    'û': 'u',
+    'ü': 'u',
+    'ÿ': 'y',
+    'œ': 'oe',
+    'æ': 'ae',
   };
   final vPlain = pName.toLowerCase().split('').map((pChar) => vAccents[pChar] ?? pChar).join();
-  final rSlug = vPlain
-      .replaceAll(RegExp('[^a-z0-9]+'), '_')
-      .replaceAll(RegExp(r'^_+|_+$'), '');
+  final rSlug = vPlain.replaceAll(RegExp('[^a-z0-9]+'), '_').replaceAll(RegExp(r'^_+|_+$'), '');
 
   return rSlug.isEmpty ? 'piece' : rSlug;
 }
