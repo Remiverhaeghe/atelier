@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Export 3D
+- « Exporter la maison en 3D (glTF) » : sols, murs, portes et fenêtres, étages empilés, en mètres
+- Fichier .gltf autonome, lisible par Blender, Sweet Home 3D (après conversion) ou un visualiseur web
+
 ### Export Home Assistant
 - « Exporter pour Home Assistant » dans le menu du chantier : étages et zones à recréer, avec icône, surface, prises et interrupteurs
 - Format décrit dans `docs/home-assistant.md`

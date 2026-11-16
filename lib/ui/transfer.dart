@@ -7,7 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/gltf.dart';
 import '../logic/home_assistant.dart';
+import '../logic/house.dart';
 import '../logic/house_export.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
@@ -39,6 +41,15 @@ Future<void> exportHomeAssistantFile(Worksite pWorksite) async {
   await vFile.writeAsString(
     const JsonEncoder.withIndent('  ').convert(exportHomeAssistant(pWorksite)),
   );
+  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+}
+
+/// Maison en 3D au format glTF, partagée comme fichier .gltf (Blender, visualiseurs web).
+Future<void> exportGltfFile(Worksite pWorksite) async {
+  final vFolder = await getTemporaryDirectory();
+  final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
+  final vFile = File('${vFolder.path}/maison_$vName.gltf');
+  await vFile.writeAsString(jsonEncode(buildGltf(houseRooms(pWorksite))));
   await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
 }
 
