@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 117. **Liste de courses en texte simple** à envoyer par SMS.
 - 118. **Météo des travaux extérieurs** saisie à la main, jours possibles.
 - 119. **Ordre des travaux** entre corps de métier, planning contrôlé.
 - 120. **Sol souple et moquette**.

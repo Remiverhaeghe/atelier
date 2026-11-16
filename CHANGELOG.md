@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Liste à envoyer
+- Dans les courses, « Envoyer la liste à acheter » partage par SMS ou message ce qui reste à acheter, par magasin, avec quantités et références, sans les prix
+
 ### Outils prêtés
 - Nouvelle tuile Prêts : outil, à qui et depuis quand, signalé au-delà de deux semaines, rendu d'un appui
 
