@@ -80,6 +80,14 @@
       }
     }
   },
+  "totalArea": "{area} m²",
+  "@totalArea": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
   "areaSummary": "Surface au sol : {area} m²",
   "@areaSummary": {
     "placeholders": {

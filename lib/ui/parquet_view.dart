@@ -180,9 +180,12 @@ class _ParquetResults extends StatelessWidget {
               )
             else
               IconLine(AtelierIcons.planks, vText.resultPlanks(vEstimate.planks)),
-            if (vEstimate.underlayRolls > 0) IconLine(AtelierIcons.underlay, vText.resultUnderlay(vEstimate.underlayRolls)),
-            if (vEstimate.glueBuckets > 0) IconLine(AtelierIcons.glue, vText.resultGlue(vEstimate.glueBuckets)),
-            if (vEstimate.nailBoxes > 0) IconLine(AtelierIcons.nails, vText.resultNails(vEstimate.nailBoxes)),
+            if (vEstimate.underlayRolls > 0)
+              IconLine(AtelierIcons.underlay, vText.resultUnderlay(vEstimate.underlayRolls)),
+            if (vEstimate.glueBuckets > 0)
+              IconLine(AtelierIcons.glue, vText.resultGlue(vEstimate.glueBuckets)),
+            if (vEstimate.nailBoxes > 0)
+              IconLine(AtelierIcons.nails, vText.resultNails(vEstimate.nailBoxes)),
             const Divider(height: 24),
             Text(vText.rowsTitle, style: vTheme.textTheme.titleSmall),
             if (vRows == null)
@@ -243,10 +246,13 @@ class _NumberFieldState<T> extends State<NumberField<T>> {
   }
 
   @override
-  Widget build(BuildContext context) => TextField(
-    controller: _controller,
-    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-    decoration: InputDecoration(labelText: widget.label, errorText: _error),
-    onChanged: _changed,
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(top: 10),
+    child: TextField(
+      controller: _controller,
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      decoration: InputDecoration(labelText: widget.label, errorText: _error),
+      onChanged: _changed,
+    ),
   );
 }
