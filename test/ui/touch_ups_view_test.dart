@@ -66,6 +66,10 @@ void main() {
   });
 
   testWidgets('la reprise se place sur le plan, prend une photo et se modifie', (pTester) async {
+    // Écran haut : le plan et la reprise tiennent ensemble, sans défilement
+    pTester.view.physicalSize = const Size(800, 2000);
+    pTester.view.devicePixelRatio = 1;
+    addTearDown(pTester.view.reset);
     final vRoom = await pumpView(
       pTester,
       rectangleRoom().copyWith(
@@ -91,7 +95,6 @@ void main() {
     await pTester.pumpAndSettle();
     expect(vRoom().touchUps.single.photoPath, '/photos/e.jpg');
 
-    await scrollToFirst(pTester, find.text('Enduit'));
     await pTester.tap(find.text('Enduit'));
     await pTester.pumpAndSettle();
     await pTester.enterText(find.byType(TextField).at(0), 'Enduit de lissage');
