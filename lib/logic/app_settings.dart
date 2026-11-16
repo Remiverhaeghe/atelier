@@ -20,7 +20,9 @@ class AppSettings {
 
   /// Un fichier abîmé ou d'une autre version redonne les réglages de départ, sans planter.
   static AppSettings fromJson(Map<String, Object?> pJson) {
-    final vTheme = ThemeChoice.values.where((pChoice) => pChoice.name == pJson['theme']).firstOrNull;
+    final vTheme = ThemeChoice.values
+        .where((pChoice) => pChoice.name == pJson['theme'])
+        .firstOrNull;
     final vScale = (pJson['textScale'] as num?)?.toDouble();
     final rSettings = AppSettings(
       theme: vTheme ?? ThemeChoice.system,
