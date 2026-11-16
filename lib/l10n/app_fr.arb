@@ -33,6 +33,26 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "layingDirectionTitle": "Sens de pose des lames",
+  "alongWall": "Le long du mur {number}",
+  "@alongWall": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "directionRows": "{count, plural, =1{1 rangée} other{{count} rangées}}",
+  "@directionRows": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recommended": "Conseillé",
+  "layingStart": "Départ, languette côté mur",
+  "layingDirectionAdvice": "Pose les lames dans le sens de la lumière qui entre par la fenêtre principale ; à défaut, dans la longueur de la pièce : les joints se voient moins et la pièce paraît plus grande.",
   "cutDiagramLabel": "Schéma de la coupe du morceau",
   "cutBack": "Dos, contre le guide de la scie",
   "cutFace": "Face, vers toi",
@@ -227,7 +247,6 @@
   "plankLength": "Longueur d'une lame (cm)",
   "plankWidth": "Largeur utile d'une lame (cm)",
   "packArea": "Surface d'un paquet (m²)",
-  "layingWall": "Lames parallèles au mur",
   "expansionGap": "Jeu de dilatation le long des murs (mm)",
   "wastePercent": "Marge de chute (%)",
   "minJointOffset": "Écart minimal entre joints (cm)",

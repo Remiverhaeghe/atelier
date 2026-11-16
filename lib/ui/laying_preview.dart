@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/gen/app_localizations.dart';
 import '../logic/laying_plan.dart';
 import 'theme.dart';
 
@@ -37,6 +38,12 @@ class LayingPreview extends StatelessWidget {
               laidRows: laidRows.toSet(),
               colors: AtelierColors.of(context),
               joint: vTheme.colorScheme.surfaceContainerLowest,
+              startLabel: AppLocalizations.of(context).layingStart,
+              labelStyle: vTheme.textTheme.labelMedium!.copyWith(
+                fontFamily: titleFont,
+                fontWeight: FontWeight.w700,
+                color: AtelierColors.of(context).onTape,
+              ),
             ),
           ),
         ),
@@ -56,8 +63,12 @@ class _LayingPainter extends CustomPainter {
     required this.laidRows,
     required this.colors,
     required this.joint,
+    required this.startLabel,
+    required this.labelStyle,
   });
 
+  final String startLabel;
+  final TextStyle labelStyle;
   final LayingPlan plan;
   final Set<int> laidRows;
   final AtelierColors colors;
@@ -89,6 +100,19 @@ class _LayingPainter extends CustomPainter {
       }
       vBottom -= vHeight;
     }
+
+    // Départ : première rangée, contre le mur de pose, sur une étiquette jaune
+    final vLabel = TextPainter(
+      text: TextSpan(text: '↑ $startLabel', style: labelStyle),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final vStart = (pSize.height + vWidth * vScale) / 2;
+    final vRect = Rect.fromLTWH(vLeft + 4, vStart - vLabel.height - 8, vLabel.width + 12, vLabel.height + 4);
+    pCanvas.drawRRect(
+      RRect.fromRectAndRadius(vRect, const Radius.circular(4)),
+      Paint()..color = colors.tape,
+    );
+    vLabel.paint(pCanvas, vRect.topLeft + const Offset(6, 2));
   }
 
   @override
