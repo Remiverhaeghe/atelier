@@ -24,6 +24,7 @@ import 'heating_screen.dart';
 import 'house_screen.dart';
 import 'journal_screen.dart';
 import 'living_area_screen.dart';
+import 'loans_screen.dart';
 import 'moisture_screen.dart';
 import 'offcuts_screen.dart';
 import 'plexi_screen.dart';
@@ -246,6 +247,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.roofing_outlined,
         vText.plexiMenu,
         () => PlexiScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.handshake_outlined,
+        vText.loanMenu,
+        () => LoansScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.recycling,
