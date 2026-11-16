@@ -31,8 +31,11 @@ void main() {
 
   test('murs en fibre de bois, plancher en polyuréthane, R choisi', () {
     expect(
-      planInsulation(pPart: InsulatedPart.walls, pInsulant: Insulant.woodFibre, pAreaM2: 20)
-          .layersMm,
+      planInsulation(
+        pPart: InsulatedPart.walls,
+        pInsulant: Insulant.woodFibre,
+        pAreaM2: 20,
+      ).layersMm,
       [160],
     );
     final vFloor = planInsulation(

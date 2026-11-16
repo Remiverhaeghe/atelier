@@ -65,7 +65,8 @@ class _InsulationCalculatorState extends State<InsulationCalculator> {
                   BigFigure(
                     vPlan.layersMm.map((pLayer) => '${formatCentimetres(pLayer)} cm').join(' + '),
                   ),
-                  if (vPlan.layersMm.length == 2) IconLine(Icons.layers_outlined, vText.insulCrossed),
+                  if (vPlan.layersMm.length == 2)
+                    IconLine(Icons.layers_outlined, vText.insulCrossed),
                   IconLine(
                     Icons.speed,
                     vText.insulR(formatDecimal(vPlan.achievedR), formatDecimal(vPlan.targetR)),
