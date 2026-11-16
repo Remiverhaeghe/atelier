@@ -1819,5 +1819,14 @@
   "roofHintValues": "Nombre au m² et pureau courants ; ceux du fabricant de votre tuile font foi, ainsi que l'entraxe prévu par la charpente.",
   "roofTileInterlocking": "Tuiles à emboîtement",
   "roofTileFlat": "Tuiles plates",
-  "roofSlate": "Ardoises"
+  "roofSlate": "Ardoises",
+  "safetyTitle": "Avant de commencer",
+  "safetyPowerOff": "Courant coupé au tableau",
+  "safetyWaterOff": "Eau fermée",
+  "safetyDustMask": "Masque FFP2",
+  "safetyGoggles": "Lunettes",
+  "safetyGloves": "Gants",
+  "safetyEarProtection": "Casque anti-bruit",
+  "safetyKneePads": "Genouillères",
+  "safetyVentilate": "Pièce aérée"
 }
