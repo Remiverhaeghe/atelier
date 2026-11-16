@@ -2,7 +2,6 @@
 library;
 
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:atelier/app.dart';
 import 'package:atelier/state/worksites_controller.dart';
