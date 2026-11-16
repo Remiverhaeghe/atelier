@@ -7,7 +7,9 @@ import '../support/memory_storage.dart';
 
 /// Liste verticale de l'écran (les onglets ont aussi une zone qui défile, horizontale).
 Finder verticalList() => find
-    .byWidgetPredicate((pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down)
+    .byWidgetPredicate(
+      (pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down,
+    )
     .first;
 
 /// Remplit la boîte de dialogue ouverte et l'enregistre.
@@ -56,11 +58,7 @@ void main() {
       await fillAndSave(pTester, vLength);
     }
 
-    await pTester.scrollUntilVisible(
-      find.text('Mur 4'),
-      200,
-      scrollable: verticalList(),
-    );
+    await pTester.scrollUntilVisible(find.text('Mur 4'), 200, scrollable: verticalList());
     expect(find.text('Mur 4'), findsOneWidget);
     await pTester.scrollUntilVisible(
       find.textContaining('les mesures sont cohérentes'),
