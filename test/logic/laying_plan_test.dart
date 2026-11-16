@@ -65,12 +65,7 @@ void main() {
     const vRoom = Room(
       id: 'r',
       name: 'Couloir',
-      walls: [
-        Wall(lengthMm: 4000),
-        Wall(lengthMm: 595),
-        Wall(lengthMm: 4000),
-        Wall(lengthMm: 595),
-      ],
+      walls: [Wall(lengthMm: 4000), Wall(lengthMm: 595), Wall(lengthMm: 4000), Wall(lengthMm: 595)],
     );
     final vPlan = planLaying(vRoom, const ParquetSettings(plankLengthMm: 600))!;
 
@@ -83,12 +78,7 @@ void main() {
     const vRoom = Room(
       id: 'r',
       name: 'Placard',
-      walls: [
-        Wall(lengthMm: 1016),
-        Wall(lengthMm: 402),
-        Wall(lengthMm: 1016),
-        Wall(lengthMm: 402),
-      ],
+      walls: [Wall(lengthMm: 1016), Wall(lengthMm: 402), Wall(lengthMm: 1016), Wall(lengthMm: 402)],
     );
     final vPlan = planLaying(vRoom, const ParquetSettings())!;
 
@@ -103,12 +93,7 @@ void main() {
     const vRoom = Room(
       id: 'r',
       name: 'Entrée',
-      walls: [
-        Wall(lengthMm: 516),
-        Wall(lengthMm: 402),
-        Wall(lengthMm: 516),
-        Wall(lengthMm: 402),
-      ],
+      walls: [Wall(lengthMm: 516), Wall(lengthMm: 402), Wall(lengthMm: 516), Wall(lengthMm: 402)],
     );
     final vPlan = planLaying(vRoom, const ParquetSettings())!;
 
