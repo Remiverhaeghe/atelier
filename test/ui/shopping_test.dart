@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:atelier/l10n/gen/app_localizations.dart';
 import 'package:atelier/l10n/gen/app_localizations_fr.dart';
 import 'package:atelier/logic/worksite.dart';
@@ -37,10 +39,12 @@ void main() {
     expect(priceField(30.5), '30,5');
   });
 
-  test('la fiche PDF se construit', () async {
+  test('la fiche PDF se construit avec la police de l\'appli, qui a le €', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
     final vBytes = await buildWorksitePdf(vText, vWorksite);
 
     expect(String.fromCharCodes(vBytes.take(5)), '%PDF-');
+    expect(latin1.decode(vBytes, allowInvalid: true), contains('Barlow'));
   });
 
   testWidgets('un prix saisi met le total à jour et s\'enregistre', (pTester) async {
