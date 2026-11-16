@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Notification des attentes
+- Une attente lancée (séchage, acclimatation) prévient par une notification Android quand elle est finie, même appli fermée ; la retirer annule la notification. Rien ne passe par le réseau
+
 ### Façade et clôture
 - Nouveau calcul : surface d'une façade avec son pignon, peinture et sacs d'enduit ; clôture en panneaux rigides avec poteaux, béton et dernier panneau recoupé
 

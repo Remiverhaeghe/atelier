@@ -11,6 +11,7 @@ import 'storage/backups.dart';
 import 'storage/settings_store.dart';
 import 'storage/worksite_store.dart';
 import 'support/crash_log.dart';
+import 'ui/reminder_alarm.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ Future<void> main() async {
 
     return true;
   };
+  aReminderAlarm = LocalReminderAlarm();
   final vBackups = Backups(Directory('${vFolder.path}/sauvegardes'));
   final vController = WorksitesController(
     WorksiteStore(File('${vFolder.path}/chantiers.json'), backups: vBackups),
