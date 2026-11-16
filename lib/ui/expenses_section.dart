@@ -51,10 +51,15 @@ class ExpensesSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(vText.expensesTitle, style: vTheme.textTheme.titleMedium),
-            IconLine(Icons.payments_outlined, vText.expensesSpent(formatEuros(spentTotal(worksite.expenses)))),
+            IconLine(
+              Icons.payments_outlined,
+              vText.expensesSpent(formatEuros(spentTotal(worksite.expenses))),
+            ),
             IconLine(
               vLeft < 0 ? Icons.warning_amber : Icons.savings_outlined,
-              vLeft < 0 ? vText.expensesOver(formatEuros(-vLeft)) : vText.expensesLeft(formatEuros(vLeft)),
+              vLeft < 0
+                  ? vText.expensesOver(formatEuros(-vLeft))
+                  : vText.expensesLeft(formatEuros(vLeft)),
               color: vLeft < 0 ? vTheme.colorScheme.error : null,
             ),
             for (final vExpense in byDate(worksite.expenses))
