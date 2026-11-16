@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Aide à la déco
+- Couleurs des murs, du plafond et des boiseries dans l'onglet Peinture, avec un aperçu de leur part dans la pièce
+- Teintes courantes, puis accords proposés autour de la couleur des murs : teintes voisines, teinte opposée adoucie, plus claire pour le plafond, plus foncée pour un mur d'accent
+
 ### Calculs : jardin
 - Pelouse semée ou en rouleaux, terre végétale et paillage des massifs, nombre de plants
 
