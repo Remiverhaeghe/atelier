@@ -39,7 +39,7 @@ Captures faites sur un chantier fictif par le workflow Captures (`test/captures/
 | 16 | Objectif du jour et badges | fait |
 | 17 | Conseils et tutos | fait |
 
-La suite est dans [ROADMAP.md](ROADMAP.md).
+La suite est dans [ROADMAP.md](ROADMAP.md). Le format du plan exporté est décrit dans [docs/format-plan.md](docs/format-plan.md).
 
 ## Installer
 

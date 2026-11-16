@@ -33,6 +33,7 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "exportPlan": "Exporter le plan (domotique, 3D)",
   "thermalTitle": "Relevé thermique",
   "thermalHelp": "Photographie la zone froide avec ta caméra thermique, de l'intérieur et par temps froid, puis transfère l'image sur le téléphone. Choisis ce que tu as vu : l'appli propose quoi faire.",
   "thermalWindow": "Fenêtre",
