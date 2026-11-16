@@ -40,11 +40,7 @@ void main() {
     vNow = DateTime(2026, 11, 18, 11);
     await pTester.pumpWidget(
       localized(
-        RemindersCard(
-          worksite: vWorksite,
-          now: vNow,
-          onChanged: (pNew) => vWorksite = pNew,
-        ),
+        RemindersCard(worksite: vWorksite, now: vNow, onChanged: (pNew) => vWorksite = pNew),
       ),
     );
     expect(find.text('C\'est prêt'), findsOneWidget);
