@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:atelier/app.dart';
 import 'package:atelier/state/worksites_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -46,6 +47,9 @@ Future<void> capture(String pName) =>
 
 Future<void> openApp(WidgetTester pTester) async {
   phoneScreen(pTester);
+  // Les tests remplacent les ombres par un trait noir ; les captures veulent les vraies.
+  debugDisableShadows = false;
+  addTearDown(() => debugDisableShadows = true);
   final vController = WorksitesController(MemoryStorage()..saved = [demoWorksite()]);
   await vController.load();
   await pTester.pumpWidget(AtelierApp(controller: vController));

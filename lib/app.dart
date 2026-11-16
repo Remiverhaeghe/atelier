@@ -19,6 +19,7 @@ class AtelierApp extends StatelessWidget {
     const vSeed = Color(0xFF2E6B3A);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       onGenerateTitle: (pContext) => AppLocalizations.of(pContext).appTitle,
       // Cibles tactiles larges : l'application s'utilise sur un chantier, parfois avec des gants
       theme: ThemeData(
