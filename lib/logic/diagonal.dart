@@ -36,7 +36,8 @@ double? _angleDeg(double pSideA, double pSideB, double pOpposite) {
       pSideB <= 0) {
     return null;
   }
-  final vCosine = (pSideA * pSideA + pSideB * pSideB - pOpposite * pOpposite) / (2 * pSideA * pSideB);
+  final vCosine =
+      (pSideA * pSideA + pSideB * pSideB - pOpposite * pOpposite) / (2 * pSideA * pSideB);
 
   return math.acos(vCosine.clamp(-1.0, 1.0)) * 180 / math.pi;
 }
@@ -78,8 +79,7 @@ List<({int first, int second, int gapMm})> oppositeMismatches(Room pRoom) {
   }
   final rPairs = [
     for (final (vFirst, vSecond) in const [(0, 2), (1, 3)])
-      if ((pRoom.walls[vFirst].lengthMm - pRoom.walls[vSecond].lengthMm).abs() >
-          closureToleranceMm)
+      if ((pRoom.walls[vFirst].lengthMm - pRoom.walls[vSecond].lengthMm).abs() > closureToleranceMm)
         (
           first: vFirst + 1,
           second: vSecond + 1,
