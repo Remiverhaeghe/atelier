@@ -62,10 +62,10 @@ void main() {
   });
 
   test('des lames trop courtes ne permettent pas toujours de tenir les règles', () {
-    final vRoom = Room(
+    const vRoom = Room(
       id: 'r',
       name: 'Couloir',
-      walls: const [
+      walls: [
         Wall(lengthMm: 4000),
         Wall(lengthMm: 595),
         Wall(lengthMm: 4000),
@@ -80,10 +80,10 @@ void main() {
   });
 
   test('une longueur plus courte qu\'une lame se pose d\'un seul morceau, chute comprise', () {
-    final vRoom = Room(
+    const vRoom = Room(
       id: 'r',
       name: 'Placard',
-      walls: const [
+      walls: [
         Wall(lengthMm: 1016),
         Wall(lengthMm: 402),
         Wall(lengthMm: 1016),
@@ -100,10 +100,10 @@ void main() {
   });
 
   test('une chute assez longue sert à une longueur courte', () {
-    final vRoom = Room(
+    const vRoom = Room(
       id: 'r',
       name: 'Entrée',
-      walls: const [
+      walls: [
         Wall(lengthMm: 516),
         Wall(lengthMm: 402),
         Wall(lengthMm: 516),
