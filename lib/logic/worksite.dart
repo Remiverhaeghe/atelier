@@ -5,6 +5,7 @@ import 'expenses.dart';
 import 'goals.dart';
 import 'journal.dart';
 import 'offcuts.dart';
+import 'reminders.dart';
 import 'room.dart';
 import 'time_tracking.dart';
 
@@ -29,6 +30,7 @@ class Worksite {
     this.timer,
     this.journal = const [],
     this.lessons = const [],
+    this.reminders = const [],
   });
 
   final String id;
@@ -81,6 +83,9 @@ class Worksite {
   /// Leçons notées au bilan, à relire avant le prochain chantier.
   final List<String> lessons;
 
+  /// Attentes en cours : acclimatation, séchage.
+  final List<Reminder> reminders;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -102,6 +107,7 @@ class Worksite {
     bool clearTimer = false,
     List<JournalEntry>? journal,
     List<String>? lessons,
+    List<Reminder>? reminders,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -122,6 +128,7 @@ class Worksite {
     timer: clearTimer ? null : timer ?? this.timer,
     journal: journal ?? this.journal,
     lessons: lessons ?? this.lessons,
+    reminders: reminders ?? this.reminders,
   );
 
   Map<String, Object?> toJson() => {
@@ -144,6 +151,7 @@ class Worksite {
     if (timer != null) 'timer': timer!.toJson(),
     if (journal.isNotEmpty) 'journal': [for (final vEntry in journal) vEntry.toJson()],
     if (lessons.isNotEmpty) 'lessons': lessons,
+    if (reminders.isNotEmpty) 'reminders': [for (final vReminder in reminders) vReminder.toJson()],
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -199,6 +207,10 @@ class Worksite {
     ],
     lessons: [
       for (final vLesson in (pJson['lessons'] as List<Object?>?) ?? const []) vLesson! as String,
+    ],
+    reminders: [
+      for (final vReminder in (pJson['reminders'] as List<Object?>?) ?? const [])
+        Reminder.fromJson(vReminder! as Map<String, Object?>),
     ],
   );
 }
