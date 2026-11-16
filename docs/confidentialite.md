@@ -24,6 +24,8 @@ Une photo passe par l'appareil photo ou la galerie du téléphone, à votre dema
 
 La permission de notification sert seulement à prévenir de la fin d'une attente lancée sur le chantier (séchage, acclimatation). La notification est programmée sur le téléphone ; rien n'est envoyé.
 
+Le micro sert aux commandes vocales du mode chantier, seulement après un appui sur le bouton micro. La phrase est reconnue par le service de reconnaissance vocale du téléphone (celui de Google sur la plupart des appareils, qui peut l'envoyer à ses serveurs si le français n'est pas installé hors ligne). Atelier ne garde que l'action comprise, jamais l'enregistrement.
+
 ## Lecture à voix haute
 
 Le mode chantier lit la prochaine coupe avec le moteur de synthèse vocale installé sur le téléphone. Le texte lu ne quitte pas l'appareil par Atelier.
