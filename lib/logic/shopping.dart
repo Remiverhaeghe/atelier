@@ -48,10 +48,20 @@ ShoppingItem potItem(PaintProduct pProduct, double pLitres) => ShoppingItem.valu
 );
 
 class ShoppingLine {
-  const ShoppingLine({required this.item, required this.quantity, required this.unitPrice});
+  const ShoppingLine({
+    required this.item,
+    required this.quantity,
+    required this.unitPrice,
+    this.inStock = 0,
+  });
 
   final ShoppingItem item;
+
+  /// Quantité à acheter, stock déduit.
   final int quantity;
+
+  /// Quantité prise dans le stock déjà là.
+  final int inStock;
 
   /// Prix unitaire saisi, null tant qu'il n'est pas connu.
   final double? unitPrice;
@@ -107,15 +117,22 @@ List<ShoppingLine> shoppingList(Worksite pWorksite) {
       vTotals[pItem] = (vTotals[pItem] ?? 0) + pQuantity;
     });
   }
-  final rLines = [
-    for (final vItem in ShoppingItem.values)
-      if ((vTotals[vItem] ?? 0) > 0)
-        ShoppingLine(
-          item: vItem,
-          quantity: vTotals[vItem]!,
-          unitPrice: pWorksite.prices[vItem.name],
-        ),
-  ];
+  final rLines = <ShoppingLine>[];
+  for (final vItem in ShoppingItem.values) {
+    final vNeeded = vTotals[vItem] ?? 0;
+    if (vNeeded <= 0) {
+      continue;
+    }
+    final vStock = (pWorksite.stock[vItem.name] ?? 0).clamp(0, vNeeded);
+    rLines.add(
+      ShoppingLine(
+        item: vItem,
+        quantity: vNeeded - vStock,
+        unitPrice: pWorksite.prices[vItem.name],
+        inStock: vStock,
+      ),
+    );
+  }
 
   return rLines;
 }
@@ -125,7 +142,8 @@ double budgetTotal(List<ShoppingLine> pLines) =>
     pLines.fold(0, (pSum, pLine) => pSum + (pLine.total ?? 0));
 
 /// Vrai si un prix manque pour au moins une ligne.
-bool budgetIncomplete(List<ShoppingLine> pLines) => pLines.any((pLine) => pLine.unitPrice == null);
+bool budgetIncomplete(List<ShoppingLine> pLines) =>
+    pLines.any((pLine) => pLine.quantity > 0 && pLine.unitPrice == null);
 
 /// Coût d'une pièce avec les prix du chantier.
 double roomCost(Room pRoom, Map<String, double> pPrices) {

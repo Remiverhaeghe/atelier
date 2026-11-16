@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Matériel disponible
+- Outils à cocher dans le guide : l'appli dit s'il manque quelque chose, et les outils manquants passent dans les courses
+- Stock déjà là pour chaque article des courses, déduit de ce qu'il faut acheter et du budget
+- L'objectif du jour ne propose une pose que si tous les outils de la pièce sont là
+
 ### Sauvegardes
 - Copie quotidienne de tous les chantiers sur le téléphone, les 14 derniers jours gardés
 - Restauration en un geste depuis « À propos », après confirmation

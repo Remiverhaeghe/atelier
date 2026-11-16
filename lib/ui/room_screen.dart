@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/inventory.dart';
 import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
@@ -88,7 +89,22 @@ class RoomScreen extends StatelessWidget {
                   onChanged: vSave,
                   prices: controller.worksite(worksiteId)?.prices ?? const {},
                 ),
-                if (vGuide) GuideView(room: vRoom, onChanged: vSave),
+                if (vGuide)
+                  GuideView(
+                    room: vRoom,
+                    onChanged: vSave,
+                    ownedTools: controller.worksite(worksiteId)?.ownedTools ?? const [],
+                    onToolOwned: (pTool, pOwned) {
+                      final vWorksite = controller.worksite(worksiteId);
+                      if (vWorksite != null) {
+                        controller.updateWorksite(
+                          vWorksite.copyWith(
+                            ownedTools: toggleTool(vWorksite.ownedTools, pTool, pOwned),
+                          ),
+                        );
+                      }
+                    },
+                  ),
               ],
             ),
           ),
