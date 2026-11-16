@@ -80,7 +80,7 @@ class _TouchUpsViewState extends State<TouchUpsView> {
 
   /// Relevé de caméra thermique ajouté comme reprise, à placer ensuite sur le plan.
   Future<void> _addThermal() async {
-    final vTouchUp = await addThermalTouchUp(context, pImages: widget.photos);
+    final vTouchUp = await addThermalTouchUp(context, pImages: widget.photos, pRoom: _room);
     if (vTouchUp != null) {
       widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps, vTouchUp]));
     }

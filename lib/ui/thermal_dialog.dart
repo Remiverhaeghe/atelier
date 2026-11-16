@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/room.dart';
 import '../logic/thermal.dart';
 import '../logic/touch_up.dart';
+import '../logic/units.dart';
+import '../logic/window_frame.dart';
+import 'frame_calculator.dart';
 import 'photos.dart';
 
 String thermalIssueLabel(AppLocalizations pText, ThermalIssue pIssue) => switch (pIssue) {
@@ -34,16 +38,19 @@ IconData thermalIssueIcon(ThermalIssue pIssue) => switch (pIssue) {
 };
 
 /// Relevé de caméra thermique transformé en reprise : défaut, image, préconisation.
-Future<TouchUp?> addThermalTouchUp(BuildContext pContext, {PhotoTaker? pImages}) =>
+///
+/// Les plexis de toiture de [pRoom] sont rappelés : c'est souvent eux qui ressortent sur l'image.
+Future<TouchUp?> addThermalTouchUp(BuildContext pContext, {PhotoTaker? pImages, Room? pRoom}) =>
     showDialog<TouchUp>(
       context: pContext,
-      builder: (_) => _ThermalDialog(images: pImages ?? pickImage),
+      builder: (_) => _ThermalDialog(images: pImages ?? pickImage, room: pRoom),
     );
 
 class _ThermalDialog extends StatefulWidget {
-  const _ThermalDialog({required this.images});
+  const _ThermalDialog({required this.images, this.room});
 
   final PhotoTaker images;
+  final Room? room;
 
   @override
   State<_ThermalDialog> createState() => _ThermalDialogState();
@@ -69,6 +76,30 @@ class _ThermalDialogState extends State<_ThermalDialog> {
           children: [
             Text(vText.thermalHelp, style: vTheme.textTheme.bodySmall),
             const SizedBox(height: 8),
+            if (widget.room case final Room vRoom when plexiSizes([vRoom]).isNotEmpty)
+              Card(
+                color: vTheme.colorScheme.tertiaryContainer,
+                child: ListTile(
+                  leading: const Icon(Icons.roofing_outlined),
+                  title: Text(
+                    vText.thermalPlexi(
+                      plexiSizes([vRoom]).fold(0, (pSum, pSize) => pSum + pSize.count),
+                      formatSquareMetres(plexiAreaM2([vRoom])),
+                    ),
+                  ),
+                  subtitle: Text(vText.thermalPlexiFix),
+                  onTap: () {
+                    final vSize = plexiSizes([vRoom]).first;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (_) =>
+                            FrameCalculator(widthMm: vSize.widthMm, heightMm: vSize.heightMm),
+                      ),
+                    );
+                  },
+                ),
+              ),
             Wrap(
               spacing: 6,
               runSpacing: 6,

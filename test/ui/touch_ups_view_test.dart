@@ -1,3 +1,4 @@
+import 'package:atelier/logic/fixtures.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/touch_up.dart';
 import 'package:atelier/ui/photo_annotator.dart';
@@ -152,5 +153,36 @@ void main() {
     expect(vTouchUp.label, 'À reprendre d\'après la photo');
     expect(vTouchUp.photoMarks.single.x, closeTo(0.5, 0.01));
     expect(find.text('1 endroit entouré sur la photo'), findsOneWidget);
+  });
+
+  testWidgets('relevé thermique d\'une pièce à plexis : rappel et cadre à préparer', (
+    pTester,
+  ) async {
+    tallScreen(pTester);
+    await pumpView(
+      pTester,
+      const Room(
+        id: 'c',
+        name: 'Combles',
+        fixtures: [
+          Fixture(
+            id: 'p',
+            kind: FixtureKind.roofWindow,
+            xMm: 0,
+            yMm: 0,
+            widthMm: 780,
+            depthMm: 980,
+            plexi: true,
+          ),
+        ],
+      ),
+    );
+
+    await pTester.tap(find.text('Relevé thermique'));
+    await pTester.pumpAndSettle();
+    expect(find.textContaining('1 plexi de toit dans la pièce (0,76 m²)'), findsOneWidget);
+    await pTester.tap(find.textContaining('1 plexi de toit'));
+    await pTester.pumpAndSettle();
+    expect(find.text('2 montants de 97 cm'), findsOneWidget);
   });
 }
