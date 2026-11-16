@@ -90,6 +90,7 @@ class _House3dPainter extends CustomPainter {
         FaceKind.wall => wall.withValues(alpha: 0.85),
         FaceKind.door => colors.wood,
         FaceKind.window => window,
+        FaceKind.furniture => colors.wood.withValues(alpha: 0.9),
       };
       pCanvas.drawPath(vPath, Paint()..color = vFill);
       pCanvas.drawPath(vPath, vEdge);
