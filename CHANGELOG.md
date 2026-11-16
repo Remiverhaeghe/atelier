@@ -2,6 +2,13 @@
 
 ## Non publié
 
+### Saisie guidée et éléments du plan
+- Coins de la pièce nommés A, B, C sur le plan ; la saisie d'un mur dit « Mesurez du coin B au coin C, au ras du sol », avec le plan et le mur surligné
+- Prises, interrupteurs, escalier, mezzanine et fenêtre de toit placés d'un appui sur le plan
+- Escalier calculé par la loi de Blondel : nombre de marches, hauteur, giron et longueur au sol
+- Fenêtres de toit retirées du plafond à peindre ; surface de la mezzanine affichée
+- Les éléments partent dans l'export du plan pour la domotique (champ `fixtures`)
+
 ### Préparation du Play Store
 - Liste de publication à cocher et politique de confidentialité dans `docs/`
 - Images de la fiche (icône 512, présentation 1024 × 500, six captures en 1080 × 1920) générées par `tool/fiche_play.py`

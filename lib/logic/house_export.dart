@@ -53,5 +53,17 @@ Map<String, Object?> _room(Room pRoom) {
           ],
         },
     ],
+    // Prises, interrupteurs, escaliers… dans le repère de la pièce, ajoutés sans changer de version
+    'fixtures': [
+      for (final vFixture in pRoom.fixtures)
+        {
+          'kind': vFixture.kind.name,
+          'x': vFixture.xMm,
+          'y': vFixture.yMm,
+          if (vFixture.areaM2 > 0) 'width': vFixture.widthMm,
+          if (vFixture.areaM2 > 0) 'depth': vFixture.depthMm,
+          if (vFixture.count != 1) 'count': vFixture.count,
+        },
+    ],
   };
 }

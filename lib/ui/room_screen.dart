@@ -8,6 +8,7 @@ import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
 import 'dialogs.dart';
+import 'fixtures_section.dart';
 import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
@@ -140,7 +141,7 @@ class RoomWallsView extends StatelessWidget {
   Future<void> _addWall(BuildContext pContext) async {
     var vRoom = room;
     while (pContext.mounted) {
-      final vEntry = await editWall(pContext, pNumber: vRoom.walls.length + 1);
+      final vEntry = await editWall(pContext, pNumber: vRoom.walls.length + 1, pRoom: vRoom);
       if (vEntry == null) {
         return;
       }
@@ -153,7 +154,12 @@ class RoomWallsView extends StatelessWidget {
   }
 
   Future<void> _editWall(BuildContext pContext, int pIndex) async {
-    final vEntry = await editWall(pContext, pNumber: pIndex + 1, pWall: room.walls[pIndex]);
+    final vEntry = await editWall(
+      pContext,
+      pNumber: pIndex + 1,
+      pWall: room.walls[pIndex],
+      pRoom: room,
+    );
     if (vEntry != null) {
       final vWalls = [...room.walls]..[pIndex] = vEntry.wall;
       onChanged(room.copyWith(walls: vWalls));
@@ -299,6 +305,7 @@ class RoomWallsView extends StatelessWidget {
             label: Text(room.walls.isEmpty ? vText.obstacleNeedsWall : vText.addObstacle),
           ),
         ),
+        FixturesSection(room: room, onChanged: onChanged),
       ],
     );
   }
