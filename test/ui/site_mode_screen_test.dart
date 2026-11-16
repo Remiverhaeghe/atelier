@@ -142,7 +142,7 @@ void main() {
     );
     await pTester.pumpAndSettle();
     Color? vBackground() =>
-        Theme.of(pTester.element(find.byType(Scaffold))).scaffoldBackgroundColor;
+        Theme.of(pTester.element(find.byType(Scaffold).last)).scaffoldBackgroundColor;
     expect(vBackground(), isNot(Colors.black));
 
     await pTester.tap(find.byTooltip('Mode nuit'));
