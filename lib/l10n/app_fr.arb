@@ -33,6 +33,88 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "goalTitle": "Objectif du jour",
+  "goalHelp": "Un objectif précis, mesurable et faisable aujourd'hui : quelques rangées, des morceaux à couper, une reprise.",
+  "goalSuggest": "Me proposer un objectif",
+  "goalChange": "Changer d'objectif",
+  "goalNothing": "Rien à proposer : tout ce qui est saisi est fait.",
+  "goalReached": "Objectif atteint pour aujourd'hui.",
+  "goalProgress": "{done} sur {total}",
+  "@goalProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "goalTouchUp": "{room} : {label}, jusqu'au passage {pass}",
+  "@goalTouchUp": {
+    "placeholders": {
+      "room": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      },
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
+  "goalRows": "{room} : poser les rangées {first} à {last}",
+  "@goalRows": {
+    "placeholders": {
+      "room": {
+        "type": "String"
+      },
+      "first": {
+        "type": "int"
+      },
+      "last": {
+        "type": "int"
+      }
+    }
+  },
+  "goalPieces": "{room} : couper {count, plural, =1{1 morceau} other{{count} morceaux}} de plinthe",
+  "@goalPieces": {
+    "placeholders": {
+      "room": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "badgesTitle": "Badges",
+  "badgesProgress": "{earned} badges sur {total}",
+  "@badgesProgress": {
+    "placeholders": {
+      "earned": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "badgeFirstRow": "Première rangée",
+  "badgeFirstRowHelp": "Poser une première rangée de parquet",
+  "badgeRoomDone": "Pièce finie",
+  "badgeRoomDoneHelp": "Finir tout ce qui est prévu dans une pièce",
+  "badgeBaseboards": "Plinthes coupées",
+  "badgeBaseboardsHelp": "Couper toutes les plinthes du chantier",
+  "badgeTouchUps": "Dix reprises",
+  "badgeTouchUpsHelp": "Finir dix reprises",
+  "badgeFirstGoal": "Premier objectif",
+  "badgeFirstGoalHelp": "Atteindre un objectif du jour",
+  "badgeFiveGoals": "Régulier",
+  "badgeFiveGoalsHelp": "Atteindre cinq objectifs du jour",
+  "badgeBudget": "Budget complet",
+  "badgeBudgetHelp": "Saisir le prix de tout ce qu'il faut acheter",
   "tabPaint": "Peinture",
   "paintWalls": "Peinture murs",
   "paintCeiling": "Peinture plafond",
