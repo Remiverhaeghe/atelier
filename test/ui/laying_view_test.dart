@@ -22,8 +22,10 @@ void main() {
     expect(find.text('Aucune rangée posée sur 16'), findsOneWidget);
 
     // L'aperçu des lames est en haut : les rangées viennent dessous.
-    await scrollToFirst(pTester, find.text('138 + 138 + 122,4 cm'));
-    await pTester.tap(find.byType(Checkbox).first);
+    await scrollToFirst(pTester, find.textContaining('Rangée 1 ·'));
+    expect(find.text('138 + 138 + 122,4 cm'), findsOneWidget);
+    // Toute la ligne coche la rangée
+    await pTester.tap(find.textContaining('Rangée 1 ·'));
     await pTester.pump();
     expect(vRoom.laidRows, [1]);
     await pTester.drag(verticalList(), const Offset(0, 3000));
