@@ -68,12 +68,13 @@ List<int> triangulate(List<({double x, double y})> pPoints) {
   return rTriangles;
 }
 
-/// Couleur de chaque sorte de face : parquet, murs clairs, portes en bois, vitres bleutées.
+/// Couleur de chaque sorte de face : parquet, murs clairs, portes en bois, vitres bleutées, meubles.
 const _colors = {
   FaceKind.floor: [0.78, 0.6, 0.38, 1.0],
   FaceKind.wall: [0.93, 0.93, 0.9, 1.0],
   FaceKind.door: [0.55, 0.38, 0.22, 1.0],
   FaceKind.window: [0.55, 0.75, 0.9, 1.0],
+  FaceKind.furniture: [0.68, 0.52, 0.36, 1.0],
 };
 
 /// Fichier glTF de la maison, en mètres, axe vertical Y comme le veut le format.

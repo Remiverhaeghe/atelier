@@ -1,3 +1,4 @@
+import 'package:atelier/logic/furniture.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/view3d.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,6 +31,31 @@ void main() {
     final vWindow = vFaces.firstWhere((pFace) => pFace.kind == FaceKind.window);
     expect(vWindow.corners.map((pCorner) => pCorner.z).toSet(), {900.0, 2150.0});
     expect(houseFaces(const [], 0), isEmpty);
+  });
+
+  test('un meuble devient un pavé à sa hauteur courante', () {
+    final vRoom = rectangleRoom().copyWith(
+      furniture: const [
+        Furniture(
+          id: 'm1',
+          kind: FurnitureKind.wardrobe,
+          xMm: 1000,
+          yMm: 500,
+          widthMm: 1000,
+          depthMm: 600,
+        ),
+      ],
+    );
+    final vFaces = houseFaces([vRoom], 30).where((pFace) => pFace.kind == FaceKind.furniture);
+
+    // Le dessus et quatre côtés
+    expect(vFaces, hasLength(5));
+    final vHeights = {for (final vFace in vFaces) ...vFace.corners.map((pCorner) => pCorner.z)};
+    expect(vHeights, {0.0, 2000.0});
+    expect(
+      furnitureHeightMm(FurnitureKind.doubleBed),
+      lessThan(furnitureHeightMm(FurnitureKind.sofa)),
+    );
   });
 
   test('projection : le haut d\'un mur monte à l\'écran, la rotation tourne le plan', () {

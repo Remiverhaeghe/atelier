@@ -3,6 +3,7 @@ library;
 
 import 'dart:math' as math;
 
+import 'furniture.dart';
 import 'geometry.dart';
 import 'house.dart';
 import 'room.dart';
@@ -13,7 +14,7 @@ typedef Point3 = ({double x, double y, double z});
 /// Face à dessiner : ses coins en 3D, sa profondeur après rotation, et ce qu'elle représente.
 typedef Face = ({List<Point3> corners, double depth, FaceKind kind});
 
-enum FaceKind { floor, wall, door, window }
+enum FaceKind { floor, wall, door, window, furniture }
 
 /// Faces de la maison vue sous l'angle [pYawDeg] : sols d'abord, puis murs du fond vers l'avant.
 List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
@@ -71,6 +72,17 @@ List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
           depth: vDepth(vQuad) - 1,
           kind: vOpening.kind == OpeningKind.window ? FaceKind.window : FaceKind.door,
         ));
+      }
+    }
+    // Meubles : un pavé à leur hauteur courante, rangé avec les murs pour l'ordre de dessin
+    for (final vItem in vRoom.furniture) {
+      final vCorners = [for (final vCorner in vItem.corners) toHouse(vRoom, vCorner)];
+      final vTop = vBase + furnitureHeightMm(vItem.kind);
+      final vLid = [for (final vCorner in vCorners) (x: vCorner.x, y: vCorner.y, z: vTop)];
+      vRoomWalls.add((corners: vLid, depth: vDepth(vLid) - 2, kind: FaceKind.furniture));
+      for (var vSide = 0; vSide < 4; vSide++) {
+        final vQuad = _quad(vCorners[vSide], vCorners[(vSide + 1) % 4], vBase, vTop);
+        vRoomWalls.add((corners: vQuad, depth: vDepth(vQuad) - 1, kind: FaceKind.furniture));
       }
     }
   }

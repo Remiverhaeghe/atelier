@@ -24,6 +24,16 @@ enum FurnitureKind {
   final int depthMm;
 }
 
+/// Hauteur courante d'un meuble, pour la vue 3D.
+int furnitureHeightMm(FurnitureKind pKind) => switch (pKind) {
+  FurnitureKind.doubleBed || FurnitureKind.singleBed => 550,
+  FurnitureKind.sofa => 850,
+  FurnitureKind.table || FurnitureKind.desk => 750,
+  FurnitureKind.wardrobe => 2000,
+  FurnitureKind.chest || FurnitureKind.sideboard => 900,
+  FurnitureKind.other => 800,
+};
+
 /// Passage confortable entre deux meubles ou un meuble et un mur.
 const minPassageMm = 600;
 
