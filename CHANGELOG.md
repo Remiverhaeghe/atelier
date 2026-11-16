@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Annuler et refaire
+- Dans une pièce, deux boutons annulent ou refont les dernières modifications (30 étapes, une saisie rapide comptant pour une seule)
+
 ### Télémètre laser
 - Le champ de longueur d'un mur a un bouton télémètre : relié en Bluetooth à un Bosch GLM 50 C, 50-27 C et CG, 100 C, 120 C ou PLR 30, 40 et 50 C, la mesure faite avec le bouton de l'appareil remplit la longueur
 

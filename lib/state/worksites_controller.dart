@@ -7,17 +7,23 @@ import 'package:flutter/foundation.dart';
 
 import '../logic/merge.dart';
 import '../logic/room.dart';
+import '../logic/undo_history.dart';
 import '../logic/worksite.dart';
 import '../storage/worksite_store.dart';
 
 class WorksitesController extends ChangeNotifier {
-  WorksitesController(this.store, {String Function()? pNewId})
-    : newId = pNewId ?? (() => DateTime.now().microsecondsSinceEpoch.toString());
+  WorksitesController(this.store, {String Function()? pNewId, DateTime Function()? pNow})
+    : newId = pNewId ?? (() => DateTime.now().microsecondsSinceEpoch.toString()),
+      _now = pNow ?? DateTime.now;
+
+  /// Horloge des étapes d'annulation ; fixée dans les tests.
+  final DateTime Function() _now;
 
   final WorksiteStorage store;
   final String Function() newId;
 
   List<Worksite> _worksites = const [];
+  final _history = UndoHistory<List<Worksite>>();
   bool _loaded = false;
 
   List<Worksite> get worksites => _worksites;
@@ -134,8 +140,31 @@ class WorksitesController extends ChangeNotifier {
       pWorksites.any((pTheirs) => _worksites.any((pWorksite) => pWorksite.id == pTheirs.id));
 
   Future<void> replaceAll(List<Worksite> pWorksites) async {
+    _history.record(_worksites, _now());
+    await _apply(pWorksites);
+  }
+
+  Future<void> _apply(List<Worksite> pWorksites) async {
     _worksites = List.unmodifiable(pWorksites);
     notifyListeners();
     await store.save(_worksites);
+  }
+
+  bool get canUndo => _history.canUndo;
+  bool get canRedo => _history.canRedo;
+
+  /// Revient à l'état d'avant le dernier changement, enregistré aussitôt.
+  Future<void> undo() async {
+    final vBefore = _history.undo(_worksites);
+    if (vBefore != null) {
+      await _apply(vBefore);
+    }
+  }
+
+  Future<void> redo() async {
+    final vAfter = _history.redo(_worksites);
+    if (vAfter != null) {
+      await _apply(vAfter);
+    }
   }
 }
