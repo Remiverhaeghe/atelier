@@ -46,7 +46,12 @@ void main() {
 
   testWidgets('sans murs, la vue demande de saisir la pièce', (pTester) async {
     await pTester.pumpWidget(
-      localized(ParquetView(room: const Room(id: 'r', name: 'R'), onChanged: (_) {})),
+      localized(
+        ParquetView(
+          room: const Room(id: 'r', name: 'R'),
+          onChanged: (_) {},
+        ),
+      ),
     );
 
     expect(find.textContaining('au moins trois murs'), findsOneWidget);

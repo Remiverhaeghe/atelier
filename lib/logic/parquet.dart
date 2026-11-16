@@ -66,7 +66,10 @@ class ParquetSettings {
   });
 
   /// Réglages d'un type, avec ses valeurs de départ.
-  factory ParquetSettings.forType(ParquetType pType, {ParquetSettings pBase = const ParquetSettings()}) {
+  factory ParquetSettings.forType(
+    ParquetType pType, {
+    ParquetSettings pBase = const ParquetSettings(),
+  }) {
     final vDefaults = parquetDefaults[pType]!;
     final rSettings = pBase.copyWith(
       type: pType,
@@ -244,7 +247,8 @@ RowSplit? splitRows(Room pRoom, ParquetSettings pSettings) {
   }
   final vPoints = alignedOutline(pRoom, pSettings.layingWallIndex);
   final vYs = vPoints.map((pPoint) => pPoint.y);
-  final vDepth = (vYs.reduce(math.max) - vYs.reduce(math.min)).round() - 2 * pSettings.expansionGapMm;
+  final vDepth =
+      (vYs.reduce(math.max) - vYs.reduce(math.min)).round() - 2 * pSettings.expansionGapMm;
   if (vDepth <= 0) {
     return null;
   }
