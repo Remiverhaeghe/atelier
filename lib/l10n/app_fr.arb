@@ -33,6 +33,34 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "backupsTitle": "Sauvegardes",
+  "backupsHelp": "Une copie de tous les chantiers est faite chaque jour où tu les modifies ; les {count} derniers jours sont gardés sur le téléphone.",
+  "@backupsHelp": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupsEmpty": "Pas encore de sauvegarde : la première sera faite à la prochaine modification.",
+  "backupRestore": "Restaurer",
+  "backupRestoreTitle": "Restaurer cette sauvegarde ?",
+  "backupRestoreConfirm": "Tous les chantiers actuels seront remplacés par ceux du {day}.",
+  "@backupRestoreConfirm": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "backupRestored": "Chantiers du {day} restaurés.",
+  "@backupRestored": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
   "tipsTitle": "Conseils et tutos",
   "tipTopicBaseboard": "Plinthes",
   "tipTopicParquet": "Parquet",
