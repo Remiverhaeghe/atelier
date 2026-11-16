@@ -21,7 +21,7 @@ void main() {
     expect(vCopy.touchUps, isEmpty);
   });
 
-  test('miroir d\\'une pièce en L : même surface, fermée, coin rentrant gardé', () {
+  test('miroir d\'une pièce en L : même surface, fermée, coin rentrant gardé', () {
     final vRoom = lShapedRoom();
     final vMirror = mirrorRoom(vRoom, pId: 'm', pName: 'Miroir');
     expect(floorAreaM2(vMirror), closeTo(floorAreaM2(vRoom), 1e-6));
@@ -37,7 +37,7 @@ void main() {
     );
   });
 
-  test('une ouverture se compte depuis l\\'autre bout du mur', () {
+  test('une ouverture se compte depuis l\'autre bout du mur', () {
     final vRoom = rectangleRoom().copyWith(
       walls: [
         const Wall(
