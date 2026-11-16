@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Niveau et pente au téléphone
+- Nouveau calcul « Niveau et pente » : niveau à bulle et inclinomètre avec l'accéléromètre, pente en degrés et en pour cent
+- Plafond rampant : l'angle mesuré en posant le téléphone sur le rampant donne la largeur au sol
+
 ### Tests sur émulateur
 - Deux parcours de plus sur Android : chantier relu du téléphone jusqu'à sa surface habitable, sauvegarde du jour écrite à chaque enregistrement
 

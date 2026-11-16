@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/room.dart';
 import '../logic/slope.dart';
+import '../logic/level.dart';
 import '../logic/units.dart';
+import 'level_screen.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
 
 /// Plafond rampant : un ou deux pans, chacun avec son mur bas, sa jambette et sa largeur.
 class SlopeEditor extends StatelessWidget {
-  const SlopeEditor({super.key, required this.room, required this.onChanged});
+  const SlopeEditor({super.key, required this.room, required this.onChanged, this.gravity});
 
   final Room room;
   final ValueChanged<Room> onChanged;
+
+  /// Mesures de l'accéléromètre ; remplaçables dans les tests.
+  final Stream<Gravity>? gravity;
 
   Slope _newSlope(int pWallIndex) =>
       Slope(wallIndex: pWallIndex, lowMm: (room.ceilingHeightMm * 0.4).round(), runMm: 2000);
@@ -44,6 +49,7 @@ class SlopeEditor extends StatelessWidget {
           IconLine(Icons.straighten, vText.slopeHowTo),
           _PanEditor(
             key: const ValueKey('pan1'),
+            gravity: gravity,
             room: room,
             slope: vSlope,
             onChanged: (pSlope) => onChanged(room.copyWith(slope: pSlope)),
@@ -60,6 +66,7 @@ class SlopeEditor extends StatelessWidget {
           if (vSlope2 != null)
             _PanEditor(
               key: const ValueKey('pan2'),
+              gravity: gravity,
               room: room,
               slope: vSlope2,
               onChanged: (pSlope) => onChanged(room.copyWith(slope2: pSlope)),
@@ -79,8 +86,15 @@ class SlopeEditor extends StatelessWidget {
 
 /// Un pan : mur bas, jambette, puis largeur au sol ou longueur du rampant.
 class _PanEditor extends StatefulWidget {
-  const _PanEditor({super.key, required this.room, required this.slope, required this.onChanged});
+  const _PanEditor({
+    super.key,
+    required this.room,
+    required this.slope,
+    required this.onChanged,
+    this.gravity,
+  });
 
+  final Stream<Gravity>? gravity;
   final Room room;
   final Slope slope;
   final ValueChanged<Slope> onChanged;
@@ -93,6 +107,23 @@ class _PanEditorState extends State<_PanEditor> {
   /// Saisie par la longueur mesurée le long du plafond plutôt qu'au sol.
   bool _byRafter = false;
   int? _rafterMm;
+  double? _angleDeg;
+
+  Future<void> _byPhone() async {
+    final vAngle = await measureAngle(context, pGravity: widget.gravity);
+    if (vAngle == null) {
+      return;
+    }
+    final vRun = runFromAngle(
+      pAngleDeg: vAngle,
+      pLowMm: _slope.lowMm,
+      pHighMm: widget.room.ceilingHeightMm,
+    );
+    setState(() => _angleDeg = vAngle);
+    if (vRun != null) {
+      widget.onChanged(Slope(wallIndex: _slope.wallIndex, lowMm: _slope.lowMm, runMm: vRun));
+    }
+  }
 
   Slope get _slope => widget.slope;
 
@@ -144,17 +175,27 @@ class _PanEditorState extends State<_PanEditor> {
           selected: {_byRafter},
           onSelectionChanged: (pChoice) => setState(() => _byRafter = pChoice.single),
         ),
-        if (!_byRafter)
+        if (!_byRafter) ...[
+          TextButton.icon(
+            onPressed: _byPhone,
+            icon: const Icon(Icons.screen_rotation_alt),
+            label: Text(vText.slopeByPhone),
+          ),
+          if (_angleDeg != null)
+            IconLine(
+              Icons.straighten,
+              vText.slopeRunFromAngle(formatDecimal(_angleDeg!), formatCentimetres(_slope.runMm)),
+            ),
           NumberField<int>(
-            key: const ValueKey('run'),
+            key: ValueKey('run-${_angleDeg ?? 0}'),
             label: vText.slopeRun,
             initial: formatCentimetres(_slope.runMm),
             parse: parseCentimetres,
             onValue: (pValue) => widget.onChanged(
               Slope(wallIndex: _slope.wallIndex, lowMm: _slope.lowMm, runMm: pValue),
             ),
-          )
-        else ...[
+          ),
+        ] else ...[
           NumberField<int>(
             key: const ValueKey('rafter'),
             label: vText.slopeRafter,
