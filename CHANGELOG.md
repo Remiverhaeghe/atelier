@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Lot 4 : plinthes, angles et coupes
+- Onglet Plinthes : un morceau par mur, coupé entre les portes et passages, en morceaux égaux joints en biseau si le mur dépasse une barre
+- Angle de scie de chaque coin (moitié de l'écart à un mur droit : 45° pour 90°, 46° pour 88°), sens de la pointe longue dit en mots, coupe droite aux bouts libres et contre les chambranles
+- Fixation : cartouches de colle, ou clous, vis et clips (un à chaque bout et tous les 40 cm)
+- Morceaux à cocher une fois coupés, mur surligné sur le plan
+
 ### Lot 3 : plan de pose
 - Onglet Pose : longueur de chaque morceau, rangée par rangée, mesurée du mur, jeu de dilatation déduit
 - Joints de deux rangées voisines écartés d'au moins 30 cm (réglable), aucun morceau de moins de 30 cm
