@@ -124,6 +124,7 @@ class Room {
     this.laidRows = const [],
     this.baseboard = const BaseboardSettings(),
     this.cutPieces = const [],
+    this.doneSteps = const [],
   });
 
   final String id;
@@ -142,6 +143,9 @@ class Room {
   /// Index des morceaux de plinthe déjà coupés, dans la liste de baseboardPieces.
   final List<int> cutPieces;
 
+  /// Étapes du guide déjà faites, par nom (voir GuideStep).
+  final List<String> doneSteps;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -151,6 +155,7 @@ class Room {
     List<int>? laidRows,
     BaseboardSettings? baseboard,
     List<int>? cutPieces,
+    List<String>? doneSteps,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -161,6 +166,7 @@ class Room {
     laidRows: laidRows ?? this.laidRows,
     baseboard: baseboard ?? this.baseboard,
     cutPieces: cutPieces ?? this.cutPieces,
+    doneSteps: doneSteps ?? this.doneSteps,
   );
 
   Map<String, Object?> toJson() => {
@@ -173,6 +179,7 @@ class Room {
     'laidRows': laidRows,
     'baseboard': baseboard.toJson(),
     'cutPieces': cutPieces,
+    'doneSteps': doneSteps,
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -196,6 +203,9 @@ class Room {
         : BaseboardSettings.fromJson(pJson['baseboard']! as Map<String, Object?>),
     cutPieces: [
       for (final vPiece in (pJson['cutPieces'] as List<Object?>?) ?? const []) vPiece! as int,
+    ],
+    doneSteps: [
+      for (final vStep in (pJson['doneSteps'] as List<Object?>?) ?? const []) vStep! as String,
     ],
   );
 }
