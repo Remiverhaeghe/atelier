@@ -58,7 +58,5 @@ PlumbingNeeds plumbingNeeds(List<FixtureRun> pRuns) {
 }
 
 /// Dénivelé à prévoir sur une longueur d'évacuation, en mm : du minimum au maximum.
-({int minMm, int maxMm}) drainDrop(double pRunMetres) => (
-  minMm: (pRunMetres * minSlopeMmPerM).round(),
-  maxMm: (pRunMetres * maxSlopeMmPerM).round(),
-);
+({int minMm, int maxMm}) drainDrop(double pRunMetres) =>
+    (minMm: (pRunMetres * minSlopeMmPerM).round(), maxMm: (pRunMetres * maxSlopeMmPerM).round());
