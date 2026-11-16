@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../logic/fixtures.dart';
 import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
@@ -240,8 +241,118 @@ class _RoomPlanPainter extends CustomPainter {
       }
     }
 
+    for (final vFixture in room.fixtures) {
+      _paintFixture(pCanvas, vFixture, vAt);
+    }
+
+    if (!compact && wallNumbers) {
+      // Lettres des coins, reprises dans la saisie guidée : « du coin A au coin B ».
+      // Une pièce qui se referme ne répète pas le coin A à la fin du dernier mur.
+      final vLast = room.closed && room.walls.length >= 3 && closesProperly(room)
+          ? room.walls.length - 1
+          : room.walls.length;
+      for (var vIndex = 0; vIndex <= vLast; vIndex++) {
+        final vHighlighted =
+            highlightWall != null && (vIndex == highlightWall || vIndex == highlightWall! + 1);
+        _paintCorner(
+          pCanvas,
+          vAt(vPoints[vIndex].x, vPoints[vIndex].y),
+          cornerName(vIndex),
+          vHighlighted,
+        );
+      }
+    }
+
     for (final vMarker in markers) {
       _paintMarker(pCanvas, vAt(vMarker.xMm.toDouble(), vMarker.yMm.toDouble()), vMarker);
+    }
+  }
+
+  /// Lettre d'un coin, en carré pour ne pas la confondre avec le numéro rond d'un mur.
+  void _paintCorner(Canvas pCanvas, Offset pCenter, String pName, bool pHighlighted) {
+    final vLabel = _layout(pName, labelStyle.copyWith(color: pHighlighted ? paper : colors.ink));
+    final vRect = Rect.fromCenter(
+      center: pCenter,
+      width: math.max(vLabel.width + 8, 18),
+      height: vLabel.height + 2,
+    );
+    final vShape = RRect.fromRectAndRadius(vRect, const Radius.circular(4));
+    pCanvas.drawRRect(vShape, Paint()..color = pHighlighted ? highlightColor : paper);
+    pCanvas.drawRRect(
+      vShape,
+      Paint()
+        ..color = pHighlighted ? highlightColor : colors.ink
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2,
+    );
+    vLabel.paint(pCanvas, pCenter - Offset(vLabel.width / 2, vLabel.height / 2));
+  }
+
+  /// Prise, interrupteur, escalier, mezzanine ou fenêtre de toit, avec les signes d'un plan.
+  void _paintFixture(Canvas pCanvas, Fixture pFixture, Offset Function(double, double) pAt) {
+    final vStroke = Paint()
+      ..color = colors.ink
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = compact ? 1 : 1.5;
+    final vCenter = pAt(pFixture.xMm.toDouble(), pFixture.yMm.toDouble());
+    if (!hasArea(pFixture.kind)) {
+      if (compact) {
+        return;
+      }
+      pCanvas.drawCircle(vCenter, 7, Paint()..color = paper);
+      pCanvas.drawCircle(vCenter, 7, vStroke);
+      if (pFixture.kind == FixtureKind.socket) {
+        // Prise : deux broches
+        pCanvas.drawCircle(vCenter - const Offset(2.5, 0), 1.3, Paint()..color = colors.ink);
+        pCanvas.drawCircle(vCenter + const Offset(2.5, 0), 1.3, Paint()..color = colors.ink);
+      } else {
+        // Interrupteur : la manette
+        pCanvas.drawLine(vCenter, vCenter + const Offset(9, -9), vStroke);
+      }
+      return;
+    }
+    final vHalfW = pFixture.widthMm / 2;
+    final vHalfD = pFixture.depthMm / 2;
+    final vX = pFixture.xMm.toDouble();
+    final vY = pFixture.yMm.toDouble();
+    final vRect = Rect.fromPoints(pAt(vX - vHalfW, vY - vHalfD), pAt(vX + vHalfW, vY + vHalfD));
+    switch (pFixture.kind) {
+      case FixtureKind.stairs:
+        pCanvas.drawRect(vRect, Paint()..color = paper);
+        pCanvas.drawRect(vRect, vStroke);
+        // Une ligne par marche, le long de la longueur
+        final vSteps = math.max(stairPlan(pFixture.riseMm ?? 2700).risers - 1, 1);
+        for (var vStep = 1; vStep < vSteps; vStep++) {
+          final vYStep = vRect.top + vRect.height * vStep / vSteps;
+          pCanvas.drawLine(Offset(vRect.left, vYStep), Offset(vRect.right, vYStep), vStroke);
+        }
+      case FixtureKind.mezzanine:
+        _paintDashed(pCanvas, vRect, vStroke);
+      case FixtureKind.roofWindow:
+        pCanvas.drawRect(vRect, Paint()..color = colors.grid);
+        pCanvas.drawRect(vRect, vStroke);
+        pCanvas.drawRect(vRect.deflate(compact ? 1 : 3), vStroke);
+      case FixtureKind.socket || FixtureKind.lightSwitch:
+        break;
+    }
+  }
+
+  /// Contour en tirets : la mezzanine est au-dessus, comme une poutre sur un plan.
+  void _paintDashed(Canvas pCanvas, Rect pRect, Paint pPaint) {
+    final vCorners = [pRect.topLeft, pRect.topRight, pRect.bottomRight, pRect.bottomLeft];
+    for (var vIndex = 0; vIndex < 4; vIndex++) {
+      final vFrom = vCorners[vIndex];
+      final vTo = vCorners[(vIndex + 1) % 4];
+      final vLength = (vTo - vFrom).distance;
+      final vDash = compact ? 3.0 : 8.0;
+      for (var vDone = 0.0; vDone < vLength; vDone += 2 * vDash) {
+        final vEnd = math.min(vDone + vDash, vLength);
+        pCanvas.drawLine(
+          Offset.lerp(vFrom, vTo, vDone / vLength)!,
+          Offset.lerp(vFrom, vTo, vEnd / vLength)!,
+          pPaint,
+        );
+      }
     }
   }
 
