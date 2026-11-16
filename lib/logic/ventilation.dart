@@ -23,12 +23,7 @@ const bedroomAirInlet = 30;
 const undercutMm = 10;
 const kitchenUndercutMm = 20;
 
-typedef VentilationPlan = ({
-  int extractedM3h,
-  int inletsM3h,
-  int extractVents,
-  int airInlets,
-});
+typedef VentilationPlan = ({int extractedM3h, int inletsM3h, int extractVents, int airInlets});
 
 /// VMC d'un logement de [pMainRooms] pièces principales (dont un séjour), [pBathrooms] salles
 /// d'eau et [pToilets] WC séparés ; une salle de bain avec WC compte comme salle d'eau.
