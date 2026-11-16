@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 67. **Erreurs fréquentes** : les pièges classiques rappelés avant chaque étape.
 - 68. **Bilan de fin de chantier** : coût réel et prévu, chutes, temps, leçons.
 
 ## Organisation et motivation
