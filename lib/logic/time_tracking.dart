@@ -51,12 +51,8 @@ class RunningTimer {
       (pNow.difference(startedAt).inSeconds / 60).round().clamp(1, 24 * 60);
 
   /// Chrono arrêté : le temps rejoint ceux de la pièce, au jour du départ.
-  TimeEntry stop(DateTime pNow) => TimeEntry(
-    roomId: roomId,
-    phase: phase,
-    minutes: elapsedMinutes(pNow),
-    day: dayOf(startedAt),
-  );
+  TimeEntry stop(DateTime pNow) =>
+      TimeEntry(roomId: roomId, phase: phase, minutes: elapsedMinutes(pNow), day: dayOf(startedAt));
 
   Map<String, Object?> toJson() => {
     'roomId': roomId,
@@ -118,12 +114,7 @@ double? minutesPerUnit(List<TimeEntry> pEntries, List<Room> pRooms, WorkPhase pP
 }
 
 /// Temps à prévoir pour une étape d'une pièce, d'après le rythme des autres ; null sans repère.
-int? estimateMinutes(
-  List<TimeEntry> pEntries,
-  List<Room> pRooms,
-  Room pRoom,
-  WorkPhase pPhase,
-) {
+int? estimateMinutes(List<TimeEntry> pEntries, List<Room> pRooms, Room pRoom, WorkPhase pPhase) {
   final vOthers = [
     for (final vRoom in pRooms)
       if (vRoom.id != pRoom.id) vRoom,
