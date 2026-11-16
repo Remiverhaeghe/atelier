@@ -65,9 +65,13 @@ class _ElectricityCalculatorState extends State<ElectricityCalculator> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BigFigure(vText.elecSockets(vNeeds.sockets)),
-                  IconLine(Icons.lightbulb_outline, vText.elecLights(vNeeds.lights, vNeeds.switches)),
+                  IconLine(
+                    Icons.lightbulb_outline,
+                    vText.elecLights(vNeeds.lights, vNeeds.switches),
+                  ),
                   IconLine(Icons.check_box_outline_blank, vText.elecBoxes(vNeeds.boxes)),
-                  if (vNeeds.dedicated > 0) IconLine(Icons.electrical_services, vText.elecDedicated(vNeeds.dedicated)),
+                  if (vNeeds.dedicated > 0)
+                    IconLine(Icons.electrical_services, vText.elecDedicated(vNeeds.dedicated)),
                   IconLine(Icons.cable, vText.elecConduit(vNeeds.conduitMetres, vNeeds.wireMetres)),
                 ],
               ),
@@ -80,7 +84,12 @@ class _ElectricityCalculatorState extends State<ElectricityCalculator> {
               child: ListTile(
                 leading: Icon(elecRoomIcon(_rooms[vIndex].kind), color: vTheme.colorScheme.primary),
                 title: Text(elecRoomLabel(vText, _rooms[vIndex].kind)),
-                subtitle: Text(vText.elecRoomLine(minSockets(_rooms[vIndex]), formatDecimal(_rooms[vIndex].areaM2))),
+                subtitle: Text(
+                  vText.elecRoomLine(
+                    minSockets(_rooms[vIndex]),
+                    formatDecimal(_rooms[vIndex].areaM2),
+                  ),
+                ),
                 trailing: IconButton(
                   tooltip: vText.delete,
                   icon: const Icon(Icons.delete_outline),
