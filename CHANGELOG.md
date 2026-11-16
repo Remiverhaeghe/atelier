@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Cuisine
+- Nouveau calcul : meubles bas pour un ou deux linéaires avec le moins de meubles possible et un fileur, plans de travail à acheter, hauteurs du plan, des meubles hauts et de la hotte
+
 ### Tablette et paysage
 - Sur tablette ou en paysage, le plan de la pièce reste à gauche pendant qu'on parcourt les murs ; les tuiles d'accueil et les calculs prennent plus de colonnes
 

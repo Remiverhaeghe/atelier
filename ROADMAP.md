@@ -10,7 +10,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 - 99. **Widget d'écran d'accueil** : objectif du jour. Demande du code Android natif (récepteur et mise en page XML) : à décider, car seuls `build.gradle.kts` et le manifeste sont versionnés.
 - 102 bis. **Lecture directe de la photo du ticket** : demande ML Kit, qui ajoute des dépendances Google Play et peut-être une permission réseau. À décider ; en attendant, le texte copié depuis la photo est lu dans l'appli.
 - 103. **Commandes vocales en mode chantier**.
-- 105. **Cuisine** : implantation, plan de travail, hauteurs.
 - 106. **Façade et clôture**.
 - 107. **Télémètre laser Bluetooth** (modèle à préciser).
 
