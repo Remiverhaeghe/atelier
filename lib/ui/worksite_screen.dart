@@ -100,7 +100,8 @@ class WorksiteScreen extends StatelessWidget {
                       Navigator.push(
                         pContext,
                         MaterialPageRoute<void>(
-                          builder: (_) => HouseScreen(controller: controller, worksiteId: worksiteId),
+                          builder: (_) =>
+                              HouseScreen(controller: controller, worksiteId: worksiteId),
                         ),
                       );
                     case 'guide':

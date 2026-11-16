@@ -59,7 +59,9 @@ class _HouseScreenState extends State<HouseScreen> {
             ],
           ),
           body: vRooms.isEmpty
-              ? Center(child: Padding(padding: const EdgeInsets.all(24), child: Text(vText.houseEmpty)))
+              ? Center(
+                  child: Padding(padding: const EdgeInsets.all(24), child: Text(vText.houseEmpty)),
+                )
               : Column(
                   children: [
                     Padding(
@@ -91,7 +93,8 @@ class _HouseScreenState extends State<HouseScreen> {
                               });
                             },
                             onPanUpdate: (pDetails) => setState(
-                              () => _drag += Offset(pDetails.delta.dx, -pDetails.delta.dy) / vFrame.scale,
+                              () => _drag +=
+                                  Offset(pDetails.delta.dx, -pDetails.delta.dy) / vFrame.scale,
                             ),
                             onPanEnd: (_) {
                               if (vSelected != null && _drag != Offset.zero) {
@@ -128,10 +131,14 @@ class _HouseScreenState extends State<HouseScreen> {
                         padding: const EdgeInsets.all(12),
                         child: Row(
                           children: [
-                            Expanded(child: Text(vSelected.name, style: vTheme.textTheme.titleMedium)),
+                            Expanded(
+                              child: Text(vSelected.name, style: vTheme.textTheme.titleMedium),
+                            ),
                             FilledButton.tonalIcon(
                               onPressed: () => _save(
-                                vSelected.copyWith(houseQuarterTurns: vSelected.houseQuarterTurns + 1),
+                                vSelected.copyWith(
+                                  houseQuarterTurns: vSelected.houseQuarterTurns + 1,
+                                ),
                               ),
                               icon: const Icon(Icons.rotate_90_degrees_ccw),
                               label: Text(vText.houseRotate),
@@ -222,7 +229,10 @@ class _HousePainter extends CustomPainter {
       final vShift = vIsSelected ? Offset(drag.dx, -drag.dy) * frame.scale : Offset.zero;
       final vPoints = [for (final vPoint in houseOutline(vRoom)) frame.toScreen(vPoint) + vShift];
       final vPath = Path()..addPolygon(vPoints, vRoom.closed);
-      pCanvas.drawPath(vPath, Paint()..color = vIsSelected ? highlight.withValues(alpha: 0.15) : colors.wood);
+      pCanvas.drawPath(
+        vPath,
+        Paint()..color = vIsSelected ? highlight.withValues(alpha: 0.15) : colors.wood,
+      );
       pCanvas.drawPath(
         vPath,
         Paint()
@@ -230,7 +240,8 @@ class _HousePainter extends CustomPainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth = vIsSelected ? 4 : 3,
       );
-      final vCenter = vPoints.fold(Offset.zero, (pSum, pPoint) => pSum + pPoint) / vPoints.length.toDouble();
+      final vCenter =
+          vPoints.fold(Offset.zero, (pSum, pPoint) => pSum + pPoint) / vPoints.length.toDouble();
       final vLabel = TextPainter(
         text: TextSpan(text: vRoom.name, style: labelStyle),
         textDirection: TextDirection.ltr,

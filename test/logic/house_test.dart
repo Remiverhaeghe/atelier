@@ -9,8 +9,10 @@ import '../support/rooms.dart';
 void main() {
   test('quarts de tour puis décalage', () {
     const vPoint = PlanPoint(1000, 200);
-    PlanPoint vAt(int pTurns) =>
-        toHouse(rectangleRoom().copyWith(houseQuarterTurns: pTurns, houseXMm: 5000, houseYMm: 100), vPoint);
+    PlanPoint vAt(int pTurns) => toHouse(
+      rectangleRoom().copyWith(houseQuarterTurns: pTurns, houseXMm: 5000, houseYMm: 100),
+      vPoint,
+    );
 
     expect([vAt(0).x, vAt(0).y], [6000, 300]);
     expect([vAt(1).x, vAt(1).y], [4800, 1100]);

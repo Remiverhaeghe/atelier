@@ -4,6 +4,7 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 ## Prochains lots
 
+- **Saisie guidée et éléments du plan** : l'appli dit quoi mesurer, « du coin A au coin B, au ras du sol », avec le mur et ses deux coins surlignés sur le plan ; interrupteurs et prises placés sur le plan ; escalier (trémie, marches), mezzanine comme second niveau de la pièce, Velux dans une pente de toit (surface à déduire en peinture, plafond rampant).
 
 ## Organisation et motivation
 
