@@ -71,6 +71,8 @@ Map<String, Object?> _room(Room pRoom, List<Room> pAll) {
           ],
         },
     ],
+    // Réseaux cachés relevés sur les murs, en élévation, ajoutés sans changer de version
+    if (pRoom.networks.isNotEmpty) 'networks': [for (final vRun in pRoom.networks) vRun.toJson()],
     // Prises, interrupteurs, escaliers… dans le repère de la pièce, ajoutés sans changer de version
     'fixtures': [
       for (final vFixture in pRoom.fixtures)
