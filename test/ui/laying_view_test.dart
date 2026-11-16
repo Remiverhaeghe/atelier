@@ -19,13 +19,15 @@ void main() {
     );
 
     expect(find.textContaining('16 rangées, 54 lames'), findsOneWidget);
-    expect(find.text('138 + 138 + 122,4 cm'), findsOneWidget);
     expect(find.text('Aucune rangée posée sur 16'), findsOneWidget);
 
+    // L'aperçu des lames est en haut : les rangées viennent dessous.
+    await scrollToFirst(pTester, find.text('138 + 138 + 122,4 cm'));
     await pTester.tap(find.byType(Checkbox).first);
     await pTester.pump();
-
     expect(vRoom.laidRows, [1]);
+    await pTester.drag(verticalList(), const Offset(0, 300));
+    await pTester.pump();
     expect(find.text('1 rangée posée sur 16'), findsOneWidget);
 
     await pTester.tap(find.byType(Checkbox).first);
