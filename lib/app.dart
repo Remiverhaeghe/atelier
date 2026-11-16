@@ -16,11 +16,7 @@ class AtelierApp extends StatelessWidget {
     return MaterialApp(
       onGenerateTitle: (pContext) => AppLocalizations.of(pContext).appTitle,
       theme: ThemeData(colorSchemeSeed: vSeed, useMaterial3: true),
-      darkTheme: ThemeData(
-        colorSchemeSeed: vSeed,
-        brightness: Brightness.dark,
-        useMaterial3: true,
-      ),
+      darkTheme: ThemeData(colorSchemeSeed: vSeed, brightness: Brightness.dark, useMaterial3: true),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
