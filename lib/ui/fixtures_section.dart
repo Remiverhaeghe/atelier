@@ -27,7 +27,10 @@ String fixtureLabel(AppLocalizations pText, FixtureKind pKind) => switch (pKind)
 };
 
 /// Hauteur à monter proposée : plafond plus l'épaisseur d'un plancher.
-int defaultRiseMm(Room pRoom) => pRoom.ceilingHeightMm + 200;
+/// Hauteur à monter proposée : jusqu'à la mezzanine si elle a sa hauteur, sinon le plafond plus
+/// l'épaisseur d'un plancher.
+int defaultRiseMm(Room pRoom) =>
+    mezzanineFloorMm(pRoom.fixtures) ?? pRoom.ceilingHeightMm + 200;
 
 /// Prises, interrupteurs, escalier, mezzanine et fenêtres de toit de la pièce.
 class FixturesSection extends StatelessWidget {
@@ -111,7 +114,13 @@ class FixturesSection extends StatelessWidget {
     FixtureKind.socket ||
     FixtureKind.lightSwitch => pFixture.count > 1 ? pText.fixtureBlock(pFixture.count) : null,
     FixtureKind.stairs => _stairs(pText, stairPlan(pFixture.riseMm ?? defaultRiseMm(room))),
-    FixtureKind.mezzanine => pText.mezzanineSummary(formatSquareMetres(pFixture.areaM2)),
+    FixtureKind.mezzanine =>
+      pFixture.riseMm == null
+          ? pText.mezzanineSummary(formatSquareMetres(pFixture.areaM2))
+          : pText.mezzanineFloorSummary(
+              formatSquareMetres(pFixture.areaM2),
+              formatCentimetres(pFixture.riseMm!),
+            ),
     FixtureKind.roofWindow =>
       pFixture.plexi
           ? pText.plexiSummary(
@@ -272,12 +281,20 @@ class _FixtureDialogState extends State<_FixtureDialog> {
     }
     final vWidth = parseCentimetres(_width.text);
     final vDepth = parseCentimetres(_depth.text);
-    final vRise = vFixture.kind == FixtureKind.stairs ? parseCentimetres(_rise.text) : null;
+    final vRise = switch (vFixture.kind) {
+      FixtureKind.stairs => parseCentimetres(_rise.text),
+      // Hauteur de plancher facultative pour une mezzanine
+      FixtureKind.mezzanine => _rise.text.trim().isEmpty ? null : parseCentimetres(_rise.text),
+      _ => null,
+    };
     if (vWidth == null ||
         vWidth == 0 ||
         vDepth == null ||
         vDepth == 0 ||
-        (vFixture.kind == FixtureKind.stairs && (vRise == null || vRise == 0))) {
+        (vFixture.kind == FixtureKind.stairs && (vRise == null || vRise == 0)) ||
+        (vFixture.kind == FixtureKind.mezzanine &&
+            _rise.text.trim().isNotEmpty &&
+            (vRise == null || vRise == 0))) {
       setState(() => _error = vText.invalidLength);
       return;
     }
@@ -332,12 +349,14 @@ class _FixtureDialogState extends State<_FixtureDialog> {
                   value: _plexi,
                   onChanged: (pValue) => setState(() => _plexi = pValue!),
                 ),
-              if (vKind == FixtureKind.stairs)
+              if (vKind == FixtureKind.stairs || vKind == FixtureKind.mezzanine)
                 TextField(
                   controller: _rise,
                   keyboardType: vNumbers,
                   decoration: InputDecoration(
-                    labelText: vText.fixtureRise,
+                    labelText: vKind == FixtureKind.stairs
+                        ? vText.fixtureRise
+                        : vText.mezzanineFloor,
                     suffixText: vText.unitCm,
                   ),
                 ),

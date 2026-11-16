@@ -1299,7 +1299,7 @@
   "@fixtureBlock": {"placeholders": {"count": {"type": "int"}}},
   "stairSummary": "{risers} marches de {riser} cm, giron {going} cm, {run} cm au sol",
   "@stairSummary": {"placeholders": {"risers": {"type": "int"}, "riser": {"type": "String"}, "going": {"type": "String"}, "run": {"type": "String"}}},
-  "mezzanineSummary": "Second niveau de {area}",
+  "mezzanineSummary": "Second niveau de {area} m²",
   "@mezzanineSummary": {"placeholders": {"area": {"type": "String"}}},
   "roofWindowSummary": "{width} × {depth} cm, retirée du plafond à peindre",
   "@roofWindowSummary": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}}},
@@ -1651,5 +1651,11 @@
   "furnWardrobe": "Armoire",
   "furnChest": "Commode",
   "furnSideboard": "Buffet",
-  "furnOther": "Autre meuble"
+  "furnOther": "Autre meuble",
+  "mezzanineFloor": "Hauteur du plancher de la mezzanine, du sol (facultatif)",
+  "mezzanineFloorSummary": "Second niveau de {area} m² à {height} cm du sol",
+  "@mezzanineFloorSummary": {"placeholders": {"area": {"type": "String"}, "height": {"type": "String"}}},
+  "paintScaffold": "Plus de 3 m sous plafond : échafaudage roulant plutôt qu'une échelle (voir « Louer ou acheter »), et une perche télescopique pour le rouleau.",
+  "roomVolume": "Volume : {volume} m³",
+  "@roomVolume": {"placeholders": {"volume": {"type": "String"}}}
 }
