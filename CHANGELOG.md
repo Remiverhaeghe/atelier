@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Calculs : armoire sur mesure
+- Compartiments de gauche à droite, en penderie (tablette haute et tringle) ou en étagères
+- Liste de débit (montants, dessus et dessous, séparations, tablettes en retrait des portes, fond, portes), tringles, charnières selon la hauteur des portes
+- Dessin de face, coté, et alerte si les tablettes sont trop larges pour le panneau
+
 ### Calculs : placo et isolation
 - Doublage ou cloison : plaques, rails, montants (aboutés au-delà de 3 m), vis, bandes, enduit, rouleaux de laine
 - Résistance thermique de la laine selon son épaisseur et sa conductivité
