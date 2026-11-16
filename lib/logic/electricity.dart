@@ -51,7 +51,8 @@ ElecNeeds elecNeeds(List<ElecRoom> pRooms, {int pRunMetres = 10}) {
   }
   final vLights = pRooms.length;
   final vPoints = vSockets + vLights + vDedicated;
-  final vConduit = (vPoints * pRunMetres * 1.1).ceil();
+  // 20 × 10 × 1,1 vaut 220,000…01 en virgule flottante : on retire un epsilon avant d'arrondir
+  final vConduit = (vPoints * pRunMetres * 1.1 - 1e-9).ceil();
   final rNeeds = (
     sockets: vSockets,
     lights: vLights,
