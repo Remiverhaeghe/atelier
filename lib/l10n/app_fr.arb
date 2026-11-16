@@ -1898,5 +1898,21 @@
   "beforeAfterTitle": "Avant / après",
   "beforeLabel": "Avant",
   "afterLabel": "Après",
-  "beforePhoto": "Photo d'avant"
+  "beforePhoto": "Photo d'avant",
+  "heatTitle": "Chauffage",
+  "heatTotal": "Puissance à installer, pièces habitables",
+  "heatLevel": "Isolation de la maison",
+  "heatOutdoor": "Température extérieure de base (°C)",
+  "heatIndoor": "Température voulue (°C)",
+  "heatEmpty": "Saisissez les murs des pièces habitables pour estimer leur chauffage.",
+  "heatRadiators": "{count, plural, =1{1 radiateur} other{{count} radiateurs}} de {watts} W",
+  "@heatRadiators": {"placeholders": {"count": {"type": "int"}, "watts": {"type": "int"}}},
+  "heatPlexi": "dont {watts} W perdus par les plexis",
+  "@heatPlexi": {"placeholders": {"watts": {"type": "int"}}},
+  "heatDestratify": "Grande hauteur : un brasseur d'air réversible ramène l'air chaud du plafond.",
+  "heatHint": "Estimation par le volume (V × C × ΔT), sans calcul pièce par pièce des parois. Une étude thermique ou le chauffagiste fait foi ; la caméra thermique montre où ça fuit.",
+  "heatRecent": "Récente, bien isolée (C = 0,75)",
+  "heatGood": "Bonne isolation (C = 1)",
+  "heatAverage": "Isolation moyenne (C = 1,4)",
+  "heatPoor": "Peu ou pas isolée (C = 1,8)"
 }
