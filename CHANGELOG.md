@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Peinture
+- Onglet Peinture : hauteur sous plafond par pièce, murs, plafond, portes et chambranles, sous-couche à cocher
+- Surfaces sans les portes, passages et fenêtres ; couches, rendement et marge pour les retouches réglables
+- Pots les moins chers pour la quantité (prix saisis dans les courses, sinon grands pots moins chers au litre), rouleaux, bâches et ruban de masquage, repris dans les courses
+- Fenêtres : largeur, hauteur et allège ; la plinthe passe dessous, le plan les dessine en double trait
+
 ### Jonction entre deux pièces
 - Barre de seuil à cocher sur une porte ou un passage, dans une seule des deux pièces pour ne l'acheter qu'une fois ; longueur de barre réglable
 - Barres de seuil comptées dans le parquet et dans les courses

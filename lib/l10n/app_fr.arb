@@ -33,6 +33,106 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "tabPaint": "Peinture",
+  "paintWalls": "Peinture murs",
+  "paintCeiling": "Peinture plafond",
+  "paintWoodwork": "Laque boiseries",
+  "paintPrimer": "Sous-couche",
+  "paintPot": "{product}, pot de {litres} L",
+  "@paintPot": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "litres": {
+        "type": "String"
+      }
+    }
+  },
+  "itemRollers": "Rouleaux de peinture",
+  "itemDropCloths": "Bâches de protection (20 m²)",
+  "itemMaskingTape": "Rouleaux de ruban de masquage (50 m)",
+  "ceilingHeight": "Hauteur sous plafond (cm)",
+  "paintNeedsRoom": "Saisis d'abord les murs de la pièce dans l'onglet Pièce.",
+  "paintWhat": "À peindre",
+  "paintWallsSwitch": "Murs",
+  "paintCeilingSwitch": "Plafond",
+  "paintWoodworkSwitch": "Portes et chambranles",
+  "paintPrimerSwitch": "Sous-couche d'impression",
+  "paintCoats": "Couches de finition",
+  "paintCoverage": "Rendement (m² par litre et par couche)",
+  "paintWoodworkCoats": "Couches de laque",
+  "paintWoodworkCoverage": "Rendement de la laque (m² par litre)",
+  "paintPrimerCoverage": "Rendement de la sous-couche (m² par litre)",
+  "paintExtra": "Marge pour les retouches (%)",
+  "paintArea": "{area} m² de murs",
+  "@paintArea": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "paintLitresLine": "{product} : {litres} L, soit {pots}",
+  "@paintLitresLine": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "litres": {
+        "type": "String"
+      },
+      "pots": {
+        "type": "String"
+      }
+    }
+  },
+  "potCount": "{count} × {litres} L",
+  "@potCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "litres": {
+        "type": "String"
+      }
+    }
+  },
+  "paintCeilingArea": "Plafond : {area} m²",
+  "@paintCeilingArea": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "paintWoodworkArea": "Boiseries : {area} m²",
+  "@paintWoodworkArea": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "paintNothing": "Rien à peindre : choisis au moins une surface.",
+  "paintPotsHint": "Les grands pots reviennent moins cher au litre ; saisis les prix des pots dans les courses pour que le calcul prenne le moins cher.",
+  "paintSupplies": "{rollers, plural, =1{1 rouleau} other{{rollers} rouleaux}}, {cloths, plural, =1{1 bâche} other{{cloths} bâches}}, {tape, plural, =1{1 rouleau de ruban} other{{tape} rouleaux de ruban}}",
+  "@paintSupplies": {
+    "placeholders": {
+      "rollers": {
+        "type": "int"
+      },
+      "cloths": {
+        "type": "int"
+      },
+      "tape": {
+        "type": "int"
+      }
+    }
+  },
+  "openingWindow": "Fenêtre",
+  "openingHeight": "Hauteur (cm)",
+  "openingSill": "Allège : hauteur du bas de la fenêtre (cm)",
   "itemThresholdBars": "Barres de seuil",
   "thresholdHere": "Barre de seuil sous cette ouverture",
   "thresholdHelp": "À cocher dans une seule des deux pièces, pour ne l'acheter qu'une fois.",

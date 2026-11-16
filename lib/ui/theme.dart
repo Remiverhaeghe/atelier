@@ -235,6 +235,7 @@ abstract final class AtelierIcons {
   static const laying = Icons.format_list_numbered;
   static const baseboard = Icons.carpenter;
   static const guide = Icons.menu_book_outlined;
+  static const paint = Icons.format_paint_outlined;
   static const area = Icons.crop_free;
   static const planks = Icons.reorder;
   static const underlay = Icons.layers_outlined;

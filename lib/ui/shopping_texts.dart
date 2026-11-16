@@ -1,19 +1,40 @@
 import '../l10n/gen/app_localizations.dart';
+import '../logic/paint.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 
-/// Nom affiché d'un article.
-String itemLabel(AppLocalizations pText, ShoppingItem pItem) => switch (pItem) {
-  ShoppingItem.parquetPacks => pText.itemParquetPacks,
-  ShoppingItem.underlayRolls => pText.itemUnderlayRolls,
-  ShoppingItem.glueBuckets => pText.itemGlueBuckets,
-  ShoppingItem.nailBoxes => pText.itemNailBoxes,
-  ShoppingItem.thresholdBars => pText.itemThresholdBars,
-  ShoppingItem.baseboardBars => pText.itemBaseboardBars,
-  ShoppingItem.cartridges => pText.itemCartridges,
-  ShoppingItem.fixingPoints => pText.itemFixingPoints,
+/// Nom affiché d'un produit de peinture.
+String paintProductLabel(AppLocalizations pText, PaintProduct pProduct) => switch (pProduct) {
+  PaintProduct.walls => pText.paintWalls,
+  PaintProduct.ceiling => pText.paintCeiling,
+  PaintProduct.woodwork => pText.paintWoodwork,
+  PaintProduct.primer => pText.paintPrimer,
 };
+
+/// Nom affiché d'un article ; un pot de peinture porte son produit et sa contenance.
+String itemLabel(AppLocalizations pText, ShoppingItem pItem) {
+  final vPaint = pItem.paint;
+  if (vPaint != null) {
+    return pText.paintPot(paintProductLabel(pText, vPaint), formatDecimal(pItem.potLitres));
+  }
+
+  return switch (pItem) {
+    ShoppingItem.parquetPacks => pText.itemParquetPacks,
+    ShoppingItem.underlayRolls => pText.itemUnderlayRolls,
+    ShoppingItem.glueBuckets => pText.itemGlueBuckets,
+    ShoppingItem.nailBoxes => pText.itemNailBoxes,
+    ShoppingItem.thresholdBars => pText.itemThresholdBars,
+    ShoppingItem.baseboardBars => pText.itemBaseboardBars,
+    ShoppingItem.cartridges => pText.itemCartridges,
+    ShoppingItem.fixingPoints => pText.itemFixingPoints,
+    ShoppingItem.rollers => pText.itemRollers,
+    ShoppingItem.dropCloths => pText.itemDropCloths,
+    ShoppingItem.maskingTape => pText.itemMaskingTape,
+    // Les pots de peinture sont traités au-dessus
+    _ => '',
+  };
+}
 
 /// Prix en euros avec deux décimales : « 30,50 ».
 String formatEuros(double pValue) => pValue.toStringAsFixed(2).replaceAll('.', ',');
