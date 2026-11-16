@@ -237,6 +237,10 @@ class _OpeningDialog extends StatefulWidget {
 class _OpeningDialogState extends State<_OpeningDialog> {
   final _offset = TextEditingController(text: '0');
   final _width = TextEditingController(text: '83');
+  final _height = TextEditingController(
+    text: formatCentimetres(defaultOpeningHeightMm(OpeningKind.door)),
+  );
+  final _sill = TextEditingController(text: formatCentimetres(defaultSillMm));
   OpeningKind _kind = OpeningKind.door;
   bool _threshold = false;
   String? _error;
@@ -245,6 +249,8 @@ class _OpeningDialogState extends State<_OpeningDialog> {
   void dispose() {
     _offset.dispose();
     _width.dispose();
+    _height.dispose();
+    _sill.dispose();
     super.dispose();
   }
 
@@ -252,7 +258,14 @@ class _OpeningDialogState extends State<_OpeningDialog> {
     final vText = AppLocalizations.of(context);
     final vOffset = parseCentimetres(_offset.text);
     final vWidth = parseCentimetres(_width.text);
-    if (vOffset == null || vWidth == null || vWidth == 0) {
+    final vHeight = parseCentimetres(_height.text);
+    final vSill = parseCentimetres(_sill.text);
+    if (vOffset == null ||
+        vWidth == null ||
+        vWidth == 0 ||
+        vHeight == null ||
+        vHeight == 0 ||
+        vSill == null) {
       setState(() => _error = vText.invalidLength);
       return;
     }
@@ -262,7 +275,14 @@ class _OpeningDialogState extends State<_OpeningDialog> {
     }
     Navigator.pop(
       context,
-      Opening(kind: _kind, offsetMm: vOffset, widthMm: vWidth, threshold: _threshold),
+      Opening(
+        kind: _kind,
+        offsetMm: vOffset,
+        widthMm: vWidth,
+        threshold: _threshold && _kind != OpeningKind.window,
+        heightMm: vHeight,
+        sillMm: _kind == OpeningKind.window ? vSill : null,
+      ),
     );
   }
 
@@ -281,9 +301,13 @@ class _OpeningDialogState extends State<_OpeningDialog> {
               segments: [
                 ButtonSegment(value: OpeningKind.door, label: Text(vText.openingDoor)),
                 ButtonSegment(value: OpeningKind.passage, label: Text(vText.openingPassage)),
+                ButtonSegment(value: OpeningKind.window, label: Text(vText.openingWindow)),
               ],
               selected: {_kind},
-              onSelectionChanged: (pSelection) => setState(() => _kind = pSelection.first),
+              onSelectionChanged: (pSelection) => setState(() {
+                _kind = pSelection.first;
+                _height.text = formatCentimetres(defaultOpeningHeightMm(_kind));
+              }),
             ),
             TextField(
               controller: _offset,
@@ -295,13 +319,25 @@ class _OpeningDialogState extends State<_OpeningDialog> {
               keyboardType: vNumbers,
               decoration: InputDecoration(labelText: vText.openingWidth, errorText: _error),
             ),
-            SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              value: _threshold,
-              title: Text(vText.thresholdHere),
-              subtitle: Text(vText.thresholdHelp),
-              onChanged: (pValue) => setState(() => _threshold = pValue),
+            TextField(
+              controller: _height,
+              keyboardType: vNumbers,
+              decoration: InputDecoration(labelText: vText.openingHeight),
             ),
+            if (_kind == OpeningKind.window)
+              TextField(
+                controller: _sill,
+                keyboardType: vNumbers,
+                decoration: InputDecoration(labelText: vText.openingSill),
+              ),
+            if (_kind != OpeningKind.window)
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                value: _threshold,
+                title: Text(vText.thresholdHere),
+                subtitle: Text(vText.thresholdHelp),
+                onChanged: (pValue) => setState(() => _threshold = pValue),
+              ),
           ],
         ),
       ),
