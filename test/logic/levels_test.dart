@@ -39,13 +39,23 @@ void main() {
 
     expect([for (final vFloor in vFloors) vFloor.corners.first.z], [-2200, 0, 2700]);
     expect(vFaces.first.corners.first.z, -2200);
-    expect(vFaces.last.corners.map((pCorner) => pCorner.z).reduce((pA, pB) => pA > pB ? pA : pB), 2700 + 2400);
+    expect(
+      vFaces.last.corners.map((pCorner) => pCorner.z).reduce((pA, pB) => pA > pB ? pA : pB),
+      2700 + 2400,
+    );
   });
 
   test('la trémie est retirée du sol de l\'étage', () {
     final vRoom = rectangleRoom().copyWith(
       fixtures: const [
-        Fixture(id: 't', kind: FixtureKind.stairwell, xMm: 500, yMm: 1500, widthMm: 900, depthMm: 2800),
+        Fixture(
+          id: 't',
+          kind: FixtureKind.stairwell,
+          xMm: 500,
+          yMm: 1500,
+          widthMm: 900,
+          depthMm: 2800,
+        ),
       ],
     );
 
