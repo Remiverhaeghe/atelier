@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Temps passé
+- Chrono par pièce et par étape, gardé même si l'appli est fermée, et temps ajouté à la main
+- Temps à prévoir pour les autres pièces, au rythme constaté (minutes par m² ou par mètre de plinthe)
+
 ### Comparer les magasins
 - Depuis la liste de courses : prix relevés par magasin, total de chacun (prix manquants signalés) et panier panaché le moins cher, avec l'économie par rapport au meilleur magasin unique
 

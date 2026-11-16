@@ -5,6 +5,7 @@ import 'expenses.dart';
 import 'goals.dart';
 import 'offcuts.dart';
 import 'room.dart';
+import 'time_tracking.dart';
 
 class Worksite {
   const Worksite({
@@ -23,6 +24,8 @@ class Worksite {
     this.references = const {},
     this.offcuts = const [],
     this.storePrices = const {},
+    this.timeEntries = const [],
+    this.timer,
   });
 
   final String id;
@@ -63,6 +66,12 @@ class Worksite {
   /// Prix relevés par magasin, pour comparer : magasin, puis prix par nom d'article.
   final Map<String, Map<String, double>> storePrices;
 
+  /// Temps passé par pièce et par étape.
+  final List<TimeEntry> timeEntries;
+
+  /// Chrono en cours, gardé même si l'appli est fermée.
+  final RunningTimer? timer;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -79,6 +88,9 @@ class Worksite {
     Map<String, String>? references,
     List<Offcut>? offcuts,
     Map<String, Map<String, double>>? storePrices,
+    List<TimeEntry>? timeEntries,
+    RunningTimer? timer,
+    bool clearTimer = false,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -95,6 +107,8 @@ class Worksite {
     references: references ?? this.references,
     offcuts: offcuts ?? this.offcuts,
     storePrices: storePrices ?? this.storePrices,
+    timeEntries: timeEntries ?? this.timeEntries,
+    timer: clearTimer ? null : timer ?? this.timer,
   );
 
   Map<String, Object?> toJson() => {
@@ -113,6 +127,8 @@ class Worksite {
     if (references.isNotEmpty) 'references': references,
     if (offcuts.isNotEmpty) 'offcuts': [for (final vOffcut in offcuts) vOffcut.toJson()],
     if (storePrices.isNotEmpty) 'storePrices': storePrices,
+    if (timeEntries.isNotEmpty) 'timeEntries': [for (final vEntry in timeEntries) vEntry.toJson()],
+    if (timer != null) 'timer': timer!.toJson(),
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -153,6 +169,14 @@ class Worksite {
           for (final vPrice in (vStore.value! as Map<String, Object?>).entries)
             vPrice.key: (vPrice.value! as num).toDouble(),
         },
+    },
+    timeEntries: [
+      for (final vEntry in (pJson['timeEntries'] as List<Object?>?) ?? const [])
+        TimeEntry.fromJson(vEntry! as Map<String, Object?>),
+    ],
+    timer: switch (pJson['timer']) {
+      final Map<String, Object?> vTimer => RunningTimer.fromJson(vTimer),
+      _ => null,
     },
   );
 }

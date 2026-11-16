@@ -1412,5 +1412,19 @@
   "storeTotal": "Total : {amount} €",
   "@storeTotal": {"placeholders": {"amount": {"type": "String"}}},
   "storeTotalMissing": "{amount} € pour l'instant, {count, plural, =1{1 prix manquant} other{{count} prix manquants}}",
-  "@storeTotalMissing": {"placeholders": {"amount": {"type": "String"}, "count": {"type": "int"}}}
+  "@storeTotalMissing": {"placeholders": {"amount": {"type": "String"}, "count": {"type": "int"}}},
+  "timeTitle": "Temps passé",
+  "timeEmpty": "Ajoutez une pièce pour noter le temps passé sur chaque étape.",
+  "timeRoom": "Pièce",
+  "timePhase": "Étape",
+  "timeStart": "Lancer le chrono",
+  "timeStop": "Arrêter",
+  "timeRunning": "{phase}, {room}",
+  "@timeRunning": {"placeholders": {"phase": {"type": "String"}, "room": {"type": "String"}}},
+  "timeTotal": "{duration} sur le chantier",
+  "@timeTotal": {"placeholders": {"duration": {"type": "String"}}},
+  "timeEstimate": "À prévoir : environ {duration}, au rythme des autres pièces",
+  "@timeEstimate": {"placeholders": {"duration": {"type": "String"}}},
+  "timeAdd": "Ajouter du temps",
+  "timeMinutes": "Minutes"
 }
