@@ -46,7 +46,9 @@ class _WallTilingCalculatorState extends State<WallTilingCalculator> {
         widthMm: _wall.onWorktop ? _wall.design.widthMm : vPanel.heightMm,
       ),
       cutOutWidthMm: vOpening?.widthMm ?? 0,
-      cutOutHeightMm: vOpening == null ? 0 : (vOpening.heightMm ?? defaultOpeningHeightMm(vOpening.kind)),
+      cutOutHeightMm: vOpening == null
+          ? 0
+          : (vOpening.heightMm ?? defaultOpeningHeightMm(vOpening.kind)),
     );
   }
 

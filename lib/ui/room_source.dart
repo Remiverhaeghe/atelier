@@ -5,7 +5,12 @@ import '../logic/room.dart';
 
 /// « Reprendre d'une pièce » : choix d'une pièce dont le calcul reprend les surfaces.
 class RoomSourcePicker extends StatelessWidget {
-  const RoomSourcePicker({super.key, required this.rooms, required this.value, required this.onChanged});
+  const RoomSourcePicker({
+    super.key,
+    required this.rooms,
+    required this.value,
+    required this.onChanged,
+  });
 
   final List<Room> rooms;
   final String? value;
