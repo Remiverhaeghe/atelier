@@ -1,0 +1,91 @@
+/// Vue 3D de la maison : murs extrudés à la hauteur sous plafond, projetés et triés pour le dessin.
+library;
+
+import 'dart:math' as math;
+
+import 'geometry.dart';
+import 'house.dart';
+import 'room.dart';
+
+/// Point en 3D, en millimètres : x et y au sol, z vers le haut.
+typedef Point3 = ({double x, double y, double z});
+
+/// Face à dessiner : ses coins en 3D, sa profondeur après rotation, et ce qu'elle représente.
+typedef Face = ({List<Point3> corners, double depth, FaceKind kind});
+
+enum FaceKind { floor, wall, door, window }
+
+/// Faces de la maison vue sous l'angle [pYawDeg] : sols d'abord, puis murs du fond vers l'avant.
+List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
+  final vAll = [for (final vRoom in pRooms) ...houseOutline(vRoom)];
+  if (vAll.isEmpty) {
+    return const [];
+  }
+  final vCx = vAll.map((pPoint) => pPoint.x).reduce((pA, pB) => pA + pB) / vAll.length;
+  final vCy = vAll.map((pPoint) => pPoint.y).reduce((pA, pB) => pA + pB) / vAll.length;
+  final vYaw = pYawDeg * math.pi / 180;
+  // Profondeur : distance vers le fond une fois la maison tournée
+  double vDepth(List<Point3> pCorners) =>
+      pCorners
+          .map((pCorner) => (pCorner.x - vCx) * math.sin(vYaw) + (pCorner.y - vCy) * math.cos(vYaw))
+          .reduce((pA, pB) => pA + pB) /
+      pCorners.length;
+  final vFloors = <Face>[];
+  final vWalls = <Face>[];
+  for (final vRoom in pRooms) {
+    final vPoints = houseOutline(vRoom);
+    final vHeight = vRoom.ceilingHeightMm.toDouble();
+    final vFloor = [
+      for (final vPoint in vPoints.take(vRoom.walls.length)) (x: vPoint.x, y: vPoint.y, z: 0.0),
+    ];
+    vFloors.add((corners: vFloor, depth: vDepth(vFloor), kind: FaceKind.floor));
+    for (var vIndex = 0; vIndex < vRoom.walls.length; vIndex++) {
+      final vStart = vPoints[vIndex];
+      final vEnd = vPoints[vIndex + 1];
+      final vWall = _quad(vStart, vEnd, 0, vHeight);
+      vWalls.add((corners: vWall, depth: vDepth(vWall), kind: FaceKind.wall));
+      final vLength = vRoom.walls[vIndex].lengthMm.toDouble();
+      for (final vOpening in vRoom.walls[vIndex].openings) {
+        if (vLength <= 0) {
+          continue;
+        }
+        PlanPoint vAlong(double pMm) => PlanPoint(
+          vStart.x + (vEnd.x - vStart.x) * pMm / vLength,
+          vStart.y + (vEnd.y - vStart.y) * pMm / vLength,
+        );
+        final vQuad = _quad(
+          vAlong(vOpening.offsetMm.toDouble()),
+          vAlong((vOpening.offsetMm + vOpening.widthMm).toDouble()),
+          vOpening.sill.toDouble(),
+          math.min(vOpening.sill + vOpening.height, vHeight).toDouble(),
+        );
+        // Un peu devant le mur, pour être dessinée juste après lui
+        vWalls.add((
+          corners: vQuad,
+          depth: vDepth(vQuad) - 1,
+          kind: vOpening.kind == OpeningKind.window ? FaceKind.window : FaceKind.door,
+        ));
+      }
+    }
+  }
+  vWalls.sort((pA, pB) => pB.depth.compareTo(pA.depth));
+
+  return [...vFloors, ...vWalls];
+}
+
+List<Point3> _quad(PlanPoint pStart, PlanPoint pEnd, double pBottom, double pTop) => [
+  (x: pStart.x, y: pStart.y, z: pBottom),
+  (x: pEnd.x, y: pEnd.y, z: pBottom),
+  (x: pEnd.x, y: pEnd.y, z: pTop),
+  (x: pStart.x, y: pStart.y, z: pTop),
+];
+
+/// Projection vue d'en haut et de biais : rotation autour du centre, inclinaison de [pPitchDeg].
+({double x, double y}) project(Point3 pPoint, double pYawDeg, {double pPitchDeg = 35}) {
+  final vYaw = pYawDeg * math.pi / 180;
+  final vPitch = pPitchDeg * math.pi / 180;
+  final vX = pPoint.x * math.cos(vYaw) - pPoint.y * math.sin(vYaw);
+  final vY = pPoint.x * math.sin(vYaw) + pPoint.y * math.cos(vYaw);
+
+  return (x: vX, y: -vY * math.sin(vPitch) - pPoint.z * math.cos(vPitch));
+}

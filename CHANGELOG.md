@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Vue 3D
+- Dans le plan de la maison, bascule en 3D : murs élevés à la hauteur sous plafond, sols, portes et fenêtres à leur place
+- Rotation autour de la maison d'un glissement du doigt
+
 ### Plan de la maison
 - « Plan de la maison » dans le menu du chantier : toutes les pièces sur le même plan, à faire glisser et à tourner d'un quart de tour, aimantées tous les 5 cm
 - Rangement automatique des pièces pas encore placées

@@ -1,0 +1,43 @@
+import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/view3d.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import '../support/rooms.dart';
+
+void main() {
+  test('un sol puis quatre murs, du fond vers l\'avant, et les ouvertures', () {
+    final vRoom = rectangleRoom().copyWith(
+      walls: const [
+        Wall(
+          lengthMm: 4000,
+          openings: [Opening(kind: OpeningKind.window, offsetMm: 1000, widthMm: 1200)],
+        ),
+        Wall(lengthMm: 3000),
+        Wall(lengthMm: 4000),
+        Wall(
+          lengthMm: 3000,
+          openings: [Opening(kind: OpeningKind.door, offsetMm: 300, widthMm: 830)],
+        ),
+      ],
+    );
+    final vFaces = houseFaces([vRoom], 0);
+
+    expect(vFaces.first.kind, FaceKind.floor);
+    expect(vFaces.where((pFace) => pFace.kind == FaceKind.wall), hasLength(4));
+    expect(vFaces.where((pFace) => pFace.kind == FaceKind.window), hasLength(1));
+    // Sans rotation, le mur du fond (y = 3000) est dessiné le premier
+    expect(vFaces[1].corners.first.y, 3000);
+    final vWindow = vFaces.firstWhere((pFace) => pFace.kind == FaceKind.window);
+    expect(vWindow.corners.map((pCorner) => pCorner.z).toSet(), {900.0, 2150.0});
+    expect(houseFaces(const [], 0), isEmpty);
+  });
+
+  test('projection : le haut d\'un mur monte à l\'écran, la rotation tourne le plan', () {
+    final vFloor = project((x: 0, y: 0, z: 0), 0);
+    final vTop = project((x: 0, y: 0, z: 2500), 0);
+    expect(vTop.y, lessThan(vFloor.y));
+
+    final vTurned = project((x: 1000, y: 0, z: 0), 90);
+    expect(vTurned.x, closeTo(0, 1e-9));
+  });
+}
