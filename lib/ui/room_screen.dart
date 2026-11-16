@@ -76,6 +76,16 @@ class RoomScreen extends StatelessWidget {
               title: Text(vRoom.name),
               actions: [
                 IconButton(
+                  tooltip: vText.undo,
+                  icon: const Icon(Icons.undo),
+                  onPressed: controller.canUndo ? controller.undo : null,
+                ),
+                IconButton(
+                  tooltip: vText.redo,
+                  icon: const Icon(Icons.redo),
+                  onPressed: controller.canRedo ? controller.redo : null,
+                ),
+                IconButton(
                   tooltip: vText.cutListPrint,
                   icon: const Icon(Icons.content_cut),
                   onPressed: () => Printing.layoutPdf(
