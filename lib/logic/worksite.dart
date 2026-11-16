@@ -28,6 +28,7 @@ class Worksite {
     this.timeEntries = const [],
     this.timer,
     this.journal = const [],
+    this.lessons = const [],
   });
 
   final String id;
@@ -77,6 +78,9 @@ class Worksite {
   /// Carnet de la maison : travaux faits, produits, photos et factures.
   final List<JournalEntry> journal;
 
+  /// Leçons notées au bilan, à relire avant le prochain chantier.
+  final List<String> lessons;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -97,6 +101,7 @@ class Worksite {
     RunningTimer? timer,
     bool clearTimer = false,
     List<JournalEntry>? journal,
+    List<String>? lessons,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -116,6 +121,7 @@ class Worksite {
     timeEntries: timeEntries ?? this.timeEntries,
     timer: clearTimer ? null : timer ?? this.timer,
     journal: journal ?? this.journal,
+    lessons: lessons ?? this.lessons,
   );
 
   Map<String, Object?> toJson() => {
@@ -137,6 +143,7 @@ class Worksite {
     if (timeEntries.isNotEmpty) 'timeEntries': [for (final vEntry in timeEntries) vEntry.toJson()],
     if (timer != null) 'timer': timer!.toJson(),
     if (journal.isNotEmpty) 'journal': [for (final vEntry in journal) vEntry.toJson()],
+    if (lessons.isNotEmpty) 'lessons': lessons,
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -190,6 +197,7 @@ class Worksite {
       for (final vEntry in (pJson['journal'] as List<Object?>?) ?? const [])
         JournalEntry.fromJson(vEntry! as Map<String, Object?>),
     ],
+    lessons: [for (final vLesson in (pJson['lessons'] as List<Object?>?) ?? const []) vLesson! as String],
   );
 }
 

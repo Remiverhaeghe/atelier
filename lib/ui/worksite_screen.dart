@@ -23,6 +23,7 @@ import 'journal_screen.dart';
 import 'living_area_screen.dart';
 import 'offcuts_screen.dart';
 import 'plexi_screen.dart';
+import 'review_screen.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
@@ -147,6 +148,14 @@ class WorksiteScreen extends StatelessWidget {
                               JournalScreen(controller: controller, worksiteId: worksiteId),
                         ),
                       );
+                    case 'review':
+                      Navigator.push(
+                        pContext,
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              ReviewScreen(controller: controller, worksiteId: worksiteId),
+                        ),
+                      );
                     case 'offcuts':
                       Navigator.push(
                         pContext,
@@ -165,6 +174,7 @@ class WorksiteScreen extends StatelessWidget {
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
                   PopupMenuItem(value: 'house', child: Text(vText.houseTitle)),
                   PopupMenuItem(value: 'journal', child: Text(vText.journalMenu)),
+                  PopupMenuItem(value: 'review', child: Text(vText.reviewMenu)),
                   PopupMenuItem(value: 'living', child: Text(vText.livingAreaMenu)),
                   PopupMenuItem(value: 'plexi', child: Text(vText.plexiMenu)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
