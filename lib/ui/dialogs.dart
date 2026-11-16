@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
+import 'angle_dialog.dart';
 
 /// Demande un nom ; null si l'utilisateur annule.
 Future<String?> askName(BuildContext pContext, {required String pTitle, required String pLabel}) =>
@@ -175,6 +176,16 @@ class _WallDialogState extends State<_WallDialog> {
                 helperText: vText.wallAngleHelp,
                 helperMaxLines: 2,
                 errorText: _angleError,
+                suffixIcon: IconButton(
+                  tooltip: vText.measureAngle,
+                  icon: const Icon(Icons.architecture),
+                  onPressed: () async {
+                    final vAngle = await measureCornerAngle(context);
+                    if (vAngle != null) {
+                      setState(() => _angle.text = formatAngle(vAngle));
+                    }
+                  },
+                ),
               ),
             ),
             SwitchListTile(
