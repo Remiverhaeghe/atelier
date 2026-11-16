@@ -2,6 +2,8 @@
 
 ## Non publié
 
+## 0.3.0 - 2026-11-16
+
 ### Bilan de fin de chantier
 - Dépensé face au prévu de la liste de courses, temps de travail et étape la plus longue, chutes gardées, reprises faites, travaux au carnet
 - Leçons notées pour le prochain chantier
