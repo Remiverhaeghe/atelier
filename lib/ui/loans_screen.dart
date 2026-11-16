@@ -55,8 +55,6 @@ class LoansScreen extends StatelessWidget {
       );
       await controller.updateWorksite(vWorksite.copyWith(loans: [...vWorksite.loans, vLoan]));
     }
-    vTool.dispose();
-    vPerson.dispose();
   }
 
   @override
