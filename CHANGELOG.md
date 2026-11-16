@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Tests sur émulateur
+- Parcours lancé sur un Android émulé en CI : saisie d'un chantier et d'une pièce, écriture du fichier sur le téléphone, relecture comme au redémarrage
+
 ### Vue 3D
 - Dans le plan de la maison, bascule en 3D : murs élevés à la hauteur sous plafond, sols, portes et fenêtres à leur place
 - Rotation autour de la maison d'un glissement du doigt
