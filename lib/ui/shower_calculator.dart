@@ -24,14 +24,8 @@ class _ShowerCalculatorState extends State<ShowerCalculator> {
     walls: 3,
   );
 
-  void _set({
-    int? pWidth,
-    int? pDepth,
-    DrainKind? pDrain,
-    int? pSiphon,
-    int? pPipe,
-    int? pWalls,
-  }) => setState(
+  void _set({int? pWidth, int? pDepth, DrainKind? pDrain, int? pSiphon, int? pPipe, int? pWalls}) =>
+      setState(
         () => _shower = (
           widthMm: pWidth ?? _shower.widthMm,
           depthMm: pDepth ?? _shower.depthMm,
@@ -48,12 +42,7 @@ class _ShowerCalculatorState extends State<ShowerCalculator> {
     final vTheme = Theme.of(context);
     final vPlan = showerPlan(_shower);
     NumberField<int> vField(String pLabel, int pInitial, ValueChanged<int> pSet) =>
-        NumberField<int>(
-          label: pLabel,
-          initial: '$pInitial',
-          parse: parseWhole,
-          onValue: pSet,
-        );
+        NumberField<int>(label: pLabel, initial: '$pInitial', parse: parseWhole, onValue: pSet);
 
     return Scaffold(
       appBar: AppBar(title: Text(vText.showerTitle)),
@@ -80,10 +69,7 @@ class _ShowerCalculatorState extends State<ShowerCalculator> {
                       formatDecimal(vPlan.specWallM2),
                     ),
                   ),
-                  IconLine(
-                    Icons.linear_scale,
-                    vText.showerBand(formatDecimal(vPlan.cornerBandM)),
-                  ),
+                  IconLine(Icons.linear_scale, vText.showerBand(formatDecimal(vPlan.cornerBandM))),
                 ],
               ),
             ),
@@ -105,8 +91,7 @@ class _ShowerCalculatorState extends State<ShowerCalculator> {
           Text(vText.showerWalls),
           SegmentedButton<int>(
             segments: [
-              for (final vWalls in [1, 2, 3])
-                ButtonSegment(value: vWalls, label: Text('$vWalls')),
+              for (final vWalls in [1, 2, 3]) ButtonSegment(value: vWalls, label: Text('$vWalls')),
             ],
             selected: {_shower.walls},
             onSelectionChanged: (pWalls) => _set(pWalls: pWalls.single),

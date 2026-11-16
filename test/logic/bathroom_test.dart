@@ -47,7 +47,12 @@ void main() {
       pipeMm: 1000,
       walls: pWalls,
     );
-    expect([for (final vWalls in [0, 2, 5]) showerWallsMm(vWith(vWalls))], [0, 1800, 2600]);
+    expect(
+      [
+        for (final vWalls in [0, 2, 5]) showerWallsMm(vWith(vWalls)),
+      ],
+      [0, 1800, 2600],
+    );
     expect(showerPlan(vWith(0)).cornerBandM, 0);
     expect(showerPlan(vWith(2)).cornerBandM, closeTo(3.8, 1e-9));
   });
