@@ -8,8 +8,7 @@ typedef Backup = ({String day, File file});
 
 /// Copies quotidiennes du fichier des chantiers dans [folder], [keep] jours gardés.
 class Backups {
-  Backups(this.folder, {this.keep = 14, DateTime Function()? pNow})
-    : _now = pNow ?? DateTime.now;
+  Backups(this.folder, {this.keep = 14, DateTime Function()? pNow}) : _now = pNow ?? DateTime.now;
 
   final Directory folder;
   final int keep;

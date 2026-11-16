@@ -38,9 +38,7 @@ class _BackupsScreenState extends State<BackupsScreen> {
       return;
     }
     try {
-      await widget.controller.replaceAll(
-        WorksiteStore.decode(await pBackup.file.readAsString()),
-      );
+      await widget.controller.replaceAll(WorksiteStore.decode(await pBackup.file.readAsString()));
       vMessenger.showSnackBar(SnackBar(content: Text(vText.backupRestored(pBackup.day))));
     } on FormatException {
       vMessenger.showSnackBar(SnackBar(content: Text(vText.importFailed)));
