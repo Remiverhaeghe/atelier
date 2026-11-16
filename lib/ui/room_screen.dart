@@ -14,6 +14,7 @@ import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
+import 'site_mode_screen.dart';
 import 'theme.dart';
 import 'touch_ups_view.dart';
 import 'paint_view.dart';
@@ -66,6 +67,22 @@ class RoomScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(vRoom.name),
+              actions: [
+                IconButton(
+                  tooltip: vText.siteModeTitle,
+                  icon: const Icon(Icons.construction),
+                  onPressed: () => Navigator.push(
+                    pContext,
+                    MaterialPageRoute<void>(
+                      builder: (_) => SiteModeScreen(
+                        controller: controller,
+                        worksiteId: worksiteId,
+                        roomId: roomId,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
               bottom: TabBar(
                 isScrollable: true,
                 tabs: [
