@@ -6,7 +6,7 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 70. **Combles** : deux pans par pièce, saisie par la longueur du rampant, ligne des 1,80 m sur le plan, vitrages en plexi.
+- 71. **Plexis de toiture** : vitrage plexi sur les fenêtres de toit, surface à remplacer, cadre en bois à fabriquer (montants, traverses, feuillure) et vitrage à commander.
 - 59. **Isolation** : rouleaux ou panneaux, épaisseur selon la résistance R visée, pare-vapeur, fourrures.
 - 60. **Faïence et crédence** : surfaces murales, découpes autour des prises, joints et croisillons.
 - 61. **Enduit et ragréage** : sacs selon épaisseur et surface, séchage dans le planning.
