@@ -92,7 +92,11 @@ class _ShelfPainter extends CustomPainter {
       pCanvas.drawRect(vBoard, Paint()..color = warning ?? wood);
       pCanvas.drawRect(vBoard, vEdge);
     }
-    _tape(pCanvas, formatCentimetres(design.widthMm), Offset(vLeft + vWidth / 2, vTop + vHeight + 16));
+    _tape(
+      pCanvas,
+      formatCentimetres(design.widthMm),
+      Offset(vLeft + vWidth / 2, vTop + vHeight + 16),
+    );
     _tape(pCanvas, formatCentimetres(design.heightMm), Offset(vLeft - 20, vTop + vHeight / 2));
   }
 
@@ -101,8 +105,15 @@ class _ShelfPainter extends CustomPainter {
       text: TextSpan(text: pText, style: labelStyle),
       textDirection: TextDirection.ltr,
     )..layout();
-    final vRect = Rect.fromCenter(center: pCenter, width: vLabel.width + 12, height: vLabel.height + 4);
-    pCanvas.drawRRect(RRect.fromRectAndRadius(vRect, const Radius.circular(4)), Paint()..color = colors.tape);
+    final vRect = Rect.fromCenter(
+      center: pCenter,
+      width: vLabel.width + 12,
+      height: vLabel.height + 4,
+    );
+    pCanvas.drawRRect(
+      RRect.fromRectAndRadius(vRect, const Radius.circular(4)),
+      Paint()..color = colors.tape,
+    );
     vLabel.paint(pCanvas, pCenter - Offset(vLabel.width / 2, vLabel.height / 2));
   }
 

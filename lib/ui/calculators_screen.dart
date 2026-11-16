@@ -51,7 +51,8 @@ class CalculatorsScreen extends StatelessWidget {
             Card(
               margin: const EdgeInsets.all(4),
               child: InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute<void>(builder: vEntry.builder)),
+                onTap: () =>
+                    Navigator.push(context, MaterialPageRoute<void>(builder: vEntry.builder)),
                 child: Padding(
                   padding: const EdgeInsets.all(14),
                   child: Column(
@@ -63,7 +64,11 @@ class CalculatorsScreen extends StatelessWidget {
                           color: vTheme.colorScheme.primaryContainer,
                           borderRadius: BorderRadius.circular(14),
                         ),
-                        child: Icon(vEntry.icon, size: 30, color: vTheme.colorScheme.onPrimaryContainer),
+                        child: Icon(
+                          vEntry.icon,
+                          size: 30,
+                          color: vTheme.colorScheme.onPrimaryContainer,
+                        ),
                       ),
                       const Spacer(),
                       Text(vEntry.title, style: vTheme.textTheme.titleMedium),
