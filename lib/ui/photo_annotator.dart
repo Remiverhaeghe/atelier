@@ -66,11 +66,16 @@ class _MarksPainter extends CustomPainter {
 }
 
 /// Entoure ce qui est à reprendre sur la photo : un appui pose un cercle, « Effacer » les retire.
-Future<List<PhotoMark>?> annotatePhoto(BuildContext pContext, String pPath, List<PhotoMark> pMarks) =>
-    Navigator.push<List<PhotoMark>>(
-      pContext,
-      MaterialPageRoute(builder: (_) => _Annotator(path: pPath, initial: pMarks)),
-    );
+Future<List<PhotoMark>?> annotatePhoto(
+  BuildContext pContext,
+  String pPath,
+  List<PhotoMark> pMarks,
+) => Navigator.push<List<PhotoMark>>(
+  pContext,
+  MaterialPageRoute(
+    builder: (_) => _Annotator(path: pPath, initial: pMarks),
+  ),
+);
 
 class _Annotator extends StatefulWidget {
   const _Annotator({required this.path, required this.initial});
