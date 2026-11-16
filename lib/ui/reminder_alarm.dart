@@ -36,7 +36,9 @@ class LocalReminderAlarm implements ReminderAlarm {
     }
     tz_data.initializeTimeZones();
     await _aPlugin.initialize(
-      const InitializationSettings(android: AndroidInitializationSettings('@mipmap/ic_launcher')),
+      settings: const InitializationSettings(
+        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      ),
     );
     // Android 13 et plus demandent l'accord de l'utilisateur, une fois
     await _aPlugin
@@ -52,12 +54,12 @@ class LocalReminderAlarm implements ReminderAlarm {
     }
     await _init();
     await _aPlugin.zonedSchedule(
-      notificationId(pReminder.id),
-      pTitle,
-      pBody,
+      id: notificationId(pReminder.id),
+      title: pTitle,
+      body: pBody,
       // Un instant absolu : le fuseau UTC suffit, sans lire celui du téléphone
-      tz.TZDateTime.from(pReminder.dueAt, tz.UTC),
-      const NotificationDetails(
+      scheduledDate: tz.TZDateTime.from(pReminder.dueAt, tz.UTC),
+      notificationDetails: const NotificationDetails(
         android: AndroidNotificationDetails('attentes', 'Attentes du chantier'),
       ),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
@@ -67,6 +69,6 @@ class LocalReminderAlarm implements ReminderAlarm {
   @override
   Future<void> cancel(Reminder pReminder) async {
     await _init();
-    await _aPlugin.cancel(notificationId(pReminder.id));
+    await _aPlugin.cancel(id: notificationId(pReminder.id));
   }
 }
