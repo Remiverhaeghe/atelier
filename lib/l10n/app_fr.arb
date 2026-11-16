@@ -2173,5 +2173,7 @@
   "deliveryExtra": "{item} : {count} en trop",
   "@deliveryExtra": {"placeholders": {"item": {"type": "String"}, "count": {"type": "int"}}},
   "deliveryReceived": "Reçus",
-  "deliveryHint": "Ouvrez et comptez devant le livreur. Un colis abîmé ou incomplet se note avec des réserves précises sur le bon de livraison (« 2 paquets de parquet écrasés »), puis se confirme au vendeur ou au transporteur par écrit, en général dans les 3 jours. Photographiez les dégâts."
+  "deliveryHint": "Ouvrez et comptez devant le livreur. Un colis abîmé ou incomplet se note avec des réserves précises sur le bon de livraison (« 2 paquets de parquet écrasés »), puis se confirme au vendeur ou au transporteur par écrit, en général dans les 3 jours. Photographiez les dégâts.",
+  "nightOn": "Mode nuit",
+  "nightOff": "Quitter le mode nuit"
 }

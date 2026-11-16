@@ -77,6 +77,8 @@ class SiteModeScreen extends StatefulWidget {
 }
 
 class _SiteModeScreenState extends State<SiteModeScreen> {
+  bool _night = false;
+
   @override
   void initState() {
     super.initState();
@@ -183,10 +185,15 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
         final vRow = nextLayingRow(vRoom);
         final vHasPlan = planLaying(vRoom, vRoom.parquet) != null;
 
-        return Scaffold(
+        final vScreen = Scaffold(
           appBar: AppBar(
             title: Text('${vText.siteModeTitle} · ${vRoom.name}'),
             actions: [
+              IconButton(
+                tooltip: _night ? vText.nightOff : vText.nightOn,
+                icon: Icon(_night ? Icons.light_mode_outlined : Icons.nightlight_outlined),
+                onPressed: () => setState(() => _night = !_night),
+              ),
               IconButton(
                 tooltip: vText.voiceListen,
                 icon: const Icon(Icons.mic_none),
@@ -222,6 +229,8 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
             ],
           ),
         );
+
+        return _night ? Theme(data: nightTheme(Theme.of(pContext)), child: vScreen) : vScreen;
       },
     );
   }
