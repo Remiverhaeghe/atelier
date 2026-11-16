@@ -1753,5 +1753,15 @@
   "reviewMenu": "Bilan du chantier",
   "roomSource": "Reprendre d'une pièce",
   "roomSourceNone": "Saisie à la main",
-  "roomSourceWall": "Mur de la pièce"
+  "roomSourceWall": "Mur de la pièce",
+  "levelTitle": "Niveau et pente",
+  "levelHelp": "Le téléphone en niveau à bulle et en inclinomètre",
+  "levelOk": "De niveau",
+  "levelSlope": "Pente de {percent} %",
+  "@levelSlope": {"placeholders": {"percent": {"type": "String"}}},
+  "levelHowTo": "Posez le téléphone à plat sur la surface, dos contre elle : sur un rampant pour son angle, sur un plancher ou une étagère pour le niveau. Une coque épaisse ou bombée fausse la mesure.",
+  "levelUse": "Utiliser cet angle",
+  "slopeByPhone": "Mesurer l'angle du rampant au téléphone",
+  "slopeRunFromAngle": "Angle de {angle}° : {run} cm au sol",
+  "@slopeRunFromAngle": {"placeholders": {"angle": {"type": "String"}, "run": {"type": "String"}}}
 }
