@@ -1401,5 +1401,16 @@
   "rentPurchase": "Prix d'achat (€)",
   "rentDayRate": "Location par jour (€)",
   "rentDays": "Jours d'utilisation",
-  "rentResale": "Revente après le chantier (% du prix)"
+  "rentResale": "Revente après le chantier (% du prix)",
+  "storeCompareTitle": "Comparer les magasins",
+  "storeCompareEmpty": "Ajoutez deux magasins ou plus, puis relevez leurs prix : l'appli donne le total de chacun et le panier le moins cher en panachant.",
+  "storeAdd": "Ajouter un magasin",
+  "storeName": "Nom du magasin",
+  "storeBasket": "Panier panaché le moins cher",
+  "storeSaving": "{amount} € de moins qu'en allant seulement chez {store}",
+  "@storeSaving": {"placeholders": {"amount": {"type": "String"}, "store": {"type": "String"}}},
+  "storeTotal": "Total : {amount} €",
+  "@storeTotal": {"placeholders": {"amount": {"type": "String"}}},
+  "storeTotalMissing": "{amount} € pour l'instant, {count, plural, =1{1 prix manquant} other{{count} prix manquants}}",
+  "@storeTotalMissing": {"placeholders": {"amount": {"type": "String"}, "count": {"type": "int"}}}
 }
