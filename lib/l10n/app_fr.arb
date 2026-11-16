@@ -1952,5 +1952,10 @@
   "elecPlanHint": "Chemin de proche en proche entre les points d'une pièce, 1,20 m de descente par boîte ; la liaison au tableau n'est pas comptée. Le schéma et le raccordement suivent la norme NF C 15-100, et la mise en service demande l'attestation Consuel pour une installation neuve.",
   "thermalPlexi": "{count, plural, =1{1 plexi} other{{count} plexis}} de toit dans la pièce ({area} m²) : à regarder en premier sur l'image",
   "@thermalPlexi": {"placeholders": {"count": {"type": "int"}, "area": {"type": "String"}}},
-  "thermalPlexiFix": "Touchez pour préparer le cadre et le vitrage qui les remplaceront."
+  "thermalPlexiFix": "Touchez pour préparer le cadre et le vitrage qui les remplaceront.",
+  "journalPdfProduct": "Produit : {product}",
+  "@journalPdfProduct": {"placeholders": {"product": {"type": "String"}}},
+  "journalPdfReference": "Référence : {reference}",
+  "@journalPdfReference": {"placeholders": {"reference": {"type": "String"}}},
+  "journalPdf": "Imprimer le carnet en PDF"
 }
