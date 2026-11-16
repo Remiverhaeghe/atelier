@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Conseils et tutos
+- Fiches pas à pas, par sujet : finir les plinthes au joint, coller, clouer, murs pas droits, marge de parquet, joint de porte, entretien d'une climatisation
+- Mises en garde quand il le faut (câbles derrière les plinthes, circuit de gaz réservé aux professionnels)
+- Accès depuis « Mes chantiers » et depuis l'onglet Guide
+
 ### Objectif du jour et badges
 - Objectif du jour SMART en haut du chantier : quelques rangées, des morceaux de plinthe une fois le parquet posé, des reprises jusqu'au passage suivant, daté du jour ; avancement ligne par ligne
 - Badges du chantier : première rangée, pièce finie, plinthes coupées, dix reprises, objectifs atteints, budget complet
