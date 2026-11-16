@@ -1335,5 +1335,18 @@
   "diagonalAngles": "Angles d'après la diagonale : {angles}",
   "@diagonalAngles": {"placeholders": {"angles": {"type": "String"}}},
   "diagonalFix": "Corriger les angles",
-  "close": "Fermer"
+  "close": "Fermer",
+  "siteModeTitle": "Mode chantier",
+  "siteModeAwake": "L'écran reste allumé tant que ce mode est ouvert.",
+  "siteModeCut": "Coupe suivante",
+  "siteModeCutText": "Plinthe {number}, mur {wall} : {length} cm. Début : {start}. Fin : {end}.",
+  "@siteModeCutText": {"placeholders": {"number": {"type": "int"}, "wall": {"type": "int"}, "length": {"type": "String"}, "start": {"type": "String"}, "end": {"type": "String"}}},
+  "siteModeCutsDone": "Toutes les plinthes sont coupées.",
+  "siteModeRow": "Rangée suivante",
+  "siteModeRowText": "Rangée {number} : {pieces} cm.",
+  "@siteModeRowText": {"placeholders": {"number": {"type": "int"}, "pieces": {"type": "String"}}},
+  "siteModeRowsDone": "Toutes les rangées sont posées.",
+  "siteModeNoPlan": "Pas encore de plan de pose : réglez le parquet de la pièce.",
+  "siteModeSpeak": "Lire à voix haute",
+  "siteModeDone": "Fait"
 }
