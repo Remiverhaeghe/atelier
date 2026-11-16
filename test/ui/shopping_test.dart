@@ -87,8 +87,10 @@ void main() {
     await pTester.pump();
     expect(find.text('Indique l\'achat et un montant.'), findsOneWidget);
 
-    await pTester.enterText(find.byType(TextField).at(0), 'Parquet chêne');
-    await pTester.enterText(find.byType(TextField).at(1), '200');
+    // Les champs de la boîte de dialogue, pas ceux des courses derrière
+    final vFields = find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField));
+    await pTester.enterText(vFields.at(0), 'Parquet chêne');
+    await pTester.enterText(vFields.at(1), '200');
     await pTester.tap(find.text('Photo du ticket'));
     await pTester.pumpAndSettle();
     expect(find.text('Ticket gardé'), findsOneWidget);
