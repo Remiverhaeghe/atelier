@@ -31,6 +31,7 @@ class Worksite {
     this.journal = const [],
     this.lessons = const [],
     this.reminders = const [],
+    this.monthlyBudget,
   });
 
   final String id;
@@ -86,6 +87,9 @@ class Worksite {
   /// Attentes en cours : acclimatation, séchage.
   final List<Reminder> reminders;
 
+  /// Somme mise de côté chaque mois pour les travaux, pour l'échéancier.
+  final double? monthlyBudget;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -108,6 +112,7 @@ class Worksite {
     List<JournalEntry>? journal,
     List<String>? lessons,
     List<Reminder>? reminders,
+    double? monthlyBudget,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -129,6 +134,7 @@ class Worksite {
     journal: journal ?? this.journal,
     lessons: lessons ?? this.lessons,
     reminders: reminders ?? this.reminders,
+    monthlyBudget: monthlyBudget ?? this.monthlyBudget,
   );
 
   Map<String, Object?> toJson() => {
@@ -152,6 +158,7 @@ class Worksite {
     if (journal.isNotEmpty) 'journal': [for (final vEntry in journal) vEntry.toJson()],
     if (lessons.isNotEmpty) 'lessons': lessons,
     if (reminders.isNotEmpty) 'reminders': [for (final vReminder in reminders) vReminder.toJson()],
+    if (monthlyBudget != null) 'monthlyBudget': monthlyBudget,
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -212,6 +219,7 @@ class Worksite {
       for (final vReminder in (pJson['reminders'] as List<Object?>?) ?? const [])
         Reminder.fromJson(vReminder! as Map<String, Object?>),
     ],
+    monthlyBudget: (pJson['monthlyBudget'] as num?)?.toDouble(),
   );
 }
 

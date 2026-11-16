@@ -2045,5 +2045,15 @@
   "showerPipe": "Longueur du tuyau jusqu'à l'évacuation (mm)",
   "showerWalls": "Murs autour de la douche",
   "showerTip": "Posez une manchette d'étanchéité autour de chaque tuyau qui traverse le mur et une bande dans chaque angle avant les deux couches. Laissez sécher entre les couches et faites un essai d'eau avant de carreler.",
-  "showerHint": "Ces niveaux sont un ordre de grandeur. La notice du siphon et celle du système d'étanchéité choisi priment, comme le DTU des revêtements en pièce humide."
+  "showerHint": "Ces niveaux sont un ordre de grandeur. La notice du siphon et celle du système d'étanchéité choisi priment, comme le DTU des revêtements en pièce humide.",
+  "scheduleTitle": "Échéancier",
+  "scheduleSpent": "{month} : {amount} € payés",
+  "@scheduleSpent": {"placeholders": {"month": {"type": "String"}, "amount": {"type": "String"}}},
+  "scheduleMonthly": "Somme mise de côté chaque mois (€)",
+  "scheduleDone": "Tout le budget prévu est payé",
+  "scheduleHelp": "Indiquez ce que vous mettez de côté chaque mois pour savoir quand le reste sera payé.",
+  "schedulePaidBy": "Tout payé en {month}",
+  "@schedulePaidBy": {"placeholders": {"month": {"type": "String"}}},
+  "scheduleMonth": "{month} : {amount} €",
+  "@scheduleMonth": {"placeholders": {"month": {"type": "String"}, "amount": {"type": "String"}}}
 }
