@@ -2276,5 +2276,18 @@
   "concreteCount": "Nombre de plots",
   "concreteSide": "Côté du trou (mm)",
   "concreteDepth": "Profondeur (mm)",
-  "concreteHint": "Une dalle extérieure demande un treillis soudé et un joint de fractionnement tous les 4 à 5 m. Coulez hors gel, gardez le béton humide quelques jours. Gants et lunettes : le ciment brûle la peau."
+  "concreteHint": "Une dalle extérieure demande un treillis soudé et un joint de fractionnement tous les 4 à 5 m. Coulez hors gel, gardez le béton humide quelques jours. Gants et lunettes : le ciment brûle la peau.",
+  "gutterTitle": "Gouttières et descentes",
+  "gutterHelp": "Descentes et diamètre selon la surface du pan, pente et crochets",
+  "gutterDescents": "{count, plural, =0{Aucune descente} =1{1 descente de {diameter} mm} other{{count} descentes de {diameter} mm}}",
+  "@gutterDescents": {"placeholders": {"count": {"type": "int"}, "diameter": {"type": "int"}}},
+  "gutterRoof": "{area} m² de toit mesurés en plan",
+  "@gutterRoof": {"placeholders": {"area": {"type": "String"}}},
+  "gutterDrop": "{mm} mm de pente vers la descente, à raison de 5 mm par mètre",
+  "@gutterDrop": {"placeholders": {"mm": {"type": "int"}}},
+  "gutterHooks": "{count} crochets, un tous les 50 cm",
+  "@gutterHooks": {"placeholders": {"count": {"type": "int"}}},
+  "gutterLength": "Longueur de la gouttière (mm)",
+  "gutterDepth": "Profondeur du pan mesurée au sol, de la gouttière au faîtage (mm)",
+  "gutterHint": "Règle courante : 1 cm² de section de descente par m² de toit en plan. Une région très pluvieuse demande plus. Travail en hauteur : échafaudage ou nacelle, jamais seul sur une échelle."
 }

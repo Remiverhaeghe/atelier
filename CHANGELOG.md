@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Gouttières
+- Nouveau calcul : descentes et diamètre selon la surface du pan en plan, pente de 5 mm par mètre, crochets
+
 ### Béton
 - Nouveau calcul : volume d'une dalle ou de plots, dosage à 350 kg en sacs de ciment, sable, gravier et eau, gâchées de bétonnière, sacs prêts à gâcher, et conseil de toupie à partir d'un mètre cube
 
