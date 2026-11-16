@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Attentes en cours
+- Carte « Attentes en cours » sur le chantier : acclimatation du parquet, séchage du ragréage ou de l'enduit, couche suivante, prise de la colle, ou durée libre ; l'appli dit quand c'est prêt
+
 ### Niveau et pente au téléphone
 - Nouveau calcul « Niveau et pente » : niveau à bulle et inclinomètre avec l'accéléromètre, pente en degrés et en pour cent
 - Plafond rampant : l'angle mesuré en posant le téléphone sur le rampant donne la largeur au sol
