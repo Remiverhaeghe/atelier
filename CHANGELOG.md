@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Calculs : étagère sur mesure
+- Nouvel écran « Calculs », depuis « Mes chantiers »
+- Étagère : liste de débit (montants, tablettes, fond), panneaux à acheter, vis, écart entre tablettes
+- Alerte si la tablette est trop large pour le panneau choisi (aggloméré, MDF, contreplaqué, bois massif) et son épaisseur
+
 ### Icône
 - Icône d'Atelier : une équerre de mètre ruban jaune sur vert sapin, icône adaptative Android
 - Écran de démarrage aux mêmes couleurs
