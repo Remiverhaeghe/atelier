@@ -2224,5 +2224,22 @@
   "weatherWind": "trop de vent",
   "outdoorHint": "Limites courantes ; la fiche technique du produit prime. Le béton et l'enduit craignent le gel pendant leur prise, la peinture la pluie avant d'être sèche. Sur un toit, pas de travail par vent fort ni sur une couverture mouillée.",
   "planningOrder": "{room} : « {done} » est fait alors qu'il reste à « {pending} ». Protégez ce qui est fini avant d'y revenir.",
-  "@planningOrder": {"placeholders": {"room": {"type": "String"}, "done": {"type": "String"}, "pending": {"type": "String"}}}
+  "@planningOrder": {"placeholders": {"room": {"type": "String"}, "done": {"type": "String"}, "pending": {"type": "String"}}},
+  "sheetTitle": "Sol souple et moquette",
+  "sheetHelp": "Lés, longueur de rouleau à commander, joints et colle",
+  "sheetOrder": "{length} cm de rouleau à commander",
+  "@sheetOrder": {"placeholders": {"length": {"type": "String"}}},
+  "sheetStrips": "{count, plural, =0{Aucun lé} =1{1 lé de {length} cm} other{{count} lés de {length} cm}}",
+  "@sheetStrips": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}},
+  "sheetAlongLength": "Lés posés dans la longueur de la pièce",
+  "sheetAlongWidth": "Lés posés dans la largeur de la pièce",
+  "sheetSeams": "{count, plural, =1{1 joint à souder ou à coller} other{{count} joints à souder ou à coller}}",
+  "@sheetSeams": {"placeholders": {"count": {"type": "int"}}},
+  "sheetGlue": "{kg} kg de colle pour une pose collée",
+  "@sheetGlue": {"placeholders": {"kg": {"type": "String"}}},
+  "sheetLength": "Longueur de la pièce (mm)",
+  "sheetWidth": "Largeur de la pièce (mm)",
+  "sheetRoll": "Largeur du rouleau",
+  "sheetRepeat": "Raccord du motif, 0 sans motif (mm)",
+  "sheetHint": "5 cm de recoupe sont comptés à chaque bout de lé. Déroulez le sol 24 heures à l'avance dans la pièce. Placez les joints loin des passages et de la lumière rasante des fenêtres."
 }
