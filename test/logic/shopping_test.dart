@@ -19,7 +19,7 @@ void main() {
     expect(vByItem[ShoppingItem.parquetPacks], 14);
     expect(vByItem[ShoppingItem.underlayRolls], 3);
     expect(vByItem[ShoppingItem.baseboardBars], 18);
-    expect(vByItem[ShoppingItem.cartridges], 5);
+    expect(vByItem[ShoppingItem.cartridges], 4);
     // Ni colle à parquet ni clous : parquet flottant et plinthes collées
     expect(vByItem.containsKey(ShoppingItem.glueBuckets), isFalse);
     expect(vByItem.containsKey(ShoppingItem.fixingPoints), isFalse);
