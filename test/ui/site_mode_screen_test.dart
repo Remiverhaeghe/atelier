@@ -81,4 +81,42 @@ void main() {
     expect(find.textContaining('Pas encore de plan de pose'), findsOneWidget);
     expect(find.text('Fait'), findsNothing);
   });
+
+  testWidgets('au micro : relire la rangée, cocher la coupe, phrase incomprise', (pTester) async {
+    tallScreen(pTester);
+    final vStorage = MemoryStorage()
+      ..saved = [
+        Worksite(id: 'w', name: 'Maison démo', rooms: [rectangleRoom()]),
+      ];
+    final vController = WorksitesController(vStorage);
+    await vController.load();
+    final vSpoken = <String>[];
+    final vPhrases = ['répète la rangée', 'coupe faite', 'bonjour'];
+    await pTester.pumpWidget(
+      localized(
+        SiteModeScreen(
+          controller: vController,
+          worksiteId: 'w',
+          roomId: 'salon',
+          speaker: (pText) async => vSpoken.add(pText),
+          awake: (_) async {},
+          listener: () async => vPhrases.removeAt(0),
+        ),
+      ),
+    );
+    await pTester.pumpAndSettle();
+
+    await pTester.tap(find.byTooltip('Commande vocale'));
+    await pTester.pumpAndSettle();
+    expect(vSpoken.last, startsWith('Rangée 1'));
+
+    await pTester.tap(find.byTooltip('Commande vocale'));
+    await pTester.pumpAndSettle();
+    expect(vStorage.saved.single.rooms.single.cutPieces, [0]);
+    expect(vSpoken.last, 'C\'est noté.');
+
+    await pTester.tap(find.byTooltip('Commande vocale'));
+    await pTester.pumpAndSettle();
+    expect(find.textContaining('Pas compris : « bonjour »'), findsOneWidget);
+  });
 }
