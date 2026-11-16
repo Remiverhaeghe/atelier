@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Nouveautés
+- Après une mise à jour, une fenêtre présente les nouveautés une seule fois ; rien à la première installation
+
 ### Mode nuit
 - Le mode chantier a un mode nuit : fond noir, rouge sombre qui n'éblouit pas sous les combles, textes agrandis
 
