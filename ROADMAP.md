@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 109. **Humidité de la chape et du bois** : relevés de l'humidimètre, feu vert pour poser.
 - 110. **Avant de percer** : réseaux cachés, matière du mur et cheville conseillée sur un mur.
 - 111. **Achat relié à son ticket**, pour une garantie ou un retour.
 - 112. **Vérification d'une livraison** contre la commande.

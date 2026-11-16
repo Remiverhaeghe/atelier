@@ -4,6 +4,7 @@ library;
 import 'expenses.dart';
 import 'goals.dart';
 import 'journal.dart';
+import 'moisture.dart';
 import 'offcuts.dart';
 import 'reminders.dart';
 import 'room.dart';
@@ -32,6 +33,7 @@ class Worksite {
     this.lessons = const [],
     this.reminders = const [],
     this.monthlyBudget,
+    this.moisture = const [],
   });
 
   final String id;
@@ -90,6 +92,9 @@ class Worksite {
   /// Somme mise de côté chaque mois pour les travaux, pour l'échéancier.
   final double? monthlyBudget;
 
+  /// Relevés d'humidité de la chape et du bois avant la pose.
+  final List<MoistureReading> moisture;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -113,6 +118,7 @@ class Worksite {
     List<String>? lessons,
     List<Reminder>? reminders,
     double? monthlyBudget,
+    List<MoistureReading>? moisture,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -135,6 +141,7 @@ class Worksite {
     lessons: lessons ?? this.lessons,
     reminders: reminders ?? this.reminders,
     monthlyBudget: monthlyBudget ?? this.monthlyBudget,
+    moisture: moisture ?? this.moisture,
   );
 
   Map<String, Object?> toJson() => {
@@ -159,6 +166,7 @@ class Worksite {
     if (lessons.isNotEmpty) 'lessons': lessons,
     if (reminders.isNotEmpty) 'reminders': [for (final vReminder in reminders) vReminder.toJson()],
     if (monthlyBudget != null) 'monthlyBudget': monthlyBudget,
+    if (moisture.isNotEmpty) 'moisture': [for (final vReading in moisture) vReading.toJson()],
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -220,6 +228,10 @@ class Worksite {
         Reminder.fromJson(vReminder! as Map<String, Object?>),
     ],
     monthlyBudget: (pJson['monthlyBudget'] as num?)?.toDouble(),
+    moisture: [
+      for (final vReading in (pJson['moisture'] as List<Object?>?) ?? const [])
+        MoistureReading.fromJson(vReading! as Map<String, Object?>),
+    ],
   );
 }
 
