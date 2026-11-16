@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import 'drywall_calculator.dart';
 import 'garden_calculator.dart';
 import 'shelf_calculator.dart';
 
@@ -23,6 +24,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.gardenHelp,
       icon: Icons.yard_outlined,
       builder: (_) => const GardenCalculator(),
+    ),
+    (
+      title: pText.drywallTitle,
+      help: pText.drywallHelp,
+      icon: Icons.view_column_outlined,
+      builder: (_) => const DrywallCalculator(),
     ),
   ];
 
