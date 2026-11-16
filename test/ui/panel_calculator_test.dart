@@ -17,8 +17,9 @@ void main() {
     await pTester.tap(find.text('Enregistrer'));
     await pTester.pumpAndSettle();
     expect(find.text('Longueur invalide.'), findsOneWidget);
-    await pTester.enterText(find.byType(TextField).at(0), '240');
-    await pTester.enterText(find.byType(TextField).at(1), '120');
+    final vFields = find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField));
+    await pTester.enterText(vFields.at(0), '240');
+    await pTester.enterText(vFields.at(1), '120');
     await pTester.tap(find.text('Enregistrer'));
     await pTester.pumpAndSettle();
 
