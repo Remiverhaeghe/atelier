@@ -19,7 +19,9 @@ void main() {
         name: 'Maison',
         goal: const DailyGoal(
           date: '2026-11-17',
-          items: [GoalItem(kind: GoalKind.pieces, roomId: 'salon', numbers: [1, 2])],
+          items: [
+            GoalItem(kind: GoalKind.pieces, roomId: 'salon', numbers: [1, 2]),
+          ],
         ),
         reminders: [
           startWait(pId: 'r1', pKind: WaitKind.screed, pNow: vNow),
