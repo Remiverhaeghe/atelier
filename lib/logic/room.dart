@@ -2,6 +2,7 @@
 library;
 
 import 'baseboard.dart';
+import 'fixtures.dart';
 import 'paint.dart';
 import 'parquet.dart';
 import 'touch_up.dart';
@@ -172,6 +173,7 @@ class Room {
     this.houseXMm = 0,
     this.houseYMm = 0,
     this.houseQuarterTurns = 0,
+    this.fixtures = const [],
   });
 
   final String id;
@@ -205,6 +207,9 @@ class Room {
   final int houseYMm;
   final int houseQuarterTurns;
 
+  /// Prises, interrupteurs, escalier, mezzanine et fenêtres de toit posés sur le plan.
+  final List<Fixture> fixtures;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -221,6 +226,7 @@ class Room {
     int? houseXMm,
     int? houseYMm,
     int? houseQuarterTurns,
+    List<Fixture>? fixtures,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -238,6 +244,7 @@ class Room {
     houseXMm: houseXMm ?? this.houseXMm,
     houseYMm: houseYMm ?? this.houseYMm,
     houseQuarterTurns: (houseQuarterTurns ?? this.houseQuarterTurns) % 4,
+    fixtures: fixtures ?? this.fixtures,
   );
 
   Map<String, Object?> toJson() => {
@@ -257,6 +264,7 @@ class Room {
     'houseXMm': houseXMm,
     'houseYMm': houseYMm,
     'houseQuarterTurns': houseQuarterTurns,
+    if (fixtures.isNotEmpty) 'fixtures': [for (final vFixture in fixtures) vFixture.toJson()],
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -295,5 +303,9 @@ class Room {
     houseXMm: (pJson['houseXMm'] as int?) ?? 0,
     houseYMm: (pJson['houseYMm'] as int?) ?? 0,
     houseQuarterTurns: ((pJson['houseQuarterTurns'] as int?) ?? 0) % 4,
+    fixtures: [
+      for (final vFixture in (pJson['fixtures'] as List<Object?>?) ?? const [])
+        Fixture.fromJson(vFixture! as Map<String, Object?>),
+    ],
   );
 }

@@ -3,6 +3,7 @@ library;
 
 import 'dart:math' as math;
 
+import 'fixtures.dart';
 import 'geometry.dart';
 import 'room.dart';
 
@@ -160,7 +161,8 @@ PaintAreas paintAreas(Room pRoom) {
   }
   final rAreas = PaintAreas(
     wallsM2: math.max(vWalls, 0) / 1e6,
-    ceilingM2: outlineAreaMm2(pRoom) / 1e6,
+    // Les fenêtres de toit ne se peignent pas
+    ceilingM2: math.max(0.0, outlineAreaMm2(pRoom) / 1e6 - roofWindowsM2(pRoom.fixtures)),
     woodworkM2: vWoodwork / 1e6,
   );
 

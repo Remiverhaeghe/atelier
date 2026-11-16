@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/fixtures.dart';
+import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'angle_dialog.dart';
+import 'room_plan.dart';
+import 'theme.dart';
 
 /// Demande un nom ; null si l'utilisateur annule.
 Future<String?> askName(BuildContext pContext, {required String pTitle, required String pLabel}) =>
@@ -87,17 +91,24 @@ class _NameDialogState extends State<_NameDialog> {
 /// Mur saisi ; [next] demande d'enchaîner sur le mur suivant.
 typedef WallEntry = ({Wall wall, bool next});
 
-Future<WallEntry?> editWall(BuildContext pContext, {required int pNumber, Wall? pWall}) =>
-    showDialog<WallEntry>(
-      context: pContext,
-      builder: (pDialogContext) => _WallDialog(number: pNumber, wall: pWall),
-    );
+///
+/// Avec [pRoom], la saisie est guidée : coins à mesurer et plan avec leurs lettres.
+Future<WallEntry?> editWall(
+  BuildContext pContext, {
+  required int pNumber,
+  Wall? pWall,
+  Room? pRoom,
+}) => showDialog<WallEntry>(
+  context: pContext,
+  builder: (pDialogContext) => _WallDialog(number: pNumber, wall: pWall, room: pRoom),
+);
 
 class _WallDialog extends StatefulWidget {
-  const _WallDialog({required this.number, this.wall});
+  const _WallDialog({required this.number, this.wall, this.room});
 
   final int number;
   final Wall? wall;
+  final Room? room;
 
   @override
   State<_WallDialog> createState() => _WallDialogState();
@@ -149,6 +160,18 @@ class _WallDialogState extends State<_WallDialog> {
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     const vNumbers = TextInputType.numberWithOptions(decimal: true);
+    final vRoom = widget.room;
+    final vIndex = widget.number - 1;
+    // Le dernier mur d'une pièce qui se referme revient au coin A
+    final vCorners = wallCorners(
+      vIndex,
+      pClosesRoom:
+          vRoom != null &&
+          vRoom.closed &&
+          vIndex == vRoom.walls.length - 1 &&
+          vRoom.walls.length >= 3 &&
+          closesProperly(vRoom),
+    );
 
     return AlertDialog(
       title: Text(vText.wallTitle(widget.number)),
@@ -156,6 +179,22 @@ class _WallDialogState extends State<_WallDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (vRoom != null && vRoom.walls.isNotEmpty)
+              SizedBox(
+                width: 280,
+                child: RoomPlan(
+                  room: vRoom,
+                  highlightWall: vIndex < vRoom.walls.length ? vIndex : null,
+                ),
+              ),
+            if (vRoom != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: IconLine(
+                  AtelierIcons.length,
+                  vText.measureHint(vCorners.from, vCorners.to),
+                ),
+              ),
             TextField(
               controller: _length,
               autofocus: true,
@@ -172,7 +211,7 @@ class _WallDialogState extends State<_WallDialog> {
               controller: _angle,
               keyboardType: vNumbers,
               decoration: InputDecoration(
-                labelText: vText.wallAngle,
+                labelText: vRoom == null ? vText.wallAngle : vText.angleAtCorner(vCorners.to),
                 helperText: vText.wallAngleHelp,
                 helperMaxLines: 2,
                 errorText: _angleError,
