@@ -34,6 +34,7 @@ class Worksite {
     this.reminders = const [],
     this.monthlyBudget,
     this.moisture = const [],
+    this.received = const {},
   });
 
   final String id;
@@ -95,6 +96,9 @@ class Worksite {
   /// Relevés d'humidité de la chape et du bois avant la pose.
   final List<MoistureReading> moisture;
 
+  /// Quantités reçues à la livraison, par article des courses.
+  final Map<String, int> received;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -119,6 +123,7 @@ class Worksite {
     List<Reminder>? reminders,
     double? monthlyBudget,
     List<MoistureReading>? moisture,
+    Map<String, int>? received,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -142,6 +147,7 @@ class Worksite {
     reminders: reminders ?? this.reminders,
     monthlyBudget: monthlyBudget ?? this.monthlyBudget,
     moisture: moisture ?? this.moisture,
+    received: received ?? this.received,
   );
 
   Map<String, Object?> toJson() => {
@@ -167,6 +173,7 @@ class Worksite {
     if (reminders.isNotEmpty) 'reminders': [for (final vReminder in reminders) vReminder.toJson()],
     if (monthlyBudget != null) 'monthlyBudget': monthlyBudget,
     if (moisture.isNotEmpty) 'moisture': [for (final vReading in moisture) vReading.toJson()],
+    if (received.isNotEmpty) 'received': received,
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -232,6 +239,10 @@ class Worksite {
       for (final vReading in (pJson['moisture'] as List<Object?>?) ?? const [])
         MoistureReading.fromJson(vReading! as Map<String, Object?>),
     ],
+    received: {
+      for (final vEntry in ((pJson['received'] as Map<String, Object?>?) ?? const {}).entries)
+        vEntry.key: vEntry.value! as int,
+    },
   );
 }
 
