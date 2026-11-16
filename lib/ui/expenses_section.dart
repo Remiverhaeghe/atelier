@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/expenses.dart';
 import '../logic/goals.dart';
+import '../logic/receipt.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 import 'photos.dart';
@@ -129,6 +131,27 @@ class _ExpenseDialogState extends State<_ExpenseDialog> {
   final _id = DateTime.now().microsecondsSinceEpoch.toString();
   String? _receipt;
   String? _error;
+  String? _date;
+
+  /// Texte du ticket copié depuis la photo : on remplit ce qu'on a su lire.
+  Future<void> _paste() async {
+    final vText = AppLocalizations.of(context);
+    final vData = await Clipboard.getData(Clipboard.kTextPlain);
+    final vReading = readReceipt(vData?.text ?? '');
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      if (vReading.store != null && _label.text.trim().isEmpty) {
+        _label.text = vReading.store!;
+      }
+      if (vReading.total != null) {
+        _amount.text = formatEuros(vReading.total!);
+      }
+      _date = vReading.date;
+      _error = vReading.total == null ? vText.receiptUnread : null;
+    });
+  }
 
   @override
   void dispose() {
@@ -150,7 +173,7 @@ class _ExpenseDialogState extends State<_ExpenseDialog> {
         id: _id,
         label: _label.text.trim(),
         amount: vAmount,
-        date: goalDate(DateTime.now()),
+        date: _date ?? goalDate(DateTime.now()),
         receiptPath: _receipt,
       ),
     );
@@ -178,6 +201,14 @@ class _ExpenseDialogState extends State<_ExpenseDialog> {
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(labelText: vText.expenseAmount, errorText: _error),
             ),
+            const SizedBox(height: 10),
+            OutlinedButton.icon(
+              onPressed: _paste,
+              icon: const Icon(Icons.content_paste),
+              label: Text(vText.receiptPaste),
+            ),
+            if (_date != null) Text(vText.receiptDate(_date!)),
+            Text(vText.receiptHelp, style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 10),
             OutlinedButton.icon(
               onPressed: () async {

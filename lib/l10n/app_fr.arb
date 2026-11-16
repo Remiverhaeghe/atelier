@@ -2078,5 +2078,10 @@
   "mergeDone": "{count, plural, =1{1 chantier fusionné} other{{count} chantiers fusionnés}}",
   "@mergeDone": {"placeholders": {"count": {"type": "int"}}},
   "mergeConflicts": "{count, plural, =0{, rien en double} =1{, 1 pièce en double à départager} other{, {count} pièces en double à départager}}",
-  "@mergeConflicts": {"placeholders": {"count": {"type": "int"}}}
+  "@mergeConflicts": {"placeholders": {"count": {"type": "int"}}},
+  "receiptPaste": "Coller le texte du ticket",
+  "receiptHelp": "Sur la photo du ticket, sélectionnez le texte avec l'appareil photo ou Google Lens, copiez-le, puis collez-le ici : la lecture se fait sur le téléphone.",
+  "receiptUnread": "Total introuvable dans le texte collé : saisissez-le.",
+  "receiptDate": "Ticket du {day}",
+  "@receiptDate": {"placeholders": {"day": {"type": "String"}}}
 }
