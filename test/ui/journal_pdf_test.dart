@@ -50,7 +50,7 @@ void main() {
     expect(String.fromCharCodes(vBytes.take(5)), '%PDF-');
     expect(vRead, containsAll(['/photos/avant.png', '/photos/apres.png', '/photos/disparue.png']));
 
-    final vEmpty = await buildJournalPdf(vText, Worksite(id: 'v', name: 'Vide', rooms: const []));
+    final vEmpty = await buildJournalPdf(vText, const Worksite(id: 'v', name: 'Vide'));
     expect(String.fromCharCodes(vEmpty.take(5)), '%PDF-');
   });
 

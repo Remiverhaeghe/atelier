@@ -9,6 +9,7 @@ import '../logic/journal.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 import 'pdf_fonts.dart';
+import 'shopping_texts.dart';
 
 /// Lecture d'une photo du carnet ; null si le fichier a disparu du téléphone.
 typedef PhotoReader = Uint8List? Function(String pPath);
@@ -46,7 +47,7 @@ Future<Uint8List> buildJournalPdf(
   List<pw.Widget> vImages(JournalEntry pEntry) => [
     for (final vPath in [pEntry.beforePath, pEntry.photoPath, pEntry.invoicePath]) ?vPhoto(vPath),
   ];
-  final vBold = pw.TextStyle(fontWeight: pw.FontWeight.bold);
+  const vBold = pw.TextStyle(fontWeight: pw.FontWeight.bold);
 
   vDocument.addPage(
     pw.MultiPage(
