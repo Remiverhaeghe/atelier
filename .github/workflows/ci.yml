@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Actions épinglées par empreinte de commit ; Dependabot propose les nouvelles versions.
+
+jobs:
+  tests:
+    name: Tests et analyse
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: 3.47.7
+          cache: true
+
+      - name: Installation des dépendances
+        run: flutter pub get
+
+      - name: Textes traduits
+        run: flutter gen-l10n
+
+      # Largeur des lignes fixée dans analysis_options.yaml
+      - name: Vérification du formatage
+        run: dart format --output=none --set-exit-if-changed lib test
+
+      - name: Analyse du code
+        run: flutter analyze
+
+      - name: Tests et couverture
+        run: flutter test --coverage
+
+      # Les règles de calcul (lib/logic) doivent être couvertes à 95 % au moins
+      - name: Couverture des règles de calcul
+        run: |
+          if [ ! -d lib/logic ]; then echo "Pas encore de règles de calcul"; exit 0; fi
+          awk -v vMin=95 '
+            /^SF:/ { vKeep = ($0 ~ /^SF:lib\/logic\//) }
+            vKeep && /^LF:/ { vFound += substr($0, 4) }
+            vKeep && /^LH:/ { vHit += substr($0, 4) }
+            END {
+              vPercent = vFound ? 100 * vHit / vFound : 100
+              printf "Couverture de lib/logic : %.1f %% (%d lignes sur %d), minimum %d %%\n", vPercent, vHit, vFound, vMin
+              exit (vPercent < vMin)
+            }' coverage/lcov.info
+
+  apk:
+    name: APK Android
+    runs-on: ubuntu-latest
+    needs: tests
+
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: 3.47.7
+          cache: true
+
+      - name: Java 17
+        run: echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
+
+      # Seuls build.gradle.kts et le manifeste sont versionnés : le reste du
+      # dossier android (Gradle, icônes, MainActivity) est recréé ici.
+      - name: Fichiers Android
+        run: flutter create --platforms=android --org fr.remiverhaeghe --project-name atelier .
+
+      # Signature avec la clé personnelle si les secrets existent : l'APK remplace
+      # alors celle installée. Sinon, clé de débogage.
+      - name: Clé de signature
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
+            {
+              echo "storePassword=$STORE_PASSWORD"
+              echo "keyPassword=$KEY_PASSWORD"
+              echo "keyAlias=$KEY_ALIAS"
+              echo "storeFile=upload-keystore.jks"
+            } > android/key.properties
+            echo "Signature avec la clé personnelle"
+          else
+            echo "Secrets absents : signature avec la clé de débogage"
+          fi
+
+      - name: Construction
+        run: |
+          flutter pub get
+          flutter build apk --release --split-per-abi
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: atelier-apk
+          path: build/app/outputs/flutter-apk/*-release.apk
+          if-no-files-found: error
+
+  secrets:
+    name: Recherche de secrets
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          fetch-depth: 0
+
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
