@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Plexis de toiture
+- Une fenêtre de toit peut être marquée « plexi ou panneau fixe »
+- Écran « Plexis à remplacer » : surface totale et tailles avec leurs pièces
+- Nouveau calcul « Cadre de fenêtre » : débit des montants et traverses à mi-bois, section, feuillure, tasseaux à acheter, vitrage à commander selon double vitrage, polycarbonate, verre feuilleté ou plexi, parcloses et étapes de pose
+
 ### Combles
 - Second pan de toit par pièce, pour les combles en pente des deux côtés
 - Pente saisie au choix par la largeur au sol ou par la longueur du rampant, avec un schéma qui montre où mesurer
