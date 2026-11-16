@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:atelier/app.dart';
 import 'package:atelier/state/worksites_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -48,13 +47,15 @@ Future<void> capture(String pName) =>
 Future<void> openApp(WidgetTester pTester) async {
   phoneScreen(pTester);
   // Les tests remplacent les ombres par un trait noir ; les captures veulent les vraies.
+  // Remis en fin de test par capturesDone, avant le contrôle des variables de dessin.
   debugDisableShadows = false;
-  addTearDown(() => debugDisableShadows = true);
   final vController = WorksitesController(MemoryStorage()..saved = [demoWorksite()]);
   await vController.load();
   await pTester.pumpWidget(AtelierApp(controller: vController));
   await pTester.pumpAndSettle();
 }
+
+void capturesDone() => debugDisableShadows = true;
 
 Future<void> tapAndSettle(WidgetTester pTester, Finder pFinder) async {
   await pTester.ensureVisible(pFinder);
@@ -90,6 +91,7 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.byTooltip('Courses et budget'));
     await capture('08-courses');
+    capturesDone();
   });
 
   testWidgets('plan de la pièce en thème sombre', (pTester) async {
@@ -99,5 +101,6 @@ void main() {
     await tapAndSettle(pTester, find.text('Maison de démonstration'));
     await tapAndSettle(pTester, find.text('Chambre'));
     await capture('09-piece-sombre');
+    capturesDone();
   });
 }
