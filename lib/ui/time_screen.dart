@@ -75,12 +75,7 @@ class _TimeScreenState extends State<TimeScreen> {
         pWorksite.copyWith(
           timeEntries: [
             ...pWorksite.timeEntries,
-            TimeEntry(
-              roomId: pRoom.id,
-              phase: pPhase,
-              minutes: vMinutes,
-              day: dayOf(widget.now()),
-            ),
+            TimeEntry(roomId: pRoom.id, phase: pPhase, minutes: vMinutes, day: dayOf(widget.now())),
           ],
         ),
       );
@@ -197,12 +192,7 @@ class _TimeScreenState extends State<TimeScreen> {
                           pRoomId: vRoom.id,
                           pPhase: vPhase,
                         ),
-                        estimate: estimateMinutes(
-                          vWorksite.timeEntries,
-                          vRooms,
-                          vRoom,
-                          vPhase,
-                        ),
+                        estimate: estimateMinutes(vWorksite.timeEntries, vRooms, vRoom, vPhase),
                         onAdd: () => _addManual(vWorksite, vRoom, vPhase),
                       ),
                   ],
@@ -243,11 +233,7 @@ class _PhaseRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (spent > 0) Text(formatDuration(spent)),
-          IconButton(
-            tooltip: vText.timeAdd,
-            icon: const Icon(Icons.more_time),
-            onPressed: onAdd,
-          ),
+          IconButton(tooltip: vText.timeAdd, icon: const Icon(Icons.more_time), onPressed: onAdd),
         ],
       ),
     );
