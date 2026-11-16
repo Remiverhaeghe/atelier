@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
+import '../logic/layout.dart';
 import '../logic/progress.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
@@ -255,7 +256,7 @@ class _HomeTiles extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: GridView.count(
-        crossAxisCount: 4,
+        crossAxisCount: gridColumns(MediaQuery.sizeOf(context).width, 90, pMin: 4),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         childAspectRatio: 0.95,

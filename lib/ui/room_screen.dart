@@ -4,6 +4,7 @@ import 'package:printing/printing.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/inventory.dart';
 import '../logic/geometry.dart';
+import '../logic/layout.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
@@ -239,14 +240,12 @@ class RoomWallsView extends StatelessWidget {
     final vTheme = Theme.of(context);
     final vGap = closureGapMm(room);
 
-    return ListView(
+    final vWide = isWideWidth(MediaQuery.sizeOf(context).width) && room.walls.isNotEmpty;
+    final vPlan = Padding(padding: const EdgeInsets.all(16), child: RoomPlan(room: room));
+    final vList = ListView(
       padding: const EdgeInsets.only(bottom: 96),
       children: [
-        if (room.walls.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: RoomPlan(room: room),
-          ),
+        if (room.walls.isNotEmpty && !vWide) vPlan,
         if (room.closed && room.walls.length >= 3)
           ListTile(
             leading: Icon(
@@ -367,6 +366,20 @@ class RoomWallsView extends StatelessWidget {
         FixturesSection(room: room, onChanged: onChanged),
         FurnitureSection(room: room, onChanged: onChanged),
         NetworksSection(room: room, onChanged: onChanged),
+      ],
+    );
+    if (!vWide) {
+      return vList;
+    }
+
+    // Tablette ou paysage : le plan reste à gauche pendant qu'on parcourt les murs
+    return Row(
+      key: const ValueKey('room-wide'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(flex: 5, child: SingleChildScrollView(child: vPlan)),
+        const VerticalDivider(width: 1),
+        Expanded(flex: 6, child: vList),
       ],
     );
   }
