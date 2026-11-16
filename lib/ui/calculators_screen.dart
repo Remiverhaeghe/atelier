@@ -5,6 +5,7 @@ import 'deck_calculator.dart';
 import 'drywall_calculator.dart';
 import 'electricity_calculator.dart';
 import 'garden_calculator.dart';
+import 'plumbing_calculator.dart';
 import 'shelf_calculator.dart';
 import 'wardrobe_calculator.dart';
 
@@ -51,6 +52,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.elecHelp,
       icon: Icons.electrical_services,
       builder: (_) => const ElectricityCalculator(),
+    ),
+    (
+      title: pText.plumbingTitle,
+      help: pText.plumbingHelp,
+      icon: Icons.plumbing,
+      builder: (_) => const PlumbingCalculator(),
     ),
   ];
 
