@@ -112,8 +112,18 @@ TilingNeeds tilingNeeds(TilingDesign pDesign) {
       ? 0.0
       : (vA + vB) / (vA * vB) * pDesign.jointMm * pDesign.tileThicknessMm * 1.6;
   final rNeeds = (
-    alongLength: layoutAxis(pDesign.lengthMm, pDesign.tileLengthMm, pDesign.jointMm, pCentered: pDesign.centered),
-    alongWidth: layoutAxis(pDesign.widthMm, pDesign.tileWidthMm, pDesign.jointMm, pCentered: pDesign.centered),
+    alongLength: layoutAxis(
+      pDesign.lengthMm,
+      pDesign.tileLengthMm,
+      pDesign.jointMm,
+      pCentered: pDesign.centered,
+    ),
+    alongWidth: layoutAxis(
+      pDesign.widthMm,
+      pDesign.tileWidthMm,
+      pDesign.jointMm,
+      pCentered: pDesign.centered,
+    ),
     areaM2: vArea,
     tiles: vTiles,
     boxes: pDesign.boxM2 <= 0 ? 0 : _ceil(vWithMargin / pDesign.boxM2),
