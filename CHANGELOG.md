@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Gravats et déchetterie
+- Nouveau calcul : volume en vrac et poids de ce qu'on démolit, big bags et voyages de remorque comptés benne par benne, conseils de tri
+
 ### Carnet en PDF
 - Le carnet de la maison s'imprime en PDF : pièce par pièce, produits, références, coûts, photos d'avant et d'après et factures
 
