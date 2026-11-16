@@ -1361,5 +1361,17 @@
   "@cutListWalls": {"placeholders": {"places": {"type": "String"}}},
   "cutListRows": "Rangées {places}",
   "@cutListRows": {"placeholders": {"places": {"type": "String"}}},
-  "cutListEmpty": "Rien à couper : saisissez les murs et le parquet de la pièce."
+  "cutListEmpty": "Rien à couper : saisissez les murs et le parquet de la pièce.",
+  "offcutsTitle": "Chutes",
+  "offcutAdd": "Noter une chute",
+  "offcutsEmpty": "Gardez les chutes de plus de 30 cm : notez-les ici, l'appli dit dans quelle pièce elles peuvent resservir.",
+  "offcutPlank": "Lame de parquet",
+  "offcutBaseboard": "Plinthe",
+  "offcutsUsesTitle": "Où les réutiliser",
+  "offcutUse": "Chute de {offcut} cm pour un morceau de {piece} cm",
+  "@offcutUse": {"placeholders": {"offcut": {"type": "String"}, "piece": {"type": "String"}}},
+  "offcutUseRow": "{room}, rangée {row}",
+  "@offcutUseRow": {"placeholders": {"room": {"type": "String"}, "row": {"type": "int"}}},
+  "offcutUseWall": "{room}, plinthe du mur {wall}",
+  "@offcutUseWall": {"placeholders": {"room": {"type": "String"}, "wall": {"type": "int"}}}
 }

@@ -6,7 +6,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
-- 49. **Chutes réutilisables** : chutes gardées et proposées pour la rangée suivante ou une autre pièce.
 - 50. **Export Home Assistant** : pièces, prises et interrupteurs au format de ses zones.
 - 51. **Export 3D (glTF)** : la maison lisible par Blender, Sweet Home 3D ou un visualiseur web.
 - 52. **Thème et taille de texte** réglables depuis « À propos ».
