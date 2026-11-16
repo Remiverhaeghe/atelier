@@ -128,7 +128,9 @@ class _OptionCard extends StatelessWidget {
                 if (simplest)
                   Text(
                     vText.simplestOption,
-                    style: vTheme.textTheme.labelMedium!.copyWith(color: vTheme.colorScheme.primary),
+                    style: vTheme.textTheme.labelMedium!.copyWith(
+                      color: vTheme.colorScheme.primary,
+                    ),
                   ),
               ],
             ),
