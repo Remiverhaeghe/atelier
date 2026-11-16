@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Calculs : carrelage et faïence
+- Calepinage centré (coupes égales, jamais plus étroites qu'un tiers de carreau) ou depuis un bord, dessiné avec les coupes en couleur
+- Carreaux et cartons marge comprise, colle, joint selon la taille et l'épaisseur des carreaux, croisillons
+
 ### Export du plan
 - « Exporter le plan » dans le menu du chantier : pièces, contours, hauteurs, murs et ouvertures en JSON, pour une application de domotique ou une vue 3D
 - Format décrit et versionné dans docs/format-plan.md
