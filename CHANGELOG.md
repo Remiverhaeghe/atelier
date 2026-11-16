@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Conditions de chantier
+- Nouveau calcul : avec la température, l'humidité et, si on l'a, la température du support, ce qu'on peut peindre, coller, vernir ou jointer
+- Point de rosée calculé et risque de condensation signalé pour les peintures et vernis
+
 ### Temps passé
 - Chrono par pièce et par étape, gardé même si l'appli est fermée, et temps ajouté à la main
 - Temps à prévoir pour les autres pièces, au rythme constaté (minutes par m² ou par mètre de plinthe)

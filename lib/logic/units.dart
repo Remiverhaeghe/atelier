@@ -49,6 +49,16 @@ double? parseDecimal(String pText) {
   return vValue;
 }
 
+/// Lit un nombre qui peut être négatif (« -2,5 » pour une température) ; null si invalide.
+double? parseSignedDecimal(String pText) {
+  final vText = pText.trim().replaceAll(' ', '').replaceAll('−', '-');
+  final vNegative = vText.startsWith('-');
+  final vValue = parseDecimal(vNegative ? vText.substring(1) : vText);
+  final rValue = vValue == null ? null : (vNegative ? -vValue : vValue);
+
+  return rValue;
+}
+
 /// Lit un entier positif ; null si invalide.
 int? parseWhole(String pText) {
   final vValue = int.tryParse(pText.trim().replaceAll(' ', ''));
