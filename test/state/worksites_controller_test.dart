@@ -58,4 +58,19 @@ void main() {
 
     expect(vNotified, 2);
   });
+
+  test('un import ajoute les chantiers sous de nouveaux identifiants', () async {
+    await vController.load();
+    final vExisting = await vController.addWorksite('Maison');
+
+    final vCount = await vController.importWorksites([
+      vExisting,
+      vExisting.copyWith(name: 'Garage'),
+    ]);
+
+    expect(vCount, 2);
+    expect(vController.worksites, hasLength(3));
+    expect(vController.worksites.map((pWorksite) => pWorksite.id).toSet(), hasLength(3));
+    expect(vController.worksites.last.name, 'Garage');
+  });
 }

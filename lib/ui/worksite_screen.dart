@@ -9,6 +9,7 @@ import 'dialogs.dart';
 import 'room_screen.dart';
 import 'shopping_screen.dart';
 import 'shopping_texts.dart';
+import 'transfer.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
@@ -61,6 +62,25 @@ class WorksiteScreen extends StatelessWidget {
                     builder: (_) => ShoppingScreen(controller: controller, worksiteId: worksiteId),
                   ),
                 ),
+              ),
+              PopupMenuButton<String>(
+                onSelected: (pAction) {
+                  switch (pAction) {
+                    case 'export':
+                      exportWorksite(vWorksite);
+                    case 'guide':
+                      controller.updateWorksite(
+                        vWorksite.copyWith(showGuidance: !vWorksite.showGuidance),
+                      );
+                  }
+                },
+                itemBuilder: (_) => [
+                  PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
+                  PopupMenuItem(
+                    value: 'guide',
+                    child: Text(vWorksite.showGuidance ? vText.guideHidden : vText.guideShown),
+                  ),
+                ],
               ),
             ],
           ),

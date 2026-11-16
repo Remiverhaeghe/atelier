@@ -91,6 +91,16 @@ class WorksitesController extends ChangeNotifier {
     );
   }
 
+  /// Ajoute des chantiers importés sous de nouveaux identifiants : un import ne remplace rien.
+  Future<int> importWorksites(List<Worksite> pWorksites) async {
+    await replaceAll([
+      ..._worksites,
+      for (final vWorksite in pWorksites) vWorksite.copyWith(id: newId()),
+    ]);
+
+    return pWorksites.length;
+  }
+
   Future<void> replaceAll(List<Worksite> pWorksites) async {
     _worksites = List.unmodifiable(pWorksites);
     notifyListeners();
