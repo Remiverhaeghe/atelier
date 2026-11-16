@@ -1348,5 +1348,18 @@
   "siteModeRowsDone": "Toutes les rangées sont posées.",
   "siteModeNoPlan": "Pas encore de plan de pose : réglez le parquet de la pièce.",
   "siteModeSpeak": "Lire à voix haute",
-  "siteModeDone": "Fait"
+  "siteModeDone": "Fait",
+  "cutListPrint": "Imprimer la liste de coupes",
+  "roomCutsTitle": "Coupes : {room}",
+  "@roomCutsTitle": {"placeholders": {"room": {"type": "String"}}},
+  "cutListHelp": "De la plus longue à la plus courte : les chutes des grands morceaux servent aux petits. Cochez au fur et à mesure.",
+  "cutListLength": "Longueur",
+  "cutListCount": "Nombre",
+  "cutListCuts": "Coupes",
+  "cutListWhere": "Où",
+  "cutListWalls": "Murs {places}",
+  "@cutListWalls": {"placeholders": {"places": {"type": "String"}}},
+  "cutListRows": "Rangées {places}",
+  "@cutListRows": {"placeholders": {"places": {"type": "String"}}},
+  "cutListEmpty": "Rien à couper : saisissez les murs et le parquet de la pièce."
 }

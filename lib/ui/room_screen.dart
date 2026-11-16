@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:printing/printing.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/inventory.dart';
@@ -7,6 +8,7 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
+import 'cut_list_pdf.dart';
 import 'diagonal_dialog.dart';
 import 'dialogs.dart';
 import 'fixtures_section.dart';
@@ -68,6 +70,14 @@ class RoomScreen extends StatelessWidget {
             appBar: AppBar(
               title: Text(vRoom.name),
               actions: [
+                IconButton(
+                  tooltip: vText.cutListPrint,
+                  icon: const Icon(Icons.content_cut),
+                  onPressed: () => Printing.layoutPdf(
+                    name: vText.roomCutsTitle(vRoom.name),
+                    onLayout: (_) => buildCutListPdf(vText, vRoom),
+                  ),
+                ),
                 IconButton(
                   tooltip: vText.siteModeTitle,
                   icon: const Icon(Icons.construction),

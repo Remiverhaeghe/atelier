@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Liste de coupes
+- Bouton ciseaux en haut d'une pièce : liste de coupes imprimable (PDF), plinthes et lames recoupées
+- Morceaux identiques regroupés, de la plus longue à la plus courte, avec les murs ou rangées concernés et une case à cocher
+
 ### Mode chantier
 - Bouton chantier en haut d'une pièce : la prochaine coupe de plinthe et la prochaine rangée de parquet, en gros caractères
 - « Lire à voix haute » par le moteur vocal du téléphone, « Fait » coche la coupe ou la rangée
