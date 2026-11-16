@@ -8,6 +8,7 @@ import 'package:atelier/ui/worksite_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/localized.dart';
 import '../support/memory_storage.dart';
 import '../support/rooms.dart';
 
@@ -43,6 +44,7 @@ void main() {
   });
 
   testWidgets('un prix saisi met le total à jour et s\'enregistre', (pTester) async {
+    tallScreen(pTester);
     final vStorage = MemoryStorage()..saved = [vWorksite];
     final vController = WorksitesController(vStorage);
     await vController.load();
@@ -61,5 +63,48 @@ void main() {
 
     expect(vStorage.saved.single.prices['baseboardBars'], 8);
     expect(find.text('Total : 247,00 €'), findsOneWidget);
+  });
+
+  testWidgets('une dépense saisie avec son ticket réduit le reste du budget', (pTester) async {
+    tallScreen(pTester);
+    final vStorage = MemoryStorage()..saved = [vWorksite];
+    final vController = WorksitesController(vStorage);
+    await vController.load();
+    await pTester.pumpWidget(
+      localized(
+        ShoppingScreen(
+          controller: vController,
+          worksiteId: 'maison',
+          photos: (pId) async => '/tickets/$pId.jpg',
+        ),
+      ),
+    );
+
+    expect(find.text('Dépensé : 0,00 €'), findsOneWidget);
+    await pTester.tap(find.text('Ajouter une dépense'));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.text('Enregistrer'));
+    await pTester.pump();
+    expect(find.text('Indique l\'achat et un montant.'), findsOneWidget);
+
+    // Les champs de la boîte de dialogue, pas ceux des courses derrière
+    final vFields = find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField));
+    await pTester.enterText(vFields.at(0), 'Parquet chêne');
+    await pTester.enterText(vFields.at(1), '200');
+    await pTester.tap(find.text('Photo du ticket'));
+    await pTester.pumpAndSettle();
+    expect(find.text('Ticket gardé'), findsOneWidget);
+    await pTester.tap(find.text('Enregistrer'));
+    await pTester.pumpAndSettle();
+
+    final vExpense = vStorage.saved.single.expenses.single;
+    expect(vExpense.amount, 200);
+    expect(vExpense.receiptPath, startsWith('/tickets/'));
+    expect(find.text('Reste du budget prévu : -17,00 €'), findsNothing);
+    expect(find.text('Budget dépassé de 17,00 €'), findsOneWidget);
+
+    await pTester.tap(find.byTooltip('Supprimer'));
+    await pTester.pumpAndSettle();
+    expect(vStorage.saved.single.expenses, isEmpty);
   });
 }
