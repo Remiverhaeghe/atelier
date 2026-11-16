@@ -2,6 +2,8 @@
 
 ## Non publié
 
+## 0.2.0 - 2026-11-16
+
 ### Conseils et tutos
 - Fiches pas à pas, par sujet : finir les plinthes au joint, coller, clouer, murs pas droits, marge de parquet, joint de porte, entretien d'une climatisation
 - Mises en garde quand il le faut (câbles derrière les plinthes, circuit de gaz réservé aux professionnels)
