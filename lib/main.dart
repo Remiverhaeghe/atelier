@@ -11,6 +11,7 @@ import 'storage/backups.dart';
 import 'storage/settings_store.dart';
 import 'storage/worksite_store.dart';
 import 'support/crash_log.dart';
+import 'ui/home_widget_sync.dart';
 import 'ui/reminder_alarm.dart';
 
 Future<void> main() async {
@@ -43,5 +44,7 @@ Future<void> main() async {
       settings: vSettings,
     ),
   );
+  // Le widget d'écran d'accueil suit chaque changement du chantier
+  vController.addListener(() => publishHomeWidget(vFolder, vController.worksites, DateTime.now()));
   await vController.load();
 }

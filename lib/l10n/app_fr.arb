@@ -2127,5 +2127,11 @@
   "fenceLength": "Longueur de la clôture (mm)",
   "fenceSides": "Nombre de côtés droits",
   "fenceHint": "Renseignez-vous en mairie avant de poser : le plan local d'urbanisme peut fixer la hauteur, et une déclaration préalable peut être demandée. Avant de creuser les trous des poteaux, repérez les réseaux enterrés.",
-  "reminderNotifyTitle": "Attente terminée"
+  "reminderNotifyTitle": "Attente terminée",
+  "widgetNoWorksite": "Créez un chantier pour suivre l'objectif du jour",
+  "widgetNoGoal": "Pas d'objectif aujourd'hui",
+  "widgetGoal": "Objectif du jour : {done} sur {total}",
+  "@widgetGoal": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
+  "widgetWait": "{hours, plural, =1{Prochaine attente finie dans 1 heure} other{Prochaine attente finie dans {hours} heures}}",
+  "@widgetWait": {"placeholders": {"hours": {"type": "int"}}}
 }
