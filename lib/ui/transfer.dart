@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/data_format.dart';
 import '../logic/gltf.dart';
 import '../logic/home_assistant.dart';
 import '../logic/house.dart';
@@ -87,6 +88,8 @@ Future<void> importWorksites(BuildContext pContext, WorksitesController pControl
     }
     final vCount = await pController.importWorksites(vWorksites);
     vMessenger.showSnackBar(SnackBar(content: Text(vText.importDone(vCount))));
+  } on NewerFormatException {
+    vMessenger.showSnackBar(SnackBar(content: Text(vText.importNewer)));
   } on FormatException {
     vMessenger.showSnackBar(SnackBar(content: Text(vText.importFailed)));
   }

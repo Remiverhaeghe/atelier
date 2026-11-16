@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Format des données
+- Les chantiers enregistrés passent par des étapes de migration numérotées : un changement de format ne casse plus les sauvegardes existantes
+- Un fichier d'une version plus récente de l'appli est refusé avec un message clair, et un fichier illisible est copié à part (`chantiers.json.illisible`) avant de repartir de zéro
+
 ### Documentation
 - README : présentation à jour, tableau des domaines couverts à la place de l'avancement arrêté au lot 17
 
