@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 118. **Météo des travaux extérieurs** saisie à la main, jours possibles.
 - 119. **Ordre des travaux** entre corps de métier, planning contrôlé.
 - 120. **Sol souple et moquette**.
 - 121. **Papier peint** et raccord du motif.
