@@ -125,11 +125,18 @@ jobs:
         run: |
           flutter pub get
           flutter build apk --release --split-per-abi
+          # Le Play Store demande un bundle, pas une APK : construit pour les releases seulement
+          if [ "$GITHUB_EVENT_NAME" = release ]; then
+            flutter build appbundle --release
+            cp build/app/outputs/bundle/release/app-release.aab build/app/outputs/flutter-apk/atelier-release.aab
+          fi
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: atelier-apk
-          path: build/app/outputs/flutter-apk/*-release.apk
+          path: |
+            build/app/outputs/flutter-apk/*-release.apk
+            build/app/outputs/flutter-apk/*-release.aab
           if-no-files-found: error
 
   release:
@@ -147,11 +154,11 @@ jobs:
           name: atelier-apk
           path: apk
 
-      - name: Ajout des APK à la release
+      - name: Ajout des APK et du bundle à la release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ github.event.release.tag_name }}
-        run: gh release upload "$TAG" apk/*.apk --repo "$GITHUB_REPOSITORY" --clobber
+        run: gh release upload "$TAG" apk/* --repo "$GITHUB_REPOSITORY" --clobber
 
   secrets:
     name: Recherche de secrets

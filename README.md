@@ -51,7 +51,9 @@ Entre deux versions, chaque exécution de la CI produit aussi une APK (onglet Ac
 
 1. Dans `CHANGELOG.md`, renommer `## Non publié` en `## X.Y.Z - AAAA-MM-JJ` et augmenter `version:` dans `pubspec.yaml` (le nombre après `+` à chaque fois).
 2. Sur GitHub, Releases, « Draft a new release », nouveau tag `vX.Y.Z` sur `main`, puis « Publish release ».
-3. La CI construit les APK depuis le tag et les joint à la release.
+3. La CI construit les APK et le bundle `.aab` depuis le tag et les joint à la release.
+
+Pour le Play Store : liste à cocher dans [docs/publication-play-store.md](docs/publication-play-store.md), politique de confidentialité dans [docs/confidentialite.md](docs/confidentialite.md), images de la fiche dans `docs/play-store/` (`python tool/fiche_play.py`).
 
 ## Lancer en développement
 
