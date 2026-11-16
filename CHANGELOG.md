@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Stock restant
+- Les courses montrent ce qui restera du stock une fois le chantier fini, à garder pour les retouches ou à rapporter au magasin
+
 ### Dossier de devis
 - Le menu du chantier prépare un PDF à envoyer aux artisans : plan et mesures de chaque pièce, travaux demandés avec photos, et ce qu'un devis doit préciser, pour comparer des devis sur la même base
 
