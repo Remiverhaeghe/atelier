@@ -7,7 +7,6 @@ Idées notées au fil de l'eau, à cadrer avant chaque lot. L'ordre n'est pas fi
 Validés le 16 novembre 2026, dans l'ordre prévu :
 
 - 79 bis. **Notification Android des attentes** : la même échéance en notification locale (permission de notification à demander).
-- 96. **Salle de bain** : pente de douche, receveur, étanchéité sous carrelage.
 - 97. **Échéancier du budget** par mois.
 - 98. **Plan papier importé** et décalqué à l'échelle.
 - 99. **Widget d'écran d'accueil** : objectif du jour.
