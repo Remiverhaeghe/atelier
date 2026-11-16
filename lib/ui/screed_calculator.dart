@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/geometry.dart';
+import '../logic/room.dart';
 import '../logic/screed.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
+import 'room_source.dart';
 import 'theme.dart';
 
 String coatingLabel(AppLocalizations pText, Coating pCoating) => switch (pCoating) {
@@ -21,7 +24,9 @@ String coveringLabel(AppLocalizations pText, Covering pCovering) => switch (pCov
 
 /// Enduit et ragréage : sacs, primaire, couches et attente avant la suite.
 class ScreedCalculator extends StatefulWidget {
-  const ScreedCalculator({super.key});
+  const ScreedCalculator({super.key, this.rooms = const []});
+
+  final List<Room> rooms;
 
   @override
   State<ScreedCalculator> createState() => _ScreedCalculatorState();
@@ -33,6 +38,10 @@ class _ScreedCalculatorState extends State<ScreedCalculator> {
   double _area = 12;
   double _min = 2;
   double _max = 8;
+  String? _roomId;
+
+  /// Change quand une pièce remplit la surface, pour que le champ se redessine.
+  int _source = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +101,19 @@ class _ScreedCalculatorState extends State<ScreedCalculator> {
               onChanged: (pCovering) => setState(() => _covering = pCovering!),
             ),
           ],
+          RoomSourcePicker(
+            rooms: widget.rooms,
+            value: _roomId,
+            onChanged: (pRoom) => setState(() {
+              _roomId = pRoom?.id;
+              if (pRoom != null) {
+                _area = (floorAreaM2(pRoom) * 100).round() / 100;
+                _source++;
+              }
+            }),
+          ),
           NumberField<double>(
+            key: ValueKey('surface-$_source'),
             label: vText.screedArea,
             initial: formatDecimal(_area),
             parse: parseDecimal,
