@@ -58,6 +58,7 @@ class RoomPlan extends StatelessWidget {
     this.compact = false,
     this.markers = const [],
     this.onTapPlan,
+    this.wallNumbers = true,
   });
 
   final Room room;
@@ -65,6 +66,9 @@ class RoomPlan extends StatelessWidget {
   final bool compact;
   final List<PlanMarker> markers;
   final void Function(int pXMm, int pYMm)? onTapPlan;
+
+  /// Pastilles des numéros de mur ; masquées quand les repères des reprises en portent déjà.
+  final bool wallNumbers;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +87,7 @@ class RoomPlan extends StatelessWidget {
       highlightWall: highlightWall,
       compact: compact,
       markers: markers,
+      wallNumbers: wallNumbers,
       markerColor: vTheme.colorScheme.error,
       doneColor: vTheme.colorScheme.primary,
     );
@@ -131,12 +136,14 @@ class _RoomPlanPainter extends CustomPainter {
     required this.labelStyle,
     required this.compact,
     required this.markers,
+    required this.wallNumbers,
     required this.markerColor,
     required this.doneColor,
     this.highlightWall,
   });
 
   final List<PlanMarker> markers;
+  final bool wallNumbers;
   final Color markerColor;
   final Color doneColor;
   final Room room;
@@ -217,7 +224,9 @@ class _RoomPlanPainter extends CustomPainter {
 
       if (!compact) {
         final vMiddle = vLength / 2;
-        _paintNumber(pCanvas, vAlong(vMiddle, 26 / vScale), '${vIndex + 1}', vHighlighted);
+        if (wallNumbers) {
+          _paintNumber(pCanvas, vAlong(vMiddle, 26 / vScale), '${vIndex + 1}', vHighlighted);
+        }
         _paintTape(pCanvas, vAlong(vMiddle, -22 / vScale), formatCentimetres(vWall.lengthMm));
       }
     }
