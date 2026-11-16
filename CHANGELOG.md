@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Façade et clôture
+- Nouveau calcul : surface d'une façade avec son pignon, peinture et sacs d'enduit ; clôture en panneaux rigides avec poteaux, béton et dernier panneau recoupé
+
 ### Cuisine
 - Nouveau calcul : meubles bas pour un ou deux linéaires avec le moins de meubles possible et un fileur, plans de travail à acheter, hauteurs du plan, des meubles hauts et de la hotte
 
