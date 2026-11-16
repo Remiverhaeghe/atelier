@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Calculs : plomberie
+- Appareils à raccorder avec leur longueur de tuyau : PVC d'évacuation par diamètre, dénivelé à prévoir (1 à 3 cm par mètre), multicouche pour l'eau froide et chaude, coudes et raccords
+
 ### Calculs : électricité
 - Repères de quantités par pièce d'après les minimums courants de la norme NF C 15-100 : prises, points lumineux, interrupteurs, boîtes, circuits spécialisés de cuisine, gaine et fil
 - Mise en garde en tête : couper le courant, faire valider par un électricien ; pas de schéma de tableau
