@@ -37,18 +37,18 @@ class JournalEntry {
 
   JournalEntry copyWith({String? photoPath, String? invoicePath, String? beforePath}) =>
       JournalEntry(
-    id: id,
-    roomId: roomId,
-    day: day,
-    title: title,
-    product: product,
-    reference: reference,
-    note: note,
-    cost: cost,
-    photoPath: photoPath ?? this.photoPath,
-    invoicePath: invoicePath ?? this.invoicePath,
-    beforePath: beforePath ?? this.beforePath,
-  );
+        id: id,
+        roomId: roomId,
+        day: day,
+        title: title,
+        product: product,
+        reference: reference,
+        note: note,
+        cost: cost,
+        photoPath: photoPath ?? this.photoPath,
+        invoicePath: invoicePath ?? this.invoicePath,
+        beforePath: beforePath ?? this.beforePath,
+      );
 
   Map<String, Object?> toJson() => {
     'id': id,

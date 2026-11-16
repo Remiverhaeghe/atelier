@@ -8,7 +8,9 @@ import '../l10n/gen/app_localizations.dart';
 Future<void> showBeforeAfter(BuildContext pContext, String pBefore, String pAfter) =>
     Navigator.push(
       pContext,
-      MaterialPageRoute<void>(builder: (_) => BeforeAfterScreen(before: pBefore, after: pAfter)),
+      MaterialPageRoute<void>(
+        builder: (_) => BeforeAfterScreen(before: pBefore, after: pAfter),
+      ),
     );
 
 class BeforeAfterScreen extends StatefulWidget {
@@ -46,35 +48,23 @@ class _BeforeAfterScreenState extends State<BeforeAfterScreen> {
           final vWidth = pConstraints.maxWidth;
 
           return GestureDetector(
-            onHorizontalDragUpdate: (pDetails) => setState(
-              () => _split = (pDetails.localPosition.dx / vWidth).clamp(0.0, 1.0),
-            ),
+            onHorizontalDragUpdate: (pDetails) =>
+                setState(() => _split = (pDetails.localPosition.dx / vWidth).clamp(0.0, 1.0)),
             onTapDown: (pDetails) =>
                 setState(() => _split = (pDetails.localPosition.dx / vWidth).clamp(0.0, 1.0)),
             child: Stack(
               fit: StackFit.expand,
               children: [
                 _image(widget.after),
-                ClipRect(
-                  clipper: _LeftClipper(_split),
-                  child: _image(widget.before),
-                ),
+                ClipRect(clipper: _LeftClipper(_split), child: _image(widget.before)),
                 Positioned(
                   left: vWidth * _split - 1.5,
                   top: 0,
                   bottom: 0,
                   child: Container(width: 3, color: vTheme.colorScheme.secondary),
                 ),
-                Positioned(
-                  left: 12,
-                  top: 12,
-                  child: Chip(label: Text(vText.beforeLabel)),
-                ),
-                Positioned(
-                  right: 12,
-                  top: 12,
-                  child: Chip(label: Text(vText.afterLabel)),
-                ),
+                Positioned(left: 12, top: 12, child: Chip(label: Text(vText.beforeLabel))),
+                Positioned(right: 12, top: 12, child: Chip(label: Text(vText.afterLabel))),
               ],
             ),
           );
