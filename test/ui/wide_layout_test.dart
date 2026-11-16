@@ -18,7 +18,11 @@ void main() {
   testWidgets('tablette : plan à gauche, murs à droite', (pTester) async {
     vScreen(pTester, const Size(1280, 800));
     await pTester.pumpWidget(
-      localized(Scaffold(body: RoomWallsView(room: rectangleRoom(), onChanged: (_) {}))),
+      localized(
+        Scaffold(
+          body: RoomWallsView(room: rectangleRoom(), onChanged: (_) {}),
+        ),
+      ),
     );
     expect(find.byKey(const ValueKey('room-wide')), findsOneWidget);
     expect(find.byType(RoomPlan), findsOneWidget);
@@ -27,7 +31,11 @@ void main() {
   testWidgets('téléphone : tout dans une seule liste', (pTester) async {
     vScreen(pTester, const Size(400, 900));
     await pTester.pumpWidget(
-      localized(Scaffold(body: RoomWallsView(room: rectangleRoom(), onChanged: (_) {}))),
+      localized(
+        Scaffold(
+          body: RoomWallsView(room: rectangleRoom(), onChanged: (_) {}),
+        ),
+      ),
     );
     expect(find.byKey(const ValueKey('room-wide')), findsNothing);
     expect(find.byType(RoomPlan), findsOneWidget);
