@@ -230,5 +230,59 @@
     }
   },
   "rowsBalanced": "La dernière rangée aurait été trop étroite : recoupe la première lame dans sa longueur pour équilibrer les deux bords.",
-  "rowsHerringbone": "En point de Hongrie, la pose suit le motif : le plan rangée par rangée ne s'applique pas."
+  "rowsHerringbone": "En point de Hongrie, la pose suit le motif : le plan rangée par rangée ne s'applique pas.",
+  "tabLaying": "Pose",
+  "layingUnavailable": "Le plan de pose rangée par rangée demande un parquet en lames droites et une pièce d'au moins trois murs.",
+  "layingSummary": "{rows} rangées, {planks} lames entamées, chutes réutilisées",
+  "@layingSummary": {
+    "placeholders": {
+      "rows": {
+        "type": "int"
+      },
+      "planks": {
+        "type": "int"
+      }
+    }
+  },
+  "layingProgress": "{done, plural, =0{Aucune rangée posée} =1{1 rangée posée} other{{done} rangées posées}} sur {total}",
+  "@layingProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "layingRowTitle": "Rangée {number} · largeur {width} cm",
+  "@layingRowTitle": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "width": {
+        "type": "String"
+      }
+    }
+  },
+  "layingPieces": "{pieces} cm",
+  "@layingPieces": {
+    "placeholders": {
+      "pieces": {
+        "type": "String"
+      }
+    }
+  },
+  "layingOffcutStart": "Commence avec une chute",
+  "layingProblem": "Écart entre joints ou longueur minimale impossible à tenir : vérifie cette rangée à la main.",
+  "layingProblems": "{count, plural, =1{1 rangée à vérifier à la main} other{{count} rangées à vérifier à la main}}",
+  "@layingProblems": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "layingHelp": "Les longueurs sont mesurées du mur, jeu de dilatation déduit. Coche chaque rangée une fois posée."
 }

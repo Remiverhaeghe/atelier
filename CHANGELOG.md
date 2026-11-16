@@ -2,6 +2,13 @@
 
 ## Non publié
 
+### Lot 3 : plan de pose
+- Onglet Pose : longueur de chaque morceau, rangée par rangée, mesurée du mur, jeu de dilatation déduit
+- Joints de deux rangées voisines écartés d'au moins 30 cm (réglable), aucun morceau de moins de 30 cm
+- Chutes réutilisées pour commencer les rangées suivantes ; nombre de lames réellement entamées
+- Pièce en L : chaque rangée prend sa vraie longueur ; rangées où les règles ne peuvent pas être tenues signalées
+- Rangées à cocher une fois posées, avec la progression
+
 ### Lot 2 : parquet, quantités
 - Onglet Parquet dans chaque pièce : type (flottant, collé, massif cloué, point de Hongrie ou bâton rompu) avec ses valeurs de départ modifiables
 - Paquets, lames, sous-couche, seaux de colle et boîtes de clous, marge de chute comprise ; un paquet tout juste suffisant ne fait pas acheter le suivant

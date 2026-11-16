@@ -120,6 +120,7 @@ class Room {
     this.closed = true,
     this.obstacles = const [],
     this.parquet = const ParquetSettings(),
+    this.laidRows = const [],
   });
 
   final String id;
@@ -131,12 +132,16 @@ class Room {
   final List<Obstacle> obstacles;
   final ParquetSettings parquet;
 
+  /// Numéros des rangées de parquet déjà posées.
+  final List<int> laidRows;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
     bool? closed,
     List<Obstacle>? obstacles,
     ParquetSettings? parquet,
+    List<int>? laidRows,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -144,6 +149,7 @@ class Room {
     closed: closed ?? this.closed,
     obstacles: obstacles ?? this.obstacles,
     parquet: parquet ?? this.parquet,
+    laidRows: laidRows ?? this.laidRows,
   );
 
   Map<String, Object?> toJson() => {
@@ -153,6 +159,7 @@ class Room {
     'closed': closed,
     'obstacles': [for (final vObstacle in obstacles) vObstacle.toJson()],
     'parquet': parquet.toJson(),
+    'laidRows': laidRows,
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -170,5 +177,6 @@ class Room {
     parquet: pJson['parquet'] == null
         ? const ParquetSettings()
         : ParquetSettings.fromJson(pJson['parquet']! as Map<String, Object?>),
+    laidRows: [for (final vRow in (pJson['laidRows'] as List<Object?>?) ?? const []) vRow! as int],
   );
 }
