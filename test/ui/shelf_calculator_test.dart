@@ -5,7 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import '../support/localized.dart';
 
 void main() {
-  testWidgets('étagère : la liste de débit suit la saisie, la portée est surveillée', (pTester) async {
+  testWidgets('étagère : la liste de débit suit la saisie, la portée est surveillée', (
+    pTester,
+  ) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
     await pTester.tap(find.text('Étagère sur mesure'));

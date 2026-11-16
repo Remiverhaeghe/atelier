@@ -35,7 +35,8 @@ class CalculatorsScreen extends StatelessWidget {
                 title: Text(vEntry.title),
                 subtitle: Text(vEntry.help),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () => Navigator.push(context, MaterialPageRoute<void>(builder: vEntry.builder)),
+                onTap: () =>
+                    Navigator.push(context, MaterialPageRoute<void>(builder: vEntry.builder)),
               ),
             ),
         ],
