@@ -23,7 +23,14 @@ enum ThermalIssue {
 }
 
 /// Préconisation : clé de texte et matériel à acheter, traduits à l'affichage.
-enum ThermalFix { sealWindow, doorSweep, airtightBox, insulateWall, insulateAttic, insulateShutterBox }
+enum ThermalFix {
+  sealWindow,
+  doorSweep,
+  airtightBox,
+  insulateWall,
+  insulateAttic,
+  insulateShutterBox,
+}
 
 ThermalFix fixFor(ThermalIssue pIssue) => switch (pIssue) {
   ThermalIssue.windowFrame => ThermalFix.sealWindow,
