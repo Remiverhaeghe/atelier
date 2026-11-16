@@ -30,11 +30,7 @@ import '../logic/worksite.dart';
 const homeWidgetFile = 'widget.json';
 
 /// Écrit les lignes du widget ; Android les relit toutes les 30 minutes ou quand on le pose.
-Future<void> publishHomeWidget(
-  Directory pFolder,
-  List<Worksite> pWorksites,
-  DateTime pNow,
-) async {
+Future<void> publishHomeWidget(Directory pFolder, List<Worksite> pWorksites, DateTime pNow) async {
   final vLines = homeWidgetLines(
     lookupAppLocalizations(const Locale('fr')),
     homeSummary(pWorksites, pNow),

@@ -45,8 +45,6 @@ Future<void> main() async {
     ),
   );
   // Le widget d'écran d'accueil suit chaque changement du chantier
-  vController.addListener(
-    () => publishHomeWidget(vFolder, vController.worksites, DateTime.now()),
-  );
+  vController.addListener(() => publishHomeWidget(vFolder, vController.worksites, DateTime.now()));
   await vController.load();
 }
