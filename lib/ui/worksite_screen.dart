@@ -13,6 +13,7 @@ import 'room_screen.dart';
 import 'shopping_screen.dart';
 import 'shopping_texts.dart';
 import 'plan_thumbnail.dart';
+import 'planning_card.dart';
 import 'theme.dart';
 import 'transfer.dart';
 import 'goal_card.dart';
@@ -119,6 +120,7 @@ class WorksiteScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8, bottom: 96),
                   children: [
                     _Summary(worksite: vWorksite, onShopping: () => _openShopping(pContext)),
+                    PlanningCard(worksite: vWorksite),
                     GoalCard(
                       worksite: vWorksite,
                       today: today ?? DateTime.now(),

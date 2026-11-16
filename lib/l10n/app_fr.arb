@@ -33,6 +33,38 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "planningTitle": "Prochaines étapes",
+  "planningNext": "{room} : {phase}",
+  "@planningNext": {
+    "placeholders": {
+      "room": {
+        "type": "String"
+      },
+      "phase": {
+        "type": "String"
+      }
+    }
+  },
+  "planningDrying": "Après « {phase} », compte environ {hours} h de séchage.",
+  "@planningDrying": {
+    "placeholders": {
+      "phase": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "planningHelp": "Du plus salissant au plus fragile : reprises, plafond, murs, boiseries, parquet, plinthes, joints. Les temps de séchage sont indicatifs, la notice du produit fait foi.",
+  "phaseTouchUps": "finir les reprises",
+  "phaseCeiling": "peindre le plafond",
+  "phaseWalls": "peindre les murs",
+  "phaseWoodwork": "peindre les boiseries",
+  "phaseParquet": "poser le parquet",
+  "phaseBaseboards": "couper et poser les plinthes",
+  "phaseSealing": "faire les joints des plinthes",
+  "paintDoneTitle": "Déjà peint",
   "toolsCheckHelp": "Coche les outils que tu as déjà : l'objectif du jour ne proposera que ce que tu peux faire.",
   "toolsAllThere": "Tout le matériel est là.",
   "toolsMissing": "{count, plural, =1{Il te manque 1 outil} other{Il te manque {count} outils}}, ajouté aux courses.",
