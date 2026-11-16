@@ -6,6 +6,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/inventory.dart';
 import '../logic/shopping.dart';
 import '../state/worksites_controller.dart';
+import 'budget_schedule_card.dart';
 import 'expenses_section.dart';
 import 'guide_view.dart';
 import 'photos.dart';
@@ -22,6 +23,7 @@ class ShoppingScreen extends StatelessWidget {
     required this.controller,
     required this.worksiteId,
     this.photos,
+    this.now,
   });
 
   final WorksitesController controller;
@@ -29,6 +31,9 @@ class ShoppingScreen extends StatelessWidget {
 
   /// Photo des tickets ; remplaçable dans les tests.
   final PhotoTaker? photos;
+
+  /// Mois de départ de l'échéancier ; aujourd'hui si absent, fixé dans les tests.
+  final DateTime? now;
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +109,12 @@ class ShoppingScreen extends StatelessWidget {
                       planned: budgetTotal(vLines),
                       onChanged: controller.updateWorksite,
                       photos: photos,
+                    ),
+                    BudgetScheduleCard(
+                      worksite: vWorksite,
+                      planned: budgetTotal(vLines),
+                      onChanged: controller.updateWorksite,
+                      now: now,
                     ),
                     for (final vGroup in groupByStore(vLines, vWorksite.stores)) ...[
                       if (vGroup.store.isNotEmpty || vWorksite.stores.isNotEmpty)
