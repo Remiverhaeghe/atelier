@@ -7,11 +7,10 @@ import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import 'theme.dart';
 
-String offcutMaterialLabel(AppLocalizations pText, OffcutMaterial pMaterial) =>
-    switch (pMaterial) {
-      OffcutMaterial.plank => pText.offcutPlank,
-      OffcutMaterial.baseboard => pText.offcutBaseboard,
-    };
+String offcutMaterialLabel(AppLocalizations pText, OffcutMaterial pMaterial) => switch (pMaterial) {
+  OffcutMaterial.plank => pText.offcutPlank,
+  OffcutMaterial.baseboard => pText.offcutBaseboard,
+};
 
 /// Chutes du chantier : on les note, l'appli dit où chacune peut resservir.
 class OffcutsScreen extends StatelessWidget {
@@ -21,7 +20,10 @@ class OffcutsScreen extends StatelessWidget {
   final String worksiteId;
 
   Future<void> _add(BuildContext pContext, Worksite pWorksite) async {
-    final vOffcut = await showDialog<Offcut>(context: pContext, builder: (_) => const _OffcutDialog());
+    final vOffcut = await showDialog<Offcut>(
+      context: pContext,
+      builder: (_) => const _OffcutDialog(),
+    );
     if (vOffcut != null) {
       controller.updateWorksite(pWorksite.copyWith(offcuts: [...pWorksite.offcuts, vOffcut]));
     }
@@ -76,9 +78,7 @@ class OffcutsScreen extends StatelessWidget {
                   ),
                 ),
               if (vUses.isNotEmpty) ...[
-                ListTile(
-                  title: Text(vText.offcutsUsesTitle, style: vTheme.textTheme.titleMedium),
-                ),
+                ListTile(title: Text(vText.offcutsUsesTitle, style: vTheme.textTheme.titleMedium)),
                 for (final vUse in vUses)
                   ListTile(
                     leading: const Icon(Icons.recycling),
