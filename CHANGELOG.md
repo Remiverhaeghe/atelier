@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Caméra thermique
+- « Relevé thermique » dans les reprises : image de la caméra prise dans la galerie, défaut choisi (fenêtre, porte, prise, pont thermique, plafond, coffre de volet)
+- Préconisation et matériel à acheter repris dans la reprise, à placer ensuite sur le plan ; isolation signalée comme à faire chiffrer
+
 ### Calculs : soudure
 - Procédés classés selon le métal (acier, inox, alu), l'épaisseur et le lieu (dehors, au vent) : électrode enrobée, MIG/MAG, fil fourré, TIG
 - Réglages de départ : intensité, diamètre d'électrode, de fil ou de tungstène, courant alternatif pour l'alu en TIG
