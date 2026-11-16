@@ -85,19 +85,18 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
       .where((pRoom) => pRoom.id == widget.roomId)
       .firstOrNull;
 
-  String _cutText(AppLocalizations pText, int pIndex, BaseboardPiece pPiece) => pText.siteModeCutText(
-    pIndex + 1,
-    pPiece.wallNumber,
-    formatCentimetres(pPiece.lengthMm),
-    cutLabel(pText, pPiece.startCut),
-    cutLabel(pText, pPiece.endCut),
-  );
+  String _cutText(AppLocalizations pText, int pIndex, BaseboardPiece pPiece) =>
+      pText.siteModeCutText(
+        pIndex + 1,
+        pPiece.wallNumber,
+        formatCentimetres(pPiece.lengthMm),
+        cutLabel(pText, pPiece.startCut),
+        cutLabel(pText, pPiece.endCut),
+      );
 
   String _rowText(AppLocalizations pText, LayingRow pRow) => pText.siteModeRowText(
     pRow.number,
-    [
-      for (final vRun in pRow.runs) vRun.pieces.map(formatCentimetres).join(' + '),
-    ].join(' / '),
+    [for (final vRun in pRow.runs) vRun.pieces.map(formatCentimetres).join(' + ')].join(' / '),
   );
 
   @override
@@ -126,10 +125,10 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
               _TaskCard(
                 icon: AtelierIcons.baseboard,
                 title: vText.siteModeCut,
-                text: vCut == null ? vText.siteModeCutsDone : _cutText(vText, vCut.index, vCut.piece),
-                onSpeak: vCut == null
-                    ? null
-                    : () => _say(_cutText(vText, vCut.index, vCut.piece)),
+                text: vCut == null
+                    ? vText.siteModeCutsDone
+                    : _cutText(vText, vCut.index, vCut.piece),
+                onSpeak: vCut == null ? null : () => _say(_cutText(vText, vCut.index, vCut.piece)),
                 onDone: vCut == null ? null : () => vSave(markCut(vRoom, vCut.index)),
               ),
               const SizedBox(height: 16),
