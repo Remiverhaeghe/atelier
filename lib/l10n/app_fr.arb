@@ -1309,5 +1309,16 @@
   "slopeRun": "Largeur de la pente au sol (cm)",
   "slopeInvalid": "Le côté bas doit être plus bas que le plafond, et la pente avoir une largeur.",
   "slopeStanding": "{area} où l'on tient debout (1,80 m et plus)",
-  "@slopeStanding": {"placeholders": {"area": {"type": "String"}}}
+  "@slopeStanding": {"placeholders": {"area": {"type": "String"}}},
+  "levelGround": "Rez-de-chaussée",
+  "levelUpper": "{level, plural, =1{1er étage} other{{level}e étage}}",
+  "@levelUpper": {"placeholders": {"level": {"type": "int"}}},
+  "levelBasement": "{level, plural, =1{Sous-sol} other{Sous-sol {level}}}",
+  "@levelBasement": {"placeholders": {"level": {"type": "int"}}},
+  "levelAdd": "Étage",
+  "levelUp": "Monter d'un niveau",
+  "levelDown": "Descendre d'un niveau",
+  "fixtureStairwell": "Trémie d'escalier",
+  "stairwellSummary": "{width} × {depth} cm, sans sol à couvrir",
+  "@stairwellSummary": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}}}
 }

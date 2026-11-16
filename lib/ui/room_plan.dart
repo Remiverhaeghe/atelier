@@ -342,6 +342,12 @@ class _RoomPlanPainter extends CustomPainter {
         pCanvas.drawRect(vRect, Paint()..color = colors.grid);
         pCanvas.drawRect(vRect, vStroke);
         pCanvas.drawRect(vRect.deflate(compact ? 1 : 3), vStroke);
+      case FixtureKind.stairwell:
+        // Trémie : vide dans le sol, barré d'une croix comme sur un plan d'étage
+        pCanvas.drawRect(vRect, Paint()..color = colors.grid);
+        pCanvas.drawRect(vRect, vStroke);
+        pCanvas.drawLine(vRect.topLeft, vRect.bottomRight, vStroke);
+        pCanvas.drawLine(vRect.topRight, vRect.bottomLeft, vStroke);
       case FixtureKind.socket || FixtureKind.lightSwitch:
         break;
     }

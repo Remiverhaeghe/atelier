@@ -14,6 +14,7 @@ IconData fixtureIcon(FixtureKind pKind) => switch (pKind) {
   FixtureKind.stairs => Icons.stairs_outlined,
   FixtureKind.mezzanine => Icons.layers_outlined,
   FixtureKind.roofWindow => Icons.roofing_outlined,
+  FixtureKind.stairwell => Icons.crop_square,
 };
 
 String fixtureLabel(AppLocalizations pText, FixtureKind pKind) => switch (pKind) {
@@ -22,6 +23,7 @@ String fixtureLabel(AppLocalizations pText, FixtureKind pKind) => switch (pKind)
   FixtureKind.stairs => pText.fixtureStairs,
   FixtureKind.mezzanine => pText.fixtureMezzanine,
   FixtureKind.roofWindow => pText.fixtureRoofWindow,
+  FixtureKind.stairwell => pText.fixtureStairwell,
 };
 
 /// Hauteur à monter proposée : plafond plus l'épaisseur d'un plancher.
@@ -111,6 +113,10 @@ class FixturesSection extends StatelessWidget {
     FixtureKind.stairs => _stairs(pText, stairPlan(pFixture.riseMm ?? defaultRiseMm(room))),
     FixtureKind.mezzanine => pText.mezzanineSummary(formatSquareMetres(pFixture.areaM2)),
     FixtureKind.roofWindow => pText.roofWindowSummary(
+      formatCentimetres(pFixture.widthMm),
+      formatCentimetres(pFixture.depthMm),
+    ),
+    FixtureKind.stairwell => pText.stairwellSummary(
       formatCentimetres(pFixture.widthMm),
       formatCentimetres(pFixture.depthMm),
     ),

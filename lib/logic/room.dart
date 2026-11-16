@@ -176,6 +176,7 @@ class Room {
     this.houseQuarterTurns = 0,
     this.fixtures = const [],
     this.slope,
+    this.level = 0,
   });
 
   final String id;
@@ -215,6 +216,9 @@ class Room {
   /// Plafond rampant ; null pour un plafond plat.
   final Slope? slope;
 
+  /// Niveau de la maison : 0 pour le rez-de-chaussée, 1 pour le premier étage, -1 pour le sous-sol.
+  final int level;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -234,6 +238,7 @@ class Room {
     List<Fixture>? fixtures,
     Slope? slope,
     bool clearSlope = false,
+    int? level,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -253,6 +258,7 @@ class Room {
     houseQuarterTurns: (houseQuarterTurns ?? this.houseQuarterTurns) % 4,
     fixtures: fixtures ?? this.fixtures,
     slope: clearSlope ? null : (slope ?? this.slope),
+    level: level ?? this.level,
   );
 
   Map<String, Object?> toJson() => {
@@ -274,6 +280,7 @@ class Room {
     'houseQuarterTurns': houseQuarterTurns,
     if (fixtures.isNotEmpty) 'fixtures': [for (final vFixture in fixtures) vFixture.toJson()],
     if (slope != null) 'slope': slope!.toJson(),
+    if (level != 0) 'level': level,
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -317,5 +324,6 @@ class Room {
         Fixture.fromJson(vFixture! as Map<String, Object?>),
     ],
     slope: pJson['slope'] == null ? null : Slope.fromJson(pJson['slope']! as Map<String, Object?>),
+    level: (pJson['level'] as int?) ?? 0,
   );
 }
