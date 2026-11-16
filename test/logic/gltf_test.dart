@@ -43,7 +43,10 @@ void main() {
   test('glTF de la maison : sol, murs, porte, tampon cohérent', () {
     final vRoom = rectangleRoom().copyWith(
       walls: [
-        const Wall(lengthMm: 4000, openings: [Opening(kind: OpeningKind.door, offsetMm: 500, widthMm: 830)]),
+        const Wall(
+          lengthMm: 4000,
+          openings: [Opening(kind: OpeningKind.door, offsetMm: 500, widthMm: 830)],
+        ),
         ...rectangleRoom().walls.skip(1),
       ],
     );
