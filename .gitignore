@@ -37,3 +37,6 @@ key.properties
 /linux/
 /macos/
 /windows/
+
+# Captures générées par le workflow Captures
+test/captures/png/
