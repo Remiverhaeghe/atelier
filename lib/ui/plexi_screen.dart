@@ -39,6 +39,7 @@ class PlexiScreen extends StatelessWidget {
                     Text(vText.plexiTotal, style: vTheme.textTheme.titleMedium),
                     BigFigure('${formatSquareMetres(plexiAreaM2(vRooms))} m²'),
                     IconLine(Icons.thermostat_outlined, vText.plexiThermal),
+                    IconLine(Icons.info_outline, vText.roofHint),
                   ],
                 ),
               ),
@@ -54,7 +55,13 @@ class PlexiScreen extends StatelessWidget {
                       formatCentimetres(vSize.heightMm),
                     ),
                   ),
-                  subtitle: Text(vSize.rooms.join(', ')),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(vSize.rooms.join(', ')),
+                      _RoofMatch(widthMm: vSize.widthMm, heightMm: vSize.heightMm),
+                    ],
+                  ),
                   trailing: const Icon(Icons.carpenter_outlined),
                   onTap: () => Navigator.push(
                     context,
@@ -68,6 +75,43 @@ class PlexiScreen extends StatelessWidget {
           ],
         ],
       ),
+    );
+  }
+}
+
+/// Fenêtre de toit du commerce la plus proche, et la reprise du chevêtre qu'elle demande.
+class _RoofMatch extends StatelessWidget {
+  const _RoofMatch({required this.widthMm, required this.heightMm});
+
+  final int widthMm;
+  final int heightMm;
+
+  String _change(AppLocalizations pText, int pMm, bool pWidth) {
+    if (pMm.abs() < 5) {
+      return pWidth ? pText.roofKeepWidth : pText.roofKeepHeight;
+    }
+    final vCm = formatCentimetres(pMm.abs());
+    final rText = pWidth
+        ? (pMm > 0 ? pText.roofWiden(vCm) : pText.roofNarrow(vCm))
+        : (pMm > 0 ? pText.roofLengthen(vCm) : pText.roofShorten(vCm));
+
+    return rText;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vMatch = nearestRoofWindow(widthMm, heightMm);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconLine(
+          Icons.window_outlined,
+          vText.roofNearest(formatCentimetres(vMatch.widthMm), formatCentimetres(vMatch.heightMm)),
+        ),
+        Text('${_change(vText, vMatch.widenMm, true)}, ${_change(vText, vMatch.heightenMm, false)}'),
+      ],
     );
   }
 }

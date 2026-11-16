@@ -41,6 +41,8 @@ void main() {
     await pTester.pumpWidget(localized(PlexiScreen(controller: vController, worksiteId: 'w')));
 
     expect(find.text('0,76 m²'), findsOneWidget);
+    expect(find.text('Fenêtre de toit courante la plus proche : 78 × 98 cm'), findsOneWidget);
+    expect(find.text('chevêtre à élargir de 2 cm, à allonger de 2 cm'), findsOneWidget);
     await pTester.tap(find.text('1 × 78 × 98 cm'));
     await pTester.pumpAndSettle();
 
