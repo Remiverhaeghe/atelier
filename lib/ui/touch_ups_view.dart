@@ -8,6 +8,7 @@ import '../logic/touch_up.dart';
 import 'photos.dart';
 import 'room_plan.dart';
 import 'theme.dart';
+import 'thermal_dialog.dart';
 import 'touch_up_dialog.dart';
 
 /// Reprises de la pièce : liste à cocher passage par passage, repères sur le plan et photos.
@@ -51,6 +52,14 @@ class _TouchUpsViewState extends State<TouchUpsView> {
       if (!vEntry.next) {
         return;
       }
+    }
+  }
+
+  /// Relevé de caméra thermique ajouté comme reprise, à placer ensuite sur le plan.
+  Future<void> _addThermal() async {
+    final vTouchUp = await addThermalTouchUp(context, pImages: widget.photos);
+    if (vTouchUp != null) {
+      widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps, vTouchUp]));
     }
   }
 
@@ -147,11 +156,23 @@ class _TouchUpsViewState extends State<TouchUpsView> {
           ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: FilledButton.icon(
-            onPressed: _add,
-            icon: const Icon(Icons.add),
-            label: Text(vText.addTouchUp),
+          child: Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              FilledButton.icon(
+                onPressed: _add,
+                icon: const Icon(Icons.add),
+                label: Text(vText.addTouchUp),
+              ),
+              OutlinedButton.icon(
+                onPressed: _addThermal,
+                icon: const Icon(Icons.thermostat_outlined),
+                label: Text(vText.thermalTitle),
+              ),
+            ],
           ),
+        ),
         ),
       ],
     );
