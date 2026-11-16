@@ -86,16 +86,6 @@ class WorksiteScreen extends StatelessWidget {
                 ),
               ),
               IconButton(
-                tooltip: vText.timeTitle,
-                icon: const Icon(Icons.timer_outlined),
-                onPressed: () => Navigator.push(
-                  pContext,
-                  MaterialPageRoute<void>(
-                    builder: (_) => TimeScreen(controller: controller, worksiteId: worksiteId),
-                  ),
-                ),
-              ),
-              IconButton(
                 tooltip: vText.shoppingTitle,
                 icon: const Icon(Icons.shopping_cart_outlined),
                 onPressed: () => Navigator.push(
@@ -112,58 +102,10 @@ class WorksiteScreen extends StatelessWidget {
                       exportWorksite(vWorksite);
                     case 'plan':
                       exportPlanFile(vWorksite);
-                    case 'house':
-                      Navigator.push(
-                        pContext,
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              HouseScreen(controller: controller, worksiteId: worksiteId),
-                        ),
-                      );
                     case 'gltf':
                       exportGltfFile(vWorksite);
                     case 'homeAssistant':
                       exportHomeAssistantFile(vWorksite);
-                    case 'living':
-                      Navigator.push(
-                        pContext,
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              LivingAreaScreen(controller: controller, worksiteId: worksiteId),
-                        ),
-                      );
-                    case 'plexi':
-                      Navigator.push(
-                        pContext,
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              PlexiScreen(controller: controller, worksiteId: worksiteId),
-                        ),
-                      );
-                    case 'journal':
-                      Navigator.push(
-                        pContext,
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              JournalScreen(controller: controller, worksiteId: worksiteId),
-                        ),
-                      );
-                    case 'review':
-                      Navigator.push(
-                        pContext,
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              ReviewScreen(controller: controller, worksiteId: worksiteId),
-                        ),
-                      );
-                    case 'offcuts':
-                      Navigator.push(
-                        pContext,
-                        MaterialPageRoute<void>(
-                          builder: (_) =>
-                              OffcutsScreen(controller: controller, worksiteId: worksiteId),
-                        ),
-                      );
                     case 'guide':
                       controller.updateWorksite(
                         vWorksite.copyWith(showGuidance: !vWorksite.showGuidance),
@@ -172,15 +114,9 @@ class WorksiteScreen extends StatelessWidget {
                 },
                 itemBuilder: (_) => [
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
-                  PopupMenuItem(value: 'house', child: Text(vText.houseTitle)),
-                  PopupMenuItem(value: 'journal', child: Text(vText.journalMenu)),
-                  PopupMenuItem(value: 'review', child: Text(vText.reviewMenu)),
-                  PopupMenuItem(value: 'living', child: Text(vText.livingAreaMenu)),
-                  PopupMenuItem(value: 'plexi', child: Text(vText.plexiMenu)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
                   PopupMenuItem(value: 'gltf', child: Text(vText.exportGltf)),
                   PopupMenuItem(value: 'homeAssistant', child: Text(vText.exportHomeAssistant)),
-                  PopupMenuItem(value: 'offcuts', child: Text(vText.offcutsTitle)),
                   PopupMenuItem(
                     value: 'guide',
                     child: Text(vWorksite.showGuidance ? vText.guideHidden : vText.guideShown),
@@ -200,6 +136,14 @@ class WorksiteScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8, bottom: 96),
                   children: [
                     _Summary(worksite: vWorksite, onShopping: () => _openShopping(pContext)),
+                    _HomeTiles(
+                      onOpen: (pScreen) => Navigator.push(
+                        pContext,
+                        MaterialPageRoute<void>(builder: (_) => pScreen),
+                      ),
+                      controller: controller,
+                      worksiteId: worksiteId,
+                    ),
                     PlanningCard(worksite: vWorksite),
                     GoalCard(
                       worksite: vWorksite,
@@ -236,6 +180,96 @@ class WorksiteScreen extends StatelessWidget {
                 ),
         );
       },
+    );
+  }
+}
+
+/// Tout ce qui concerne la maison entière, en tuiles plutôt que dans un long menu.
+class _HomeTiles extends StatelessWidget {
+  const _HomeTiles({required this.onOpen, required this.controller, required this.worksiteId});
+
+  final ValueChanged<Widget> onOpen;
+  final WorksitesController controller;
+  final String worksiteId;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vTheme = Theme.of(context);
+    final vTiles = <(IconData, String, Widget Function())>[
+      (
+        Icons.house_outlined,
+        vText.houseTitle,
+        () => HouseScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.square_foot,
+        vText.livingAreaMenu,
+        () => LivingAreaScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.menu_book_outlined,
+        vText.journalMenu,
+        () => JournalScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.timer_outlined,
+        vText.timeTitle,
+        () => TimeScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.roofing_outlined,
+        vText.plexiMenu,
+        () => PlexiScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.recycling,
+        vText.offcutsTitle,
+        () => OffcutsScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.fact_check_outlined,
+        vText.reviewMenu,
+        () => ReviewScreen(controller: controller, worksiteId: worksiteId),
+      ),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: GridView.count(
+        crossAxisCount: 4,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        childAspectRatio: 0.95,
+        children: [
+          for (final (vIcon, vLabel, vScreen) in vTiles)
+            Tooltip(
+              message: vLabel,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () => onOpen(vScreen()),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: vTheme.colorScheme.primaryContainer,
+                      foregroundColor: vTheme.colorScheme.onPrimaryContainer,
+                      child: Icon(vIcon),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      vLabel,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: vTheme.textTheme.labelSmall,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
