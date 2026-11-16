@@ -7,6 +7,6 @@ Application Android en Flutter pour préparer des travaux : parquet et plinthes 
 - Aucun texte affiché en dur dans un widget : tout passe par `lib/l10n/app_fr.arb`.
 - Longueurs en millimètres entiers dans le code, angles en degrés ; conversion seulement à l'affichage.
 - Données sur le téléphone uniquement, aucune permission réseau.
-- Seuls `android/app/build.gradle.kts` et le manifeste sont versionnés : `flutter create --platforms=android --org fr.remiverhaeghe --project-name atelier .` recrée le reste.
+- Côté Android, seuls `android/app/build.gradle.kts`, le manifeste et les fichiers du widget d'écran d'accueil (`ObjectifWidget.kt`, `res/layout/objectif_widget.xml`, `res/xml/objectif_widget_info.xml`) sont versionnés : `flutter create --platforms=android --org fr.remiverhaeghe --project-name atelier .` recrée le reste.
 - Avant de valider : `flutter gen-l10n`, `dart format lib test`, `flutter analyze`, `flutter test`.
 - `README.md` et `CHANGELOG.md` à jour après chaque lot ; fichiers de moins de 1000 lignes.

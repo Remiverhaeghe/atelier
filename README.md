@@ -65,7 +65,7 @@ flutter pub get
 flutter run
 ```
 
-La première commande recrée les fichiers Android qui ne sont pas versionnés (Gradle, icônes) ; elle ne touche pas au code existant. Pour l'icône et l'écran de démarrage : `dart run flutter_launcher_icons` puis `dart run flutter_native_splash:create`.
+La première commande recrée les fichiers Android qui ne sont pas versionnés (Gradle, icônes, `MainActivity`) ; elle ne touche pas au code existant, dont le widget d'écran d'accueil. Pour l'icône et l'écran de démarrage : `dart run flutter_launcher_icons` puis `dart run flutter_native_splash:create`.
 
 ## Tester
 

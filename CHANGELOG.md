@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Widget d'écran d'accueil
+- Un widget Android affiche le chantier du jour, l'avancement de l'objectif et la prochaine attente ; un appui ouvre l'appli. Il se met à jour quand l'appli change le chantier
+
 ### Notification des attentes
 - Une attente lancée (séchage, acclimatation) prévient par une notification Android quand elle est finie, même appli fermée ; la retirer annule la notification. Rien ne passe par le réseau
 
