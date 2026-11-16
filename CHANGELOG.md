@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Charpente et couverture
+- Nouveau calcul pour un pan de toit : chevrons, contre-liteaux, liteaux selon le pureau, tuiles ou ardoises avec la casse, faîtières, rives et écran sous toiture
+
 ### Fenêtre de toit du commerce
 - Pour chaque taille de plexi : fenêtre de toit courante la plus proche et reprise du chevêtre (élargir, réduire, allonger), en évitant de couper un chevron
 
