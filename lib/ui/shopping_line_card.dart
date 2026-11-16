@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/expenses.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
@@ -52,8 +55,24 @@ class ShoppingLineCard extends StatelessWidget {
                 [
                   lineDetail(vText, line),
                   if (line.inStock > 0) vText.lineInStock(line.inStock),
+                  if (vBought)
+                    if (expenseFor(worksite.expenses, vName) case final vTicket?)
+                      vText.lineTicket(vTicket.date, vTicket.label, formatEuros(vTicket.amount)),
                 ].join('\n'),
               ),
+              secondary: vBought
+                  ? switch (expenseFor(worksite.expenses, vName)?.receiptPath) {
+                      final String vPath => IconButton(
+                        tooltip: vText.lineTicketShow,
+                        icon: const Icon(Icons.receipt_long_outlined),
+                        onPressed: () => showDialog<void>(
+                          context: context,
+                          builder: (_) => Dialog(child: Image.file(File(vPath))),
+                        ),
+                      ),
+                      null => null,
+                    }
+                  : null,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8),

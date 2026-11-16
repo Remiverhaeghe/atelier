@@ -7,6 +7,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/expenses.dart';
 import '../logic/goals.dart';
 import '../logic/receipt.dart';
+import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 import 'photos.dart';
@@ -33,7 +34,7 @@ class ExpensesSection extends StatelessWidget {
   Future<void> _add(BuildContext pContext) async {
     final vExpense = await showDialog<Expense>(
       context: pContext,
-      builder: (_) => _ExpenseDialog(photos: photos ?? takePhoto),
+      builder: (_) => _ExpenseDialog(photos: photos ?? takePhoto, bought: worksite.bought),
     );
     if (vExpense != null) {
       onChanged(worksite.copyWith(expenses: [...worksite.expenses, vExpense]));
@@ -117,9 +118,12 @@ class ExpensesSection extends StatelessWidget {
 }
 
 class _ExpenseDialog extends StatefulWidget {
-  const _ExpenseDialog({required this.photos});
+  const _ExpenseDialog({required this.photos, required this.bought});
 
   final PhotoTaker photos;
+
+  /// Articles cochés dans les courses, à relier au ticket.
+  final List<String> bought;
 
   @override
   State<_ExpenseDialog> createState() => _ExpenseDialogState();
@@ -132,6 +136,7 @@ class _ExpenseDialogState extends State<_ExpenseDialog> {
   String? _receipt;
   String? _error;
   String? _date;
+  final _items = <String>{};
 
   /// Texte du ticket copié depuis la photo : on remplit ce qu'on a su lire.
   Future<void> _paste() async {
@@ -175,6 +180,7 @@ class _ExpenseDialogState extends State<_ExpenseDialog> {
         amount: vAmount,
         date: _date ?? goalDate(DateTime.now()),
         receiptPath: _receipt,
+        items: _items.toList()..sort(),
       ),
     );
   }
@@ -220,6 +226,22 @@ class _ExpenseDialogState extends State<_ExpenseDialog> {
               icon: Icon(_receipt == null ? Icons.photo_camera_outlined : Icons.check),
               label: Text(_receipt == null ? vText.expenseReceipt : vText.expenseReceiptTaken),
             ),
+            if (widget.bought.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              Align(alignment: Alignment.centerLeft, child: Text(vText.expenseItems)),
+              Wrap(
+                spacing: 6,
+                children: [
+                  for (final vItem in widget.bought)
+                    FilterChip(
+                      label: Text(_itemName(vText, vItem)),
+                      selected: _items.contains(vItem),
+                      onSelected: (pOn) =>
+                          setState(() => pOn ? _items.add(vItem) : _items.remove(vItem)),
+                    ),
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -229,4 +251,11 @@ class _ExpenseDialogState extends State<_ExpenseDialog> {
       ],
     );
   }
+}
+
+/// Nom affiché d'un article des courses, ou son nom brut s'il n'est plus connu.
+String _itemName(AppLocalizations pText, String pItem) {
+  final vKnown = ShoppingItem.values.asNameMap()[pItem];
+
+  return vKnown == null ? pItem : itemLabel(pText, vKnown);
 }
