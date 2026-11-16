@@ -1778,5 +1778,18 @@
   "waitFiller": "Séchage de l'enduit",
   "waitPaintCoat": "Avant la couche suivante",
   "waitGlue": "Prise de la colle",
-  "waitCustom": "Autre attente"
+  "waitCustom": "Autre attente",
+  "roofNearest": "Fenêtre de toit courante la plus proche : {width} × {height} cm",
+  "@roofNearest": {"placeholders": {"width": {"type": "String"}, "height": {"type": "String"}}},
+  "roofWiden": "chevêtre à élargir de {cm} cm",
+  "@roofWiden": {"placeholders": {"cm": {"type": "String"}}},
+  "roofNarrow": "chevêtre à réduire de {cm} cm en largeur",
+  "@roofNarrow": {"placeholders": {"cm": {"type": "String"}}},
+  "roofLengthen": "à allonger de {cm} cm",
+  "@roofLengthen": {"placeholders": {"cm": {"type": "String"}}},
+  "roofShorten": "à raccourcir de {cm} cm",
+  "@roofShorten": {"placeholders": {"cm": {"type": "String"}}},
+  "roofKeepWidth": "largeur du chevêtre bonne",
+  "roofKeepHeight": "hauteur bonne",
+  "roofHint": "Cotes du dormant ; le chevêtre garde 1 cm de jeu par côté pour le raccord d'étanchéité vendu avec la fenêtre. Élargir veut dire couper un chevron : à faire valider."
 }

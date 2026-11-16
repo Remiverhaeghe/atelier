@@ -130,3 +130,46 @@ int _stockPieces(List<int> pPieces) {
 
   return vRemaining.length;
 }
+
+/// Tailles courantes de fenêtres de toit (largeur × hauteur du dormant, en mm). Les codes
+/// changent d'un fabricant à l'autre ; les dimensions, elles, sont partagées.
+const roofWindowSizes = [
+  (550, 780),
+  (550, 980),
+  (660, 1180),
+  (780, 980),
+  (780, 1180),
+  (780, 1400),
+  (940, 1400),
+  (1140, 1180),
+];
+
+/// Jeu à laisser entre le dormant et le chevêtre, de chaque côté, pour le raccord d'étanchéité.
+const roofFitGapMm = 10;
+
+/// Taille courante la plus proche d'une ouverture, et ce qu'il faut reprendre au chevêtre :
+/// positif pour agrandir, négatif pour réduire (tasseau ou cale).
+typedef RoofWindowMatch = ({int widthMm, int heightMm, int widenMm, int heightenMm});
+
+RoofWindowMatch nearestRoofWindow(int pWidthMm, int pHeightMm) {
+  var vBest = roofWindowSizes.first;
+  var vBestScore = double.infinity;
+  for (final vSize in roofWindowSizes) {
+    final vNeededW = vSize.$1 + 2 * roofFitGapMm - pWidthMm;
+    final vNeededH = vSize.$2 + 2 * roofFitGapMm - pHeightMm;
+    // Agrandir un chevêtre veut dire couper un chevron : on pénalise la largeur gagnée
+    final vScore = (vNeededW > 0 ? 3 * vNeededW : -vNeededW) + vNeededH.abs().toDouble();
+    if (vScore < vBestScore) {
+      vBestScore = vScore;
+      vBest = vSize;
+    }
+  }
+  final rMatch = (
+    widthMm: vBest.$1,
+    heightMm: vBest.$2,
+    widenMm: vBest.$1 + 2 * roofFitGapMm - pWidthMm,
+    heightenMm: vBest.$2 + 2 * roofFitGapMm - pHeightMm,
+  );
+
+  return rMatch;
+}
