@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Captures Play Store
+- Workflow « Captures Play Store » : le chantier fictif parcouru sur un Android émulé au format 1080 × 1920, sept captures en artefact
+- Les tests sur émulateur ne lancent plus que le parcours, les captures ont leur propre workflow
+
 ### Affichage
 - Dans « À propos » : thème du téléphone, clair ou sombre, et taille du texte normale, grande ou très grande
 - Réglages gardés dans un petit fichier, lus avant le premier affichage
