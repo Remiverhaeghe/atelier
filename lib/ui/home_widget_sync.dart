@@ -1,4 +1,5 @@
 import 'dart:developer' as developer;
+import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart';
 import 'package:home_widget/home_widget.dart';
