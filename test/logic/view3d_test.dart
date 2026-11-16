@@ -14,7 +14,10 @@ void main() {
         ),
         Wall(lengthMm: 3000),
         Wall(lengthMm: 4000),
-        Wall(lengthMm: 3000, openings: [Opening(kind: OpeningKind.door, offsetMm: 300, widthMm: 830)]),
+        Wall(
+          lengthMm: 3000,
+          openings: [Opening(kind: OpeningKind.door, offsetMm: 300, widthMm: 830)],
+        ),
       ],
     );
     final vFaces = houseFaces([vRoom], 0);

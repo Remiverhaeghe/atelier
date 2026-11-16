@@ -24,7 +24,8 @@ class _House3dState extends State<House3d> {
     final vTheme = Theme.of(context);
 
     return GestureDetector(
-      onHorizontalDragUpdate: (pDetails) => setState(() => _yaw = (_yaw + pDetails.delta.dx * 0.5) % 360),
+      onHorizontalDragUpdate: (pDetails) =>
+          setState(() => _yaw = (_yaw + pDetails.delta.dx * 0.5) % 360),
       child: CustomPaint(
         size: Size.infinite,
         painter: _House3dPainter(

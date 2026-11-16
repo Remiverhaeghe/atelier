@@ -80,65 +80,68 @@ class _HouseScreenState extends State<HouseScreen> {
                         style: vTheme.textTheme.bodySmall,
                       ),
                     ),
-                    if (_view3d) Expanded(child: House3d(rooms: vRooms)) else Expanded(
-                      child: LayoutBuilder(
-                        builder: (pContext, pConstraints) {
-                          final vFrame = _HouseFrame(vRooms, pConstraints.biggest);
-                          Room? vHit(Offset pScreen) {
-                            final vPoint = vFrame.toPlan(pScreen);
-                            for (final vRoom in vRooms.reversed) {
-                              if (_contains(houseOutline(vRoom), vPoint)) {
-                                return vRoom;
+                    if (_view3d)
+                      Expanded(child: House3d(rooms: vRooms))
+                    else
+                      Expanded(
+                        child: LayoutBuilder(
+                          builder: (pContext, pConstraints) {
+                            final vFrame = _HouseFrame(vRooms, pConstraints.biggest);
+                            Room? vHit(Offset pScreen) {
+                              final vPoint = vFrame.toPlan(pScreen);
+                              for (final vRoom in vRooms.reversed) {
+                                if (_contains(houseOutline(vRoom), vPoint)) {
+                                  return vRoom;
+                                }
                               }
+                              return null;
                             }
-                            return null;
-                          }
 
-                          return GestureDetector(
-                            onTapUp: (pDetails) =>
-                                setState(() => _selected = vHit(pDetails.localPosition)?.id),
-                            onPanStart: (pDetails) {
-                              final vRoom = vHit(pDetails.localPosition);
-                              setState(() {
-                                _selected = vRoom?.id ?? _selected;
-                                _drag = Offset.zero;
-                              });
-                            },
-                            onPanUpdate: (pDetails) => setState(
-                              () => _drag +=
-                                  Offset(pDetails.delta.dx, -pDetails.delta.dy) / vFrame.scale,
-                            ),
-                            onPanEnd: (_) {
-                              if (vSelected != null && _drag != Offset.zero) {
-                                _save(
-                                  vSelected.copyWith(
-                                    houseXMm: snap(vSelected.houseXMm + _drag.dx),
-                                    houseYMm: snap(vSelected.houseYMm + _drag.dy),
+                            return GestureDetector(
+                              onTapUp: (pDetails) =>
+                                  setState(() => _selected = vHit(pDetails.localPosition)?.id),
+                              onPanStart: (pDetails) {
+                                final vRoom = vHit(pDetails.localPosition);
+                                setState(() {
+                                  _selected = vRoom?.id ?? _selected;
+                                  _drag = Offset.zero;
+                                });
+                              },
+                              onPanUpdate: (pDetails) => setState(
+                                () => _drag +=
+                                    Offset(pDetails.delta.dx, -pDetails.delta.dy) / vFrame.scale,
+                              ),
+                              onPanEnd: (_) {
+                                if (vSelected != null && _drag != Offset.zero) {
+                                  _save(
+                                    vSelected.copyWith(
+                                      houseXMm: snap(vSelected.houseXMm + _drag.dx),
+                                      houseYMm: snap(vSelected.houseYMm + _drag.dy),
+                                    ),
+                                  );
+                                }
+                                setState(() => _drag = Offset.zero);
+                              },
+                              child: CustomPaint(
+                                key: const ValueKey('house-plan'),
+                                size: pConstraints.biggest,
+                                painter: _HousePainter(
+                                  rooms: vRooms,
+                                  frame: vFrame,
+                                  selected: _selected,
+                                  drag: _drag,
+                                  colors: AtelierColors.of(context),
+                                  highlight: vTheme.colorScheme.primary,
+                                  labelStyle: vTheme.textTheme.labelLarge!.copyWith(
+                                    fontFamily: titleFont,
+                                    color: vTheme.colorScheme.onSurface,
                                   ),
-                                );
-                              }
-                              setState(() => _drag = Offset.zero);
-                            },
-                            child: CustomPaint(
-                              key: const ValueKey('house-plan'),
-                              size: pConstraints.biggest,
-                              painter: _HousePainter(
-                                rooms: vRooms,
-                                frame: vFrame,
-                                selected: _selected,
-                                drag: _drag,
-                                colors: AtelierColors.of(context),
-                                highlight: vTheme.colorScheme.primary,
-                                labelStyle: vTheme.textTheme.labelLarge!.copyWith(
-                                  fontFamily: titleFont,
-                                  color: vTheme.colorScheme.onSurface,
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
                     if (vSelected != null && !_view3d)
                       Padding(
                         padding: const EdgeInsets.all(12),
