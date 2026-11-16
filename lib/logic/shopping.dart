@@ -65,7 +65,11 @@ List<ShoppingLine> shoppingList(Worksite pWorksite) {
   final rLines = [
     for (final vItem in ShoppingItem.values)
       if ((vTotals[vItem] ?? 0) > 0)
-        ShoppingLine(item: vItem, quantity: vTotals[vItem]!, unitPrice: pWorksite.prices[vItem.name]),
+        ShoppingLine(
+          item: vItem,
+          quantity: vTotals[vItem]!,
+          unitPrice: pWorksite.prices[vItem.name],
+        ),
   ];
 
   return rLines;

@@ -4,7 +4,12 @@ library;
 import 'room.dart';
 
 class Worksite {
-  const Worksite({required this.id, required this.name, this.rooms = const [], this.prices = const {}});
+  const Worksite({
+    required this.id,
+    required this.name,
+    this.rooms = const [],
+    this.prices = const {},
+  });
 
   final String id;
   final String name;
