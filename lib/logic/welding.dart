@@ -26,12 +26,14 @@ typedef WeldSetting = ({WeldProcess process, int minAmps, int maxAmps, double di
 List<WeldProcess> rankProcesses(Metal pMetal, double pThicknessMm, {bool pOutdoor = false}) {
   final rProcesses = switch (pMetal) {
     Metal.aluminium => [WeldProcess.tig, WeldProcess.migMag],
-    Metal.stainless => pThicknessMm < 3
-        ? [WeldProcess.tig, WeldProcess.migMag, WeldProcess.stick]
-        : [WeldProcess.migMag, WeldProcess.tig, WeldProcess.stick],
-    Metal.steel => pThicknessMm < 1.5
-        ? [WeldProcess.migMag, WeldProcess.tig, WeldProcess.fluxCore]
-        : [WeldProcess.migMag, WeldProcess.stick, WeldProcess.fluxCore, WeldProcess.tig],
+    Metal.stainless =>
+      pThicknessMm < 3
+          ? [WeldProcess.tig, WeldProcess.migMag, WeldProcess.stick]
+          : [WeldProcess.migMag, WeldProcess.tig, WeldProcess.stick],
+    Metal.steel =>
+      pThicknessMm < 1.5
+          ? [WeldProcess.migMag, WeldProcess.tig, WeldProcess.fluxCore]
+          : [WeldProcess.migMag, WeldProcess.stick, WeldProcess.fluxCore, WeldProcess.tig],
   };
   if (!pOutdoor) {
     return rProcesses;
