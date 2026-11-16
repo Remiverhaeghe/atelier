@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### CI
+- NDK Android installé avant la construction de l'APK, avec trois essais : une coupure réseau ne fait plus échouer le passage après 15 minutes
+
 ### Contrôle de finition
 - « Contrôle de finition » dans les reprises : photo de la pièce, cercles autour de ce qui ne va pas, reprise créée avec sa photo
 - Toute photo de reprise peut être annotée de la même façon ; le nombre d'endroits entourés s'affiche sur la reprise

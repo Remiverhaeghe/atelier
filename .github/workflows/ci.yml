@@ -110,6 +110,17 @@ jobs:
             echo "Secrets absents : signature avec la clé de débogage"
           fi
 
+      # Le NDK demandé par Gradle se télécharge pendant la construction ; une coupure réseau
+      # la fait échouer au bout de 15 minutes. On l'installe avant, avec trois essais.
+      - name: NDK Android
+        run: |
+          for vEssai in 1 2 3; do
+            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;28.2.13676358" > /dev/null && exit 0
+            echo "Téléchargement du NDK interrompu, nouvel essai ($vEssai)"
+            sleep 15
+          done
+          exit 1
+
       - name: Construction
         run: |
           flutter pub get
