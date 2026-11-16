@@ -64,10 +64,14 @@ DebrisPlan debrisPlan(List<DebrisLine> pLines) {
   var vBags = 0;
   var vTrips = 0;
   for (final vBin in vList) {
-    vBags += [_atLeast(vBin.bulkM3, bigBagM3), _atLeast(vBin.kg, bigBagKg.toDouble())]
-        .reduce((pA, pB) => pA > pB ? pA : pB);
-    vTrips += [_atLeast(vBin.bulkM3, trailerM3), _atLeast(vBin.kg, trailerKg.toDouble())]
-        .reduce((pA, pB) => pA > pB ? pA : pB);
+    vBags += [
+      _atLeast(vBin.bulkM3, bigBagM3),
+      _atLeast(vBin.kg, bigBagKg.toDouble()),
+    ].reduce((pA, pB) => pA > pB ? pA : pB);
+    vTrips += [
+      _atLeast(vBin.bulkM3, trailerM3),
+      _atLeast(vBin.kg, trailerKg.toDouble()),
+    ].reduce((pA, pB) => pA > pB ? pA : pB);
   }
   final rPlan = (
     bins: vList,
