@@ -110,6 +110,14 @@ void main() {
     await tapAndSettle(pTester, find.byTooltip('Conseils et tutos'));
     await tapAndSettle(pTester, find.text('Finir les plinthes au joint'));
     await capture('12-conseil');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.byTooltip('Calculs'));
+    await capture('13-calculs');
+    await tapAndSettle(pTester, find.text('Étagère sur mesure'));
+    await capture('14-etagere');
     capturesDone();
   });
 

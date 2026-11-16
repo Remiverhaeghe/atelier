@@ -8,7 +8,7 @@ import 'shelf_calculator.dart';
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 typedef Calculator = ({String title, String help, IconData icon, WidgetBuilder builder});
 
-/// Calculs hors des pièces : étagère, et ce que les lots suivants ajoutent.
+/// Calculs hors des pièces, en grille de tuiles.
 class CalculatorsScreen extends StatelessWidget {
   const CalculatorsScreen({super.key});
 
@@ -36,21 +36,52 @@ class CalculatorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vTheme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(title: Text(vText.calculatorsTitle)),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: const EdgeInsets.all(12),
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        childAspectRatio: 0.85,
         children: [
           for (final vEntry in entries(vText))
             Card(
-              child: ListTile(
-                leading: Icon(vEntry.icon, color: Theme.of(context).colorScheme.primary),
-                title: Text(vEntry.title),
-                subtitle: Text(vEntry.help),
-                trailing: const Icon(Icons.chevron_right),
+              margin: const EdgeInsets.all(4),
+              child: InkWell(
                 onTap: () =>
                     Navigator.push(context, MaterialPageRoute<void>(builder: vEntry.builder)),
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: vTheme.colorScheme.primaryContainer,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Icon(
+                          vEntry.icon,
+                          size: 30,
+                          color: vTheme.colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(vEntry.title, style: vTheme.textTheme.titleMedium),
+                      const SizedBox(height: 4),
+                      Text(
+                        vEntry.help,
+                        style: vTheme.textTheme.bodySmall,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
         ],
