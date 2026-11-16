@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:atelier/logic/parquet.dart';
+import 'package:atelier/logic/room.dart';
 import 'package:atelier/support/crash_log.dart';
 import 'package:atelier/ui/about_screen.dart';
 import 'package:atelier/ui/guide_view.dart';
@@ -41,5 +42,33 @@ void main() {
     await pTester.pumpWidget(localized(AboutScreen(crashLog: vLog)));
 
     expect(find.text('Partager le journal'), findsOneWidget);
+  });
+
+  testWidgets('une photo s\'ajoute à une étape et s\'affiche dessous', (pTester) async {
+    tallScreen(pTester);
+    var vRoom = rectangleRoom();
+    await pTester.pumpWidget(
+      StatefulBuilder(
+        builder: (pContext, pSetState) => localized(
+          GuideView(
+            room: vRoom,
+            onChanged: (pRoom) => pSetState(() => vRoom = pRoom),
+            photos: (pId) async => '/photos/$pId.jpg',
+          ),
+        ),
+      ),
+    );
+
+    await scrollToFirst(pTester, find.byTooltip('Photo de cette étape'));
+    await pTester.tap(find.byTooltip('Photo de cette étape').first);
+    await pTester.pumpAndSettle();
+    expect(vRoom.stepPhotos['acclimatise'], ['/photos/salon-acclimatise.jpg']);
+    expect(find.byIcon(Icons.photo_library_outlined), findsOneWidget);
+
+    await pTester.tap(find.byTooltip('Photo de cette étape').first);
+    await pTester.pumpAndSettle();
+    expect(vRoom.stepPhotos['acclimatise'], hasLength(2));
+    final vBack = Room.fromJson(vRoom.toJson());
+    expect(vBack.stepPhotos['acclimatise'], hasLength(2));
   });
 }
