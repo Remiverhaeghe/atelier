@@ -24,6 +24,11 @@ Captures faites sur un chantier fictif par le workflow Captures (`test/captures/
 | 5 | Plinthes : optimisation des barres | fait |
 | 6 | Chantier de plusieurs pièces, budget, liste de courses, PDF | fait |
 | 7 | Guidage pas à pas, export, finitions | fait |
+| 8 | Version 0.1.0, APK jointes aux releases | fait |
+| 9 | Captures d'écran | fait |
+| 10 | Habillage et prise en main | fait |
+
+La suite est dans [ROADMAP.md](ROADMAP.md).
 
 ## Installer
 
