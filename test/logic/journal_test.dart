@@ -53,4 +53,13 @@ void main() {
     expect((vBare.product, vBare.note, vBare.photoPath), ('', '', null));
     expect(const Worksite(id: 'w', name: 'M').toJson().containsKey('journal'), isFalse);
   });
+
+  test('avant / après : les deux photos sont là', () {
+    final vEntry = _entries.first.copyWith(photoPath: '/apres.jpg');
+
+    expect(hasBeforeAfter(vEntry), isFalse);
+    final vBoth = vEntry.copyWith(beforePath: '/avant.jpg');
+    expect(hasBeforeAfter(vBoth), isTrue);
+    expect(JournalEntry.fromJson(vBoth.toJson()).beforePath, '/avant.jpg');
+  });
 }
