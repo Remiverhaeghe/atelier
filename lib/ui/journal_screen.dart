@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -11,6 +12,7 @@ import '../logic/units.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import 'before_after.dart';
+import 'journal_pdf.dart';
 import 'photos.dart';
 import 'shopping_texts.dart';
 import 'theme.dart';
@@ -121,6 +123,16 @@ class _JournalScreenState extends State<JournalScreen> {
           appBar: AppBar(
             title: Text(vText.journalTitle),
             actions: [
+              IconButton(
+                tooltip: vText.journalPdf,
+                icon: const Icon(Icons.picture_as_pdf_outlined),
+                onPressed: vWorksite.journal.isEmpty
+                    ? null
+                    : () => Printing.layoutPdf(
+                        name: vText.journalTitle,
+                        onLayout: (_) => buildJournalPdf(vText, vWorksite),
+                      ),
+              ),
               IconButton(
                 tooltip: vText.shareList,
                 icon: const Icon(Icons.share),
