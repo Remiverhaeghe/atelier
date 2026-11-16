@@ -23,7 +23,9 @@ PlanPoint toHouse(Room pRoom, PlanPoint pPoint) {
 }
 
 /// Contour de la pièce dans le repère de la maison.
-List<PlanPoint> houseOutline(Room pRoom) => [for (final vPoint in outline(pRoom)) toHouse(pRoom, vPoint)];
+List<PlanPoint> houseOutline(Room pRoom) => [
+  for (final vPoint in outline(pRoom)) toHouse(pRoom, vPoint),
+];
 
 /// Pièces à dessiner : celles qui ont des murs.
 List<Room> houseRooms(Worksite pWorksite) =>

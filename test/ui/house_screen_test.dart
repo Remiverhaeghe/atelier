@@ -9,7 +9,9 @@ import '../support/memory_storage.dart';
 import '../support/rooms.dart';
 
 void main() {
-  testWidgets('les pièces se rangent, se choisissent, se tournent et se déplacent', (pTester) async {
+  testWidgets('les pièces se rangent, se choisissent, se tournent et se déplacent', (
+    pTester,
+  ) async {
     final vStorage = MemoryStorage()
       ..saved = [
         Worksite(id: 'w', name: 'Maison', rooms: [rectangleRoom(), lShapedRoom()]),
