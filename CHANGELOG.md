@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Combles
+- Second pan de toit par pièce, pour les combles en pente des deux côtés
+- Pente saisie au choix par la largeur au sol ou par la longueur du rampant, avec un schéma qui montre où mesurer
+- Ligne des 1,80 m dessinée sur le plan
+
 ### Surface habitable
 - Surface habitable et Loi Carrez par pièce, par niveau et pour la maison, depuis le menu du chantier
 - Usage de chaque pièce (habitable, combles, cave, garage, véranda, balcon) qui décide de ce qui compte

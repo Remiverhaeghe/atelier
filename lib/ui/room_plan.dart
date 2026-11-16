@@ -175,11 +175,24 @@ class _RoomPlanPainter extends CustomPainter {
     pCanvas.drawPath(vRoomPath, Paint()..color = paper);
 
     // Partie sous la pente du toit, grisée comme sous un rampant sur un plan d'architecte
-    final vSloped = slopedOutline(room);
-    if (vSloped.length >= 3) {
-      pCanvas.drawPath(
-        Path()..addPolygon([for (final vPoint in vSloped) vAt(vPoint.x, vPoint.y)], true),
-        Paint()..color = colors.grid,
+    for (final vSloped in slopedOutlines(room)) {
+      if (vSloped.length >= 3) {
+        pCanvas.drawPath(
+          Path()..addPolygon([for (final vPoint in vSloped) vAt(vPoint.x, vPoint.y)], true),
+          Paint()..color = colors.grid,
+        );
+      }
+    }
+    // Ligne des 1,80 m : en deçà, le sol ne compte pas en surface habitable
+    for (final (vFrom, vTo) in lowHeadroomLines(room)) {
+      _paintDashedLine(
+        pCanvas,
+        vAt(vFrom.x, vFrom.y),
+        vAt(vTo.x, vTo.y),
+        Paint()
+          ..color = colors.tape
+          ..strokeWidth = compact ? 1 : 2,
+        compact ? 3 : 6,
       );
     }
 
@@ -350,6 +363,22 @@ class _RoomPlanPainter extends CustomPainter {
         pCanvas.drawLine(vRect.topRight, vRect.bottomLeft, vStroke);
       case FixtureKind.socket || FixtureKind.lightSwitch:
         break;
+    }
+  }
+
+  /// Trait en tirets entre deux points.
+  void _paintDashedLine(Canvas pCanvas, Offset pFrom, Offset pTo, Paint pPaint, double pDash) {
+    final vLength = (pTo - pFrom).distance;
+    if (vLength == 0) {
+      return;
+    }
+    for (var vDone = 0.0; vDone < vLength; vDone += 2 * pDash) {
+      final vEnd = math.min(vDone + pDash, vLength);
+      pCanvas.drawLine(
+        Offset.lerp(pFrom, pTo, vDone / vLength)!,
+        Offset.lerp(pFrom, pTo, vEnd / vLength)!,
+        pPaint,
+      );
     }
   }
 
