@@ -71,4 +71,25 @@ void main() {
     final vBack = Room.fromJson(vRoom.toJson());
     expect(vBack.stepPhotos['acclimatise'], hasLength(2));
   });
+
+  testWidgets('les pièges de la prochaine étape sont rappelés, puis passent à la suivante', (
+    pTester,
+  ) async {
+    tallScreen(pTester);
+    var vRoom = rectangleRoom();
+    await pTester.pumpWidget(
+      StatefulBuilder(
+        builder: (pContext, pSetState) =>
+            localized(GuideView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom))),
+      ),
+    );
+
+    await scrollToFirst(pTester, find.text('Avant de commencer, les erreurs fréquentes'));
+    expect(find.textContaining('Ouvrir les paquets trop tôt'), findsOneWidget);
+
+    await pTester.tap(find.textContaining('Laisser les paquets'));
+    await pTester.pumpAndSettle();
+    expect(find.textContaining('Ouvrir les paquets trop tôt'), findsNothing);
+    expect(find.text('Avant de commencer, les erreurs fréquentes'), findsOneWidget);
+  });
 }
