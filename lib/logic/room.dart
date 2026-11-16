@@ -257,6 +257,7 @@ class Room {
   final Map<String, List<String>> stepPhotos;
 
   Room copyWith({
+    String? id,
     String? name,
     List<Wall>? walls,
     bool? closed,
@@ -283,7 +284,7 @@ class Room {
     List<HiddenRun>? networks,
     Map<String, List<String>>? stepPhotos,
   }) => Room(
-    id: id,
+    id: id ?? this.id,
     name: name ?? this.name,
     walls: walls ?? this.walls,
     closed: closed ?? this.closed,

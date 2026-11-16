@@ -8,7 +8,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 - 79 bis. **Notification Android des attentes** : la même échéance en notification locale (permission de notification à demander).
 - 99. **Widget d'écran d'accueil** : objectif du jour. Demande du code Android natif (récepteur et mise en page XML) : à décider, car seuls `build.gradle.kts` et le manifeste sont versionnés.
-- 101. **Chantier partagé** : fusion de deux exports.
 - 102. **Ticket de caisse lu par photo**, sans réseau.
 - 103. **Commandes vocales en mode chantier**.
 - 104. **Tablette et paysage**.

@@ -5,6 +5,7 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
 
+import '../logic/merge.dart';
 import '../logic/room.dart';
 import '../logic/worksite.dart';
 import '../storage/worksite_store.dart';
@@ -100,6 +101,38 @@ class WorksitesController extends ChangeNotifier {
 
     return pWorksites.length;
   }
+
+  /// Chantier partagé : un chantier déjà là est fusionné avec celui du fichier, les autres sont
+  /// ajoutés en gardant leur identifiant pour les fusions suivantes.
+  Future<({int added, int merged, int conflicts})> mergeImport(
+    List<Worksite> pWorksites,
+    String pSuffix,
+  ) async {
+    final vWorksites = [..._worksites];
+    var vAdded = 0;
+    var vMerged = 0;
+    var vConflicts = 0;
+    for (final vTheirs in pWorksites) {
+      final vIndex = vWorksites.indexWhere((pWorksite) => pWorksite.id == vTheirs.id);
+      if (vIndex < 0) {
+        vWorksites.add(vTheirs);
+        vAdded++;
+      } else {
+        final vResult = mergeWorksite(vWorksites[vIndex], vTheirs, pSuffix);
+        vWorksites[vIndex] = vResult.worksite;
+        vMerged++;
+        vConflicts += vResult.conflicts;
+      }
+    }
+    await replaceAll(vWorksites);
+
+    return (added: vAdded, merged: vMerged, conflicts: vConflicts);
+  }
+
+  /// Le fichier contient au moins un chantier qu'on a déjà : la fusion a un sens.
+  bool sharesWorksite(List<Worksite> pWorksites) => pWorksites.any(
+    (pTheirs) => _worksites.any((pWorksite) => pWorksite.id == pTheirs.id),
+  );
 
   Future<void> replaceAll(List<Worksite> pWorksites) async {
     _worksites = List.unmodifiable(pWorksites);
