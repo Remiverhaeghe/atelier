@@ -16,6 +16,8 @@ String stepLabel(AppLocalizations pText, GuideStep pStep) => switch (pStep) {
   GuideStep.nailInTongue => pText.stepNailInTongue,
   GuideStep.lastRow => pText.stepLastRow,
   GuideStep.removeSpacers => pText.stepRemoveSpacers,
+  GuideStep.undercutCasings => pText.stepUndercutCasings,
+  GuideStep.fitThresholds => pText.stepFitThresholds,
   GuideStep.cutBaseboards => pText.stepCutBaseboards,
   GuideStep.dryFitCorners => pText.stepDryFitCorners,
   GuideStep.fixBaseboards => pText.stepFixBaseboards,
@@ -36,6 +38,7 @@ IconData toolIcon(Tool pTool) => switch (pTool) {
   Tool.chalkLine => Icons.timeline,
   Tool.caulkGun => Icons.colorize,
   Tool.level => Icons.horizontal_rule,
+  Tool.handSaw => Icons.carpenter,
 };
 
 String toolLabel(AppLocalizations pText, Tool pTool) => switch (pTool) {
@@ -51,6 +54,7 @@ String toolLabel(AppLocalizations pText, Tool pTool) => switch (pTool) {
   Tool.chalkLine => pText.toolChalkLine,
   Tool.caulkGun => pText.toolCaulkGun,
   Tool.level => pText.toolLevel,
+  Tool.handSaw => pText.toolHandSaw,
 };
 
 /// Étapes de pose à cocher et outils à préparer pour la pièce.

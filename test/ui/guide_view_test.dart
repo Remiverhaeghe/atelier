@@ -21,7 +21,7 @@ void main() {
     );
 
     expect(find.text('Spatule crantée'), findsOneWidget);
-    expect(find.text('Aucune étape faite sur 11'), findsOneWidget);
+    expect(find.text('Aucune étape faite sur 13'), findsOneWidget);
 
     await scrollToFirst(pTester, find.byType(Checkbox));
     await pTester.tap(find.byType(Checkbox).first);

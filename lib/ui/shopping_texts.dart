@@ -9,6 +9,7 @@ String itemLabel(AppLocalizations pText, ShoppingItem pItem) => switch (pItem) {
   ShoppingItem.underlayRolls => pText.itemUnderlayRolls,
   ShoppingItem.glueBuckets => pText.itemGlueBuckets,
   ShoppingItem.nailBoxes => pText.itemNailBoxes,
+  ShoppingItem.thresholdBars => pText.itemThresholdBars,
   ShoppingItem.baseboardBars => pText.itemBaseboardBars,
   ShoppingItem.cartridges => pText.itemCartridges,
   ShoppingItem.fixingPoints => pText.itemFixingPoints,
