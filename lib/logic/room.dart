@@ -13,18 +13,33 @@ enum ObstacleKind { radiator, pipe, cupboard, fireplace, stairFoot }
 
 /// Porte ou passage, placé depuis le début du mur.
 class Opening {
-  const Opening({required this.kind, required this.offsetMm, required this.widthMm});
+  const Opening({
+    required this.kind,
+    required this.offsetMm,
+    required this.widthMm,
+    this.threshold = false,
+  });
 
   final OpeningKind kind;
   final int offsetMm;
   final int widthMm;
 
-  Map<String, Object?> toJson() => {'kind': kind.name, 'offsetMm': offsetMm, 'widthMm': widthMm};
+  /// Barre de seuil sous l'ouverture, comptée dans cette pièce seulement : une porte entre deux
+  /// pièces est saisie des deux côtés, la barre ne doit être achetée qu'une fois.
+  final bool threshold;
+
+  Map<String, Object?> toJson() => {
+    'kind': kind.name,
+    'offsetMm': offsetMm,
+    'widthMm': widthMm,
+    if (threshold) 'threshold': true,
+  };
 
   static Opening fromJson(Map<String, Object?> pJson) => Opening(
     kind: OpeningKind.values.byName(pJson['kind']! as String),
     offsetMm: pJson['offsetMm']! as int,
     widthMm: pJson['widthMm']! as int,
+    threshold: (pJson['threshold'] as bool?) ?? false,
   );
 }
 

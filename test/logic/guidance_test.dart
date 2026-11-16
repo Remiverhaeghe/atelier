@@ -8,11 +8,13 @@ void main() {
     expect(parquetSteps(ParquetType.floating), [
       GuideStep.acclimatise,
       GuideStep.prepareFloor,
+      GuideStep.undercutCasings,
       GuideStep.unrollUnderlay,
       GuideStep.firstRow,
       GuideStep.spacers,
       GuideStep.lastRow,
       GuideStep.removeSpacers,
+      GuideStep.fitThresholds,
     ]);
   });
 

@@ -63,6 +63,7 @@ class ParquetSettings {
     this.glueCoverageM2 = 15,
     this.nailsPerM2 = 30,
     this.nailsPerBox = 500,
+    this.thresholdBarLengthMm = 930,
   });
 
   /// Réglages d'un type, avec ses valeurs de départ.
@@ -101,6 +102,9 @@ class ParquetSettings {
   final int nailsPerM2;
   final int nailsPerBox;
 
+  /// Longueur d'une barre de seuil vendue, recoupée à la largeur de la porte.
+  final int thresholdBarLengthMm;
+
   ParquetDefaults get defaults => parquetDefaults[type]!;
 
   ParquetSettings copyWith({
@@ -116,6 +120,7 @@ class ParquetSettings {
     double? glueCoverageM2,
     int? nailsPerM2,
     int? nailsPerBox,
+    int? thresholdBarLengthMm,
   }) => ParquetSettings(
     type: type ?? this.type,
     plankLengthMm: plankLengthMm ?? this.plankLengthMm,
@@ -129,6 +134,7 @@ class ParquetSettings {
     glueCoverageM2: glueCoverageM2 ?? this.glueCoverageM2,
     nailsPerM2: nailsPerM2 ?? this.nailsPerM2,
     nailsPerBox: nailsPerBox ?? this.nailsPerBox,
+    thresholdBarLengthMm: thresholdBarLengthMm ?? this.thresholdBarLengthMm,
   );
 
   Map<String, Object?> toJson() => {
@@ -144,6 +150,7 @@ class ParquetSettings {
     'glueCoverageM2': glueCoverageM2,
     'nailsPerM2': nailsPerM2,
     'nailsPerBox': nailsPerBox,
+    'thresholdBarLengthMm': thresholdBarLengthMm,
   };
 
   static ParquetSettings fromJson(Map<String, Object?> pJson) {
@@ -162,6 +169,7 @@ class ParquetSettings {
       glueCoverageM2: (pJson['glueCoverageM2'] as num?)?.toDouble() ?? vBase.glueCoverageM2,
       nailsPerM2: (pJson['nailsPerM2'] as int?) ?? vBase.nailsPerM2,
       nailsPerBox: (pJson['nailsPerBox'] as int?) ?? vBase.nailsPerBox,
+      thresholdBarLengthMm: (pJson['thresholdBarLengthMm'] as int?) ?? vBase.thresholdBarLengthMm,
     );
 
     return rSettings;
@@ -305,4 +313,19 @@ ParquetEstimate estimateParquet(Room pRoom, ParquetSettings pSettings) {
   );
 
   return rEstimate;
+}
+
+/// Barres de seuil à acheter : une ou plusieurs par ouverture cochée, selon sa largeur.
+int thresholdBars(Room pRoom, ParquetSettings pSettings) {
+  if (pSettings.thresholdBarLengthMm <= 0) {
+    return 0;
+  }
+  var rBars = 0;
+  for (final vWall in pRoom.walls) {
+    for (final vOpening in vWall.openings.where((pOpening) => pOpening.threshold)) {
+      rBars += _ceil(vOpening.widthMm / pSettings.thresholdBarLengthMm);
+    }
+  }
+
+  return rBars;
 }

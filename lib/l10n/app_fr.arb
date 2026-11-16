@@ -33,6 +33,24 @@
   "wallsEmpty": "Pars d'un coin et saisis chaque mur dans l'ordre, en tournant dans le sens inverse des aiguilles d'une montre.",
   "addWall": "Ajouter un mur",
   "nextWall": "Mur suivant",
+  "itemThresholdBars": "Barres de seuil",
+  "thresholdHere": "Barre de seuil sous cette ouverture",
+  "thresholdHelp": "À cocher dans une seule des deux pièces, pour ne l'acheter qu'une fois.",
+  "thresholdBarLength": "Longueur d'une barre de seuil (cm)",
+  "resultThresholds": "{count, plural, =1{1 barre de seuil} other{{count} barres de seuil}}",
+  "@resultThresholds": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "junctionTitle": "Jonction avec la pièce voisine",
+  "junctionAdvice": "Le parquet s'arrête sous la porte, au milieu du vantail fermé, en gardant son jeu de dilatation. Barre plate si les deux sols sont à la même hauteur, barre de niveau s'ils ne le sont pas, barre de finition contre un carrelage. Ne visse jamais la barre dans le parquet flottant : il doit pouvoir bouger.",
+  "stepUndercutCasings": "Recouper le bas des chambranles : une chute de lame posée sur la sous-couche sert de guide à la scie égoïne, à plat",
+  "stepFitThresholds": "Poser les barres de seuil aux portes et aux passages, sur le jeu de dilatation, sans bloquer le parquet",
+  "toolHandSaw": "Scie égoïne",
+  "openingThresholdSummary": "barre de seuil",
   "layingDirectionTitle": "Sens de pose des lames",
   "alongWall": "Le long du mur {number}",
   "@alongWall": {

@@ -7,6 +7,7 @@ import 'parquet.dart';
 enum GuideStep {
   acclimatise,
   prepareFloor,
+  undercutCasings,
   unrollUnderlay,
   spreadGlue,
   fixJoists,
@@ -16,6 +17,7 @@ enum GuideStep {
   nailInTongue,
   lastRow,
   removeSpacers,
+  fitThresholds,
   cutBaseboards,
   dryFitCorners,
   fixBaseboards,
@@ -35,12 +37,15 @@ enum Tool {
   chalkLine,
   caulkGun,
   level,
+  handSaw,
 }
 
 /// Étapes de pose du parquet, de la préparation à la dernière rangée.
 List<GuideStep> parquetSteps(ParquetType pType) => [
   GuideStep.acclimatise,
   GuideStep.prepareFloor,
+  // Le parquet passe sous le chambranle : pas de découpe visible autour de la porte
+  GuideStep.undercutCasings,
   if (parquetDefaults[pType]!.needsUnderlay) GuideStep.unrollUnderlay,
   if (pType == ParquetType.glued) GuideStep.spreadGlue,
   if (pType == ParquetType.nailed) GuideStep.fixJoists,
@@ -50,6 +55,7 @@ List<GuideStep> parquetSteps(ParquetType pType) => [
   if (pType == ParquetType.nailed) GuideStep.nailInTongue,
   GuideStep.lastRow,
   GuideStep.removeSpacers,
+  GuideStep.fitThresholds,
 ];
 
 /// Étapes de pose des plinthes, après le parquet.
@@ -73,6 +79,7 @@ List<Tool> toolsFor(ParquetType pType, BaseboardFixing pFixing) {
       Tool.tappingBlock,
       Tool.pullBar,
     ],
+    Tool.handSaw,
     Tool.jigsaw,
     Tool.miterSaw,
     if (pFixing == BaseboardFixing.glued) Tool.caulkGun,
