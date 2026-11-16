@@ -42,13 +42,18 @@ class _RoofingCalculatorState extends State<RoofingCalculator> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BigFigure(vText.roofCoverings(vNeeds.coverings, roofCoveringLabel(vText, _pan.covering))),
+                  BigFigure(
+                    vText.roofCoverings(vNeeds.coverings, roofCoveringLabel(vText, _pan.covering)),
+                  ),
                   Text(vText.roofArea(formatSquareMetres(vNeeds.areaM2))),
                   IconLine(
                     Icons.view_week_outlined,
                     vText.roofRafters(vNeeds.rafters, formatCentimetres(vNeeds.rafterLengthMm)),
                   ),
-                  IconLine(Icons.vertical_align_center, vText.roofCounterBattens(vNeeds.counterBattens)),
+                  IconLine(
+                    Icons.vertical_align_center,
+                    vText.roofCounterBattens(vNeeds.counterBattens),
+                  ),
                   IconLine(
                     Icons.table_rows_outlined,
                     vText.roofBattens(vNeeds.battens, vNeeds.battenRows),
@@ -66,7 +71,10 @@ class _RoofingCalculatorState extends State<RoofingCalculator> {
             decoration: InputDecoration(labelText: vText.roofCovering),
             items: [
               for (final vCovering in RoofCovering.values)
-                DropdownMenuItem(value: vCovering, child: Text(roofCoveringLabel(vText, vCovering))),
+                DropdownMenuItem(
+                  value: vCovering,
+                  child: Text(roofCoveringLabel(vText, vCovering)),
+                ),
             ],
             onChanged: (pCovering) => vSet(_pan.copyWith(covering: pCovering)),
           ),
