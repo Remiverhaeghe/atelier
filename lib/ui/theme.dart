@@ -243,3 +243,32 @@ abstract final class AtelierIcons {
   static const length = Icons.straighten;
   static const warning = Icons.warning_amber;
 }
+
+/// Cote sur étiquette jaune mètre ruban, comme sur le plan.
+class TapeLabel extends StatelessWidget {
+  const TapeLabel(this.text, {super.key});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final vColors = AtelierColors.of(context);
+
+    return Container(
+      constraints: const BoxConstraints(minWidth: 52),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(color: vColors.tape, borderRadius: BorderRadius.circular(6)),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: titleFont,
+          fontWeight: FontWeight.w700,
+          fontSize: 16,
+          color: vColors.onTape,
+          fontFeatures: const [FontFeature.tabularFigures()],
+        ),
+      ),
+    );
+  }
+}
