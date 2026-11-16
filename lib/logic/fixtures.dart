@@ -63,16 +63,16 @@ class Fixture {
     int? count,
     bool? plexi,
   }) => Fixture(
-        id: id,
-        kind: kind,
-        xMm: xMm ?? this.xMm,
-        yMm: yMm ?? this.yMm,
-        widthMm: widthMm ?? this.widthMm,
-        depthMm: depthMm ?? this.depthMm,
-        riseMm: riseMm ?? this.riseMm,
-        count: count ?? this.count,
-        plexi: plexi ?? this.plexi,
-      );
+    id: id,
+    kind: kind,
+    xMm: xMm ?? this.xMm,
+    yMm: yMm ?? this.yMm,
+    widthMm: widthMm ?? this.widthMm,
+    depthMm: depthMm ?? this.depthMm,
+    riseMm: riseMm ?? this.riseMm,
+    count: count ?? this.count,
+    plexi: plexi ?? this.plexi,
+  );
 
   Map<String, Object?> toJson() => {
     'id': id,

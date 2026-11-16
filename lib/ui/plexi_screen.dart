@@ -38,10 +38,7 @@ class PlexiScreen extends StatelessWidget {
                   children: [
                     Text(vText.plexiTotal, style: vTheme.textTheme.titleMedium),
                     BigFigure('${formatSquareMetres(plexiAreaM2(vRooms))} m²'),
-                    IconLine(
-                      Icons.thermostat_outlined,
-                      vText.plexiThermal,
-                    ),
+                    IconLine(Icons.thermostat_outlined, vText.plexiThermal),
                   ],
                 ),
               ),
