@@ -190,10 +190,7 @@ class _WallDialogState extends State<_WallDialog> {
             if (vRoom != null)
               Padding(
                 padding: const EdgeInsets.only(top: 8),
-                child: IconLine(
-                  AtelierIcons.length,
-                  vText.measureHint(vCorners.from, vCorners.to),
-                ),
+                child: IconLine(AtelierIcons.length, vText.measureHint(vCorners.from, vCorners.to)),
               ),
             TextField(
               controller: _length,

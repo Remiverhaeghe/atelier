@@ -106,8 +106,8 @@ class FixturesSection extends StatelessWidget {
   }
 
   String? _summary(AppLocalizations pText, Fixture pFixture) => switch (pFixture.kind) {
-    FixtureKind.socket || FixtureKind.lightSwitch =>
-      pFixture.count > 1 ? pText.fixtureBlock(pFixture.count) : null,
+    FixtureKind.socket ||
+    FixtureKind.lightSwitch => pFixture.count > 1 ? pText.fixtureBlock(pFixture.count) : null,
     FixtureKind.stairs => _stairs(pText, stairPlan(pFixture.riseMm ?? defaultRiseMm(room))),
     FixtureKind.mezzanine => pText.mezzanineSummary(formatSquareMetres(pFixture.areaM2)),
     FixtureKind.roofWindow => pText.roofWindowSummary(
