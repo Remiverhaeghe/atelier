@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/guidance.dart';
+import '../logic/inventory.dart';
 import '../logic/room.dart';
 import 'tips_screen.dart';
 
@@ -60,10 +61,20 @@ String toolLabel(AppLocalizations pText, Tool pTool) => switch (pTool) {
 
 /// Étapes de pose à cocher et outils à préparer pour la pièce.
 class GuideView extends StatelessWidget {
-  const GuideView({super.key, required this.room, required this.onChanged});
+  const GuideView({
+    super.key,
+    required this.room,
+    required this.onChanged,
+    this.ownedTools = const [],
+    this.onToolOwned,
+  });
 
   final Room room;
   final ValueChanged<Room> onChanged;
+
+  /// Outils déjà là, cochés dans la liste ; [onToolOwned] met l'inventaire à jour.
+  final List<String> ownedTools;
+  final void Function(Tool pTool, bool pOwned)? onToolOwned;
 
   void _toggle(GuideStep pStep, bool pDone) {
     final vDone = {...room.doneSteps};
@@ -79,6 +90,7 @@ class GuideView extends StatelessWidget {
     final vBaseboard = baseboardSteps(room.baseboard.fixing);
     final vAll = [...vParquet, ...vBaseboard];
     final vDone = vAll.where((pStep) => room.doneSteps.contains(pStep.name)).length;
+    final vMissing = missingTools(room, ownedTools);
 
     Widget vStep(GuideStep pStep) => CheckboxListTile(
       value: room.doneSteps.contains(pStep.name),
@@ -98,11 +110,29 @@ class GuideView extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute<void>(builder: (_) => const TipsScreen())),
         ),
         ListTile(title: Text(vText.guideTools, style: vTheme.textTheme.titleMedium)),
+        ListTile(
+          dense: true,
+          leading: Icon(
+            vMissing.isEmpty ? Icons.check_circle_outline : Icons.shopping_cart_outlined,
+            color: vTheme.colorScheme.primary,
+          ),
+          title: Text(
+            ownedTools.isEmpty
+                ? vText.toolsCheckHelp
+                : vMissing.isEmpty
+                ? vText.toolsAllThere
+                : vText.toolsMissing(vMissing.length),
+          ),
+        ),
         for (final vTool in toolsFor(room.parquet.type, room.baseboard.fixing))
-          ListTile(
+          CheckboxListTile(
             dense: true,
-            leading: Icon(toolIcon(vTool), color: vTheme.colorScheme.primary),
+            secondary: Icon(toolIcon(vTool), color: vTheme.colorScheme.primary),
             title: Text(toolLabel(vText, vTool)),
+            value: ownedTools.contains(vTool.name),
+            onChanged: onToolOwned == null
+                ? null
+                : (pValue) => onToolOwned!(vTool, pValue ?? false),
           ),
         ListTile(title: Text(vText.guideParquet, style: vTheme.textTheme.titleMedium)),
         for (final vItem in vParquet) vStep(vItem),
