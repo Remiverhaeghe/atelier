@@ -116,7 +116,9 @@ ShelfPlan planShelf(ShelfDesign pDesign) {
   ];
   final vBars = planBars(vStrips, pDesign.boardLengthMm, 3);
   // Bandes par panneau : un panneau de 1250 mm de large donne plusieurs bandes de la profondeur
-  final vStripsPerBoard = pDesign.depthMm <= 0 ? 1 : (1250 ~/ (pDesign.depthMm + 3)).clamp(1, 1 << 20);
+  final vStripsPerBoard = pDesign.depthMm <= 0
+      ? 1
+      : (1250 ~/ (pDesign.depthMm + 3)).clamp(1, 1 << 20);
   final rPlan = ShelfPlan(
     parts: vParts,
     boards: (vBars.bars.length + vStripsPerBoard - 1) ~/ vStripsPerBoard,

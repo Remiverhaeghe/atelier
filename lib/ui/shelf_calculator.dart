@@ -79,13 +79,20 @@ class _ShelfCalculatorState extends State<ShelfCalculator> {
             decoration: InputDecoration(labelText: vText.shelfMaterial),
             items: [
               for (final vMaterial in ShelfMaterial.values)
-                DropdownMenuItem(value: vMaterial, child: Text(shelfMaterialLabel(vText, vMaterial))),
+                DropdownMenuItem(
+                  value: vMaterial,
+                  child: Text(shelfMaterialLabel(vText, vMaterial)),
+                ),
             ],
             onChanged: (pMaterial) => vSet(_design.copyWith(material: pMaterial)),
           ),
           for (final (vLabel, vValue, vApply) in [
             (vText.shelfWidth, _design.widthMm, (int pValue) => _design.copyWith(widthMm: pValue)),
-            (vText.shelfHeight, _design.heightMm, (int pValue) => _design.copyWith(heightMm: pValue)),
+            (
+              vText.shelfHeight,
+              _design.heightMm,
+              (int pValue) => _design.copyWith(heightMm: pValue),
+            ),
             (vText.shelfDepth, _design.depthMm, (int pValue) => _design.copyWith(depthMm: pValue)),
             (
               vText.shelfThickness,
