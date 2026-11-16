@@ -17,6 +17,7 @@ import 'plan_thumbnail.dart';
 import 'planning_card.dart';
 import 'theme.dart';
 import 'time_screen.dart';
+import 'warranties_screen.dart';
 import 'transfer.dart';
 import 'elec_plan_screen.dart';
 import 'goal_card.dart';
@@ -252,6 +253,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.handshake_outlined,
         vText.loanMenu,
         () => LoansScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.verified_outlined,
+        vText.warrantyMenu,
+        () => WarrantiesScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.recycling,

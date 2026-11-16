@@ -2304,5 +2304,22 @@
   "blownMaterial": "Isolant",
   "blownArea": "Surface du plancher des combles (m²)",
   "blownTarget": "Résistance thermique visée (m².K/W)",
-  "blownHint": "R = 7 est le minimum demandé pour les aides en combles perdus, par un artisan RGE. Avant de souffler : capots sur les spots, écart autour du conduit de cheminée, trappe isolée, et un pare-vapeur si le plafond n'est pas étanche à l'air."
+  "blownHint": "R = 7 est le minimum demandé pour les aides en combles perdus, par un artisan RGE. Avant de souffler : capots sur les spots, écart autour du conduit de cheminée, trappe isolée, et un pare-vapeur si le plafond n'est pas étanche à l'air.",
+  "warrantyTitle": "Garanties",
+  "warrantyMenu": "Garanties",
+  "warrantyAdd": "Noter une garantie",
+  "warrantyEmpty": "Notez ici les garanties de vos achats et des travaux faits par un artisan.",
+  "warrantyLabel": "Appareil ou travaux",
+  "warrantyStart": "Achat ou réception des travaux (AAAA-MM-JJ)",
+  "warrantyMonths": "Durée (mois)",
+  "warrantyConformity": "Garantie légale de conformité (2 ans)",
+  "warrantyCompletion": "Parfait achèvement (1 an)",
+  "warrantyBiennial": "Biennale des équipements (2 ans)",
+  "warrantyDecennial": "Décennale de l'ouvrage (10 ans)",
+  "warrantyCustom": "Garantie du fabricant",
+  "warrantyUntil": "Jusqu'au {day}",
+  "@warrantyUntil": {"placeholders": {"day": {"type": "String"}}},
+  "warrantyEnded": "Finie le {day}",
+  "@warrantyEnded": {"placeholders": {"day": {"type": "String"}}},
+  "warrantyHint": "Gardez la facture et le procès-verbal de réception des travaux. Signalez un défaut par écrit avant la fin de la garantie : les garanties qui finissent dans moins de deux mois passent en tête."
 }

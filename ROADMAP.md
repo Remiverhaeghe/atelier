@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 125. **Garanties** des appareils et des travaux, avec rappel.
 - 126. **Modèles de chantier** : étapes, attentes et courses types.
 - 127. **Annuler et refaire** sur les murs et le plan.
 - 128. **Export du plan en DXF**.
