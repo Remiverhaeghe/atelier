@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### PDF lisibles
+- Fiche du chantier et liste de coupes imprimées avec la police de l'appli : le « € » et tous les accents s'affichent
+
 ## 0.3.0 - 2026-11-16
 
 ### Bilan de fin de chantier

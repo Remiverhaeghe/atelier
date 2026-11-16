@@ -8,10 +8,11 @@ import '../logic/cut_list.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'baseboard_view.dart';
+import 'pdf_fonts.dart';
 
 /// Liste de coupes d'une pièce à imprimer : une case à cocher par longueur, la plus longue d'abord.
-Future<Uint8List> buildCutListPdf(AppLocalizations pText, Room pRoom) {
-  final vDocument = pw.Document(title: pText.roomCutsTitle(pRoom.name));
+Future<Uint8List> buildCutListPdf(AppLocalizations pText, Room pRoom) async {
+  final vDocument = pw.Document(title: pText.roomCutsTitle(pRoom.name), theme: await pdfTheme());
   final vBaseboard = baseboardCutList(pRoom);
   final vPlanks = plankCutList(pRoom);
   vDocument.addPage(

@@ -14,11 +14,12 @@ import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 import 'baseboard_view.dart';
+import 'pdf_fonts.dart';
 import 'shopping_texts.dart';
 
 /// Fiche du chantier à imprimer : liste de courses, puis plan, parquet et plinthes de chaque pièce.
-Future<Uint8List> buildWorksitePdf(AppLocalizations pText, Worksite pWorksite) {
-  final vDocument = pw.Document(title: pWorksite.name);
+Future<Uint8List> buildWorksitePdf(AppLocalizations pText, Worksite pWorksite) async {
+  final vDocument = pw.Document(title: pWorksite.name, theme: await pdfTheme());
   final vLines = shoppingList(pWorksite);
   vDocument.addPage(
     pw.MultiPage(
