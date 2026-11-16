@@ -41,6 +41,7 @@ Toutes les longueurs sont en millimètres, les angles en degrés.
 | `rooms` | Pièces qui ont au moins trois murs ; les zones sans murs (toit, extérieur) ne sont pas exportées |
 | `closed` | Le dernier mur rejoint le premier |
 | `ceilingHeight` | Hauteur sous plafond |
+| `slope` | Plafond rampant, absent pour un plafond plat : bas de `low` le long du mur numéro `wall` (à partir de 0), il remonte à `ceilingHeight` sur `run` mesurés au sol |
 | `house` | Place de la pièce dans le plan de la maison : le contour tourne de `quarterTurns` quarts de tour (sens inverse des aiguilles d'une montre) puis se décale de `x` et `y` |
 | `floorArea` | Surface au sol en mm², zones sans parquet déduites |
 | `outline` | Un sommet par début de mur. Le premier mur part de l'origine vers les x croissants, la pièce est parcourue dans le sens inverse des aiguilles d'une montre, y vers le haut |
@@ -53,6 +54,6 @@ Toutes les longueurs sont en millimètres, les angles en degrés.
 | `fixtures[].width`, `depth` | Taille sur le plan, le long des x et des y, pour les éléments qui ont une surface |
 | `fixtures[].count` | Nombre de prises ou d'interrupteurs regroupés au même endroit, absent pour 1 |
 
-Le champ `fixtures` est apparu après la première publication du format : un lecteur de la version 1 doit le tolérer absent.
+Les champs `fixtures` et `slope` sont apparus après la première publication du format : un lecteur de la version 1 doit les tolérer absents.
 
 Chaque pièce a son propre repère (`outline`) ; le champ `house` la place dans le plan de la maison, réglé dans Atelier par « Plan de la maison ».
