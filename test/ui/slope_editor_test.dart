@@ -65,12 +65,18 @@ void main() {
     await pTester.tap(find.text('Longueur du rampant'));
     await pTester.pumpAndSettle();
     // Jambette à 1 m, plafond à 2,50 m : 250 cm de rampant font 200 cm au sol
-    await pTester.enterText(find.widgetWithText(TextField, 'Longueur le long du rampant (cm)'), '250');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Longueur le long du rampant (cm)'),
+      '250',
+    );
     await pTester.pumpAndSettle();
     expect(vRoom.slope!.runMm, 2000);
     expect(find.text('Largeur au sol calculée : 200 cm'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Longueur le long du rampant (cm)'), '100');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Longueur le long du rampant (cm)'),
+      '100',
+    );
     await pTester.pumpAndSettle();
     expect(find.textContaining('plus long que la différence'), findsOneWidget);
 

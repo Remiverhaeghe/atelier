@@ -54,9 +54,7 @@ class SlopeEditor extends StatelessWidget {
             title: Text(vText.slopeSecond),
             value: vSlope2 != null,
             onChanged: (pOn) => onChanged(
-              pOn
-                  ? room.copyWith(slope2: _newSlope(vOpposite))
-                  : room.copyWith(clearSlope2: true),
+              pOn ? room.copyWith(slope2: _newSlope(vOpposite)) : room.copyWith(clearSlope2: true),
             ),
           ),
           if (vSlope2 != null)
@@ -126,9 +124,8 @@ class _PanEditorState extends State<_PanEditor> {
             for (var vIndex = 0; vIndex < vRoom.walls.length; vIndex++)
               DropdownMenuItem(value: vIndex, child: Text(vText.wallTitle(vIndex + 1))),
           ],
-          onChanged: (pIndex) => widget.onChanged(
-            Slope(wallIndex: pIndex!, lowMm: _slope.lowMm, runMm: _slope.runMm),
-          ),
+          onChanged: (pIndex) =>
+              widget.onChanged(Slope(wallIndex: pIndex!, lowMm: _slope.lowMm, runMm: _slope.runMm)),
         ),
         NumberField<int>(
           label: vText.slopeLow,
