@@ -14,6 +14,7 @@ class JournalEntry {
     this.cost,
     this.photoPath,
     this.invoicePath,
+    this.beforePath,
   });
 
   final String id;
@@ -31,18 +32,23 @@ class JournalEntry {
   final String? photoPath;
   final String? invoicePath;
 
-  JournalEntry copyWith({String? photoPath, String? invoicePath}) => JournalEntry(
-    id: id,
-    roomId: roomId,
-    day: day,
-    title: title,
-    product: product,
-    reference: reference,
-    note: note,
-    cost: cost,
-    photoPath: photoPath ?? this.photoPath,
-    invoicePath: invoicePath ?? this.invoicePath,
-  );
+  /// Photo d'avant les travaux, comparée à [photoPath] en glissant le doigt.
+  final String? beforePath;
+
+  JournalEntry copyWith({String? photoPath, String? invoicePath, String? beforePath}) =>
+      JournalEntry(
+        id: id,
+        roomId: roomId,
+        day: day,
+        title: title,
+        product: product,
+        reference: reference,
+        note: note,
+        cost: cost,
+        photoPath: photoPath ?? this.photoPath,
+        invoicePath: invoicePath ?? this.invoicePath,
+        beforePath: beforePath ?? this.beforePath,
+      );
 
   Map<String, Object?> toJson() => {
     'id': id,
@@ -55,6 +61,7 @@ class JournalEntry {
     if (cost != null) 'cost': cost,
     if (photoPath != null) 'photoPath': photoPath,
     if (invoicePath != null) 'invoicePath': invoicePath,
+    if (beforePath != null) 'beforePath': beforePath,
   };
 
   static JournalEntry fromJson(Map<String, Object?> pJson) => JournalEntry(
@@ -68,6 +75,7 @@ class JournalEntry {
     cost: (pJson['cost'] as num?)?.toDouble(),
     photoPath: pJson['photoPath'] as String?,
     invoicePath: pJson['invoicePath'] as String?,
+    beforePath: pJson['beforePath'] as String?,
   );
 }
 
@@ -97,3 +105,6 @@ JournalEntry? lastReference(List<JournalEntry> pEntries, String pSearch) {
       )
       .firstOrNull;
 }
+
+/// L'entrée a ses deux photos, d'avant et d'après : on peut les comparer.
+bool hasBeforeAfter(JournalEntry pEntry) => pEntry.beforePath != null && pEntry.photoPath != null;

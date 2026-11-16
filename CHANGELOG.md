@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Avant / après
+- Une entrée du carnet reçoit sa photo d'avant ; avec celle d'après, « Avant / après » les superpose et la séparation suit le doigt
+
 ### Ventilation
 - Nouveau calcul VMC simple flux : débits extraits par pièce humide selon le nombre de pièces, bouches et gaines, entrées d'air, détalonnage des portes
 
