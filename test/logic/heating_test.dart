@@ -42,6 +42,9 @@ void main() {
     expect(radiatorsFor(480), [500]);
     expect(radiatorsFor(2000), [2000]);
     expect(radiatorsFor(4100), [1500, 1500, 1500]);
-    expect(heatNeed(rectangleRoom(), InsulationLevel.recent, pIndoorC: 20, pOutdoorC: 0).watts, 450);
+    expect(
+      heatNeed(rectangleRoom(), InsulationLevel.recent, pIndoorC: 20, pOutdoorC: 0).watts,
+      450,
+    );
   });
 }
