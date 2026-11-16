@@ -64,9 +64,9 @@ class MoistureScreen extends StatelessWidget {
               if (vReadings.isEmpty) Text(vText.moistureEmpty),
               for (final vMaterial in MoistureMaterial.values)
                 if (moistureVerdict([
-                  for (final vReading in vReadings)
-                    if (vReading.material == vMaterial) vReading,
-                ])
+                      for (final vReading in vReadings)
+                        if (vReading.material == vMaterial) vReading,
+                    ])
                     case final vVerdict?)
                   Card(
                     child: ListTile(
