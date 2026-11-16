@@ -19,6 +19,8 @@ dependencies:
   printing: ">=5.14.0 <6.0.0"
   # Envoi de la liste de courses par message
   share_plus: ^13.3.1
+  # Accéléromètre pour le niveau et l'inclinomètre, sans permission
+  sensors_plus: ">=6.0.0 <8.0.0"
   # Photo d'une reprise, par l'appareil photo du téléphone
   image_picker: ">=1.1.0 <2.0.0"
   # Import d'un chantier exporté
