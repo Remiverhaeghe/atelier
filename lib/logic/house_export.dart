@@ -29,6 +29,8 @@ Map<String, Object?> _room(Room pRoom) {
     'name': pRoom.name,
     'closed': pRoom.closed,
     'ceilingHeight': pRoom.ceilingHeightMm,
+    // Place dans la maison : quarts de tour puis décalage, ajoutés sans changer de version
+    'house': {'x': pRoom.houseXMm, 'y': pRoom.houseYMm, 'quarterTurns': pRoom.houseQuarterTurns},
     'floorArea': (floorAreaM2(pRoom) * 1e6).round(),
     // Un sommet par début de mur, dans le sens inverse des aiguilles d'une montre, y vers le haut
     'outline': [

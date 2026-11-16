@@ -169,6 +169,9 @@ class Room {
     this.touchUps = const [],
     this.ceilingHeightMm = 2500,
     this.paint = const PaintSettings(),
+    this.houseXMm = 0,
+    this.houseYMm = 0,
+    this.houseQuarterTurns = 0,
   });
 
   final String id;
@@ -197,6 +200,11 @@ class Room {
   final int ceilingHeightMm;
   final PaintSettings paint;
 
+  /// Place de la pièce dans le plan de la maison : décalage de son origine et quarts de tour.
+  final int houseXMm;
+  final int houseYMm;
+  final int houseQuarterTurns;
+
   Room copyWith({
     String? name,
     List<Wall>? walls,
@@ -210,6 +218,9 @@ class Room {
     List<TouchUp>? touchUps,
     int? ceilingHeightMm,
     PaintSettings? paint,
+    int? houseXMm,
+    int? houseYMm,
+    int? houseQuarterTurns,
   }) => Room(
     id: id,
     name: name ?? this.name,
@@ -224,6 +235,9 @@ class Room {
     touchUps: touchUps ?? this.touchUps,
     ceilingHeightMm: ceilingHeightMm ?? this.ceilingHeightMm,
     paint: paint ?? this.paint,
+    houseXMm: houseXMm ?? this.houseXMm,
+    houseYMm: houseYMm ?? this.houseYMm,
+    houseQuarterTurns: (houseQuarterTurns ?? this.houseQuarterTurns) % 4,
   );
 
   Map<String, Object?> toJson() => {
@@ -240,6 +254,9 @@ class Room {
     'touchUps': [for (final vTouchUp in touchUps) vTouchUp.toJson()],
     'ceilingHeightMm': ceilingHeightMm,
     'paint': paint.toJson(),
+    'houseXMm': houseXMm,
+    'houseYMm': houseYMm,
+    'houseQuarterTurns': houseQuarterTurns,
   };
 
   static Room fromJson(Map<String, Object?> pJson) => Room(
@@ -275,5 +292,8 @@ class Room {
     paint: pJson['paint'] == null
         ? const PaintSettings()
         : PaintSettings.fromJson(pJson['paint']! as Map<String, Object?>),
+    houseXMm: (pJson['houseXMm'] as int?) ?? 0,
+    houseYMm: (pJson['houseYMm'] as int?) ?? 0,
+    houseQuarterTurns: ((pJson['houseQuarterTurns'] as int?) ?? 0) % 4,
   );
 }
