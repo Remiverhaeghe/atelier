@@ -4,6 +4,7 @@
 library;
 
 import 'geometry.dart';
+import 'house.dart';
 import 'room.dart';
 import 'worksite.dart';
 
@@ -17,11 +18,11 @@ Map<String, Object?> exportPlan(Worksite pWorksite) => {
   'units': 'mm',
   'name': pWorksite.name,
   'rooms': [
-    for (final vRoom in pWorksite.rooms.where((pRoom) => pRoom.walls.length >= 3)) _room(vRoom),
+    for (final vRoom in pWorksite.rooms.where((pRoom) => pRoom.walls.length >= 3)) _room(vRoom, pWorksite.rooms),
   ],
 };
 
-Map<String, Object?> _room(Room pRoom) {
+Map<String, Object?> _room(Room pRoom, List<Room> pAll) {
   final vPoints = outline(pRoom);
 
   return {
@@ -29,6 +30,9 @@ Map<String, Object?> _room(Room pRoom) {
     'name': pRoom.name,
     'closed': pRoom.closed,
     'ceilingHeight': pRoom.ceilingHeightMm,
+    // Niveau et altitude du sol, ajoutés sans changer de version
+    'level': pRoom.level,
+    'floorLevel': levelBaseMm(pAll, pRoom.level),
     // Plafond rampant, ajouté sans changer de version
     if (pRoom.slope != null)
       'slope': {

@@ -30,6 +30,9 @@ class _HouseScreenState extends State<HouseScreen> {
   /// Vue en 3D plutôt que le plan à plat.
   bool _view3d = false;
 
+  /// Niveau affiché sur le plan à plat.
+  int _level = 0;
+
   void _save(Room pRoom) => widget.controller.updateRoom(widget.worksiteId, pRoom);
 
   @override
@@ -44,7 +47,11 @@ class _HouseScreenState extends State<HouseScreen> {
         if (vWorksite == null) {
           return const Scaffold();
         }
-        final vRooms = houseRooms(vWorksite);
+        final vAll = houseRooms(vWorksite);
+        final vRooms = vAll.where((pRoom) => pRoom.level == _level).toList();
+        // Le niveau du dessous, en transparence, aide à caler les murs porteurs
+        final vBelow = vAll.where((pRoom) => pRoom.level == _level - 1).toList();
+        final vLevels = {...houseLevels(vAll), _level}.toList()..sort();
         final vSelected = vRooms.where((pRoom) => pRoom.id == _selected).firstOrNull;
 
         return Scaffold(
@@ -67,7 +74,7 @@ class _HouseScreenState extends State<HouseScreen> {
               ),
             ],
           ),
-          body: vRooms.isEmpty
+          body: vAll.isEmpty
               ? Center(
                   child: Padding(padding: const EdgeInsets.all(24), child: Text(vText.houseEmpty)),
                 )
@@ -80,13 +87,42 @@ class _HouseScreenState extends State<HouseScreen> {
                         style: vTheme.textTheme.bodySmall,
                       ),
                     ),
+                    if (!_view3d)
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+                        child: Row(
+                          children: [
+                            for (final vLevel in vLevels)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: ChoiceChip(
+                                  label: Text(levelLabel(vText, vLevel)),
+                                  selected: vLevel == _level,
+                                  onSelected: (_) => setState(() {
+                                    _level = vLevel;
+                                    _selected = null;
+                                  }),
+                                ),
+                              ),
+                            ActionChip(
+                              avatar: const Icon(Icons.add, size: 18),
+                              label: Text(vText.levelAdd),
+                              onPressed: () => setState(() {
+                                _level = vLevels.last + 1;
+                                _selected = null;
+                              }),
+                            ),
+                          ],
+                        ),
+                      ),
                     if (_view3d)
-                      Expanded(child: House3d(rooms: vRooms))
+                      Expanded(child: House3d(rooms: vAll))
                     else
                       Expanded(
                         child: LayoutBuilder(
                           builder: (pContext, pConstraints) {
-                            final vFrame = _HouseFrame(vRooms, pConstraints.biggest);
+                            final vFrame = _HouseFrame(vAll, pConstraints.biggest);
                             Room? vHit(Offset pScreen) {
                               final vPoint = vFrame.toPlan(pScreen);
                               for (final vRoom in vRooms.reversed) {
@@ -127,6 +163,7 @@ class _HouseScreenState extends State<HouseScreen> {
                                 size: pConstraints.biggest,
                                 painter: _HousePainter(
                                   rooms: vRooms,
+                                  below: vBelow,
                                   frame: vFrame,
                                   selected: _selected,
                                   drag: _drag,
@@ -150,6 +187,22 @@ class _HouseScreenState extends State<HouseScreen> {
                             Expanded(
                               child: Text(vSelected.name, style: vTheme.textTheme.titleMedium),
                             ),
+                            IconButton(
+                              tooltip: vText.levelDown,
+                              icon: const Icon(Icons.arrow_downward),
+                              onPressed: () {
+                                _save(vSelected.copyWith(level: vSelected.level - 1));
+                                setState(() => _level = vSelected.level - 1);
+                              },
+                            ),
+                            IconButton(
+                              tooltip: vText.levelUp,
+                              icon: const Icon(Icons.arrow_upward),
+                              onPressed: () {
+                                _save(vSelected.copyWith(level: vSelected.level + 1));
+                                setState(() => _level = vSelected.level + 1);
+                              },
+                            ),
                             FilledButton.tonalIcon(
                               onPressed: () => _save(
                                 vSelected.copyWith(
@@ -169,6 +222,13 @@ class _HouseScreenState extends State<HouseScreen> {
     );
   }
 }
+
+/// Nom d'un niveau : rez-de-chaussée, étages au-dessus, sous-sols en dessous.
+String levelLabel(AppLocalizations pText, int pLevel) => switch (pLevel) {
+  0 => pText.levelGround,
+  > 0 => pText.levelUpper(pLevel),
+  _ => pText.levelBasement(-pLevel),
+};
 
 /// Point dans un polygone, par le nombre de côtés croisés.
 bool _contains(List<PlanPoint> pPolygon, PlanPoint pPoint) {
@@ -212,6 +272,7 @@ class _HouseFrame {
 class _HousePainter extends CustomPainter {
   _HousePainter({
     required this.rooms,
+    required this.below,
     required this.frame,
     required this.selected,
     required this.drag,
@@ -221,6 +282,7 @@ class _HousePainter extends CustomPainter {
   });
 
   final List<Room> rooms;
+  final List<Room> below;
   final _HouseFrame frame;
   final String? selected;
   final Offset drag;
@@ -239,6 +301,17 @@ class _HousePainter extends CustomPainter {
       for (var vY = pSize.height - (-frame.minY * frame.scale) % vStep; vY > 0; vY -= vStep) {
         pCanvas.drawLine(Offset(0, vY), Offset(pSize.width, vY), vGrid);
       }
+    }
+    for (final vRoom in below) {
+      pCanvas.drawPath(
+        Path()..addPolygon([
+          for (final vPoint in houseOutline(vRoom)) frame.toScreen(vPoint),
+        ], vRoom.closed),
+        Paint()
+          ..color = colors.ink.withValues(alpha: 0.25)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
     }
     for (final vRoom in rooms) {
       final vIsSelected = vRoom.id == selected;
@@ -268,5 +341,5 @@ class _HousePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_HousePainter pOld) =>
-      pOld.rooms != rooms || pOld.selected != selected || pOld.drag != drag;
+      pOld.rooms != rooms || pOld.below != below || pOld.selected != selected || pOld.drag != drag;
 }
