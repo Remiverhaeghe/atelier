@@ -8,8 +8,7 @@ void main() {
   testWidgets('terrasse : lames et lambourdes suivent la saisie', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Terrasse bois'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Terrasse bois');
     await pTester.tap(find.text('Terrasse bois'));
     await pTester.pumpAndSettle();
 

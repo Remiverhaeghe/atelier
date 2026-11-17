@@ -8,8 +8,7 @@ void main() {
   testWidgets('placo : plaques et résistance suivent la saisie', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Placo et isolation'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Placo et isolation');
     await pTester.tap(find.text('Placo et isolation'));
     await pTester.pumpAndSettle();
 
