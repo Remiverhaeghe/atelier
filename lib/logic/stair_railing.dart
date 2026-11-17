@@ -33,7 +33,7 @@ StairRailing planStairRailing(StairDesign pDesign, int pRiseMm, {int pOpenSides 
     posts: vSide.posts * vSides,
     balusters: vSide.balusters * vSides,
     // Entre deux murs, une main courante suffit ; sinon une par côté
-    handrailMm: vLength * math.max(1, vSides == 1 ? 2 : vSides),
+    handrailMm: vLength * (vSides == 0 ? 1 : 2),
   );
 
   return rRailing;
