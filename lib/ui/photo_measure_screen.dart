@@ -73,9 +73,7 @@ class _PhotoMeasureScreenState extends State<PhotoMeasureScreen> {
               label: Text(vText.photoMeasurePick),
             )
           else ...[
-            vMm != null
-                ? BigFigure(vStep)
-                : IconLine(Icons.touch_app_outlined, vStep),
+            vMm != null ? BigFigure(vStep) : IconLine(Icons.touch_app_outlined, vStep),
             const SizedBox(height: 8),
             SizedBox(
               height: 420,
