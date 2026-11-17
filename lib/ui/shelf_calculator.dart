@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/shelf.dart';
+import '../logic/shelf_joinery.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
+import 'shelf_joinery_card.dart';
 import 'shelf_preview.dart';
 import 'theme.dart';
 
@@ -20,7 +22,7 @@ String shelfPartLabel(AppLocalizations pText, String pName) => switch (pName) {
   _ => pText.partBack,
 };
 
-/// Étagère sur mesure : dimensions, panneau, liste de débit et alerte de portée.
+/// Étagère sur mesure : dimensions, panneau, liste de débit, portée, assemblage et tenue.
 class ShelfCalculator extends StatefulWidget {
   const ShelfCalculator({super.key});
 
@@ -30,6 +32,8 @@ class ShelfCalculator extends StatefulWidget {
 
 class _ShelfCalculatorState extends State<ShelfCalculator> {
   var _design = const ShelfDesign();
+  var _load = ShelfLoad.books;
+  var _adjustable = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +81,9 @@ class _ShelfCalculatorState extends State<ShelfCalculator> {
             ),
           ),
           const SizedBox(height: 12),
+          ShelfJoineryCard(design: _design, load: _load, adjustable: _adjustable),
+          const SizedBox(height: 12),
+          ShelfLoadField(load: _load, onChanged: (pLoad) => setState(() => _load = pLoad)),
           DropdownButtonFormField<ShelfMaterial>(
             initialValue: _design.material,
             decoration: InputDecoration(labelText: vText.shelfMaterial),
@@ -120,6 +127,12 @@ class _ShelfCalculatorState extends State<ShelfCalculator> {
             title: Text(vText.shelfBack),
             value: _design.back,
             onChanged: (pValue) => vSet(_design.copyWith(back: pValue)),
+          ),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(vText.shelfAdjustable),
+            value: _adjustable,
+            onChanged: (pValue) => setState(() => _adjustable = pValue),
           ),
         ],
       ),
