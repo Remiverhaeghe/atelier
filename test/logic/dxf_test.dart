@@ -21,5 +21,7 @@ void main() {
     expect(vText.trimRight(), endsWith('EOF'));
     // Le premier mur du salon va de l'origine à 4 m
     expect(vText, contains('10\n0.0\n20\n0.0\n11\n4000.0\n21\n0.0\n'));
+    // Le nom du salon est au centre de ses quatre coins, pas tiré vers l'origine
+    expect(vText, contains('TEXT\n8\nSALON\n10\n2000.0\n20\n1500.0\n'));
   });
 }
