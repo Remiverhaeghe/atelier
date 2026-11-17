@@ -67,9 +67,7 @@ TurningStair designTurningStair(int pRiseMm, StairShape pShape, {int pWidthMm = 
       StairShape.halfTurn => 2 * pWidthMm,
     },
     turningTreads: vTurning,
-    balancedTreads: vTurning == 0
-        ? 0
-        : math.min(vTreads, vTurning + 2 * balancingEachSide),
+    balancedTreads: vTurning == 0 ? 0 : math.min(vTreads, vTurning + 2 * balancingEachSide),
   );
 
   return rStair;

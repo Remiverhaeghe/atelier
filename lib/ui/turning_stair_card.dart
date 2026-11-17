@@ -48,10 +48,7 @@ class TurningStairCard extends StatelessWidget {
             const SizedBox(height: 8),
             IconLine(
               Icons.crop_free,
-              vText.turningFootprint(
-                vCm(vStair.footprintLengthMm),
-                vCm(vStair.footprintWidthMm),
-              ),
+              vText.turningFootprint(vCm(vStair.footprintLengthMm), vCm(vStair.footprintWidthMm)),
             ),
             if (shape != StairShape.straight) ...[
               IconLine(
