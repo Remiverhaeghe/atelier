@@ -17,12 +17,7 @@ void main() {
           id: 'w',
           name: 'Maison',
           warranties: [
-            Warranty(
-              id: 'c',
-              label: 'Chaudière',
-              kind: WarrantyKind.biennial,
-              start: '2025-01-10',
-            ),
+            Warranty(id: 'c', label: 'Chaudière', kind: WarrantyKind.biennial, start: '2025-01-10'),
           ],
         ),
       ];
