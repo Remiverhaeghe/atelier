@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/mezzanine.dart';
 import '../logic/mezzanine_floor.dart';
+import '../logic/mezzanine_height.dart';
 import '../logic/units.dart';
 import 'floor_opening_card.dart';
 import 'mezzanine_floor_card.dart';
+import 'mezzanine_height_card.dart';
 import 'mezzanine_timber_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
@@ -35,6 +37,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
   var _panel = FloorPanel.osb3;
   var _stairOpeningMm = 700;
   var _openingWidthMm = 0;
+  var _roomHeightMm = 0;
   var _openingLengthMm = 0;
 
   @override
@@ -113,6 +116,18 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
               ),
             ),
           ),
+          if (_roomHeightMm > 0) ...[
+            const SizedBox(height: 12),
+            MezzanineHeightCard(
+              split: splitHeight(
+                _roomHeightMm,
+                vPlan,
+                floorThicknessMm(_panel, _mezzanine.joistSpacingMm),
+              ),
+              postHeightMm: _mezzanine.postHeightMm,
+              onApplyPosts: () => vSet(_mezzanine.copyWith(postHeightMm: minClearBelowMm)),
+            ),
+          ],
           const SizedBox(height: 12),
           FloorOpeningCard(floor: _mezzanine, widthMm: _openingWidthMm, lengthMm: _openingLengthMm),
           const SizedBox(height: 12),
@@ -187,6 +202,12 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
             initial: formatCentimetres(_stairOpeningMm),
             parse: parseCentimetres,
             onValue: (pValue) => setState(() => _stairOpeningMm = pValue),
+          ),
+          NumberField(
+            label: vText.heightSplitRoom,
+            initial: formatCentimetres(_roomHeightMm),
+            parse: parseCentimetres,
+            onValue: (pValue) => setState(() => _roomHeightMm = pValue),
           ),
           NumberField(
             label: vText.stairwellWidth,
