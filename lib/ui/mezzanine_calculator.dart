@@ -110,11 +110,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
             ),
           ),
           const SizedBox(height: 12),
-          MezzanineFloorCard(
-            mezzanine: _mezzanine,
-            panel: _panel,
-            stairOpeningMm: _stairOpeningMm,
-          ),
+          MezzanineFloorCard(mezzanine: _mezzanine, panel: _panel, stairOpeningMm: _stairOpeningMm),
           const SizedBox(height: 12),
           DropdownButtonFormField<MezzanineSupport>(
             initialValue: _mezzanine.support,
