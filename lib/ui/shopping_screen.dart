@@ -9,6 +9,7 @@ import '../state/worksites_controller.dart';
 import 'budget_schedule_card.dart';
 import 'delivery_card.dart';
 import 'expenses_section.dart';
+import 'extra_items_card.dart';
 import 'guide_view.dart';
 import 'photos.dart';
 import 'shopping_line_card.dart';
@@ -94,7 +95,7 @@ class ShoppingScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: vLines.isEmpty && vPurchases.isEmpty
+          body: vLines.isEmpty && vPurchases.isEmpty && vWorksite.extras.isEmpty
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(24),
@@ -114,6 +115,8 @@ class ShoppingScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    if (vWorksite.extras.isNotEmpty)
+                      ExtraItemsCard(worksite: vWorksite, onChanged: controller.updateWorksite),
                     ExpensesSection(
                       worksite: vWorksite,
                       planned: budgetTotal(vLines),

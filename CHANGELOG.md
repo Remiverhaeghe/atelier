@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Ajouter aux courses depuis un calcul
+- Mezzanine, pergola, étagère et tablette murale : bouton « Ajouter aux courses » qui envoie bois, quincaillerie, panneaux et béton dans la liste du chantier choisi ; un article déjà là voit sa quantité augmenter
+- Courses : carte « Ajouté depuis les calculs », chaque article retirable
+
 ### Gabarit de perçage
 - Étagère : gabarit à imprimer à l'échelle 1 pour les tourillons, les vis d'assemblage ou les taquets (système 32 mm), avec une règle de contrôle de 10 cm
 

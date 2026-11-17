@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/extra_items.dart';
 import '../logic/geometry.dart';
 import '../logic/worksite.dart';
 import '../logic/app_settings.dart';
@@ -120,6 +121,15 @@ class WorksitesScreen extends StatelessWidget {
               MaterialPageRoute<void>(
                 builder: (_) => CalculatorsScreen(
                   rooms: [for (final vWorksite in controller.worksites) ...vWorksite.rooms],
+                  worksites: controller.worksites,
+                  onAddToShopping: (pId, pItems) async {
+                    final vWorksite = controller.worksite(pId);
+                    if (vWorksite != null) {
+                      await controller.updateWorksite(
+                        vWorksite.copyWith(extras: mergeExtras(vWorksite.extras, pItems)),
+                      );
+                    }
+                  },
                 ),
               ),
             ),

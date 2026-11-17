@@ -2,6 +2,7 @@
 library;
 
 import 'expenses.dart';
+import 'extra_items.dart';
 import 'goals.dart';
 import 'journal.dart';
 import 'loans.dart';
@@ -39,6 +40,7 @@ class Worksite {
     this.received = const {},
     this.loans = const [],
     this.warranties = const [],
+    this.extras = const [],
   });
 
   final String id;
@@ -109,6 +111,9 @@ class Worksite {
   /// Garanties des achats et des travaux.
   final List<Warranty> warranties;
 
+  /// Articles ajoutés aux courses depuis un calcul.
+  final List<ExtraItem> extras;
+
   Worksite copyWith({
     String? id,
     String? name,
@@ -136,6 +141,7 @@ class Worksite {
     Map<String, int>? received,
     List<Loan>? loans,
     List<Warranty>? warranties,
+    List<ExtraItem>? extras,
   }) => Worksite(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -162,6 +168,7 @@ class Worksite {
     received: received ?? this.received,
     loans: loans ?? this.loans,
     warranties: warranties ?? this.warranties,
+    extras: extras ?? this.extras,
   );
 
   Map<String, Object?> toJson() => {
@@ -190,6 +197,7 @@ class Worksite {
     if (received.isNotEmpty) 'received': received,
     if (loans.isNotEmpty) 'loans': [for (final vLoan in loans) vLoan.toJson()],
     if (warranties.isNotEmpty) 'warranties': [for (final vItem in warranties) vItem.toJson()],
+    if (extras.isNotEmpty) 'extras': [for (final vItem in extras) vItem.toJson()],
   };
 
   static Worksite fromJson(Map<String, Object?> pJson) => Worksite(
@@ -266,6 +274,10 @@ class Worksite {
     warranties: [
       for (final vItem in (pJson['warranties'] as List<Object?>?) ?? const [])
         Warranty.fromJson(vItem! as Map<String, Object?>),
+    ],
+    extras: [
+      for (final vItem in (pJson['extras'] as List<Object?>?) ?? const [])
+        ExtraItem.fromJson(vItem! as Map<String, Object?>),
     ],
   );
 }

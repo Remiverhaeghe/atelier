@@ -131,7 +131,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
           const SizedBox(height: 12),
           FloorOpeningCard(floor: _mezzanine, widthMm: _openingWidthMm, lengthMm: _openingLengthMm),
           const SizedBox(height: 12),
-          MezzanineTimberCard(mezzanine: _mezzanine, plan: vPlan),
+          MezzanineTimberCard(mezzanine: _mezzanine, plan: vPlan, panel: _panel),
           const SizedBox(height: 12),
           MezzanineFloorCard(mezzanine: _mezzanine, panel: _panel, stairOpeningMm: _stairOpeningMm),
           const SizedBox(height: 12),
