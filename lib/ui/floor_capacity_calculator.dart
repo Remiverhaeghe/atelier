@@ -58,9 +58,15 @@ class _FloorCapacityCalculatorState extends State<FloorCapacityCalculator> {
                     ),
                   const SizedBox(height: 8),
                   Text(vText.floorReinforceTitle, style: vTheme.textTheme.titleSmall),
-                  IconLine(Icons.view_week_outlined, vText.floorReinforceDoubled(vKg(vOptions.doubled))),
+                  IconLine(
+                    Icons.view_week_outlined,
+                    vText.floorReinforceDoubled(vKg(vOptions.doubled)),
+                  ),
                   IconLine(Icons.add, vText.floorReinforceHalfSpacing(vKg(vOptions.halfSpacing))),
-                  IconLine(Icons.vertical_align_bottom, vText.floorReinforceMidBeam(vKg(vOptions.midBeam))),
+                  IconLine(
+                    Icons.vertical_align_bottom,
+                    vText.floorReinforceMidBeam(vKg(vOptions.midBeam)),
+                  ),
                   Text(vText.floorCapacityWarning, style: vTheme.textTheme.bodySmall),
                 ],
               ),
