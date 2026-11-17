@@ -62,9 +62,8 @@ class _HeightWorkScreenState extends State<HeightWorkScreen> {
                   CheckboxListTile(
                     value: _done.contains(vCheck),
                     title: Text(heightCheckLabel(vText, vCheck)),
-                    onChanged: (pValue) => setState(
-                      () => pValue == true ? _done.add(vCheck) : _done.remove(vCheck),
-                    ),
+                    onChanged: (pValue) =>
+                        setState(() => pValue == true ? _done.add(vCheck) : _done.remove(vCheck)),
                   ),
               ],
             ),
