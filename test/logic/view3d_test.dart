@@ -93,7 +93,14 @@ void main() {
   test('une mezzanine sans hauteur saisie : hauteur par défaut', () {
     final vRoom = rectangleRoom().copyWith(
       fixtures: const [
-        Fixture(id: 'z1', kind: FixtureKind.mezzanine, xMm: 2000, yMm: 1000, widthMm: 3000, depthMm: 2000),
+        Fixture(
+          id: 'z1',
+          kind: FixtureKind.mezzanine,
+          xMm: 2000,
+          yMm: 1000,
+          widthMm: 3000,
+          depthMm: 2000,
+        ),
       ],
     );
     final vTops = houseFaces([vRoom], 0)
