@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Écho d'une grande pièce
+- Nouveau calcul : réverbération par la formule de Sabine selon le sol, le plafond et le mobilier, nombre de panneaux acoustiques pour revenir à 0,6 s
+
 ### Éclairage d'une pièce
 - Nouveau calcul : flux nécessaire selon l'usage, nombre de lampes, quadrillage avec un écart d'au plus 1,5 fois la hauteur, puissance en LED, grande hauteur comprise
 
