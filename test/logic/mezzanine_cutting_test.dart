@@ -6,10 +6,10 @@ void main() {
   test('solives et lambourde : la longueur qui demande le moins de bois', () {
     // Neuf solives de 2 m et une lambourde de 3 m : deux solives par barre de 4,5 m,
     // alors qu'en 4 m le trait de scie empêche d'en mettre deux
-    final vOrder = orderTimber((widthMm: 45, heightMm: 145), [
-      for (var vIndex = 0; vIndex < 9; vIndex++) 2000,
-      3000,
-    ]);
+    final vOrder = orderTimber(
+      (widthMm: 45, heightMm: 145),
+      [for (var vIndex = 0; vIndex < 9; vIndex++) 2000, 3000],
+    );
 
     expect(vOrder.stockMm, 4500);
     expect(vOrder.bars, 6);
@@ -50,9 +50,9 @@ void main() {
     const vTooDeep = Mezzanine(depthMm: 8000);
 
     expect(mezzanineTimber(vTwoWalls, planMezzanine(vTwoWalls)), hasLength(1));
-    expect(
-      mezzanineTimber(vTooDeep, planMezzanine(vTooDeep)).single.section,
-      (widthMm: 100, heightMm: 100),
-    );
+    expect(mezzanineTimber(vTooDeep, planMezzanine(vTooDeep)).single.section, (
+      widthMm: 100,
+      heightMm: 100,
+    ));
   });
 }

@@ -64,10 +64,13 @@ List<TimberOrder> mezzanineTimber(Mezzanine pMezzanine, MezzaninePlan pPlan) {
         for (var vIndex = 0; vIndex < pPlan.ledgers; vIndex++) pMezzanine.lengthMm,
       ]),
     if (vPostSide != null && pPlan.postsPerBeam > 0)
-      orderTimber((widthMm: vPostSide, heightMm: vPostSide), [
-        for (var vIndex = 0; vIndex < pPlan.postsPerBeam * pPlan.beams; vIndex++)
-          pMezzanine.postHeightMm,
-      ]),
+      orderTimber(
+        (widthMm: vPostSide, heightMm: vPostSide),
+        [
+          for (var vIndex = 0; vIndex < pPlan.postsPerBeam * pPlan.beams; vIndex++)
+            pMezzanine.postHeightMm,
+        ],
+      ),
   ];
 
   return rOrders;
