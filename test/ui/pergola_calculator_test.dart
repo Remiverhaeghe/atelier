@@ -8,6 +8,8 @@ void main() {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
     await pTester.ensureVisible(find.text('Pergola ou auvent'));
+    await pTester.ensureVisible(find.text('Pergola ou auvent'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Pergola ou auvent'));
     await pTester.pumpAndSettle();
 

@@ -7,6 +7,8 @@ void main() {
   testWidgets('armoire : compartiments ajoutés ou changés, débit à jour', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    await pTester.ensureVisible(find.text('Armoire sur mesure'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Armoire sur mesure'));
     await pTester.pumpAndSettle();
 
