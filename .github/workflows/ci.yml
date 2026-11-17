@@ -144,7 +144,8 @@ jobs:
             echo "::error::La permission INTERNET est apparue dans l'APK"
             exit 1
           fi
-          vMissing=$(grep -v -x -F -f <(grep -o 'android\.permission\.[A-Z_]*\|[a-z.]*\.permission\.[A-Z_]*' docs/securite.md | sort -u) permissions.txt || true)
+          # Les permissions expliquées sont écrites entre accents graves dans docs/securite.md
+          vMissing=$(grep -v -x -F -f <(grep -o '`[A-Za-z0-9_.]*`' docs/securite.md | tr -d '`' | sort -u) permissions.txt || true)
           if [ -n "$vMissing" ]; then
             echo "::error::Permissions non expliquées dans docs/securite.md : $vMissing"
             exit 1
