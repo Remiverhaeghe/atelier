@@ -8,8 +8,7 @@ void main() {
   testWidgets('éclairage : plus de lampes pour un atelier que pour un séjour', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text("Éclairage d'une pièce"));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, "Éclairage d'une pièce");
     await pTester.tap(find.text("Éclairage d'une pièce"));
     await pTester.pumpAndSettle();
 
