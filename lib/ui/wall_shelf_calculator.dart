@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/extra_items.dart';
 import '../logic/fixings.dart';
 import '../logic/shelf.dart';
 import '../logic/shelf_joinery.dart';
@@ -9,6 +10,7 @@ import 'fixings_calculator.dart';
 import 'parquet_view.dart';
 import 'shelf_calculator.dart';
 import 'shelf_joinery_card.dart';
+import 'shopping_target.dart';
 import 'theme.dart';
 
 /// Tablette murale sur équerres : nombre et écart des équerres, bras, poids et chevilles.
@@ -65,6 +67,26 @@ class _WallShelfCalculatorState extends State<WallShelfCalculator> {
                     ),
                   ),
                   Text(vText.bracketTip, style: vTheme.textTheme.bodySmall),
+                  AddToShoppingButton(
+                    items: () => [
+                      ExtraItem(
+                        name: vText.extraBrackets(formatCentimetres(vPlan.armMm)),
+                        quantity: vPlan.brackets,
+                      ),
+                      ExtraItem(
+                        name: vText.extraScrews(
+                          vPlan.fixing.screwDiameterMm,
+                          vPlan.fixing.screwLengthMm,
+                        ),
+                        quantity: vPlan.brackets * 2,
+                      ),
+                      if (vPlan.fixing.plug != PlugKind.none)
+                        ExtraItem(
+                          name: plugLabel(vText, vPlan.fixing.plug),
+                          quantity: vPlan.brackets * 2,
+                        ),
+                    ],
+                  ),
                 ],
               ),
             ),
