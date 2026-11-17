@@ -30,4 +30,5 @@ La CI vérifie à chaque construction les permissions de l'APK (`aapt2 dump perm
 ## Données
 
 - Chantiers dans `chantiers.json`, dans le dossier privé de l'appli, avec une copie de sauvegarde par jour.
+- Sauvegarde chiffrée hors du téléphone (écran Sauvegardes, cadenas) : AES-256-GCM, clé tirée du mot de passe par PBKDF2-HMAC-SHA256 (210 000 itérations, sel aléatoire de 16 octets), bibliothèque `cryptography` en Dart pur. Le mot de passe n'est jamais enregistré : perdu, la sauvegarde est illisible.
 - Format numéroté et migré étape par étape (`lib/logic/data_format.dart`) ; un fichier illisible est copié à part avant de repartir de zéro.

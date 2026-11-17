@@ -25,6 +25,8 @@ dependencies:
   image_picker: ">=1.1.0 <2.0.0"
   # Import d'un chantier exporté
   file_picker: ^13.3.3
+  # Chiffrement de la sauvegarde (AES-GCM, PBKDF2), en Dart pur : aucun accès réseau
+  cryptography: ^2.9.0
   # Mode chantier : lecture à voix haute par le moteur du téléphone, écran gardé allumé
   flutter_tts: ^4.2.5
   wakelock_plus: ^1.8.2
