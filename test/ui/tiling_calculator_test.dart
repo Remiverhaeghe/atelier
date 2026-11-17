@@ -7,6 +7,8 @@ void main() {
   testWidgets('carrelage : coupes et cartons suivent le calepinage', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    await pTester.ensureVisible(find.text('Carrelage et faïence'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Carrelage et faïence'));
     await pTester.pumpAndSettle();
 

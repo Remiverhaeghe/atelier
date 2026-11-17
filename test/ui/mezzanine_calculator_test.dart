@@ -8,6 +8,8 @@ void main() {
   testWidgets('mezzanine : solives, poutre et poteaux suivent la saisie', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    await pTester.ensureVisible(find.text('Mezzanine'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Mezzanine'));
     await pTester.pumpAndSettle();
 
@@ -53,6 +55,8 @@ void main() {
   testWidgets('mezzanine : hauteur dans une pièce haute, poteaux et escalier', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    await pTester.ensureVisible(find.text('Mezzanine'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Mezzanine'));
     await pTester.pumpAndSettle();
 
