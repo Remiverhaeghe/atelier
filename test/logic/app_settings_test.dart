@@ -38,6 +38,8 @@ void main() {
     final vBack = AppSettings.fromJson(AppSettings(lastExternalBackup: vNow).toJson());
     expect(vBack.lastExternalBackup, vNow);
     expect(const AppSettings().toJson().containsKey('lastExternalBackup'), isFalse);
+    expect(AppSettings.fromJson(const AppSettings(newsSeen: 3).toJson()).newsSeen, 3);
+    expect(const AppSettings().toJson().containsKey('newsSeen'), isFalse);
     expect(vBack.copyWith(theme: ThemeChoice.dark).lastExternalBackup, vNow);
   });
 }

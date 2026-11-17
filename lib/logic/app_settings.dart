@@ -19,6 +19,7 @@ class AppSettings {
     this.theme = ThemeChoice.system,
     this.textScale = 1.0,
     this.lastExternalBackup,
+    this.newsSeen = 0,
   });
 
   final ThemeChoice theme;
@@ -27,17 +28,26 @@ class AppSettings {
   /// Dernier envoi de tous les chantiers hors du téléphone.
   final DateTime? lastExternalBackup;
 
-  AppSettings copyWith({ThemeChoice? theme, double? textScale, DateTime? lastExternalBackup}) =>
-      AppSettings(
-        theme: theme ?? this.theme,
-        textScale: textScale ?? this.textScale,
-        lastExternalBackup: lastExternalBackup ?? this.lastExternalBackup,
-      );
+  /// Dernières nouveautés montrées (voir `newsVersion`).
+  final int newsSeen;
+
+  AppSettings copyWith({
+    ThemeChoice? theme,
+    double? textScale,
+    DateTime? lastExternalBackup,
+    int? newsSeen,
+  }) => AppSettings(
+    theme: theme ?? this.theme,
+    textScale: textScale ?? this.textScale,
+    lastExternalBackup: lastExternalBackup ?? this.lastExternalBackup,
+    newsSeen: newsSeen ?? this.newsSeen,
+  );
 
   Map<String, Object?> toJson() => {
     'theme': theme.name,
     'textScale': textScale,
     if (lastExternalBackup != null) 'lastExternalBackup': lastExternalBackup!.toIso8601String(),
+    if (newsSeen > 0) 'newsSeen': newsSeen,
   };
 
   /// Un fichier abîmé ou d'une autre version redonne les réglages de départ, sans planter.
@@ -50,6 +60,7 @@ class AppSettings {
       theme: vTheme ?? ThemeChoice.system,
       textScale: textScales.contains(vScale) ? vScale! : 1.0,
       lastExternalBackup: DateTime.tryParse((pJson['lastExternalBackup'] as String?) ?? ''),
+      newsSeen: (pJson['newsSeen'] as int?) ?? 0,
     );
 
     return rSettings;
