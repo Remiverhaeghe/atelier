@@ -22,6 +22,19 @@ void main() {
     expect(find.textContaining('630 cm de bord dans le vide, 7 poteaux'), findsOneWidget);
     expect(find.textContaining('42 barreaux verticaux'), findsOneWidget);
 
+    expect(find.textContaining("Donne la largeur et la longueur de l'ouverture"), findsOneWidget);
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Trémie : largeur, en travers des solives (cm)'),
+      '90',
+    );
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Trémie : longueur, dans le sens des solives (cm)'),
+      '100',
+    );
+    await pTester.pump();
+    expect(find.textContaining('2 solives coupées : solives boiteuses de 100 cm'), findsOneWidget);
+    expect(find.text('4 sabots : deux pour le chevêtre, un par solive boiteuse'), findsOneWidget);
+
     await pTester.enterText(
       find.widgetWithText(TextField, 'Profondeur, portée des solives (cm)'),
       '350',

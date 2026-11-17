@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/mezzanine.dart';
 import '../logic/mezzanine_floor.dart';
 import '../logic/units.dart';
+import 'floor_opening_card.dart';
 import 'mezzanine_floor_card.dart';
 import 'mezzanine_timber_card.dart';
 import 'parquet_view.dart';
@@ -33,6 +34,8 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
   var _mezzanine = const Mezzanine();
   var _panel = FloorPanel.osb3;
   var _stairOpeningMm = 700;
+  var _openingWidthMm = 0;
+  var _openingLengthMm = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +114,12 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
             ),
           ),
           const SizedBox(height: 12),
+          FloorOpeningCard(
+            floor: _mezzanine,
+            widthMm: _openingWidthMm,
+            lengthMm: _openingLengthMm,
+          ),
+          const SizedBox(height: 12),
           MezzanineTimberCard(mezzanine: _mezzanine, plan: vPlan),
           const SizedBox(height: 12),
           MezzanineFloorCard(mezzanine: _mezzanine, panel: _panel, stairOpeningMm: _stairOpeningMm),
@@ -182,6 +191,18 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
             initial: formatCentimetres(_stairOpeningMm),
             parse: parseCentimetres,
             onValue: (pValue) => setState(() => _stairOpeningMm = pValue),
+          ),
+          NumberField(
+            label: vText.stairwellWidth,
+            initial: formatCentimetres(_openingWidthMm),
+            parse: parseCentimetres,
+            onValue: (pValue) => setState(() => _openingWidthMm = pValue),
+          ),
+          NumberField(
+            label: vText.stairwellLength,
+            initial: formatCentimetres(_openingLengthMm),
+            parse: parseCentimetres,
+            onValue: (pValue) => setState(() => _openingLengthMm = pValue),
           ),
         ],
       ),
