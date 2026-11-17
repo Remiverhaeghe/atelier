@@ -13,10 +13,10 @@ void main() {
       ],
     );
 
-    expect([for (final vItem in vMerged) (vItem.name, vItem.quantity)], [
-      ('Sabots de solive', 22),
-      ('Pieds de poteau', 2),
-    ]);
+    expect(
+      [for (final vItem in vMerged) (vItem.name, vItem.quantity)],
+      [('Sabots de solive', 22), ('Pieds de poteau', 2)],
+    );
   });
 
   test('les articles ajoutés suivent le chantier dans le fichier', () {
