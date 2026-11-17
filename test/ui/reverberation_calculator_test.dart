@@ -10,8 +10,7 @@ void main() {
   ) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text("Écho d'une grande pièce"));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, "Écho d'une grande pièce");
     await pTester.tap(find.text("Écho d'une grande pièce"));
     await pTester.pumpAndSettle();
 
