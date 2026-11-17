@@ -3,6 +3,7 @@ library;
 
 import 'dart:math' as math;
 
+import 'fixtures.dart';
 import 'furniture.dart';
 import 'geometry.dart';
 import 'house.dart';
@@ -14,7 +15,15 @@ typedef Point3 = ({double x, double y, double z});
 /// Face à dessiner : ses coins en 3D, sa profondeur après rotation, et ce qu'elle représente.
 typedef Face = ({List<Point3> corners, double depth, FaceKind kind});
 
-enum FaceKind { floor, wall, door, window, furniture }
+enum FaceKind { floor, wall, door, window, furniture, structure }
+
+/// Épaisseur dessinée d'un plancher de mezzanine (panneau, solives et poutre) et côté
+/// de ses poteaux.
+const mezzanineDeckMm = 250;
+const mezzaninePostMm = 100;
+
+/// Hauteur du plancher d'une mezzanine du plan sans hauteur saisie.
+const defaultMezzanineRiseMm = 2450;
 
 /// Faces de la maison vue sous l'angle [pYawDeg] : sols d'abord, puis murs du fond vers l'avant.
 List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
@@ -84,6 +93,34 @@ List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
         final vQuad = _quad(vCorners[vSide], vCorners[(vSide + 1) % 4], vBase, vTop);
         vRoomWalls.add((corners: vQuad, depth: vDepth(vQuad) - 1, kind: FaceKind.furniture));
       }
+    }
+    // Mezzanines : plancher à sa hauteur, chants et un poteau à chaque angle
+    for (final vFixture in vRoom.fixtures.where(
+      (pFixture) => pFixture.kind == FixtureKind.mezzanine,
+    )) {
+      final vTop = vBase + (vFixture.riseMm ?? defaultMezzanineRiseMm);
+      final vUnder = vTop - mezzanineDeckMm;
+      final vHalfX = vFixture.widthMm / 2;
+      final vHalfY = vFixture.depthMm / 2;
+      final vCorners = [
+        for (final (vSx, vSy) in const [(-1, -1), (1, -1), (1, 1), (-1, 1)])
+          toHouse(vRoom, PlanPoint(vFixture.xMm + vSx * vHalfX, vFixture.yMm + vSy * vHalfY)),
+      ];
+      for (var vCorner = 0; vCorner < 4; vCorner++) {
+        final vInward = vCorners[(vCorner + 2) % 4];
+        final vPost = PlanPoint(
+          vCorners[vCorner].x + (vInward.x - vCorners[vCorner].x).sign * mezzaninePostMm,
+          vCorners[vCorner].y + (vInward.y - vCorners[vCorner].y).sign * mezzaninePostMm,
+        );
+        final vFace = _quad(vCorners[vCorner], vPost, vBase, vUnder);
+        vRoomWalls.add((corners: vFace, depth: vDepth(vFace) - 1, kind: FaceKind.structure));
+      }
+      for (var vSide = 0; vSide < 4; vSide++) {
+        final vEdge = _quad(vCorners[vSide], vCorners[(vSide + 1) % 4], vUnder, vTop);
+        vRoomWalls.add((corners: vEdge, depth: vDepth(vEdge) - 1, kind: FaceKind.structure));
+      }
+      final vDeck = [for (final vCorner in vCorners) (x: vCorner.x, y: vCorner.y, z: vTop)];
+      vRoomWalls.add((corners: vDeck, depth: vDepth(vDeck) - 2, kind: FaceKind.structure));
     }
   }
   final rFaces = <Face>[];

@@ -1,3 +1,4 @@
+import 'package:atelier/logic/fixtures.dart';
 import 'package:atelier/logic/furniture.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/view3d.dart';
@@ -65,5 +66,47 @@ void main() {
 
     final vTurned = project((x: 1000, y: 0, z: 0), 90);
     expect(vTurned.x, closeTo(0, 1e-9));
+  });
+
+  test('une mezzanine du plan : plancher à sa hauteur, chants et quatre poteaux', () {
+    final vRoom = rectangleRoom().copyWith(
+      fixtures: const [
+        Fixture(
+          id: 'z1',
+          kind: FixtureKind.mezzanine,
+          xMm: 2000,
+          yMm: 1000,
+          widthMm: 3000,
+          depthMm: 2000,
+          riseMm: 2600,
+        ),
+      ],
+    );
+    final vFaces = houseFaces([vRoom], 20).where((pFace) => pFace.kind == FaceKind.structure);
+
+    // Quatre poteaux, quatre chants, un plancher
+    expect(vFaces, hasLength(9));
+    final vHeights = {for (final vFace in vFaces) ...vFace.corners.map((pCorner) => pCorner.z)};
+    expect(vHeights, containsAll([0.0, 2350.0, 2600.0]));
+  });
+
+  test('une mezzanine sans hauteur saisie : hauteur par défaut', () {
+    final vRoom = rectangleRoom().copyWith(
+      fixtures: const [
+        Fixture(
+          id: 'z1',
+          kind: FixtureKind.mezzanine,
+          xMm: 2000,
+          yMm: 1000,
+          widthMm: 3000,
+          depthMm: 2000,
+        ),
+      ],
+    );
+    final vTops = houseFaces([vRoom], 0)
+        .where((pFace) => pFace.kind == FaceKind.structure)
+        .expand((pFace) => pFace.corners.map((pCorner) => pCorner.z));
+
+    expect(vTops.reduce((pA, pB) => pA > pB ? pA : pB), defaultMezzanineRiseMm.toDouble());
   });
 }
