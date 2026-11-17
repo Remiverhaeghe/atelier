@@ -8,8 +8,7 @@ void main() {
   testWidgets('tablette murale : équerres, bras et chevilles suivent la saisie', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Tablette murale sur équerres'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Tablette murale sur équerres');
     await pTester.tap(find.text('Tablette murale sur équerres'));
     await pTester.pumpAndSettle();
 

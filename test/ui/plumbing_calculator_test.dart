@@ -8,8 +8,7 @@ void main() {
   testWidgets('plomberie : appareils ajoutés, longueur réglée, pente affichée', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Plomberie'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Plomberie');
     await pTester.tap(find.text('Plomberie'));
     await pTester.pumpAndSettle();
     expect(find.text('Ajoute les appareils à raccorder.'), findsOneWidget);

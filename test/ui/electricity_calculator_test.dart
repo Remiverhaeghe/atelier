@@ -8,8 +8,7 @@ void main() {
   testWidgets('électricité : pièces ajoutées, prises au moins, mise en garde', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Électricité'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Électricité');
     await pTester.tap(find.text('Électricité'));
     await pTester.pumpAndSettle();
 
