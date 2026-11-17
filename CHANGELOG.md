@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Travail en hauteur
+- Nouvel écran : vérifications à cocher avant de monter, selon la hauteur de travail et le travail sur un toit (escabeau, garde-corps, échafaudage freiné, zone balisée, harnais, météo)
+
 ### Courses par rayon
 - Courses : les articles sans magasin saisi se rangent par rayon conseillé (bois, sols, peinture, colles, matériaux, quincaillerie), dans l'ordre d'un parcours en magasin ; le matériel ajouté depuis un calcul aussi
 
