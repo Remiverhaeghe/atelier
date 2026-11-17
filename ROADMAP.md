@@ -12,7 +12,6 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 - 135. **Textes découpés par domaine**, fusionnés avant `gen-l10n`.
 - 136. **Version anglaise**.
-- 139. **Test fermé du Play Store** : fiche, captures et sécurité des données relues.
 - 140. **Mesure par photo** avec une carte au format bancaire comme étalon.
 
 ## Organisation et motivation

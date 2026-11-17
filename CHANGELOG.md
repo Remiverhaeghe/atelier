@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Fiche Play Store
+- Descriptions courte et longue de la fiche à jour dans `docs/play-store/description.md`, longueurs vérifiées par un test ; liste de publication complétée pour les permissions et le micro
+
 ### Performance surveillée
 - Un test chronomètre la vue 3D, le glTF et les courses d'une grande maison fictive de 40 pièces meublées : un calcul qui deviendrait beaucoup plus lent fait échouer la CI
 
