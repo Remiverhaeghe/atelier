@@ -51,7 +51,12 @@ typedef Calculator = ({String title, String help, IconData icon, WidgetBuilder b
 
 /// Calculs hors des pièces, en grille de tuiles.
 class CalculatorsScreen extends StatelessWidget {
-  const CalculatorsScreen({super.key, this.rooms = const [], this.worksites = const [], this.onAddToShopping});
+  const CalculatorsScreen({
+    super.key,
+    this.rooms = const [],
+    this.worksites = const [],
+    this.onAddToShopping,
+  });
 
   /// Pièces de tous les chantiers, dont certains calculs reprennent les surfaces.
   final List<Room> rooms;
@@ -309,19 +314,18 @@ class CalculatorsScreen extends StatelessWidget {
             Card(
               margin: const EdgeInsets.all(4),
               child: InkWell(
-                onTap: () =>
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (pContext) => onAddToShopping == null
-                            ? vEntry.builder(pContext)
-                            : ShoppingTarget(
-                                worksites: worksites,
-                                add: onAddToShopping!,
-                                child: vEntry.builder(pContext),
-                              ),
-                      ),
-                    ),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (pContext) => onAddToShopping == null
+                        ? vEntry.builder(pContext)
+                        : ShoppingTarget(
+                            worksites: worksites,
+                            add: onAddToShopping!,
+                            child: vEntry.builder(pContext),
+                          ),
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(14),
                   child: Column(
