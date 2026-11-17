@@ -39,11 +39,7 @@ class FloorOpeningCard extends StatelessWidget {
             if (vEmpty)
               Text(vText.stairwellHint, style: vTheme.textTheme.bodySmall)
             else if (vPlan.tooLong)
-              IconLine(
-                Icons.warning_amber,
-                vText.stairwellTooLong,
-                color: vTheme.colorScheme.error,
-              )
+              IconLine(Icons.warning_amber, vText.stairwellTooLong, color: vTheme.colorScheme.error)
             else ...[
               IconLine(
                 Icons.content_cut,
