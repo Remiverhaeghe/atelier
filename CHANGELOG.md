@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Fenêtre de toit à la place d'un plexi
+- Nouveau calcul : vide entre chevrons, fenêtre la plus large sans rien couper, fenêtre retenue pour la largeur voulue, chevêtre quand il faut couper un chevron, hauteur selon la pente, raccord selon la couverture et ordre de pose
+
 ### Sauvegarde chiffrée
 - Écran Sauvegardes : tous les chantiers dans un fichier `.atelier` chiffré par mot de passe (AES-256-GCM, PBKDF2), à envoyer vers le PC ou un cloud ; l'import le reconnaît et demande le mot de passe
 
