@@ -24,8 +24,10 @@ void main() {
 
       expect(vAdvice.middleUpright, isTrue);
       expect(vAdvice.spanMm, 791);
-      expect(shelfSpanMm(ShelfMaterial.particleBoard, vAdvice.thicknessMm, ShelfLoad.heavy),
-          greaterThanOrEqualTo(791));
+      expect(
+        shelfSpanMm(ShelfMaterial.particleBoard, vAdvice.thicknessMm, ShelfLoad.heavy),
+        greaterThanOrEqualTo(791),
+      );
     });
 
     test('rien ne suffit même coupé en deux : le panneau le plus épais', () {
@@ -58,8 +60,9 @@ void main() {
     });
 
     test('le diamètre du tourillon suit l\'épaisseur', () {
-      ShelfJoint vJoint(int pThickness) =>
-          adviseJoint(ShelfDesign(material: ShelfMaterial.solidWood, thicknessMm: pThickness)).joint;
+      ShelfJoint vJoint(int pThickness) => adviseJoint(
+        ShelfDesign(material: ShelfMaterial.solidWood, thicknessMm: pThickness),
+      ).joint;
       int vDiameter(int pThickness) => adviseJoint(
         ShelfDesign(material: ShelfMaterial.solidWood, thicknessMm: pThickness),
       ).diameterMm;
@@ -70,9 +73,7 @@ void main() {
     });
 
     test('une étagère peu profonde garde deux points par bout', () {
-      final vAdvice = adviseJoint(
-        const ShelfDesign(material: ShelfMaterial.plywood, depthMm: 120),
-      );
+      final vAdvice = adviseJoint(const ShelfDesign(material: ShelfMaterial.plywood, depthMm: 120));
 
       expect(vAdvice.perEnd, 2);
     });
