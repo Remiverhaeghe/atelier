@@ -40,6 +40,8 @@ void main() {
   testWidgets('sans chantier : pas de bouton', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    await pTester.ensureVisible(find.text('Tablette murale sur équerres'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Tablette murale sur équerres'));
     await pTester.pumpAndSettle();
 
