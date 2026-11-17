@@ -38,9 +38,10 @@ String buildDxf(List<Room> pRooms) {
       continue;
     }
     final vLayer = dxfLayer(vRoom.name);
-    for (var vIndex = 0; vIndex < vPoints.length; vIndex++) {
+    // Le contour a un point de plus que de murs : le dernier ferme la pièce.
+    for (var vIndex = 0; vIndex + 1 < vPoints.length; vIndex++) {
       final vFrom = vPoints[vIndex];
-      final vTo = vPoints[(vIndex + 1) % vPoints.length];
+      final vTo = vPoints[vIndex + 1];
       vPair(0, 'LINE');
       vPair(8, vLayer);
       vPair(10, _number(vFrom.x));
@@ -48,9 +49,10 @@ String buildDxf(List<Room> pRooms) {
       vPair(11, _number(vTo.x));
       vPair(21, _number(vTo.y));
     }
+    final vCorners = vPoints.take(vPoints.length - 1);
     final vCentre = PlanPoint(
-      vPoints.fold(0.0, (pSum, pPoint) => pSum + pPoint.x) / vPoints.length,
-      vPoints.fold(0.0, (pSum, pPoint) => pSum + pPoint.y) / vPoints.length,
+      vCorners.fold(0.0, (pSum, pPoint) => pSum + pPoint.x) / vCorners.length,
+      vCorners.fold(0.0, (pSum, pPoint) => pSum + pPoint.y) / vCorners.length,
     );
     vPair(0, 'TEXT');
     vPair(8, vLayer);
