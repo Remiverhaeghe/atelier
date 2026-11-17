@@ -9,6 +9,8 @@ void main() {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
     await pTester.ensureVisible(find.text('Ce que porte un plancher'));
+    await pTester.ensureVisible(find.text('Ce que porte un plancher'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Ce que porte un plancher'));
     await pTester.pumpAndSettle();
 
