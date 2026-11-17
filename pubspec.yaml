@@ -37,6 +37,8 @@ dependencies:
   # Télémètres laser Bosch en Bluetooth basse consommation, et l'accord pour le Bluetooth
   # 5.6 exige le SDK Android 37, que le plugin Gradle actuel ne gère pas encore
   flutter_reactive_ble: ">=5.4.0 <5.6.0"
+  # Le module Android, tiré par flutter_reactive_ble en ^5.5 : borné lui aussi
+  reactive_ble_mobile: ">=5.4.0 <5.6.0"
   permission_handler: ^12.0.0
 
 dev_dependencies:
