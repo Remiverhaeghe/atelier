@@ -2404,5 +2404,14 @@
   "visitRoofSpace": "Combles : isolant, charpente, traces d'eau",
   "visitGutters": "Gouttières et descentes : fuites, débordements",
   "visitMeters": "Compteurs d'eau et d'électricité relevés",
-  "visitHint": "Lampe torche et prise testeuse aident beaucoup. Pour un achat, ces points ne remplacent pas les diagnostics obligatoires."
+  "visitHint": "Lampe torche et prise testeuse aident beaucoup. Pour un achat, ces points ne remplacent pas les diagnostics obligatoires.",
+  "photoMeasureTitle": "Mesure par photo",
+  "photoMeasureHelp": "Une carte bancaire posée à plat sert d'étalon sur la photo",
+  "photoMeasurePick": "Choisir la photo",
+  "photoMeasureOther": "Autre photo",
+  "photoMeasureCard": "Touchez les deux bouts du grand côté de la carte.",
+  "photoMeasureObject": "Touchez maintenant les deux bouts de ce que vous mesurez.",
+  "photoMeasureResult": "{length} cm environ",
+  "@photoMeasureResult": {"placeholders": {"length": {"type": "String"}}},
+  "photoMeasureHint": "Posez la carte contre ce que vous mesurez, dans le même plan, et photographiez bien de face : plus la photo est de biais, plus la mesure se trompe. Pour une cote de coupe, vérifiez au mètre."
 }

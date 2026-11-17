@@ -10,9 +10,8 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 135. **Textes découpés par domaine**, fusionnés avant `gen-l10n`.
-- 136. **Version anglaise**.
-- 140. **Mesure par photo** avec une carte au format bancaire comme étalon.
+- 135. **Textes découpés par domaine** : reporté. Le découpage ajouterait une étape de fusion avant chaque `flutter gen-l10n`, pour un fichier de données qui a droit à l'exception des 1000 lignes.
+- 136. **Version anglaise** : à faire dans une session à part, environ 2 400 textes à traduire et à relire.
 
 ## Organisation et motivation
 
