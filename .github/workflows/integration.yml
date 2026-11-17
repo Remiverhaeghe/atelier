@@ -43,6 +43,16 @@ jobs:
           done
           exit 1
 
+      # Dépendances Gradle gardées d'un passage à l'autre : moins de téléchargements, donc moins
+      # d'échecs réseau (erreurs 429 du dépôt Maven) et un passage plus court.
+      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/app/build.gradle.kts', 'pubspec.lock') }}
+          restore-keys: gradle-${{ runner.os }}-
+
       # Accélération matérielle de l'émulateur sur les machines Linux de GitHub
       - name: KVM
         run: |
@@ -50,10 +60,33 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
+      # Émulateur créé une fois puis gardé avec son instantané : il démarre en quelques secondes
+      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        id: avd
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-34-x86_64-google_apis
+
+      - name: Instantané de l'émulateur
+        if: steps.avd.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Instantané créé"
+
       - uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
         with:
           api-level: 34
           arch: x86_64
           target: google_apis
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: flutter test integration_test/parcours_test.dart
