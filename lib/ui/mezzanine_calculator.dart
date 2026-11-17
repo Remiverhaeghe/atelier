@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/mezzanine.dart';
+import '../logic/mezzanine_floor.dart';
 import '../logic/units.dart';
+import 'mezzanine_floor_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
 
@@ -18,7 +20,7 @@ String mezzanineSupportLabel(AppLocalizations pText, MezzanineSupport pSupport) 
       MezzanineSupport.freestanding => pText.mezzanineFreestanding,
     };
 
-/// Structure d'une mezzanine : solives, lambourdes, poutres, poteaux et quincaillerie.
+/// Mezzanine : structure, plancher et garde-corps.
 class MezzanineCalculator extends StatefulWidget {
   const MezzanineCalculator({super.key});
 
@@ -28,6 +30,8 @@ class MezzanineCalculator extends StatefulWidget {
 
 class _MezzanineCalculatorState extends State<MezzanineCalculator> {
   var _mezzanine = const Mezzanine();
+  var _panel = FloorPanel.osb3;
+  var _stairOpeningMm = 700;
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +110,12 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
             ),
           ),
           const SizedBox(height: 12),
+          MezzanineFloorCard(
+            mezzanine: _mezzanine,
+            panel: _panel,
+            stairOpeningMm: _stairOpeningMm,
+          ),
+          const SizedBox(height: 12),
           DropdownButtonFormField<MezzanineSupport>(
             initialValue: _mezzanine.support,
             decoration: InputDecoration(labelText: vText.mezzanineSupport),
@@ -159,6 +169,21 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
               parse: parseCentimetres,
               onValue: (pValue) => vSet(vApply(pValue)),
             ),
+          DropdownButtonFormField<FloorPanel>(
+            initialValue: _panel,
+            decoration: InputDecoration(labelText: vText.floorPanel),
+            items: [
+              for (final vPanel in FloorPanel.values)
+                DropdownMenuItem(value: vPanel, child: Text(floorPanelLabel(vText, vPanel))),
+            ],
+            onChanged: (pPanel) => setState(() => _panel = pPanel ?? _panel),
+          ),
+          NumberField(
+            label: vText.guardrailStairOpening,
+            initial: formatCentimetres(_stairOpeningMm),
+            parse: parseCentimetres,
+            onValue: (pValue) => setState(() => _stairOpeningMm = pValue),
+          ),
         ],
       ),
     );
