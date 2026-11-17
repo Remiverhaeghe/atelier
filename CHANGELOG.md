@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Mezzanine en 3D
+- Vue 3D de la maison : une mezzanine posée sur le plan apparaît à la hauteur de son plancher, avec ses chants et un poteau à chaque angle
+
 ### Mezzanine dans une pièce haute
 - Hauteur sous plafond de la pièce : plancher placé au plus bas qui laisse 2,20 m sous la poutre, hauteur restante au-dessus (habitable dès 1,80 m, debout à 2,20 m), poteaux ramenés à la bonne hauteur d'un bouton, escalier ouvert à la hauteur du plancher
 
