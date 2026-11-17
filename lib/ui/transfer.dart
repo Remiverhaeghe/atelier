@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/data_format.dart';
 import '../logic/dxf.dart';
+import '../logic/encrypted_backup.dart';
 import '../logic/gltf.dart';
 import '../logic/home_assistant.dart';
 import '../logic/house.dart';
@@ -16,6 +17,7 @@ import '../logic/house_export.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import '../storage/worksite_store.dart';
+import 'encrypted_transfer.dart';
 
 /// Envoie le chantier dans un fichier JSON, pour une sauvegarde ou un autre téléphone.
 Future<void> exportWorksite(Worksite pWorksite) async {
@@ -83,7 +85,18 @@ Future<void> importWorksites(BuildContext pContext, WorksitesController pControl
   }
   final vBytes = await vFile.readAsBytes();
   try {
-    final vWorksites = WorksiteStore.decode(utf8.decode(vBytes));
+    var vContent = utf8.decode(vBytes);
+    if (isEncryptedBackup(vContent)) {
+      if (!pContext.mounted) {
+        return;
+      }
+      final vPassword = await askBackupPassword(pContext);
+      if (vPassword == null) {
+        return;
+      }
+      vContent = await decryptBackup(vContent, vPassword);
+    }
+    final vWorksites = WorksiteStore.decode(vContent);
     if (pController.sharesWorksite(vWorksites) && pContext.mounted) {
       final vMerge = await askMerge(pContext);
       if (vMerge == null) {
@@ -98,6 +111,8 @@ Future<void> importWorksites(BuildContext pContext, WorksitesController pControl
     }
     final vCount = await pController.importWorksites(vWorksites);
     vMessenger.showSnackBar(SnackBar(content: Text(vText.importDone(vCount))));
+  } on WrongPasswordException {
+    vMessenger.showSnackBar(SnackBar(content: Text(vText.backupPasswordWrong)));
   } on NewerFormatException {
     vMessenger.showSnackBar(SnackBar(content: Text(vText.importNewer)));
   } on FormatException {
