@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Tests de mutation
+- `tool/mutation.py` glisse une erreur à la fois dans `lib/logic` (comparaison, opérateur, arrondi) et vérifie qu'un test la voit ; workflow à la demande et chaque lundi, score minimal de 70 %
+
 ### CI
 - Tests sur émulateur : dépendances Gradle et émulateur gardés en cache, avec son instantané, pour un passage plus court et moins d'échecs réseau
 
