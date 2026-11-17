@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Trémie et chevêtre
+- Mezzanine : trémie d'escalier dans le plancher, avec solives coupées, longueur des solives boiteuses, chevêtre et solives d'enchevêtrure doublés dimensionnés comme les solives, sabots ; trémie trop longue signalée
+
 ### Débit des bois de la mezzanine
 - Mezzanine : longueurs du commerce à acheter (3 à 6 m) choisies pour le moins de bois, coupes à faire, trait de scie compris ; poutre en lamellé-collé commandée à la longueur, pièces de plus de 6 m signalées
 
