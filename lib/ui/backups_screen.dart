@@ -59,11 +59,8 @@ class _BackupsScreenState extends State<BackupsScreen> {
           IconButton(
             tooltip: vText.encryptedBackupSend,
             icon: const Icon(Icons.lock_outline),
-            onPressed: () => exportEncryptedBackup(
-              context,
-              widget.controller.worksites,
-              DateTime.now(),
-            ),
+            onPressed: () =>
+                exportEncryptedBackup(context, widget.controller.worksites, DateTime.now()),
           ),
         ],
       ),

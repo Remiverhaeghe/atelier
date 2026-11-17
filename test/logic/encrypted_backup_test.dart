@@ -20,7 +20,10 @@ void main() {
   test('mauvais mot de passe ou fichier abîmé : refusé', () async {
     final vEnvelope = await encryptBackup(vClear, vPassword, pIterations: 1000, pRandom: Random(7));
     final vJson = jsonDecode(vEnvelope) as Map<String, Object?>;
-    final vBroken = jsonEncode({...vJson, 'data': base64Encode([1, 2, 3])});
+    final vBroken = jsonEncode({
+      ...vJson,
+      'data': base64Encode([1, 2, 3]),
+    });
     final vData = base64Decode(vJson['data']! as String)..[0] ^= 1;
     final vTampered = jsonEncode({...vJson, 'data': base64Encode(vData)});
 
