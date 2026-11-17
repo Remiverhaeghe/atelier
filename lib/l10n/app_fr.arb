@@ -2505,5 +2505,19 @@
   "timberTooLong": "{count, plural, =1{1 pièce plus longue} other{{count} pièces plus longues}} que 6 m : à commander sur mesure",
   "@timberTooLong": {"placeholders": {"count": {"type": "int"}}},
   "timberBeam": "{count, plural, =1{1 poutre} other{{count} poutres}} en lamellé-collé de {length} cm, commandée à la longueur",
-  "@timberBeam": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}}
+  "@timberBeam": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}},
+  "stairwellTitle": "Trémie d'escalier",
+  "stairwellHint": "Donne la largeur et la longueur de l'ouverture pour l'escalier : l'appli calcule les solives coupées et leurs renforts.",
+  "stairwellWidth": "Trémie : largeur, en travers des solives (cm)",
+  "stairwellLength": "Trémie : longueur, dans le sens des solives (cm)",
+  "stairwellCut": "{count, plural, =0{Aucune solive coupée} =1{1 solive coupée} other{{count} solives coupées}} : solives boiteuses de {length} cm, du chevêtre à l'appui",
+  "@stairwellCut": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}},
+  "stairwellHeader": "Chevêtre doublé : deux bois de {width} × {height} mm cloués ensemble",
+  "@stairwellHeader": {"placeholders": {"width": {"type": "int"}, "height": {"type": "int"}}},
+  "stairwellTrimmers": "Solives d'enchevêtrure doublées de chaque côté : deux bois de {width} × {height} mm",
+  "@stairwellTrimmers": {"placeholders": {"width": {"type": "int"}, "height": {"type": "int"}}},
+  "stairwellHangers": "{count} sabots : deux pour le chevêtre, un par solive boiteuse",
+  "@stairwellHangers": {"placeholders": {"count": {"type": "int"}}},
+  "stairwellTooLong": "La trémie est aussi longue que la portée : elle coupe le plancher en deux. Raccourcis-la, ou fais porter son bord par une poutre.",
+  "stairwellNoSection": "Aucune section du commerce ne suffit, même doublée : à faire calculer."
 }
