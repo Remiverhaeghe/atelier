@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Chauffer un grand volume
+- Nouveau calcul pour les grandes hauteurs : puissance par le volume, pertes de l'air chaud sous le plafond, radiateurs, poêle de puissance courante, nombre et diamètre des brasseurs d'air, conseil rayonnement ou convection
+
 ### Échafaudage roulant
 - Carte dans « Travail en hauteur » : hauteur du plancher pour atteindre un plafond, nombre d'éléments, garde-corps, stabilisateurs selon la base et le vent, limite au-delà de laquelle on fait appel à un professionnel
 

@@ -2724,5 +2724,18 @@
   "towerStabilisers": "Stabilisateurs obligatoires à cette hauteur pour cette base",
   "towerNoStabilisers": "Stable sans stabilisateurs si le sol est plan et dur",
   "towerTooHigh": "Trop haut pour un montage soi-même : fais monter l'échafaudage par un professionnel.",
-  "towerRules": "Roues freinées avant de monter, jamais déplacé avec quelqu'un dessus, montée par l'intérieur, plancher posé au fur et à mesure. Échafaudage loué : vérifie la notice et la date du dernier contrôle."
+  "towerRules": "Roues freinées avant de monter, jamais déplacé avec quelqu'un dessus, montée par l'intérieur, plancher posé au fur et à mesure. Échafaudage loué : vérifie la notice et la date du dernier contrôle.",
+  "largeHeatTitle": "Chauffer un grand volume",
+  "largeHeatHelp": "Grande hauteur, séjour cathédrale, atelier : puissance, brasseurs et poêle.",
+  "largeHeatStratification": "dont {watts} W perdus par l'air chaud qui stagne sous le plafond",
+  "@largeHeatStratification": {"placeholders": {"watts": {"type": "int"}}},
+  "largeHeatStove": "Ou un poêle de {kw} kW nominal",
+  "@largeHeatStove": {"placeholders": {"kw": {"type": "int"}}},
+  "largeHeatFans": "{count, plural, =1{1 brasseur d'air} other{{count} brasseurs d'air}} de {diameter} cm, en hiver dans le sens qui renvoie l'air vers le bas",
+  "@largeHeatFans": {"placeholders": {"count": {"type": "int"}, "diameter": {"type": "String"}}},
+  "largeHeatRadiant": "Sous cette hauteur, préfère ce qui rayonne : poêle, panneaux rayonnants, plancher chauffant. Les convecteurs chaufferaient surtout le plafond.",
+  "largeHeatConvection": "Radiateurs classiques possibles à cette hauteur",
+  "largeRoomLength": "Longueur (cm)",
+  "largeRoomWidth": "Largeur (cm)",
+  "largeRoomHeight": "Hauteur moyenne sous plafond (cm)"
 }
