@@ -38,30 +38,6 @@ class ShelfLoadField extends StatelessWidget {
       onChanged: (pLoad) => onChanged(pLoad ?? load),
     );
   }
-
-  List<ExtraItem> _shopping(AppLocalizations pText, JointAdvice pJoint) {
-    final vPlan = planShelf(design);
-    final vShelves = design.shelves < 2 ? 2 : design.shelves;
-    final rItems = [
-      ExtraItem(
-        name: pText.extraShelfBoards(
-          shelfMaterialLabel(pText, design.material),
-          design.thicknessMm,
-        ),
-        quantity: vPlan.boards,
-      ),
-      ExtraItem(
-        name: switch (pJoint.joint) {
-          ShelfJoint.dowels => pText.extraDowels(pJoint.diameterMm, pJoint.lengthMm),
-          ShelfJoint.confirmatScrews => pText.extraConfirmat,
-          ShelfJoint.shelfPins => pText.extraPins,
-        },
-        quantity: vShelves * 2 * pJoint.perEnd,
-      ),
-    ];
-
-    return rItems;
-  }
 }
 
 /// Assemblage et solidité d'une étagère : épaisseur selon la charge, tablettes, mur, fond.
@@ -150,5 +126,29 @@ class ShelfJoineryCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<ExtraItem> _shopping(AppLocalizations pText, JointAdvice pJoint) {
+    final vPlan = planShelf(design);
+    final vShelves = design.shelves < 2 ? 2 : design.shelves;
+    final rItems = [
+      ExtraItem(
+        name: pText.extraShelfBoards(
+          shelfMaterialLabel(pText, design.material),
+          design.thicknessMm,
+        ),
+        quantity: vPlan.boards,
+      ),
+      ExtraItem(
+        name: switch (pJoint.joint) {
+          ShelfJoint.dowels => pText.extraDowels(pJoint.diameterMm, pJoint.lengthMm),
+          ShelfJoint.confirmatScrews => pText.extraConfirmat,
+          ShelfJoint.shelfPins => pText.extraPins,
+        },
+        quantity: vShelves * 2 * pJoint.perEnd,
+      ),
+    ];
+
+    return rItems;
   }
 }
