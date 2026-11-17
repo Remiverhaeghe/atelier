@@ -2185,5 +2185,14 @@
   "copyRoomName": "{name} (copie)",
   "@copyRoomName": {"placeholders": {"name": {"type": "String"}}},
   "copyRoomDone": "{name} ajoutée au chantier",
-  "@copyRoomDone": {"placeholders": {"name": {"type": "String"}}}
+  "@copyRoomDone": {"placeholders": {"name": {"type": "String"}}},
+  "loanTitle": "Outils prêtés",
+  "loanMenu": "Prêts",
+  "loanAdd": "Prêter un outil",
+  "loanTool": "Outil",
+  "loanPerson": "Prêté à",
+  "loanEmpty": "Aucun outil prêté. Notez ici ce que vous prêtez pour penser à le récupérer.",
+  "loanSince": "{person}, {days, plural, =0{aujourd'hui} =1{depuis 1 jour} other{depuis {days} jours}}",
+  "@loanSince": {"placeholders": {"person": {"type": "String"}, "days": {"type": "int"}}},
+  "loanReturned": "Rendu"
 }
