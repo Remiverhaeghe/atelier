@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Ce que porte un plancher
+- Nouveau calcul : charge que tient un plancher existant d'après ses solives mesurées, comparée à une chambre, une baignoire, une bibliothèque, un poêle ; effet des renforts (solives doublées, solive de plus entre chaque, poutre au milieu)
+
 ### Garde-corps d'escalier
 - Escalier : garde-corps et main courante selon les côtés dans le vide (aucun, un, deux) ; longueur en pente, poteaux, barreaux et mains courantes, règles de la norme NF P01-012
 
