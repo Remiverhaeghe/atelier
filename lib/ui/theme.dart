@@ -135,8 +135,9 @@ ThemeData atelierTheme(Brightness pBrightness) {
   );
 
   return vBase.copyWith(
-    // Cibles tactiles larges : l'application s'utilise sur un chantier, parfois avec des gants
-    visualDensity: VisualDensity.comfortable,
+    // Densité standard : cibles de 48 dp, utiles avec des gants sur un chantier. « comfortable »
+    // les ramène à 44 dp, sous le minimum d'Android.
+    visualDensity: VisualDensity.standard,
     extensions: [vColors],
     scaffoldBackgroundColor: vScheme.surface,
     textTheme: vText.copyWith(

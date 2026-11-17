@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Accessibilité
+- Tests des règles d'accessibilité sur l'accueil, le chantier et les calculs : boutons nommés pour TalkBack, cibles de 48 dp au moins, contraste du texte
+
 ### Tests de mutation
 - `tool/mutation.py` glisse une erreur à la fois dans `lib/logic` (comparaison, opérateur, arrondi) et vérifie qu'un test la voit ; workflow à la demande et chaque lundi, score minimal de 70 %
 
