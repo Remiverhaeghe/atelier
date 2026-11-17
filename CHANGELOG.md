@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Laine soufflée
+- Nouveau calcul : épaisseur à souffler en combles pour la résistance visée (R = 7 par défaut), tassement compris, sacs et piges de repère, pour la laine de verre, de roche ou la ouate de cellulose
+
 ### Gouttières
 - Nouveau calcul : descentes et diamètre selon la surface du pan en plan, pente de 5 mm par mètre, crochets
 
