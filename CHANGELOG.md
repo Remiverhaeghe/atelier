@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Pergola ou auvent
+- Nouveau calcul : pergola adossée ou indépendante, couverture (ouverte, polycarbonate, bac acier, tuiles) et région de neige ; chevrons, poutres et poteaux dimensionnés comme la mezzanine, plots en béton, rappel du vent qui soulève une couverture pleine
+
 ### Mezzanine en 3D
 - Vue 3D de la maison : une mezzanine posée sur le plan apparaît à la hauteur de son plancher, avec ses chants et un poteau à chaque angle
 
