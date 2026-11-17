@@ -3,11 +3,13 @@ import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/aisles.dart';
 import '../logic/inventory.dart';
 import '../logic/shopping.dart';
 import '../state/worksites_controller.dart';
 import 'budget_schedule_card.dart';
 import 'delivery_card.dart';
+import 'aisle_label.dart';
 import 'expenses_section.dart';
 import 'extra_items_card.dart';
 import 'guide_view.dart';
@@ -148,15 +150,20 @@ class ShoppingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    for (final vGroup in groupByStore(vLines, vWorksite.stores)) ...[
-                      if (vGroup.store.isNotEmpty || vWorksite.stores.isNotEmpty)
-                        ListTile(
-                          leading: const Icon(Icons.storefront_outlined),
-                          title: Text(
-                            vGroup.store.isEmpty ? vText.noStore : vGroup.store,
-                            style: Theme.of(pContext).textTheme.titleMedium,
-                          ),
+                    for (final vGroup in groupByAisle(vLines, vWorksite.stores)) ...[
+                      ListTile(
+                        leading: Icon(
+                          vGroup.aisle == null
+                              ? Icons.storefront_outlined
+                              : Icons.signpost_outlined,
                         ),
+                        title: Text(
+                          vGroup.aisle == null
+                              ? vGroup.store
+                              : aisleLabel(vText, vGroup.aisle!),
+                          style: Theme.of(pContext).textTheme.titleMedium,
+                        ),
+                      ),
                       for (final vLine in vGroup.lines)
                         ShoppingLineCard(
                           line: vLine,

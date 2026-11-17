@@ -30,7 +30,8 @@ void main() {
     await pTester.testTextInput.receiveAction(TextInputAction.done);
     await pTester.pumpAndSettle();
     expect(vStorage.saved.single.stores, {'parquetPacks': 'Négoce bois'});
-    expect(find.text('Sans magasin'), findsOneWidget);
+    // Les articles sans magasin se rangent par rayon conseillé
+    expect(find.text('Rayon sols'), findsOneWidget);
 
     await pTester.enterText(
       find.widgetWithText(TextField, 'Référence qui convient').first,
