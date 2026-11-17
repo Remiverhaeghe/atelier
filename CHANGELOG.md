@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Tiroirs et charnières
+- Armoire : compartiment à tiroirs, avec façades, caissons (côtés, avant et arrière, fond) et coulisses à billes de la plus grande longueur qui tient ; une porte seulement sur les autres compartiments
+- Position de chaque charnière sur la porte, à 10 cm des bords et régulièrement entre, cuvette de 35 mm à 22 mm du bord
+
 ### Étagère en niche ou sous rampant
 - Nouveau calcul : tablettes sur tasseaux dans une niche (longueur avec jeu, tasseaux, vis) ou meuble sous un rampant de combles (montants coupés à l'angle de la pente, profondeur de chaque tablette)
 
