@@ -10,8 +10,7 @@ void main() {
   ) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Fenêtre de toit'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Fenêtre de toit');
     await pTester.tap(find.text('Fenêtre de toit'));
     await pTester.pumpAndSettle();
 
