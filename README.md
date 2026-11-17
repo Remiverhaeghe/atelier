@@ -73,6 +73,8 @@ Les parcours de `integration_test/` tournent sur un vrai Android : `flutter test
 
 Les règles de calcul vivent dans `lib/logic/`, sans dépendance à Flutter, et la CI exige qu'elles soient couvertes à 95 %.
 
+Tests de mutation sur `lib/logic` : `python3 tool/mutation.py --max 60` (workflow « Tests de mutation », à la demande et chaque lundi). Le score doit rester au-dessus de 70 %.
+
 ## Organisation
 
 | Dossier | Rôle |

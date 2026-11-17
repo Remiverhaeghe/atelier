@@ -1,0 +1,46 @@
+name: Tests de mutation
+
+# Erreurs glissées dans lib/logic une à une : un mutant qui survit montre un calcul que les
+# tests ne contrôlent pas. Long, donc à la demande et une fois par semaine, pas à chaque PR.
+on:
+  workflow_dispatch:
+    inputs:
+      mutants:
+        description: Nombre de mutants essayés
+        default: "80"
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  mutation:
+    name: Score de mutation
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: 3.47.7
+          cache: true
+
+      - name: Dépendances
+        run: |
+          flutter pub get
+          flutter gen-l10n
+
+      # La graine change chaque semaine : les mutants essayés tournent sur tout lib/logic
+      - name: Mutants
+        run: |
+          python3 tool/mutation.py --max "${{ github.event.inputs.mutants || '80' }}" \
+            --seed "$(date +%V)" --min-score 70 | tee mutation.txt
+          {
+            echo '```'
+            tail -n 40 mutation.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
