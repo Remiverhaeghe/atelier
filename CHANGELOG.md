@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Dupliquer une pièce
+- Une pièce se duplique à l'identique ou en miroir (murs dans l'ordre inverse, ouvertures recomptées depuis l'autre bout), avancement remis à zéro ; le miroir ne reprend pas ce qui est placé par coordonnées
+
 ### Nouveautés
 - Après une mise à jour, une fenêtre présente les nouveautés une seule fois ; rien à la première installation
 

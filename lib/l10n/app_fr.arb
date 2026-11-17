@@ -2178,5 +2178,12 @@
   "nightOff": "Quitter le mode nuit",
   "newsTitle": "Nouveau dans Atelier",
   "newsLines": "• Accueil en tuiles, recherche dans toute l'appli et widget d'écran d'accueil\n• Attentes avec notification, humidité de la chape avant la pose\n• Nouveaux calculs : cuisine, douche, isolation phonique, façade et clôture, gravats\n• Mode chantier : commandes vocales et mode nuit\n• Courses : tickets reliés aux achats, livraison vérifiée, échéancier du budget",
-  "newsOk": "C'est parti"
+  "newsOk": "C'est parti",
+  "copyRoomMenu": "Copier la pièce",
+  "copyRoomSame": "Dupliquer la pièce",
+  "copyRoomMirror": "Dupliquer en miroir",
+  "copyRoomName": "{name} (copie)",
+  "@copyRoomName": {"placeholders": {"name": {"type": "String"}}},
+  "copyRoomDone": "{name} ajoutée au chantier",
+  "@copyRoomDone": {"placeholders": {"name": {"type": "String"}}}
 }
