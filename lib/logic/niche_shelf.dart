@@ -13,13 +13,7 @@ const cleatSetbackMm = 20;
 /// Une vis tous les 25 cm, au moins deux par tasseau.
 int cleatScrews(int pLengthMm) => math.max(2, (pLengthMm / 250).ceil() + 1);
 
-typedef NichePlan = ({
-  int shelfLengthMm,
-  int backCleatMm,
-  int sideCleatMm,
-  int cleats,
-  int screws,
-});
+typedef NichePlan = ({int shelfLengthMm, int backCleatMm, int sideCleatMm, int cleats, int screws});
 
 /// [pShelves] tablettes dans une niche de [pWidthMm] sur [pDepthMm], chacune sur trois
 /// tasseaux : un au fond, un de chaque côté.
