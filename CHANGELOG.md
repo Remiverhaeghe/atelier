@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Papier peint
+- Nouveau calcul : lés par rouleau selon la hauteur et le raccord du motif, rouleaux et colle, murs repris d'une pièce ouvertures déduites ; prévient quand les murs dépassent la longueur d'un rouleau
+
 ### Sol souple et moquette
 - Nouveau calcul : lés selon la largeur du rouleau et le raccord du motif, sens de pose qui économise le plus, joints, colle ; dimensions reprises d'une pièce
 
