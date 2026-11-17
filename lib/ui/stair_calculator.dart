@@ -7,6 +7,7 @@ import '../logic/stair_design.dart';
 import '../logic/turning_stair.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
+import 'stair_railing_card.dart';
 import 'theme.dart';
 import 'turning_stair_card.dart';
 
@@ -26,6 +27,7 @@ class _StairCalculatorState extends State<StairCalculator> {
   int _width = 800;
   int? _tremie;
   var _shape = StairShape.straight;
+  var _openSides = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,13 @@ class _StairCalculatorState extends State<StairCalculator> {
             widthMm: _width,
             shape: _shape,
             onShape: (pShape) => setState(() => _shape = pShape),
+          ),
+          const SizedBox(height: 12),
+          StairRailingCard(
+            design: vDesign,
+            riseMm: _rise,
+            openSides: _openSides,
+            onOpenSides: (pSides) => setState(() => _openSides = pSides),
           ),
           const SizedBox(height: 12),
           NumberField<int>(
