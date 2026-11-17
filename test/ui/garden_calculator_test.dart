@@ -8,8 +8,7 @@ void main() {
   testWidgets('jardin : les quantités suivent les surfaces', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Jardin'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Jardin');
     await pTester.tap(find.text('Jardin'));
     await pTester.pumpAndSettle();
     expect(find.text('Pas de semences'), findsOneWidget);

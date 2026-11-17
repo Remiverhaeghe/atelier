@@ -36,3 +36,14 @@ void tallScreen(WidgetTester pTester) {
   pTester.view.devicePixelRatio = 1;
   addTearDown(pTester.view.reset);
 }
+
+/// Fait défiler la grille des calculs jusqu'à la tuile [pTitle] : la grille ne construit que les
+/// tuiles proches de l'écran, et elle s'allonge à chaque nouveau calcul.
+Future<void> scrollToTile(WidgetTester pTester, String pTitle) async {
+  await pTester.scrollUntilVisible(
+    find.text(pTitle),
+    400,
+    scrollable: find.descendant(of: find.byType(GridView), matching: find.byType(Scrollable)).first,
+  );
+  await pTester.pumpAndSettle();
+}

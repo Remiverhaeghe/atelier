@@ -10,8 +10,7 @@ void main() {
   ) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Étagère sur mesure'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Étagère sur mesure');
     await pTester.tap(find.text('Étagère sur mesure'));
     await pTester.pumpAndSettle();
 
@@ -27,8 +26,7 @@ void main() {
   testWidgets('étagère : épaisseur selon la charge, assemblage et tenue au mur', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Étagère sur mesure'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Étagère sur mesure');
     await pTester.tap(find.text('Étagère sur mesure'));
     await pTester.pumpAndSettle();
 
