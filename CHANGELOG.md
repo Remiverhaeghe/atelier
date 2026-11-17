@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Gabarit de perçage
+- Étagère : gabarit à imprimer à l'échelle 1 pour les tourillons, les vis d'assemblage ou les taquets (système 32 mm), avec une règle de contrôle de 10 cm
+
 ### Pergola ou auvent
 - Nouveau calcul : pergola adossée ou indépendante, couverture (ouverte, polycarbonate, bac acier, tuiles) et région de neige ; chevrons, poutres et poteaux dimensionnés comme la mezzanine, plots en béton, rappel du vent qui soulève une couverture pleine
 
