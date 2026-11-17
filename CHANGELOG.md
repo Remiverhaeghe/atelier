@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Modèles de chantier
+- Dans les reprises, « Ajouter un modèle » ajoute d'un coup les étapes types d'un rafraîchissement, d'une salle de bain ou d'un changement de sol, avec leurs passages, sans doubler celles déjà notées
+
 ### Garanties
 - Nouvelle tuile Garanties : conformité, parfait achèvement, biennale, décennale ou garantie du fabricant, date de fin, et celles qui finissent dans moins de deux mois en tête
 
