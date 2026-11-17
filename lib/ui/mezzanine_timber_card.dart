@@ -97,7 +97,11 @@ class MezzanineTimberCard extends StatelessWidget {
         ),
       if (vBeam != null && plan.beams > 0)
         ExtraItem(
-          name: pText.extraBeam(vBeam.widthMm, vBeam.heightMm, formatCentimetres(mezzanine.lengthMm)),
+          name: pText.extraBeam(
+            vBeam.widthMm,
+            vBeam.heightMm,
+            formatCentimetres(mezzanine.lengthMm),
+          ),
           quantity: plan.beams,
         ),
       ExtraItem(name: pText.extraHangers, quantity: plan.hangers),

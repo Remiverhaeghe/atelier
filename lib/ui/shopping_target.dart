@@ -64,9 +64,9 @@ class AddToShoppingButton extends StatelessWidget {
           final vItems = items();
           await vTarget.add(vWorksite.id, vItems);
           if (context.mounted) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(vText.addedToShopping(vItems.length, vWorksite.name))));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(vText.addedToShopping(vItems.length, vWorksite.name))),
+            );
           }
         },
       ),

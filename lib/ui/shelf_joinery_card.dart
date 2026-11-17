@@ -44,7 +44,10 @@ class ShelfLoadField extends StatelessWidget {
     final vShelves = design.shelves < 2 ? 2 : design.shelves;
     final rItems = [
       ExtraItem(
-        name: pText.extraShelfBoards(shelfMaterialLabel(pText, design.material), design.thicknessMm),
+        name: pText.extraShelfBoards(
+          shelfMaterialLabel(pText, design.material),
+          design.thicknessMm,
+        ),
         quantity: vPlan.boards,
       ),
       ExtraItem(

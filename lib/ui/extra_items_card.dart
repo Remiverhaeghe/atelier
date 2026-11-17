@@ -31,9 +31,8 @@ class ExtraItemsCard extends StatelessWidget {
               trailing: IconButton(
                 tooltip: vText.extrasRemove,
                 icon: const Icon(Icons.delete_outline),
-                onPressed: () => onChanged(
-                  worksite.copyWith(extras: [...worksite.extras]..removeAt(vIndex)),
-                ),
+                onPressed: () =>
+                    onChanged(worksite.copyWith(extras: [...worksite.extras]..removeAt(vIndex))),
               ),
             ),
         ],
