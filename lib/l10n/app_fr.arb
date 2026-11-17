@@ -2652,5 +2652,15 @@
   "@slopeSides": {"placeholders": {"back": {"type": "String"}, "front": {"type": "String"}, "angle": {"type": "int"}}},
   "slopeShelf": "Tablette à {height} cm du sol : {depth} cm de profondeur",
   "@slopeShelf": {"placeholders": {"height": {"type": "String"}, "depth": {"type": "String"}}},
-  "slopeHint": "La pente se mesure avec l'application de mesure d'angle ou un niveau et un mètre. Au-dessus du mur de genou, les tablettes reculent sous le rampant : coupe leur chant arrière au même angle."
+  "slopeHint": "La pente se mesure avec l'application de mesure d'angle ou un niveau et un mètre. Au-dessus du mur de genou, les tablettes reculent sous le rampant : coupe leur chant arrière au même angle.",
+  "compartmentDrawers": "Tiroirs",
+  "partDrawerFront": "façade de tiroir",
+  "partDrawerSide": "côté de tiroir",
+  "partDrawerEnd": "avant ou arrière de tiroir",
+  "partDrawerBottom": "fond de tiroir (8 mm)",
+  "partSlide": "coulisse",
+  "drawerSlides": "{count, plural, =1{1 paire} other{{count} paires}} de coulisses à billes de {length} cm, 12,5 mm de jeu de chaque côté du tiroir",
+  "@drawerSlides": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}},
+  "hingePositions": "Charnières à {positions} cm du haut de chaque porte : cuvette de 35 mm, à 22 mm du bord",
+  "@hingePositions": {"placeholders": {"positions": {"type": "String"}}}
 }

@@ -49,4 +49,54 @@ void main() {
       isNot(contains(shelfPart)),
     );
   });
+
+  test('commode à tiroirs : façades, caissons et coulisses', () {
+    final vPlan = planWardrobe(
+      const WardrobeDesign(
+        widthMm: 800,
+        heightMm: 900,
+        depthMm: 500,
+        doors: false,
+        compartments: [Compartment(kind: CompartmentKind.drawers, shelves: 3)],
+      ),
+    );
+
+    expect(vPlan.drawers, 3);
+    expect(vPlan.doorCount, 0);
+    expect(
+      vPlan.parts.where((pPart) => pPart.name.startsWith('drawer') || pPart.name == slidePart),
+      [
+        (name: drawerFrontPart, count: 3, lengthMm: 779, widthMm: 296),
+        (name: drawerSidePart, count: 6, lengthMm: 450, widthMm: 256),
+        (name: drawerEndPart, count: 6, lengthMm: 702, widthMm: 256),
+        (name: drawerBottomPart, count: 3, lengthMm: 738, widthMm: 450),
+        (name: slidePart, count: 3, lengthMm: 450, widthMm: 0),
+      ],
+    );
+  });
+
+  test('penderie et tiroirs : une seule porte, sur la penderie', () {
+    final vPlan = planWardrobe(
+      const WardrobeDesign(
+        compartments: [
+          Compartment(kind: CompartmentKind.hanging),
+          Compartment(kind: CompartmentKind.drawers, shelves: 4),
+        ],
+      ),
+    );
+
+    expect(vPlan.doorCount, 1);
+    expect(vPlan.parts.firstWhere((pPart) => pPart.name == doorPart).widthMm, 588);
+    expect(vPlan.drawers, 4);
+  });
+
+  test('charnières : à 10 cm des bords, les autres régulièrement entre', () {
+    expect(hingePositions(2194), [100, 598, 1097, 1595, 2094]);
+    expect(hingePositions(700), [100, 600]);
+  });
+
+  test('coulisse : la plus longue qui tient, la plus courte sinon', () {
+    expect(slideLengthFor(580), 550);
+    expect(slideLengthFor(200), 250);
+  });
 }
