@@ -2222,5 +2222,7 @@
   "weatherRainAfter": "pluie juste après",
   "weatherFrostAfter": "gel dans les jours qui suivent",
   "weatherWind": "trop de vent",
-  "outdoorHint": "Limites courantes ; la fiche technique du produit prime. Le béton et l'enduit craignent le gel pendant leur prise, la peinture la pluie avant d'être sèche. Sur un toit, pas de travail par vent fort ni sur une couverture mouillée."
+  "outdoorHint": "Limites courantes ; la fiche technique du produit prime. Le béton et l'enduit craignent le gel pendant leur prise, la peinture la pluie avant d'être sèche. Sur un toit, pas de travail par vent fort ni sur une couverture mouillée.",
+  "planningOrder": "{room} : « {done} » est fait alors qu'il reste à « {pending} ». Protégez ce qui est fini avant d'y revenir.",
+  "@planningOrder": {"placeholders": {"room": {"type": "String"}, "done": {"type": "String"}, "pending": {"type": "String"}}}
 }
