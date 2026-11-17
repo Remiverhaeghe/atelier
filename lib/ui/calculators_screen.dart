@@ -20,6 +20,7 @@ import 'kitchen_calculator.dart';
 import '../logic/extra_items.dart';
 import '../logic/worksite.dart';
 import 'floor_capacity_calculator.dart';
+import 'height_work_screen.dart';
 import 'mezzanine_calculator.dart';
 import 'niche_shelf_calculator.dart';
 import 'outdoor_weather_calculator.dart';
@@ -97,6 +98,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.pergolaHelp,
       icon: Icons.deck_outlined,
       builder: (_) => const PergolaCalculator(),
+    ),
+    (
+      title: pText.heightWorkTitle,
+      help: pText.heightWorkHelp,
+      icon: Icons.engineering_outlined,
+      builder: (_) => const HeightWorkScreen(),
     ),
     (
       title: pText.floorCapacityTitle,
