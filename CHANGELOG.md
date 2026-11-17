@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Mesure par photo
+- Nouveau calcul : sur une photo prise de face, le grand côté d'une carte au format bancaire posée à plat donne l'échelle, puis deux points donnent la longueur
+
 ### Fiche Play Store
 - Descriptions courte et longue de la fiche à jour dans `docs/play-store/description.md`, longueurs vérifiées par un test ; liste de publication complétée pour les permissions et le micro
 

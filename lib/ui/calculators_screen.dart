@@ -18,6 +18,7 @@ import 'fixings_calculator.dart';
 import 'gutter_calculator.dart';
 import 'kitchen_calculator.dart';
 import 'outdoor_weather_calculator.dart';
+import 'photo_measure_screen.dart';
 import 'sheet_flooring_calculator.dart';
 import 'shower_calculator.dart';
 import 'wallpaper_calculator.dart';
@@ -151,6 +152,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.concreteHelp,
       icon: Icons.foundation,
       builder: (_) => const ConcreteCalculator(),
+    ),
+    (
+      title: pText.photoMeasureTitle,
+      help: pText.photoMeasureHelp,
+      icon: Icons.credit_card,
+      builder: (_) => const PhotoMeasureScreen(),
     ),
     (
       title: pText.wallpaperTitle,
