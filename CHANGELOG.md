@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Structure de mezzanine
+- Nouveau calcul : mezzanine contre un mur, entre deux murs ou indépendante. Solives en C24 et poutre en lamellé-collé choisies par la flexion et une flèche limitée à 1/300, poteaux vérifiés au flambement, un poteau de plus au-delà de 4 m, lambourde et chevilles au mur, sabots, contreventement. Présenté comme un prédimensionnement à faire valider
+
 ### Assemblages d'étagère
 - Étagère : épaisseur conseillée selon ce qu'elle porte (objets légers, livres, lourd), ou montant au milieu quand aucune ne suffit
 - Assemblage des tablettes selon le panneau : vis d'assemblage dans l'aggloméré et le MDF, tourillons collés dans le bois avec diamètres et profondeurs de perçage, taquets pour des tablettes réglables
