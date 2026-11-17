@@ -5,6 +5,7 @@ import '../logic/mezzanine.dart';
 import '../logic/mezzanine_floor.dart';
 import '../logic/units.dart';
 import 'mezzanine_floor_card.dart';
+import 'mezzanine_timber_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
 
@@ -109,6 +110,8 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
               ),
             ),
           ),
+          const SizedBox(height: 12),
+          MezzanineTimberCard(mezzanine: _mezzanine, plan: vPlan),
           const SizedBox(height: 12),
           MezzanineFloorCard(mezzanine: _mezzanine, panel: _panel, stairOpeningMm: _stairOpeningMm),
           const SizedBox(height: 12),

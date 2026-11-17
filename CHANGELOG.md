@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Débit des bois de la mezzanine
+- Mezzanine : longueurs du commerce à acheter (3 à 6 m) choisies pour le moins de bois, coupes à faire, trait de scie compris ; poutre en lamellé-collé commandée à la longueur, pièces de plus de 6 m signalées
+
 ### Plancher et garde-corps de mezzanine
 - Mezzanine : plancher en OSB/3 ou aggloméré P5 rainuré, épaisseur selon l'entraxe des solives, panneaux chutes comprises, vis, colle et conseils de pose
 - Garde-corps selon la norme NF P01-012 : bord dans le vide selon l'appui, accès à l'escalier déduit, poteaux, barreaux verticaux, main courante et lisse basse

@@ -16,6 +16,8 @@ void main() {
     expect(find.textContaining('1 poutre en lamellé-collé de 90 × 225 mm'), findsOneWidget);
     expect(find.textContaining('2 poteaux de 100 × 100 mm'), findsOneWidget);
     expect(find.textContaining('18 sabots'), findsOneWidget);
+    expect(find.text('6 bois de 45 × 145 mm en 450 cm'), findsOneWidget);
+    expect(find.text('À couper : 1 × 300 cm, 9 × 200 cm'), findsOneWidget);
     expect(find.textContaining('4 panneaux de 18 mm'), findsOneWidget);
     expect(find.textContaining('630 cm de bord dans le vide, 7 poteaux'), findsOneWidget);
     expect(find.textContaining('42 barreaux verticaux'), findsOneWidget);
