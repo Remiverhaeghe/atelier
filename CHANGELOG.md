@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Échafaudage roulant
+- Carte dans « Travail en hauteur » : hauteur du plancher pour atteindre un plafond, nombre d'éléments, garde-corps, stabilisateurs selon la base et le vent, limite au-delà de laquelle on fait appel à un professionnel
+
 ### Fenêtre de toit à la place d'un plexi
 - Nouveau calcul : vide entre chevrons, fenêtre la plus large sans rien couper, fenêtre retenue pour la largeur voulue, chevêtre quand il faut couper un chevron, hauteur selon la pente, raccord selon la couverture et ordre de pose
 
