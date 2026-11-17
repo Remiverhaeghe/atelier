@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Escalier tournant
+- Escalier : forme droite, quart tournant ou demi-tournant ; emprise au sol, volées avant et après le tournant, marches du tournant et marches balancées, sur une ligne de foulée au milieu de l'emmarchement
+
 ### Ajouter aux courses depuis un calcul
 - Mezzanine, pergola, étagère et tablette murale : bouton « Ajouter aux courses » qui envoie bois, quincaillerie, panneaux et béton dans la liste du chantier choisi ; un article déjà là voit sa quantité augmenter
 - Courses : carte « Ajouté depuis les calculs », chaque article retirable
