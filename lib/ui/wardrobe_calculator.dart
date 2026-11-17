@@ -13,6 +13,11 @@ String wardrobePartLabel(AppLocalizations pText, String pName) => switch (pName)
   dividerPart => pText.partDivider,
   doorPart => pText.partDoor,
   railPart => pText.partRail,
+  drawerFrontPart => pText.partDrawerFront,
+  drawerSidePart => pText.partDrawerSide,
+  drawerEndPart => pText.partDrawerEnd,
+  drawerBottomPart => pText.partDrawerBottom,
+  slidePart => pText.partSlide,
   _ => shelfPartLabel(pText, pName),
 };
 
@@ -65,7 +70,7 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(vText.cutListTitle, style: vTheme.textTheme.titleMedium),
-                  for (final vPart in vPlan.parts)
+                  for (final vPart in vPlan.parts.where((pPart) => pPart.name != slidePart))
                     IconLine(
                       vPart.name == railPart ? Icons.horizontal_rule : Icons.straighten,
                       vPart.name == railPart
@@ -79,6 +84,18 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                     ),
                   if (vPlan.hinges > 0)
                     IconLine(Icons.door_back_door_outlined, vText.hinges(vPlan.hinges)),
+                  if (vPlan.hinges > 0)
+                    IconLine(
+                      Icons.radio_button_unchecked,
+                      vText.hingePositions(
+                        hingePositions(vPlan.doorHeightMm).map(formatCentimetres).join(', '),
+                      ),
+                    ),
+                  for (final vPart in vPlan.parts.where((pPart) => pPart.name == slidePart))
+                    IconLine(
+                      Icons.swap_vert,
+                      vText.drawerSlides(vPart.count, formatCentimetres(vPart.lengthMm)),
+                    ),
                   if (vPlan.tooWide)
                     IconLine(
                       Icons.warning_amber,
@@ -109,6 +126,11 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                             value: CompartmentKind.shelves,
                             label: Text(vText.compartmentShelves),
                             icon: const Icon(Icons.shelves),
+                          ),
+                          ButtonSegment(
+                            value: CompartmentKind.drawers,
+                            label: Text(vText.compartmentDrawers),
+                            icon: const Icon(Icons.inventory_2_outlined),
                           ),
                         ],
                         selected: {_design.compartments[vIndex].kind},
@@ -244,6 +266,16 @@ class _WardrobePainter extends CustomPainter {
             ..strokeWidth = 3
             ..strokeCap = StrokeCap.round,
         );
+      } else if (vItem.kind == CompartmentKind.drawers) {
+        final vDrawers = vItem.shelves < 1 ? 1 : vItem.shelves;
+        for (var vDrawer = 1; vDrawer < vDrawers; vDrawer++) {
+          final vY = vTop + vHeight * vDrawer / vDrawers;
+          pCanvas.drawLine(Offset(vX, vY), Offset(vX + vInner, vY), vEdge);
+        }
+        for (var vDrawer = 0; vDrawer < vDrawers; vDrawer++) {
+          final vY = vTop + vHeight * (vDrawer + 0.5) / vDrawers;
+          pCanvas.drawCircle(Offset(vX + vInner / 2, vY), 3, Paint()..color = colors.ink);
+        }
       } else {
         final vShelves = vItem.shelves < 0 ? 0 : vItem.shelves;
         for (var vShelf = 1; vShelf <= vShelves; vShelf++) {
