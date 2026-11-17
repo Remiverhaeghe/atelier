@@ -2557,5 +2557,10 @@
   "@pergolaFootings": {"placeholders": {"litres": {"type": "int"}}},
   "pergolaSnow": "Neige sur la couverture : {snow} kg/m², poids propre : {dead} kg/m²",
   "@pergolaSnow": {"placeholders": {"snow": {"type": "int"}, "dead": {"type": "int"}}},
-  "pergolaWarning": "Le vent soulève une couverture pleine : poteaux fixés dans les plots, chevrons tenus par des équerres ou des connecteurs. Au-dessus de 200 m d'altitude, la neige augmente. Prédimensionnement à faire valider."
+  "pergolaWarning": "Le vent soulève une couverture pleine : poteaux fixés dans les plots, chevrons tenus par des équerres ou des connecteurs. Au-dessus de 200 m d'altitude, la neige augmente. Prédimensionnement à faire valider.",
+  "drillTemplateButton": "Gabarit de perçage à imprimer",
+  "drillTemplateTitle": "Gabarit de perçage",
+  "drillTemplateHelp": "Imprime à 100 %, sans ajustement à la page. Découpe le gabarit, pose son bord avant contre le chant avant du montant et marque chaque centre au pointeau.",
+  "drillTemplateScale": "Ce rectangle doit mesurer exactement 10 cm : sinon, l'impression n'est pas à l'échelle.",
+  "drillTemplateFront": "Bas du gabarit : bord avant de la tablette."
 }
