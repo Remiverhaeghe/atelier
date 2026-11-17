@@ -29,6 +29,7 @@ import 'garden_calculator.dart';
 import 'insulation_calculator.dart';
 import 'level_screen.dart';
 import 'panel_calculator.dart';
+import 'pergola_calculator.dart';
 import 'plumbing_calculator.dart';
 import 'rent_buy_calculator.dart';
 import 'roofing_calculator.dart';
@@ -70,6 +71,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.mezzanineHelp,
       icon: Icons.foundation,
       builder: (_) => const MezzanineCalculator(),
+    ),
+    (
+      title: pText.pergolaTitle,
+      help: pText.pergolaHelp,
+      icon: Icons.deck_outlined,
+      builder: (_) => const PergolaCalculator(),
     ),
     (
       title: pText.wardrobeTitle,
