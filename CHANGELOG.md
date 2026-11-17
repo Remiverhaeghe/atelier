@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Garde-corps d'escalier
+- Escalier : garde-corps et main courante selon les côtés dans le vide (aucun, un, deux) ; longueur en pente, poteaux, barreaux et mains courantes, règles de la norme NF P01-012
+
 ### Escalier tournant
 - Escalier : forme droite, quart tournant ou demi-tournant ; emprise au sol, volées avant et après le tournant, marches du tournant et marches balancées, sur une ligne de foulée au milieu de l'emmarchement
 
