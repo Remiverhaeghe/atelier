@@ -17,6 +17,7 @@ import 'exterior_calculator.dart';
 import 'fixings_calculator.dart';
 import 'gutter_calculator.dart';
 import 'kitchen_calculator.dart';
+import 'mezzanine_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
 import 'sheet_flooring_calculator.dart';
@@ -63,6 +64,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.wallShelfHelp,
       icon: Icons.shelves,
       builder: (_) => const WallShelfCalculator(),
+    ),
+    (
+      title: pText.mezzanineTitle,
+      help: pText.mezzanineHelp,
+      icon: Icons.foundation,
+      builder: (_) => const MezzanineCalculator(),
     ),
     (
       title: pText.wardrobeTitle,
