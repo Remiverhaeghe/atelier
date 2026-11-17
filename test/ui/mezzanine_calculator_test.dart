@@ -49,4 +49,33 @@ void main() {
     await pTester.pump();
     expect(find.textContaining('Portée trop grande'), findsOneWidget);
   });
+
+  testWidgets('mezzanine : hauteur dans une pièce haute, poteaux et escalier', (pTester) async {
+    tallScreen(pTester);
+    await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    await pTester.tap(find.text('Mezzanine'));
+    await pTester.pumpAndSettle();
+
+    expect(find.text('Hauteur dans la pièce'), findsNothing);
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Hauteur sous plafond de la pièce (cm)'),
+      '500',
+    );
+    await pTester.pump();
+    expect(find.textContaining('Dessus du plancher à 244,3 cm du sol'), findsOneWidget);
+    expect(find.textContaining('on tient debout partout'), findsOneWidget);
+
+    // Poteaux saisis à 250 cm : la répartition propose de les ramener à 220 cm
+    expect(find.text('Poteaux de 220 cm'), findsNothing);
+    await pTester.enterText(find.widgetWithText(TextField, 'Hauteur des poteaux (cm)'), '250');
+    await pTester.pump();
+    await pTester.ensureVisible(find.text('Poteaux de 220 cm'));
+    await pTester.tap(find.text('Poteaux de 220 cm'));
+    await pTester.pump();
+    expect(find.text('Poteaux de 220 cm'), findsNothing);
+
+    await pTester.tap(find.text("Escalier jusqu'à ce plancher"));
+    await pTester.pumpAndSettle();
+    expect(find.text('Escalier droit'), findsWidgets);
+  });
 }
