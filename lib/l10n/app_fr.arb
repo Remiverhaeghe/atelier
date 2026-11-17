@@ -2496,5 +2496,14 @@
   "guardrailBalusters": "{count} barreaux verticaux de {width} mm, main courante et lisse basse sur toute la longueur",
   "@guardrailBalusters": {"placeholders": {"count": {"type": "int"}, "width": {"type": "int"}}},
   "guardrailRules": "Norme NF P01-012 : {height} cm de haut au moins, aucun vide de plus de {gap} cm, et rien qui serve de marche dans les {zone} premiers centimètres : des barreaux verticaux, pas de lisses horizontales.",
-  "@guardrailRules": {"placeholders": {"height": {"type": "String"}, "gap": {"type": "String"}, "zone": {"type": "String"}}}
+  "@guardrailRules": {"placeholders": {"height": {"type": "String"}, "gap": {"type": "String"}, "zone": {"type": "String"}}},
+  "timberTitle": "Débit des bois",
+  "timberOrder": "{bars} bois de {width} × {height} mm en {stock} cm",
+  "@timberOrder": {"placeholders": {"bars": {"type": "int"}, "width": {"type": "int"}, "height": {"type": "int"}, "stock": {"type": "String"}}},
+  "timberPieces": "À couper : {pieces}",
+  "@timberPieces": {"placeholders": {"pieces": {"type": "String"}}},
+  "timberTooLong": "{count, plural, =1{1 pièce plus longue} other{{count} pièces plus longues}} que 6 m : à commander sur mesure",
+  "@timberTooLong": {"placeholders": {"count": {"type": "int"}}},
+  "timberBeam": "{count, plural, =1{1 poutre} other{{count} poutres}} en lamellé-collé de {length} cm, commandée à la longueur",
+  "@timberBeam": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}}
 }
