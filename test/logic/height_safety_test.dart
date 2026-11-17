@@ -3,7 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('bas : escabeau ; haut : garde-corps et échafaudage freiné', () {
-    expect(heightChecks(600), [HeightCheck.notAlone, HeightCheck.stepladder, HeightCheck.zoneBelow]);
+    expect(heightChecks(600), [
+      HeightCheck.notAlone,
+      HeightCheck.stepladder,
+      HeightCheck.zoneBelow,
+    ]);
     expect(heightChecks(3000), [
       HeightCheck.notAlone,
       HeightCheck.guardrails,
