@@ -95,7 +95,9 @@ List<Face> houseFaces(List<Room> pRooms, double pYawDeg) {
       }
     }
     // Mezzanines : plancher à sa hauteur, chants et un poteau à chaque angle
-    for (final vFixture in vRoom.fixtures.where((pFixture) => pFixture.kind == FixtureKind.mezzanine)) {
+    for (final vFixture in vRoom.fixtures.where(
+      (pFixture) => pFixture.kind == FixtureKind.mezzanine,
+    )) {
       final vTop = vBase + (vFixture.riseMm ?? defaultMezzanineRiseMm);
       final vUnder = vTop - mezzanineDeckMm;
       final vHalfX = vFixture.widthMm / 2;
