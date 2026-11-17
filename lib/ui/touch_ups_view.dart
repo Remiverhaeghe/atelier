@@ -68,21 +68,15 @@ class _TouchUpsViewState extends State<TouchUpsView> {
       return;
     }
     final vStamp = DateTime.now().microsecondsSinceEpoch;
-    final vSteps = missingSteps(
-      vTemplate,
-      {for (final vTouchUp in _room.touchUps) vTouchUp.label},
-      (pStep) => templateStepLabel(vText, pStep),
-    );
+    final vSteps = missingSteps(vTemplate, {
+      for (final vTouchUp in _room.touchUps) vTouchUp.label,
+    }, (pStep) => templateStepLabel(vText, pStep));
     widget.onChanged(
       _room.copyWith(
         touchUps: [
           ..._room.touchUps,
           for (final (vIndex, (vStep, vPasses)) in vSteps.indexed)
-            TouchUp(
-              id: '$vStamp-$vIndex',
-              label: templateStepLabel(vText, vStep),
-              passes: vPasses,
-            ),
+            TouchUp(id: '$vStamp-$vIndex', label: templateStepLabel(vText, vStep), passes: vPasses),
         ],
       ),
     );
