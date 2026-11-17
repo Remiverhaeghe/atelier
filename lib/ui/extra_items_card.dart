@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/aisles.dart';
 import '../logic/worksite.dart';
+import 'aisle_label.dart';
 
 /// Matériel ajouté aux courses depuis un calcul, à cocher en magasin ou à retirer.
 class ExtraItemsCard extends StatelessWidget {
@@ -23,8 +25,11 @@ class ExtraItemsCard extends StatelessWidget {
             title: Text(vText.extrasTitle),
             subtitle: Text(vText.extrasHelp),
           ),
-          for (final (vIndex, vItem) in worksite.extras.indexed)
+          for (final vAisle in Aisle.values)
+            for (final (vIndex, vItem) in worksite.extras.indexed)
+              if (aisleOfText(vItem.name) == vAisle)
             ListTile(
+              subtitle: Text(aisleLabel(vText, vAisle)),
               dense: true,
               title: Text(vItem.name),
               leading: Text('× ${vItem.quantity}'),
