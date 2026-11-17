@@ -10,7 +10,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 133. **Cache de l'émulateur en CI**.
 - 134. **Tests de mutation** sur `lib/logic`.
 - 135. **Textes découpés par domaine**, fusionnés avant `gen-l10n`.
 - 136. **Version anglaise**.

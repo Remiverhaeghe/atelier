@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### CI
+- Tests sur émulateur : dépendances Gradle et émulateur gardés en cache, avec son instantané, pour un passage plus court et moins d'échecs réseau
+
 ### Permissions contrôlées
 - `docs/securite.md` explique chaque permission ; la CI fait échouer la construction si la permission Internet apparaît dans l'APK ou si une permission n'y est pas expliquée
 
