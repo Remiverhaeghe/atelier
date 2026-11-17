@@ -242,7 +242,10 @@ BracketPlan planBrackets(WallShelf pShelf) {
   final vBrackets = vNeeded < 2 ? 2 : vNeeded;
   final vSpacing = vUsable <= 0 ? 0 : vUsable ~/ (vBrackets - 1);
   final vArmMin = (pShelf.depthMm * 2 / 3).ceil();
-  final vArm = bracketArmsMm.firstWhere((pArm) => pArm >= vArmMin, orElse: () => bracketArmsMm.last);
+  final vArm = bracketArmsMm.firstWhere(
+    (pArm) => pArm >= vArmMin,
+    orElse: () => bracketArmsMm.last,
+  );
   final vOwnKg =
       pShelf.lengthMm * pShelf.depthMm * pShelf.thicknessMm * densityKgPerM3(pShelf.material) / 1e9;
   final vTotal = pShelf.load.kgPerMetre * pShelf.lengthMm / 1000 + vOwnKg;
