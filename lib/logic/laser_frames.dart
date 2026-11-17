@@ -17,9 +17,8 @@ const laserSyncCommand = [0xC0, 0x55, 0x02, 0x01, 0x00, 0x1A];
 /// Débuts de nom des appareils proposés à la connexion.
 const laserNamePrefixes = ['GLM', 'PLR', 'Bosch'];
 
-bool isLaserName(String pName) => laserNamePrefixes.any(
-  (pPrefix) => pName.toUpperCase().startsWith(pPrefix.toUpperCase()),
-);
+bool isLaserName(String pName) =>
+    laserNamePrefixes.any((pPrefix) => pName.toUpperCase().startsWith(pPrefix.toUpperCase()));
 
 /// Distance d'une trame de mesure, en millimètres ; null pour une autre trame ou une valeur
 /// impossible (zéro, négative ou au-delà de 250 m).

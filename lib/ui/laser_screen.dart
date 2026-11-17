@@ -8,11 +8,10 @@ import 'laser_link.dart';
 import 'theme.dart';
 
 /// Ouvre la mesure au télémètre et renvoie la distance choisie, en millimètres.
-Future<int?> measureWithLaser(BuildContext pContext, {LaserLink? pLink}) =>
-    Navigator.push<int>(
-      pContext,
-      MaterialPageRoute(builder: (_) => LaserScreen(link: pLink ?? BleLaserLink())),
-    );
+Future<int?> measureWithLaser(BuildContext pContext, {LaserLink? pLink}) => Navigator.push<int>(
+  pContext,
+  MaterialPageRoute(builder: (_) => LaserScreen(link: pLink ?? BleLaserLink())),
+);
 
 /// Télémètre Bosch en Bluetooth : choisir l'appareil, mesurer avec son bouton, reprendre la
 /// distance.
@@ -56,10 +55,12 @@ class _LaserScreenState extends State<LaserScreen> {
       _device = pDevice;
       _error = null;
     });
-    _measures = widget.link.measures(pDevice.id).listen(
-      (pMm) => setState(() => _last = pMm),
-      onError: (Object pError) => setState(() => _error = '$pError'),
-    );
+    _measures = widget.link
+        .measures(pDevice.id)
+        .listen(
+          (pMm) => setState(() => _last = pMm),
+          onError: (Object pError) => setState(() => _error = '$pError'),
+        );
   }
 
   @override
