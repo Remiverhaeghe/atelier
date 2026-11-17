@@ -2662,5 +2662,12 @@
   "drawerSlides": "{count, plural, =1{1 paire} other{{count} paires}} de coulisses à billes de {length} cm, 12,5 mm de jeu de chaque côté du tiroir",
   "@drawerSlides": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}},
   "hingePositions": "Charnières à {positions} cm du haut de chaque porte : cuvette de 35 mm, à 22 mm du bord",
-  "@hingePositions": {"placeholders": {"positions": {"type": "String"}}}
+  "@hingePositions": {"placeholders": {"positions": {"type": "String"}}},
+  "aisleTimber": "Rayon bois et panneaux",
+  "aisleFlooring": "Rayon sols",
+  "aislePaint": "Rayon peinture",
+  "aisleAdhesives": "Rayon colles et mastics",
+  "aisleBuilding": "Rayon matériaux",
+  "aisleHardware": "Rayon quincaillerie",
+  "aisleOther": "Autres rayons"
 }
