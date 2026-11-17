@@ -13,7 +13,10 @@ void main() {
 
     expect(find.text('8 chevrons de 45 × 145 mm en C24, tous les 60 cm'), findsOneWidget);
     expect(find.textContaining('160 litres de béton'), findsOneWidget);
-    expect(find.text('Neige sur la couverture : 36 kg/m², poids propre : 25 kg/m²'), findsOneWidget);
+    expect(
+      find.text('Neige sur la couverture : 36 kg/m², poids propre : 25 kg/m²'),
+      findsOneWidget,
+    );
 
     await pTester.tap(find.text('Adossée à la façade'));
     await pTester.pump();
