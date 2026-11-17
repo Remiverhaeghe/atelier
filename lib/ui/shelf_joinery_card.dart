@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:printing/printing.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/shelf.dart';
 import '../logic/shelf_joinery.dart';
 import '../logic/units.dart';
+import 'drill_template_pdf.dart';
 import 'theme.dart';
 
 String shelfLoadLabel(AppLocalizations pText, ShelfLoad pLoad) => switch (pLoad) {
@@ -107,6 +109,15 @@ class ShelfJoineryCard extends StatelessWidget {
             },
             if (vStability.fixToWall) IconLine(Icons.vertical_align_top, vText.joineryFixToWall),
             if (vStability.brace) IconLine(Icons.change_history, vText.joineryBrace),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              icon: const Icon(Icons.print_outlined),
+              label: Text(vText.drillTemplateButton),
+              onPressed: () => Printing.layoutPdf(
+                name: vText.drillTemplateTitle,
+                onLayout: (_) => buildDrillTemplatePdf(vText, design, vJoint),
+              ),
+            ),
           ],
         ),
       ),
