@@ -23,4 +23,20 @@ void main() {
     expect(find.textContaining('Harnais accroché'), findsOneWidget);
     expect(find.text('Il reste des points à vérifier avant de monter.'), findsOneWidget);
   });
+
+  testWidgets('échafaudage : stabilisateurs sur base étroite, pas sur base large', (pTester) async {
+    tallScreen(pTester);
+    await pTester.pumpWidget(localized(const HeightWorkScreen()));
+    await pTester.ensureVisible(find.text('Échafaudage roulant'));
+
+    expect(find.text('Plancher à 200 cm : 2 éléments de 2 m'), findsOneWidget);
+    expect(
+      find.text('Stabilisateurs obligatoires à cette hauteur pour cette base'),
+      findsOneWidget,
+    );
+
+    await pTester.tap(find.text('Base large (135 cm)'));
+    await pTester.pumpAndSettle();
+    expect(find.textContaining('Stable sans stabilisateurs'), findsOneWidget);
+  });
 }
