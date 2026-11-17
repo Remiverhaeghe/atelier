@@ -17,6 +17,8 @@ import 'exterior_calculator.dart';
 import 'fixings_calculator.dart';
 import 'gutter_calculator.dart';
 import 'kitchen_calculator.dart';
+import '../logic/extra_items.dart';
+import '../logic/worksite.dart';
 import 'mezzanine_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
@@ -35,6 +37,7 @@ import 'rent_buy_calculator.dart';
 import 'roofing_calculator.dart';
 import 'screed_calculator.dart';
 import 'shelf_calculator.dart';
+import 'shopping_target.dart';
 import 'stair_calculator.dart';
 import 'tiling_calculator.dart';
 import 'wall_tiling_calculator.dart';
@@ -48,10 +51,19 @@ typedef Calculator = ({String title, String help, IconData icon, WidgetBuilder b
 
 /// Calculs hors des pièces, en grille de tuiles.
 class CalculatorsScreen extends StatelessWidget {
-  const CalculatorsScreen({super.key, this.rooms = const []});
+  const CalculatorsScreen({
+    super.key,
+    this.rooms = const [],
+    this.worksites = const [],
+    this.onAddToShopping,
+  });
 
   /// Pièces de tous les chantiers, dont certains calculs reprennent les surfaces.
   final List<Room> rooms;
+
+  /// Chantiers où un calcul peut ajouter son matériel aux courses ; vide : bouton caché.
+  final List<Worksite> worksites;
+  final Future<void> Function(String pWorksiteId, List<ExtraItem> pItems)? onAddToShopping;
 
   static List<Calculator> entries(AppLocalizations pText, [List<Room> pRooms = const []]) => [
     (
@@ -302,8 +314,18 @@ class CalculatorsScreen extends StatelessWidget {
             Card(
               margin: const EdgeInsets.all(4),
               child: InkWell(
-                onTap: () =>
-                    Navigator.push(context, MaterialPageRoute<void>(builder: vEntry.builder)),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (pContext) => onAddToShopping == null
+                        ? vEntry.builder(pContext)
+                        : ShoppingTarget(
+                            worksites: worksites,
+                            add: onAddToShopping!,
+                            child: vEntry.builder(pContext),
+                          ),
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(14),
                   child: Column(

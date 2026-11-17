@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/extra_items.dart';
 import '../logic/shelf.dart';
 import '../logic/shelf_joinery.dart';
 import '../logic/units.dart';
 import 'drill_template_pdf.dart';
+import 'shelf_calculator.dart';
+import 'shopping_target.dart';
 import 'theme.dart';
 
 String shelfLoadLabel(AppLocalizations pText, ShelfLoad pLoad) => switch (pLoad) {
@@ -110,6 +113,7 @@ class ShelfJoineryCard extends StatelessWidget {
             if (vStability.fixToWall) IconLine(Icons.vertical_align_top, vText.joineryFixToWall),
             if (vStability.brace) IconLine(Icons.change_history, vText.joineryBrace),
             const SizedBox(height: 8),
+            AddToShoppingButton(items: () => _shopping(vText, vJoint)),
             OutlinedButton.icon(
               icon: const Icon(Icons.print_outlined),
               label: Text(vText.drillTemplateButton),
@@ -122,5 +126,29 @@ class ShelfJoineryCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<ExtraItem> _shopping(AppLocalizations pText, JointAdvice pJoint) {
+    final vPlan = planShelf(design);
+    final vShelves = design.shelves < 2 ? 2 : design.shelves;
+    final rItems = [
+      ExtraItem(
+        name: pText.extraShelfBoards(
+          shelfMaterialLabel(pText, design.material),
+          design.thicknessMm,
+        ),
+        quantity: vPlan.boards,
+      ),
+      ExtraItem(
+        name: switch (pJoint.joint) {
+          ShelfJoint.dowels => pText.extraDowels(pJoint.diameterMm, pJoint.lengthMm),
+          ShelfJoint.confirmatScrews => pText.extraConfirmat,
+          ShelfJoint.shelfPins => pText.extraPins,
+        },
+        quantity: vShelves * 2 * pJoint.perEnd,
+      ),
+    ];
+
+    return rItems;
   }
 }

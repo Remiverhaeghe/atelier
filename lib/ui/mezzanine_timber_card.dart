@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/mezzanine.dart';
+import '../logic/extra_items.dart';
 import '../logic/mezzanine_cutting.dart';
+import '../logic/mezzanine_floor.dart';
 import '../logic/units.dart';
+import 'mezzanine_floor_card.dart';
+import 'shopping_target.dart';
 import 'theme.dart';
 
 /// Longueurs à couper, regroupées : « 1 × 300 cm, 9 × 200 cm ».
@@ -21,10 +25,18 @@ String groupedPieces(List<int> pPieces) {
 
 /// Bois à acheter pour la mezzanine, longueurs du commerce et coupes.
 class MezzanineTimberCard extends StatelessWidget {
-  const MezzanineTimberCard({super.key, required this.mezzanine, required this.plan});
+  const MezzanineTimberCard({
+    super.key,
+    required this.mezzanine,
+    required this.plan,
+    this.panel = FloorPanel.osb3,
+  });
 
   final Mezzanine mezzanine;
   final MezzaninePlan plan;
+
+  /// Panneau du plancher, pour l'ajout aux courses.
+  final FloorPanel panel;
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +75,46 @@ class MezzanineTimberCard extends StatelessWidget {
                 Icons.straighten,
                 vText.timberBeam(plan.beams, formatCentimetres(mezzanine.lengthMm)),
               ),
+            AddToShoppingButton(items: () => _shopping(vText)),
           ],
         ),
       ),
     );
+  }
+
+  List<ExtraItem> _shopping(AppLocalizations pText) {
+    final vBeam = plan.beam;
+    final vFloor = planFloor(mezzanine, panel);
+    final rItems = [
+      for (final vOrder in mezzanineTimber(mezzanine, plan))
+        ExtraItem(
+          name: pText.extraTimber(
+            vOrder.section.widthMm,
+            vOrder.section.heightMm,
+            formatCentimetres(vOrder.stockMm),
+          ),
+          quantity: vOrder.bars,
+        ),
+      if (vBeam != null && plan.beams > 0)
+        ExtraItem(
+          name: pText.extraBeam(
+            vBeam.widthMm,
+            vBeam.heightMm,
+            formatCentimetres(mezzanine.lengthMm),
+          ),
+          quantity: plan.beams,
+        ),
+      ExtraItem(name: pText.extraHangers, quantity: plan.hangers),
+      ExtraItem(name: pText.extraAnchors, quantity: plan.anchorsPerLedger * plan.ledgers),
+      ExtraItem(name: pText.extraPostBases, quantity: plan.postsPerBeam * plan.beams),
+      ExtraItem(
+        name: pText.extraFloorPanels(floorPanelLabel(pText, panel), vFloor.thicknessMm),
+        quantity: vFloor.panels,
+      ),
+      ExtraItem(name: pText.extraScrews(5, vFloor.screwLengthMm), quantity: vFloor.screws),
+      ExtraItem(name: pText.extraGlue, quantity: vFloor.glueCartridges),
+    ];
+
+    return rItems;
   }
 }

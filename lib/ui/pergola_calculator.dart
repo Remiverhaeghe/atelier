@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/extra_items.dart';
 import '../logic/pergola.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
+import 'shopping_target.dart';
 import 'theme.dart';
 
 String pergolaCoverLabel(AppLocalizations pText, PergolaCover pCover) => switch (pCover) {
@@ -83,6 +85,45 @@ class _PergolaCalculatorState extends State<PergolaCalculator> {
                     ),
                   ),
                   Text(vText.pergolaWarning, style: vTheme.textTheme.bodySmall),
+                  AddToShoppingButton(
+                    items: () => [
+                      if (vRafter != null)
+                        ExtraItem(
+                          name: vText.extraBeam(
+                            vRafter.widthMm,
+                            vRafter.heightMm,
+                            formatCentimetres(_pergola.depthMm),
+                          ),
+                          quantity: vPlan.rafters,
+                        ),
+                      if (vBeam != null)
+                        ExtraItem(
+                          name: vText.extraBeam(
+                            vBeam.widthMm,
+                            vBeam.heightMm,
+                            formatCentimetres(_pergola.lengthMm),
+                          ),
+                          quantity: vPlan.beams,
+                        ),
+                      if (vPostSide != null)
+                        ExtraItem(
+                          name: vText.extraBeam(
+                            vPostSide,
+                            vPostSide,
+                            formatCentimetres(_pergola.postHeightMm),
+                          ),
+                          quantity: vPlan.postsPerBeam * vPlan.beams,
+                        ),
+                      ExtraItem(
+                        name: vText.extraPostBases,
+                        quantity: vPlan.postsPerBeam * vPlan.beams,
+                      ),
+                      ExtraItem(
+                        name: vText.extraConcreteBags,
+                        quantity: (vPlan.concreteLitres / 16).ceil(),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
