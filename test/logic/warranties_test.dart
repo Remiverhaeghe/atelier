@@ -32,11 +32,12 @@ void main() {
     expect(warrantyState(vBoiler, DateTime(2026, 11, 17)), WarrantyState.endingSoon);
     expect(warrantyState(vBoiler, DateTime(2026, 9, 1)), WarrantyState.running);
     expect(warrantyState(vBoiler, DateTime(2027, 1, 11)), WarrantyState.ended);
-    expect([for (final vWarranty in sortedWarranties([vRoof, vTool, vBoiler])) vWarranty.id], [
-      'c',
-      'p',
-      't',
-    ]);
+    expect(
+      [
+        for (final vWarranty in sortedWarranties([vRoof, vTool, vBoiler])) vWarranty.id,
+      ],
+      ['c', 'p', 't'],
+    );
   });
 
   test('garantie gardée avec le chantier', () {
