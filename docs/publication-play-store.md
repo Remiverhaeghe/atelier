@@ -25,13 +25,14 @@ Les images sont dans `docs/play-store/`, refaites par `python tool/fiche_play.py
 - [ ] Captures de téléphone (au moins deux), au choix :
   - prises sur un Android émulé (Pixel 2, 1080 × 1920) par le workflow « Captures Play Store » (Actions, Run workflow), artefact `captures-play-store` ;
   - ou `capture-1.png` à `capture-6.png`, tirées des captures de test.
-- [ ] Description courte (80 caractères au plus), par exemple : « Mesurez vos pièces, calculez parquet, plinthes et peinture, suivez le chantier. »
-- [ ] Description longue : reprendre l'« Aperçu » du README, sans promesse que l'appli ne tient pas.
+- [ ] Descriptions courte (80 caractères au plus) et longue : [docs/play-store/description.md](play-store/description.md), longueurs vérifiées par `test/play_store_test.dart`.
 - [ ] Catégorie : Maison et intérieur. Coordonnées du développeur.
 
 ## Formulaires de la console
 
 - [ ] **Sécurité des données** : aucune donnée collectée, aucune donnée partagée. L'appli n'a pas la permission Internet ; elle demande celle des notifications pour la fin des attentes, programmées sur le téléphone, celle du micro pour les commandes vocales, sans rien garder, et celles du Bluetooth pour un télémètre laser (localisation seulement sur Android 11 et avant, jamais lue) ; les exports et partages sont lancés par l'utilisateur. Revérifier si une dépendance change (`flutter pub deps`, permissions du manifeste fusionné dans `build/app/intermediates/merged_manifests`).
+- [ ] **Permissions** : liste et raisons dans [docs/securite.md](securite.md), contrôlée par la CI. Aucune permission sensible soumise à déclaration (SMS, appels, localisation en arrière-plan).
+- [ ] **Micro** : la reconnaissance vocale passe par le service du téléphone. Relire la règle Google sur les données audio avant de cocher « aucune donnée collectée ».
 - [ ] **Classification du contenu** : questionnaire IARC, appli utilitaire sans contenu sensible.
 - [ ] **Public cible** : adultes ; pas destinée aux enfants.
 - [ ] **Publicités** : non. **Accès à l'application** : tout est accessible sans compte.
