@@ -2590,5 +2590,16 @@
   "extraDowels": "Tourillons {diameter} × {length} mm",
   "@extraDowels": {"placeholders": {"diameter": {"type": "int"}, "length": {"type": "int"}}},
   "extraConfirmat": "Vis d'assemblage confirmat 7 × 50",
-  "extraPins": "Taquets de 5 mm"
+  "extraPins": "Taquets de 5 mm",
+  "turningTitle": "Forme de l'escalier",
+  "turningStraight": "Droit",
+  "turningQuarter": "Quart tournant",
+  "turningHalf": "Demi-tournant",
+  "turningFootprint": "Emprise au sol : {length} × {width} cm",
+  "@turningFootprint": {"placeholders": {"length": {"type": "String"}, "width": {"type": "String"}}},
+  "turningFlights": "Volées droites de {first} cm avant le tournant et {second} cm après, sur la ligne de foulée",
+  "@turningFlights": {"placeholders": {"first": {"type": "String"}, "second": {"type": "String"}}},
+  "turningTreads": "{turning} marches dans le tournant, {balanced} marches balancées en tout",
+  "@turningTreads": {"placeholders": {"turning": {"type": "int"}, "balanced": {"type": "int"}}},
+  "turningHint": "Ligne de foulée au milieu de l'emmarchement, avec le même giron que l'escalier droit. Les marches balancées se tracent à l'épure, sur place : côté intérieur, garde au moins 10 cm de giron."
 }

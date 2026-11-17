@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/stair_design.dart';
+import '../logic/turning_stair.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'turning_stair_card.dart';
 
-/// Escalier droit : coupe dessinée, trémie pour l'échappée, débit des limons et des marches.
+/// Escalier : coupe dessinée, trémie pour l'échappée, débit des limons et des marches, et
+/// emprise d'un escalier quart tournant ou demi-tournant.
 class StairCalculator extends StatefulWidget {
   const StairCalculator({super.key, this.riseMm = 2800});
 
@@ -22,6 +25,7 @@ class _StairCalculatorState extends State<StairCalculator> {
   late int _rise = widget.riseMm;
   int _width = 800;
   int? _tremie;
+  var _shape = StairShape.straight;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +81,13 @@ class _StairCalculatorState extends State<StairCalculator> {
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 12),
+          TurningStairCard(
+            riseMm: _rise,
+            widthMm: _width,
+            shape: _shape,
+            onShape: (pShape) => setState(() => _shape = pShape),
           ),
           const SizedBox(height: 12),
           NumberField<int>(
