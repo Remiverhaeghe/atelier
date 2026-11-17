@@ -7,8 +7,7 @@ void main() {
   testWidgets('niche puis rampant : tablettes et montants suivent la saisie', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Étagère en niche ou sous rampant'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Étagère en niche ou sous rampant');
     await pTester.tap(find.text('Étagère en niche ou sous rampant'));
     await pTester.pumpAndSettle();
 
