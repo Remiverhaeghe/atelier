@@ -23,6 +23,7 @@ import 'floor_capacity_calculator.dart';
 import 'height_work_screen.dart';
 import 'mezzanine_calculator.dart';
 import 'niche_shelf_calculator.dart';
+import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
 import 'sheet_flooring_calculator.dart';
@@ -104,6 +105,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.heightWorkHelp,
       icon: Icons.engineering_outlined,
       builder: (_) => const HeightWorkScreen(),
+    ),
+    (
+      title: pText.roofWindowTitle,
+      help: pText.roofWindowHelp,
+      icon: Icons.roofing,
+      builder: (_) => const RoofWindowCalculator(),
     ),
     (
       title: pText.floorCapacityTitle,
