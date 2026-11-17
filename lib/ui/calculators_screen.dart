@@ -19,6 +19,7 @@ import 'gutter_calculator.dart';
 import 'kitchen_calculator.dart';
 import '../logic/extra_items.dart';
 import '../logic/worksite.dart';
+import 'floor_capacity_calculator.dart';
 import 'mezzanine_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
@@ -89,6 +90,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.pergolaHelp,
       icon: Icons.deck_outlined,
       builder: (_) => const PergolaCalculator(),
+    ),
+    (
+      title: pText.floorCapacityTitle,
+      help: pText.floorCapacityHelp,
+      icon: Icons.scale_outlined,
+      builder: (_) => const FloorCapacityCalculator(),
     ),
     (
       title: pText.wardrobeTitle,
