@@ -21,6 +21,7 @@ import '../logic/extra_items.dart';
 import '../logic/worksite.dart';
 import 'floor_capacity_calculator.dart';
 import 'mezzanine_calculator.dart';
+import 'niche_shelf_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
 import 'sheet_flooring_calculator.dart';
@@ -78,6 +79,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.wallShelfHelp,
       icon: Icons.shelves,
       builder: (_) => const WallShelfCalculator(),
+    ),
+    (
+      title: pText.nicheTitle,
+      help: pText.nicheHelp,
+      icon: Icons.shelves,
+      builder: (_) => const NicheShelfCalculator(),
     ),
     (
       title: pText.mezzanineTitle,

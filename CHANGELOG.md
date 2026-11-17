@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Étagère en niche ou sous rampant
+- Nouveau calcul : tablettes sur tasseaux dans une niche (longueur avec jeu, tasseaux, vis) ou meuble sous un rampant de combles (montants coupés à l'angle de la pente, profondeur de chaque tablette)
+
 ### Ce que porte un plancher
 - Nouveau calcul : charge que tient un plancher existant d'après ses solives mesurées, comparée à une chambre, une baignoire, une bibliothèque, un poêle ; effet des renforts (solives doublées, solive de plus entre chaque, poutre au milieu)
 
