@@ -22,6 +22,7 @@ import '../logic/worksite.dart';
 import 'floor_capacity_calculator.dart';
 import 'height_work_screen.dart';
 import 'mezzanine_calculator.dart';
+import 'large_room_heat_calculator.dart';
 import 'niche_shelf_calculator.dart';
 import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
@@ -111,6 +112,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.roofWindowHelp,
       icon: Icons.roofing,
       builder: (_) => const RoofWindowCalculator(),
+    ),
+    (
+      title: pText.largeHeatTitle,
+      help: pText.largeHeatHelp,
+      icon: Icons.fireplace_outlined,
+      builder: (_) => const LargeRoomHeatCalculator(),
     ),
     (
       title: pText.floorCapacityTitle,
