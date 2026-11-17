@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Courses par rayon
+- Courses : les articles sans magasin saisi se rangent par rayon conseillé (bois, sols, peinture, colles, matériaux, quincaillerie), dans l'ordre d'un parcours en magasin ; le matériel ajouté depuis un calcul aussi
+
 ### Tiroirs et charnières
 - Armoire : compartiment à tiroirs, avec façades, caissons (côtés, avant et arrière, fond) et coulisses à billes de la plus grande longueur qui tient ; une porte seulement sur les autres compartiments
 - Position de chaque charnière sur la porte, à 10 cm des bords et régulièrement entre, cuvette de 35 mm à 22 mm du bord
