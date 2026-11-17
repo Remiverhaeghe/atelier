@@ -82,8 +82,10 @@ const slideClearanceMm = 13;
 const drawerBoxDropMm = 40;
 
 /// Plus longue coulisse qui tient dans [pDepthMm] de profondeur utile, 1 cm de marge.
-int slideLengthFor(int pDepthMm) =>
-    slideLengthsMm.lastWhere((pLength) => pLength <= pDepthMm - 10, orElse: () => slideLengthsMm.first);
+int slideLengthFor(int pDepthMm) => slideLengthsMm.lastWhere(
+  (pLength) => pLength <= pDepthMm - 10,
+  orElse: () => slideLengthsMm.first,
+);
 
 /// Hauteur des charnières sur une porte de [pHeightMm], depuis le haut : à 10 cm des bords,
 /// les autres régulièrement entre les deux.
@@ -152,7 +154,8 @@ WardrobePlan planWardrobe(WardrobeDesign pDesign) {
   var vDrawerCompartments = 0;
   final vDrawerParts = <(String, int, int), int>{};
   void vAdd(String pName, int pCount, int pLength, int pWidth) =>
-      vDrawerParts[(pName, pLength, pWidth)] = (vDrawerParts[(pName, pLength, pWidth)] ?? 0) + pCount;
+      vDrawerParts[(pName, pLength, pWidth)] =
+          (vDrawerParts[(pName, pLength, pWidth)] ?? 0) + pCount;
   for (final vItem in pDesign.compartments) {
     if (vItem.kind == CompartmentKind.hanging) {
       vShelves += 1;
