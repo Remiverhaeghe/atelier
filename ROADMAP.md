@@ -10,7 +10,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 131. **Mode visite** : tour des pièces avec une liste à cocher et des photos.
 - 132. **Permissions expliquées** (`docs/securite.md`) et contrôle en CI du manifeste fusionné.
 - 133. **Cache de l'émulateur en CI**.
 - 134. **Tests de mutation** sur `lib/logic`.

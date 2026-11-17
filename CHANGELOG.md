@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Visite de la maison
+- Nouvelle tuile Visite : tour des pièces avec dix points à regarder chacune (humidité, fissures, prises, fenêtres…) et cinq pour toute la maison ; les points cochés passent dans les reprises avec leur note
+
 ### Stock restant
 - Les courses montrent ce qui restera du stock une fois le chantier fini, à garder pour les retouches ou à rapporter au magasin
 
