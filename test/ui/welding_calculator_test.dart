@@ -7,6 +7,9 @@ void main() {
   testWidgets('soudure : le procédé conseillé suit le métal et le lieu', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    // La grille des calculs s'allonge à chaque nouveau calcul : défiler jusqu'à la tuile
+    await pTester.ensureVisible(find.text('Soudure'));
+    await pTester.pumpAndSettle();
     await pTester.tap(find.text('Soudure'));
     await pTester.pumpAndSettle();
 
