@@ -8,8 +8,7 @@ void main() {
   testWidgets('grand volume : brasseurs sous 5 m, rien sous 2,50 m', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Chauffer un grand volume'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Chauffer un grand volume');
     await pTester.tap(find.text('Chauffer un grand volume'));
     await pTester.pumpAndSettle();
 
