@@ -11,7 +11,6 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
-- 120. **Sol souple et moquette**.
 - 121. **Papier peint** et raccord du motif.
 - 122. **Béton et petite maçonnerie** : dosages, sacs ou toupie.
 - 123. **Gouttières et descentes** selon la surface du toit.
