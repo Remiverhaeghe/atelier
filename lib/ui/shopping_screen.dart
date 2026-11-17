@@ -158,9 +158,7 @@ class ShoppingScreen extends StatelessWidget {
                               : Icons.signpost_outlined,
                         ),
                         title: Text(
-                          vGroup.aisle == null
-                              ? vGroup.store
-                              : aisleLabel(vText, vGroup.aisle!),
+                          vGroup.aisle == null ? vGroup.store : aisleLabel(vText, vGroup.aisle!),
                           style: Theme.of(pContext).textTheme.titleMedium,
                         ),
                       ),

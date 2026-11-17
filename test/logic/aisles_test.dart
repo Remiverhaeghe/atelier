@@ -27,10 +27,9 @@ void main() {
 
     final vGroups = groupByAisle(vLines, const {'nailBoxes': 'Quincaillerie du coin'});
 
-    expect([for (final vGroup in vGroups) (vGroup.store, vGroup.aisle)], [
-      ('Quincaillerie du coin', null),
-      ('', Aisle.flooring),
-      ('', Aisle.paint),
-    ]);
+    expect(
+      [for (final vGroup in vGroups) (vGroup.store, vGroup.aisle)],
+      [('Quincaillerie du coin', null), ('', Aisle.flooring), ('', Aisle.paint)],
+    );
   });
 }

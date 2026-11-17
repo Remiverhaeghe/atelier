@@ -28,18 +28,19 @@ class ExtraItemsCard extends StatelessWidget {
           for (final vAisle in Aisle.values)
             for (final (vIndex, vItem) in worksite.extras.indexed)
               if (aisleOfText(vItem.name) == vAisle)
-            ListTile(
-              subtitle: Text(aisleLabel(vText, vAisle)),
-              dense: true,
-              title: Text(vItem.name),
-              leading: Text('× ${vItem.quantity}'),
-              trailing: IconButton(
-                tooltip: vText.extrasRemove,
-                icon: const Icon(Icons.delete_outline),
-                onPressed: () =>
-                    onChanged(worksite.copyWith(extras: [...worksite.extras]..removeAt(vIndex))),
-              ),
-            ),
+                ListTile(
+                  subtitle: Text(aisleLabel(vText, vAisle)),
+                  dense: true,
+                  title: Text(vItem.name),
+                  leading: Text('× ${vItem.quantity}'),
+                  trailing: IconButton(
+                    tooltip: vText.extrasRemove,
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: () => onChanged(
+                      worksite.copyWith(extras: [...worksite.extras]..removeAt(vIndex)),
+                    ),
+                  ),
+                ),
         ],
       ),
     );
