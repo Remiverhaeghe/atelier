@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Sauvegarde chiffrée
+- Écran Sauvegardes : tous les chantiers dans un fichier `.atelier` chiffré par mot de passe (AES-256-GCM, PBKDF2), à envoyer vers le PC ou un cloud ; l'import le reconnaît et demande le mot de passe
+
 ### Travail en hauteur
 - Nouvel écran : vérifications à cocher avant de monter, selon la hauteur de travail et le travail sur un toit (escabeau, garde-corps, échafaudage freiné, zone balisée, harnais, météo)
 

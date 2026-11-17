@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../state/worksites_controller.dart';
 import '../storage/backups.dart';
 import '../storage/worksite_store.dart';
+import 'encrypted_transfer.dart';
 
 /// Sauvegardes quotidiennes, à restaurer en un geste après confirmation.
 class BackupsScreen extends StatefulWidget {
@@ -52,7 +53,17 @@ class _BackupsScreenState extends State<BackupsScreen> {
     final vList = widget.backups.list();
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.backupsTitle)),
+      appBar: AppBar(
+        title: Text(vText.backupsTitle),
+        actions: [
+          IconButton(
+            tooltip: vText.encryptedBackupSend,
+            icon: const Icon(Icons.lock_outline),
+            onPressed: () =>
+                exportEncryptedBackup(context, widget.controller.worksites, DateTime.now()),
+          ),
+        ],
+      ),
       body: ListView(
         children: [
           ListTile(subtitle: Text(vText.backupsHelp(widget.backups.keep))),

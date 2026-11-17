@@ -2682,5 +2682,15 @@
   "heightCheckHarness": "Harnais accroché à un point d'ancrage solide, longe réglée",
   "heightCheckWeather": "Pas de vent fort, ni pluie, ni gel",
   "heightWorkReady": "Tout est coché : bon travail, et prends ton temps.",
-  "heightWorkNotReady": "Il reste des points à vérifier avant de monter."
+  "heightWorkNotReady": "Il reste des points à vérifier avant de monter.",
+  "encryptedBackupSend": "Sauvegarde chiffrée hors du téléphone",
+  "backupPasswordTitle": "Mot de passe de la sauvegarde",
+  "backupPasswordHelp": "Sans ce mot de passe, personne ne peut lire la sauvegarde, toi compris : note-le à part.",
+  "backupPassword": "Mot de passe",
+  "backupPasswordAgain": "Le même, une deuxième fois",
+  "backupPasswordOk": "Valider",
+  "backupPasswordShort": "Au moins {count} caractères",
+  "@backupPasswordShort": {"placeholders": {"count": {"type": "int"}}},
+  "backupPasswordMismatch": "Les deux mots de passe ne sont pas les mêmes",
+  "backupPasswordWrong": "Mot de passe incorrect, ou fichier abîmé"
 }
