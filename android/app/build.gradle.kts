@@ -19,7 +19,9 @@ android {
     namespace = "fr.remiverhaeghe.atelier"
     // Le Play Store exige un niveau d'API cible minimal, relevé chaque année
     // (API 36 depuis le 31 août 2026) : plancher fixé ici, Flutter peut aller au-dessus.
-    compileSdk = maxOf(flutter.compileSdkVersion, 36)
+    // 37 : exigé par flutter_reactive_ble 5.6 pour compiler. Les téléphones visés
+    // (minSdk, targetSdk) ne changent pas.
+    compileSdk = maxOf(flutter.compileSdkVersion, 37)
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
