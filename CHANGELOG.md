@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Permissions contrôlées
+- `docs/securite.md` explique chaque permission ; la CI fait échouer la construction si la permission Internet apparaît dans l'APK ou si une permission n'y est pas expliquée
+
 ### Visite de la maison
 - Nouvelle tuile Visite : tour des pièces avec dix points à regarder chacune (humidité, fissures, prises, fenêtres…) et cinq pour toute la maison ; les points cochés passent dans les reprises avec leur note
 
