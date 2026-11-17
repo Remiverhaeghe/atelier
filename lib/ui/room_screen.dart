@@ -6,6 +6,7 @@ import '../logic/inventory.dart';
 import '../logic/geometry.dart';
 import '../logic/layout.dart';
 import '../logic/room.dart';
+import '../logic/room_copy.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
@@ -81,6 +82,37 @@ class RoomScreen extends StatelessWidget {
                     name: vText.roomCutsTitle(vRoom.name),
                     onLayout: (_) => buildCutListPdf(vText, vRoom),
                   ),
+                ),
+                PopupMenuButton<bool>(
+                  tooltip: vText.copyRoomMenu,
+                  icon: const Icon(Icons.copy_all_outlined),
+                  onSelected: (pMirror) async {
+                    final vName = await askName(
+                      pContext,
+                      pTitle: pMirror ? vText.copyRoomMirror : vText.copyRoomSame,
+                      pLabel: vText.roomName,
+                      pInitial: vText.copyRoomName(vRoom.name),
+                    );
+                    if (vName == null) {
+                      return;
+                    }
+                    final vCopy = pMirror
+                        ? mirrorRoom(vRoom, pId: controller.newId(), pName: vName)
+                        : duplicateRoom(vRoom, pId: controller.newId(), pName: vName);
+                    final vWorksite = controller.worksite(worksiteId)!;
+                    await controller.updateWorksite(
+                      vWorksite.copyWith(rooms: [...vWorksite.rooms, vCopy]),
+                    );
+                    if (pContext.mounted) {
+                      ScaffoldMessenger.of(
+                        pContext,
+                      ).showSnackBar(SnackBar(content: Text(vText.copyRoomDone(vName))));
+                    }
+                  },
+                  itemBuilder: (_) => [
+                    PopupMenuItem(value: false, child: Text(vText.copyRoomSame)),
+                    PopupMenuItem(value: true, child: Text(vText.copyRoomMirror)),
+                  ],
                 ),
                 IconButton(
                   tooltip: vText.siteModeTitle,

@@ -10,11 +10,15 @@ import 'room_plan.dart';
 import 'theme.dart';
 
 /// Demande un nom ; null si l'utilisateur annule.
-Future<String?> askName(BuildContext pContext, {required String pTitle, required String pLabel}) =>
-    showDialog<String>(
-      context: pContext,
-      builder: (pDialogContext) => _NameDialog(title: pTitle, label: pLabel),
-    );
+Future<String?> askName(
+  BuildContext pContext, {
+  required String pTitle,
+  required String pLabel,
+  String pInitial = '',
+}) => showDialog<String>(
+  context: pContext,
+  builder: (pDialogContext) => _NameDialog(title: pTitle, label: pLabel, initial: pInitial),
+);
 
 /// Demande confirmation avant une suppression.
 Future<bool> confirmDelete(BuildContext pContext, String pName) async {
@@ -40,17 +44,18 @@ Future<bool> confirmDelete(BuildContext pContext, String pName) async {
 }
 
 class _NameDialog extends StatefulWidget {
-  const _NameDialog({required this.title, required this.label});
+  const _NameDialog({required this.title, required this.label, this.initial = ''});
 
   final String title;
   final String label;
+  final String initial;
 
   @override
   State<_NameDialog> createState() => _NameDialogState();
 }
 
 class _NameDialogState extends State<_NameDialog> {
-  final _controller = TextEditingController();
+  late final _controller = TextEditingController(text: widget.initial);
   String? _error;
 
   @override
