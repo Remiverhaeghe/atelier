@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Garanties
+- Nouvelle tuile Garanties : conformité, parfait achèvement, biennale, décennale ou garantie du fabricant, date de fin, et celles qui finissent dans moins de deux mois en tête
+
 ### Laine soufflée
 - Nouveau calcul : épaisseur à souffler en combles pour la résistance visée (R = 7 par défaut), tassement compris, sacs et piges de repère, pour la laine de verre, de roche ou la ouate de cellulose
 
