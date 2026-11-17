@@ -31,9 +31,11 @@ bool isEncryptedBackup(String pText) {
   }
 }
 
-Future<SecretKey> _key(String pPassword, List<int> pSalt, int pIterations) =>
-    Pbkdf2(macAlgorithm: Hmac.sha256(), iterations: pIterations, bits: 256)
-        .deriveKeyFromPassword(password: pPassword, nonce: pSalt);
+Future<SecretKey> _key(String pPassword, List<int> pSalt, int pIterations) => Pbkdf2(
+  macAlgorithm: Hmac.sha256(),
+  iterations: pIterations,
+  bits: 256,
+).deriveKeyFromPassword(password: pPassword, nonce: pSalt);
 
 /// Chiffre [pClear] avec [pPassword] ; [pRandom] fixe le sel et le nonce dans les tests.
 Future<String> encryptBackup(
