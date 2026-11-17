@@ -19,9 +19,7 @@ Aisle aisleOf(ShoppingItem pItem) => switch (pItem) {
 /// Mots qui désignent un rayon dans le nom d'un article ajouté depuis un calcul ; le premier
 /// rayon dont un mot apparaît l'emporte.
 const _aisleWords = <Aisle, List<String>>{
-  Aisle.timber: ['bois', 'panneau', 'poutre', 'chevron', 'solive', 'tasseau', 'tourillon'],
-  Aisle.adhesives: ['colle', 'mastic', 'joint'],
-  Aisle.building: ['béton', 'ciment', 'mortier', 'sac'],
+  // Quincaillerie et colles d'abord : « sabots de solive », « colle à bois » ne sont pas du bois
   Aisle.hardware: [
     'vis',
     'cheville',
@@ -33,6 +31,9 @@ const _aisleWords = <Aisle, List<String>>{
     'charnière',
     'pied',
   ],
+  Aisle.adhesives: ['colle', 'mastic', 'joint'],
+  Aisle.building: ['béton', 'ciment', 'mortier', 'sac'],
+  Aisle.timber: ['bois', 'panneau', 'poutre', 'chevron', 'solive', 'tasseau', 'tourillon'],
   Aisle.paint: ['peinture', 'rouleau', 'sous-couche'],
 };
 

@@ -15,6 +15,7 @@ void main() {
     expect(aisleOfText('Sabots de solive'), Aisle.hardware);
     expect(aisleOfText('Sacs de béton prêt à l\'emploi de 35 kg'), Aisle.building);
     expect(aisleOfText('Cartouches de colle D3 ou PU'), Aisle.adhesives);
+    expect(aisleOfText('Colle à bois'), Aisle.adhesives);
     expect(aisleOfText('Lampe frontale'), Aisle.other);
   });
 
