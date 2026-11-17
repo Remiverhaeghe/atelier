@@ -2669,5 +2669,18 @@
   "aisleAdhesives": "Rayon colles et mastics",
   "aisleBuilding": "Rayon matériaux",
   "aisleHardware": "Rayon quincaillerie",
-  "aisleOther": "Autres rayons"
+  "aisleOther": "Autres rayons",
+  "heightWorkTitle": "Travail en hauteur",
+  "heightWorkHelp": "À cocher avant de monter : escabeau, échafaudage, toiture.",
+  "heightWorkHeight": "Hauteur de mes pieds pendant le travail (cm)",
+  "heightWorkRoof": "Sur un toit ou au bord d'un vide sans garde-corps",
+  "heightCheckNotAlone": "Je ne suis pas seul : quelqu'un sait où je suis et peut appeler le 112",
+  "heightCheckStepladder": "Escabeau sur sol plan, pieds bloqués, je ne monte pas sur la dernière marche",
+  "heightCheckGuardrails": "Plateforme ou échafaudage avec garde-corps tout autour, plinthes comprises",
+  "heightCheckTower": "Échafaudage roulant monté selon sa notice, roues freinées, stabilisateurs sortis, personne dessus quand on le déplace",
+  "heightCheckZone": "Zone balisée en dessous, outils attachés, rien de lourd posé en hauteur",
+  "heightCheckHarness": "Harnais accroché à un point d'ancrage solide, longe réglée",
+  "heightCheckWeather": "Pas de vent fort, ni pluie, ni gel",
+  "heightWorkReady": "Tout est coché : bon travail, et prends ton temps.",
+  "heightWorkNotReady": "Il reste des points à vérifier avant de monter."
 }
