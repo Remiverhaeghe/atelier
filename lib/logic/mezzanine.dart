@@ -36,10 +36,25 @@ enum MezzanineSupport {
 
 /// Bois massif C24 et lamellé-collé GL24h : résistance en flexion et en compression,
 /// modules d'élasticité moyen et au fractile de 5 %, en MPa.
-typedef Timber = ({double bendingMpa, double compressionMpa, double meanModulusMpa, double lowModulusMpa});
+typedef Timber = ({
+  double bendingMpa,
+  double compressionMpa,
+  double meanModulusMpa,
+  double lowModulusMpa,
+});
 
-const c24 = (bendingMpa: 24.0, compressionMpa: 21.0, meanModulusMpa: 11000.0, lowModulusMpa: 7400.0);
-const gl24h = (bendingMpa: 24.0, compressionMpa: 24.0, meanModulusMpa: 11500.0, lowModulusMpa: 9600.0);
+const c24 = (
+  bendingMpa: 24.0,
+  compressionMpa: 21.0,
+  meanModulusMpa: 11000.0,
+  lowModulusMpa: 7400.0,
+);
+const gl24h = (
+  bendingMpa: 24.0,
+  compressionMpa: 24.0,
+  meanModulusMpa: 11500.0,
+  lowModulusMpa: 9600.0,
+);
 
 /// Section rectangulaire : largeur × hauteur, en mm.
 typedef Section = ({int widthMm, int heightMm});
@@ -98,7 +113,8 @@ bool beamHolds(
   final vMoment = pUltimateKnPerM * vL * vL / 8;
   final vStress = vMoment / (vB * vH * vH / 6);
   final vInertia = vB * vH * vH * vH / 12;
-  final vDeflection = 5 * pServiceKnPerM * math.pow(vL, 4) / (384 * pTimber.meanModulusMpa * vInertia);
+  final vDeflection =
+      5 * pServiceKnPerM * math.pow(vL, 4) / (384 * pTimber.meanModulusMpa * vInertia);
   final rHolds = vStress <= _kmod * pTimber.bendingMpa / pGamma && vDeflection <= vL / 300;
 
   return rHolds;
@@ -114,7 +130,8 @@ Section? lightestSection(
   double pGamma = _gammaTimber,
 }) => pSections
     .where(
-      (pSection) => beamHolds(pSection, pTimber, pSpanMm, pServiceKnPerM, pUltimateKnPerM, pGamma: pGamma),
+      (pSection) =>
+          beamHolds(pSection, pTimber, pSpanMm, pServiceKnPerM, pUltimateKnPerM, pGamma: pGamma),
     )
     .firstOrNull;
 
@@ -255,7 +272,9 @@ MezzaninePlan planMezzanine(Mezzanine pMezzanine) {
       : vBeamUltimate * vPostSpacing / 1000 * (vPosts > 2 ? 1.25 : 0.5);
   final vPostSide = vBeams == 0
       ? null
-      : postSides.where((pSide) => postHolds(pSide, pMezzanine.postHeightMm, vPostLoad)).firstOrNull;
+      : postSides
+            .where((pSide) => postHolds(pSide, pMezzanine.postHeightMm, vPostLoad))
+            .firstOrNull;
 
   final rPlan = (
     joists: vJoists,
