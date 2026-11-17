@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Mezzanine dans une pièce haute
+- Hauteur sous plafond de la pièce : plancher placé au plus bas qui laisse 2,20 m sous la poutre, hauteur restante au-dessus (habitable dès 1,80 m, debout à 2,20 m), poteaux ramenés à la bonne hauteur d'un bouton, escalier ouvert à la hauteur du plancher
+
 ### Trémie et chevêtre
 - Mezzanine : trémie d'escalier dans le plancher, avec solives coupées, longueur des solives boiteuses, chevêtre et solives d'enchevêtrure doublés dimensionnés comme les solives, sabots ; trémie trop longue signalée
 

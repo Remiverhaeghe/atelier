@@ -2519,5 +2519,20 @@
   "stairwellHangers": "{count} sabots : deux pour le chevêtre, un par solive boiteuse",
   "@stairwellHangers": {"placeholders": {"count": {"type": "int"}}},
   "stairwellTooLong": "La trémie est aussi longue que la portée : elle coupe le plancher en deux. Raccourcis-la, ou fais porter son bord par une poutre.",
-  "stairwellNoSection": "Aucune section du commerce ne suffit, même doublée : à faire calculer."
+  "stairwellNoSection": "Aucune section du commerce ne suffit, même doublée : à faire calculer.",
+  "heightSplitTitle": "Hauteur dans la pièce",
+  "heightSplitRoom": "Hauteur sous plafond de la pièce (cm)",
+  "heightSplitFloor": "Dessus du plancher à {floor} cm du sol, pour {structure} cm de plancher et de bois",
+  "@heightSplitFloor": {"placeholders": {"floor": {"type": "String"}, "structure": {"type": "String"}}},
+  "heightSplitBelow": "{below} cm libres dessous, sous la poutre : de quoi passer debout",
+  "@heightSplitBelow": {"placeholders": {"below": {"type": "String"}}},
+  "heightSplitStanding": "{above} cm au-dessus : on tient debout partout",
+  "@heightSplitStanding": {"placeholders": {"above": {"type": "String"}}},
+  "heightSplitHabitable": "{above} cm au-dessus : surface habitable, mais pas debout partout",
+  "@heightSplitHabitable": {"placeholders": {"above": {"type": "String"}}},
+  "heightSplitTooLow": "Seulement {above} cm au-dessus : moins de 1,80 m, la mezzanine ne sera pas habitable",
+  "@heightSplitTooLow": {"placeholders": {"above": {"type": "String"}}},
+  "heightSplitApply": "Poteaux de {height} cm",
+  "@heightSplitApply": {"placeholders": {"height": {"type": "String"}}},
+  "heightSplitStairs": "Escalier jusqu'à ce plancher"
 }
