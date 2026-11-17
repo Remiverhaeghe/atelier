@@ -72,10 +72,7 @@ Future<Uint8List> buildQuotePdf(
   required DateTime pToday,
   PhotoReader? pRead,
 }) async {
-  final vDocument = pw.Document(
-    title: pText.quoteTitle(pWorksite.name),
-    theme: await pdfTheme(),
-  );
+  final vDocument = pw.Document(title: pText.quoteTitle(pWorksite.name), theme: await pdfTheme());
   pw.Widget? vPhoto(String? pPath) {
     final vBytes = pPath == null || pRead == null ? null : pRead(pPath);
     if (vBytes == null) {
