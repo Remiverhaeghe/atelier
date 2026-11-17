@@ -1,5 +1,6 @@
 import 'achievements_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:printing/printing.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
@@ -29,6 +30,8 @@ import 'loans_screen.dart';
 import 'moisture_screen.dart';
 import 'offcuts_screen.dart';
 import 'plexi_screen.dart';
+import 'quote_pdf.dart';
+import 'journal_pdf.dart';
 import 'reminders_card.dart';
 import 'review_screen.dart';
 
@@ -113,6 +116,16 @@ class WorksiteScreen extends StatelessWidget {
                       exportGltfFile(vWorksite);
                     case 'dxf':
                       exportDxfFile(vWorksite);
+                    case 'quote':
+                      Printing.layoutPdf(
+                        name: vText.quoteTitle(vWorksite.name),
+                        onLayout: (_) => buildQuotePdf(
+                          vText,
+                          vWorksite,
+                          pToday: today ?? DateTime.now(),
+                          pRead: readPhotoFile,
+                        ),
+                      );
                     case 'homeAssistant':
                       exportHomeAssistantFile(vWorksite);
                     case 'guide':
@@ -126,6 +139,7 @@ class WorksiteScreen extends StatelessWidget {
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
                   PopupMenuItem(value: 'gltf', child: Text(vText.exportGltf)),
                   PopupMenuItem(value: 'dxf', child: Text(vText.exportDxf)),
+                  PopupMenuItem(value: 'quote', child: Text(vText.quoteMenu)),
                   PopupMenuItem(value: 'homeAssistant', child: Text(vText.exportHomeAssistant)),
                   PopupMenuItem(
                     value: 'guide',

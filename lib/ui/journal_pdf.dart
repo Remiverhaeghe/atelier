@@ -13,7 +13,8 @@ import 'shopping_texts.dart';
 /// Lecture d'une photo du carnet ; null si le fichier a disparu du téléphone.
 typedef PhotoReader = Uint8List? Function(String pPath);
 
-Uint8List? _readFile(String pPath) {
+/// Lecture d'une photo du téléphone ; null si le fichier n'existe plus.
+Uint8List? readPhotoFile(String pPath) {
   final vFile = File(pPath);
 
   return vFile.existsSync() ? vFile.readAsBytesSync() : null;
@@ -24,7 +25,7 @@ Uint8List? _readFile(String pPath) {
 Future<Uint8List> buildJournalPdf(
   AppLocalizations pText,
   Worksite pWorksite, {
-  PhotoReader pRead = _readFile,
+  PhotoReader pRead = readPhotoFile,
 }) async {
   final vDocument = pw.Document(
     title: '${pText.journalTitle} : ${pWorksite.name}',
