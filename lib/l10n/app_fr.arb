@@ -2601,5 +2601,15 @@
   "@turningFlights": {"placeholders": {"first": {"type": "String"}, "second": {"type": "String"}}},
   "turningTreads": "{turning} marches dans le tournant, {balanced} marches balancées en tout",
   "@turningTreads": {"placeholders": {"turning": {"type": "int"}, "balanced": {"type": "int"}}},
-  "turningHint": "Ligne de foulée au milieu de l'emmarchement, avec le même giron que l'escalier droit. Les marches balancées se tracent à l'épure, sur place : côté intérieur, garde au moins 10 cm de giron."
+  "turningHint": "Ligne de foulée au milieu de l'emmarchement, avec le même giron que l'escalier droit. Les marches balancées se tracent à l'épure, sur place : côté intérieur, garde au moins 10 cm de giron.",
+  "stairRailTitle": "Garde-corps et main courante",
+  "stairRailWalls": "Entre deux murs",
+  "stairRailOneSide": "Un côté vide",
+  "stairRailTwoSides": "Deux côtés vides",
+  "stairRailGuard": "{sides, plural, =1{Garde-corps côté vide} other{Garde-corps des deux côtés}} : {length} cm en pente chacun, {posts} poteaux et {balusters} barreaux en tout",
+  "@stairRailGuard": {"placeholders": {"sides": {"type": "int"}, "length": {"type": "String"}, "posts": {"type": "int"}, "balusters": {"type": "int"}}},
+  "stairRailHandrail": "{length} cm de main courante, à {height} cm au-dessus du nez des marches",
+  "@stairRailHandrail": {"placeholders": {"length": {"type": "String"}, "height": {"type": "String"}}},
+  "stairRailRules": "Aucun vide de plus de {gap} cm, y compris entre la marche et le bas du garde-corps. Une main courante côté mur aide à la descente, même entre deux murs.",
+  "@stairRailRules": {"placeholders": {"gap": {"type": "String"}}}
 }

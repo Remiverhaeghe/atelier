@@ -7,9 +7,7 @@ void main() {
   testWidgets('pergola : les chevrons suivent la couverture et la neige', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
-    await pTester.ensureVisible(find.text('Pergola ou auvent'));
-    await pTester.ensureVisible(find.text('Pergola ou auvent'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Pergola ou auvent');
     await pTester.tap(find.text('Pergola ou auvent'));
     await pTester.pumpAndSettle();
 

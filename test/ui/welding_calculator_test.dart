@@ -8,8 +8,7 @@ void main() {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const CalculatorsScreen()));
     // La grille des calculs s'allonge à chaque nouveau calcul : défiler jusqu'à la tuile
-    await pTester.ensureVisible(find.text('Soudure'));
-    await pTester.pumpAndSettle();
+    await scrollToTile(pTester, 'Soudure');
     await pTester.tap(find.text('Soudure'));
     await pTester.pumpAndSettle();
 
