@@ -2710,5 +2710,19 @@
   "roofCoverFlat": "Ardoises, tuiles plates",
   "roofWindowSpacing": "Entraxe des chevrons (cm)",
   "roofWindowRafter": "Largeur d'un chevron (mm)",
-  "roofWindowWanted": "Largeur voulue, ou celle du plexi (cm)"
+  "roofWindowWanted": "Largeur voulue, ou celle du plexi (cm)",
+  "towerTitle": "Échafaudage roulant",
+  "towerReach": "Hauteur à atteindre : plafond, haut du mur (cm)",
+  "towerNarrow": "Base étroite (75 cm)",
+  "towerWide": "Base large (135 cm)",
+  "towerOutdoor": "Dehors",
+  "towerNotNeeded": "Assez bas pour travailler depuis le sol ou un escabeau",
+  "towerPlatform": "Plancher à {height} cm : {frames, plural, =1{1 élément de 2 m} other{{frames} éléments de 2 m}}",
+  "@towerPlatform": {"placeholders": {"height": {"type": "String"}, "frames": {"type": "int"}}},
+  "towerGuardrail": "Garde-corps et plinthes tout autour du plancher, sommet à {height} cm",
+  "@towerGuardrail": {"placeholders": {"height": {"type": "String"}}},
+  "towerStabilisers": "Stabilisateurs obligatoires à cette hauteur pour cette base",
+  "towerNoStabilisers": "Stable sans stabilisateurs si le sol est plan et dur",
+  "towerTooHigh": "Trop haut pour un montage soi-même : fais monter l'échafaudage par un professionnel.",
+  "towerRules": "Roues freinées avant de monter, jamais déplacé avec quelqu'un dessus, montée par l'intérieur, plancher posé au fur et à mesure. Échafaudage loué : vérifie la notice et la date du dernier contrôle."
 }

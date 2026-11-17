@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/height_safety.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
+import 'rolling_tower_card.dart';
 
 String heightCheckLabel(AppLocalizations pText, HeightCheck pCheck) => switch (pCheck) {
   HeightCheck.notAlone => pText.heightCheckNotAlone,
@@ -75,6 +76,8 @@ class _HeightWorkScreenState extends State<HeightWorkScreen> {
               color: vReady ? null : vTheme.colorScheme.error,
             ),
           ),
+          const SizedBox(height: 16),
+          const RollingTowerCard(),
         ],
       ),
     );
