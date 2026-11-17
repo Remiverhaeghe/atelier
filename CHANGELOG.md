@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Éclairage d'une pièce
+- Nouveau calcul : flux nécessaire selon l'usage, nombre de lampes, quadrillage avec un écart d'au plus 1,5 fois la hauteur, puissance en LED, grande hauteur comprise
+
 ### Chauffer un grand volume
 - Nouveau calcul pour les grandes hauteurs : puissance par le volume, pertes de l'air chaud sous le plafond, radiateurs, poêle de puissance courante, nombre et diamètre des brasseurs d'air, conseil rayonnement ou convection
 
