@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Assemblages d'étagère
+- Étagère : épaisseur conseillée selon ce qu'elle porte (objets légers, livres, lourd), ou montant au milieu quand aucune ne suffit
+- Assemblage des tablettes selon le panneau : vis d'assemblage dans l'aggloméré et le MDF, tourillons collés dans le bois avec diamètres et profondeurs de perçage, taquets pour des tablettes réglables
+- Tenue : fixation au mur anti-basculement au-delà d'un mètre, traverse et équerres d'angle sans fond
+- Nouveau calcul : tablette murale sur équerres, avec nombre et écart des équerres, débord, longueur du bras, poids chargé, traction sur la vis du haut et chevilles selon le mur
+
 ### Mesure par photo
 - Nouveau calcul : sur une photo prise de face, le grand côté d'une carte au format bancaire posée à plat donne l'échelle, puis deux points donnent la longueur
 

@@ -21,4 +21,25 @@ void main() {
     expect(find.text('5 × tablette de 56,4 × 30 cm'), findsOneWidget);
     expect(find.textContaining('Tablette trop large'), findsNothing);
   });
+
+  testWidgets('étagère : épaisseur selon la charge, assemblage et tenue au mur', (pTester) async {
+    tallScreen(pTester);
+    await pTester.pumpWidget(localized(const CalculatorsScreen()));
+    await pTester.tap(find.text('Étagère sur mesure'));
+    await pTester.pumpAndSettle();
+
+    // Aggloméré de 18 mm, 76,4 cm entre montants, livres
+    expect(find.text('Épaisseur conseillée pour cette charge : 22 mm'), findsOneWidget);
+    expect(find.textContaining("3 vis d'assemblage"), findsOneWidget);
+    expect(find.textContaining('anti-basculement'), findsOneWidget);
+    expect(find.textContaining('se met en losange'), findsNothing);
+
+    await pTester.tap(find.text('Tablettes réglables sur taquets'));
+    await pTester.pump();
+    expect(find.textContaining('Quatre taquets'), findsOneWidget);
+
+    await pTester.tap(find.text('Fond cloué au dos'));
+    await pTester.pump();
+    expect(find.textContaining('se met en losange'), findsOneWidget);
+  });
 }

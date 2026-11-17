@@ -38,6 +38,7 @@ import 'tiling_calculator.dart';
 import 'wall_tiling_calculator.dart';
 import 'wardrobe_calculator.dart';
 import 'ventilation_calculator.dart';
+import 'wall_shelf_calculator.dart';
 import 'welding_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
@@ -56,6 +57,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.shelfHelp,
       icon: Icons.shelves,
       builder: (_) => const ShelfCalculator(),
+    ),
+    (
+      title: pText.wallShelfTitle,
+      help: pText.wallShelfHelp,
+      icon: Icons.shelves,
+      builder: (_) => const WallShelfCalculator(),
     ),
     (
       title: pText.wardrobeTitle,
