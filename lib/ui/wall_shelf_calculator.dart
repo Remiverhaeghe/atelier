@@ -41,9 +41,7 @@ class _WallShelfCalculatorState extends State<WallShelfCalculator> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BigFigure(
-                    vText.bracketCount(vPlan.brackets, formatCentimetres(vPlan.spacingMm)),
-                  ),
+                  BigFigure(vText.bracketCount(vPlan.brackets, formatCentimetres(vPlan.spacingMm))),
                   IconLine(
                     Icons.open_in_full,
                     vText.bracketOverhang(formatCentimetres(vPlan.overhangMm)),
@@ -72,7 +70,10 @@ class _WallShelfCalculatorState extends State<WallShelfCalculator> {
             ),
           ),
           const SizedBox(height: 12),
-          ShelfLoadField(load: _shelf.load, onChanged: (pLoad) => vSet(_shelf.copyWith(load: pLoad))),
+          ShelfLoadField(
+            load: _shelf.load,
+            onChanged: (pLoad) => vSet(_shelf.copyWith(load: pLoad)),
+          ),
           DropdownButtonFormField<WallSupport>(
             initialValue: _shelf.wall,
             decoration: InputDecoration(labelText: vText.fixingsSupport),
@@ -95,11 +96,7 @@ class _WallShelfCalculatorState extends State<WallShelfCalculator> {
             onChanged: (pMaterial) => vSet(_shelf.copyWith(material: pMaterial)),
           ),
           for (final (vLabel, vValue, vApply) in [
-            (
-              vText.shelfWidth,
-              _shelf.lengthMm,
-              (int pValue) => _shelf.copyWith(lengthMm: pValue),
-            ),
+            (vText.shelfWidth, _shelf.lengthMm, (int pValue) => _shelf.copyWith(lengthMm: pValue)),
             (vText.shelfDepth, _shelf.depthMm, (int pValue) => _shelf.copyWith(depthMm: pValue)),
             (
               vText.shelfThickness,
