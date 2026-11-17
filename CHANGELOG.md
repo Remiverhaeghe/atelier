@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Plancher et garde-corps de mezzanine
+- Mezzanine : plancher en OSB/3 ou aggloméré P5 rainuré, épaisseur selon l'entraxe des solives, panneaux chutes comprises, vis, colle et conseils de pose
+- Garde-corps selon la norme NF P01-012 : bord dans le vide selon l'appui, accès à l'escalier déduit, poteaux, barreaux verticaux, main courante et lisse basse
+
 ### Structure de mezzanine
 - Nouveau calcul : mezzanine contre un mur, entre deux murs ou indépendante. Solives en C24 et poutre en lamellé-collé choisies par la flexion et une flèche limitée à 1/300, poteaux vérifiés au flambement, un poteau de plus au-delà de 4 m, lambourde et chevilles au mur, sabots, contreventement. Présenté comme un prédimensionnement à faire valider
 
