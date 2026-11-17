@@ -63,13 +63,16 @@ void main() {
 
     expect(vPlan.drawers, 3);
     expect(vPlan.doorCount, 0);
-    expect(vPlan.parts.where((pPart) => pPart.name.startsWith('drawer') || pPart.name == slidePart), [
-      (name: drawerFrontPart, count: 3, lengthMm: 779, widthMm: 296),
-      (name: drawerSidePart, count: 6, lengthMm: 450, widthMm: 256),
-      (name: drawerEndPart, count: 6, lengthMm: 702, widthMm: 256),
-      (name: drawerBottomPart, count: 3, lengthMm: 738, widthMm: 450),
-      (name: slidePart, count: 3, lengthMm: 450, widthMm: 0),
-    ]);
+    expect(
+      vPlan.parts.where((pPart) => pPart.name.startsWith('drawer') || pPart.name == slidePart),
+      [
+        (name: drawerFrontPart, count: 3, lengthMm: 779, widthMm: 296),
+        (name: drawerSidePart, count: 6, lengthMm: 450, widthMm: 256),
+        (name: drawerEndPart, count: 6, lengthMm: 702, widthMm: 256),
+        (name: drawerBottomPart, count: 3, lengthMm: 738, widthMm: 450),
+        (name: slidePart, count: 3, lengthMm: 450, widthMm: 0),
+      ],
+    );
   });
 
   test('penderie et tiroirs : une seule porte, sur la penderie', () {
