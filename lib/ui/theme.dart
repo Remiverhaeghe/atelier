@@ -73,6 +73,35 @@ const bodyFont = 'Barlow';
 const titleFont = 'BarlowSemiCondensed';
 
 /// Thème clair ou sombre de l'application.
+/// Mode nuit du chantier : rouge très sombre, qui n'éblouit pas sous les combles et garde la
+/// vision de nuit, avec des textes agrandis.
+ThemeData nightTheme(ThemeData pBase) {
+  const vRed = Color(0xFFFF5A4E);
+  final vScheme = pBase.colorScheme.copyWith(
+    brightness: Brightness.dark,
+    primary: vRed,
+    onPrimary: Colors.black,
+    surface: Colors.black,
+    onSurface: vRed,
+    surfaceContainerLow: const Color(0xFF140303),
+    surfaceContainer: const Color(0xFF1C0505),
+    surfaceContainerHigh: const Color(0xFF240707),
+    onSurfaceVariant: const Color(0xFFC94036),
+    outline: const Color(0xFF7A1F19),
+    outlineVariant: const Color(0xFF3D0E0B),
+  );
+  final rTheme = pBase.copyWith(
+    colorScheme: vScheme,
+    scaffoldBackgroundColor: Colors.black,
+    cardTheme: pBase.cardTheme.copyWith(color: vScheme.surfaceContainer),
+    appBarTheme: pBase.appBarTheme.copyWith(backgroundColor: Colors.black, foregroundColor: vRed),
+    textTheme: pBase.textTheme.apply(bodyColor: vRed, displayColor: vRed, fontSizeFactor: 1.15),
+    iconTheme: pBase.iconTheme.copyWith(color: vRed),
+  );
+
+  return rTheme;
+}
+
 ThemeData atelierTheme(Brightness pBrightness) {
   final vDark = pBrightness == Brightness.dark;
   final vScheme = ColorScheme.fromSeed(seedColor: _pine, brightness: pBrightness).copyWith(
