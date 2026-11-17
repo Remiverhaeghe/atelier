@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Performance surveillée
+- Un test chronomètre la vue 3D, le glTF et les courses d'une grande maison fictive de 40 pièces meublées : un calcul qui deviendrait beaucoup plus lent fait échouer la CI
+
 ### Accessibilité
 - Tests des règles d'accessibilité sur l'accueil, le chantier et les calculs : boutons nommés pour TalkBack, cibles de 48 dp au moins, contraste du texte
 
