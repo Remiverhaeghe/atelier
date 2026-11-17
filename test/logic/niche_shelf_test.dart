@@ -17,12 +17,10 @@ void main() {
 
     expect(vPlan.sideBackMm, 800);
     expect(vPlan.sideFrontMm, 1200);
-    expect([for (final vShelf in vPlan.shelves) (vShelf.heightMm, vShelf.depthMm)], [
-      (0, 400),
-      (367, 400),
-      (733, 400),
-      (1100, 100),
-    ]);
+    expect(
+      [for (final vShelf in vPlan.shelves) (vShelf.heightMm, vShelf.depthMm)],
+      [(0, 400), (367, 400), (733, 400), (1100, 100)],
+    );
   });
 
   test('rampant plus couché : la tablette du haut perd plus de profondeur', () {
