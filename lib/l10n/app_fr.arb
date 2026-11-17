@@ -2375,5 +2375,9 @@
   "@quotePerimeter": {"placeholders": {"length": {"type": "String"}}},
   "quoteWork": "Travaux demandés",
   "quoteAsk": "Merci d'indiquer dans votre devis",
-  "quoteAskList": "Le détail des fournitures et de la main-d'œuvre, le taux de TVA appliqué, vos assurances (décennale et responsabilité civile), le délai d'intervention, la durée des travaux et la durée de validité du devis."
+  "quoteAskList": "Le détail des fournitures et de la main-d'œuvre, le taux de TVA appliqué, vos assurances (décennale et responsabilité civile), le délai d'intervention, la durée des travaux et la durée de validité du devis.",
+  "leftoverTitle": "Restera après le chantier",
+  "leftoverLine": "{item} : {count}",
+  "@leftoverLine": {"placeholders": {"item": {"type": "String"}, "count": {"type": "int"}}},
+  "leftoverHint": "Gardez un paquet de chaque sol et une boîte de chaque peinture pour les retouches ; le reste se rapporte souvent au magasin, emballage intact et ticket à l'appui."
 }

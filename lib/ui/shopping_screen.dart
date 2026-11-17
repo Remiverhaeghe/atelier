@@ -131,6 +131,20 @@ class ShoppingScreen extends StatelessWidget {
                       lines: vLines,
                       onChanged: controller.updateWorksite,
                     ),
+                    if (leftoverStock(vWorksite) case final vLeft when vLeft.isNotEmpty)
+                      Card(
+                        child: ListTile(
+                          leading: const Icon(Icons.inventory_outlined),
+                          title: Text(vText.leftoverTitle),
+                          subtitle: Text(
+                            [
+                              for (final vEntry in vLeft.entries)
+                                vText.leftoverLine(itemLabel(vText, vEntry.key), vEntry.value),
+                              vText.leftoverHint,
+                            ].join('\n'),
+                          ),
+                        ),
+                      ),
                     for (final vGroup in groupByStore(vLines, vWorksite.stores)) ...[
                       if (vGroup.store.isNotEmpty || vWorksite.stores.isNotEmpty)
                         ListTile(

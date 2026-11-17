@@ -137,6 +137,21 @@ List<ShoppingLine> shoppingList(Worksite pWorksite) {
   return rLines;
 }
 
+/// Ce qui restera du stock une fois le chantier fini : à ranger pour plus tard, ou à rapporter au
+/// magasin tant que c'est possible. Articles sans besoin compris.
+Map<ShoppingItem, int> leftoverStock(Worksite pWorksite) {
+  final vTaken = {for (final vLine in shoppingList(pWorksite)) vLine.item: vLine.inStock};
+  final rLeft = <ShoppingItem, int>{};
+  for (final vItem in ShoppingItem.values) {
+    final vLeft = (pWorksite.stock[vItem.name] ?? 0) - (vTaken[vItem] ?? 0);
+    if (vLeft > 0) {
+      rLeft[vItem] = vLeft;
+    }
+  }
+
+  return rLeft;
+}
+
 /// Total des lignes dont le prix est connu.
 double budgetTotal(List<ShoppingLine> pLines) =>
     pLines.fold(0, (pSum, pLine) => pSum + (pLine.total ?? 0));
