@@ -2194,5 +2194,9 @@
   "loanEmpty": "Aucun outil prêté. Notez ici ce que vous prêtez pour penser à le récupérer.",
   "loanSince": "{person}, {days, plural, =0{aujourd'hui} =1{depuis 1 jour} other{depuis {days} jours}}",
   "@loanSince": {"placeholders": {"person": {"type": "String"}, "days": {"type": "int"}}},
-  "loanReturned": "Rendu"
+  "loanReturned": "Rendu",
+  "shortListShare": "Envoyer la liste à acheter",
+  "shortListTitle": "À acheter pour {name} :",
+  "@shortListTitle": {"placeholders": {"name": {"type": "String"}}},
+  "shortListDone": "Tout est acheté."
 }

@@ -66,5 +66,32 @@ String shoppingText(AppLocalizations pText, Worksite pWorksite) {
   return rText.toString().trimRight();
 }
 
+/// Liste courte pour quelqu'un qui passe au magasin : seulement ce qui reste à acheter, par
+/// magasin, avec la quantité et la référence, sans prix.
+String shortShoppingText(AppLocalizations pText, Worksite pWorksite) {
+  final vLeft = [
+    for (final vLine in shoppingList(pWorksite))
+      if (!pWorksite.bought.contains(vLine.item.name) && vLine.quantity > 0) vLine,
+  ];
+  final rText = StringBuffer(pText.shortListTitle(pWorksite.name));
+  for (final vGroup in groupByStore(vLeft, pWorksite.stores)) {
+    rText
+      ..writeln()
+      ..writeln(vGroup.store.isEmpty ? pText.noStore : vGroup.store);
+    for (final vLine in vGroup.lines) {
+      final vReference = pWorksite.references[vLine.item.name] ?? '';
+      rText.write('- ${vLine.quantity} × ${itemLabel(pText, vLine.item)}');
+      rText.writeln(vReference.isEmpty ? '' : ' ($vReference)');
+    }
+  }
+  if (vLeft.isEmpty) {
+    rText
+      ..writeln()
+      ..writeln(pText.shortListDone);
+  }
+
+  return rText.toString().trimRight();
+}
+
 /// Valeur du champ de prix : vide tant qu'aucun prix n'est saisi.
 String priceField(double? pPrice) => pPrice == null ? '' : formatDecimal(pPrice);
