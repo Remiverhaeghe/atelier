@@ -77,4 +77,3 @@ class WindowSealingCard extends StatelessWidget {
 /// Étiquette posée sur la face avant de la coupe.
 Callout _label(double pX, double pZ, String pText, Offset pShift) =>
     (at: (x: pX, y: 0, z: pZ), text: pText, shift: pShift);
-
