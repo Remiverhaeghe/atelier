@@ -56,7 +56,8 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
         children: [
           Card(
             margin: EdgeInsets.zero,
-            color: vTheme.colorScheme.surfaceContainerLow.withValues(alpha: 0.92),
+            // Carte translucide : le croquis reste posé sur le quadrillage du carnet
+            color: vTheme.colorScheme.surfaceContainerLow.withValues(alpha: 0.7),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -174,7 +175,7 @@ class AtticSketch extends StatelessWidget {
         kneeMm: kneeMm,
         twoPitches: twoPitches,
         ink: vColors.ink,
-        tape: vColors.tape,
+        tape: Color.lerp(vColors.tape, Colors.orange, 0.2)!,
         style: Theme.of(
           context,
         ).textTheme.labelMedium!.copyWith(color: vColors.ink, fontStyle: FontStyle.italic),
@@ -221,6 +222,18 @@ class _AtticPainter extends CustomPainter {
     final vFloorY = pSize.height - vBottom;
     Offset vAt(double pXmm, double pYmm) => Offset(vLeft + pXmm * vScale, vFloorY - pYmm * vScale);
 
+    // Papier millimétré à l'échelle du dessin : un carreau pour 50 cm
+    final vGrid = Paint()
+      ..color = ink.withValues(alpha: 0.08)
+      ..strokeWidth = 1;
+    final vStep = 500 * vScale;
+    for (var vX = vLeft; vX <= pSize.width; vX += vStep) {
+      pCanvas.drawLine(Offset(vX, 0), Offset(vX, vFloorY), vGrid);
+    }
+    for (var vY = vFloorY; vY >= 0; vY -= vStep) {
+      pCanvas.drawLine(Offset(vLeft, vY), Offset(pSize.width, vY), vGrid);
+    }
+
     final vRun = twoPitches ? widthMm / 2 : widthMm.toDouble();
     final vSlopedRun = (widthMm - section.flatWidthMm) / (twoPitches ? 2 : 1);
     final vOutline = <Offset>[
@@ -266,7 +279,8 @@ class _AtticPainter extends CustomPainter {
       for (var vX = vLeft; vX < vAt(vRun * (twoPitches ? 2 : 1), 0).dx; vX += 10) {
         pCanvas.drawLine(Offset(vX, vCarrezY), Offset(vX + 5, vCarrezY), vDash);
       }
-      final vLabelAt = vAt(widthMm / 2, carrezHeightMm.toDouble()) + const Offset(0, -9);
+      // Au bout de la ligne, à droite, loin de la cote de hauteur
+      final vLabelAt = vAt(widthMm.toDouble(), carrezHeightMm.toDouble()) + const Offset(-16, -10);
       sketchLabel(pCanvas, carrezLabel, vLabelAt, style);
     }
 
@@ -281,7 +295,7 @@ class _AtticPainter extends CustomPainter {
       vCm(widthMm),
       vMeasure,
       style,
-      pLabelShift: -10,
+      pLabelShift: 11,
     );
     if (kneeMm > 0) {
       dimensionLine(
@@ -291,7 +305,7 @@ class _AtticPainter extends CustomPainter {
         vCm(kneeMm),
         vMeasure,
         style,
-        pLabelShift: 16,
+        pLabelShift: -16,
       );
     }
     final vMiddle = twoPitches ? widthMm / 2 : vRun - (vRun - vSlopedRun) / 2;
@@ -302,7 +316,7 @@ class _AtticPainter extends CustomPainter {
       vCm(section.topMm),
       vMeasure,
       style,
-      pLabelShift: -18,
+      pLabelShift: 24,
     );
   }
 

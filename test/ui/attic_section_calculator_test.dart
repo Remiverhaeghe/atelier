@@ -14,8 +14,8 @@ void main() {
     await pTester.pumpAndSettle();
 
     // 6 m entre jambettes de 80 cm, rampants à 40°, pièce de 4,20 m
-    expect(find.text('15,2 m² au-dessus de 1,80 m'), findsOneWidget);
-    expect(find.text('25,2 m² au sol'), findsOneWidget);
+    expect(find.text('15,2 m² habitables'), findsOneWidget);
+    expect(find.text('25,2 m² au sol en tout'), findsOneWidget);
     expect(find.text('331,7 cm au point le plus haut'), findsOneWidget);
     expect(find.byType(AtticSketch), findsOneWidget);
 
