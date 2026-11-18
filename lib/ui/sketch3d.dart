@@ -68,6 +68,7 @@ class Sketch3D extends StatelessWidget {
         highlight: vColors.tape,
         glass: vTheme.colorScheme.primary,
         board: vTheme.colorScheme.surfaceContainerHigh,
+        paper: vTheme.colorScheme.surfaceContainerLowest,
         style: TextStyle(fontFamily: handFont, fontSize: 19, color: vColors.ink),
       ),
     );
@@ -85,6 +86,7 @@ class _Sketch3DPainter extends CustomPainter {
     required this.highlight,
     required this.glass,
     required this.board,
+    required this.paper,
     required this.style,
   });
 
@@ -95,6 +97,7 @@ class _Sketch3DPainter extends CustomPainter {
   final Color highlight;
   final Color glass;
   final Color board;
+  final Color paper;
   final TextStyle style;
 
   Color _base(PartRole pRole) => switch (pRole) {
@@ -170,10 +173,12 @@ class _Sketch3DPainter extends CustomPainter {
     final vRight = vAll.map((pPoint) => pPoint.dx).reduce(math.max);
     final vTop = vAll.map((pPoint) => pPoint.dy).reduce(math.min);
     final vBottom = vAll.map((pPoint) => pPoint.dy).reduce(math.max);
-    const vMargin = 30.0;
+    // Marges larges sur les côtés : la place des étiquettes
+    const vMarginX = 64.0;
+    const vMarginY = 34.0;
     final vScale = math.min(
-      (pSize.width - 2 * vMargin) / math.max(1, vRight - vLeft),
-      (pSize.height - 2 * vMargin) / math.max(1, vBottom - vTop),
+      (pSize.width - 2 * vMarginX) / math.max(1, vRight - vLeft),
+      (pSize.height - 2 * vMarginY) / math.max(1, vBottom - vTop),
     );
     final vOrigin = Offset(
       (pSize.width - (vRight - vLeft) * vScale) / 2 - vLeft * vScale,
@@ -197,13 +202,35 @@ class _Sketch3DPainter extends CustomPainter {
     final vArrow = Paint()
       ..color = ink
       ..strokeWidth = 1.2;
+    // Étiquettes en dernier, sur un bout de papier opaque : elles restent lisibles même
+    // posées sur le dessin, et rentrent dans le cadre
     for (final vCallout in callouts) {
       final vTarget = vAt(vCallout.at);
-      final vLabel = vTarget + vCallout.shift;
-      pCanvas.drawLine(vLabel, vTarget, vArrow);
-      pCanvas.drawCircle(vTarget, 2.5, vArrow);
-      final vBelow = vCallout.shift.dy < 0 ? -10.0 : 10.0;
-      sketchLabel(pCanvas, vCallout.text, vLabel + Offset(0, vBelow), style);
+      final vText = TextPainter(
+        text: TextSpan(text: vCallout.text, style: style),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final vWanted = vTarget + vCallout.shift;
+      final vCenter = Offset(
+        vWanted.dx.clamp(vText.width / 2 + 6, pSize.width - vText.width / 2 - 6),
+        vWanted.dy.clamp(vText.height / 2 + 4, pSize.height - vText.height / 2 - 4),
+      );
+      final vBox = Rect.fromCenter(
+        center: vCenter,
+        width: vText.width + 12,
+        height: vText.height + 4,
+      );
+      pCanvas
+        ..drawLine(vBox.center, vTarget, vArrow)
+        ..drawCircle(vTarget, 3, vArrow)
+        ..drawRRect(RRect.fromRectAndRadius(vBox, const Radius.circular(4)), Paint()..color = paper)
+        ..drawRRect(
+          RRect.fromRectAndRadius(vBox, const Radius.circular(4)),
+          Paint()
+            ..color = ink.withValues(alpha: 0.5)
+            ..style = PaintingStyle.stroke,
+        );
+      vText.paint(pCanvas, vBox.topLeft + const Offset(6, 2));
     }
   }
 
