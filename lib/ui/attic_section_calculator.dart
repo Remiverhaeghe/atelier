@@ -472,11 +472,11 @@ class _AtticPainter extends CustomPainter {
     final vRing = Paint()
       ..color = handle.withValues(alpha: 0.3 * vReveal)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 6;
+      ..strokeWidth = 4;
     for (final vPoint in [vGeometry.kneeHandle, vGeometry.topHandle]) {
       pCanvas
-        ..drawCircle(vPoint, 7, vHandle)
-        ..drawCircle(vPoint, 13, vRing);
+        ..drawCircle(vPoint, 5, vHandle)
+        ..drawCircle(vPoint, 10, vRing);
     }
   }
 

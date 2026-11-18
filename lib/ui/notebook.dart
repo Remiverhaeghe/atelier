@@ -215,12 +215,16 @@ class PaperCardBorder extends OutlinedBorder {
       return;
     }
     final vTape = Paint()..color = tape.withValues(alpha: 0.45);
-    for (final (vCorner, vAngle) in [(pRect.topLeft, -0.6), (pRect.topRight, 0.6)]) {
+    // Posé en travers du coin, côté fiche : la fiche est découpée à son contour
+    for (final (vCorner, vAngle) in [
+      (pRect.topLeft + const Offset(12, 10), -0.7),
+      (pRect.topRight + const Offset(-12, 10), 0.7),
+    ]) {
       pCanvas
         ..save()
         ..translate(vCorner.dx, vCorner.dy)
         ..rotate(vAngle)
-        ..drawRect(const Rect.fromLTWH(-22, -8, 44, 16), vTape)
+        ..drawRect(const Rect.fromLTWH(-24, -7, 48, 14), vTape)
         ..restore();
     }
   }
@@ -281,9 +285,10 @@ class _RingPainter extends CustomPainter {
     );
     final vPath = Path();
     // Un tour et un peu plus, le trait ne se referme pas exactement
-    for (var vStep = 0; vStep <= 48; vStep++) {
-      final vAngle = -1.9 + vStep / 44 * 2 * math.pi;
-      final vR = vRadius + math.sin(vStep * 1.7) * 0.8 + vStep * 0.02;
+    for (var vStep = 0; vStep <= 52; vStep++) {
+      final vAngle = -1.9 + vStep / 48 * 2 * math.pi;
+      // Ondulation lente, et le trait finit un peu plus large qu'il n'a commencé
+      final vR = vRadius - 1.5 + math.sin(vStep * 0.33) * 0.7 + vStep * 0.04;
       final vPoint = vCenter + Offset(math.cos(vAngle), math.sin(vAngle)) * vR;
       vStep == 0 ? vPath.moveTo(vPoint.dx, vPoint.dy) : vPath.lineTo(vPoint.dx, vPoint.dy);
     }
