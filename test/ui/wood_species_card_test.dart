@@ -9,9 +9,7 @@ void main() {
   testWidgets('bois dehors : douglas conseillé, sapin refusé sans traitement', (pTester) async {
     tallScreen(pTester);
     await pTester.pumpWidget(
-      localized(
-        const Scaffold(body: WoodSpeciesCard(useClass: UseClass.outdoor)),
-      ),
+      localized(const Scaffold(body: WoodSpeciesCard(useClass: UseClass.outdoor))),
     );
 
     expect(find.text('Convient à cet usage sans traitement'), findsOneWidget);
