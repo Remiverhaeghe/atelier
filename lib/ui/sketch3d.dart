@@ -25,12 +25,7 @@ class Prism {
     double pZ0,
     double pZ1, {
     PartRole role = PartRole.wood,
-  }) => Prism(
-    [(pX0, pZ0), (pX1, pZ0), (pX1, pZ1), (pX0, pZ1)],
-    pY0,
-    pY1,
-    role: role,
-  );
+  }) => Prism([(pX0, pZ0), (pX1, pZ0), (pX1, pZ1), (pX0, pZ1)], pY0, pY1, role: role);
 
   /// Profil en (x, z), dans un sens ou dans l'autre.
   final List<(double, double)> profile;
