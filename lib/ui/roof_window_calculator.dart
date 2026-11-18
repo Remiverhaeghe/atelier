@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/roof_window.dart';
+import '../logic/glossary.dart';
 import '../logic/units.dart';
+import 'glossary_view.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
 
@@ -78,6 +80,7 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
               ),
             ),
           ),
+          const TermsRow([Term.rafter, Term.spacing, Term.header]),
           const SizedBox(height: 12),
           SegmentedButton<RoofCover>(
             segments: [

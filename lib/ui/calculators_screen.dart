@@ -26,8 +26,10 @@ import 'attic_section_calculator.dart';
 import 'large_room_heat_calculator.dart';
 import 'lighting_calculator.dart';
 import 'reverberation_calculator.dart';
+import 'glossary_view.dart';
 import 'niche_shelf_calculator.dart';
 import 'notebook.dart';
+import 'roof_lining_calculator.dart';
 import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
@@ -129,6 +131,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.woodWindowHelp,
       icon: Icons.window_outlined,
       builder: (_) => const WoodWindowCalculator(),
+    ),
+    (
+      title: pText.liningTitle,
+      help: pText.liningHelp,
+      icon: Icons.light_mode_outlined,
+      builder: (_) => const RoofLiningCalculator(),
     ),
     (
       title: pText.largeHeatTitle,
@@ -366,7 +374,19 @@ class CalculatorsScreen extends StatelessWidget {
     final vTheme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.calculatorsTitle)),
+      appBar: AppBar(
+        title: Text(vText.calculatorsTitle),
+        actions: [
+          IconButton(
+            tooltip: vText.glossaryTitle,
+            icon: const Icon(Icons.menu_book_outlined),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(builder: (_) => const GlossaryScreen()),
+            ),
+          ),
+        ],
+      ),
       body: GridView.count(
         crossAxisCount: gridColumns(MediaQuery.sizeOf(context).width, 300, pMin: 2),
         padding: const EdgeInsets.all(12),

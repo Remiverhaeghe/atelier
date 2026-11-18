@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/attic_section.dart';
+import '../logic/glossary.dart';
 import '../logic/units.dart';
 import 'level_screen.dart';
+import 'glossary_view.dart';
 import 'notebook.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
@@ -100,6 +102,7 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
               ),
             ),
           ),
+          const TermsRow([Term.slope, Term.kneeWall, Term.ridge, Term.carrez, Term.plasterboard]),
           WhyCard(
             title: vText.whyTitle,
             steps: [
