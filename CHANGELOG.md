@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Corrigé
+- Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon
+
 ### Outillage
 - Workflow « Mise en forme » : sur une pull request, `dart format` est appliqué et recommité sur la branche, puis les contrôles sont relancés sur le commit mis en forme
 

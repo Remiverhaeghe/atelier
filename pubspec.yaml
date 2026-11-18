@@ -54,6 +54,13 @@ dev_dependencies:
   flutter_launcher_icons: ">=0.14.0 <1.0.0"
   flutter_native_splash: ">=2.4.0 <3.0.0"
 
+# jni 1.2.0 attend les noms de classe au format « java/lang/String » ; path_provider_android
+# 2.3.1 lui passe encore « Landroid/content/Context; » et tout appel de chemin plante sur le
+# téléphone (ClassNotFoundException). À retirer quand path_provider_android suivra.
+dependency_overrides:
+  jni: ">=1.1.1 <1.2.0"
+  jni_flutter: ">=1.0.1 <1.1.0"
+
 # Mètre ruban jaune sur vert sapin (assets/icon, dessinés par tool/dessiner_icone.py)
 flutter_launcher_icons:
   android: true
