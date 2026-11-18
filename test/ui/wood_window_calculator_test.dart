@@ -17,6 +17,8 @@ void main() {
     expect(find.text('2 traverses de 75,2 cm, tenons compris'), findsOneWidget);
     expect(find.byType(WoodWindowSketch), findsOneWidget);
     expect(find.textContaining('Bois trop mince'), findsNothing);
+    expect(find.text('Étanchéité de la pose'), findsOneWidget);
+    expect(find.textContaining('compribande) 2-6 mm'), findsOneWidget);
 
     await pTester.enterText(find.widgetWithText(TextField, 'Épaisseur du bois (mm)'), '58');
     await pTester.pump();

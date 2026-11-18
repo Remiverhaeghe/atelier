@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Étanchéité des fenêtres
+- Carte « Étanchéité de la pose » dans la fenêtre bois : but expliqué, coupe du tableau en relief (mousse imprégnée, mastic, adhésif pare-vapeur), mousse choisie selon le jeu, mètres et cartouches de mastic, rouleaux, pente de l'appui et goutte d'eau, ordre de pose
+
 ### Choix du bois
 - Carte « Quel bois prendre » dans la fenêtre bois, la pergola, la mezzanine et l'étagère murale : classe d'emploi de l'usage, essences qui conviennent sans traitement du moins cher au plus cher, conseils de travail et de quincaillerie, alerte si l'essence choisie ne tient pas
 
