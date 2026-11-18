@@ -32,7 +32,7 @@ Future<void> loadFonts() async {
 
   // Polices de l'application, embarquées dans assets/fonts
   final vAssets = Directory('assets/fonts').listSync().whereType<File>().toList();
-  for (final vFamily in ['BarlowSemiCondensed', 'Barlow']) {
+  for (final vFamily in ['BarlowSemiCondensed', 'Barlow', 'Caveat']) {
     final vLoader = FontLoader(vFamily);
     for (final vFile in vAssets.where((pFile) => vNamed(pFile, '${vFamily.toLowerCase()}-'))) {
       vLoader.addFont(Future.value(vRead(vFile)));

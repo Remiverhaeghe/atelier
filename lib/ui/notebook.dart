@@ -172,3 +172,131 @@ class WhyCard extends StatelessWidget {
     );
   }
 }
+
+/// Contour d'une fiche de carnet : rectangle aux bords à peine irréguliers, et deux bouts de
+/// ruban adhésif en haut, comme une fiche scotchée dans le carnet.
+class PaperCardBorder extends OutlinedBorder {
+  const PaperCardBorder({super.side, required this.tape});
+
+  final Color tape;
+
+  /// Contour irrégulier mais stable : il ne dépend que de la taille de la fiche.
+  Path _outline(Rect pRect) {
+    final vSeed = (pRect.width * 3 + pRect.height * 7).round();
+    double vJitter(int pIndex) => math.sin((vSeed + pIndex) * 78.233) * 0.9;
+    final vPath = Path()
+      ..moveTo(pRect.left + 2, pRect.top + vJitter(1))
+      ..lineTo(pRect.center.dx, pRect.top + vJitter(2))
+      ..lineTo(pRect.right - 2, pRect.top + vJitter(3))
+      ..lineTo(pRect.right + vJitter(4), pRect.center.dy)
+      ..lineTo(pRect.right - 1 + vJitter(5), pRect.bottom - 1)
+      ..lineTo(pRect.center.dx, pRect.bottom + vJitter(6))
+      ..lineTo(pRect.left + 1, pRect.bottom - 1 + vJitter(7))
+      ..lineTo(pRect.left + vJitter(8), pRect.center.dy)
+      ..close();
+
+    return vPath;
+  }
+
+  @override
+  Path getOuterPath(Rect pRect, {TextDirection? textDirection}) => _outline(pRect);
+
+  @override
+  Path getInnerPath(Rect pRect, {TextDirection? textDirection}) =>
+      _outline(pRect.deflate(side.strokeInset));
+
+  @override
+  void paint(Canvas pCanvas, Rect pRect, {TextDirection? textDirection}) {
+    if (side.style != BorderStyle.none) {
+      pCanvas.drawPath(_outline(pRect), side.toPaint());
+    }
+    // Ruban seulement sur les fiches assez grandes : sur une petite tuile, il mangerait le texte
+    if (pRect.width < 220 || pRect.height < 90) {
+      return;
+    }
+    final vTape = Paint()..color = tape.withValues(alpha: 0.45);
+    for (final (vCorner, vAngle) in [(pRect.topLeft, -0.6), (pRect.topRight, 0.6)]) {
+      pCanvas
+        ..save()
+        ..translate(vCorner.dx, vCorner.dy)
+        ..rotate(vAngle)
+        ..drawRect(const Rect.fromLTWH(-22, -8, 44, 16), vTape)
+        ..restore();
+    }
+  }
+
+  @override
+  PaperCardBorder copyWith({BorderSide? side, Color? tape}) =>
+      PaperCardBorder(side: side ?? this.side, tape: tape ?? this.tape);
+
+  @override
+  ShapeBorder scale(double pT) => PaperCardBorder(side: side.scale(pT), tape: tape);
+
+  @override
+  bool operator ==(Object other) =>
+      other is PaperCardBorder && other.side == side && other.tape == tape;
+
+  @override
+  int get hashCode => Object.hash(side, tape);
+}
+
+/// Icône de tuile dessinée au crayon : un cercle tracé à main levée autour du pictogramme,
+/// sur un lavis de feutre, à la place de la pastille pleine.
+class SketchIcon extends StatelessWidget {
+  const SketchIcon(this.icon, {super.key, this.size = 26});
+
+  final IconData icon;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final vColors = AtelierColors.of(context);
+    final vInk = Theme.of(context).colorScheme.primary;
+
+    return CustomPaint(
+      painter: _RingPainter(ink: vInk, wash: vColors.tape),
+      child: Padding(
+        padding: EdgeInsets.all(size * 0.45),
+        child: Icon(icon, size: size, color: vInk),
+      ),
+    );
+  }
+}
+
+class _RingPainter extends CustomPainter {
+  _RingPainter({required this.ink, required this.wash});
+
+  final Color ink;
+  final Color wash;
+
+  @override
+  void paint(Canvas pCanvas, Size pSize) {
+    final vCenter = pSize.center(Offset.zero);
+    final vRadius = pSize.shortestSide / 2 - 2;
+    // Lavis décalé, comme un coup de feutre posé un peu à côté
+    pCanvas.drawCircle(
+      vCenter + const Offset(2, 2),
+      vRadius * 0.92,
+      Paint()..color = wash.withValues(alpha: 0.35),
+    );
+    final vPath = Path();
+    // Un tour et un peu plus, le trait ne se referme pas exactement
+    for (var vStep = 0; vStep <= 48; vStep++) {
+      final vAngle = -1.9 + vStep / 44 * 2 * math.pi;
+      final vR = vRadius + math.sin(vStep * 1.7) * 0.8 + vStep * 0.02;
+      final vPoint = vCenter + Offset(math.cos(vAngle), math.sin(vAngle)) * vR;
+      vStep == 0 ? vPath.moveTo(vPoint.dx, vPoint.dy) : vPath.lineTo(vPoint.dx, vPoint.dy);
+    }
+    pCanvas.drawPath(
+      vPath,
+      Paint()
+        ..color = ink
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.6
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_RingPainter pOld) => pOld.ink != ink || pOld.wash != wash;
+}

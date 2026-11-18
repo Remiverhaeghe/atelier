@@ -6,6 +6,8 @@
 - Les écrans sont posés sur une feuille quadrillée, comme un carnet de chantier (fond uni en mode nuit)
 - Nouveau calcul « Pièce sous rampants » : coupe cotée dessinée au crayon et à l'échelle, surface habitable (au-dessus de 1,80 m), hauteur au faîtage ou au plafond plat, longueur des rampants, plaques à poser ; angle mesuré en posant le téléphone sur le rampant
 - « Comment c'est calculé » : les étapes du résultat, dépliables sous le calcul
+- Fiches de carnet au lieu des cartes (bord de papier, ruban adhésif, ombre légère), icônes des tuiles dessinées au trait
+- Croquis écrit à la main (police Caveat, licence OFL), tracé au crayon à l'ouverture, et modifiable au doigt : poignées de la jambette et du sommet
 
 ### Écho d'une grande pièce
 - Nouveau calcul : réverbération par la formule de Sabine selon le sol, le plafond et le mobilier, nombre de panneaux acoustiques pour revenir à 0,6 s

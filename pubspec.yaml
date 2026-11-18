@@ -73,7 +73,8 @@ flutter_native_splash:
 
 flutter:
   uses-material-design: true
-  # Barlow (licence OFL, assets/fonts/OFL.txt), embarquée : l'appli n'a pas accès au réseau
+  # Barlow (licence OFL, assets/fonts/OFL.txt) et Caveat, écriture manuscrite des croquis
+  # (licence OFL, assets/fonts/OFL-Caveat.txt), embarquées : l'appli n'a pas accès au réseau
   fonts:
     - family: Barlow
       fonts:
@@ -92,5 +93,10 @@ flutter:
           weight: 600
         - asset: assets/fonts/BarlowSemiCondensed-Bold.ttf
           weight: 700
+    - family: Caveat
+      fonts:
+        - asset: assets/fonts/Caveat-Regular.ttf
+        - asset: assets/fonts/Caveat-SemiBold.ttf
+          weight: 600
   # Textes générés depuis lib/l10n/app_fr.arb (voir l10n.yaml)
   generate: true

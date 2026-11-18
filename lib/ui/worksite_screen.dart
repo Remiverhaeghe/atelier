@@ -16,6 +16,7 @@ import 'shopping_screen.dart';
 import 'shopping_texts.dart';
 import 'plan_thumbnail.dart';
 import 'planning_card.dart';
+import 'notebook.dart';
 import 'theme.dart';
 import 'time_screen.dart';
 import 'visit_screen.dart';
@@ -311,11 +312,7 @@ class _HomeTiles extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: vTheme.colorScheme.primaryContainer,
-                      foregroundColor: vTheme.colorScheme.onPrimaryContainer,
-                      child: Icon(vIcon),
-                    ),
+                    SketchIcon(vIcon, size: 22),
                     const SizedBox(height: 4),
                     Text(
                       vLabel,

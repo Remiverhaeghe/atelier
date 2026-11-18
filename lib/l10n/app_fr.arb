@@ -2807,5 +2807,6 @@
   "@atticWhyUsable": {"placeholders": {"width": {"type": "String"}, "area": {"type": "String"}}},
   "atticWhyBoard": "Plaques : jambettes et rampants, plus le plafond plat, soit {perMetre} m² par mètre de pièce, {area} m² en tout, chutes non comptées.",
   "@atticWhyBoard": {"placeholders": {"perMetre": {"type": "String"}, "area": {"type": "String"}}},
-  "whyTitle": "Comment c'est calculé"
+  "whyTitle": "Comment c'est calculé",
+  "atticDragHint": "Fais glisser les points verts pour changer la jambette ou le sommet."
 }
