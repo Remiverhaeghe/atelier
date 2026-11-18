@@ -175,10 +175,9 @@ class AtticSketch extends StatelessWidget {
         twoPitches: twoPitches,
         ink: vColors.ink,
         tape: vColors.tape,
-        style: Theme.of(context).textTheme.labelMedium!.copyWith(
-          color: vColors.ink,
-          fontStyle: FontStyle.italic,
-        ),
+        style: Theme.of(
+          context,
+        ).textTheme.labelMedium!.copyWith(color: vColors.ink, fontStyle: FontStyle.italic),
         carrezLabel: vText.atticCarrezLine,
       ),
     );
@@ -220,8 +219,7 @@ class _AtticPainter extends CustomPainter {
       (pSize.height - vBottom - vTopMargin) / section.topMm.clamp(1, 1 << 30),
     ].reduce((pA, pB) => pA < pB ? pA : pB);
     final vFloorY = pSize.height - vBottom;
-    Offset vAt(double pXmm, double pYmm) =>
-        Offset(vLeft + pXmm * vScale, vFloorY - pYmm * vScale);
+    Offset vAt(double pXmm, double pYmm) => Offset(vLeft + pXmm * vScale, vFloorY - pYmm * vScale);
 
     final vRun = twoPitches ? widthMm / 2 : widthMm.toDouble();
     final vSlopedRun = (widthMm - section.flatWidthMm) / (twoPitches ? 2 : 1);

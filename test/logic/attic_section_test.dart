@@ -48,12 +48,7 @@ void main() {
   });
 
   test('combles trop bas : rien au-dessus de 1,80 m', () {
-    final vSection = atticSection(
-      pWidthMm: 4000,
-      pKneeWallMm: 0,
-      pSlopeDeg: 20,
-      pTwoPitches: true,
-    );
+    final vSection = atticSection(pWidthMm: 4000, pKneeWallMm: 0, pSlopeDeg: 20, pTwoPitches: true);
     expect(vSection.topMm, 728);
     expect(vSection.usableWidthMm, 0);
   });
