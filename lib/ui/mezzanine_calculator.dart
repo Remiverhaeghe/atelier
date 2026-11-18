@@ -5,12 +5,14 @@ import '../logic/mezzanine.dart';
 import '../logic/mezzanine_floor.dart';
 import '../logic/mezzanine_height.dart';
 import '../logic/units.dart';
+import '../logic/wood_species.dart';
 import 'floor_opening_card.dart';
 import 'mezzanine_floor_card.dart';
 import 'mezzanine_height_card.dart';
 import 'mezzanine_timber_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'wood_species_card.dart';
 
 String mezzanineUseLabel(AppLocalizations pText, MezzanineUse pUse) => switch (pUse) {
   MezzanineUse.living => pText.mezzanineUseLiving,
@@ -135,6 +137,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
           const SizedBox(height: 12),
           MezzanineFloorCard(mezzanine: _mezzanine, panel: _panel, stairOpeningMm: _stairOpeningMm),
           const SizedBox(height: 12),
+          const WoodSpeciesCard(useClass: UseClass.indoorDry),
           DropdownButtonFormField<MezzanineSupport>(
             initialValue: _mezzanine.support,
             decoration: InputDecoration(labelText: vText.mezzanineSupport),

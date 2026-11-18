@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Choix du bois
+- Carte « Quel bois prendre » dans la fenêtre bois, la pergola, la mezzanine et l'étagère murale : classe d'emploi de l'usage, essences qui conviennent sans traitement du moins cher au plus cher, conseils de travail et de quincaillerie, alerte si l'essence choisie ne tient pas
+
 ### Lexique illustré
 - Chaque mot du métier s'explique par « à quoi ça sert », puis « c'est quoi », avec un schéma en relief où la pièce concernée est surlignée (tenon et mortaise, feuillure, parclose, chevêtre, jambette…)
 - La fenêtre bois est dessinée en relief, avec son épaisseur et le vitrage au milieu
