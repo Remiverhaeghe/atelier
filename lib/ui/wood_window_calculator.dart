@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -9,6 +7,7 @@ import '../logic/wood_window.dart';
 import 'glossary_view.dart';
 import 'notebook.dart';
 import 'parquet_view.dart';
+import 'sketch3d.dart';
 import 'theme.dart';
 
 /// Châssis fixe en bois pour remplacer un plexi : débit, assemblages, vitrage à commander.
@@ -53,7 +52,11 @@ class _WoodWindowCalculatorState extends State<WoodWindowCalculator> {
                 children: [
                   AspectRatio(
                     aspectRatio: 1.3,
-                    child: WoodWindowSketch(window: vWindow, frameWidthMm: _frameWidthMm),
+                    child: WoodWindowSketch(
+                      window: vWindow,
+                      frameWidthMm: _frameWidthMm,
+                      frameDepthMm: _frameDepthMm,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   BigFigure(
@@ -141,131 +144,66 @@ class _WoodWindowCalculatorState extends State<WoodWindowCalculator> {
   }
 }
 
-/// Le châssis vu de face, à l'échelle : montants pleine hauteur, traverses entre eux,
-/// tenons en pointillé, vitrage hachuré, cotes à la main.
+/// Le châssis en relief, à l'échelle : montants pleine hauteur, traverses entre eux, vitrage
+/// posé au milieu de l'épaisseur, cotes de largeur, de hauteur et d'épaisseur.
 class WoodWindowSketch extends StatelessWidget {
-  const WoodWindowSketch({super.key, required this.window, required this.frameWidthMm});
-
-  final WoodWindow window;
-  final int frameWidthMm;
-
-  @override
-  Widget build(BuildContext context) {
-    final vColors = AtelierColors.of(context);
-
-    return CustomPaint(
-      painter: _WindowPainter(
-        window: window,
-        frameWidthMm: frameWidthMm,
-        ink: vColors.ink,
-        wood: vColors.wood,
-        style: TextStyle(fontFamily: handFont, fontSize: 18, color: vColors.ink),
-      ),
-    );
-  }
-}
-
-class _WindowPainter extends CustomPainter {
-  _WindowPainter({
+  const WoodWindowSketch({
+    super.key,
     required this.window,
     required this.frameWidthMm,
-    required this.ink,
-    required this.wood,
-    required this.style,
+    required this.frameDepthMm,
   });
 
   final WoodWindow window;
   final int frameWidthMm;
-  final Color ink;
-  final Color wood;
-  final TextStyle style;
+  final int frameDepthMm;
 
   @override
-  void paint(Canvas pCanvas, Size pSize) {
-    final vWidth = window.outerWidthMm;
-    final vHeight = window.outerHeightMm;
-    if (vWidth <= 0 || vHeight <= 0) {
-      return;
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vWidth = window.outerWidthMm.toDouble();
+    final vHeight = window.outerHeightMm.toDouble();
+    final vBar = frameWidthMm.toDouble();
+    final vDepth = frameDepthMm.toDouble();
+    if (vWidth <= 2 * vBar || vHeight <= 2 * vBar) {
+      return const SizedBox.shrink();
     }
-    const vLeft = 46.0;
-    const vBottom = 34.0;
-    final vScaleX = (pSize.width - vLeft - 12) / vWidth;
-    final vScale = math.min(vScaleX, (pSize.height - vBottom - 8) / vHeight);
-    final vOuter = Rect.fromLTWH(vLeft, 8, vWidth * vScale, vHeight * vScale);
-    final vBar = frameWidthMm * vScale;
-    final vInner = vOuter.deflate(vBar);
+    // Épaisseur dessinée plus forte que nature pour qu'on la voie, plafonnée à un quart
+    final vShown = (vDepth * 2.5).clamp(vDepth, vWidth / 4);
 
-    // Bois du cadre, puis vitrage hachuré
-    pCanvas.drawPath(
-      Path.combine(PathOperation.difference, Path()..addRect(vOuter), Path()..addRect(vInner)),
-      Paint()..color = wood.withValues(alpha: 0.55),
-    );
-    final vHatch = Paint()
-      ..color = ink.withValues(alpha: 0.35)
-      ..strokeWidth = 1;
-    for (var vIndex = 0; vIndex < 3; vIndex++) {
-      final vShift = Offset(vInner.width * (0.25 + vIndex * 0.12), vInner.height * 0.15);
-      final vStart = vInner.topLeft + vShift;
-      pCanvas.drawLine(vStart, vStart + Offset(vInner.width * 0.18, vInner.height * 0.18), vHatch);
-    }
-
-    final vPencil = Paint()
-      ..color = ink
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-    void vRect(Rect pRect) {
-      pencilLine(pCanvas, pRect.topLeft, pRect.topRight, vPencil);
-      pencilLine(pCanvas, pRect.topRight, pRect.bottomRight, vPencil);
-      pencilLine(pCanvas, pRect.bottomRight, pRect.bottomLeft, vPencil);
-      pencilLine(pCanvas, pRect.bottomLeft, pRect.topLeft, vPencil);
-    }
-
-    vRect(vOuter);
-    vRect(vInner);
-    // Les montants vont de haut en bas : les traverses s'arrêtent contre eux
-    for (final vX in [vInner.left, vInner.right]) {
-      pencilLine(pCanvas, Offset(vX, vOuter.top), Offset(vX, vInner.top), vPencil);
-      pencilLine(pCanvas, Offset(vX, vInner.bottom), Offset(vX, vOuter.bottom), vPencil);
-    }
-    // Tenons en pointillé, dans les montants
-    final vDash = Paint()
-      ..color = ink.withValues(alpha: 0.6)
-      ..strokeWidth = 1;
-    final vTenon = window.tenonLengthMm * vScale;
-    for (final vX in [vInner.left - vTenon, vInner.right + vTenon]) {
-      final vRails = [(vOuter.top + 4, vInner.top - 4), (vInner.bottom + 4, vOuter.bottom - 4)];
-      for (final (vTop, vBottomY) in vRails) {
-        for (var vY = vTop; vY < vBottomY; vY += 6) {
-          pCanvas.drawLine(Offset(vX, vY), Offset(vX, math.min(vY + 3, vBottomY)), vDash);
-        }
-      }
-    }
-
-    final vMeasure = Paint()
-      ..color = ink.withValues(alpha: 0.85)
-      ..strokeWidth = 1;
-    dimensionLine(
-      pCanvas,
-      vOuter.bottomLeft + const Offset(0, 16),
-      vOuter.bottomRight + const Offset(0, 16),
-      formatCentimetres(vWidth),
-      vMeasure,
-      style,
-      pLabelShift: 12,
-    );
-    dimensionLine(
-      pCanvas,
-      vOuter.bottomLeft + const Offset(-18, 0),
-      vOuter.topLeft + const Offset(-18, 0),
-      formatCentimetres(vHeight),
-      vMeasure,
-      style,
-      pLabelShift: -16,
+    return Sketch3D(
+      parts: [
+        Prism.box(0, vBar, 0, vShown, 0, vHeight),
+        Prism.box(vWidth - vBar, vWidth, 0, vShown, 0, vHeight),
+        Prism.box(vBar, vWidth - vBar, 0, vShown, 0, vBar),
+        Prism.box(vBar, vWidth - vBar, 0, vShown, vHeight - vBar, vHeight),
+        Prism.box(
+          vBar,
+          vWidth - vBar,
+          vShown * 0.45,
+          vShown * 0.55,
+          vBar,
+          vHeight - vBar,
+          role: PartRole.glass,
+        ),
+      ],
+      callouts: [
+        (
+          at: (x: vWidth / 2, y: 0, z: 0),
+          text: vText.sketchCm(formatCentimetres(window.outerWidthMm)),
+          shift: const Offset(0, 26),
+        ),
+        (
+          at: (x: 0, y: 0, z: vHeight / 2),
+          text: vText.sketchCm(formatCentimetres(window.outerHeightMm)),
+          shift: const Offset(-36, 0),
+        ),
+        (
+          at: (x: vWidth, y: vShown / 2, z: vHeight),
+          text: vText.sketchDepth(frameDepthMm),
+          shift: const Offset(20, -24),
+        ),
+      ],
     );
   }
-
-  @override
-  bool shouldRepaint(_WindowPainter pOld) =>
-      pOld.window != window || pOld.frameWidthMm != frameWidthMm || pOld.ink != ink;
 }

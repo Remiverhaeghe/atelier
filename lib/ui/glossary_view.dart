@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/glossary.dart';
+import 'glossary_scenes.dart';
 
 String termLabel(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.rafter => pText.termRafter,
@@ -45,6 +46,54 @@ String termDefinition(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.setting => pText.termSettingText,
 };
 
+String termUse(AppLocalizations pText, Term pTerm) => switch (pTerm) {
+  Term.rafter => pText.termRafterUse,
+  Term.ridge => pText.termRidgeUse,
+  Term.slope => pText.termSlopeUse,
+  Term.kneeWall => pText.termKneeWallUse,
+  Term.header => pText.termHeaderUse,
+  Term.joist => pText.termJoistUse,
+  Term.spacing => pText.termSpacingUse,
+  Term.plasterboard => pText.termPlasterboardUse,
+  Term.carrez => pText.termCarrezUse,
+  Term.reveal => pText.termRevealUse,
+  Term.frame => pText.termFrameUse,
+  Term.stile => pText.termStileUse,
+  Term.rail => pText.termRailUse,
+  Term.tenon => pText.termTenonUse,
+  Term.mortise => pText.termMortiseUse,
+  Term.rebate => pText.termRebateUse,
+  Term.glazingBead => pText.termGlazingBeadUse,
+  Term.setting => pText.termSettingUse,
+};
+
+/// Fiche d'un mot : schéma en relief, à quoi ça sert, puis ce que c'est.
+class TermCard extends StatelessWidget {
+  const TermCard(this.term, {super.key});
+
+  final Term term;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vTheme = Theme.of(context);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TermSketch(term),
+        const SizedBox(height: 8),
+        Text(vText.termUseTitle, style: vTheme.textTheme.titleSmall),
+        Text(termUse(vText, term), style: vTheme.textTheme.bodyLarge),
+        const SizedBox(height: 8),
+        Text(vText.termWhatTitle, style: vTheme.textTheme.titleSmall),
+        Text(termDefinition(vText, term), style: vTheme.textTheme.bodyMedium),
+      ],
+    );
+  }
+}
+
 /// Explication d'un mot, en feuille sous le pouce.
 Future<void> showTerm(BuildContext pContext, Term pTerm) {
   final vText = AppLocalizations.of(pContext);
@@ -52,15 +101,15 @@ Future<void> showTerm(BuildContext pContext, Term pTerm) {
   return showModalBottomSheet<void>(
     context: pContext,
     showDragHandle: true,
-    builder: (pSheet) => Padding(
+    isScrollControlled: true,
+    builder: (pSheet) => SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(termLabel(vText, pTerm), style: Theme.of(pSheet).textTheme.headlineSmall),
-          const SizedBox(height: 8),
-          Text(termDefinition(vText, pTerm), style: Theme.of(pSheet).textTheme.bodyLarge),
+          TermCard(pTerm),
         ],
       ),
     ),
@@ -122,7 +171,7 @@ class GlossaryScreen extends StatelessWidget {
                 childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
                 expandedCrossAxisAlignment: CrossAxisAlignment.start,
                 shape: const Border(),
-                children: [Text(termDefinition(vText, vTerm))],
+                children: [TermCard(vTerm)],
               ),
             ),
         ],

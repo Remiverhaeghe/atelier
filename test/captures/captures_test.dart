@@ -129,12 +129,18 @@ void main() {
     await capture('15-rampants');
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
-    await tapAndSettle(pTester, find.text('Fenêtre bois sur mesure'));
-    await capture('16-fenetre-bois');
-    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
-    await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Embrasure de fenêtre de toit'));
     await capture('17-embrasure');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Fenêtre bois sur mesure'));
+    await capture('16-fenetre-bois');
+    await tapAndSettle(pTester, find.widgetWithText(ActionChip, 'Tenon'));
+    await capture('18-lexique-tenon');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.widgetWithText(ActionChip, 'Feuillure'));
+    await capture('19-lexique-feuillure');
     capturesDone();
   });
 

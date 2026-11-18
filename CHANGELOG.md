@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Lexique illustré
+- Chaque mot du métier s'explique par « à quoi ça sert », puis « c'est quoi », avec un schéma en relief où la pièce concernée est surlignée (tenon et mortaise, feuillure, parclose, chevêtre, jambette…)
+- La fenêtre bois est dessinée en relief, avec son épaisseur et le vitrage au milieu
+
 ### Référence de fenêtre de toit
 - La référence lue sur la plaque de la fenêtre en place (MK08, GGL CK04, ou l'ancienne 308) donne la taille du cadre et règle le calcul sur la même largeur
 
