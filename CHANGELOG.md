@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Outillage
+- Workflow « Mise en forme » : sur une pull request, `dart format` est appliqué et recommité sur la branche, puis les contrôles sont relancés sur le commit mis en forme
+
 ### Étanchéité des fenêtres
 - Carte « Étanchéité de la pose » dans la fenêtre bois : but expliqué, coupe du tableau en relief (mousse imprégnée, mastic, adhésif pare-vapeur), mousse choisie selon le jeu, mètres et cartouches de mastic, rouleaux, pente de l'appui et goutte d'eau, ordre de pose
 
