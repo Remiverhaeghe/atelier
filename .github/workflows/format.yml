@@ -34,6 +34,11 @@ jobs:
           flutter-version: 3.47.7
           cache: true
 
+      # Sans pub get, dart format ne connaît pas la version de Dart du projet et applique un
+      # autre style à tous les fichiers
+      - name: Dépendances
+        run: flutter pub get
+
       - name: Mise en forme
         run: dart format lib test integration_test
 
