@@ -68,3 +68,45 @@ RoofWindowFit fitRoofWindow({
 
   return rFit;
 }
+
+/// Largeur du dormant selon la lettre de la référence (CK04 : C), en millimètres.
+const _referenceWidthsMm = {'B': 470, 'C': 550, 'F': 660, 'M': 780, 'P': 940, 'S': 1140, 'U': 1340};
+
+/// Hauteur selon les deux chiffres de la référence (CK04 : 04).
+const _referenceHeightsMm = {
+  '01': 700,
+  '02': 780,
+  '04': 980,
+  '06': 1180,
+  '08': 1400,
+  '10': 1600,
+  '12': 1800,
+};
+
+/// Lettre de largeur des anciennes références à trois chiffres (308 : M08).
+const _oldReferenceLetters = {'1': 'C', '2': 'F', '3': 'M', '4': 'P', '6': 'S', '8': 'U'};
+
+/// Dimensions extérieures du dormant d'une fenêtre de toit d'après la référence de taille
+/// gravée sur sa plaque : « MK08 », « M08 », « GGL MK08 » ou l'ancienne « 308 ». Null si la
+/// référence n'est pas reconnue.
+({int widthMm, int heightMm, String code})? roofWindowFromReference(String pReference) {
+  final vText = pReference.toUpperCase().replaceAll(RegExp(r'[\s-]'), '');
+  String? vLetter;
+  String? vDigits;
+  final vModern = RegExp(r'([BCFMPSU])[A-Z]?(\d{2})$').firstMatch(vText);
+  final vOld = RegExp(r'^(?:[A-Z]*)([123468])(\d{2})$').firstMatch(vText);
+  if (vModern != null) {
+    vLetter = vModern.group(1);
+    vDigits = vModern.group(2);
+  } else if (vOld != null) {
+    vLetter = _oldReferenceLetters[vOld.group(1)];
+    vDigits = vOld.group(2);
+  }
+  final vWidth = _referenceWidthsMm[vLetter];
+  final vHeight = _referenceHeightsMm[vDigits];
+  final rWindow = vWidth == null || vHeight == null
+      ? null
+      : (widthMm: vWidth, heightMm: vHeight, code: '$vLetter$vDigits');
+
+  return rWindow;
+}

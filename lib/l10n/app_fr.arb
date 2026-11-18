@@ -2899,5 +2899,9 @@
   "liningSteps": "Ordre : poser la fenêtre et son raccord, couper chevrons et isolant selon l'ouverture ci-dessus, chevêtres en haut et en bas, pare-vapeur raccordé au cadre de la fenêtre avec l'adhésif prévu, puis les quatre côtés en plaque et les angles en bande armée.",
   "liningWindowWidth": "Largeur de la fenêtre (cm)",
   "liningWindowHeight": "Hauteur de la fenêtre (cm)",
-  "liningDepth": "Épaisseur du rampant : chevron, isolant, plaque (cm)"
+  "liningDepth": "Épaisseur du rampant : chevron, isolant, plaque (cm)",
+  "roofWindowReference": "Référence de la fenêtre en place, sur sa plaque (ex. MK08 ou 308)",
+  "roofWindowReferenceSize": "Cadre de {width} × {height} cm : la nouvelle fenêtre de même référence prend sa place",
+  "@roofWindowReferenceSize": {"placeholders": {"width": {"type": "String"}, "height": {"type": "String"}}},
+  "roofWindowReferenceUnknown": "Référence non reconnue : elle s'écrit une lettre, parfois une seconde, et deux chiffres (CK04, MK08), ou trois chiffres sur les anciennes fenêtres (308). La plaque est en haut du cadre, fenêtre ouverte."
 }
