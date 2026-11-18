@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'notebook.dart';
+
 /// Couleurs propres à Atelier, en plus du schéma Material : mesures, bois, papier quadrillé.
 @immutable
 class AtelierColors extends ThemeExtension<AtelierColors> {
@@ -72,6 +74,9 @@ const bodyFont = 'Barlow';
 /// Police des titres et des grands nombres, plus étroite.
 const titleFont = 'BarlowSemiCondensed';
 
+/// Écriture manuscrite des cotes et des notes sur les croquis du carnet.
+const handFont = 'Caveat';
+
 /// Thème clair ou sombre de l'application.
 /// Mode nuit du chantier : rouge très sombre, qui n'éblouit pas sous les combles et garde la
 /// vision de nuit, avec des textes agrandis.
@@ -93,7 +98,15 @@ ThemeData nightTheme(ThemeData pBase) {
   final rTheme = pBase.copyWith(
     colorScheme: vScheme,
     scaffoldBackgroundColor: Colors.black,
-    cardTheme: pBase.cardTheme.copyWith(color: vScheme.surfaceContainer),
+    // Pas de ruban ni d'ombre la nuit : une fiche sombre, simple
+    cardTheme: pBase.cardTheme.copyWith(
+      color: vScheme.surfaceContainer,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: vScheme.outlineVariant),
+      ),
+    ),
     appBarTheme: pBase.appBarTheme.copyWith(backgroundColor: Colors.black, foregroundColor: vRed),
     textTheme: pBase.textTheme.apply(bodyColor: vRed, displayColor: vRed, fontSizeFactor: 1.15),
     iconTheme: pBase.iconTheme.copyWith(color: vRed),
@@ -129,17 +142,25 @@ ThemeData atelierTheme(Brightness pBrightness) {
   final vText = vBase.textTheme;
   TextStyle vTitle(TextStyle? pStyle, FontWeight pWeight) =>
       pStyle!.copyWith(fontFamily: titleFont, fontWeight: pWeight, letterSpacing: 0);
-  final vShape = RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(16),
-    side: BorderSide(color: vScheme.outlineVariant),
-  );
 
   return vBase.copyWith(
     // Densité standard : cibles de 48 dp, utiles avec des gants sur un chantier. « comfortable »
     // les ramène à 44 dp, sous le minimum d'Android.
     visualDensity: VisualDensity.standard,
     extensions: [vColors],
-    scaffoldBackgroundColor: vScheme.surface,
+    // Fond transparent : chaque écran est posé sur la feuille quadrillée du carnet
+    // (NotebookPageTransitionsBuilder), qui elle est opaque.
+    scaffoldBackgroundColor: Colors.transparent,
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: NotebookPageTransitionsBuilder(),
+        TargetPlatform.iOS: NotebookPageTransitionsBuilder(),
+        TargetPlatform.linux: NotebookPageTransitionsBuilder(),
+        TargetPlatform.macOS: NotebookPageTransitionsBuilder(),
+        TargetPlatform.windows: NotebookPageTransitionsBuilder(),
+        TargetPlatform.fuchsia: NotebookPageTransitionsBuilder(),
+      },
+    ),
     textTheme: vText.copyWith(
       displaySmall: vTitle(vText.displaySmall, FontWeight.w600),
       headlineMedium: vTitle(vText.headlineMedium, FontWeight.w600),
@@ -156,10 +177,15 @@ ThemeData atelierTheme(Brightness pBrightness) {
         FontWeight.w600,
       ).copyWith(fontSize: 24, color: vScheme.onSurface),
     ),
+    // Fiches de carnet : bord de papier, ruban adhésif, ombre légère de feuille posée
     cardTheme: CardThemeData(
-      elevation: 0,
+      elevation: 1.5,
+      shadowColor: const Color(0x55402A10),
       color: vScheme.surfaceContainerLow,
-      shape: vShape,
+      shape: PaperCardBorder(
+        side: BorderSide(color: vScheme.outlineVariant),
+        tape: _tape,
+      ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       clipBehavior: Clip.antiAlias,
     ),

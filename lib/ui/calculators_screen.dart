@@ -22,10 +22,12 @@ import '../logic/worksite.dart';
 import 'floor_capacity_calculator.dart';
 import 'height_work_screen.dart';
 import 'mezzanine_calculator.dart';
+import 'attic_section_calculator.dart';
 import 'large_room_heat_calculator.dart';
 import 'lighting_calculator.dart';
 import 'reverberation_calculator.dart';
 import 'niche_shelf_calculator.dart';
+import 'notebook.dart';
 import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
@@ -114,6 +116,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.roofWindowHelp,
       icon: Icons.roofing,
       builder: (_) => const RoofWindowCalculator(),
+    ),
+    (
+      title: pText.atticTitle,
+      help: pText.atticHelp,
+      icon: Icons.roofing_outlined,
+      builder: (_) => const AtticSectionCalculator(),
     ),
     (
       title: pText.largeHeatTitle,
@@ -380,18 +388,7 @@ class CalculatorsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: vTheme.colorScheme.primaryContainer,
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Icon(
-                          vEntry.icon,
-                          size: 30,
-                          color: vTheme.colorScheme.onPrimaryContainer,
-                        ),
-                      ),
+                      SketchIcon(vEntry.icon, size: 26),
                       const Spacer(),
                       Text(
                         vEntry.title,

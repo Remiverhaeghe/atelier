@@ -2,6 +2,12 @@
 
 ## Non publié
 
+### Carnet d'atelier
+- Les écrans sont posés sur une feuille quadrillée, comme un carnet de chantier (fond uni en mode nuit)
+- Nouveau calcul « Pièce sous rampants » : coupe cotée dessinée au crayon et à l'échelle, surface habitable (au-dessus de 1,80 m), hauteur au faîtage ou au plafond plat, longueur des rampants, plaques à poser ; angle mesuré en posant le téléphone sur le rampant
+- « Comment c'est calculé » : les étapes du résultat, dépliables sous le calcul
+- Fiches de carnet au lieu des cartes (bord de papier, ruban adhésif, ombre légère), icônes des tuiles dessinées au trait
+- Croquis écrit à la main (police Caveat, licence OFL), tracé au crayon à l'ouverture, et modifiable au doigt : poignées de la jambette et du sommet
 ### Installation simplifiée
 - Chaque fusion sur main publie l'APK signée dans une préversion `build-N`, à suivre avec Obtainium pour installer et mettre à jour en un clic ; numéro de construction croissant pour que chaque APK remplace la précédente
 

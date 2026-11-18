@@ -32,7 +32,7 @@ Future<void> loadFonts() async {
 
   // Polices de l'application, embarquées dans assets/fonts
   final vAssets = Directory('assets/fonts').listSync().whereType<File>().toList();
-  for (final vFamily in ['BarlowSemiCondensed', 'Barlow']) {
+  for (final vFamily in ['BarlowSemiCondensed', 'Barlow', 'Caveat']) {
     final vLoader = FontLoader(vFamily);
     for (final vFile in vAssets.where((pFile) => vNamed(pFile, '${vFamily.toLowerCase()}-'))) {
       vLoader.addFont(Future.value(vRead(vFile)));
@@ -123,6 +123,10 @@ void main() {
     await capture('13-calculs');
     await tapAndSettle(pTester, find.text('Étagère sur mesure'));
     await capture('14-etagere');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Pièce sous rampants'));
+    await capture('15-rampants');
     capturesDone();
   });
 
