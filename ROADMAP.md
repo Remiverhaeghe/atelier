@@ -13,11 +13,7 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 - 135. **Textes découpés par domaine** : reporté. Le découpage ajouterait une étape de fusion avant chaque `flutter gen-l10n`, pour un fichier de données qui a droit à l'exception des 1000 lignes.
 - 136. **Version anglaise** : à faire dans une session à part, environ 2 400 textes à traduire et à relire.
 
-Demandés le 17 novembre 2026 :
-
-- 141. **Assemblages d'étagère** : épaisseur selon la charge, tourillons, vis d'assemblage, taquets, équerres d'une tablette murale, fixation anti-basculement.
-- 142. **Structure de mezzanine** : solives (section et entraxe selon la portée), poutre et lambourde murale, poteaux et leur ancrage. Prédimensionnement à faire valider.
-- 143. **Plancher et garde-corps de mezzanine** : panneaux rainurés selon l'entraxe, quantités, vis et colle, garde-corps réglementaire.
+Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
 ## Organisation et motivation
 
