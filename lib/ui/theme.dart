@@ -182,7 +182,10 @@ ThemeData atelierTheme(Brightness pBrightness) {
       elevation: 1.5,
       shadowColor: const Color(0x55402A10),
       color: vScheme.surfaceContainerLow,
-      shape: PaperCardBorder(side: BorderSide(color: vScheme.outlineVariant), tape: _tape),
+      shape: PaperCardBorder(
+        side: BorderSide(color: vScheme.outlineVariant),
+        tape: _tape,
+      ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       clipBehavior: Clip.antiAlias,
     ),

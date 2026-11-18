@@ -390,10 +390,7 @@ class _AtticPainter extends CustomPainter {
       final vStart = vSection.lowStripMm.toDouble();
       final vEnd = vStart + vSection.usableWidthMm;
       pCanvas.drawRect(
-        Rect.fromPoints(
-          vGeometry.at(vStart, 0),
-          vGeometry.at(vEnd, carrezHeightMm.toDouble()),
-        ),
+        Rect.fromPoints(vGeometry.at(vStart, 0), vGeometry.at(vEnd, carrezHeightMm.toDouble())),
         Paint()..color = tape.withValues(alpha: 0.3 * vReveal),
       );
     }
