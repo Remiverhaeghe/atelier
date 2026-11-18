@@ -3,8 +3,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/glossary.dart';
 import '../logic/units.dart';
 import '../logic/wood_window.dart';
+import 'glossary_view.dart';
 import 'notebook.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
@@ -85,6 +87,16 @@ class _WoodWindowCalculatorState extends State<WoodWindowCalculator> {
               ),
             ),
           ),
+          const TermsRow([
+            Term.frame,
+            Term.stile,
+            Term.rail,
+            Term.tenon,
+            Term.mortise,
+            Term.rebate,
+            Term.glazingBead,
+            Term.setting,
+          ]),
           WhyCard(
             title: vText.whyTitle,
             steps: [
