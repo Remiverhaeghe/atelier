@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'notebook.dart';
+
 /// Couleurs propres à Atelier, en plus du schéma Material : mesures, bois, papier quadrillé.
 @immutable
 class AtelierColors extends ThemeExtension<AtelierColors> {
@@ -139,7 +141,19 @@ ThemeData atelierTheme(Brightness pBrightness) {
     // les ramène à 44 dp, sous le minimum d'Android.
     visualDensity: VisualDensity.standard,
     extensions: [vColors],
-    scaffoldBackgroundColor: vScheme.surface,
+    // Fond transparent : chaque écran est posé sur la feuille quadrillée du carnet
+    // (NotebookPageTransitionsBuilder), qui elle est opaque.
+    scaffoldBackgroundColor: Colors.transparent,
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: NotebookPageTransitionsBuilder(),
+        TargetPlatform.iOS: NotebookPageTransitionsBuilder(),
+        TargetPlatform.linux: NotebookPageTransitionsBuilder(),
+        TargetPlatform.macOS: NotebookPageTransitionsBuilder(),
+        TargetPlatform.windows: NotebookPageTransitionsBuilder(),
+        TargetPlatform.fuchsia: NotebookPageTransitionsBuilder(),
+      },
+    ),
     textTheme: vText.copyWith(
       displaySmall: vTitle(vText.displaySmall, FontWeight.w600),
       headlineMedium: vTitle(vText.headlineMedium, FontWeight.w600),

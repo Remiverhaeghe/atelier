@@ -123,6 +123,10 @@ void main() {
     await capture('13-calculs');
     await tapAndSettle(pTester, find.text('Étagère sur mesure'));
     await capture('14-etagere');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Pièce sous rampants'));
+    await capture('15-rampants');
     capturesDone();
   });
 

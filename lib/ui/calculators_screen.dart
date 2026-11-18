@@ -22,6 +22,7 @@ import '../logic/worksite.dart';
 import 'floor_capacity_calculator.dart';
 import 'height_work_screen.dart';
 import 'mezzanine_calculator.dart';
+import 'attic_section_calculator.dart';
 import 'large_room_heat_calculator.dart';
 import 'lighting_calculator.dart';
 import 'reverberation_calculator.dart';
@@ -114,6 +115,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.roofWindowHelp,
       icon: Icons.roofing,
       builder: (_) => const RoofWindowCalculator(),
+    ),
+    (
+      title: pText.atticTitle,
+      help: pText.atticHelp,
+      icon: Icons.roofing_outlined,
+      builder: (_) => const AtticSectionCalculator(),
     ),
     (
       title: pText.largeHeatTitle,

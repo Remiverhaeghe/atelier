@@ -2,6 +2,11 @@
 
 ## Non publié
 
+### Carnet d'atelier
+- Les écrans sont posés sur une feuille quadrillée, comme un carnet de chantier (fond uni en mode nuit)
+- Nouveau calcul « Pièce sous rampants » : coupe cotée dessinée au crayon et à l'échelle, surface au-dessus de 1,80 m, hauteur au faîtage ou au plafond plat, longueur des rampants, plaques à poser ; angle mesuré en posant le téléphone sur le rampant
+- « Comment c'est calculé » : les étapes du résultat, dépliables sous le calcul
+
 ### Écho d'une grande pièce
 - Nouveau calcul : réverbération par la formule de Sabine selon le sol, le plafond et le mobilier, nombre de panneaux acoustiques pour revenir à 0,6 s
 
