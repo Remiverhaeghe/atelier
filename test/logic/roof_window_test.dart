@@ -43,4 +43,22 @@ void main() {
     expect(vFit.needsHeader, isFalse);
     expect(vFit.heightMm, 1400);
   });
+
+  test('référence de fenêtre de toit : code actuel, avec modèle, ancien code', () {
+    expect(roofWindowFromReference('MK08'), (widthMm: 780, heightMm: 1400, code: 'M08'));
+    expect(roofWindowFromReference('ggl ck04'), (widthMm: 550, heightMm: 980, code: 'C04'));
+    expect(roofWindowFromReference('GGU-UK10'), (widthMm: 1340, heightMm: 1600, code: 'U10'));
+    expect(roofWindowFromReference('S06'), (widthMm: 1140, heightMm: 1180, code: 'S06'));
+    // Anciennes références : le premier chiffre donne la largeur
+    expect(roofWindowFromReference('308'), (widthMm: 780, heightMm: 1400, code: 'M08'));
+    expect(roofWindowFromReference('GGL 606'), (widthMm: 1140, heightMm: 1180, code: 'S06'));
+    expect(roofWindowFromReference('804'), (widthMm: 1340, heightMm: 980, code: 'U04'));
+  });
+
+  test('référence inconnue', () {
+    expect(roofWindowFromReference('XK04'), isNull);
+    expect(roofWindowFromReference('MK07'), isNull);
+    expect(roofWindowFromReference('508'), isNull);
+    expect(roofWindowFromReference(''), isNull);
+  });
 }

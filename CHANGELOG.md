@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Référence de fenêtre de toit
+- La référence lue sur la plaque de la fenêtre en place (MK08, GGL CK04, ou l'ancienne 308) donne la taille du cadre et règle le calcul sur la même largeur
+
 ### Embrasure de fenêtre de toit et lexique
 - Nouveau calcul : embrasure à haut horizontal et bas vertical pour faire entrer le plus de lumière, coupe dessinée, ouverture à faire dans le rampant, plaques à découper
 - Lexique des mots du métier (chevron, jambette, chevêtre, feuillure, tenon…) en langage courant, depuis l'écran des calculs, et puces « Mots du métier » sous les calculs concernés

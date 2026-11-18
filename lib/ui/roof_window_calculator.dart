@@ -22,6 +22,7 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
   var _wantedMm = 550;
   var _slopeDeg = 40;
   var _cover = RoofCover.profiledTiles;
+  String _reference = '';
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,7 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
       pSlopeDeg: _slopeDeg.toDouble(),
     );
     final vChosen = vFit.chosenWidthMm;
+    final vKnown = roofWindowFromReference(_reference);
     final vWithout = vFit.widestWithoutCutMm;
 
     return Scaffold(
@@ -81,6 +83,25 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
             ),
           ),
           const TermsRow([Term.rafter, Term.spacing, Term.header]),
+          NumberField<String>(
+            label: vText.roofWindowReference,
+            initial: '',
+            parse: (pText) => pText,
+            onValue: (pValue) => setState(() {
+              _reference = pValue;
+              final vSize = roofWindowFromReference(pValue);
+              if (vSize != null) {
+                _wantedMm = vSize.widthMm;
+              }
+            }),
+          ),
+          if (_reference.trim().isNotEmpty)
+            IconLine(
+              vKnown == null ? Icons.help_outline : Icons.check_circle_outline,
+              vKnown == null
+                  ? vText.roofWindowReferenceUnknown
+                  : vText.roofWindowReferenceSize(vCm(vKnown.widthMm), vCm(vKnown.heightMm)),
+            ),
           const SizedBox(height: 12),
           SegmentedButton<RoofCover>(
             segments: [
@@ -103,6 +124,8 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
             onValue: (pValue) => setState(() => _rafterMm = pValue),
           ),
           NumberField(
+            // Recréé quand une référence reconnue impose la largeur
+            key: ValueKey('wanted-${vKnown?.code}'),
             label: vText.roofWindowWanted,
             initial: vCm(_wantedMm),
             parse: parseCentimetres,
