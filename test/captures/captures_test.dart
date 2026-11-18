@@ -127,6 +127,10 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Pièce sous rampants'));
     await capture('15-rampants');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Fenêtre bois sur mesure'));
+    await capture('16-fenetre-bois');
     capturesDone();
   });
 

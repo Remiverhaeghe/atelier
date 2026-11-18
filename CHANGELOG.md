@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Fenêtre bois sur mesure
+- Nouveau calcul pour remplacer un plexi par un châssis fixe : croquis coté du châssis, débit des montants et traverses, tenons et mortaises, feuillure, vitrage à commander et son poids, parcloses, ordre de fabrication
+
 ### Carnet d'atelier
 - Les écrans sont posés sur une feuille quadrillée, comme un carnet de chantier (fond uni en mode nuit)
 - Nouveau calcul « Pièce sous rampants » : coupe cotée dessinée au crayon et à l'échelle, surface habitable (au-dessus de 1,80 m), hauteur au faîtage ou au plafond plat, longueur des rampants, plaques à poser ; angle mesuré en posant le téléphone sur le rampant
