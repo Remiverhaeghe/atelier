@@ -22,7 +22,7 @@ import 'sketch3d.dart';
       ],
       callouts: [
         vLabel(36, 5, 16, pText.termTenon, const Offset(10, -40)),
-        vLabel(20, 10, 10, pText.termMortise, const Offset(-10, 60)),
+        vLabel(20, 10, 10, pText.termMortise, const Offset(70, 70)),
       ],
     ),
     Term.frame || Term.stile || Term.rail => (
@@ -52,9 +52,9 @@ import 'sketch3d.dart';
         Prism.box(30, 37, 0, 60, 18, 26, role: vIf(pTerm == Term.glazingBead)),
       ],
       callouts: [
-        vLabel(31, 0, 18, pText.termRebate, const Offset(40, 30)),
-        vLabel(34, 0, 26, pText.termGlazingBead, const Offset(50, -20)),
-        vLabel(26, 10, 19, pText.termSetting, const Offset(-60, 30)),
+        vLabel(31, 0, 18, pText.termRebate, const Offset(60, 60)),
+        vLabel(37, 30, 26, pText.termGlazingBead, const Offset(80, -10)),
+        vLabel(23, 10, 19, pText.termSetting, const Offset(-90, 70)),
       ],
     ),
     Term.joist => (
