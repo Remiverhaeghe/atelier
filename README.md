@@ -30,11 +30,18 @@ Le détail, version par version, est dans [CHANGELOG.md](CHANGELOG.md).
 
 La suite est dans [ROADMAP.md](ROADMAP.md). Le format du plan exporté est décrit dans [docs/format-plan.md](docs/format-plan.md), l'export pour Home Assistant dans [docs/home-assistant.md](docs/home-assistant.md).
 
-## Installer
+## Installer sur le téléphone
 
-Les APK de chaque version sont jointes à sa page dans [Releases](../../releases). Prendre `app-arm64-v8a-release.apk` pour un téléphone récent.
+Chaque fusion sur `main` publie l'APK dans une préversion `build-N` de [Releases](../../releases) (les trois dernières sont gardées). Le plus simple pour l'installer et la tenir à jour est [Obtainium](https://github.com/ImranR98/Obtainium), une appli Android gratuite qui suit les releases GitHub :
 
-Entre deux versions, chaque exécution de la CI produit aussi une APK (onglet Actions, artefact `atelier-apk`).
+1. Installer Obtainium depuis sa page GitHub (fichier `app-arm64-v8a-release.apk` de sa dernière release) ou depuis F-Droid.
+2. Dans Obtainium, « Ajouter une appli », coller `https://github.com/Remiverhaeghe/atelier`.
+3. Cocher « Inclure les préversions » puis « Ajouter ». Obtainium choisit l'APK du processeur du téléphone (arm64 pour un téléphone récent).
+4. « Installer ». Ensuite, Obtainium signale chaque nouvelle construction et la met à jour en un clic.
+
+Le numéro de construction sert de `versionCode` : chaque APK remplace la précédente sans désinstaller, données gardées. Les préversions ne sont publiées qu'avec la clé de signature personnelle (secrets `ANDROID_*`), sinon deux APK successives n'auraient pas la même signature.
+
+Les versions numérotées (`vX.Y.Z`) ont leurs APK sur leur page de release, et chaque exécution de la CI garde aussi son APK en artefact `atelier-apk` (onglet Actions).
 
 ## Publier une version
 

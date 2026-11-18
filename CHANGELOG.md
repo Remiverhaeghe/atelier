@@ -8,6 +8,8 @@
 - « Comment c'est calculé » : les étapes du résultat, dépliables sous le calcul
 - Fiches de carnet au lieu des cartes (bord de papier, ruban adhésif, ombre légère), icônes des tuiles dessinées au trait
 - Croquis écrit à la main (police Caveat, licence OFL), tracé au crayon à l'ouverture, et modifiable au doigt : poignées de la jambette et du sommet
+### Installation simplifiée
+- Chaque fusion sur main publie l'APK signée dans une préversion `build-N`, à suivre avec Obtainium pour installer et mettre à jour en un clic ; numéro de construction croissant pour que chaque APK remplace la précédente
 
 ### Écho d'une grande pièce
 - Nouveau calcul : réverbération par la formule de Sabine selon le sol, le plafond et le mobilier, nombre de panneaux acoustiques pour revenir à 0,6 s
