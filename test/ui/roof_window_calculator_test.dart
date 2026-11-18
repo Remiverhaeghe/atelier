@@ -44,4 +44,3 @@ void main() {
     expect(find.textContaining('Référence non reconnue'), findsOneWidget);
   });
 }
-

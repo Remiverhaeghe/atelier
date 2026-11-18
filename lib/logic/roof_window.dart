@@ -70,15 +70,7 @@ RoofWindowFit fitRoofWindow({
 }
 
 /// Largeur du dormant selon la lettre de la référence (CK04 : C), en millimètres.
-const _referenceWidthsMm = {
-  'B': 470,
-  'C': 550,
-  'F': 660,
-  'M': 780,
-  'P': 940,
-  'S': 1140,
-  'U': 1340,
-};
+const _referenceWidthsMm = {'B': 470, 'C': 550, 'F': 660, 'M': 780, 'P': 940, 'S': 1140, 'U': 1340};
 
 /// Hauteur selon les deux chiffres de la référence (CK04 : 04).
 const _referenceHeightsMm = {
