@@ -6,12 +6,14 @@ import '../logic/fixings.dart';
 import '../logic/shelf.dart';
 import '../logic/shelf_joinery.dart';
 import '../logic/units.dart';
+import '../logic/wood_species.dart';
 import 'fixings_calculator.dart';
 import 'parquet_view.dart';
 import 'shelf_calculator.dart';
 import 'shelf_joinery_card.dart';
 import 'shopping_target.dart';
 import 'theme.dart';
+import 'wood_species_card.dart';
 
 /// Tablette murale sur équerres : nombre et écart des équerres, bras, poids et chevilles.
 class WallShelfCalculator extends StatefulWidget {
@@ -96,6 +98,7 @@ class _WallShelfCalculatorState extends State<WallShelfCalculator> {
             load: _shelf.load,
             onChanged: (pLoad) => vSet(_shelf.copyWith(load: pLoad)),
           ),
+          const WoodSpeciesCard(useClass: UseClass.indoorDry),
           DropdownButtonFormField<WallSupport>(
             initialValue: _shelf.wall,
             decoration: InputDecoration(labelText: vText.fixingsSupport),

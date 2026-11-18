@@ -4,9 +4,11 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/extra_items.dart';
 import '../logic/pergola.dart';
 import '../logic/units.dart';
+import '../logic/wood_species.dart';
 import 'parquet_view.dart';
 import 'shopping_target.dart';
 import 'theme.dart';
+import 'wood_species_card.dart';
 
 String pergolaCoverLabel(AppLocalizations pText, PergolaCover pCover) => switch (pCover) {
   PergolaCover.open => pText.pergolaCoverOpen,
@@ -129,6 +131,7 @@ class _PergolaCalculatorState extends State<PergolaCalculator> {
             ),
           ),
           const SizedBox(height: 12),
+          const WoodSpeciesCard(useClass: UseClass.outdoor),
           DropdownButtonFormField<PergolaCover>(
             initialValue: _pergola.cover,
             decoration: InputDecoration(labelText: vText.pergolaCover),

@@ -4,11 +4,13 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/glossary.dart';
 import '../logic/units.dart';
 import '../logic/wood_window.dart';
+import '../logic/wood_species.dart';
 import 'glossary_view.dart';
 import 'notebook.dart';
 import 'parquet_view.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
+import 'wood_species_card.dart';
 
 /// Châssis fixe en bois pour remplacer un plexi : débit, assemblages, vitrage à commander.
 class WoodWindowCalculator extends StatefulWidget {
@@ -113,6 +115,7 @@ class _WoodWindowCalculatorState extends State<WoodWindowCalculator> {
               vText.woodWindowWhyRebate(glassThicknessMm, glazingSealMm, beadThicknessMm),
             ],
           ),
+          const WoodSpeciesCard(useClass: UseClass.outdoor),
           Text(vText.woodWindowSteps, style: vTheme.textTheme.bodySmall),
           NumberField(
             label: vText.woodWindowWidth,
