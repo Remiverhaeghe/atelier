@@ -54,6 +54,7 @@ import 'wardrobe_calculator.dart';
 import 'ventilation_calculator.dart';
 import 'wall_shelf_calculator.dart';
 import 'welding_calculator.dart';
+import 'wood_window_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 typedef Calculator = ({String title, String help, IconData icon, WidgetBuilder builder});
@@ -122,6 +123,12 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.atticHelp,
       icon: Icons.roofing_outlined,
       builder: (_) => const AtticSectionCalculator(),
+    ),
+    (
+      title: pText.woodWindowTitle,
+      help: pText.woodWindowHelp,
+      icon: Icons.window_outlined,
+      builder: (_) => const WoodWindowCalculator(),
     ),
     (
       title: pText.largeHeatTitle,
