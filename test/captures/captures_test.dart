@@ -201,13 +201,21 @@ void main() {
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Douche de plain-pied'));
-    await pTester.scrollUntilVisible(find.text('Volumes de sécurité'), 300, scrollable: _vertical());
+    await pTester.scrollUntilVisible(
+      find.text('Volumes de sécurité'),
+      300,
+      scrollable: _vertical(),
+    );
     await pTester.pumpAndSettle();
     await capture('29-salle-eau');
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Cuisine'));
-    await pTester.scrollUntilVisible(find.text("Triangle d'activité"), 300, scrollable: _vertical());
+    await pTester.scrollUntilVisible(
+      find.text("Triangle d'activité"),
+      300,
+      scrollable: _vertical(),
+    );
     await pTester.pumpAndSettle();
     await capture('30-cuisine');
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();

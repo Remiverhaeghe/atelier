@@ -84,10 +84,7 @@ class _BathroomSafetyCardState extends State<BathroomSafetyCard> {
           Icons.format_paint_outlined,
           vText.bathSeal(formatSquareMetres(vSeal.areaM2), formatDecimal(vSeal.kg), vSeal.pots),
         ),
-        IconLine(
-          Icons.linear_scale,
-          vText.bathSealBand(formatDecimal(vSeal.bandM), vSeal.sleeves),
-        ),
+        IconLine(Icons.linear_scale, vText.bathSealBand(formatDecimal(vSeal.bandM), vSeal.sleeves)),
         IconLine(Icons.layers_outlined, vText.bathSealSteps),
         const Divider(),
         Text(vText.bathAirTitle, style: vTheme.textTheme.titleMedium),

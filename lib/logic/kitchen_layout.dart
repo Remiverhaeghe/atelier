@@ -48,10 +48,7 @@ HoodNeed hoodFor(double pVolumeM3) {
   final vNeeded = (pVolumeM3 * hoodChangesPerHour - 1e-9).ceil();
   final rNeed = (
     neededM3h: math.max(vNeeded, 0),
-    hoodM3h: hoodFlowsM3h.firstWhere(
-      (pFlow) => pFlow >= vNeeded,
-      orElse: () => hoodFlowsM3h.last,
-    ),
+    hoodM3h: hoodFlowsM3h.firstWhere((pFlow) => pFlow >= vNeeded, orElse: () => hoodFlowsM3h.last),
   );
 
   return rNeed;
@@ -77,8 +74,7 @@ List<KitchenLayout> kitchenLayouts(int pWidthMm, int pLengthMm) {
     if (vWidth >= vTwoRuns && vLength >= minRunMm) KitchenLayout.parallel,
     if (vWidth >= runDepthMm + aisleMm && vLength >= minRunMm) KitchenLayout.lShape,
     if (vWidth >= vTwoRuns && vLength >= vTwoRuns) KitchenLayout.uShape,
-    if (vWidth >= runDepthMm + 2 * aisleMm + islandDepthMm && vLength >= 3000)
-      KitchenLayout.island,
+    if (vWidth >= runDepthMm + 2 * aisleMm + islandDepthMm && vLength >= 3000) KitchenLayout.island,
   ];
 
   return rLayouts;

@@ -181,7 +181,8 @@ int _count(Room pRoom, FixtureKind pKind) => pRoom.fixtures
     .where((pFixture) => pFixture.kind == pKind)
     .fold(0, (pSum, pFixture) => pSum + pFixture.count);
 
-double _distance(PlanPoint pA, int pX, int pY) => math.sqrt(math.pow(pA.x - pX, 2) + math.pow(pA.y - pY, 2));
+double _distance(PlanPoint pA, int pX, int pY) =>
+    math.sqrt(math.pow(pA.x - pX, 2) + math.pow(pA.y - pY, 2));
 
 /// Ce qui manque dans la pièce pour le minimum courant, et où le poser ; null sans plan.
 ElecProposal? proposeElec(Room pRoom, {ElecRoomKind? pKind}) {

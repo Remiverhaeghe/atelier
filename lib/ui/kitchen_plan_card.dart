@@ -71,7 +71,10 @@ class _KitchenPlanCardState extends State<KitchenPlanCard> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(vText.kitTriangleTitle, style: vTheme.textTheme.titleMedium),
-        AspectRatio(aspectRatio: 1.4, child: KitchenSketch(widthMm: _width, lengthMm: _length)),
+        AspectRatio(
+          aspectRatio: 1.4,
+          child: KitchenSketch(widthMm: _width, lengthMm: _length),
+        ),
         IconLine(
           vTriangle.issues.isEmpty ? Icons.check_circle_outline : Icons.warning_amber,
           vText.kitTriangle(formatDecimal(vTriangle.totalMm / 1000)),
@@ -102,21 +105,14 @@ class _KitchenPlanCardState extends State<KitchenPlanCard> {
         vField('longueur', vText.kitLength, _length, (pValue) => _length = pValue),
         if (vRoom == null)
           vField('hauteur', vText.kitHeight, _height, (pValue) => _height = pValue),
-        IconLine(
-          Icons.air,
-          vText.kitHood(formatDecimal(vVolume), vHood.neededM3h, vHood.hoodM3h),
-        ),
+        IconLine(Icons.air, vText.kitHood(formatDecimal(vVolume), vHood.neededM3h, vHood.hoodM3h)),
         IconLine(Icons.info_outline, vText.kitHoodNote),
         const SizedBox(height: 6),
         Text(vText.kitLayoutsTitle, style: vTheme.textTheme.titleSmall),
         if (vLayouts.isEmpty) Text(vText.kitNoLayout),
-        for (final vLayout in vLayouts)
-          IconLine(Icons.check, kitchenLayoutLabel(vText, vLayout)),
+        for (final vLayout in vLayouts) IconLine(Icons.check, kitchenLayoutLabel(vText, vLayout)),
         const SizedBox(height: 4),
-        Text(
-          vText.kitLayoutHint(vCm(runDepthMm), vCm(aisleMm)),
-          style: vTheme.textTheme.bodySmall,
-        ),
+        Text(vText.kitLayoutHint(vCm(runDepthMm), vCm(aisleMm)), style: vTheme.textTheme.bodySmall),
       ],
     );
   }
@@ -145,8 +141,24 @@ class KitchenSketch extends StatelessWidget {
         Prism.box(0, vDepth, 0, vShort - vDepth, 0, vBase, role: PartRole.board),
         Prism.box(0, vLong, vShort - vDepth, vShort, vBase, vTop),
         Prism.box(0, vDepth, 0, vShort - vDepth, vBase, vTop),
-        Prism.box(vLong * 0.45, vLong * 0.45 + 600, vShort - 520, vShort - 80, vTop - 10, vTop + 5, role: PartRole.glass),
-        Prism.box(60, vDepth - 60, vShort * 0.25, vShort * 0.25 + 560, vTop, vTop + 10, role: PartRole.highlight),
+        Prism.box(
+          vLong * 0.45,
+          vLong * 0.45 + 600,
+          vShort - 520,
+          vShort - 80,
+          vTop - 10,
+          vTop + 5,
+          role: PartRole.glass,
+        ),
+        Prism.box(
+          60,
+          vDepth - 60,
+          vShort * 0.25,
+          vShort * 0.25 + 560,
+          vTop,
+          vTop + 10,
+          role: PartRole.highlight,
+        ),
         Prism.box(vLong - 600, vLong, vShort - vDepth, vShort, 0, 1850, role: PartRole.ghost),
       ],
       callouts: [

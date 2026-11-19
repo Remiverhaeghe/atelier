@@ -82,9 +82,7 @@ void main() {
 
   test('proposition : ce qui manque, loin des prises déjà posées', () {
     final vRoom = rectangleRoom().copyWith(
-      fixtures: const [
-        Fixture(id: 'a', kind: FixtureKind.socket, xMm: 1400, yMm: 0, count: 2),
-      ],
+      fixtures: const [Fixture(id: 'a', kind: FixtureKind.socket, xMm: 1400, yMm: 0, count: 2)],
     );
     final vProposal = proposeElec(vRoom)!;
     expect(vProposal.kind, ElecRoomKind.living);

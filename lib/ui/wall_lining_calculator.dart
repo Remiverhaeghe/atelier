@@ -117,46 +117,48 @@ class _WallLiningCalculatorState extends State<WallLiningCalculator> {
                   if (vPlan.wallM2 <= 0)
                     IconLine(Icons.touch_app_outlined, vText.iwiPickWalls)
                   else ...[
-                  IconLine(
-                    Icons.crop_square,
-                    vText.iwiWall(formatSquareMetres(vPlan.wallM2), vPlan.insulantPacks),
-                  ),
-                  if (vPlan.vaporBarrierM2 > 0)
                     IconLine(
-                      Icons.water_drop_outlined,
-                      vText.insulVapor(formatSquareMetres(vPlan.vaporBarrierM2)),
-                    )
-                  else
-                    IconLine(Icons.water_drop_outlined, vText.iwiNoVapor),
-                  IconLine(Icons.dashboard_outlined, vText.iwiBoards(vPlan.boards)),
-                  if (_system.hasFrame)
-                    IconLine(
-                      Icons.view_week_outlined,
-                      vText.iwiFrame(vPlan.studs, vPlan.railsMetres),
+                      Icons.crop_square,
+                      vText.iwiWall(formatSquareMetres(vPlan.wallM2), vPlan.insulantPacks),
                     ),
-                  if (vPlan.brackets > 0)
-                    IconLine(Icons.hardware_outlined, vText.iwiBrackets(vPlan.brackets)),
-                  if (vPlan.adhesiveBags > 0)
-                    IconLine(Icons.inventory_2_outlined, vText.iwiAdhesive(vPlan.adhesiveBags)),
-                  const Divider(),
-                  Text(vText.iwiLostTitle, style: vTheme.textTheme.titleSmall),
-                  for (final vRoom in vPlan.rooms)
-                    IconLine(
-                      Icons.square_foot,
-                      vRoom.room.name.isEmpty
-                          ? vText.iwiLostManual(formatSquareMetres(vRoom.lostM2))
-                          : vText.iwiLostRoom(
-                              vRoom.room.name,
-                              formatSquareMetres(vRoom.lostM2),
-                              formatSquareMetres(vRoom.floorBeforeM2),
-                            ),
-                    ),
-                  if (vPlan.rooms.any((pRoom) => pRoom.windows > 0))
-                    IconLine(
-                      Icons.window_outlined,
-                      vText.iwiReveals(vPlan.rooms.fold(0, (pSum, pRoom) => pSum + pRoom.windows)),
-                    ),
-                  AddToShoppingButton(items: () => vItems),
+                    if (vPlan.vaporBarrierM2 > 0)
+                      IconLine(
+                        Icons.water_drop_outlined,
+                        vText.insulVapor(formatSquareMetres(vPlan.vaporBarrierM2)),
+                      )
+                    else
+                      IconLine(Icons.water_drop_outlined, vText.iwiNoVapor),
+                    IconLine(Icons.dashboard_outlined, vText.iwiBoards(vPlan.boards)),
+                    if (_system.hasFrame)
+                      IconLine(
+                        Icons.view_week_outlined,
+                        vText.iwiFrame(vPlan.studs, vPlan.railsMetres),
+                      ),
+                    if (vPlan.brackets > 0)
+                      IconLine(Icons.hardware_outlined, vText.iwiBrackets(vPlan.brackets)),
+                    if (vPlan.adhesiveBags > 0)
+                      IconLine(Icons.inventory_2_outlined, vText.iwiAdhesive(vPlan.adhesiveBags)),
+                    const Divider(),
+                    Text(vText.iwiLostTitle, style: vTheme.textTheme.titleSmall),
+                    for (final vRoom in vPlan.rooms)
+                      IconLine(
+                        Icons.square_foot,
+                        vRoom.room.name.isEmpty
+                            ? vText.iwiLostManual(formatSquareMetres(vRoom.lostM2))
+                            : vText.iwiLostRoom(
+                                vRoom.room.name,
+                                formatSquareMetres(vRoom.lostM2),
+                                formatSquareMetres(vRoom.floorBeforeM2),
+                              ),
+                      ),
+                    if (vPlan.rooms.any((pRoom) => pRoom.windows > 0))
+                      IconLine(
+                        Icons.window_outlined,
+                        vText.iwiReveals(
+                          vPlan.rooms.fold(0, (pSum, pRoom) => pSum + pRoom.windows),
+                        ),
+                      ),
+                    AddToShoppingButton(items: () => vItems),
                   ],
                 ],
               ),

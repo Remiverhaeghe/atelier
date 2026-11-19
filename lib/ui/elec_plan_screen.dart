@@ -21,7 +21,10 @@ class ElecPlanScreen extends StatelessWidget {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
 
-    return ListenableBuilder(listenable: controller, builder: (pContext, _) => _body(vText, vTheme, pContext));
+    return ListenableBuilder(
+      listenable: controller,
+      builder: (pContext, _) => _body(vText, vTheme, pContext),
+    );
   }
 
   Widget _body(AppLocalizations pText, ThemeData pTheme, BuildContext pContext) {
