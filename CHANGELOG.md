@@ -5,6 +5,8 @@
 ### Ajouté
 - Finitions du bois : lasure, vernis, vitrificateur, huile, cire et peinture microporeuse, choisies selon l'usage (meuble, sol, dehors), avec les litres, les pots les moins chers, l'attente entre les couches, l'entretien et une coupe en relief qui montre un film posé dessus ou une finition qui entre dans le bois
 - Humidité et condensation : point de rosée de la pièce, température de la paroi côté intérieur (vitrage, mur ou rampant, isolé ou non), verdict, humidité à ne pas dépasser et conseils (aération, pare-vapeur, chauffage régulier)
+- Faux plafond pour les pièces trop hautes : vide restant au-dessus, type de suspentes selon ce vide, fourrures, suspentes, tiges filetées, éclisses, cornières, plaques et vis, volume en moins à chauffer, alerte sous 2,20 m, et une coupe en relief
+- Placard sous rampant : où poser la façade, volume de rangement, modules à une porte, montants coupés à l'angle du toit, portes et charnières, bacs sur roulettes qui vont chercher le fond, tablette, panneaux à acheter, et le placard dessiné en relief avec une porte ouverte
 
 ### Corrigé
 - Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon

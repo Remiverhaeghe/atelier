@@ -12,6 +12,8 @@ import 'acoustics_calculator.dart';
 import 'blown_insulation_calculator.dart';
 import 'concrete_calculator.dart';
 import 'condensation_calculator.dart';
+import 'dropped_ceiling_calculator.dart';
+import 'eaves_storage_calculator.dart';
 import 'debris_calculator.dart';
 import 'diy_calculator.dart';
 import 'exterior_calculator.dart';
@@ -151,6 +153,18 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.dewHelp,
       icon: Icons.water_drop_outlined,
       builder: (_) => const CondensationCalculator(),
+    ),
+    (
+      title: pText.ceilingTitle,
+      help: pText.ceilingHelp,
+      icon: Icons.vertical_align_bottom,
+      builder: (_) => const DroppedCeilingCalculator(),
+    ),
+    (
+      title: pText.eavesTitle,
+      help: pText.eavesHelp,
+      icon: Icons.shelves,
+      builder: (_) => const EavesStorageCalculator(),
     ),
     (
       title: pText.largeHeatTitle,
