@@ -84,10 +84,7 @@ String qualityKey(QualityCheck pCheck) => '$qualityPrefix${pCheck.name}';
 /// Contrôles cochés parmi les étapes faites [pDone] ; les noms inconnus sont ignorés.
 Set<QualityCheck> doneChecks(List<String> pDone) {
   final vByKey = {for (final vCheck in QualityCheck.values) qualityKey(vCheck): vCheck};
-  final rDone = {
-    for (final vName in pDone)
-      if (vByKey[vName] case final vCheck?) vCheck,
-  };
+  final rDone = <QualityCheck>{for (final vName in pDone) ?vByKey[vName]};
 
   return rDone;
 }
