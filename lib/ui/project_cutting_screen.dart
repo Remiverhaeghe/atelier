@@ -105,15 +105,15 @@ class _ProjectCuttingScreenState extends State<ProjectCuttingScreen> {
     final vPlan = planProjectCutting(_pieces, pKerfMm: _kerf, pRotate: _rotate);
     String vCm(int pMm) => formatCentimetres(pMm);
     final vCuts =
-        vPlan.bars.fold(0, (pSum, pBar) => pSum + pBar.cuts) +
-        vPlan.panels.fold(0, (pSum, pPanel) => pSum + pPanel.cuts);
+        vPlan.bars.fold<int>(0, (pSum, pBar) => pSum + pBar.cuts) +
+        vPlan.panels.fold<int>(0, (pSum, pPanel) => pSum + pPanel.cuts);
     final vKerfLoss =
-        vPlan.bars.fold(0, (pSum, pBar) => pSum + pBar.kerfLossMm) +
-        vPlan.panels.fold(0, (pSum, pPanel) => pSum + pPanel.kerfLossMm);
+        vPlan.bars.fold<int>(0, (pSum, pBar) => pSum + pBar.kerfLossMm) +
+        vPlan.panels.fold<int>(0, (pSum, pPanel) => pSum + pPanel.kerfLossMm);
     final vOffcuts = [for (final vBar in vPlan.bars) ...vBar.plan.reusableOffcuts]
       ..sort((pA, pB) => pB.compareTo(pA));
-    final vTooLong = vPlan.bars.fold(0, (pSum, pBar) => pSum + pBar.plan.tooLong.length);
-    final vTooBig = vPlan.panels.fold(0, (pSum, pPanel) => pSum + pPanel.plan.tooBig.length);
+    final vTooLong = vPlan.bars.fold<int>(0, (pSum, pBar) => pSum + pBar.plan.tooLong.length);
+    final vTooBig = vPlan.panels.fold<int>(0, (pSum, pPanel) => pSum + pPanel.plan.tooBig.length);
     final vItems = [
       for (final vBar in vPlan.bars)
         for (final vBuy in barsToBuy(vBar.plan))
