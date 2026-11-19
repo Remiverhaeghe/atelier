@@ -32,7 +32,10 @@ void main() {
   });
 
   test('flèche de 4 mm sur 2 m : à laisser pour un meuble, bonne pour une ossature', () {
-    expect(verdictOf(inspectBoard(board(pBow: 4), WoodUse.furniture), WoodDefect.bow), Verdict.refuse);
+    expect(
+      verdictOf(inspectBoard(board(pBow: 4), WoodUse.furniture), WoodDefect.bow),
+      Verdict.refuse,
+    );
     expect(verdictOf(inspectBoard(board(pBow: 4), WoodUse.joinery), WoodDefect.bow), Verdict.watch);
     expect(verdictOf(inspectBoard(board(pBow: 4), WoodUse.structure), WoodDefect.bow), Verdict.ok);
   });
@@ -45,7 +48,10 @@ void main() {
   });
 
   test('nœud : selon sa taille, et refusé s\'il bouge sauf en structure', () {
-    expect(verdictOf(inspectBoard(board(pKnot: 10), WoodUse.furniture), WoodDefect.knot), Verdict.ok);
+    expect(
+      verdictOf(inspectBoard(board(pKnot: 10), WoodUse.furniture), WoodDefect.knot),
+      Verdict.ok,
+    );
     expect(
       verdictOf(inspectBoard(board(pKnot: 20), WoodUse.furniture), WoodDefect.knot),
       Verdict.watch,

@@ -141,7 +141,10 @@ int panelCuts(CutPanel pPanel) {
   var rCuts = 0;
   for (final vY in vStrips) {
     final vStripParts = pPanel.parts.where((pPart) => pPart.yMm == vY).toList();
-    final vHeight = vStripParts.fold(0, (pMax, pPart) => pPart.widthMm > pMax ? pPart.widthMm : pMax);
+    final vHeight = vStripParts.fold(
+      0,
+      (pMax, pPart) => pPart.widthMm > pMax ? pPart.widthMm : pMax,
+    );
     if (vY + vHeight < pPanel.widthMm) {
       rCuts++;
     }

@@ -189,7 +189,9 @@ List<({StockItem item, int toBuy})> restockList(
   final vItems = <StockItem>[];
   for (final vItem in pItems) {
     final vTaken = pAllocations
-        .where((pAllocation) => pAllocation.worksiteId == pWorksite.id && pAllocation.itemId == vItem.id)
+        .where(
+          (pAllocation) => pAllocation.worksiteId == pWorksite.id && pAllocation.itemId == vItem.id,
+        )
         .fold(0, (pSum, pAllocation) => pSum + pAllocation.fromStock);
     if (vTaken <= 0) {
       vItems.add(vItem);

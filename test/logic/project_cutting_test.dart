@@ -72,11 +72,10 @@ void main() {
 
   test('étagère : montants et tablettes dans un panneau de 244 × 122, fond à part', () {
     final vPieces = shelfPieces(const ShelfDesign());
-    expect([for (final vPiece in vPieces) vPiece.name], [
-      PieceName.side,
-      PieceName.shelf,
-      PieceName.back,
-    ]);
+    expect(
+      [for (final vPiece in vPieces) vPiece.name],
+      [PieceName.side, PieceName.shelf, PieceName.back],
+    );
     expect(vPieces.last.thicknessMm, shelfBackMm);
     final vPlan = planProjectCutting(vPieces);
     expect(vPlan.bars, isEmpty);
@@ -127,9 +126,7 @@ void main() {
 
   test('coupes d\'un panneau : une pièce au bord en économise une', () {
     final vPanel = CutPanel(1000, 500)
-      ..parts.addAll(<PlacedPart>[
-        (partIndex: 0, xMm: 0, yMm: 0, lengthMm: 1000, widthMm: 500),
-      ]);
+      ..parts.addAll(<PlacedPart>[(partIndex: 0, xMm: 0, yMm: 0, lengthMm: 1000, widthMm: 500)]);
     expect(panelCuts(vPanel), 0);
     final vSecond = CutPanel(1000, 500)
       ..parts.addAll(<PlacedPart>[
@@ -164,12 +161,10 @@ void main() {
       pFrontMm: 1200,
     )!;
     final vPieces = eavesPieces(vPlan, pFrontMm: 1200, pLengthMm: 2400);
-    expect([for (final vPiece in vPieces) vPiece.name], [
-      PieceName.eavesSide,
-      PieceName.eavesFloor,
-      PieceName.door,
-      PieceName.shelf,
-    ]);
+    expect(
+      [for (final vPiece in vPieces) vPiece.name],
+      [PieceName.eavesSide, PieceName.eavesFloor, PieceName.door, PieceName.shelf],
+    );
     expect(vPieces.first.count, 5);
     expect(vPieces[2].count, 4);
     final vCut = planProjectCutting(vPieces);

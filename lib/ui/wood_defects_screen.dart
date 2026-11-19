@@ -138,9 +138,8 @@ class _WoodDefectsScreenState extends State<WoodDefectsScreen> {
                       dense: true,
                       value: _done.contains(vCheck),
                       title: Text(_checkText(vText, vCheck)),
-                      onChanged: (pValue) => setState(
-                        () => pValue == true ? _done.add(vCheck) : _done.remove(vCheck),
-                      ),
+                      onChanged: (pValue) =>
+                          setState(() => pValue == true ? _done.add(vCheck) : _done.remove(vCheck)),
                     ),
                   if (checklistDone(_done))
                     Padding(

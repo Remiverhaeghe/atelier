@@ -41,8 +41,16 @@ class WoodDefectSketch extends StatelessWidget {
       Prism.box(820, 850, 120, 148, _thick, _thick + 3, role: PartRole.ghost),
     ],
     [
-      (at: (x: 420.0, y: 70.0, z: _thick + 3), text: pText.defectKnotSound, shift: const Offset(-40, -50)),
-      (at: (x: 835.0, y: 134.0, z: _thick + 3), text: pText.defectKnotEdge, shift: const Offset(40, -45)),
+      (
+        at: (x: 420.0, y: 70.0, z: _thick + 3),
+        text: pText.defectKnotSound,
+        shift: const Offset(-40, -50),
+      ),
+      (
+        at: (x: 835.0, y: 134.0, z: _thick + 3),
+        text: pText.defectKnotEdge,
+        shift: const Offset(40, -45),
+      ),
     ],
   );
 
@@ -55,7 +63,11 @@ class WoodDefectSketch extends StatelessWidget {
       Prism.box(900, 1000, _width / 2 - 6, _width / 2 + 6, 0, _thick, role: PartRole.highlight),
     ],
     [
-      (at: (x: _length, y: _width / 2, z: _thick), text: pText.defectSplitLabel, shift: const Offset(30, -50)),
+      (
+        at: (x: _length, y: _width / 2, z: _thick),
+        text: pText.defectSplitLabel,
+        shift: const Offset(30, -50),
+      ),
       (at: (x: 850.0, y: 0.0, z: 0.0), text: pText.defectSplitCut, shift: const Offset(-30, 45)),
     ],
   );
@@ -67,7 +79,11 @@ class WoodDefectSketch extends StatelessWidget {
         Prism.box(vX, vX + 180, vY, vY + 5, _thick, _thick + 1, role: PartRole.highlight),
     ],
     [
-      (at: (x: 510.0, y: 92.0, z: _thick + 1), text: pText.defectCheckLabel, shift: const Offset(0, -60)),
+      (
+        at: (x: 510.0, y: 92.0, z: _thick + 1),
+        text: pText.defectCheckLabel,
+        shift: const Offset(0, -60),
+      ),
     ],
   );
 
@@ -102,7 +118,11 @@ class WoodDefectSketch extends StatelessWidget {
           ),
       ],
       [
-        (at: (x: _width, y: _length, z: 90.0), text: pText.defectTwistLabel, shift: const Offset(50, -30)),
+        (
+          at: (x: _width, y: _length, z: 90.0),
+          text: pText.defectTwistLabel,
+          shift: const Offset(50, -30),
+        ),
         (at: (x: 0.0, y: 0.0, z: 10.0), text: pText.defectFlatFloor, shift: const Offset(-40, 40)),
       ],
     );
@@ -131,7 +151,11 @@ class WoodDefectSketch extends StatelessWidget {
           ),
       ],
       [
-        (at: (x: _length / 2, y: 30.0, z: 8 + vSag), text: pText.defectBowLabel, shift: const Offset(0, -70)),
+        (
+          at: (x: _length / 2, y: 30.0, z: 8 + vSag),
+          text: pText.defectBowLabel,
+          shift: const Offset(0, -70),
+        ),
         (at: (x: 100.0, y: 10.0, z: 4.0), text: pText.defectRuler, shift: const Offset(-30, 45)),
       ],
     );
@@ -160,7 +184,11 @@ class WoodDefectSketch extends StatelessWidget {
         Prism([...vBottom, ...vTop], 0, _length * 0.7),
       ],
       [
-        (at: (x: _width / 2, y: 0.0, z: _thick), text: pText.defectCupLabel, shift: const Offset(-50, -60)),
+        (
+          at: (x: _width / 2, y: 0.0, z: _thick),
+          text: pText.defectCupLabel,
+          shift: const Offset(-50, -60),
+        ),
       ],
     );
   }
@@ -174,7 +202,11 @@ class WoodDefectSketch extends StatelessWidget {
       Prism.box(660, 670, 70, 80, _thick, _thick + 8, role: PartRole.board),
     ],
     [
-      (at: (x: 600.0, y: 75.0, z: _thick + 48), text: pText.defectMeterLabel, shift: const Offset(0, -55)),
+      (
+        at: (x: 600.0, y: 75.0, z: _thick + 48),
+        text: pText.defectMeterLabel,
+        shift: const Offset(0, -55),
+      ),
     ],
   );
 }

@@ -196,7 +196,9 @@ void main() {
     capturesDone();
   });
 
-  testWidgets('bois : débit d\'un projet, défauts au magasin, stock de l\'atelier', (pTester) async {
+  testWidgets('bois : débit d\'un projet, défauts au magasin, stock de l\'atelier', (
+    pTester,
+  ) async {
     await openApp(pTester);
     await tapAndSettle(pTester, find.byTooltip('Calculs'));
     await tapAndSettle(pTester, find.text('Débit dans le commerce'));

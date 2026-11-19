@@ -14,7 +14,10 @@ void main() {
   const vShed = Worksite(
     id: 'abri',
     name: 'Abri',
-    extras: [ExtraItem(name: 'Vis 4 × 40', quantity: 3), ExtraItem(name: 'Équerres', quantity: 8)],
+    extras: [
+      ExtraItem(name: 'Vis 4 × 40', quantity: 3),
+      ExtraItem(name: 'Équerres', quantity: 8),
+    ],
   );
   const vGlue = StockItem(
     id: 'colle',

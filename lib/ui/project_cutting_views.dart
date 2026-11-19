@@ -87,7 +87,10 @@ class _BarPainter extends CustomPainter {
         ..drawRect(vRect, Paint()..color = colors.wood)
         ..drawRect(vRect, vStroke);
       final vText = TextPainter(
-        text: TextSpan(text: label(vPosition), style: style.copyWith(color: colors.ink)),
+        text: TextSpan(
+          text: label(vPosition),
+          style: style.copyWith(color: colors.ink),
+        ),
         textDirection: TextDirection.ltr,
       )..layout();
       if (vText.width < vRect.width) {

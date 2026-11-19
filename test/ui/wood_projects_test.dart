@@ -23,7 +23,9 @@ Future<void> openTile(WidgetTester pTester, String pTitle) async {
 }
 
 void main() {
-  testWidgets('débit d\'une fenêtre bois, puis d\'une étagère et de pièces libres', (pTester) async {
+  testWidgets('débit d\'une fenêtre bois, puis d\'une étagère et de pièces libres', (
+    pTester,
+  ) async {
     await openTile(pTester, 'Débit dans le commerce');
 
     expect(find.text('Bois de 58 × 70 mm : 1 × 240 cm, 1 × 200 cm'), findsOneWidget);
