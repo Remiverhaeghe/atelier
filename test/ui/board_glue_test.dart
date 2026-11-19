@@ -32,12 +32,21 @@ void main() {
   testWidgets('chaque panneau se dessine en relief', (pTester) async {
     tallScreen(pTester);
     for (final vBoard in BoardType.values) {
-      await pTester.pumpWidget(localized(SizedBox(height: 200, child: BoardSketch(key: ValueKey(vBoard), board: vBoard))));
+      await pTester.pumpWidget(
+        localized(
+          SizedBox(
+            height: 200,
+            child: BoardSketch(key: ValueKey(vBoard), board: vBoard),
+          ),
+        ),
+      );
       expect(pTester.takeException(), isNull, reason: vBoard.name);
     }
   });
 
-  testWidgets('colles : serre-joints selon la longueur, colle contact sans serrage', (pTester) async {
+  testWidgets('colles : serre-joints selon la longueur, colle contact sans serrage', (
+    pTester,
+  ) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const GlueScreen()));
     // 80 cm de collage : un serre-joint à chaque bout et tous les 25 cm

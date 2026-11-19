@@ -11,7 +11,13 @@ enum GlueUse { indoorFurniture, outdoorWood, laminate, repair, heavyFixing }
 enum Glue {
   vinyl(openMinutes: 10, clampMinutes: 30, cureHours: 24, waterproof: false, gapFilling: false),
   vinylD3(openMinutes: 10, clampMinutes: 45, cureHours: 24, waterproof: true, gapFilling: false),
-  polyurethane(openMinutes: 20, clampMinutes: 90, cureHours: 24, waterproof: true, gapFilling: true),
+  polyurethane(
+    openMinutes: 20,
+    clampMinutes: 90,
+    cureHours: 24,
+    waterproof: true,
+    gapFilling: true,
+  ),
   contact(openMinutes: 15, clampMinutes: 0, cureHours: 24, waterproof: true, gapFilling: false),
   epoxy(openMinutes: 5, clampMinutes: 60, cureHours: 24, waterproof: true, gapFilling: true),
   construction(openMinutes: 15, clampMinutes: 0, cureHours: 48, waterproof: true, gapFilling: true);
