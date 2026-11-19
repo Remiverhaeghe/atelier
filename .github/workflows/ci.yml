@@ -135,6 +135,8 @@ jobs:
 
       - name: Construction
         run: |
+          # Déclare la plate-forme web sans toucher à web/ versionné (rien n'est écrasé)
+          flutter create --platforms=web --org fr.remiverhaeghe --project-name atelier .
           flutter pub get
           # L'appli est servie sous /atelier/ : https://remiverhaeghe.github.io/atelier/
           flutter build web --release --base-href /atelier/
