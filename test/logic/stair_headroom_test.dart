@@ -24,13 +24,16 @@ void main() {
     ]);
   });
 
-  test('trémie juste suffisante : 1,90 m au-dessus de la dernière marche couverte, personne ne se cogne', () {
-    final vHeadroom = stairHeadroom(2800, 3080);
-    expect(vHeadroom.headroomMm, 1900);
-    expect(headroomOk(vHeadroom), isTrue);
-    expect(vHeadroom.lowTreads, 0);
-    expect(vHeadroom.bumpTread, isNull);
-  });
+  test(
+    'trémie juste suffisante : 1,90 m au-dessus de la dernière marche couverte, personne ne se cogne',
+    () {
+      final vHeadroom = stairHeadroom(2800, 3080);
+      expect(vHeadroom.headroomMm, 1900);
+      expect(headroomOk(vHeadroom), isTrue);
+      expect(vHeadroom.lowTreads, 0);
+      expect(vHeadroom.bumpTread, isNull);
+    },
+  );
 
   test('une personne plus grande se cogne plus tôt', () {
     expect(stairHeadroom(2800, 2500, pPersonMm: 2000).bumpTread, 4);

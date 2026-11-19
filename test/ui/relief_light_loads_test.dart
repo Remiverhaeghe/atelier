@@ -72,9 +72,7 @@ void main() {
     expect(find.text('Porte environ 16 kg'), findsOneWidget);
     expect(find.text('1 × carton de livres (15 kg)'), findsOneWidget);
     expect(
-      find.text(
-        'Avec 1 × carton de livres (15 kg) : flèche de 3,74 mm au milieu (admise : 4 mm)',
-      ),
+      find.text('Avec 1 × carton de livres (15 kg) : flèche de 3,74 mm au milieu (admise : 4 mm)'),
       findsOneWidget,
     );
 

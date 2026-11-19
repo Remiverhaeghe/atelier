@@ -74,11 +74,7 @@ class _SunLightScreenState extends State<SunLightScreen> {
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
-    final vSun = sunPosition(
-      pDayOfYear: _season.dayOfYear,
-      pHour: _hour,
-      pLatitudeDeg: _latitude,
-    );
+    final vSun = sunPosition(pDayOfYear: _season.dayOfYear, pHour: _hour, pLatitudeDeg: _latitude);
     final vPatch = sunPatch(_room, vSun);
     final vSpot = (a: _spotMm.toDouble(), b: 0.0);
     final vRanges = hourRanges(
@@ -129,10 +125,7 @@ class _SunLightScreenState extends State<SunLightScreen> {
                 children: [
                   IconLine(
                     Icons.wb_sunny_outlined,
-                    vText.sunPosition(
-                      vSun.elevationDeg.round(),
-                      vSun.azimuthDeg.round(),
-                    ),
+                    vText.sunPosition(vSun.elevationDeg.round(), vSun.azimuthDeg.round()),
                   ),
                   if (!vPatch.lit)
                     IconLine(Icons.nights_stay_outlined, vText.sunNoLight)
@@ -274,9 +267,7 @@ class SunSketch extends StatelessWidget {
       final vMid = (vY0 + vY1) / 2;
       if (patch.floor.length >= 3) {
         if (polygonSpanAt(patch.floor, vMid) case final vSpan?) {
-          vParts.add(
-            Prism.box(vSpan.from, vSpan.to, vY0, vY1, 0, 6, role: PartRole.highlight),
-          );
+          vParts.add(Prism.box(vSpan.from, vSpan.to, vY0, vY1, 0, 6, role: PartRole.highlight));
         }
       }
       if (patch.wall.length >= 3) {

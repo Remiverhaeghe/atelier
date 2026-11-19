@@ -202,9 +202,11 @@ double patchAreaM2(List<P2> pPoints) {
 /// Le point [pPoint] est dans le polygone [pPoints] (règle du rayon).
 bool insidePolygon(List<P2> pPoints, P2 pPoint) {
   var rInside = false;
-  for (var vIndex = 0, vPrevious = pPoints.length - 1;
-      vIndex < pPoints.length;
-      vPrevious = vIndex++) {
+  for (
+    var vIndex = 0, vPrevious = pPoints.length - 1;
+    vIndex < pPoints.length;
+    vPrevious = vIndex++
+  ) {
     final vA = pPoints[vIndex];
     final vB = pPoints[vPrevious];
     if ((vA.b > pPoint.b) != (vB.b > pPoint.b) &&

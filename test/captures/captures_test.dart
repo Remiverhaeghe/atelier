@@ -235,7 +235,13 @@ void main() {
             quantity: 1,
             minQuantity: 2,
           ),
-          StockItem(id: 'abrasif', name: 'Abrasif grain 120', category: StockCategory.abrasive, quantity: 6, minQuantity: 2),
+          StockItem(
+            id: 'abrasif',
+            name: 'Abrasif grain 120',
+            category: StockCategory.abrasive,
+            quantity: 6,
+            minQuantity: 2,
+          ),
         ],
     );
     await aWorkshop.load();
@@ -245,7 +251,9 @@ void main() {
     capturesDone();
   });
 
-  testWidgets('escalier en relief, soleil par la fenêtre de toit, charges en clair', (pTester) async {
+  testWidgets('escalier en relief, soleil par la fenêtre de toit, charges en clair', (
+    pTester,
+  ) async {
     await openApp(pTester);
     await tapAndSettle(pTester, find.byTooltip('Calculs'));
     await tapAndSettle(pTester, find.text('Escalier droit'));

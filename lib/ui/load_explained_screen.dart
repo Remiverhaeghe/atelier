@@ -129,7 +129,10 @@ class _LoadExplainedScreenState extends State<LoadExplainedScreen> {
                   for (final vObject in EverydayLoad.values)
                     IconLine(
                       vObject == _load ? Icons.arrow_right : Icons.inventory_2_outlined,
-                      vText.loadObjects(objectsHeld(vMember, vObject), everydayName(vText, vObject)),
+                      vText.loadObjects(
+                        objectsHeld(vMember, vObject),
+                        everydayName(vText, vObject),
+                      ),
                     ),
                   const SizedBox(height: 8),
                   IconLine(
