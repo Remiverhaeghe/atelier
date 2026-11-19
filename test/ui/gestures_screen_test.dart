@@ -44,7 +44,9 @@ void main() {
   testWidgets('chaque geste se dessine, du début à la fin de son animation', (pTester) async {
     tallScreen(pTester);
     for (final vGesture in Gesture.values) {
-      await pTester.pumpWidget(localized(GestureScreen(key: ValueKey(vGesture), gesture: vGesture)));
+      await pTester.pumpWidget(
+        localized(GestureScreen(key: ValueKey(vGesture), gesture: vGesture)),
+      );
       for (var vStep = 0; vStep < 8; vStep++) {
         await pTester.pump(gesturePassDuration ~/ 4);
       }

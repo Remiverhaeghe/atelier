@@ -11,7 +11,9 @@ void main() {
   testWidgets('chaque mot du lexique a son schéma, son usage et sa définition', (pTester) async {
     tallScreen(pTester);
     for (final vTerm in Term.values) {
-      await pTester.pumpWidget(localized(SingleChildScrollView(child: TermCard(vTerm, key: ValueKey(vTerm)))));
+      await pTester.pumpWidget(
+        localized(SingleChildScrollView(child: TermCard(vTerm, key: ValueKey(vTerm)))),
+      );
       expect(find.byType(TermSketch), findsOneWidget, reason: vTerm.name);
       expect(pTester.takeException(), isNull, reason: vTerm.name);
     }

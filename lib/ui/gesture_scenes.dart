@@ -23,12 +23,23 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
           Prism.box(0, 60, 0, 30, 0, 8),
           Prism.box(60, 61.5, 0, 30, 0, 8, role: PartRole.highlight),
           Prism.box(61.5, 100, 0, 30, 0, 8, role: PartRole.board),
-          Prism([vAlong(-8, 0), vAlong(40, 0), vAlong(40, 9), vAlong(-8, 4)], 14, 15, role: PartRole.ghost),
+          Prism(
+            [vAlong(-8, 0), vAlong(40, 0), vAlong(40, 9), vAlong(-8, 4)],
+            14,
+            15,
+            role: PartRole.ghost,
+          ),
           Prism([vAlong(40, -2), vAlong(52, -2), vAlong(52, 12), vAlong(40, 12)], 12, 17),
         ],
         callouts: [
           vLabel(60.7, 0, 8, pText.gestureSawLine, const Offset(-70, -60)),
-          vLabel(vAlong(20, 4).$1, 14, vAlong(20, 4).$2, pText.gestureSawAngle, const Offset(60, -30)),
+          vLabel(
+            vAlong(20, 4).$1,
+            14,
+            vAlong(20, 4).$2,
+            pText.gestureSawAngle,
+            const Offset(60, -30),
+          ),
         ],
       );
     }(),

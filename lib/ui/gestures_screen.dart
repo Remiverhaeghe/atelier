@@ -98,7 +98,10 @@ class GestureScreen extends StatelessWidget {
               spacing: 8,
               children: [
                 for (final vGear in gesture.gear)
-                  Chip(avatar: const Icon(Icons.shield_outlined, size: 18), label: Text(gearName(vText, vGear))),
+                  Chip(
+                    avatar: const Icon(Icons.shield_outlined, size: 18),
+                    label: Text(gearName(vText, vGear)),
+                  ),
               ],
             ),
             if (gesture.rotating) IconLine(Icons.back_hand_outlined, vText.gestureNoGloves),
