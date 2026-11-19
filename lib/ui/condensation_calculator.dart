@@ -57,7 +57,10 @@ class _CondensationCalculatorState extends State<CondensationCalculator> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(vText.dewResult, style: vTheme.textTheme.titleMedium),
-                  IconLine(Icons.water_drop_outlined, vText.dewPoint(formatDecimal1(vCheck.dewPointC))),
+                  IconLine(
+                    Icons.water_drop_outlined,
+                    vText.dewPoint(formatDecimal1(vCheck.dewPointC)),
+                  ),
                   IconLine(Icons.thermostat, vText.dewSurface(formatDecimal1(vCheck.surfaceC))),
                   switch (vCheck.risk) {
                     CondensationRisk.condensation => IconLine(

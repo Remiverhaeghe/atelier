@@ -49,7 +49,8 @@ const finishPotSizes = [0.5, 1.0, 2.5, 5.0];
 /// Finitions qui conviennent à [pUse] : un sol veut une couche qui résiste aux pas, le dehors
 /// une couche qui laisse le bois respirer et ne craint pas les UV.
 List<WoodFinish> finishesFor(FinishUse pUse) => switch (pUse) {
-  FinishUse.furniture => WoodFinish.values.where((pFinish) => pFinish != WoodFinish.floorVarnish).toList(),
+  FinishUse.furniture =>
+    WoodFinish.values.where((pFinish) => pFinish != WoodFinish.floorVarnish).toList(),
   FinishUse.floor => const [WoodFinish.floorVarnish, WoodFinish.oil],
   FinishUse.outdoor => const [WoodFinish.stain, WoodFinish.oil, WoodFinish.microporousPaint],
 };

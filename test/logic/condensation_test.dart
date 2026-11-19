@@ -15,12 +15,8 @@ void main() {
   });
 
   test('simple vitrage : il ruisselle ; double vitrage : à la limite ; mur isolé : sec', () {
-    CondensationRisk vRisk(Wall pWall) => checkCondensation(
-      pWall: pWall,
-      pInsideC: 20,
-      pHumidityPercent: 60,
-      pOutsideC: 0,
-    ).risk;
+    CondensationRisk vRisk(Wall pWall) =>
+        checkCondensation(pWall: pWall, pInsideC: 20, pHumidityPercent: 60, pOutsideC: 0).risk;
     expect(vRisk(Wall.singleGlazing), CondensationRisk.condensation);
     expect(vRisk(Wall.doubleGlazing), CondensationRisk.close);
     expect(vRisk(Wall.insulatedWall), CondensationRisk.none);
