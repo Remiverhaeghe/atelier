@@ -187,18 +187,18 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Par où commencer'));
     await tapAndSettle(pTester, find.text('Carrelage'));
-    await capture('27-par-ou-commencer');
+    await capture('40-par-ou-commencer');
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Contrôles qualité'));
-    await capture('28-controles-qualite');
+    await capture('41-controles-qualite');
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Sécurité par outil'));
     await tapAndSettle(pTester, find.text('Scie circulaire'));
-    await capture('29-securite-scie');
+    await capture('42-securite-scie');
     capturesDone();
   });
 
