@@ -110,3 +110,22 @@ const _oldReferenceLetters = {'1': 'C', '2': 'F', '3': 'M', '4': 'P', '6': 'S', 
 
   return rWindow;
 }
+
+/// Stores et volets d'une fenêtre de toit : ils se commandent avec le même code de taille que
+/// la fenêtre (MK08, par exemple), lu sur sa plaque.
+enum RoofWindowAccessory {
+  blackout(outside: false, heatBlock: 1),
+  pleated(outside: false, heatBlock: 1),
+  venetian(outside: false, heatBlock: 1),
+  awning(outside: true, heatBlock: 3),
+  shutter(outside: true, heatBlock: 3);
+
+  const RoofWindowAccessory({required this.outside, required this.heatBlock});
+
+  /// Posé dehors, devant la vitre.
+  final bool outside;
+
+  /// Efficacité contre la chaleur d'été : 1 faible, 3 forte. Un store dehors arrête le soleil
+  /// avant la vitre ; dedans, la chaleur est déjà entrée.
+  final int heatBlock;
+}

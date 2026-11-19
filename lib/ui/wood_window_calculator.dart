@@ -11,6 +11,7 @@ import 'notebook.dart';
 import 'parquet_view.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 import 'wood_species_card.dart';
 import 'window_sealing_card.dart';
 
@@ -43,7 +44,43 @@ class _WoodWindowCalculatorState extends State<WoodWindowCalculator> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.woodWindowTitle)),
+      appBar: AppBar(
+        title: Text(vText.woodWindowTitle),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: vText.woodWindowTitle,
+              intro: vText.woodWindowHelp,
+              measures: [
+                (vText.woodWindowWidth, vCm(_widthMm)),
+                (vText.woodWindowHeight, vCm(_heightMm)),
+                (vText.woodWindowFrameWidth, '$_frameWidthMm'),
+                (vText.woodWindowFrameDepth, '$_frameDepthMm'),
+              ],
+              results: [
+                vText.woodWindowGlass(vCm(vWindow.glassWidthMm), vCm(vWindow.glassHeightMm)),
+                vText.woodWindowStiles(vCm(vWindow.stileLengthMm), vW, vD),
+                vText.woodWindowRails(vCm(vWindow.railLengthMm)),
+                vText.woodWindowTenon(vWindow.tenonLengthMm, vWindow.tenonThicknessMm),
+                vText.woodWindowRebate(rebateDepthMm, vWindow.rebateWidthMm),
+                vText.woodWindowBead(vCm(vWindow.beadLengthMm)),
+                if (vWindow.frameTooThin) vText.woodWindowTooThin(minLipMm),
+              ],
+              buy: const [],
+              steps: [
+                vText.woodWindowWhyOuter(
+                  fittingGapMm,
+                  vCm(vWindow.outerWidthMm),
+                  vCm(vWindow.outerHeightMm),
+                ),
+                vText.woodWindowWhyTenon(_frameDepthMm, _frameWidthMm),
+                vText.woodWindowWhyGlass(rebateDepthMm, glassClearanceMm),
+                vText.woodWindowWhyRebate(glassThicknessMm, glazingSealMm, beadThicknessMm),
+              ],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
