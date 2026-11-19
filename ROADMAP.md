@@ -15,12 +15,8 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Validés le 18 novembre 2026. Faits : 169 à 176, 184, 185, 186, 192, 202 et 208 (voir le CHANGELOG). Restent, dans l'ordre :
+Validés le 18 novembre 2026. Faits : 169 à 180, 184, 185, 186, 192, 197, 200, 202 et 208 (voir le CHANGELOG). Restent, dans l'ordre :
 
-- 177. **Par où commencer** : fiche de niveau par type de travaux (facile, moyen, à confier à un pro), outillage minimal à acheter ou louer, temps réaliste pour un débutant, erreurs classiques.
-- 178. **Contrôles qualité** : diagonales pour l'équerrage, niveau et fil à plomb, planéité à la règle de 2 m, tolérances ; à cocher, avec photo.
-- 179. **Sécurité par outil** : scie circulaire, défonceuse, meuleuse, échelle, produits de finition ; protections, gestes interdits, vérifications avant de brancher, schéma en relief.
-- 180. **« Je me suis trompé »** : tenon trop lâche, planche tordue, trou mal placé, coulure de vernis, joint de mastic raté ; cause, réparation, réemploi.
 - 181. **Débit dans les planches du commerce** : toutes les pièces d'un projet dans des longueurs standard, plan de coupe dessiné, trait de scie compté.
 - 182. **Défauts du bois au magasin** : nœud, fente, gerce, bois tors ou voilé, humidité ; un schéma par défaut et une liste de contrôle.
 - 183. **Stock de l'atelier** : vis, colles, chutes, outils prêtés, alerte de rachat, déduit des courses des prochains chantiers.
@@ -33,10 +29,8 @@ Validés le 18 novembre 2026. Faits : 169 à 176, 184, 185, 186, 192, 202 et 208
 - 194. **Charges en clair** : ce que porte une étagère, une mezzanine ou une poutre en objets du quotidien, flèche exagérée sur le croquis.
 - 195. **Le bon outil** : manuel ou électrique, budget, acheter, louer ou emprunter selon le nombre d'utilisations.
 - 196. **Outillage loué** : date de retour, caution, coût par jour, rappel la veille.
-- 197. **Bruit et voisinage** : horaires habituels des travaux bruyants, à confirmer avec la mairie, rappel avant le week-end.
 - 198. **Déchets de chantier** : quelle benne pour quoi, volumes et trajets.
 - 199. **Coût réel du chantier** : temps passé par tâche, comparé à ce qu'aurait coûté un artisan.
-- 200. **Mode apprentissage** : petits défis guidés (couper d'équerre, faire un tenon, poser un joint), badge discret.
 - 201. **Sols** : ragréage, chape sèche ou liquide, sous-couche, joints de dilatation, séchage avant pose.
 - 203. **Portes** : jeu sous la porte, sens d'ouverture, hauteur de poignée, bloc-porte d'après la mesure du mur.
 - 204. **Prises et éclairage à placer** selon la norme électrique, sur le plan de la pièce.

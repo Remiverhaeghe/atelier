@@ -191,6 +191,23 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text("Isolation des murs par l'intérieur"));
     await capture('28-isolation-murs');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Par où commencer'));
+    await tapAndSettle(pTester, find.text('Carrelage'));
+    await capture('40-par-ou-commencer');
+    await tapAndSettle(pTester, find.text('Contrôles qualité'));
+    await capture('41-controles-qualite');
+    await tapAndSettle(pTester, find.text('Sécurité par outil'));
+    await tapAndSettle(pTester, find.text('Scie circulaire'));
+    await capture('42-securite-scie');
+    await tapAndSettle(pTester, find.text('Je me suis trompé'));
+    await tapAndSettle(pTester, find.text('Coulure de vernis'));
+    await capture('43-je-me-suis-trompe');
+    await tapAndSettle(pTester, find.text('Bruit et voisinage'));
+    await capture('44-bruit-voisinage');
+    await tapAndSettle(pTester, find.text('Mode apprentissage'));
+    await capture('45-mode-apprentissage');
     capturesDone();
   });
 

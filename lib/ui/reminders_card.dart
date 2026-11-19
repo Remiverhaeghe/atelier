@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/noise.dart';
 import '../logic/reminders.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
@@ -12,6 +13,7 @@ String waitLabel(AppLocalizations pText, WaitKind pKind) => switch (pKind) {
   WaitKind.filler => pText.waitFiller,
   WaitKind.paintCoat => pText.waitPaintCoat,
   WaitKind.glue => pText.waitGlue,
+  WaitKind.noisyWeekend => pText.waitNoisyWeekend,
   WaitKind.custom => pText.waitCustom,
 };
 
@@ -40,7 +42,11 @@ class RemindersCard extends StatelessWidget {
         await aReminderAlarm.schedule(
           vReminder,
           vText.reminderNotifyTitle,
-          vReminder.label.isEmpty ? waitLabel(vText, vReminder.kind) : vReminder.label,
+          vReminder.label.isNotEmpty
+              ? vReminder.label
+              : vReminder.kind == WaitKind.noisyWeekend
+              ? vText.waitNoisyWeekendBody
+              : waitLabel(vText, vReminder.kind),
         );
       }
     }
@@ -135,6 +141,19 @@ class _WaitDialogState extends State<_WaitDialog> {
   }
 
   void _submit() {
+    if (_kind == WaitKind.noisyWeekend) {
+      Navigator.pop(
+        context,
+        Reminder(
+          id: DateTime.now().microsecondsSinceEpoch.toString(),
+          kind: _kind,
+          label: _label.text.trim(),
+          dueAt: weekendNoiseReminder(widget.now),
+          roomId: _roomId,
+        ),
+      );
+      return;
+    }
     final vHours = parseWhole(_hours.text);
     if (vHours == null || vHours == 0) {
       return;
@@ -185,11 +204,17 @@ class _WaitDialogState extends State<_WaitDialog> {
                 ],
                 onChanged: (pId) => setState(() => _roomId = pId),
               ),
-            TextField(
-              controller: _hours,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: vText.reminderHours),
-            ),
+            if (_kind == WaitKind.noisyWeekend)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: Text(noisyReminderAt(vText, weekendNoiseReminder(widget.now))),
+              )
+            else
+              TextField(
+                controller: _hours,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: vText.reminderHours),
+              ),
             TextField(
               controller: _label,
               decoration: InputDecoration(labelText: vText.reminderLabel),
@@ -204,3 +229,9 @@ class _WaitDialogState extends State<_WaitDialog> {
     );
   }
 }
+
+/// Jour et heure du rappel du week-end, dits comme sur un agenda.
+String noisyReminderAt(AppLocalizations pText, DateTime pAt) => pText.waitNoisyWeekendAt(
+  pAt.weekday == DateTime.saturday ? pText.noiseSaturdayDay : pText.noiseSundayDay,
+  pText.noiseClock(pAt.hour, pAt.minute.toString().padLeft(2, '0')),
+);
