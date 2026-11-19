@@ -78,7 +78,7 @@ CeilingPlan planDroppedCeiling({
     hanging: vHanging,
     rows: vRows,
     furringBars: vRows * vBarsPerRow,
-    joints: vRows * math.max(vBarsPerRow - 1, 0),
+    joints: vBarsPerRow > 1 ? vRows * (vBarsPerRow - 1) : 0,
     hangers: vHangers,
     // Une tige par suspente, coupée dans des tiges d'un mètre
     rods: vHanging == Hanging.direct ? 0 : vHangers * (vPlenum / rodLengthMm).ceil(),
