@@ -8,6 +8,7 @@ import 'parquet_view.dart';
 import 'shopping_target.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 
 /// Finitions du bois : choisir selon l'usage, puis la quantité, les pots et le temps de séchage.
 class WoodFinishCalculator extends StatefulWidget {
@@ -38,17 +39,44 @@ class _WoodFinishCalculatorState extends State<WoodFinishCalculator> {
     final vTheme = Theme.of(context);
     final vPlan = planFinish(_finish, _area);
     final vName = finishName(vText, _finish);
+    final vItems = [
+      for (final vPot in vPlan.pots.entries)
+        ExtraItem(name: vText.finishPot(vName, formatDecimal(vPot.key)), quantity: vPot.value),
+    ];
+    final vRenew = _finish.film
+        ? vText.finishRenewFilm(_finish.renewYears)
+        : vText.finishRenewSoak(_finish.renewYears);
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.finishTitle)),
+      appBar: AppBar(
+        title: Text(vText.finishTitle),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: '${vText.finishTitle} : $vName',
+              intro: finishLook(vText, _finish),
+              measures: [
+                (vText.finishUseLabel, finishUseName(vText, _use)),
+                (vText.finishArea, formatDecimal(_area)),
+              ],
+              results: [
+                vText.finishLitres(formatDecimal(vPlan.litres), _finish.coats),
+                vText.finishWait(_finish.recoatHours, vPlan.waitHours),
+                vRenew,
+              ],
+              buy: vItems,
+              steps: [vText.finishPrepare, vText.finishHint],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
           SegmentedButton<FinishUse>(
             segments: [
-              ButtonSegment(value: FinishUse.furniture, label: Text(vText.finishUseFurniture)),
-              ButtonSegment(value: FinishUse.floor, label: Text(vText.finishUseFloor)),
-              ButtonSegment(value: FinishUse.outdoor, label: Text(vText.finishUseOutdoor)),
+              for (final vUse in FinishUse.values)
+                ButtonSegment(value: vUse, label: Text(finishUseName(vText, vUse))),
             ],
             selected: {_use},
             onSelectionChanged: (pUse) => _setUse(pUse.single),
@@ -89,21 +117,8 @@ class _WoodFinishCalculatorState extends State<WoodFinishCalculator> {
                     Icons.hourglass_bottom,
                     vText.finishWait(_finish.recoatHours, vPlan.waitHours),
                   ),
-                  IconLine(
-                    Icons.autorenew,
-                    _finish.film
-                        ? vText.finishRenewFilm(_finish.renewYears)
-                        : vText.finishRenewSoak(_finish.renewYears),
-                  ),
-                  AddToShoppingButton(
-                    items: () => [
-                      for (final vPot in vPlan.pots.entries)
-                        ExtraItem(
-                          name: vText.finishPot(vName, formatDecimal(vPot.key)),
-                          quantity: vPot.value,
-                        ),
-                    ],
-                  ),
+                  IconLine(Icons.autorenew, vRenew),
+                  AddToShoppingButton(items: () => vItems),
                 ],
               ),
             ),
@@ -123,6 +138,12 @@ class _WoodFinishCalculatorState extends State<WoodFinishCalculator> {
     );
   }
 }
+
+String finishUseName(AppLocalizations pText, FinishUse pUse) => switch (pUse) {
+  FinishUse.furniture => pText.finishUseFurniture,
+  FinishUse.floor => pText.finishUseFloor,
+  FinishUse.outdoor => pText.finishUseOutdoor,
+};
 
 String finishName(AppLocalizations pText, WoodFinish pFinish) => switch (pFinish) {
   WoodFinish.stain => pText.finishStain,

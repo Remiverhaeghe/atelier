@@ -8,6 +8,7 @@ import 'parquet_view.dart';
 import 'shopping_target.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 
 /// Placard sous rampant : façade, modules, portes et bacs sur roulettes.
 class EavesStorageCalculator extends StatefulWidget {
@@ -34,9 +35,55 @@ class _EavesStorageCalculatorState extends State<EavesStorageCalculator> {
       pFrontMm: _frontMm,
     );
     String vCm(int pMm) => formatCentimetres(pMm);
+    final vItems = vPlan == null
+        ? const <ExtraItem>[]
+        : [
+            ExtraItem(name: vText.eavesPanelItem, quantity: vPlan.panels),
+            ExtraItem(name: vText.eavesHingeItem, quantity: vPlan.modules * vPlan.hingesPerDoor),
+            ExtraItem(name: vText.eavesCasterItem, quantity: vPlan.modules * 4),
+          ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.eavesTitle)),
+      appBar: AppBar(
+        title: Text(vText.eavesTitle),
+        actions: [
+          if (vPlan != null)
+            PrintSheetButton(
+              sheet: () => (
+                title: vText.eavesTitle,
+                intro: vText.eavesHelp,
+                measures: [
+                  (vText.eavesKnee, vCm(_kneeMm)),
+                  (vText.slopeAngle, '$_slopeDeg'),
+                  (vText.eavesLength, vCm(_lengthMm)),
+                  (vText.eavesFront, vCm(_frontMm)),
+                ],
+                results: [
+                  vText.eavesDepth(vCm(vPlan.depthMm)),
+                  vText.eavesLitres(vPlan.litres),
+                  vText.eavesModules(vPlan.modules, vCm(vPlan.moduleMm)),
+                  vText.eavesSides(vPlan.sides, vCm(_kneeMm), vCm(_frontMm), _slopeDeg),
+                  vText.eavesDoors(
+                    vPlan.modules,
+                    vCm(vPlan.moduleMm),
+                    vCm(vPlan.doorHeightMm),
+                    vPlan.hingesPerDoor,
+                  ),
+                  vText.eavesBins(
+                    vPlan.modules,
+                    vCm(vPlan.binWidthMm),
+                    vCm(vPlan.binDepthMm),
+                    vCm(vPlan.binHeightMm),
+                  ),
+                  if (vPlan.shelf case final vShelf?)
+                    vText.eavesShelf(vCm(vShelf.heightMm), vCm(vShelf.depthMm)),
+                ],
+                buy: vItems,
+                steps: [vText.eavesTip, vText.eavesHint],
+              ),
+            ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
@@ -88,16 +135,7 @@ class _EavesStorageCalculatorState extends State<EavesStorageCalculator> {
                         vText.eavesShelf(vCm(vShelf.heightMm), vCm(vShelf.depthMm)),
                       ),
                     IconLine(Icons.dashboard_outlined, vText.eavesPanels(vPlan.panels)),
-                    AddToShoppingButton(
-                      items: () => [
-                        ExtraItem(name: vText.eavesPanelItem, quantity: vPlan.panels),
-                        ExtraItem(
-                          name: vText.eavesHingeItem,
-                          quantity: vPlan.modules * vPlan.hingesPerDoor,
-                        ),
-                        ExtraItem(name: vText.eavesCasterItem, quantity: vPlan.modules * 4),
-                      ],
-                    ),
+                    AddToShoppingButton(items: () => vItems),
                   ],
                 ),
               ),

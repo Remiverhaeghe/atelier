@@ -6,6 +6,7 @@ import 'gesture_scenes.dart';
 import 'glossary_view.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 
 /// Nombre de passes jouées, et durée d'une passe. L'animation s'arrête à mi-course, l'outil
 /// au bout de son geste, pour qu'on voie la position à retenir.
@@ -60,7 +61,26 @@ class GestureScreen extends StatelessWidget {
     final vSteps = gestureSteps(vText, gesture);
 
     return Scaffold(
-      appBar: AppBar(title: Text(gestureName(vText, gesture))),
+      appBar: AppBar(
+        title: Text(gestureName(vText, gesture)),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: gestureName(vText, gesture),
+              intro: gestureUse(vText, gesture),
+              measures: const [],
+              results: [
+                if (gesture.gear.isNotEmpty)
+                  vText.sheetGear(gesture.gear.map((pGear) => gearName(vText, pGear)).join(', ')),
+                if (gesture.rotating) vText.gestureNoGloves,
+                gestureMistake(vText, gesture),
+              ],
+              buy: const [],
+              steps: vSteps,
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
