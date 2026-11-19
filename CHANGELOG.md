@@ -18,6 +18,9 @@
 - Faux plafond pour les pièces trop hautes : vide restant au-dessus, type de suspentes selon ce vide, fourrures, suspentes, tiges filetées, éclisses, cornières, plaques et vis, volume en moins à chauffer, alerte sous 2,20 m, et une coupe en relief
 - Placard sous rampant : où poser la façade, volume de rangement, modules à une porte, montants coupés à l'angle du toit, portes et charnières, bacs sur roulettes qui vont chercher le fond, tablette, panneaux à acheter, et le placard dessiné en relief avec une porte ouverte
 
+### Documentation
+- Captures de `docs/captures/` refaites avec l'habillage carnet d'atelier, et dix nouvelles : pièce sous rampants, fenêtre bois, embrasure, lexique, finitions, condensation, faux plafond, placard sous rampant et geste « scier droit »
+
 ### Corrigé
 - Croquis en relief : une étiquette plus large que le dessin (écran très étroit) faisait planter l'affichage ; elle est maintenant centrée
 - Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon
