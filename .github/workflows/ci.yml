@@ -182,12 +182,25 @@ jobs:
           done
           exit 1
 
+      # Dépendances Gradle gardées d'un passage à l'autre, comme pour le test sur émulateur
+      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-apk-${{ runner.os }}-${{ hashFiles('android/app/build.gradle.kts', 'pubspec.yaml') }}
+          restore-keys: gradle-apk-${{ runner.os }}-
+
       - name: Construction
         run: |
           flutter pub get
+          # Sur une pull request, seule l'APK arm64 sert (contrôle des permissions) : les deux
+          # autres architectures ne sont construites que pour main et les releases
+          vAbi=""
+          if [ "$GITHUB_EVENT_NAME" = pull_request ]; then vAbi="--target-platform android-arm64"; fi
           # Numéro de construction croissant : Android refuse une mise à jour dont le
           # versionCode n'augmente pas
-          flutter build apk --release --split-per-abi --build-number="$GITHUB_RUN_NUMBER"
+          flutter build apk --release --split-per-abi $vAbi --build-number="$GITHUB_RUN_NUMBER"
           # Le Play Store demande un bundle, pas une APK : construit pour les releases seulement
           if [ "$GITHUB_EVENT_NAME" = release ]; then
             flutter build appbundle --release --build-number="$GITHUB_RUN_NUMBER"
