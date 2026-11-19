@@ -50,3 +50,4 @@ key.properties
 
 # Captures générées par le workflow Captures
 test/captures/png/
+test/tous_test.dart

@@ -73,8 +73,11 @@ jobs:
           flutter pub get
           flutter gen-l10n
 
+      # Un seul fichier qui importe tous les tests : une compilation au lieu de 250
       - name: Tests et couverture
-        run: flutter test --coverage --total-shards 3 --shard-index $(( ${{ matrix.shard }} - 1 ))
+        run: |
+          ./tool/tous_les_tests.sh
+          flutter test --coverage --total-shards 3 --shard-index $(( ${{ matrix.shard }} - 1 )) test/tous_test.dart
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
