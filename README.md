@@ -4,6 +4,10 @@ Application Android pour préparer ses travaux sans erreur : coupes, quantités 
 
 Tout reste sur le téléphone, sans compte ni connexion : l'appli n'a pas la permission Internet.
 
+## Sur iPhone
+
+Atelier existe aussi en version web : https://remiverhaeghe.github.io/atelier/. Dans Safari, bouton Partager, puis « Sur l'écran d'accueil » : l'appli s'ouvre alors en plein écran, comme une appli installée, et marche hors ligne après la première ouverture. Les chantiers restent dans le navigateur de l'iPhone ; pour les passer d'un appareil à l'autre, utiliser l'export de chantier. Photos, télémètre Bluetooth, rappels et widget ne sont disponibles que sur Android pour l'instant.
+
 ## Aperçu
 
 | Chantier | Reprises | Parquet | Plan de pose | Plinthes |
