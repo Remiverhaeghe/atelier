@@ -141,6 +141,16 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.widgetWithText(ActionChip, 'Feuillure'));
     await capture('19-lexique-feuillure');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Finitions du bois'));
+    await capture('20-finitions');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Humidité et condensation'));
+    await capture('21-condensation');
     capturesDone();
   });
 

@@ -2,6 +2,10 @@
 
 ## Non publié
 
+### Ajouté
+- Finitions du bois : lasure, vernis, vitrificateur, huile, cire et peinture microporeuse, choisies selon l'usage (meuble, sol, dehors), avec les litres, les pots les moins chers, l'attente entre les couches, l'entretien et une coupe en relief qui montre un film posé dessus ou une finition qui entre dans le bois
+- Humidité et condensation : point de rosée de la pièce, température de la paroi côté intérieur (vitrage, mur ou rampant, isolé ou non), verdict, humidité à ne pas dépasser et conseils (aération, pare-vapeur, chauffage régulier)
+
 ### Corrigé
 - Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon
 
