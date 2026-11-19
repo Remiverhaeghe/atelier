@@ -3,6 +3,9 @@
 ## Non publié
 
 ### Ajouté
+- Grille des calculs rangée par familles : une rangée de puces en haut (bien commencer, bois et menuiserie, combles et toit, murs, sols et plafonds, confort et réseaux, dehors, chantier) n'affiche que la famille choisie
+- Caisse à outils du débutant : l'indispensable et ce qui vient ensuite, avec une fourchette de prix indicative et les gestes où chaque outil sert ; on coche ce qu'on a, l'écran dit ce qui manque et combien ça coûte, et l'ajoute aux courses. Chaque geste affiche aussi ses outils
+- Cinq gestes de plus : poser une cheville, couper une plaque de plâtre, couper un onglet à 45°, tracer au niveau laser, faire les joints du carrelage
 - Fiches de chantier imprimables : un bouton « Imprimer la fiche » dans les finitions, le faux plafond, le placard sous rampant et chaque geste de base. Une page A4 avec les mesures saisies, ce qu'il faut retenir, les achats et les étapes à cocher, et des lignes pour les notes
 - Pièce sous rampants en relief : à côté de la coupe manipulable au doigt, la pièce tirée sur sa longueur, la bande où l'on tient debout surlignée au sol et la ligne des 1,80 m de chaque côté
 - Gestes de base pour débuter : scier droit, raboter, percer, visser, poncer, creuser une mortaise et faire un joint de mastic, chacun joué en croquis animé en relief (quelques passes, puis l'outil reste au bout du geste ; un bouton rejoue), avec à quoi ça sert, les trois étapes, l'erreur courante, les protections à porter et les mots du métier. Tuile en tête des calculs, et lien depuis le lexique

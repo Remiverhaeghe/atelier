@@ -1,5 +1,6 @@
 import 'package:atelier/logic/gestures.dart';
 import 'package:atelier/logic/glossary.dart';
+import 'package:atelier/logic/starter_tools.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -28,5 +29,13 @@ void main() {
     // Une passe après l'autre : même position à chaque tour
     expect(stroke(2.5), 1);
     expect(stroke(3.25), closeTo(0.5, 1e-9));
+  });
+
+  test('chaque geste dit de quels outils il a besoin', () {
+    for (final vGesture in Gesture.values) {
+      expect(vGesture.tools, isNotEmpty, reason: vGesture.name);
+    }
+    expect(gesturesWith(StarterTool.handSaw), [Gesture.saw, Gesture.mitre]);
+    expect(gesturesWith(StarterTool.laserLevel), [Gesture.laser]);
   });
 }
