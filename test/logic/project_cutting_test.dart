@@ -171,7 +171,8 @@ void main() {
     expect(vCut.panels.single.thicknessMm, eavesBoardMm);
     expect(vCut.panels.single.plan.tooBig, isEmpty);
 
-    final vLow = planEavesStorage(pKneeWallMm: 600, pSlopeDeg: 45, pLengthMm: 2400, pFrontMm: 800)!;
-    expect(eavesPieces(vLow, pFrontMm: 800, pLengthMm: 2400).length, 3);
+    // Façade basse : plus la place d'une tablette au-dessus des bacs
+    final vLow = planEavesStorage(pKneeWallMm: 600, pSlopeDeg: 45, pLengthMm: 2400, pFrontMm: 700)!;
+    expect(eavesPieces(vLow, pFrontMm: 700, pLengthMm: 2400).length, 3);
   });
 }
