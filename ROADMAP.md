@@ -15,9 +15,8 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Validés le 18 novembre 2026. Faits : 169 à 179, 186 et 192 (voir le CHANGELOG). Restent, dans l'ordre :
+Validés le 18 novembre 2026. Faits : 169 à 180, 186, 192, 197 et 200 (voir le CHANGELOG). Restent, dans l'ordre :
 
-- 180. **« Je me suis trompé »** : tenon trop lâche, planche tordue, trou mal placé, coulure de vernis, joint de mastic raté ; cause, réparation, réemploi.
 - 181. **Débit dans les planches du commerce** : toutes les pièces d'un projet dans des longueurs standard, plan de coupe dessiné, trait de scie compté.
 - 182. **Défauts du bois au magasin** : nœud, fente, gerce, bois tors ou voilé, humidité ; un schéma par défaut et une liste de contrôle.
 - 183. **Stock de l'atelier** : vis, colles, chutes, outils prêtés, alerte de rachat, déduit des courses des prochains chantiers.
@@ -32,10 +31,8 @@ Validés le 18 novembre 2026. Faits : 169 à 179, 186 et 192 (voir le CHANGELOG)
 - 194. **Charges en clair** : ce que porte une étagère, une mezzanine ou une poutre en objets du quotidien, flèche exagérée sur le croquis.
 - 195. **Le bon outil** : manuel ou électrique, budget, acheter, louer ou emprunter selon le nombre d'utilisations.
 - 196. **Outillage loué** : date de retour, caution, coût par jour, rappel la veille.
-- 197. **Bruit et voisinage** : horaires habituels des travaux bruyants, à confirmer avec la mairie, rappel avant le week-end.
 - 198. **Déchets de chantier** : quelle benne pour quoi, volumes et trajets.
 - 199. **Coût réel du chantier** : temps passé par tâche, comparé à ce qu'aurait coûté un artisan.
-- 200. **Mode apprentissage** : petits défis guidés (couper d'équerre, faire un tenon, poser un joint), badge discret.
 - 201. **Sols** : ragréage, chape sèche ou liquide, sous-couche, joints de dilatation, séchage avant pose.
 - 202. **Isolation des murs par l'intérieur** : isolant selon la résistance visée, ossature, pare-vapeur, surface perdue pièce par pièce.
 - 203. **Portes** : jeu sous la porte, sens d'ouverture, hauteur de poignée, bloc-porte d'après la mesure du mur.
