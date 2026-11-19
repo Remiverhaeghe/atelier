@@ -14,7 +14,11 @@ Tout reste sur le téléphone, sans compte ni connexion : l'appli n'a pas la per
 |---|---|---|---|
 | ![Peinture](docs/captures/11-peinture.png) | ![Conseil](docs/captures/12-conseil.png) | ![Calculs](docs/captures/13-calculs.png) | ![Étagère](docs/captures/14-etagere.png) |
 
-Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage.
+| Pièce sous rampants | Fenêtre bois | Faux plafond | Placard sous rampant | Scier droit |
+|---|---|---|---|---|
+| ![Pièce sous rampants](docs/captures/15-rampants.png) | ![Fenêtre bois](docs/captures/16-fenetre-bois.png) | ![Faux plafond](docs/captures/22-faux-plafond.png) | ![Placard sous rampant](docs/captures/23-placard-rampant.png) | ![Scier droit](docs/captures/24-geste-scier.png) |
+
+Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage. Le portfolio recopie celles de `docs/captures/` à chaque publication : un nom de fichier qui change doit y être reporté.
 
 ## Ce que fait l'appli
 
