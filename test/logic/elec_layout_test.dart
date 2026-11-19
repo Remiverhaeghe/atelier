@@ -42,7 +42,12 @@ void main() {
     expect(spreadSockets(vRoom, 0), isEmpty);
     // Mur trop court pour garder 20 cm de chaque côté : la prise reste au milieu
     final vTiny = rectangleRoom().copyWith(
-      walls: const [Wall(lengthMm: 300), Wall(lengthMm: 300), Wall(lengthMm: 300), Wall(lengthMm: 300)],
+      walls: const [
+        Wall(lengthMm: 300),
+        Wall(lengthMm: 300),
+        Wall(lengthMm: 300),
+        Wall(lengthMm: 300),
+      ],
     );
     expect(_rounded(spreadSockets(vTiny, 1)), [(300, 300)]);
     final vCentre = ceilingCentre(vRoom);
