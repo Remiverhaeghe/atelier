@@ -125,9 +125,7 @@ class LoansScreen extends StatelessWidget {
       vText.rentalNotify(vLoan.tool),
     );
     if (pContext.mounted) {
-      ScaffoldMessenger.of(
-        pContext,
-      ).showSnackBar(SnackBar(content: Text(vText.rentalReminderSet)));
+      ScaffoldMessenger.of(pContext).showSnackBar(SnackBar(content: Text(vText.rentalReminderSet)));
     }
   }
 

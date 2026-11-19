@@ -79,9 +79,7 @@ void main() {
               entries: [
                 TimeEntry(roomId: 'a', phase: WorkPhase.parquet, minutes: 360, day: '2026-11-10'),
               ],
-              expenses: [
-                Expense(id: 'e', label: 'Parquet', amount: 420, date: '2026-11-09'),
-              ],
+              expenses: [Expense(id: 'e', label: 'Parquet', amount: 420, date: '2026-11-09')],
             ),
           ),
         ),
@@ -89,7 +87,10 @@ void main() {
     );
     expect(find.text('Saisissez un taux horaire pour comparer.'), findsOneWidget);
     expect(find.text('Matériel déjà payé : 420 €'), findsOneWidget);
-    await pTester.enterText(find.widgetWithText(TextField, 'Taux horaire de l\'artisan (€ TTC)'), '45');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Taux horaire de l\'artisan (€ TTC)'),
+      '45',
+    );
     await pTester.pump();
     expect(find.text('Main-d\'œuvre évitée : environ 135 €'), findsOneWidget);
     expect(find.text('Soit 23 € par heure passée'), findsOneWidget);
@@ -126,7 +127,10 @@ void main() {
     await pTester.pump();
     await scrollToFirst(pTester, find.textContaining('Gros écart'));
     expect(find.text('Gros écart : 900 €, demandez ce qui est compris'), findsOneWidget);
-    expect(find.textContaining('Évacuation des déchets : Alpha 250 € · Devis 2 absent'), findsOneWidget);
+    expect(
+      find.textContaining('Évacuation des déchets : Alpha 250 € · Devis 2 absent'),
+      findsOneWidget,
+    );
     expect(find.textContaining('Devis 2 ne chiffre pas : Protection des lieux'), findsOneWidget);
     expect(find.text('Ajouter un devis'), findsOneWidget);
     await pTester.tap(find.text('Ajouter un devis'));

@@ -67,9 +67,8 @@ int loanDays(Loan pLoan, DateTime pToday) {
   return _day(pToday).difference(vSince).inDays;
 }
 
-bool loanOverdue(Loan pLoan, DateTime pToday) => pLoan.rented
-    ? rentalLateDays(pLoan, pToday) > 0
-    : loanDays(pLoan, pToday) > loanReminderDays;
+bool loanOverdue(Loan pLoan, DateTime pToday) =>
+    pLoan.rented ? rentalLateDays(pLoan, pToday) > 0 : loanDays(pLoan, pToday) > loanReminderDays;
 
 /// Prêts du plus ancien au plus récent : ceux à réclamer d'abord.
 List<Loan> sortedLoans(List<Loan> pLoans) =>

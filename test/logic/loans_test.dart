@@ -40,7 +40,18 @@ void main() {
     expect(rentalCost(vMixer), 66);
     expect(rentalDays(vSander), 0);
     // Pris et rendu le même jour : une journée facturée
-    expect(rentalDays(const Loan(id: 'd', tool: 'Ponceuse', person: '', since: '2026-11-18', returnBy: '2026-11-18')), 1);
+    expect(
+      rentalDays(
+        const Loan(
+          id: 'd',
+          tool: 'Ponceuse',
+          person: '',
+          since: '2026-11-18',
+          returnBy: '2026-11-18',
+        ),
+      ),
+      1,
+    );
     expect(rentalLateDays(vMixer, DateTime(2026, 11, 20)), 0);
     expect(rentalLateDays(vMixer, DateTime(2026, 11, 23, 9)), 2);
     expect(rentalLateDays(vSander, DateTime(2026, 11, 23)), 0);

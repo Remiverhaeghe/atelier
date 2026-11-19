@@ -23,12 +23,10 @@ void main() {
 
   test('postes côte à côte : le moins cher, l\'écart et ce qui manque', () {
     final vRows = compareQuotes([vFirst, vSecond]);
-    expect([for (final vRow in vRows) vRow.post], [
-      QuotePost.protection,
-      QuotePost.supplies,
-      QuotePost.labour,
-      QuotePost.debrisRemoval,
-    ]);
+    expect(
+      [for (final vRow in vRows) vRow.post],
+      [QuotePost.protection, QuotePost.supplies, QuotePost.labour, QuotePost.debrisRemoval],
+    );
     final vLabour = vRows[2];
     expect(vLabour.cheapest, 0);
     expect(vLabour.gap, 900);

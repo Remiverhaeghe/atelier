@@ -42,8 +42,7 @@ List<PostComparison> compareQuotes(List<Quote> pQuotes) {
   final rRows = <PostComparison>[];
   for (final vPost in QuotePost.values) {
     final vAmounts = [
-      for (final vQuote in pQuotes)
-        (vQuote.posts[vPost] ?? 0) > 0 ? vQuote.posts[vPost] : null,
+      for (final vQuote in pQuotes) (vQuote.posts[vPost] ?? 0) > 0 ? vQuote.posts[vPost] : null,
     ];
     final vPriced = [
       for (final (vIndex, vAmount) in vAmounts.indexed)
