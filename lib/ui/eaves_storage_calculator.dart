@@ -192,7 +192,11 @@ class EavesSketch extends StatelessWidget {
         ),
       ],
       callouts: [
-        (at: (x: -30.0, y: 0.0, z: vKnee / 2), text: vText.eavesKneeLabel, shift: const Offset(-40, 0)),
+        (
+          at: (x: -30.0, y: 0.0, z: vKnee / 2),
+          text: vText.eavesKneeLabel,
+          shift: const Offset(-40, 0),
+        ),
         (
           at: (x: vRoofEnd * 0.8, y: vWidth, z: vKnee + vRoofEnd * 0.8 * vRise + 40),
           text: vText.eavesSlopeLabel,

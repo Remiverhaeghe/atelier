@@ -39,12 +39,7 @@ void main() {
   });
 
   test('façade basse : pas de place pour une tablette au-dessus des bacs', () {
-    final vPlan = planEavesStorage(
-      pKneeWallMm: 500,
-      pSlopeDeg: 45,
-      pLengthMm: 600,
-      pFrontMm: 700,
-    )!;
+    final vPlan = planEavesStorage(pKneeWallMm: 500, pSlopeDeg: 45, pLengthMm: 600, pFrontMm: 700)!;
     expect(vPlan.shelf, isNull);
   });
 

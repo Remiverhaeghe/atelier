@@ -59,19 +59,20 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
                       vText.ceilingTooLow(formatCentimetres(minLivingHeightMm)),
                       color: vTheme.colorScheme.error,
                     ),
-                  IconLine(
-                    Icons.height,
-                    vText.ceilingPlenum(formatCentimetres(vPlan.plenumMm)),
-                  ),
+                  IconLine(Icons.height, vText.ceilingPlenum(formatCentimetres(vPlan.plenumMm))),
                   IconLine(Icons.link, switch (vPlan.hanging) {
                     Hanging.direct => vText.ceilingHangDirect,
                     Hanging.rod => vText.ceilingHangRod,
                     Hanging.braced => vText.ceilingHangBraced,
                   }),
-                  IconLine(Icons.horizontal_rule, vText.ceilingFurring(vPlan.furringBars, vPlan.rows)),
+                  IconLine(
+                    Icons.horizontal_rule,
+                    vText.ceilingFurring(vPlan.furringBars, vPlan.rows),
+                  ),
                   IconLine(Icons.vertical_align_top, vText.ceilingHangers(vPlan.hangers)),
                   if (vPlan.rods > 0) IconLine(Icons.straighten, vText.ceilingRods(vPlan.rods)),
-                  if (vPlan.joints > 0) IconLine(Icons.compare_arrows, vText.ceilingJoints(vPlan.joints)),
+                  if (vPlan.joints > 0)
+                    IconLine(Icons.compare_arrows, vText.ceilingJoints(vPlan.joints)),
                   IconLine(Icons.border_outer, vText.ceilingAngles(vPlan.angleBars)),
                   IconLine(Icons.dashboard_outlined, vText.ceilingBoards(vPlan.boards)),
                   IconLine(Icons.hardware_outlined, vText.ceilingScrews(vPlan.screws)),
@@ -151,9 +152,21 @@ class CeilingSketch extends StatelessWidget {
         Prism.box(0, 140, 0, 50, vNew, vNew + 2, role: PartRole.highlight),
       ],
       callouts: [
-        (at: (x: 140.0, y: 0.0, z: vTop + 3), text: vText.ceilingOldLabel, shift: const Offset(30, -20)),
-        (at: (x: 140.0, y: 0.0, z: vNew + 1), text: vText.ceilingNewLabel, shift: const Offset(30, 10)),
-        (at: (x: 70.0, y: 20.0, z: (vNew + vTop) / 2), text: vText.ceilingHangerLabel, shift: const Offset(-90, 0)),
+        (
+          at: (x: 140.0, y: 0.0, z: vTop + 3),
+          text: vText.ceilingOldLabel,
+          shift: const Offset(30, -20),
+        ),
+        (
+          at: (x: 140.0, y: 0.0, z: vNew + 1),
+          text: vText.ceilingNewLabel,
+          shift: const Offset(30, 10),
+        ),
+        (
+          at: (x: 70.0, y: 20.0, z: (vNew + vTop) / 2),
+          text: vText.ceilingHangerLabel,
+          shift: const Offset(-90, 0),
+        ),
       ],
     );
   }

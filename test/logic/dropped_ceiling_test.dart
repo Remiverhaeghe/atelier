@@ -26,7 +26,12 @@ void main() {
   });
 
   test('le sens de saisie ne change rien : les fourrures suivent la grande longueur', () {
-    final vA = planDroppedCeiling(pLengthMm: 4000, pWidthMm: 5000, pHeightMm: 3500, pWantedMm: 2500);
+    final vA = planDroppedCeiling(
+      pLengthMm: 4000,
+      pWidthMm: 5000,
+      pHeightMm: 3500,
+      pWantedMm: 2500,
+    );
     expect(vA.rows, 6);
     expect(vA.hangers, 30);
   });
