@@ -12,6 +12,7 @@
 - Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon
 
 ### Outillage
+- CI plus rapide : tous les tests réunis dans un seul fichier compilé une fois (`tool/tous_les_tests.sh`) et répartis sur trois machines (couverture de `lib/logic` fusionnée), APK construite en même temps que les tests avec un cache Gradle et, sur une pull request, pour arm64 seulement ; les contrôles d'un commit dépassé sur une branche sont arrêtés
 - Workflow « Mise en forme » : sur une pull request, `dart format` est appliqué et recommité sur la branche, puis les contrôles sont relancés sur le commit mis en forme
 
 ### Étanchéité des fenêtres
