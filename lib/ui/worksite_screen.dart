@@ -11,6 +11,7 @@ import '../logic/units.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import 'dialogs.dart';
+import 'encrypted_transfer.dart';
 import 'room_screen.dart';
 import 'shopping_screen.dart';
 import 'shopping_texts.dart';
@@ -112,6 +113,8 @@ class WorksiteScreen extends StatelessWidget {
                   switch (pAction) {
                     case 'export':
                       exportWorksite(vWorksite);
+                    case 'shareProject':
+                      exportEncryptedProject(pContext, vWorksite);
                     case 'plan':
                       exportPlanFile(vWorksite);
                     case 'gltf':
@@ -138,6 +141,7 @@ class WorksiteScreen extends StatelessWidget {
                 },
                 itemBuilder: (_) => [
                   PopupMenuItem(value: 'export', child: Text(vText.exportWorksite)),
+                  PopupMenuItem(value: 'shareProject', child: Text(vText.shareProject)),
                   PopupMenuItem(value: 'plan', child: Text(vText.exportPlan)),
                   PopupMenuItem(value: 'gltf', child: Text(vText.exportGltf)),
                   PopupMenuItem(value: 'dxf', child: Text(vText.exportDxf)),

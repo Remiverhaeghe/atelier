@@ -9,8 +9,8 @@ import '../logic/units.dart';
 import 'photos.dart';
 import 'theme.dart';
 
-/// Mesure sur une photo : les deux bouts du grand côté d'une carte posée à plat, puis les deux
-/// bouts de ce qu'on mesure.
+/// Mesure sur une photo : les deux bouts d'un côté de l'étalon posé à plat (carte ou feuille
+/// A4), puis les deux bouts de ce qu'on mesure.
 class PhotoMeasureScreen extends StatefulWidget {
   const PhotoMeasureScreen({super.key, this.images, this.picture});
 
@@ -27,6 +27,7 @@ class PhotoMeasureScreen extends StatefulWidget {
 class _PhotoMeasureScreenState extends State<PhotoMeasureScreen> {
   late Widget? _picture = widget.picture;
   final _points = <PlanPoint>[];
+  var _reference = MeasureReference.card;
 
   Future<void> _pick() async {
     final vPath = await (widget.images ?? pickImage)('mesure');
@@ -44,13 +45,27 @@ class _PhotoMeasureScreenState extends State<PhotoMeasureScreen> {
     final vTheme = Theme.of(context);
     final vPicture = _picture;
     final vMm = _points.length == 4
-        ? photoMeasureMm(_points[0], _points[1], _points[2], _points[3])
+        ? photoMeasureMm(
+            _points[0],
+            _points[1],
+            _points[2],
+            _points[3],
+            pReferenceMm: _reference.sideMm,
+          )
         : null;
-    final vStep = switch (_points.length) {
-      0 || 1 => vText.photoMeasureCard,
-      2 || 3 => vText.photoMeasureObject,
-      _ => vMm == null ? vText.photoMeasureCard : vText.photoMeasureResult(formatCentimetres(vMm)),
+    final vTouchReference = switch (_reference) {
+      MeasureReference.card => vText.photoMeasureCard,
+      MeasureReference.a4Long => vText.photoMeasureSheetLong,
+      MeasureReference.a4Short => vText.photoMeasureSheetShort,
     };
+    final vStep = switch (_points.length) {
+      0 || 1 => vTouchReference,
+      2 || 3 => vText.photoMeasureObject,
+      _ => vMm == null ? vTouchReference : vText.photoMeasureResult(formatCentimetres(vMm)),
+    };
+    final vSpread = vMm == null
+        ? null
+        : photoMeasureSpreadMm(vMm, _points[0].distanceTo(_points[1]));
 
     return Scaffold(
       appBar: AppBar(
@@ -66,6 +81,25 @@ class _PhotoMeasureScreenState extends State<PhotoMeasureScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
+          Text(vText.photoMeasureReference, style: vTheme.textTheme.titleSmall),
+          const SizedBox(height: 4),
+          SegmentedButton<MeasureReference>(
+            segments: [
+              ButtonSegment(value: MeasureReference.card, label: Text(vText.photoMeasureRefCard)),
+              ButtonSegment(value: MeasureReference.a4Long, label: Text(vText.photoMeasureRefA4Long)),
+              ButtonSegment(
+                value: MeasureReference.a4Short,
+                label: Text(vText.photoMeasureRefA4Short),
+              ),
+            ],
+            selected: {_reference},
+            onSelectionChanged: (pChoice) => setState(() {
+              _reference = pChoice.first;
+              // Les points touchés valaient pour l'ancien étalon
+              _points.clear();
+            }),
+          ),
+          const SizedBox(height: 12),
           if (vPicture == null)
             FilledButton.icon(
               onPressed: _pick,
@@ -74,6 +108,8 @@ class _PhotoMeasureScreenState extends State<PhotoMeasureScreen> {
             )
           else ...[
             vMm != null ? BigFigure(vStep) : IconLine(Icons.touch_app_outlined, vStep),
+            if (vSpread != null)
+              IconLine(Icons.straighten, vText.photoMeasureSpread(formatCentimetres(vSpread))),
             const SizedBox(height: 8),
             SizedBox(
               height: 420,

@@ -3,6 +3,10 @@
 ## Non publié
 
 ### Ajouté
+- Projets prêts à suivre (lot 189) : étagère murale sur tasseau caché, châssis fixe à la place d'un plexi, mezzanine simple et embrasure de fenêtre de toit. Pour les cotes saisies : croquis en relief, débit des pièces, courses à ajouter à la liste, fiche imprimable et étapes, chacune reliée à son geste animé. Les trois modèles de reprises déjà là (rafraîchir une pièce, salle de bain, sol) restent dans l'onglet Reprises
+- Mode atelier (lot 188) : en plein écran, écran gardé allumé, chronomètre en très gros chiffres, étape en cours en grand, boutons de 88 points de haut pour des gants, liste des étapes avec le temps passé sur chacune. On l'ouvre depuis un projet prêt à suivre ou depuis le mode chantier, où il reprend les reprises pas finies de la pièce et les coche une à une. Le mode chantier existant (écran allumé, voix, plinthes et rangées) est inchangé
+- Mesure par photo avec une feuille A4 (lot 187) : l'étalon se choisit entre la carte bancaire (déjà là), le grand côté ou le petit côté d'une feuille A4. L'écran donne aussi la marge d'erreur, plus petite avec la feuille
+- Partage d'un projet chiffré (lot 190) : dans le menu d'un chantier, un fichier `.atelier` protégé par mot de passe avec tout le chantier (pièces, croquis, débit, notes) et ses photos, factures et tickets. À l'import, les photos sont recopiées sur le téléphone. La sauvegarde chiffrée de tous les chantiers existait déjà, sans les photos
 - Grille des calculs rangée par familles : une rangée de puces en haut (bien commencer, bois et menuiserie, combles et toit, murs, sols et plafonds, confort et réseaux, dehors, chantier) n'affiche que la famille choisie
 - Caisse à outils du débutant : l'indispensable et ce qui vient ensuite, avec une fourchette de prix indicative et les gestes où chaque outil sert ; on coche ce qu'on a, l'écran dit ce qui manque et combien ça coûte, et l'ajoute aux courses. Chaque geste affiche aussi ses outils
 - Cinq gestes de plus : poser une cheville, couper une plaque de plâtre, couper un onglet à 45°, tracer au niveau laser, faire les joints du carrelage

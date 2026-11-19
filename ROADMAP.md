@@ -76,4 +76,4 @@ Validés le 19 novembre 2026, en grosses pull requests de 4 à 6 lots :
 
 - Contrôle de finition : filmer une pièce et repérer ce qui est à reprendre.
 - Caméra thermique : repérer ponts thermiques et fuites d'air, en tirer des préconisations.
-- Mesure par photo ou réalité augmentée.
+- Mesure en réalité augmentée (la mesure par photo, avec une carte ou une feuille A4, est faite).

@@ -37,6 +37,7 @@ import 'roof_lining_calculator.dart';
 import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
+import 'ready_projects_screen.dart';
 import 'sheet_flooring_calculator.dart';
 import 'shower_calculator.dart';
 import 'wallpaper_calculator.dart';
@@ -470,6 +471,14 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.window_outlined,
       builder: (_) => const FrameCalculator(),
+    ),
+    // Lots 187 à 210 : projets, chantier et finitions
+    (
+      title: pText.readyTitle,
+      help: pText.readyHelp,
+      family: CalcFamily.start,
+      icon: Icons.assignment_outlined,
+      builder: (_) => const ReadyProjectsScreen(),
     ),
   ];
 
