@@ -3,6 +3,10 @@
 ## Non publié
 
 ### Ajouté
+- Préparer un sol (lot 201) : chape sèche, fluide anhydrite ou ciment avec la commande (plaques et granulats, sacs ou volume coulé), l'attente avant la pose et l'humidité à atteindre, la sous-couche selon le revêtement, le jeu aux murs, les joints aux seuils et le fractionnement des grandes pièces. Le calcul du ragréage en sacs existait déjà (Enduit et ragréage)
+- Portes (lot 203) : jeu sous la porte et recoupe quand le sol monte, hauteur de poignée, sens d'ouverture trouvé depuis l'un ou l'autre côté. Le bloc-porte d'après l'ouverture et le choix du sens existaient déjà
+- Peindre une grande hauteur (lot 207) : manche télescopique, escabeau ou échafaudage roulant selon la hauteur, quantités mur et plafond en pots de 10 L, ordre de travail sans reprise
+- Souvenirs du chantier (lot 210) : depuis le carnet, l'avant et l'après de chaque entrée en diaporama sur papier quadrillé, ou en PDF façon carnet (papier crème, photos encadrées, légendes manuscrites). La comparaison avant / après au doigt existait déjà
 - Le bon outil (lot 195) : pour dix tâches courantes, l'outil à la main de la caisse du débutant quand il suffit, sinon l'outil électrique, avec le budget et le choix entre acheter, louer ou emprunter selon les jours d'utilisation. Le calcul reprend `starter_tools` et `rent_or_buy`, et propose les gestes animés de l'outil
 - Outillage loué (lot 196) : dans l'écran des prêts, « Louer un outil » note le loueur, les jours, la caution et le prix par jour. L'écran affiche la date de retour, le coût, le retard éventuel, et programme un rappel la veille du retour à 18 h, annulé quand l'outil est rendu. Les prêts d'outils existaient déjà
 - Déchets de chantier (lot 198) : bois traité à part, benne indiquée pour chaque déchet, pots de peinture aux déchets dangereux et kilomètres jusqu'à la déchetterie. Volumes, big bags et voyages existaient déjà

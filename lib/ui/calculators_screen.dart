@@ -37,6 +37,8 @@ import 'roof_lining_calculator.dart';
 import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
+import 'floor_prep_calculator.dart';
+import 'high_paint_calculator.dart';
 import 'quote_compare_screen.dart';
 import 'ready_projects_screen.dart';
 import 'right_tool_screen.dart';
@@ -495,6 +497,20 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.site,
       icon: Icons.request_quote_outlined,
       builder: (_) => const QuoteCompareScreen(),
+    ),
+    (
+      title: pText.floorPrepTitle,
+      help: pText.floorPrepHelp,
+      family: CalcFamily.walls,
+      icon: Icons.layers_outlined,
+      builder: (_) => const FloorPrepCalculator(),
+    ),
+    (
+      title: pText.highPaintTitle,
+      help: pText.highPaintHelp,
+      family: CalcFamily.walls,
+      icon: Icons.format_paint_outlined,
+      builder: (_) => const HighPaintCalculator(),
     ),
   ];
 

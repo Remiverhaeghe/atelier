@@ -13,6 +13,7 @@ import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import 'before_after.dart';
 import 'journal_pdf.dart';
+import 'memories_screen.dart';
 import 'photos.dart';
 import 'shopping_texts.dart';
 import 'theme.dart';
@@ -123,6 +124,14 @@ class _JournalScreenState extends State<JournalScreen> {
           appBar: AppBar(
             title: Text(vText.journalTitle),
             actions: [
+              IconButton(
+                tooltip: vText.memoriesTitle,
+                icon: const Icon(Icons.photo_album_outlined),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(builder: (_) => MemoriesScreen(worksite: vWorksite)),
+                ),
+              ),
               IconButton(
                 tooltip: vText.journalPdf,
                 icon: const Icon(Icons.picture_as_pdf_outlined),
