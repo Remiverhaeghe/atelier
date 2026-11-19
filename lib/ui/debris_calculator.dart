@@ -112,6 +112,7 @@ class _DebrisCalculatorState extends State<DebrisCalculator> {
                       children: [
                         Expanded(
                           child: DropdownButtonFormField<DebrisKind>(
+                            isExpanded: true,
                             initialValue: vLine.kind,
                             decoration: InputDecoration(labelText: vText.debrisKind),
                             items: [

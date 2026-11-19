@@ -3464,7 +3464,7 @@
   "rentalNotify": "À rendre demain : {tool}. Pensez à récupérer la caution.",
   "@rentalNotify": {"placeholders": {"tool": {"type": "String"}}},
   "rentalReminderSet": "Rappel la veille du retour, à 18 h.",
-  "debrisTreatedWood": "Bois traité (autoclave, créosote)",
+  "debrisTreatedWood": "Bois traité",
   "binInert": "Gravats et inertes",
   "binPlaster": "Plâtre",
   "binWood": "Bois brut",
