@@ -67,6 +67,13 @@ Future<void> openApp(WidgetTester pTester) async {
 
 void capturesDone() => debugDisableShadows = true;
 
+/// Première liste verticale de l'écran : les champs de saisie ont aussi leur défilement.
+Finder _vertical() => find
+    .byWidgetPredicate(
+      (pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down,
+    )
+    .first;
+
 Future<void> tapAndSettle(WidgetTester pTester, Finder pFinder) async {
   // Une liste ne construit que ce qui est à l'écran : sous les tuiles d'accueil, les pièces
   // n'existent pas encore tant qu'on n'a pas fait défiler
@@ -191,6 +198,26 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text("Isolation des murs par l'intérieur"));
     await capture('28-isolation-murs');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Douche de plain-pied'));
+    await pTester.scrollUntilVisible(find.text('Volumes de sécurité'), 300, scrollable: _vertical());
+    await pTester.pumpAndSettle();
+    await capture('29-salle-eau');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Cuisine'));
+    await pTester.scrollUntilVisible(find.text("Triangle d'activité"), 300, scrollable: _vertical());
+    await pTester.pumpAndSettle();
+    await capture('30-cuisine');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Maison de démonstration'));
+    await tapAndSettle(pTester, find.byTooltip('Électricité du plan'));
+    await tapAndSettle(pTester, find.text('Salon'));
+    await capture('31-prises-eclairage');
     capturesDone();
   });
 

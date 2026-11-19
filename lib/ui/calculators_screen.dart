@@ -388,7 +388,7 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.kitchenHelp,
       family: CalcFamily.comfort,
       icon: Icons.kitchen_outlined,
-      builder: (_) => const KitchenCalculator(),
+      builder: (_) => KitchenCalculator(rooms: pRooms),
     ),
     (
       title: pText.showerTitle,

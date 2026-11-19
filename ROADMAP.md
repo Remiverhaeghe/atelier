@@ -15,7 +15,7 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Validés le 18 novembre 2026. Faits : 169 à 176, 184, 185, 186, 192, 202 et 208 (voir le CHANGELOG). Restent, dans l'ordre :
+Validés le 18 novembre 2026. Faits : 169 à 176, 184, 185, 186, 192, 202, 204 à 206 et 208 (voir le CHANGELOG). Restent, dans l'ordre :
 
 - 177. **Par où commencer** : fiche de niveau par type de travaux (facile, moyen, à confier à un pro), outillage minimal à acheter ou louer, temps réaliste pour un débutant, erreurs classiques.
 - 178. **Contrôles qualité** : diagonales pour l'équerrage, niveau et fil à plomb, planéité à la règle de 2 m, tolérances ; à cocher, avec photo.
@@ -39,9 +39,6 @@ Validés le 18 novembre 2026. Faits : 169 à 176, 184, 185, 186, 192, 202 et 208
 - 200. **Mode apprentissage** : petits défis guidés (couper d'équerre, faire un tenon, poser un joint), badge discret.
 - 201. **Sols** : ragréage, chape sèche ou liquide, sous-couche, joints de dilatation, séchage avant pose.
 - 203. **Portes** : jeu sous la porte, sens d'ouverture, hauteur de poignée, bloc-porte d'après la mesure du mur.
-- 204. **Prises et éclairage à placer** selon la norme électrique, sur le plan de la pièce.
-- 205. **Salle d'eau** : volumes de sécurité, pente du receveur, étanchéité sous carrelage, ventilation.
-- 206. **Cuisine** : hauteur du plan selon la taille, triangle d'activité, débit de la hotte, implantation.
 - 207. **Peinture des grandes hauteurs** : perche ou échafaudage, quantités, ordre de travail sans reprises.
 - 209. **Comparaison de devis** poste par poste, avec les oublis courants.
 - 210. **Souvenirs du chantier** : avant et après dans le style carnet, en PDF ou en diaporama.
