@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Version web installable sur l'iPhone, sans compte Apple payant : publiée sur https://remiverhaeghe.github.io/atelier/ à chaque fusion sur main, à ajouter à l'écran d'accueil depuis Safari. Chantiers et réglages restent dans le stockage du navigateur, sur l'appareil ; un service worker garde l'appli utilisable hors ligne. Les fonctions propres au téléphone (photos enregistrées, télémètre Bluetooth, rappels programmés, sauvegardes datées, widget) ne sont pas encore disponibles dans cette version
 - Isoler les rampants par l'intérieur : dans la pièce sous rampants, la surface où l'on tient debout perdue selon l'épaisseur d'isolant sous les rampants et contre les jambettes, ce qui reste, et la résistance thermique obtenue
 - Fenêtre de toit : une fois la référence lue, les stores et volets à commander avec le code de taille de la plaque (MK08, ou 308 sur un ancien modèle) (occultant, plissé, vénitien, pare-soleil extérieur, volet roulant), avec ce que chacun fait contre la chaleur, et l'ajout aux courses
 - Fiches de chantier imprimables aussi pour la fenêtre bois, l'embrasure, la mezzanine, l'escalier et la pièce sous rampants
