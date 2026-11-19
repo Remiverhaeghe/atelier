@@ -20,6 +20,9 @@ const switchAxisMm = 1100;
 /// Écart laissé de chaque côté d'une porte, et entre la porte et l'interrupteur.
 const doorClearanceMm = 150;
 
+/// Écart gardé avec un angle : une prise dans le coin se cache derrière un meuble.
+const cornerMarginMm = 200;
+
 /// Une cuisine de 4 m² ou moins se contente de trois prises.
 const smallKitchenM2 = 4.0;
 
@@ -109,7 +112,11 @@ List<PlanPoint> spreadSockets(Room pRoom, int pCount) {
     for (final vSpan in vSpans) {
       final vLength = vSpan.toMm - vSpan.fromMm;
       if (vLeft <= vLength) {
-        rPoints.add(pointOnWall(pRoom, vSpan.wall, (vSpan.fromMm + vLeft).round()));
+        final vWallLength = pRoom.walls[vSpan.wall].lengthMm;
+        final vAlong = vWallLength > 2 * cornerMarginMm
+            ? (vSpan.fromMm + vLeft).round().clamp(cornerMarginMm, vWallLength - cornerMarginMm)
+            : (vSpan.fromMm + vLeft).round();
+        rPoints.add(pointOnWall(pRoom, vSpan.wall, vAlong));
         break;
       }
       vLeft -= vLength;

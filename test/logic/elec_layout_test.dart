@@ -35,11 +35,16 @@ void main() {
     expect(_rounded(spreadSockets(vRoom, 5)), [
       (1400, 0),
       (4000, 200),
-      (4000, 3000),
+      (4000, 2800),
       (1200, 3000),
       (0, 1400),
     ]);
     expect(spreadSockets(vRoom, 0), isEmpty);
+    // Mur trop court pour garder 20 cm de chaque côté : la prise reste au milieu
+    final vTiny = rectangleRoom().copyWith(
+      walls: const [Wall(lengthMm: 300), Wall(lengthMm: 300), Wall(lengthMm: 300), Wall(lengthMm: 300)],
+    );
+    expect(_rounded(spreadSockets(vTiny, 1)), [(300, 300)]);
     final vCentre = ceilingCentre(vRoom);
     expect((vCentre.x.round(), vCentre.y.round()), (2000, 1500));
     final vLine = ceilingCentre(const Room(id: 'l', name: 'L', walls: [Wall(lengthMm: 2000)]));
@@ -87,7 +92,7 @@ void main() {
     final vProposal = proposeElec(vRoom)!;
     expect(vProposal.kind, ElecRoomKind.living);
     expect((vProposal.requiredSockets, vProposal.existingSockets), (5, 2));
-    expect(_rounded(vProposal.newSockets), [(4000, 3000), (1200, 3000), (4000, 200)]);
+    expect(_rounded(vProposal.newSockets), [(4000, 2800), (1200, 3000), (4000, 200)]);
     expect(vProposal.hasSwitch, isFalse);
     expect(vProposal.lights, 1);
 

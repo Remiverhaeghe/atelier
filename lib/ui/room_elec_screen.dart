@@ -79,6 +79,8 @@ class _RoomElecScreenState extends State<RoomElecScreen> {
                   aspectRatio: 1.3,
                   child: RoomPlan(
                     room: vPreview,
+                    // Les numéros de mur se confondraient avec le repère du point lumineux
+                    wallNumbers: false,
                     markers: [
                       (
                         number: 1,
