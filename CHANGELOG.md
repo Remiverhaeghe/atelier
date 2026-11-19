@@ -3,6 +3,9 @@
 ## Non publié
 
 ### Ajouté
+- Isoler les rampants par l'intérieur : dans la pièce sous rampants, la surface où l'on tient debout perdue selon l'épaisseur d'isolant sous les rampants et contre les jambettes, ce qui reste, et la résistance thermique obtenue
+- Fenêtre de toit : une fois la référence lue, les stores et volets à commander avec le code de taille de la plaque (MK08, ou 308 sur un ancien modèle) (occultant, plissé, vénitien, pare-soleil extérieur, volet roulant), avec ce que chacun fait contre la chaleur, et l'ajout aux courses
+- Fiches de chantier imprimables aussi pour la fenêtre bois, l'embrasure, la mezzanine, l'escalier et la pièce sous rampants
 - Choisir un panneau : contreplaqué, OSB, MDF, latté, mélaminé ou aggloméré selon l'usage (étagère, meuble, plancher, contreventement, pièce humide, dehors, meuble à peindre), structure de chaque panneau dessinée en relief, tenue de la vis, prix relatif et poids d'une plaque selon l'épaisseur
 - Colles et serrage : la colle selon ce qu'on assemble (vinylique, D3, polyuréthane, contact, époxy, mastic-colle), temps d'assemblage, de serrage et de prise, et nombre de serre-joints selon la longueur du collage
 - Huit mots de plus au lexique, avec leur schéma en relief : lambourde, liteau, suspente, appui, goutte d'eau, onglet, nœud et fente
