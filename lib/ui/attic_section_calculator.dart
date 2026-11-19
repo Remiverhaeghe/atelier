@@ -106,19 +106,19 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
                             twoPitches: _twoPitches,
                           )
                         : AtticSketch(
-                      section: vSection,
-                      widthMm: _widthMm,
-                      kneeMm: _kneeMm,
-                      twoPitches: _twoPitches,
-                      onKnee: (pMm) => setState(() {
-                        _kneeMm = pMm;
-                        _outside++;
-                      }),
-                      onSlope: (pDeg) => setState(() {
-                        _slopeDeg = pDeg;
-                        _outside++;
-                      }),
-                    ),
+                            section: vSection,
+                            widthMm: _widthMm,
+                            kneeMm: _kneeMm,
+                            twoPitches: _twoPitches,
+                            onKnee: (pMm) => setState(() {
+                              _kneeMm = pMm;
+                              _outside++;
+                            }),
+                            onSlope: (pDeg) => setState(() {
+                              _slopeDeg = pDeg;
+                              _outside++;
+                            }),
+                          ),
                   ),
                   if (!_relief) Text(vText.atticDragHint, style: vTheme.textTheme.bodySmall),
                   const SizedBox(height: 8),

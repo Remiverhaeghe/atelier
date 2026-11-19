@@ -35,25 +35,26 @@ void main() {
     expect(String.fromCharCodes(vEmpty.take(5)), '%PDF-');
   });
 
-  testWidgets('les fiches s\'impriment depuis les finitions, le faux plafond, le placard et les gestes', (
-    pTester,
-  ) async {
-    tallScreen(pTester);
-    for (final vScreen in const <Widget>[
-      WoodFinishCalculator(),
-      DroppedCeilingCalculator(),
-      EavesStorageCalculator(),
-      GestureScreen(gesture: Gesture.drill),
-    ]) {
-      await pTester.pumpWidget(localized(vScreen));
-      await pTester.pumpAndSettle();
-      final vButton = pTester.widget<PrintSheetButton>(find.byType(PrintSheetButton));
-      final vSheet = vButton.sheet();
-      expect(vSheet.title, isNotEmpty);
-      expect(vSheet.results, isNotEmpty, reason: vScreen.runtimeType.toString());
-      expect(find.byTooltip('Imprimer la fiche'), findsOneWidget);
-    }
-  });
+  testWidgets(
+    'les fiches s\'impriment depuis les finitions, le faux plafond, le placard et les gestes',
+    (pTester) async {
+      tallScreen(pTester);
+      for (final vScreen in const <Widget>[
+        WoodFinishCalculator(),
+        DroppedCeilingCalculator(),
+        EavesStorageCalculator(),
+        GestureScreen(gesture: Gesture.drill),
+      ]) {
+        await pTester.pumpWidget(localized(vScreen));
+        await pTester.pumpAndSettle();
+        final vButton = pTester.widget<PrintSheetButton>(find.byType(PrintSheetButton));
+        final vSheet = vButton.sheet();
+        expect(vSheet.title, isNotEmpty);
+        expect(vSheet.results, isNotEmpty, reason: vScreen.runtimeType.toString());
+        expect(find.byTooltip('Imprimer la fiche'), findsOneWidget);
+      }
+    },
+  );
 
   testWidgets('placard impossible : pas de fiche à imprimer', (pTester) async {
     tallScreen(pTester);
