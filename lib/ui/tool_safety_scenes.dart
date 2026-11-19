@@ -86,8 +86,7 @@ SafetyScene safetyScene(AppLocalizations pText, SafetyTool pTool) {
       parts: [
         Prism.box(20, 100, 0, 40, -3, 0, role: PartRole.board),
         Prism.box(90, 100, 0, 40, 0, 120, role: PartRole.board),
-        for (final vY in [6.0, 30.0])
-          Prism([(60, 0), (64, 0), (90, 120), (86, 120)], vY, vY + 3),
+        for (final vY in [6.0, 30.0]) Prism([(60, 0), (64, 0), (90, 120), (86, 120)], vY, vY + 3),
         for (var vRung = 1; vRung <= 7; vRung++)
           Prism.box(
             61 + vRung * 15 / 4.6,

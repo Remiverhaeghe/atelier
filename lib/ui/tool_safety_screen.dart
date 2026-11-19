@@ -147,8 +147,7 @@ class _ToolSafetySheetState extends State<ToolSafetySheet> {
           ),
           const SizedBox(height: 12),
           Text(vText.toolSafeForbidden, style: vTheme.textTheme.titleMedium),
-          for (final vNo in vForbidden)
-            IconLine(Icons.block, vNo, color: vTheme.colorScheme.error),
+          for (final vNo in vForbidden) IconLine(Icons.block, vNo, color: vTheme.colorScheme.error),
           if (vTool == SafetyTool.ladder) ...[
             NumberField(
               label: vText.toolSafeLadderHeight,
@@ -241,11 +240,7 @@ List<String> safetyForbidden(AppLocalizations pText, SafetyTool pTool) => switch
     pText.toolSafeCircularSawNo3,
     pText.toolSafeCircularSawNo4,
   ],
-  SafetyTool.router => [
-    pText.toolSafeRouterNo1,
-    pText.toolSafeRouterNo2,
-    pText.toolSafeRouterNo3,
-  ],
+  SafetyTool.router => [pText.toolSafeRouterNo1, pText.toolSafeRouterNo2, pText.toolSafeRouterNo3],
   SafetyTool.grinder => [
     pText.toolSafeGrinderNo1,
     pText.toolSafeGrinderNo2,

@@ -87,7 +87,10 @@ class _QualityScreenState extends State<QualityScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(qualityStageName(vText, vStage), style: vTheme.textTheme.titleMedium),
+                    child: Text(
+                      qualityStageName(vText, vStage),
+                      style: vTheme.textTheme.titleMedium,
+                    ),
                   ),
                   Text(vText.qualityProgress(vProgress[vStage]!.done, vProgress[vStage]!.total)),
                 ],
@@ -231,9 +234,8 @@ class _QualityMeasureDialogState extends State<QualityMeasureDialog> {
               decoration: InputDecoration(
                 labelText: vDiagonals ? vText.qualityFirstDiagonal : vText.qualityGap,
               ),
-              onChanged: (pText) => setState(
-                () => _first = vDiagonals ? parseCentimetres(pText) : parseWhole(pText),
-              ),
+              onChanged: (pText) =>
+                  setState(() => _first = vDiagonals ? parseCentimetres(pText) : parseWhole(pText)),
             ),
             // À la règle, la longueur est celle de la règle : rien d'autre à saisir
             if (!vRule)

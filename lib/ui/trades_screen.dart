@@ -39,10 +39,7 @@ class TradesScreen extends StatelessWidget {
                   leading: Icon(_levelIcon(vLevel)),
                   title: Text(tradeName(vText, vTrade)),
                   subtitle: Text(
-                    vText.tradeTime(
-                      beginnerHours(vTrade).minHours,
-                      beginnerHours(vTrade).maxHours,
-                    ),
+                    vText.tradeTime(beginnerHours(vTrade).minHours, beginnerHours(vTrade).maxHours),
                   ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => Navigator.push(
@@ -227,11 +224,7 @@ List<String> tradeMistakes(AppLocalizations pText, Trade pTrade) => switch (pTra
   Trade.tiling => [pText.tradeTiling1, pText.tradeTiling2, pText.tradeTiling3],
   Trade.joinery => [pText.tradeJoinery1, pText.tradeJoinery2, pText.tradeJoinery3],
   Trade.plumbing => [pText.tradePlumbing1, pText.tradePlumbing2, pText.tradePlumbing3],
-  Trade.electricity => [
-    pText.tradeElectricity1,
-    pText.tradeElectricity2,
-    pText.tradeElectricity3,
-  ],
+  Trade.electricity => [pText.tradeElectricity1, pText.tradeElectricity2, pText.tradeElectricity3],
 };
 
 /// Partage entre ce qu'on fait seul et ce qu'on confie, pour les travaux à confier à un pro.
