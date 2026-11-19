@@ -17,9 +17,17 @@ void main() {
     expect(find.text('2 traverses de 75,2 cm, tenons compris'), findsOneWidget);
     expect(find.byType(WoodWindowSketch), findsOneWidget);
     expect(find.textContaining('Bois trop mince'), findsNothing);
+    expect(find.text('Étanchéité de la pose'), findsOneWidget);
+    expect(find.textContaining('compribande) 2-6 mm'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Épaisseur du bois (mm)'), '58');
+    // Le champ est en bas, sous les cartes du bois et de l'étanchéité : on y descend
+    final vDepthField = find.widgetWithText(TextField, 'Épaisseur du bois (mm)');
+    final vList = find.byType(Scrollable).first;
+    await pTester.scrollUntilVisible(vDepthField, 300, scrollable: vList);
+    await pTester.enterText(vDepthField, '58');
     await pTester.pump();
+    await pTester.drag(vList, const Offset(0, 5000));
+    await pTester.pumpAndSettle();
     expect(find.textContaining('Bois trop mince'), findsOneWidget);
   });
 }

@@ -2,6 +2,15 @@
 
 ## Non publié
 
+### Corrigé
+- Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon
+
+### Outillage
+- Workflow « Mise en forme » : sur une pull request, `dart format` est appliqué et recommité sur la branche, puis les contrôles sont relancés sur le commit mis en forme
+
+### Étanchéité des fenêtres
+- Carte « Étanchéité de la pose » dans la fenêtre bois : but expliqué, coupe du tableau en relief (mousse imprégnée, mastic, adhésif pare-vapeur), mousse choisie selon le jeu, mètres et cartouches de mastic, rouleaux, pente de l'appui et goutte d'eau, ordre de pose
+
 ### Choix du bois
 - Carte « Quel bois prendre » dans la fenêtre bois, la pergola, la mezzanine et l'étagère murale : classe d'emploi de l'usage, essences qui conviennent sans traitement du moins cher au plus cher, conseils de travail et de quincaillerie, alerte si l'essence choisie ne tient pas
 
