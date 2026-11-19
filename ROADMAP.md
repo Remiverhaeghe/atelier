@@ -15,15 +15,12 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Validés le 18 novembre 2026. Faits : 169 à 176, 186 et 192 (voir le CHANGELOG). Restent, dans l'ordre :
+Validés le 18 novembre 2026. Faits : 169 à 176, 181 à 183, 186 et 192 (voir le CHANGELOG). Restent, dans l'ordre :
 
 - 177. **Par où commencer** : fiche de niveau par type de travaux (facile, moyen, à confier à un pro), outillage minimal à acheter ou louer, temps réaliste pour un débutant, erreurs classiques.
 - 178. **Contrôles qualité** : diagonales pour l'équerrage, niveau et fil à plomb, planéité à la règle de 2 m, tolérances ; à cocher, avec photo.
 - 179. **Sécurité par outil** : scie circulaire, défonceuse, meuleuse, échelle, produits de finition ; protections, gestes interdits, vérifications avant de brancher, schéma en relief.
 - 180. **« Je me suis trompé »** : tenon trop lâche, planche tordue, trou mal placé, coulure de vernis, joint de mastic raté ; cause, réparation, réemploi.
-- 181. **Débit dans les planches du commerce** : toutes les pièces d'un projet dans des longueurs standard, plan de coupe dessiné, trait de scie compté.
-- 182. **Défauts du bois au magasin** : nœud, fente, gerce, bois tors ou voilé, humidité ; un schéma par défaut et une liste de contrôle.
-- 183. **Stock de l'atelier** : vis, colles, chutes, outils prêtés, alerte de rachat, déduit des courses des prochains chantiers.
 - 184. **Carnet de la maison** : gaines, tuyaux, solives, photos avant fermeture, références posées ; pièce par pièce, export PDF pour une revente.
 - 185. **Diagnostic thermique simple** : pertes par paroi, travaux les plus rentables, aides à vérifier au moment voulu.
 - 187. **Mesure par photo** avec un objet de taille connue (feuille A4), sans réseau.

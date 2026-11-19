@@ -63,6 +63,8 @@ import 'wall_shelf_calculator.dart';
 import 'welding_calculator.dart';
 import 'wood_finish_calculator.dart';
 import 'wood_window_calculator.dart';
+import 'project_cutting_screen.dart';
+import 'wood_defects_screen.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 /// Familles de la grille des calculs, pour ne montrer que celle qui sert.
@@ -470,6 +472,20 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.window_outlined,
       builder: (_) => const FrameCalculator(),
+    ),
+    (
+      title: pText.cutPlanTitle,
+      help: pText.cutPlanHelp,
+      family: CalcFamily.wood,
+      icon: Icons.content_cut,
+      builder: (_) => const ProjectCuttingScreen(),
+    ),
+    (
+      title: pText.defectTitle,
+      help: pText.defectHelp,
+      family: CalcFamily.wood,
+      icon: Icons.search,
+      builder: (_) => const WoodDefectsScreen(),
     ),
   ];
 

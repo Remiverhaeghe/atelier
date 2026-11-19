@@ -6,9 +6,11 @@ import 'package:path_provider/path_provider.dart';
 
 import 'app.dart';
 import 'state/settings_controller.dart';
+import 'state/workshop_controller.dart';
 import 'state/worksites_controller.dart';
 import 'storage/backups.dart';
 import 'storage/settings_store.dart';
+import 'storage/workshop_store.dart';
 import 'storage/worksite_store.dart';
 import 'support/crash_log.dart';
 import 'ui/home_widget_sync.dart';
@@ -36,6 +38,8 @@ Future<void> main() async {
   // Réglages lus avant le premier affichage : pas d'éclair blanc si le thème sombre est choisi
   final vSettings = SettingsController(SettingsFileStore(File('${vFolder.path}/reglages.json')));
   await vSettings.load();
+  aWorkshop = WorkshopController(WorkshopFileStore(File('${vFolder.path}/atelier.json')));
+  await aWorkshop.load();
   runApp(
     AtelierApp(
       controller: vController,

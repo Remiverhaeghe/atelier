@@ -195,4 +195,24 @@ void main() {
     await capture('09-piece-sombre');
     capturesDone();
   });
+
+  testWidgets('bois : débit d\'un projet, défauts au magasin, stock de l\'atelier', (pTester) async {
+    await openApp(pTester);
+    await tapAndSettle(pTester, find.byTooltip('Calculs'));
+    await tapAndSettle(pTester, find.text('Débit dans le commerce'));
+    await capture('27-debit-projet');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Défauts du bois'));
+    await tapAndSettle(pTester, find.widgetWithText(ChoiceChip, 'Bois tors'));
+    await capture('28-defauts-bois');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Maison de démonstration'));
+    await tapAndSettle(pTester, find.text('Stock de l\'atelier'));
+    await capture('29-stock-atelier');
+    capturesDone();
+  });
 }

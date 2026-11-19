@@ -3,6 +3,9 @@
 ## Non publié
 
 ### Ajouté
+- Débit dans le commerce (lot 181) : toutes les pièces d'un projet (fenêtre bois, étagère, mezzanine, placard sous rampant, ou pièces saisies) optimisées dans des bois et panneaux de taille standard. Chaque section de bois et chaque épaisseur de panneau sont débitées à part, chaque barre prend la plus courte longueur vendue qui contient ses morceaux, le format de panneau est celui qui demande le moins de surface. Plan de coupe dessiné barre par barre et panneau par panneau, traits de scie comptés, chutes à garder, ajout aux courses
+- Défauts du bois au magasin (lot 182) : nœud, fente, gerce, bois tors, voilé ou tuilé, humidité, chacun en schéma en relief exagéré ; liste à cocher au rayon, et tri d'une planche mesurée (bonne, à surveiller, à laisser) selon l'usage, avec des seuils indicatifs et la longueur utile une fois la fente recoupée
+- Stock de l'atelier (lot 183) : vis, colles, finitions, quincaillerie communs à tous les chantiers, avec un seuil d'alerte par article. Le stock est réparti entre les chantiers dans leur ordre, d'après leurs courses (article lié) ou les articles ajoutés du même nom ; « Réserver pour ce chantier » le déduit de ses courses. Liste « À racheter », outils prêtés et chutes gardées de tous les chantiers réunis
 - Grille des calculs rangée par familles : une rangée de puces en haut (bien commencer, bois et menuiserie, combles et toit, murs, sols et plafonds, confort et réseaux, dehors, chantier) n'affiche que la famille choisie
 - Caisse à outils du débutant : l'indispensable et ce qui vient ensuite, avec une fourchette de prix indicative et les gestes où chaque outil sert ; on coche ce qu'on a, l'écran dit ce qui manque et combien ça coûte, et l'ajoute aux courses. Chaque geste affiche aussi ses outils
 - Cinq gestes de plus : poser une cheville, couper une plaque de plâtre, couper un onglet à 45°, tracer au niveau laser, faire les joints du carrelage

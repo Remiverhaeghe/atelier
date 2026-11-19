@@ -36,6 +36,7 @@ import 'quote_pdf.dart';
 import 'journal_pdf.dart';
 import 'reminders_card.dart';
 import 'review_screen.dart';
+import 'workshop_stock_screen.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
@@ -272,6 +273,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.handshake_outlined,
         vText.loanMenu,
         () => LoansScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.inventory_2_outlined,
+        vText.stockMenu,
+        () => WorkshopStockScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.checklist,
