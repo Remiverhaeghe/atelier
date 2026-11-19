@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/dropped_ceiling.dart';
 import '../logic/extra_items.dart';
+import '../logic/glossary.dart';
 import '../logic/units.dart';
+import 'glossary_view.dart';
 import 'parquet_view.dart';
 import 'shopping_target.dart';
 import 'sketch3d.dart';
@@ -121,6 +123,7 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
             onValue: (pValue) => setState(() => _wantedMm = pValue),
           ),
           const SizedBox(height: 12),
+          const TermsRow([Term.furring]),
           IconLine(Icons.lightbulb_outline, vText.ceilingTip),
           Text(vText.ceilingHint, style: vTheme.textTheme.bodySmall),
         ],

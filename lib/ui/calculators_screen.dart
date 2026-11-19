@@ -29,6 +29,7 @@ import 'attic_section_calculator.dart';
 import 'large_room_heat_calculator.dart';
 import 'lighting_calculator.dart';
 import 'reverberation_calculator.dart';
+import 'gestures_screen.dart';
 import 'glossary_view.dart';
 import 'niche_shelf_calculator.dart';
 import 'notebook.dart';
@@ -82,6 +83,12 @@ class CalculatorsScreen extends StatelessWidget {
   final Future<void> Function(String pWorksiteId, List<ExtraItem> pItems)? onAddToShopping;
 
   static List<Calculator> entries(AppLocalizations pText, [List<Room> pRooms = const []]) => [
+    (
+      title: pText.gesturesTitle,
+      help: pText.gesturesHelp,
+      icon: Icons.handyman_outlined,
+      builder: (_) => const GesturesScreen(),
+    ),
     (
       title: pText.shelfTitle,
       help: pText.shelfHelp,

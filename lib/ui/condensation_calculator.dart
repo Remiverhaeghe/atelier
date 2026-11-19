@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/condensation.dart';
+import '../logic/glossary.dart';
 import '../logic/units.dart';
+import 'glossary_view.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
 
@@ -100,6 +102,7 @@ class _CondensationCalculatorState extends State<CondensationCalculator> {
             onValue: (pValue) => setState(() => _outside = pValue),
           ),
           const SizedBox(height: 12),
+          const TermsRow([Term.vapourBarrier]),
           IconLine(Icons.air, vText.dewVentilate),
           IconLine(Icons.layers_outlined, vText.dewVapour),
           IconLine(Icons.device_thermostat, vText.dewHeat),

@@ -71,7 +71,13 @@ Future<void> tapAndSettle(WidgetTester pTester, Finder pFinder) async {
   // Une liste ne construit que ce qui est à l'écran : sous les tuiles d'accueil, les pièces
   // n'existent pas encore tant qu'on n'a pas fait défiler
   if (pFinder.evaluate().isEmpty) {
-    await pTester.scrollUntilVisible(pFinder, 300, scrollable: find.byType(Scrollable).first);
+    // L'élément peut être au-dessus de l'écran : on repart du haut, puis on descend
+    final vScrollable = find.byType(Scrollable).first;
+    pTester.state<ScrollableState>(vScrollable).position.jumpTo(0);
+    await pTester.pumpAndSettle();
+    if (pFinder.evaluate().isEmpty) {
+      await pTester.scrollUntilVisible(pFinder, 300, scrollable: vScrollable);
+    }
   }
   await pTester.ensureVisible(pFinder);
   await pTester.pumpAndSettle();
@@ -159,6 +165,11 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Placard sous rampant'));
     await capture('23-placard-rampant');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Gestes de base'));
+    await tapAndSettle(pTester, find.text('Scier droit'));
+    await capture('24-geste-scier');
     capturesDone();
   });
 

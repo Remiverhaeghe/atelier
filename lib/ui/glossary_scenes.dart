@@ -104,6 +104,70 @@ import 'sketch3d.dart';
       ],
       callouts: [vLabel(50, 20, 1, pText.termCarrez, const Offset(30, 40))],
     ),
+    Term.grain || Term.edge => (
+      parts: [
+        Prism.box(0, 90, 0, 30, 0, 5, role: vIf(pTerm == Term.edge)),
+        // Veines le long de la planche : c'est le sens du fil
+        for (final vY in [5.0, 12.0, 19.0, 25.0])
+          Prism.box(4, 86, vY, vY + 0.8, 5, 5.3, role: vIf(pTerm == Term.grain, PartRole.ghost)),
+      ],
+      callouts: [
+        if (pTerm == Term.grain) vLabel(60, 12, 5, pText.termGrain, const Offset(20, -50)),
+        if (pTerm == Term.edge) vLabel(45, 0, 2.5, pText.termEdge, const Offset(10, 40)),
+      ],
+    ),
+    Term.chamfer => (
+      parts: [
+        Prism([(0, 0), (30, 0), (30, 14), (26, 18), (0, 18)], 0, 60),
+        Prism([(26, 18), (30, 14), (30.6, 14.6), (26.6, 18.6)], 0, 60, role: PartRole.highlight),
+      ],
+      callouts: [vLabel(28, 0, 16, pText.termChamfer, const Offset(60, -40))],
+    ),
+    Term.kerf => (
+      parts: [
+        Prism.box(0, 46, 0, 30, 0, 6),
+        Prism.box(46, 49, 0, 30, 0, 6, role: PartRole.highlight),
+        Prism.box(49, 95, 0, 30, 0, 6, role: PartRole.board),
+      ],
+      callouts: [vLabel(47.5, 0, 6, pText.termKerf, const Offset(0, -50))],
+    ),
+    Term.pilotHole || Term.countersink => (
+      parts: [
+        Prism.box(0, 60, 0, 40, 0, 12),
+        Prism.box(29, 31, 19, 21, 0, 10, role: vIf(pTerm == Term.pilotHole, PartRole.ghost)),
+        Prism(
+          [(26, 12), (34, 12), (31, 9.5), (29, 9.5)],
+          17,
+          23,
+          role: vIf(pTerm == Term.countersink, PartRole.ghost),
+        ),
+      ],
+      callouts: [
+        vLabel(30, 20, 5, pText.termPilotHole, const Offset(-80, 40)),
+        vLabel(34, 20, 12, pText.termCountersink, const Offset(70, -40)),
+      ],
+    ),
+    Term.furring => (
+      parts: [
+        Prism.box(0, 90, 0, 60, 30, 34, role: PartRole.board),
+        for (final vY in [8.0, 28.0, 48.0])
+          Prism.box(0, 90, vY, vY + 5, 24, 27, role: PartRole.highlight),
+        for (final vY in [8.0, 28.0, 48.0])
+          for (final vX in [20.0, 70.0]) Prism.box(vX, vX + 1, vY + 2, vY + 3, 27, 30),
+        Prism.box(0, 90, 0, 60, 22, 24, role: PartRole.ghost),
+      ],
+      callouts: [vLabel(80, 8, 25.5, pText.termFurring, const Offset(40, 30))],
+    ),
+    Term.vapourBarrier => (
+      parts: [
+        for (final vX in [0.0, 40.0, 80.0]) Prism.box(vX, vX + 5, 4, 20, 0, 60),
+        Prism.box(5, 40, 6, 20, 0, 60, role: PartRole.ghost),
+        Prism.box(45, 80, 6, 20, 0, 60, role: PartRole.ghost),
+        Prism.box(0, 85, 2.5, 3.5, 0, 60, role: PartRole.highlight),
+        Prism.box(0, 85, 0, 1.5, 0, 60, role: PartRole.board),
+      ],
+      callouts: [vLabel(60, 3, 40, pText.termVapourBarrier, const Offset(50, -30))],
+    ),
     Term.rafter || Term.ridge || Term.slope || Term.kneeWall || Term.spacing => (
       parts: [
         Prism.box(6, 9, -2, 48, 0, 30, role: vIf(pTerm == Term.kneeWall, PartRole.board)),
