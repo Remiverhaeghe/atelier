@@ -19,7 +19,7 @@ void main() {
     expect(find.text('1 L pour 3 couches'), findsOneWidget);
     expect(find.text('1 × 1 L'), findsOneWidget);
     expect(find.text('12 h entre deux couches, 24 h d\'attente en tout'), findsOneWidget);
-    expect(find.text('film en surface'), findsOneWidget);
+    expect(pTester.widget<FinishSketch>(find.byType(FinishSketch)).finish.film, isTrue);
     expect(find.byType(FinishSketch), findsOneWidget);
 
     await pTester.tap(find.text('Sol'));
@@ -31,7 +31,7 @@ void main() {
     await pTester.tap(find.text('Dehors'));
     await pTester.pumpAndSettle();
     expect(find.widgetWithText(ChoiceChip, 'Lasure'), findsOneWidget);
-    expect(find.text('entre dans le bois'), findsOneWidget);
+    expect(pTester.widget<FinishSketch>(find.byType(FinishSketch)).finish.film, isFalse);
     await pTester.enterText(find.widgetWithText(TextField, 'Surface à traiter (m²)'), '10');
     await pTester.pump();
     expect(find.text('2,5 L pour 3 couches'), findsOneWidget);
