@@ -3,6 +3,9 @@
 ## Non publié
 
 ### Ajouté
+- Choisir un panneau : contreplaqué, OSB, MDF, latté, mélaminé ou aggloméré selon l'usage (étagère, meuble, plancher, contreventement, pièce humide, dehors, meuble à peindre), structure de chaque panneau dessinée en relief, tenue de la vis, prix relatif et poids d'une plaque selon l'épaisseur
+- Colles et serrage : la colle selon ce qu'on assemble (vinylique, D3, polyuréthane, contact, époxy, mastic-colle), temps d'assemblage, de serrage et de prise, et nombre de serre-joints selon la longueur du collage
+- Huit mots de plus au lexique, avec leur schéma en relief : lambourde, liteau, suspente, appui, goutte d'eau, onglet, nœud et fente
 - Grille des calculs rangée par familles : une rangée de puces en haut (bien commencer, bois et menuiserie, combles et toit, murs, sols et plafonds, confort et réseaux, dehors, chantier) n'affiche que la famille choisie
 - Caisse à outils du débutant : l'indispensable et ce qui vient ensuite, avec une fourchette de prix indicative et les gestes où chaque outil sert ; on coche ce qu'on a, l'écran dit ce qui manque et combien ça coûte, et l'ajoute aux courses. Chaque geste affiche aussi ses outils
 - Cinq gestes de plus : poser une cheville, couper une plaque de plâtre, couper un onglet à 45°, tracer au niveau laser, faire les joints du carrelage
