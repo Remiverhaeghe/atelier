@@ -157,9 +157,8 @@ typedef Work = ({
 });
 
 /// Coût indicatif des travaux d'une paroi.
-int workCost(Envelope pEnvelope, EnvelopePart pPart) => pPart == EnvelopePart.air
-    ? airWorkCost
-    : (pEnvelope.areaOf(pPart) * pPart.costPerM2).round();
+int workCost(Envelope pEnvelope, EnvelopePart pPart) =>
+    pPart == EnvelopePart.air ? airWorkCost : (pEnvelope.areaOf(pPart) * pPart.costPerM2).round();
 
 /// Travaux utiles, les plus rentables d'abord ; une paroi déjà à l'état visé n'en a pas.
 List<Work> bestWorks(Envelope pEnvelope, {int pDegreeDays = defaultDegreeDays}) {
@@ -170,8 +169,7 @@ List<Work> bestWorks(Envelope pEnvelope, {int pDegreeDays = defaultDegreeDays}) 
     if (vFrom >= vPart.targetState || pEnvelope.areaOf(vPart) <= 0) {
       continue;
     }
-    final vSaved =
-        partLossWK(pEnvelope, vPart) - partLossWK(pEnvelope, vPart, vPart.targetState);
+    final vSaved = partLossWK(pEnvelope, vPart) - partLossWK(pEnvelope, vPart, vPart.targetState);
     final vKwh = yearlyKwh(vSaved, pDegreeDays: pDegreeDays);
     final vCost = workCost(pEnvelope, vPart);
     rWorks.add((

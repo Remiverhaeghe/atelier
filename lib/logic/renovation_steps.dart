@@ -76,12 +76,7 @@ List<StepEffect> renovationPlan(Envelope pEnvelope, HeatingSystem pNow, HeatingS
     final vAfter = boughtKwh(vEnvelope, vHeating);
     final vShare = vStart == 0 ? 0.0 : (vBefore - vAfter) / vStart * prudenceFactor;
     vRemaining -= vShare;
-    rSteps.add((
-      step: vStep,
-      skipped: vSkipped,
-      stepShare: vShare,
-      remainingShare: vRemaining,
-    ));
+    rSteps.add((step: vStep, skipped: vSkipped, stepShare: vShare, remainingShare: vRemaining));
   }
 
   return rSteps;

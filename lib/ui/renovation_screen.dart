@@ -121,7 +121,11 @@ class _RenovationScreenState extends State<RenovationScreen> {
           const SizedBox(height: 8),
           Text(
             vText.renovStart(
-              envelopeStateLabel(vText, EnvelopePart.roof, widget.envelope.stateOf(EnvelopePart.roof)),
+              envelopeStateLabel(
+                vText,
+                EnvelopePart.roof,
+                widget.envelope.stateOf(EnvelopePart.roof),
+              ),
               envelopeStateLabel(
                 vText,
                 EnvelopePart.walls,

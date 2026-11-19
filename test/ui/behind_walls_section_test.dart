@@ -69,7 +69,10 @@ void main() {
     await pTester.pumpAndSettle();
     await pTester.tap(find.text('Mur 2').last);
     await pTester.pumpAndSettle();
-    await pTester.enterText(find.widgetWithText(TextField, "Note (ce qu'on voit, une cote)"), 'PER');
+    await pTester.enterText(
+      find.widgetWithText(TextField, "Note (ce qu'on voit, une cote)"),
+      'PER',
+    );
     await pTester.tap(find.text('Prendre la photo'));
     await pTester.pumpAndSettle();
     expect(vRoom.behindWalls.photos.single.wallIndex, 1);
@@ -127,13 +130,7 @@ void main() {
       networks: [_aRun],
       behindWalls: const BehindWalls(
         joists: [
-          JoistSet(
-            id: 's',
-            place: JoistPlace.floor,
-            wallIndex: 0,
-            firstMm: 300,
-            spacingMm: 400,
-          ),
+          JoistSet(id: 's', place: JoistPlace.floor, wallIndex: 0, firstMm: 300, spacingMm: 400),
         ],
         photos: [
           ClosingPhoto(id: 'p', wallIndex: 1, path: '/photos/mur.png', day: '2026-11-02'),

@@ -33,7 +33,10 @@ void main() {
     const vEmpty = Envelope(roofM2: 0, wallsM2: 0, windowsM2: 0, floorM2: 0, volumeM3: 0);
     expect(heatLosses(vEmpty).every((pLoss) => pLoss.share == 0), isTrue);
     expect(bestWorks(vEmpty), isEmpty);
-    expect(renovationPlan(vEmpty, HeatingSystem.oldBoiler, HeatingSystem.heatPump).first.stepShare, 0);
+    expect(
+      renovationPlan(vEmpty, HeatingSystem.oldBoiler, HeatingSystem.heatPump).first.stepShare,
+      0,
+    );
   });
 
   test('travaux les plus rentables d’abord, coûts indicatifs', () {
@@ -92,7 +95,10 @@ void main() {
           lengthMm: 4000,
           openings: [Opening(kind: OpeningKind.window, offsetMm: 1000, widthMm: 1200)],
         ),
-        Wall(lengthMm: 3000, openings: [Opening(kind: OpeningKind.door, offsetMm: 0, widthMm: 800)]),
+        Wall(
+          lengthMm: 3000,
+          openings: [Opening(kind: OpeningKind.door, offsetMm: 0, widthMm: 800)],
+        ),
         Wall(lengthMm: 4000),
         Wall(lengthMm: 3000),
       ],

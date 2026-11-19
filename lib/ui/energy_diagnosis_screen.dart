@@ -152,8 +152,13 @@ class _EnergyDiagnosisScreenState extends State<EnergyDiagnosisScreen> {
           ),
           const SizedBox(height: 12),
           Text(vText.energyHouse, style: vTheme.textTheme.titleMedium),
-          if (widget.rooms.isNotEmpty) Text(vText.energyFromRooms, style: vTheme.textTheme.bodySmall),
-          vArea(vText.energyRoofArea, _envelope.roofM2, (pValue) => _envelope.copyWith(roofM2: pValue)),
+          if (widget.rooms.isNotEmpty)
+            Text(vText.energyFromRooms, style: vTheme.textTheme.bodySmall),
+          vArea(
+            vText.energyRoofArea,
+            _envelope.roofM2,
+            (pValue) => _envelope.copyWith(roofM2: pValue),
+          ),
           vArea(
             vText.energyWallsArea,
             _envelope.wallsM2,
@@ -226,17 +231,16 @@ class HouseLossSketch extends StatelessWidget {
       parts: [
         Prism.box(0, vWidth, 0, vDepth, -250, 0, role: vRole(EnvelopePart.floor, PartRole.board)),
         Prism.box(0, vWidth, 0, vDepth, 0, vWall, role: vRole(EnvelopePart.walls, PartRole.ghost)),
-        Prism.box(
-          2500,
-          4300,
-          -10,
-          0,
-          900,
-          2100,
-          role: vRole(EnvelopePart.windows, PartRole.glass),
-        ),
+        Prism.box(2500, 4300, -10, 0, 900, 2100, role: vRole(EnvelopePart.windows, PartRole.glass)),
         Prism(
-          [(0, vWall), (vWidth / 2, vWall + vRidge), (vWidth, vWall), (vWidth, vWall + 150), (vWidth / 2, vWall + vRidge + 150), (0, vWall + 150)],
+          [
+            (0, vWall),
+            (vWidth / 2, vWall + vRidge),
+            (vWidth, vWall),
+            (vWidth, vWall + 150),
+            (vWidth / 2, vWall + vRidge + 150),
+            (0, vWall + 150),
+          ],
           0,
           vDepth,
           role: vRole(EnvelopePart.roof, PartRole.wood),

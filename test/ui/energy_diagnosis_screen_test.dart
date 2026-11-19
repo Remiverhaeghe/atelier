@@ -21,7 +21,9 @@ void main() {
     expect(find.text('Environ 23100 kWh perdus par an'), findsOneWidget);
     expect(find.text('Murs : 48 % des pertes (210 W/K)'), findsOneWidget);
     expect(
-      find.text('1. Murs vers « Bien isolés (12 cm et plus) » : 42 % des pertes en moins, environ 8400 €'),
+      find.text(
+        '1. Murs vers « Bien isolés (12 cm et plus) » : 42 % des pertes en moins, environ 8400 €',
+      ),
       findsOneWidget,
     );
     expect(find.textContaining('France Rénov'), findsOneWidget);

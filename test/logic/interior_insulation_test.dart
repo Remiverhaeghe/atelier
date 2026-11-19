@@ -8,7 +8,9 @@ import '../support/rooms.dart';
 void main() {
   test('laine de verre sur fourrures : épaisseur, matériel et surface perdue', () {
     final vPlan = planLining(
-      pRooms: [(room: rectangleRoom(), walls: {0, 1})],
+      pRooms: [
+        (room: rectangleRoom(), walls: {0, 1}),
+      ],
       pInsulant: Insulant.glassWool,
       pSystem: LiningSystem.metalFrame,
     );
@@ -26,7 +28,9 @@ void main() {
 
   test('doublage collé en polyuréthane : pas de pare-vapeur, de la colle', () {
     final vPlan = planLining(
-      pRooms: [(room: rectangleRoom(), walls: {0, 1})],
+      pRooms: [
+        (room: rectangleRoom(), walls: {0, 1}),
+      ],
       pInsulant: Insulant.polyurethane,
       pSystem: LiningSystem.gluedComplex,
     );
@@ -40,7 +44,9 @@ void main() {
 
   test('ossature bois : montants et rails, sans appuis', () {
     final vPlan = planLining(
-      pRooms: [(room: rectangleRoom(), walls: {0})],
+      pRooms: [
+        (room: rectangleRoom(), walls: {0}),
+      ],
       pInsulant: Insulant.woodFibre,
       pSystem: LiningSystem.timberFrame,
       pTargetR: 3,

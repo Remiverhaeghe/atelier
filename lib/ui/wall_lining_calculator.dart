@@ -60,9 +60,7 @@ class _WallLiningCalculatorState extends State<WallLiningCalculator> {
       ];
     }
 
-    return [
-      for (final vRoom in _rooms) (room: vRoom, walls: _walls[vRoom.id] ?? const <int>{}),
-    ];
+    return [for (final vRoom in _rooms) (room: vRoom, walls: _walls[vRoom.id] ?? const <int>{})];
   }
 
   @override
@@ -153,9 +151,7 @@ class _WallLiningCalculatorState extends State<WallLiningCalculator> {
                   if (vPlan.rooms.any((pRoom) => pRoom.windows > 0))
                     IconLine(
                       Icons.window_outlined,
-                      vText.iwiReveals(
-                        vPlan.rooms.fold(0, (pSum, pRoom) => pSum + pRoom.windows),
-                      ),
+                      vText.iwiReveals(vPlan.rooms.fold(0, (pSum, pRoom) => pSum + pRoom.windows)),
                     ),
                   AddToShoppingButton(items: () => vItems),
                 ],
@@ -277,7 +273,15 @@ class LiningSketch extends StatelessWidget {
               vHeight,
             ),
         if (vapor) Prism.box(vInner, vInner + 4, 0, vLength, 0, vHeight, role: PartRole.glass),
-        Prism.box(vInner + 4, vInner + 4 + vBoard, 0, vLength * 0.8, 0, vHeight, role: PartRole.board),
+        Prism.box(
+          vInner + 4,
+          vInner + 4 + vBoard,
+          0,
+          vLength * 0.8,
+          0,
+          vHeight,
+          role: PartRole.board,
+        ),
       ],
       callouts: [
         (

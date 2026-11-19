@@ -158,13 +158,7 @@ List<WindowNote> windowsOf(Room pRoom) => [
         ),
   for (final vFixture in pRoom.fixtures)
     if (vFixture.kind == FixtureKind.roofWindow)
-      (
-        wallNumber: 0,
-        widthMm: vFixture.widthMm,
-        heightMm: vFixture.depthMm,
-        sillMm: 0,
-        roof: true,
-      ),
+      (wallNumber: 0, widthMm: vFixture.widthMm, heightMm: vFixture.depthMm, sillMm: 0, roof: true),
 ];
 
 /// Murs où des réseaux sont relevés mais sans photo avant fermeture : à photographier avant
