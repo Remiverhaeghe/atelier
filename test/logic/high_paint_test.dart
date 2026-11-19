@@ -36,7 +36,10 @@ void main() {
   test('ordre sans reprise : on déplace l\'échafaudage, on ne coupe pas le mur en deux', () {
     final vScaffold = highPaintSteps(HighAccess.scaffold);
     expect(vScaffold.first, HighPaintStep.protect);
-    expect(vScaffold.indexOf(HighPaintStep.ceilingFirst), lessThan(vScaffold.indexOf(HighPaintStep.verticalBands)));
+    expect(
+      vScaffold.indexOf(HighPaintStep.ceilingFirst),
+      lessThan(vScaffold.indexOf(HighPaintStep.verticalBands)),
+    );
     expect(vScaffold, contains(HighPaintStep.moveAlong));
     expect(highPaintSteps(HighAccess.telescopicPole), isNot(contains(HighPaintStep.moveAlong)));
   });

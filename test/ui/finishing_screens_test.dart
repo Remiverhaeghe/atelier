@@ -25,7 +25,10 @@ void main() {
     expect(find.textContaining('2 rouleaux de 15 m²'), findsOneWidget);
     expect(find.text('Un joint de dilatation à chaque seuil de porte.'), findsOneWidget);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Humidité mesurée (%), si vous l\'avez'), '2,5');
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Humidité mesurée (%), si vous l\'avez'),
+      '2,5',
+    );
     await pTester.pump();
     expect(find.textContaining('attendez encore'), findsOneWidget);
 
@@ -66,10 +69,15 @@ void main() {
     expect(find.textContaining('entre 90 et 130 cm du sol'), findsOneWidget);
   });
 
-  testWidgets('grande hauteur : manche, escabeau, échafaudage et ordre de travail', (pTester) async {
+  testWidgets('grande hauteur : manche, escabeau, échafaudage et ordre de travail', (
+    pTester,
+  ) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(const HighPaintCalculator()));
-    expect(find.text('Manche télescopique de 3 m et escabeau pour découper les angles'), findsOneWidget);
+    expect(
+      find.text('Manche télescopique de 3 m et escabeau pour découper les angles'),
+      findsOneWidget,
+    );
     expect(find.text('Murs : 76 m², 15,2 L, 2 pots de 10 L'), findsOneWidget);
     expect(find.text('Plafond : 16 m², 3,2 L, 1 pot de 10 L'), findsOneWidget);
     expect(find.textContaining('Avancer l\'échafaudage'), findsOneWidget);
@@ -103,12 +111,7 @@ void main() {
 
   testWidgets('souvenirs : avant puis après, diaporama qui avance seul', (pTester) async {
     await pTester.pumpWidget(
-      localized(
-        MemoriesScreen(
-          worksite: vWorksite,
-          photo: (pPath) => Text(pPath),
-        ),
-      ),
+      localized(MemoriesScreen(worksite: vWorksite, photo: (pPath) => Text(pPath))),
     );
     expect(find.text('Avant'), findsOneWidget);
     expect(find.text('/p/a0.jpg'), findsOneWidget);
@@ -129,7 +132,11 @@ void main() {
 
   testWidgets('souvenirs : sans photo, le carnet explique quoi faire', (pTester) async {
     await pTester.pumpWidget(
-      localized(const MemoriesScreen(worksite: Worksite(id: 'w', name: 'Vide'))),
+      localized(
+        const MemoriesScreen(
+          worksite: Worksite(id: 'w', name: 'Vide'),
+        ),
+      ),
     );
     expect(find.textContaining('Ajoutez des photos d\'avant et d\'après'), findsOneWidget);
     expect(find.byTooltip('Souvenirs en PDF'), findsNothing);

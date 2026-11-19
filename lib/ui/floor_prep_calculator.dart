@@ -125,9 +125,7 @@ class _FloorPrepCalculatorState extends State<FloorPrepCalculator> {
                   if (vMoisture != null)
                     IconLine(
                       readyToLay(_kind, vMoisture) ? Icons.check : AtelierIcons.warning,
-                      readyToLay(_kind, vMoisture)
-                          ? vText.floorPrepReady
-                          : vText.floorPrepNotReady,
+                      readyToLay(_kind, vMoisture) ? vText.floorPrepReady : vText.floorPrepNotReady,
                     ),
                   IconLine(Icons.texture, switch (underlayFor(_covering)) {
                     Underlay.none => vText.floorPrepUnderlayNone,

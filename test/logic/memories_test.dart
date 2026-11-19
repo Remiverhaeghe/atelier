@@ -14,7 +14,14 @@ void main() {
       beforePath: '/p/a0.jpg',
       photoPath: '/p/a.jpg',
     ),
-    JournalEntry(id: 'b', roomId: 'r', day: '2026-11-12', title: 'Peinture', beforePath: '/p/b0.jpg', photoPath: '/p/b.jpg'),
+    JournalEntry(
+      id: 'b',
+      roomId: 'r',
+      day: '2026-11-12',
+      title: 'Peinture',
+      beforePath: '/p/b0.jpg',
+      photoPath: '/p/b.jpg',
+    ),
   ];
 
   test('entrées en photo, par jour, l\'avant-après d\'abord', () {
@@ -25,13 +32,10 @@ void main() {
 
   test('diaporama : l\'avant puis l\'après, en boucle', () {
     final vSlides = memorySlides(vJournal);
-    expect([for (final vSlide in vSlides) vSlide.path], [
-      '/p/a0.jpg',
-      '/p/a.jpg',
-      '/p/b0.jpg',
-      '/p/b.jpg',
-      '/p/c.jpg',
-    ]);
+    expect(
+      [for (final vSlide in vSlides) vSlide.path],
+      ['/p/a0.jpg', '/p/a.jpg', '/p/b0.jpg', '/p/b.jpg', '/p/c.jpg'],
+    );
     expect(vSlides.first.before, isTrue);
     expect(vSlides[1].before, isFalse);
     expect(nextSlide(4, 5), 0);

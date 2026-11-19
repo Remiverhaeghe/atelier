@@ -113,7 +113,8 @@ Future<Uint8List> buildMemoriesPdf(
             pw.Text(pText.memoriesTitle, style: vTitle),
             pw.SizedBox(height: 8),
             pw.Text(pWorksite.name, style: vCaption),
-            if (vSpan != null) pw.Text(pText.memoriesSpan(vSpan.first, vSpan.last), style: vCaption),
+            if (vSpan != null)
+              pw.Text(pText.memoriesSpan(vSpan.first, vSpan.last), style: vCaption),
           ],
         ),
       ),
