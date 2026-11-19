@@ -194,10 +194,12 @@ jobs:
       - name: Construction
         run: |
           flutter pub get
-          # Sur une pull request, seule l'APK arm64 sert (contrôle des permissions) : les deux
-          # autres architectures ne sont construites que pour main et les releases
+          # Hors de main et des releases, seule l'APK arm64 sert (contrôle des permissions) :
+          # les deux autres architectures ne sont construites que pour être publiées
           vAbi=""
-          if [ "$GITHUB_EVENT_NAME" = pull_request ]; then vAbi="--target-platform android-arm64"; fi
+          if [ "$GITHUB_REF" != refs/heads/main ] && [ "$GITHUB_EVENT_NAME" != release ]; then
+            vAbi="--target-platform android-arm64"
+          fi
           # Numéro de construction croissant : Android refuse une mise à jour dont le
           # versionCode n'augmente pas
           flutter build apk --release --split-per-abi $vAbi --build-number="$GITHUB_RUN_NUMBER"
