@@ -122,6 +122,7 @@ class WorksitesScreen extends StatelessWidget {
                 builder: (_) => CalculatorsScreen(
                   rooms: [for (final vWorksite in controller.worksites) ...vWorksite.rooms],
                   worksites: controller.worksites,
+                  settings: settings,
                   onAddToShopping: (pId, pItems) async {
                     final vWorksite = controller.worksite(pId);
                     if (vWorksite != null) {

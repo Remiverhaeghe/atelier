@@ -12,6 +12,7 @@ import 'mezzanine_height_card.dart';
 import 'mezzanine_timber_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 import 'wood_species_card.dart';
 
 String mezzanineUseLabel(AppLocalizations pText, MezzanineUse pUse) => switch (pUse) {
@@ -53,7 +54,54 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
     void vSet(Mezzanine pMezzanine) => setState(() => _mezzanine = pMezzanine);
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.mezzanineTitle)),
+      appBar: AppBar(
+        title: Text(vText.mezzanineTitle),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: vText.mezzanineTitle,
+              intro: vText.mezzanineWarning,
+              measures: [
+                (vText.mezzanineLength, formatCentimetres(_mezzanine.lengthMm)),
+                (vText.mezzanineDepth, formatCentimetres(_mezzanine.depthMm)),
+                (vText.mezzaninePostHeight, formatCentimetres(_mezzanine.postHeightMm)),
+                (vText.floorPanel, floorPanelLabel(vText, _panel)),
+              ],
+              results: [
+                if (vJoist == null)
+                  vText.mezzanineJoistTooLong
+                else
+                  vText.mezzanineJoists(
+                    vPlan.joists,
+                    vJoist.widthMm,
+                    vJoist.heightMm,
+                    formatCentimetres(_mezzanine.joistSpacingMm),
+                  ),
+                if (vPlan.ledgers > 0)
+                  vText.mezzanineLedgers(vPlan.ledgers, vPlan.anchorsPerLedger),
+                if (vPlan.beams > 0)
+                  if (vBeam == null)
+                    vText.mezzanineBeamTooLong
+                  else
+                    vText.mezzanineBeams(vPlan.beams, vBeam.widthMm, vBeam.heightMm),
+                if (vPlan.beams > 0)
+                  vPostSide == null
+                      ? vText.mezzaninePostTooSlender
+                      : vText.mezzaninePosts(
+                          vPlan.postsPerBeam * vPlan.beams,
+                          vPostSide,
+                          formatCentimetres(vPlan.postSpacingMm),
+                          vPlan.postLoadKn.round(),
+                        ),
+                vText.mezzanineHangers(vPlan.hangers),
+                if (vPlan.beams > 0) vText.mezzanineBracing,
+              ],
+              buy: const [],
+              steps: const [],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [

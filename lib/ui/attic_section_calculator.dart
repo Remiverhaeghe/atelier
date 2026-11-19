@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/attic_insulation.dart';
 import '../logic/attic_section.dart';
 import '../logic/glossary.dart';
 import '../logic/units.dart';
@@ -12,6 +13,7 @@ import 'glossary_view.dart';
 import 'notebook.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 
 /// Pièce sous rampants vue en coupe : ce qu'on tient debout, ce qu'on habille de placo.
 class AtticSectionCalculator extends StatefulWidget {
@@ -31,6 +33,10 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
 
   // Coupe à plat, manipulable au doigt, ou pièce en relief
   var _relief = false;
+
+  // Isolant ajouté par l'intérieur, sous les rampants et contre les jambettes
+  var _slopeInsulationMm = 200;
+  var _kneeInsulationMm = 100;
 
   // Augmenté quand une valeur change hors des champs (mesure au téléphone, croquis) : les
   // champs sont recréés avec la nouvelle valeur, sans perdre la saisie en cours sinon
@@ -63,9 +69,57 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
     final vUsableM2 = vSection.usableWidthMm / 1000 * vLength;
     final vFloorM2 = _widthMm / 1000 * vLength;
     final vBoardM2 = vSection.boardM2PerMetre * vLength;
+    final vInsulation = insulateAttic(
+      pWidthMm: _widthMm,
+      pLengthMm: _lengthMm,
+      pKneeWallMm: _kneeMm,
+      pSlopeDeg: _slopeDeg.toDouble(),
+      pTwoPitches: _twoPitches,
+      pSlopeInsulationMm: _slopeInsulationMm,
+      pKneeInsulationMm: _kneeInsulationMm,
+      pCeilingMm: _ceilingMm > 0 ? _ceilingMm : null,
+    );
+    final vWhy = [
+      vText.atticWhyTop(vCm(_kneeMm), vCm(vSection.topMm)),
+      vText.atticWhyLow(vCm(vSection.lowStripMm)),
+      vText.atticWhyUsable(vCm(vSection.usableWidthMm), vM2(vUsableM2)),
+      vText.atticWhyBoard(vM2(vSection.boardM2PerMetre), vM2(vBoardM2)),
+    ];
+    final vInsulationLines = [
+      vText.atticInsulationLost(vM2(vInsulation.lostM2), vInsulation.lostPercent),
+      vText.atticInsulationLeft(vM2(vInsulation.usableAfterM2)),
+      vText.atticInsulationR(formatDecimal((vInsulation.rValue * 10).round() / 10)),
+    ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.atticTitle)),
+      appBar: AppBar(
+        title: Text(vText.atticTitle),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: vText.atticTitle,
+              intro: vText.atticHelp,
+              measures: [
+                (vText.atticWidth, vCm(_widthMm)),
+                (vText.atticKnee, vCm(_kneeMm)),
+                (vText.atticSlope, '$_slopeDeg'),
+                if (_ceilingMm > 0) (vText.atticCeiling, vCm(_ceilingMm)),
+                (vText.atticLength, vCm(_lengthMm)),
+              ],
+              results: [
+                vText.atticUsable(vM2(vUsableM2)),
+                vText.atticFloor(vM2(vFloorM2)),
+                vText.atticTop(vCm(vSection.topMm)),
+                vText.atticRafter(vCm(vSection.rafterLengthMm)),
+                vText.atticBoard(vM2(vBoardM2)),
+                ...vInsulationLines,
+              ],
+              buy: const [],
+              steps: vWhy,
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
@@ -132,14 +186,34 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
             ),
           ),
           const TermsRow([Term.slope, Term.kneeWall, Term.ridge, Term.carrez, Term.plasterboard]),
-          WhyCard(
-            title: vText.whyTitle,
-            steps: [
-              vText.atticWhyTop(vCm(_kneeMm), vCm(vSection.topMm)),
-              vText.atticWhyLow(vCm(vSection.lowStripMm)),
-              vText.atticWhyUsable(vCm(vSection.usableWidthMm), vM2(vUsableM2)),
-              vText.atticWhyBoard(vM2(vSection.boardM2PerMetre), vM2(vBoardM2)),
-            ],
+          WhyCard(title: vText.whyTitle, steps: vWhy),
+          Card(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(vText.atticInsulationTitle, style: vTheme.textTheme.titleMedium),
+                  IconLine(Icons.square_foot, vInsulationLines[0]),
+                  IconLine(Icons.check_box_outline_blank, vInsulationLines[1]),
+                  IconLine(Icons.thermostat, vInsulationLines[2]),
+                  NumberField(
+                    label: vText.atticInsulationSlope,
+                    initial: vCm(_slopeInsulationMm),
+                    parse: parseCentimetres,
+                    onValue: (pValue) => setState(() => _slopeInsulationMm = pValue),
+                  ),
+                  NumberField(
+                    label: vText.atticInsulationKnee,
+                    initial: vCm(_kneeInsulationMm),
+                    parse: parseCentimetres,
+                    onValue: (pValue) => setState(() => _kneeInsulationMm = pValue),
+                  ),
+                  Text(vText.atticInsulationHint, style: vTheme.textTheme.bodySmall),
+                ],
+              ),
+            ),
           ),
           SegmentedButton<bool>(
             segments: [

@@ -8,6 +8,10 @@ enum WaitKind {
   filler(24),
   paintCoat(6),
   glue(24),
+
+  /// Rappel avant d'utiliser un outil bruyant le week-end : l'heure suit les horaires du
+  /// voisinage (voir `weekendNoiseReminder`), pas une durée.
+  noisyWeekend(0),
   custom(0);
 
   const WaitKind(this.hours);
