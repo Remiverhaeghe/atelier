@@ -142,6 +142,24 @@ jobs:
           flutter build web --release --base-href /atelier/
           python3 tool/service_worker.py build/web
 
+      # L'appli doit démarrer dans un vrai navigateur : Flutter affiché, aucune erreur en console
+      - name: Démarrage dans Chrome
+        run: |
+          mkdir -p /tmp/site && cp -r build/web /tmp/site/atelier
+          (cd /tmp/site && python3 -m http.server 8123 > /dev/null 2>&1 &)
+          sleep 2
+          google-chrome --headless=new --no-sandbox --disable-gpu --enable-logging=stderr --v=0 \
+            --virtual-time-budget=20000 --window-size=390,844 \
+            --screenshot=/tmp/site/accueil.png http://localhost:8123/atelier/ 2> chrome.log || true
+          google-chrome --headless=new --no-sandbox --disable-gpu --virtual-time-budget=20000 \
+            --dump-dom http://localhost:8123/atelier/ > dom.html 2> /dev/null || true
+          grep -E "CONSOLE|Uncaught|EXCEPTION" chrome.log || true
+          grep -q "flutter-view\|flt-glass-pane" dom.html
+          ! grep -E "Uncaught|EXCEPTION CAUGHT" chrome.log
+          echo "=== CAPTURE web-accueil"
+          base64 -w 0 /tmp/site/accueil.png
+          echo
+
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: build/web
