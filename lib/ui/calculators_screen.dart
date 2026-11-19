@@ -37,7 +37,9 @@ import 'roof_lining_calculator.dart';
 import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
+import 'quote_compare_screen.dart';
 import 'ready_projects_screen.dart';
+import 'right_tool_screen.dart';
 import 'sheet_flooring_calculator.dart';
 import 'shower_calculator.dart';
 import 'wallpaper_calculator.dart';
@@ -479,6 +481,20 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.start,
       icon: Icons.assignment_outlined,
       builder: (_) => const ReadyProjectsScreen(),
+    ),
+    (
+      title: pText.rightToolTitle,
+      help: pText.rightToolHelp,
+      family: CalcFamily.site,
+      icon: Icons.construction,
+      builder: (_) => const RightToolScreen(),
+    ),
+    (
+      title: pText.quoteCompareTitle,
+      help: pText.quoteCompareHelp,
+      family: CalcFamily.site,
+      icon: Icons.request_quote_outlined,
+      builder: (_) => const QuoteCompareScreen(),
     ),
   ];
 

@@ -10,6 +10,7 @@ import '../logic/units.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import 'planning_card.dart';
+import 'real_cost_card.dart';
 import 'theme.dart';
 
 /// Temps passé : chrono par pièce et par étape, et estimation des pièces suivantes.
@@ -197,6 +198,8 @@ class _TimeScreenState extends State<TimeScreen> {
                       ),
                   ],
                 ),
+              if (vWorksite.timeEntries.isNotEmpty)
+                RealCostCard(entries: vWorksite.timeEntries, expenses: vWorksite.expenses),
             ],
           ),
         );
