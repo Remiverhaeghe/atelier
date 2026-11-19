@@ -33,8 +33,7 @@ class _NotedAlarm implements ReminderAlarm {
   final bodies = <String>[];
 
   @override
-  Future<void> schedule(Reminder pReminder, String pTitle, String pBody) async =>
-      bodies.add(pBody);
+  Future<void> schedule(Reminder pReminder, String pTitle, String pBody) async => bodies.add(pBody);
 
   @override
   Future<void> cancel(Reminder pReminder) async {}
@@ -63,18 +62,25 @@ void main() {
     }
   });
 
-  testWidgets('bruit : horaires du jour et prochaine plage à l\'heure du déjeuner', (pTester) async {
+  testWidgets('bruit : horaires du jour et prochaine plage à l\'heure du déjeuner', (
+    pTester,
+  ) async {
     tallScreen(pTester);
     await pTester.pumpWidget(localized(NoiseScreen(now: DateTime(2026, 11, 19, 13))));
     expect(find.text('8 h 30 à 12 h'), findsOneWidget);
     expect(find.text('10 h à 12 h'), findsOneWidget);
-    expect(find.text('En ce moment : silence. Prochaine plage : aujourd\'hui à 14 h 30'), findsOneWidget);
+    expect(
+      find.text('En ce moment : silence. Prochaine plage : aujourd\'hui à 14 h 30'),
+      findsOneWidget,
+    );
 
     await pTester.pumpWidget(localized(NoiseScreen(now: DateTime(2026, 11, 21, 10, 15))));
     expect(find.text('En ce moment : travaux bruyants tolérés jusqu\'à 12 h'), findsOneWidget);
   });
 
-  testWidgets('rappel « outil bruyant le week-end » posé avant la plage du samedi', (pTester) async {
+  testWidgets('rappel « outil bruyant le week-end » posé avant la plage du samedi', (
+    pTester,
+  ) async {
     final vAlarm = _NotedAlarm();
     aReminderAlarm = vAlarm;
     addTearDown(() => aReminderAlarm = const SilentAlarm());

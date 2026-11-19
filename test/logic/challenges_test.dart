@@ -50,7 +50,10 @@ void main() {
 
   test('chaque défi renvoie à un geste animé', () {
     expect(Challenge.tenon.gesture, Gesture.chisel);
-    expect(Challenge.values.map((pItem) => pItem.gesture).toSet(), hasLength(Challenge.values.length));
+    expect(
+      Challenge.values.map((pItem) => pItem.gesture).toSet(),
+      hasLength(Challenge.values.length),
+    );
   });
 
   test('ratés : le geste à revoir et le moment où l\'on peut reprendre', () {

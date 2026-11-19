@@ -9,7 +9,10 @@ void main() {
     final vHolidays = publicHolidays(2026);
     expect(vHolidays, hasLength(11));
     // Lundi de Pâques, Ascension, lundi de Pentecôte
-    expect(vHolidays, containsAll([DateTime(2026, 4, 6), DateTime(2026, 5, 14), DateTime(2026, 5, 25)]));
+    expect(
+      vHolidays,
+      containsAll([DateTime(2026, 4, 6), DateTime(2026, 5, 14), DateTime(2026, 5, 25)]),
+    );
   });
 
   test('genre de la journée : semaine, samedi, dimanche ou férié', () {
