@@ -7,6 +7,7 @@ import '../logic/attic_section.dart';
 import '../logic/glossary.dart';
 import '../logic/units.dart';
 import 'level_screen.dart';
+import 'attic_relief.dart';
 import 'glossary_view.dart';
 import 'notebook.dart';
 import 'parquet_view.dart';
@@ -27,6 +28,9 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
   var _ceilingMm = 0;
   var _lengthMm = 4200;
   var _twoPitches = true;
+
+  // Coupe à plat, manipulable au doigt, ou pièce en relief
+  var _relief = false;
 
   // Augmenté quand une valeur change hors des champs (mesure au téléphone, croquis) : les
   // champs sont recréés avec la nouvelle valeur, sans perdre la saisie en cours sinon
@@ -74,24 +78,49 @@ class _AtticSectionCalculatorState extends State<AtticSectionCalculator> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SegmentedButton<bool>(
+                    segments: [
+                      ButtonSegment(
+                        value: false,
+                        icon: const Icon(Icons.architecture),
+                        label: Text(vText.atticViewSection),
+                      ),
+                      ButtonSegment(
+                        value: true,
+                        icon: const Icon(Icons.view_in_ar_outlined),
+                        label: Text(vText.atticViewRelief),
+                      ),
+                    ],
+                    selected: {_relief},
+                    onSelectionChanged: (pSelection) => setState(() => _relief = pSelection.first),
+                  ),
+                  const SizedBox(height: 8),
                   AspectRatio(
                     aspectRatio: 1.7,
-                    child: AtticSketch(
-                      section: vSection,
-                      widthMm: _widthMm,
-                      kneeMm: _kneeMm,
-                      twoPitches: _twoPitches,
-                      onKnee: (pMm) => setState(() {
-                        _kneeMm = pMm;
-                        _outside++;
-                      }),
-                      onSlope: (pDeg) => setState(() {
-                        _slopeDeg = pDeg;
-                        _outside++;
-                      }),
-                    ),
+                    child: _relief
+                        ? AtticRelief(
+                            section: vSection,
+                            widthMm: _widthMm,
+                            kneeMm: _kneeMm,
+                            lengthMm: _lengthMm,
+                            twoPitches: _twoPitches,
+                          )
+                        : AtticSketch(
+                            section: vSection,
+                            widthMm: _widthMm,
+                            kneeMm: _kneeMm,
+                            twoPitches: _twoPitches,
+                            onKnee: (pMm) => setState(() {
+                              _kneeMm = pMm;
+                              _outside++;
+                            }),
+                            onSlope: (pDeg) => setState(() {
+                              _slopeDeg = pDeg;
+                              _outside++;
+                            }),
+                          ),
                   ),
-                  Text(vText.atticDragHint, style: vTheme.textTheme.bodySmall),
+                  if (!_relief) Text(vText.atticDragHint, style: vTheme.textTheme.bodySmall),
                   const SizedBox(height: 8),
                   BigFigure(vText.atticUsable(vM2(vUsableM2))),
                   IconLine(Icons.square_foot, vText.atticFloor(vM2(vFloorM2))),

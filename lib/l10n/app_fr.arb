@@ -3198,5 +3198,20 @@
   "gestureCaulk3": "Lisse aussitôt au doigt trempé dans de l'eau savonneuse, puis retire le ruban avant que le mastic ne prenne.",
   "gestureCaulkMistake": "Retirer le ruban une fois le mastic sec : il arrache le cordon avec lui.",
   "gestureCaulkBead": "cordon régulier",
-  "gestureCaulkSteady": "vitesse constante"
+  "gestureCaulkSteady": "vitesse constante",
+  "sheetPrint": "Imprimer la fiche",
+  "sheetMeasures": "Mesures",
+  "sheetResults": "À retenir",
+  "sheetBuy": "À acheter",
+  "sheetSteps": "Étapes",
+  "sheetNotes": "Notes",
+  "sheetFooter": "Atelier, fiche de chantier, page {page} sur {pages}",
+  "@sheetFooter": {"placeholders": {"page": {"type": "int"}, "pages": {"type": "int"}}},
+  "sheetGear": "À porter : {gear}",
+  "@sheetGear": {"placeholders": {"gear": {"type": "String"}}},
+  "finishUseLabel": "Usage",
+  "atticViewSection": "Coupe",
+  "atticViewRelief": "En relief",
+  "atticReliefStanding": "on tient debout ici",
+  "atticReliefCarrez": "1,80 m"
 }

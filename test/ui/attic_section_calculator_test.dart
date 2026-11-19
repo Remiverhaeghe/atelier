@@ -1,3 +1,4 @@
+import 'package:atelier/ui/attic_relief.dart';
 import 'package:atelier/ui/attic_section_calculator.dart';
 import 'package:atelier/ui/calculators_screen.dart';
 import 'package:flutter/material.dart';
@@ -29,5 +30,34 @@ void main() {
     );
     await pTester.pump();
     expect(find.text('250 cm au point le plus haut'), findsOneWidget);
+  });
+
+  testWidgets('la pièce sous rampants se voit aussi en relief', (pTester) async {
+    tallScreen(pTester);
+    await pTester.pumpWidget(localized(const AtticSectionCalculator()));
+    await pTester.pumpAndSettle();
+    expect(find.textContaining('Fais glisser'), findsOneWidget);
+
+    await pTester.tap(find.text('En relief'));
+    await pTester.pumpAndSettle();
+    expect(find.byType(AtticRelief), findsOneWidget);
+    expect(find.byType(AtticSketch), findsNothing);
+    expect(find.textContaining('Fais glisser'), findsNothing);
+    // Le calcul ne change pas avec la vue
+    expect(find.text('15,2 m² habitables'), findsOneWidget);
+
+    // Un seul rampant, plafond plat, puis jambette trop haute : le relief suit sans erreur
+    await pTester.tap(find.text('Un pan'));
+    await pTester.pumpAndSettle();
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Plafond plat sous le faîtage, s\'il y en a un (cm)'),
+      '250',
+    );
+    await pTester.pump();
+    expect(pTester.takeException(), isNull);
+
+    await pTester.tap(find.text('Coupe'));
+    await pTester.pumpAndSettle();
+    expect(find.byType(AtticSketch), findsOneWidget);
   });
 }

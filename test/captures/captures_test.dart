@@ -133,6 +133,8 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Pièce sous rampants'));
     await capture('15-rampants');
+    await tapAndSettle(pTester, find.text('En relief'));
+    await capture('25-rampants-relief');
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Embrasure de fenêtre de toit'));

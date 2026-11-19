@@ -3,6 +3,8 @@
 ## Non publié
 
 ### Ajouté
+- Fiches de chantier imprimables : un bouton « Imprimer la fiche » dans les finitions, le faux plafond, le placard sous rampant et chaque geste de base. Une page A4 avec les mesures saisies, ce qu'il faut retenir, les achats et les étapes à cocher, et des lignes pour les notes
+- Pièce sous rampants en relief : à côté de la coupe manipulable au doigt, la pièce tirée sur sa longueur, la bande où l'on tient debout surlignée au sol et la ligne des 1,80 m de chaque côté
 - Gestes de base pour débuter : scier droit, raboter, percer, visser, poncer, creuser une mortaise et faire un joint de mastic, chacun joué en croquis animé en relief (quelques passes, puis l'outil reste au bout du geste ; un bouton rejoue), avec à quoi ça sert, les trois étapes, l'erreur courante, les protections à porter et les mots du métier. Tuile en tête des calculs, et lien depuis le lexique
 - Huit mots de plus au lexique, avec leur schéma en relief : fil du bois, chant, chanfrein, trait de scie, avant-trou, fraisure, fourrure et pare-vapeur. Le faux plafond renvoie à « Fourrure », la condensation à « Pare-vapeur »
 - Finitions du bois : lasure, vernis, vitrificateur, huile, cire et peinture microporeuse, choisies selon l'usage (meuble, sol, dehors), avec les litres, les pots les moins chers, l'attente entre les couches, l'entretien et une coupe en relief qui montre un film posé dessus ou une finition qui entre dans le bois

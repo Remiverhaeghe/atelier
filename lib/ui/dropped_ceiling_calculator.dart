@@ -10,6 +10,7 @@ import 'parquet_view.dart';
 import 'shopping_target.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 
 /// Faux plafond : abaisser une pièce trop haute, l'ossature à acheter et le volume gagné.
 class DroppedCeilingCalculator extends StatefulWidget {
@@ -37,9 +38,47 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
     );
     final vVolume = _lengthMm * _widthMm * _heightMm / 1e9;
     final vShare = vVolume <= 0 ? 0 : (100 * vPlan.savedVolumeM3 / vVolume).round();
+    final vItems = [
+      ExtraItem(name: vText.ceilingFurringItem, quantity: vPlan.furringBars),
+      ExtraItem(name: vText.ceilingHangerItem, quantity: vPlan.hangers),
+      ExtraItem(name: vText.ceilingRodItem, quantity: vPlan.rods),
+      ExtraItem(name: vText.ceilingJointItem, quantity: vPlan.joints),
+      ExtraItem(name: vText.ceilingAngleItem, quantity: vPlan.angleBars),
+      ExtraItem(name: vText.ceilingBoardItem, quantity: vPlan.boards),
+      ExtraItem(name: vText.ceilingScrewItem, quantity: vPlan.screws),
+    ].where((pItem) => pItem.quantity > 0).toList();
+    final vHanging = switch (vPlan.hanging) {
+      Hanging.direct => vText.ceilingHangDirect,
+      Hanging.rod => vText.ceilingHangRod,
+      Hanging.braced => vText.ceilingHangBraced,
+    };
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.ceilingTitle)),
+      appBar: AppBar(
+        title: Text(vText.ceilingTitle),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: vText.ceilingTitle,
+              intro: vText.ceilingHelp,
+              measures: [
+                (vText.ceilingLength, formatCentimetres(_lengthMm)),
+                (vText.ceilingWidth, formatCentimetres(_widthMm)),
+                (vText.ceilingNowHeight, formatCentimetres(_heightMm)),
+                (vText.ceilingWanted, formatCentimetres(_wantedMm)),
+              ],
+              results: [
+                if (vPlan.tooLow) vText.ceilingTooLow(formatCentimetres(minLivingHeightMm)),
+                vText.ceilingPlenum(formatCentimetres(vPlan.plenumMm)),
+                vHanging,
+                vText.ceilingSaved(formatDecimal(vPlan.savedVolumeM3), vShare),
+              ],
+              buy: vItems,
+              steps: [vText.ceilingTip, vText.ceilingHint],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
@@ -62,11 +101,7 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
                       color: vTheme.colorScheme.error,
                     ),
                   IconLine(Icons.height, vText.ceilingPlenum(formatCentimetres(vPlan.plenumMm))),
-                  IconLine(Icons.link, switch (vPlan.hanging) {
-                    Hanging.direct => vText.ceilingHangDirect,
-                    Hanging.rod => vText.ceilingHangRod,
-                    Hanging.braced => vText.ceilingHangBraced,
-                  }),
+                  IconLine(Icons.link, vHanging),
                   IconLine(
                     Icons.horizontal_rule,
                     vText.ceilingFurring(vPlan.furringBars, vPlan.rows),
@@ -82,17 +117,7 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
                     Icons.local_fire_department_outlined,
                     vText.ceilingSaved(formatDecimal(vPlan.savedVolumeM3), vShare),
                   ),
-                  AddToShoppingButton(
-                    items: () => [
-                      ExtraItem(name: vText.ceilingFurringItem, quantity: vPlan.furringBars),
-                      ExtraItem(name: vText.ceilingHangerItem, quantity: vPlan.hangers),
-                      ExtraItem(name: vText.ceilingRodItem, quantity: vPlan.rods),
-                      ExtraItem(name: vText.ceilingJointItem, quantity: vPlan.joints),
-                      ExtraItem(name: vText.ceilingAngleItem, quantity: vPlan.angleBars),
-                      ExtraItem(name: vText.ceilingBoardItem, quantity: vPlan.boards),
-                      ExtraItem(name: vText.ceilingScrewItem, quantity: vPlan.screws),
-                    ].where((pItem) => pItem.quantity > 0).toList(),
-                  ),
+                  AddToShoppingButton(items: () => vItems),
                 ],
               ),
             ),
