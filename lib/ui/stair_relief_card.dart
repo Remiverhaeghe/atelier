@@ -11,9 +11,6 @@ import 'parquet_view.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
 
-/// Épaisseur dessinée d'une marche.
-const _treadMm = 40.0;
-
 /// Escalier en relief : marches, plancher du haut, trémie et échappée, avec l'alerte quand
 /// on se cogne la tête.
 class StairReliefCard extends StatefulWidget {
@@ -137,13 +134,14 @@ class StairSketch extends StatelessWidget {
     final vTreads = headroom.treads;
     final vParts = <Prism>[];
     final vCallouts = <Callout>[];
+    // Marches pleines, de la hauteur d'une marche : elles se lisent mieux qu'un plateau fin
     double vTop(int pIndex) => (pIndex + 1) * vRiser;
 
     if (shape == StairShape.straight) {
       for (var vIndex = 0; vIndex < vTreads; vIndex++) {
         final vX = vIndex * vGoing;
         vParts.add(
-          Prism.box(vX - noseMm, vX + vGoing, 0, vWidth, vTop(vIndex) - _treadMm, vTop(vIndex)),
+          Prism.box(vX - noseMm, vX + vGoing, 0, vWidth, vTop(vIndex) - vRiser, vTop(vIndex)),
         );
       }
       final vRun = vTreads * vGoing;
@@ -193,12 +191,12 @@ class StairSketch extends StatelessWidget {
         (
           at: (x: vGoing * 1.5, y: 0.0, z: vTop(1)),
           text: vText.stairReliefGoingLabel(formatCentimetres(vPlan.goingMm)),
-          shift: const Offset(-30, 60),
+          shift: const Offset(-90, 50),
         ),
         (
           at: (x: vGoing * 3, y: 0.0, z: vTop(2) - vRiser / 2),
           text: vText.stairReliefRiserLabel(formatCentimetres(vPlan.riserMm)),
-          shift: const Offset(40, 70),
+          shift: const Offset(80, 30),
         ),
         if (headroom.headroomMm case final vClear?)
           (
@@ -224,7 +222,7 @@ class StairSketch extends StatelessWidget {
       var vStep = 0;
       for (var vIndex = 0; vIndex < vFirst; vIndex++, vStep++) {
         final vX = vIndex * vGoing;
-        vParts.add(Prism.box(vX, vX + vGoing, 0, vWidth, vTop(vStep) - _treadMm, vTop(vStep)));
+        vParts.add(Prism.box(vX, vX + vGoing, 0, vWidth, vTop(vStep) - vRiser, vTop(vStep)));
       }
       final vDepth = shape == StairShape.quarterTurn ? vWidth : 2 * vWidth;
       // Tournant : bandes dans le palier, en travers pour un quart, en long pour un demi
@@ -238,7 +236,7 @@ class StairSketch extends StatelessWidget {
                   vCorner + vTo * vWidth,
                   0,
                   vWidth,
-                  vTop(vStep) - _treadMm,
+                  vTop(vStep) - vRiser,
                   vTop(vStep),
                 )
               : Prism.box(
@@ -246,7 +244,7 @@ class StairSketch extends StatelessWidget {
                   vCorner + vWidth,
                   vFrom * vDepth,
                   vTo * vDepth,
-                  vTop(vStep) - _treadMm,
+                  vTop(vStep) - vRiser,
                   vTop(vStep),
                 ),
         );
@@ -259,7 +257,7 @@ class StairSketch extends StatelessWidget {
                   vCorner + vWidth,
                   vWidth + vIndex * vGoing,
                   vWidth + (vIndex + 1) * vGoing,
-                  vTop(vStep) - _treadMm,
+                  vTop(vStep) - vRiser,
                   vTop(vStep),
                 )
               : Prism.box(
@@ -267,7 +265,7 @@ class StairSketch extends StatelessWidget {
                   vCorner - vIndex * vGoing,
                   vWidth,
                   2 * vWidth,
-                  vTop(vStep) - _treadMm,
+                  vTop(vStep) - vRiser,
                   vTop(vStep),
                 ),
         );

@@ -48,7 +48,7 @@ class _SunLightScreenState extends State<SunLightScreen> {
   var _hour = 14.0;
   var _latitude = defaultLatitudeDeg;
   var _room = defaultAtticWindow;
-  var _spotMm = 2200;
+  var _spotMm = 1600;
 
   void _update({
     int? pKnee,
@@ -255,11 +255,11 @@ class SunSketch extends StatelessWidget {
       (pFrom * vCos - 40 * vSin, vKnee + pFrom * vSin + 40 * vCos),
     ];
     final vParts = <Prism>[
-      Prism.box(-80, vDepth + 80, -_roomHalfMm, _roomHalfMm, -40, 0, role: PartRole.board),
       Prism.box(-80, 0, -_roomHalfMm, _roomHalfMm, 0, vKnee, role: PartRole.board),
       Prism.box(vDepth, vDepth + 80, -_roomHalfMm, _roomHalfMm, 0, vWallTop, role: PartRole.board),
-      // Lit ou bureau, là où l'on veut savoir s'il y aura du soleil
-      Prism.box(spotMm - 300.0, spotMm + 300.0, -450, 450, 0, 450),
+      // Lit ou bureau en transparence, pour ne pas cacher la tache ; pas de plancher dessiné :
+      // sa grande face passerait devant la tache au tri des faces
+      Prism.box(spotMm - 300.0, spotMm + 300.0, -450, 450, 0, 450, role: PartRole.ghost),
     ];
     for (var vIndex = 0; vIndex < _slices; vIndex++) {
       final vY0 = -_roomHalfMm + 2 * _roomHalfMm * vIndex / _slices;

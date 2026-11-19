@@ -52,7 +52,7 @@ void main() {
 
     expect(find.byType(SunSketch), findsOneWidget);
     expect(find.textContaining('Tache au sol'), findsOneWidget);
-    expect(find.textContaining('Lit ou bureau à 220 cm du mur de genou'), findsOneWidget);
+    expect(find.textContaining('Lit ou bureau à 160 cm du mur de genou'), findsOneWidget);
 
     await pTester.tap(find.widgetWithText(ChoiceChip, 'Hiver'));
     await pTester.pump();
