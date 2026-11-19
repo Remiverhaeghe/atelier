@@ -33,7 +33,11 @@ void main() {
   test('chaque calcul a une famille, et chaque famille au moins un calcul', () {
     final vEntries = CalculatorsScreen.entries(AppLocalizationsFr());
     for (final vFamily in CalcFamily.values) {
-      expect(vEntries.where((pEntry) => pEntry.family == vFamily), isNotEmpty, reason: vFamily.name);
+      expect(
+        vEntries.where((pEntry) => pEntry.family == vFamily),
+        isNotEmpty,
+        reason: vFamily.name,
+      );
     }
   });
 }

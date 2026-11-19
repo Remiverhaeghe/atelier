@@ -76,9 +76,8 @@ class _StarterToolsScreenState extends State<StarterToolsScreen> {
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
                 value: _owned.contains(vTool),
-                onChanged: (pOwned) => setState(
-                  () => pOwned == true ? _owned.add(vTool) : _owned.remove(vTool),
-                ),
+                onChanged: (pOwned) =>
+                    setState(() => pOwned == true ? _owned.add(vTool) : _owned.remove(vTool)),
                 title: Text(toolName(vText, vTool)),
                 subtitle: Text(_subtitle(vText, vTool)),
               ),

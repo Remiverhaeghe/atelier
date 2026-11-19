@@ -220,7 +220,8 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
         parts: [
           Prism.box(0, 64, 0, 42, -2, 0, role: PartRole.board),
           for (final vTileX in [0.0, 21.0, 42.0])
-            for (final vTileY in [0.0, 21.0]) Prism.box(vTileX, vTileX + 20, vTileY, vTileY + 20, 0, 2),
+            for (final vTileY in [0.0, 21.0])
+              Prism.box(vTileX, vTileX + 20, vTileY, vTileY + 20, 0, 2),
           Prism.box(0, vX + 4, 20, 21, 0, 1.8, role: PartRole.highlight),
           Prism.box(20, 21, 0, 42, 0, 1.8 * vStroke, role: PartRole.highlight),
           Prism.box(vX, vX + 14, 12, 30, 2, 4, role: PartRole.ghost),
