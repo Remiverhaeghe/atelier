@@ -15,6 +15,11 @@ on:
 permissions:
   contents: read
 
+# Un nouveau commit sur la branche rend le passage précédent inutile : il est arrêté.
+concurrency:
+  group: captures-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   captures:
     name: Captures d'écran
