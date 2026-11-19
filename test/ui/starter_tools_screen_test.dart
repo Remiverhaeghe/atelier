@@ -1,7 +1,6 @@
 import 'package:atelier/logic/gestures.dart';
 import 'package:atelier/ui/calculators_screen.dart';
 import 'package:atelier/ui/gestures_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/localized.dart';

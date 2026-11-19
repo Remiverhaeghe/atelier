@@ -535,11 +535,11 @@ class _CalculatorGridState extends State<_CalculatorGrid> {
 
     return Column(
       children: [
-        SizedBox(
-          height: 56,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+        // Huit puces seulement : une rangée qui défile, toutes construites d'un coup
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+          child: Row(
             children: [
               for (final vFamily in [null, ...CalcFamily.values])
                 Padding(
