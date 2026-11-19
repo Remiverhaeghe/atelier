@@ -71,9 +71,11 @@ void main() {
       'MK08',
     );
     await pTester.pump();
+    await scrollToFirst(pTester, find.text('Stores et volets : commande la taille MK08'));
     expect(find.text('Stores et volets : commande la taille MK08'), findsOneWidget);
     expect(find.textContaining('Posé dedans'), findsOneWidget);
 
+    await pTester.ensureVisible(find.widgetWithText(ChoiceChip, 'Volet roulant'));
     await pTester.tap(find.widgetWithText(ChoiceChip, 'Volet roulant'));
     await pTester.pump();
     expect(find.textContaining('Posé dehors'), findsOneWidget);
