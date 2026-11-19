@@ -111,6 +111,20 @@ const _oldReferenceLetters = {'1': 'C', '2': 'F', '3': 'M', '4': 'P', '6': 'S', 
   return rWindow;
 }
 
+/// Code de taille tel qu'il est écrit sur la plaque (MK08, CK04, ou 308 sur un ancien modèle) :
+/// c'est lui que demandent les stores et volets. Null si la référence n'est pas reconnue.
+String? roofWindowSizeCode(String pReference) {
+  if (roofWindowFromReference(pReference) == null) {
+    return null;
+  }
+  final vText = pReference.toUpperCase().replaceAll(RegExp(r'[\s-]'), '');
+  final rCode =
+      RegExp(r'[BCFMPSU][A-Z]?\d{2}$').firstMatch(vText)?.group(0) ??
+      RegExp(r'[123468]\d{2}$').firstMatch(vText)!.group(0);
+
+  return rCode;
+}
+
 /// Stores et volets d'une fenêtre de toit : ils se commandent avec le même code de taille que
 /// la fenêtre (MK08, par exemple), lu sur sa plaque.
 enum RoofWindowAccessory {

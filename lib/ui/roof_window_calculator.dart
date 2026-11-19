@@ -114,7 +114,7 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      vText.accessoryTitle(vKnown.code),
+                      vText.accessoryTitle(roofWindowSizeCode(_reference)!),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Wrap(
@@ -136,7 +136,10 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
                     AddToShoppingButton(
                       items: () => [
                         ExtraItem(
-                          name: vText.accessoryItem(accessoryName(vText, _accessory), vKnown.code),
+                          name: vText.accessoryItem(
+                            accessoryName(vText, _accessory),
+                            roofWindowSizeCode(_reference)!,
+                          ),
                           quantity: 1,
                         ),
                       ],
