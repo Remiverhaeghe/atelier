@@ -35,7 +35,7 @@ void main() {
     await pTester.pumpWidget(
       localized(
         ShoppingTarget(
-          worksites: [Worksite(id: 'w', name: 'Maison démo')],
+          worksites: const [Worksite(id: 'w', name: 'Maison démo')],
           add: (_, pItems) async => vAdded = pItems,
           child: const ReadyProjectScreen(project: ReadyProject.wallShelf),
         ),
