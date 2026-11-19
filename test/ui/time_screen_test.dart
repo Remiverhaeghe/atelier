@@ -39,7 +39,11 @@ void main() {
     await pTester.pumpAndSettle();
     await pTester.tap(find.byTooltip('Ajouter du temps').first);
     await pTester.pumpAndSettle();
-    await pTester.enterText(find.byType(TextField), '25');
+    // La carte du coût réel a aussi des champs : on vise celui de la fenêtre
+    await pTester.enterText(
+      find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)),
+      '25',
+    );
     await pTester.tap(find.text('Enregistrer'));
     await pTester.pumpAndSettle();
     expect(vStorage.saved.single.timeEntries, hasLength(2));

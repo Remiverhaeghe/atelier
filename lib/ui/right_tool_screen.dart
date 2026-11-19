@@ -76,6 +76,7 @@ class _RightToolScreenState extends State<RightToolScreen> {
           Text(vText.rightToolIntro, style: vTheme.textTheme.bodyMedium),
           const SizedBox(height: 8),
           DropdownButtonFormField<ToolTask>(
+            isExpanded: true,
             initialValue: _task,
             decoration: InputDecoration(labelText: vText.rightToolTask),
             items: [
