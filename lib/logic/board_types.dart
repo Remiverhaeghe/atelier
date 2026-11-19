@@ -9,11 +9,25 @@ enum BoardUse { shelf, furniture, floor, bracing, damp, outdoor, painted }
 
 /// Panneaux courants.
 enum BoardType {
-  plywood(densityKgM3: 550, price: 3, screwHold: 3, uses: {
-    BoardUse.shelf, BoardUse.furniture, BoardUse.floor, BoardUse.bracing, BoardUse.damp,
-    BoardUse.outdoor,
-  }),
-  osb(densityKgM3: 620, price: 1, screwHold: 2, uses: {BoardUse.floor, BoardUse.bracing, BoardUse.damp}),
+  plywood(
+    densityKgM3: 550,
+    price: 3,
+    screwHold: 3,
+    uses: {
+      BoardUse.shelf,
+      BoardUse.furniture,
+      BoardUse.floor,
+      BoardUse.bracing,
+      BoardUse.damp,
+      BoardUse.outdoor,
+    },
+  ),
+  osb(
+    densityKgM3: 620,
+    price: 1,
+    screwHold: 2,
+    uses: {BoardUse.floor, BoardUse.bracing, BoardUse.damp},
+  ),
   mdf(densityKgM3: 750, price: 1, screwHold: 1, uses: {BoardUse.furniture, BoardUse.painted}),
   blockboard(densityKgM3: 480, price: 2, screwHold: 3, uses: {BoardUse.shelf, BoardUse.furniture}),
   melamine(densityKgM3: 680, price: 1, screwHold: 1, uses: {BoardUse.furniture}),

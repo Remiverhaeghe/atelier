@@ -22,6 +22,7 @@
 - Placard sous rampant : où poser la façade, volume de rangement, modules à une porte, montants coupés à l'angle du toit, portes et charnières, bacs sur roulettes qui vont chercher le fond, tablette, panneaux à acheter, et le placard dessiné en relief avec une porte ouverte
 
 ### Corrigé
+- Croquis en relief : une étiquette plus large que le dessin (écran très étroit) faisait planter l'affichage ; elle est maintenant centrée
 - Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon
 
 ### Outillage

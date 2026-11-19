@@ -15,7 +15,10 @@ void main() {
   test('à prix égal, le panneau où la vis tient le mieux passe devant', () {
     final vFurniture = boardsFor(BoardUse.furniture);
     expect(vFurniture.first.price, 1);
-    expect(vFurniture.indexOf(BoardType.blockboard), lessThan(vFurniture.indexOf(BoardType.plywood)));
+    expect(
+      vFurniture.indexOf(BoardType.blockboard),
+      lessThan(vFurniture.indexOf(BoardType.plywood)),
+    );
   });
 
   test('une plaque de MDF de 19 mm se porte à deux', () {

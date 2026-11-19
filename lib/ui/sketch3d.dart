@@ -212,8 +212,8 @@ class _Sketch3DPainter extends CustomPainter {
       )..layout();
       final vWanted = vTarget + vCallout.shift;
       final vCenter = Offset(
-        vWanted.dx.clamp(vText.width / 2 + 6, pSize.width - vText.width / 2 - 6),
-        vWanted.dy.clamp(vText.height / 2 + 4, pSize.height - vText.height / 2 - 4),
+        _within(vWanted.dx, vText.width / 2 + 6, pSize.width - vText.width / 2 - 6),
+        _within(vWanted.dy, vText.height / 2 + 4, pSize.height - vText.height / 2 - 4),
       );
       final vBox = Rect.fromCenter(
         center: vCenter,
@@ -237,3 +237,8 @@ class _Sketch3DPainter extends CustomPainter {
   @override
   bool shouldRepaint(_Sketch3DPainter pOld) => pOld.parts != parts || pOld.ink != ink;
 }
+
+/// [pValue] ramené entre [pLow] et [pHigh] ; si l'étiquette est plus large que le dessin, au
+/// milieu des deux bornes plutôt qu'une erreur.
+double _within(double pValue, double pLow, double pHigh) =>
+    pHigh < pLow ? (pLow + pHigh) / 2 : pValue.clamp(pLow, pHigh);

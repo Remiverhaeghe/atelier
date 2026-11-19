@@ -119,8 +119,15 @@ class BoardSketch extends StatelessWidget {
     final vParts = switch (board) {
       BoardType.plywood => [
         for (var vPly = 0; vPly < 5; vPly++)
-          Prism.box(0, 100, 0, 40, vPly * 3.0, vPly * 3.0 + 3,
-              role: vPly.isEven ? PartRole.wood : PartRole.highlight),
+          Prism.box(
+            0,
+            100,
+            0,
+            40,
+            vPly * 3.0,
+            vPly * 3.0 + 3,
+            role: vPly.isEven ? PartRole.wood : PartRole.highlight,
+          ),
       ],
       BoardType.osb => [
         Prism.box(0, 100, 0, 40, 0, 12, role: PartRole.board),
@@ -141,14 +148,19 @@ class BoardSketch extends StatelessWidget {
       ],
       BoardType.particleboard => [
         Prism.box(0, 100, 0, 40, 0, 15, role: PartRole.board),
-        for (final vX in [10.0, 34.0, 61.0, 85.0]) Prism.box(vX, vX + 2, 0, 1, 5, 7, role: PartRole.ghost),
+        for (final vX in [10.0, 34.0, 61.0, 85.0])
+          Prism.box(vX, vX + 2, 0, 1, 5, 7, role: PartRole.ghost),
       ],
     };
 
     return Sketch3D(
       parts: vParts,
       callouts: [
-        (at: (x: 100.0, y: 0.0, z: 7.0), text: boardStructure(vText, board), shift: const Offset(50, 20)),
+        (
+          at: (x: 100.0, y: 0.0, z: 7.0),
+          text: boardStructure(vText, board),
+          shift: const Offset(50, 20),
+        ),
       ],
     );
   }
