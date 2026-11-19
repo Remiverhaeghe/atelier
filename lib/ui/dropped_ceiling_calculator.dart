@@ -146,6 +146,8 @@ class CeilingSketch extends StatelessWidget {
     return Sketch3D(
       parts: [
         Prism.box(0, 140, 0, 50, -4, 0, role: PartRole.board),
+        // Mur du fond, pour lire une pièce et pas des plaques qui flottent
+        Prism.box(0, 140, 50, 52, 0, vTop, role: PartRole.ghost),
         Prism.box(0, 140, 0, 50, vTop, vTop + 6, role: PartRole.board),
         for (final vX in [30.0, 70.0, 110.0])
           Prism.box(vX, vX + 1.5, 20, 21.5, vNew + 2, vTop, role: PartRole.ghost),

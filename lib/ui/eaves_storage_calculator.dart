@@ -170,7 +170,8 @@ class EavesSketch extends StatelessWidget {
           vWidth,
           role: PartRole.ghost,
         ),
-        for (final vY in [0.0, plan.moduleMm.toDouble(), vWidth - 19])
+        // Pas de montant devant le premier module : on voit le bac à l'intérieur
+        for (final vY in [plan.moduleMm.toDouble(), vWidth - 19])
           Prism([(0, 0), (vDepth, 0), (vDepth, vFront), (0, vKnee)], vY, vY + 19),
         Prism.box(
           binBackGapMm.toDouble(),
