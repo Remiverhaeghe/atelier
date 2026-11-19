@@ -37,12 +37,7 @@ void main() {
     await pTester.pump();
     expect(find.textContaining('grand côté de la feuille A4'), findsOneWidget);
     final vOrigin = pTester.getTopLeft(find.byKey(const ValueKey('measure-area')));
-    for (final vPoint in const [
-      Offset(10, 10),
-      Offset(10, 307),
-      Offset(20, 20),
-      Offset(320, 20),
-    ]) {
+    for (final vPoint in const [Offset(10, 10), Offset(10, 307), Offset(20, 20), Offset(320, 20)]) {
       await pTester.tapAt(vOrigin + vPoint);
       await pTester.pump();
     }

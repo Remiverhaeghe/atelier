@@ -171,9 +171,7 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
               vRoom.copyWith(
                 touchUps: [
                   for (final vTouchUp in vRoom.touchUps)
-                    vTouchUp.id == vId
-                        ? vTouchUp.copyWith(donePasses: vTouchUp.passes)
-                        : vTouchUp,
+                    vTouchUp.id == vId ? vTouchUp.copyWith(donePasses: vTouchUp.passes) : vTouchUp,
                 ],
               ),
             );

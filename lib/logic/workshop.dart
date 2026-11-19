@@ -99,7 +99,10 @@ class WorkshopRun {
     }
     final vElapsed = chrono.elapsed(pNow);
     final vDone = {...done, current};
-    final vTimes = {...stepTimes, current: (stepTimes[current] ?? Duration.zero) + vElapsed - stepStart};
+    final vTimes = {
+      ...stepTimes,
+      current: (stepTimes[current] ?? Duration.zero) + vElapsed - stepStart,
+    };
     var vNext = current;
     for (var vShift = 1; vShift <= stepCount; vShift++) {
       final vIndex = (current + vShift) % stepCount;

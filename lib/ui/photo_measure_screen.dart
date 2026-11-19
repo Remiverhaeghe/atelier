@@ -86,7 +86,10 @@ class _PhotoMeasureScreenState extends State<PhotoMeasureScreen> {
           SegmentedButton<MeasureReference>(
             segments: [
               ButtonSegment(value: MeasureReference.card, label: Text(vText.photoMeasureRefCard)),
-              ButtonSegment(value: MeasureReference.a4Long, label: Text(vText.photoMeasureRefA4Long)),
+              ButtonSegment(
+                value: MeasureReference.a4Long,
+                label: Text(vText.photoMeasureRefA4Long),
+              ),
               ButtonSegment(
                 value: MeasureReference.a4Short,
                 label: Text(vText.photoMeasureRefA4Short),

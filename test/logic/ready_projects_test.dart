@@ -56,11 +56,7 @@ void main() {
   });
 
   test('embrasure : deux joues, un linteau, un appui, tasseaux et cornières', () {
-    final vPlan = projectPlan(ReadyProject.roofReveal, (
-      widthMm: 780,
-      heightMm: 980,
-      depthMm: 300,
-    ));
+    final vPlan = projectPlan(ReadyProject.roofReveal, (widthMm: 780, heightMm: 980, depthMm: 300));
     expect(vPlan.parts.first.count, 2);
     expect(vPlan.parts.first.lengthMm, 980);
     final vBattens = vPlan.parts.firstWhere((pPart) => pPart.kind == PartKind.batten);
@@ -77,7 +73,10 @@ void main() {
       sizeIsValid(ReadyProject.mezzanine, (widthMm: 7000, heightMm: 2200, depthMm: 2000)),
       isFalse,
     );
-    expect(sizeIsValid(ReadyProject.roofReveal, (widthMm: 780, heightMm: 50, depthMm: 300)), isFalse);
+    expect(
+      sizeIsValid(ReadyProject.roofReveal, (widthMm: 780, heightMm: 50, depthMm: 300)),
+      isFalse,
+    );
     expect(usedSizes(ReadyProject.wallShelf).height, isFalse);
   });
 }

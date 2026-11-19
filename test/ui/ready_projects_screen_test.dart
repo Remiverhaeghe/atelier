@@ -73,9 +73,7 @@ void main() {
 
   testWidgets('cotes hors limites : le projet le dit', (pTester) async {
     tallScreen(pTester);
-    await pTester.pumpWidget(
-      localized(const ReadyProjectScreen(project: ReadyProject.fixedFrame)),
-    );
+    await pTester.pumpWidget(localized(const ReadyProjectScreen(project: ReadyProject.fixedFrame)));
     expect(find.textContaining('Vitrage à commander : 50,2 × 80,2 cm'), findsOneWidget);
     await pTester.enterText(find.widgetWithText(TextField, 'Hauteur (cm)'), '5');
     await pTester.pump();
