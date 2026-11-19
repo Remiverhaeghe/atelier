@@ -159,6 +159,14 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Placard sous rampant'));
     await capture('23-placard-rampant');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    // La tuile des gestes est en haut de la grille, qu'on a fait défiler vers le bas
+    await pTester.fling(find.byType(GridView), const Offset(0, 3000), 3000);
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Gestes de base'));
+    await tapAndSettle(pTester, find.text('Scier droit'));
+    await capture('24-geste-scier');
     capturesDone();
   });
 

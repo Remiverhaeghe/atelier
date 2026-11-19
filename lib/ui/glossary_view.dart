@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/glossary.dart';
+import 'gestures_screen.dart';
 import 'glossary_scenes.dart';
 
 String termLabel(AppLocalizations pText, Term pTerm) => switch (pTerm) {
@@ -23,6 +24,14 @@ String termLabel(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.rebate => pText.termRebate,
   Term.glazingBead => pText.termGlazingBead,
   Term.setting => pText.termSetting,
+  Term.grain => pText.termGrain,
+  Term.edge => pText.termEdge,
+  Term.chamfer => pText.termChamfer,
+  Term.kerf => pText.termKerf,
+  Term.pilotHole => pText.termPilotHole,
+  Term.countersink => pText.termCountersink,
+  Term.furring => pText.termFurring,
+  Term.vapourBarrier => pText.termVapourBarrier,
 };
 
 String termDefinition(AppLocalizations pText, Term pTerm) => switch (pTerm) {
@@ -44,6 +53,14 @@ String termDefinition(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.rebate => pText.termRebateText,
   Term.glazingBead => pText.termGlazingBeadText,
   Term.setting => pText.termSettingText,
+  Term.grain => pText.termGrainText,
+  Term.edge => pText.termEdgeText,
+  Term.chamfer => pText.termChamferText,
+  Term.kerf => pText.termKerfText,
+  Term.pilotHole => pText.termPilotHoleText,
+  Term.countersink => pText.termCountersinkText,
+  Term.furring => pText.termFurringText,
+  Term.vapourBarrier => pText.termVapourBarrierText,
 };
 
 String termUse(AppLocalizations pText, Term pTerm) => switch (pTerm) {
@@ -65,6 +82,14 @@ String termUse(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.rebate => pText.termRebateUse,
   Term.glazingBead => pText.termGlazingBeadUse,
   Term.setting => pText.termSettingUse,
+  Term.grain => pText.termGrainUse,
+  Term.edge => pText.termEdgeUse,
+  Term.chamfer => pText.termChamferUse,
+  Term.kerf => pText.termKerfUse,
+  Term.pilotHole => pText.termPilotHoleUse,
+  Term.countersink => pText.termCountersinkUse,
+  Term.furring => pText.termFurringUse,
+  Term.vapourBarrier => pText.termVapourBarrierUse,
 };
 
 /// Fiche d'un mot : schéma en relief, à quoi ça sert, puis ce que c'est.
@@ -160,7 +185,19 @@ class GlossaryScreen extends StatelessWidget {
     final vText = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.glossaryTitle)),
+      appBar: AppBar(
+        title: Text(vText.glossaryTitle),
+        actions: [
+          IconButton(
+            tooltip: vText.gesturesTitle,
+            icon: const Icon(Icons.handyman_outlined),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(builder: (_) => const GesturesScreen()),
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8),
         children: [
