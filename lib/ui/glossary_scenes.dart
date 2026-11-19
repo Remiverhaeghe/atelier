@@ -168,6 +168,67 @@ import 'sketch3d.dart';
       ],
       callouts: [vLabel(60, 3, 40, pText.termVapourBarrier, const Offset(50, -30))],
     ),
+    Term.sleeper || Term.batten => (
+      parts: [
+        Prism.box(0, 100, 0, 60, -4, 0, role: PartRole.board),
+        // Lambourdes posées sur la dalle, lames de terrasse vissées en travers
+        for (final vY in [4.0, 28.0, 52.0])
+          Prism.box(0, 100, vY, vY + 5, 0, 7, role: vIf(pTerm == Term.sleeper)),
+        for (final vX in [6.0, 22.0, 38.0])
+          Prism.box(vX, vX + 14, 0, 60, 7, 9.5, role: vIf(pTerm == Term.batten, PartRole.ghost)),
+      ],
+      callouts: [
+        if (pTerm == Term.sleeper) vLabel(90, 4, 3.5, pText.termSleeper, const Offset(30, 40)),
+        if (pTerm == Term.batten) vLabel(13, 0, 8, pText.termBatten, const Offset(-50, -40)),
+      ],
+    ),
+    Term.hanger => (
+      parts: [
+        Prism.box(0, 80, 0, 50, 40, 44, role: PartRole.board),
+        for (final vX in [16.0, 40.0, 64.0])
+          Prism.box(vX, vX + 1.5, 20, 21.5, 14, 40, role: PartRole.highlight),
+        Prism.box(0, 80, 18, 23, 11, 14),
+        Prism.box(0, 80, 0, 50, 9, 11, role: PartRole.ghost),
+      ],
+      callouts: [vLabel(40, 20, 27, pText.termHanger, const Offset(60, -30))],
+    ),
+    Term.sill || Term.drip => (
+      parts: [
+        Prism.box(0, 20, 0, 60, 0, 40, role: PartRole.board),
+        // Appui en pente vers l'extérieur, qui dépasse du mur ; la rainure dessous casse la goutte
+        Prism(
+          [(-8, 36), (20, 40), (20, 44), (-8, 41), (-8, 39.5), (-5, 39.5), (-5, 38), (-8, 38)],
+          0,
+          60,
+          role: vIf(pTerm == Term.sill),
+        ),
+        Prism.box(-6.6, -5.4, 0, 60, 37.2, 38, role: vIf(pTerm == Term.drip, PartRole.ghost)),
+      ],
+      callouts: [
+        if (pTerm == Term.sill) vLabel(6, 0, 42, pText.termSill, const Offset(40, -40)),
+        if (pTerm == Term.drip) vLabel(-6, 0, 37.5, pText.termDrip, const Offset(-50, 40)),
+      ],
+    ),
+    Term.mitre => (
+      parts: [
+        // Angle d'un cadre vu de face : les deux baguettes se rejoignent sur une diagonale
+        Prism([(0, 0), (58, 0), (50, 8), (0, 8)], 0, 6),
+        Prism([(58, 0), (58, 58), (50, 58), (50, 8)], 0, 6),
+        Prism([(50, 8), (58, 0), (58.8, 0.8), (50.8, 8.8)], -0.2, 6.2, role: PartRole.highlight),
+      ],
+      callouts: [vLabel(54, 0, 4, pText.termMitre, const Offset(50, 40))],
+    ),
+    Term.knot || Term.split => (
+      parts: [
+        Prism.box(0, 100, 0, 30, 0, 6),
+        Prism.box(36, 44, 10, 18, 6, 6.4, role: vIf(pTerm == Term.knot, PartRole.ghost)),
+        Prism.box(0, 22, 13, 14.2, 6, 6.3, role: vIf(pTerm == Term.split, PartRole.ghost)),
+      ],
+      callouts: [
+        if (pTerm == Term.knot) vLabel(40, 10, 6.2, pText.termKnot, const Offset(30, -50)),
+        if (pTerm == Term.split) vLabel(10, 13, 6.2, pText.termSplit, const Offset(-30, -50)),
+      ],
+    ),
     Term.rafter || Term.ridge || Term.slope || Term.kneeWall || Term.spacing => (
       parts: [
         Prism.box(6, 9, -2, 48, 0, 30, role: vIf(pTerm == Term.kneeWall, PartRole.board)),

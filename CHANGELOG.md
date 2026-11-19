@@ -6,6 +6,13 @@
 - Par où commencer : une fiche par type de travaux (peinture, plinthes, parquet flottant, isolation, placo, carrelage, menuiserie, plomberie, électricité), rangée par niveau (facile, moyen, à confier à un pro). Chantier de référence, temps réaliste pour un débutant (deux à trois fois celui d'un artisan), outillage minimal repris de la caisse à outils plus les outils propres à acheter ou à louer avec un coût indicatif, trois erreurs classiques, et pour la plomberie et l'électricité ce qu'on peut faire seul et ce qu'on confie. Fiche imprimable
 - Contrôles qualité étape par étape (traçage, ossature, support, pose, finitions) : diagonales égales pour l'équerrage, niveau, fil à plomb, planéité à la règle de 2 m, carreaux à fleur, avec des tolérances prudentes indiquées comme indicatives. Chaque contrôle se coche, se vérifie en saisissant la mesure (bon ou à reprendre) et, ouvert depuis le guide d'une pièce, reçoit des photos gardées avec la pièce
 - Sécurité par outil : scie circulaire, défonceuse, meuleuse d'angle, échelle et produits de finition, chacun avec son schéma en relief, les protections à porter, les vérifications à cocher avant de brancher (ou de monter, ou d'ouvrir le pot) et les gestes interdits. L'échelle calcule la distance du pied au mur et la longueur utile, et renvoie au travail en hauteur
+- Version web installable sur l'iPhone, sans compte Apple payant : publiée sur https://remiverhaeghe.github.io/atelier/ à chaque fusion sur main, à ajouter à l'écran d'accueil depuis Safari. Chantiers et réglages restent dans le stockage du navigateur, sur l'appareil ; un service worker garde l'appli utilisable hors ligne. Les fonctions propres au téléphone (photos enregistrées, télémètre Bluetooth, rappels programmés, sauvegardes datées, widget) ne sont pas encore disponibles dans cette version
+- Isoler les rampants par l'intérieur : dans la pièce sous rampants, la surface où l'on tient debout perdue selon l'épaisseur d'isolant sous les rampants et contre les jambettes, ce qui reste, et la résistance thermique obtenue
+- Fenêtre de toit : une fois la référence lue, les stores et volets à commander avec le code de taille de la plaque (MK08, ou 308 sur un ancien modèle) (occultant, plissé, vénitien, pare-soleil extérieur, volet roulant), avec ce que chacun fait contre la chaleur, et l'ajout aux courses
+- Fiches de chantier imprimables aussi pour la fenêtre bois, l'embrasure, la mezzanine, l'escalier et la pièce sous rampants
+- Choisir un panneau : contreplaqué, OSB, MDF, latté, mélaminé ou aggloméré selon l'usage (étagère, meuble, plancher, contreventement, pièce humide, dehors, meuble à peindre), structure de chaque panneau dessinée en relief, tenue de la vis, prix relatif et poids d'une plaque selon l'épaisseur
+- Colles et serrage : la colle selon ce qu'on assemble (vinylique, D3, polyuréthane, contact, époxy, mastic-colle), temps d'assemblage, de serrage et de prise, et nombre de serre-joints selon la longueur du collage
+- Huit mots de plus au lexique, avec leur schéma en relief : lambourde, liteau, suspente, appui, goutte d'eau, onglet, nœud et fente
 - Grille des calculs rangée par familles : une rangée de puces en haut (bien commencer, bois et menuiserie, combles et toit, murs, sols et plafonds, confort et réseaux, dehors, chantier) n'affiche que la famille choisie
 - Caisse à outils du débutant : l'indispensable et ce qui vient ensuite, avec une fourchette de prix indicative et les gestes où chaque outil sert ; on coche ce qu'on a, l'écran dit ce qui manque et combien ça coûte, et l'ajoute aux courses. Chaque geste affiche aussi ses outils
 - Cinq gestes de plus : poser une cheville, couper une plaque de plâtre, couper un onglet à 45°, tracer au niveau laser, faire les joints du carrelage
@@ -18,7 +25,11 @@
 - Faux plafond pour les pièces trop hautes : vide restant au-dessus, type de suspentes selon ce vide, fourrures, suspentes, tiges filetées, éclisses, cornières, plaques et vis, volume en moins à chauffer, alerte sous 2,20 m, et une coupe en relief
 - Placard sous rampant : où poser la façade, volume de rangement, modules à une porte, montants coupés à l'angle du toit, portes et charnières, bacs sur roulettes qui vont chercher le fond, tablette, panneaux à acheter, et le placard dessiné en relief avec une porte ouverte
 
+### Documentation
+- Captures de `docs/captures/` refaites avec l'habillage carnet d'atelier, et dix nouvelles : pièce sous rampants, fenêtre bois, embrasure, lexique, finitions, condensation, faux plafond, placard sous rampant et geste « scier droit »
+
 ### Corrigé
+- Croquis en relief : une étiquette plus large que le dessin (écran très étroit) faisait planter l'affichage ; elle est maintenant centrée
 - Plantage au premier accès au stockage (chantiers, sauvegarde du jour) : `jni` 1.2.0 ne retrouve plus les classes Android demandées par `path_provider_android`, il est bloqué sous 1.2 en attendant une mise à jour du greffon
 
 ### Outillage
