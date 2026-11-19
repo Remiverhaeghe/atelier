@@ -5,6 +5,7 @@ import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/house_book.dart';
 import '../logic/journal.dart';
 import '../logic/room.dart';
 import '../logic/time_tracking.dart';
@@ -12,6 +13,7 @@ import '../logic/units.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import 'before_after.dart';
+import 'house_book_pdf.dart';
 import 'journal_pdf.dart';
 import 'photos.dart';
 import 'shopping_texts.dart';
@@ -123,6 +125,16 @@ class _JournalScreenState extends State<JournalScreen> {
           appBar: AppBar(
             title: Text(vText.journalTitle),
             actions: [
+              IconButton(
+                tooltip: vText.bookTitle,
+                icon: const Icon(Icons.home_work_outlined),
+                onPressed: houseBook(vWorksite).isEmpty
+                    ? null
+                    : () => Printing.layoutPdf(
+                        name: vText.bookTitle,
+                        onLayout: (_) => buildHouseBookPdf(vText, vWorksite),
+                      ),
+              ),
               IconButton(
                 tooltip: vText.journalPdf,
                 icon: const Icon(Icons.picture_as_pdf_outlined),

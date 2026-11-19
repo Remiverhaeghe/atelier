@@ -183,6 +183,14 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Caisse à outils du débutant'));
     await capture('26-caisse-outils');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Diagnostic thermique'));
+    await capture('27-diagnostic-thermique');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text("Isolation des murs par l'intérieur"));
+    await capture('28-isolation-murs');
     capturesDone();
   });
 

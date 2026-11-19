@@ -3,6 +3,11 @@
 ## Non publié
 
 ### Ajouté
+- Carnet de la maison, côté caché : dans chaque pièce, une section « Derrière le placo » pour repérer les solives du plancher ou du plafond (mur de repère, première solive, entraxe, section, axes calculés) et prendre des photos des murs, du sol ou du plafond avant de fermer, avec une note. Un rappel signale les murs où des réseaux sont relevés sans photo
+- Dossier de la maison pour une revente, en PDF depuis le carnet : pièce par pièce, chaque mur dessiné avec ses gaines et tuyaux en couleur, longueurs relevées, solives, fenêtres et leurs cotes, matériaux et références notés au carnet, photos d'avant fermeture
+- Diagnostic thermique simple : pertes du toit, des murs, des fenêtres, du plancher et de l'air, en part du total et en kWh par an, la maison dessinée en relief avec la paroi qui perd le plus surlignée, travaux classés du plus rentable au moins rentable avec un coût indicatif, aides possibles à vérifier au moment des travaux (sans montant). Surfaces reprises des pièces depuis la tuile du chantier
+- Rénovation énergétique pas à pas : toit, fenêtres, murs, chauffage, ventilation, pourquoi cet ordre, baisse estimée de la facture à chaque étape et ce qu'il en reste, estimation prudente (80 % du gain calculé, prix des énergies non comptés), rappel des aides à vérifier avant chaque devis
+- Isolation des murs par l'intérieur : épaisseur d'isolant selon la résistance visée, pose sur fourrures métalliques, complexe collé ou ossature bois, pare-vapeur selon l'isolant, plaques, montants, rails, appuis ou mortier adhésif, surface habitable perdue pièce par pièce d'après les murs cochés, retours en tableau des fenêtres, coupe du doublage en relief
 - Grille des calculs rangée par familles : une rangée de puces en haut (bien commencer, bois et menuiserie, combles et toit, murs, sols et plafonds, confort et réseaux, dehors, chantier) n'affiche que la famille choisie
 - Caisse à outils du débutant : l'indispensable et ce qui vient ensuite, avec une fourchette de prix indicative et les gestes où chaque outil sert ; on coche ce qu'on a, l'écran dit ce qui manque et combien ça coûte, et l'ajoute aux courses. Chaque geste affiche aussi ses outils
 - Cinq gestes de plus : poser une cheville, couper une plaque de plâtre, couper un onglet à 45°, tracer au niveau laser, faire les joints du carrelage

@@ -63,6 +63,9 @@ import 'wall_shelf_calculator.dart';
 import 'welding_calculator.dart';
 import 'wood_finish_calculator.dart';
 import 'wood_window_calculator.dart';
+import 'energy_diagnosis_screen.dart';
+import 'renovation_screen.dart';
+import 'wall_lining_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 /// Familles de la grille des calculs, pour ne montrer que celle qui sert.
@@ -470,6 +473,27 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.window_outlined,
       builder: (_) => const FrameCalculator(),
+    ),
+    (
+      title: pText.energyTitle,
+      help: pText.energyHelp,
+      family: CalcFamily.comfort,
+      icon: Icons.thermostat_outlined,
+      builder: (_) => const EnergyDiagnosisScreen(),
+    ),
+    (
+      title: pText.renovTitle,
+      help: pText.renovHelp,
+      family: CalcFamily.comfort,
+      icon: Icons.stairs_outlined,
+      builder: (_) => const RenovationScreen(),
+    ),
+    (
+      title: pText.iwiTitle,
+      help: pText.iwiHelp,
+      family: CalcFamily.walls,
+      icon: Icons.layers_outlined,
+      builder: (_) => WallLiningCalculator(rooms: pRooms),
     ),
   ];
 

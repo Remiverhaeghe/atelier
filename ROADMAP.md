@@ -15,7 +15,7 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Validés le 18 novembre 2026. Faits : 169 à 176, 186 et 192 (voir le CHANGELOG). Restent, dans l'ordre :
+Validés le 18 novembre 2026. Faits : 169 à 176, 184, 185, 186, 192, 202 et 208 (voir le CHANGELOG). Restent, dans l'ordre :
 
 - 177. **Par où commencer** : fiche de niveau par type de travaux (facile, moyen, à confier à un pro), outillage minimal à acheter ou louer, temps réaliste pour un débutant, erreurs classiques.
 - 178. **Contrôles qualité** : diagonales pour l'équerrage, niveau et fil à plomb, planéité à la règle de 2 m, tolérances ; à cocher, avec photo.
@@ -24,8 +24,6 @@ Validés le 18 novembre 2026. Faits : 169 à 176, 186 et 192 (voir le CHANGELOG)
 - 181. **Débit dans les planches du commerce** : toutes les pièces d'un projet dans des longueurs standard, plan de coupe dessiné, trait de scie compté.
 - 182. **Défauts du bois au magasin** : nœud, fente, gerce, bois tors ou voilé, humidité ; un schéma par défaut et une liste de contrôle.
 - 183. **Stock de l'atelier** : vis, colles, chutes, outils prêtés, alerte de rachat, déduit des courses des prochains chantiers.
-- 184. **Carnet de la maison** : gaines, tuyaux, solives, photos avant fermeture, références posées ; pièce par pièce, export PDF pour une revente.
-- 185. **Diagnostic thermique simple** : pertes par paroi, travaux les plus rentables, aides à vérifier au moment voulu.
 - 187. **Mesure par photo** avec un objet de taille connue (feuille A4), sans réseau.
 - 188. **Mode atelier** : écran toujours allumé, très gros chiffres, commandes pour mains gantées, chronomètre et étapes en plein écran.
 - 189. **Projets modèles** de bout en bout : étagère murale, châssis fixe à la place d'un plexi, mezzanine simple, embrasure de fenêtre de toit.
@@ -40,13 +38,11 @@ Validés le 18 novembre 2026. Faits : 169 à 176, 186 et 192 (voir le CHANGELOG)
 - 199. **Coût réel du chantier** : temps passé par tâche, comparé à ce qu'aurait coûté un artisan.
 - 200. **Mode apprentissage** : petits défis guidés (couper d'équerre, faire un tenon, poser un joint), badge discret.
 - 201. **Sols** : ragréage, chape sèche ou liquide, sous-couche, joints de dilatation, séchage avant pose.
-- 202. **Isolation des murs par l'intérieur** : isolant selon la résistance visée, ossature, pare-vapeur, surface perdue pièce par pièce.
 - 203. **Portes** : jeu sous la porte, sens d'ouverture, hauteur de poignée, bloc-porte d'après la mesure du mur.
 - 204. **Prises et éclairage à placer** selon la norme électrique, sur le plan de la pièce.
 - 205. **Salle d'eau** : volumes de sécurité, pente du receveur, étanchéité sous carrelage, ventilation.
 - 206. **Cuisine** : hauteur du plan selon la taille, triangle d'activité, débit de la hotte, implantation.
 - 207. **Peinture des grandes hauteurs** : perche ou échafaudage, quantités, ordre de travail sans reprises.
-- 208. **Rénovation énergétique pas à pas** : toit, fenêtres, murs, chauffage, ventilation, effet sur la facture, aides à vérifier.
 - 209. **Comparaison de devis** poste par poste, avec les oublis courants.
 - 210. **Souvenirs du chantier** : avant et après dans le style carnet, en PDF ou en diaporama.
 
