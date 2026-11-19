@@ -10,6 +10,7 @@ import 'door_calculator.dart';
 import 'drywall_calculator.dart';
 import 'acoustics_calculator.dart';
 import 'blown_insulation_calculator.dart';
+import 'board_type_screen.dart';
 import 'concrete_calculator.dart';
 import 'condensation_calculator.dart';
 import 'dropped_ceiling_calculator.dart';
@@ -30,6 +31,7 @@ import 'large_room_heat_calculator.dart';
 import 'lighting_calculator.dart';
 import 'reverberation_calculator.dart';
 import 'gestures_screen.dart';
+import 'glue_screen.dart';
 import 'glossary_view.dart';
 import 'niche_shelf_calculator.dart';
 import 'notebook.dart';
@@ -240,6 +242,20 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.brush_outlined,
       builder: (_) => const WoodFinishCalculator(),
+    ),
+    (
+      title: pText.boardTitle,
+      help: pText.boardHelp,
+      family: CalcFamily.wood,
+      icon: Icons.layers_outlined,
+      builder: (_) => const BoardTypeScreen(),
+    ),
+    (
+      title: pText.glueTitle,
+      help: pText.glueHelp,
+      family: CalcFamily.wood,
+      icon: Icons.compress,
+      builder: (_) => const GlueScreen(),
     ),
     (
       title: pText.dewTitle,
