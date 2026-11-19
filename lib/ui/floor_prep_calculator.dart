@@ -58,6 +58,7 @@ class _FloorPrepCalculatorState extends State<FloorPrepCalculator> {
             onSelectionChanged: (pChoice) => setState(() => _kind = pChoice.single),
           ),
           DropdownButtonFormField<Covering>(
+            isExpanded: true,
             initialValue: _covering,
             decoration: InputDecoration(labelText: vText.floorPrepCovering),
             items: [
