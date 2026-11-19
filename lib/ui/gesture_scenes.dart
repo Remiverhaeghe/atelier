@@ -141,6 +141,98 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
         ],
       );
     }(),
+    Gesture.plug => () {
+      // Mur vu de face : la cheville entre dans le trou percé au bon diamètre
+      final vDepth = vStroke * 7;
+      return (
+        parts: [
+          Prism.box(38.8, 41.2, 0, 8, 28.8, 31.2, role: PartRole.ghost),
+          Prism.box(0, 80, 0, 10, 0, 60, role: PartRole.board),
+          Prism.box(39, 41, -8 + vDepth, vDepth, 29, 31, role: PartRole.highlight),
+          Prism.box(10, 70, -1, 0, 44, 44.6, role: PartRole.ghost),
+        ],
+        callouts: [
+          vLabel(40, -8 + vDepth, 31, pText.gesturePlugFlush, const Offset(-60, -60)),
+          vLabel(64, -1, 44.3, pText.gesturePlugDetect, const Offset(30, -40)),
+        ],
+      );
+    }(),
+    Gesture.cutBoard => () {
+      final vY = vStroke * 52;
+      return (
+        parts: [
+          Prism.box(0, 100, 0, 60, 0, 1.3, role: PartRole.board),
+          Prism.box(61, 67, 0, 60, 1.3, 2.3),
+          Prism.box(59.8, 60.6, 0, vY + 4, 1.3, 1.5, role: PartRole.highlight),
+          Prism.box(57, 61, vY, vY + 8, 1.3, 5, role: PartRole.highlight),
+        ],
+        callouts: [
+          vLabel(64, 30, 2.3, pText.gestureCutBoardRule, const Offset(60, -30)),
+          vLabel(60, vY / 2, 1.5, pText.gestureCutBoardSnap, const Offset(-80, 40)),
+        ],
+      );
+    }(),
+    Gesture.mitre => () {
+      // Fente à 45° de la boîte à onglets : la lame descend dans la plinthe
+      final vZ = 14 - vStroke * 8;
+      return (
+        parts: [
+          Prism.box(0, 70, 0, 22, 0, 3, role: PartRole.board),
+          Prism.box(0, 70, 0, 2, 3, 14, role: PartRole.board),
+          Prism.box(0, 70, 20, 22, 3, 14, role: PartRole.board),
+          Prism.box(0, 70, 4, 16, 3, 10),
+          for (var vStep = 0; vStep < 11; vStep++)
+            Prism.box(
+              28 + vStep * 1.4,
+              29.4 + vStep * 1.4,
+              vStep * 2.0,
+              vStep * 2.0 + 2,
+              vZ,
+              vZ + 10,
+              role: PartRole.ghost,
+            ),
+          Prism.box(43, 50, 20, 24, vZ + 6, vZ + 14, role: PartRole.highlight),
+        ],
+        callouts: [
+          vLabel(36, 0, vZ + 5, pText.gestureMitreSlot, const Offset(-80, -40)),
+          vLabel(60, 4, 10, pText.gestureMitreBack, const Offset(40, 40)),
+        ],
+      );
+    }(),
+    Gesture.laser => () {
+      final vEnd = 20 + vStroke * 80;
+      return (
+        parts: [
+          Prism.box(0, 100, 30, 32, 0, 60, role: PartRole.board),
+          Prism.box(10, 16, 6, 12, 0, 22, role: PartRole.ghost),
+          Prism.box(9, 17, 5, 13, 22, 28),
+          Prism.box(0, vEnd, 29.6, 30, 24.6, 25.4, role: PartRole.highlight),
+        ],
+        callouts: [
+          vLabel(vEnd - 10, 30, 25, pText.gestureLaserLine, const Offset(30, -50)),
+          vLabel(13, 5, 26, pText.gestureLaserEyes, const Offset(-60, 40)),
+        ],
+      );
+    }(),
+    Gesture.grout => () {
+      final vX = vStroke * 50;
+      return (
+        parts: [
+          Prism.box(0, 64, 0, 42, -2, 0, role: PartRole.board),
+          for (final vTileX in [0.0, 21.0, 42.0])
+            for (final vTileY in [0.0, 21.0])
+              Prism.box(vTileX, vTileX + 20, vTileY, vTileY + 20, 0, 2),
+          Prism.box(0, vX + 4, 20, 21, 0, 1.8, role: PartRole.highlight),
+          Prism.box(20, 21, 0, 42, 0, 1.8 * vStroke, role: PartRole.highlight),
+          Prism.box(vX, vX + 14, 12, 30, 2, 4, role: PartRole.ghost),
+          Prism.box(vX + 5, vX + 9, 19, 23, 4, 10),
+        ],
+        callouts: [
+          vLabel(vX + 7, 12, 3, pText.gestureGroutDiagonal, const Offset(40, -50)),
+          vLabel(8, 20, 1, pText.gestureGroutSponge, const Offset(-60, 40)),
+        ],
+      );
+    }(),
   };
 
   return rScene;

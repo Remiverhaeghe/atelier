@@ -4,6 +4,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/gestures.dart';
 import 'gesture_scenes.dart';
 import 'glossary_view.dart';
+import 'starter_tools_screen.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
 import 'work_sheet_pdf.dart';
@@ -126,6 +127,18 @@ class GestureScreen extends StatelessWidget {
             ),
             if (gesture.rotating) IconLine(Icons.back_hand_outlined, vText.gestureNoGloves),
           ],
+          const SizedBox(height: 8),
+          Text(vText.gestureToolsTitle, style: vTheme.textTheme.titleSmall),
+          Wrap(
+            spacing: 8,
+            children: [
+              for (final vTool in gesture.tools)
+                Chip(
+                  avatar: const Icon(Icons.handyman_outlined, size: 18),
+                  label: Text(toolName(vText, vTool)),
+                ),
+            ],
+          ),
           if (gesture.terms.isNotEmpty) TermsRow(gesture.terms),
         ],
       ),
@@ -214,6 +227,11 @@ String gestureName(AppLocalizations pText, Gesture pGesture) => switch (pGesture
   Gesture.sand => pText.gestureSand,
   Gesture.chisel => pText.gestureChisel,
   Gesture.caulk => pText.gestureCaulk,
+  Gesture.plug => pText.gesturePlug,
+  Gesture.cutBoard => pText.gestureCutBoard,
+  Gesture.mitre => pText.gestureMitre,
+  Gesture.laser => pText.gestureLaser,
+  Gesture.grout => pText.gestureGrout,
 };
 
 String gestureUse(AppLocalizations pText, Gesture pGesture) => switch (pGesture) {
@@ -224,6 +242,11 @@ String gestureUse(AppLocalizations pText, Gesture pGesture) => switch (pGesture)
   Gesture.sand => pText.gestureSandUse,
   Gesture.chisel => pText.gestureChiselUse,
   Gesture.caulk => pText.gestureCaulkUse,
+  Gesture.plug => pText.gesturePlugUse,
+  Gesture.cutBoard => pText.gestureCutBoardUse,
+  Gesture.mitre => pText.gestureMitreUse,
+  Gesture.laser => pText.gestureLaserUse,
+  Gesture.grout => pText.gestureGroutUse,
 };
 
 List<String> gestureSteps(AppLocalizations pText, Gesture pGesture) => switch (pGesture) {
@@ -234,6 +257,11 @@ List<String> gestureSteps(AppLocalizations pText, Gesture pGesture) => switch (p
   Gesture.sand => [pText.gestureSand1, pText.gestureSand2, pText.gestureSand3],
   Gesture.chisel => [pText.gestureChisel1, pText.gestureChisel2, pText.gestureChisel3],
   Gesture.caulk => [pText.gestureCaulk1, pText.gestureCaulk2, pText.gestureCaulk3],
+  Gesture.plug => [pText.gesturePlug1, pText.gesturePlug2, pText.gesturePlug3],
+  Gesture.cutBoard => [pText.gestureCutBoard1, pText.gestureCutBoard2, pText.gestureCutBoard3],
+  Gesture.mitre => [pText.gestureMitre1, pText.gestureMitre2, pText.gestureMitre3],
+  Gesture.laser => [pText.gestureLaser1, pText.gestureLaser2, pText.gestureLaser3],
+  Gesture.grout => [pText.gestureGrout1, pText.gestureGrout2, pText.gestureGrout3],
 };
 
 String gestureMistake(AppLocalizations pText, Gesture pGesture) => switch (pGesture) {
@@ -244,6 +272,11 @@ String gestureMistake(AppLocalizations pText, Gesture pGesture) => switch (pGest
   Gesture.sand => pText.gestureSandMistake,
   Gesture.chisel => pText.gestureChiselMistake,
   Gesture.caulk => pText.gestureCaulkMistake,
+  Gesture.plug => pText.gesturePlugMistake,
+  Gesture.cutBoard => pText.gestureCutBoardMistake,
+  Gesture.mitre => pText.gestureMitreMistake,
+  Gesture.laser => pText.gestureLaserMistake,
+  Gesture.grout => pText.gestureGroutMistake,
 };
 
 String gearName(AppLocalizations pText, Gear pGear) => switch (pGear) {

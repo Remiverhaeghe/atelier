@@ -72,7 +72,12 @@ Future<void> tapAndSettle(WidgetTester pTester, Finder pFinder) async {
   // n'existent pas encore tant qu'on n'a pas fait défiler
   if (pFinder.evaluate().isEmpty) {
     // L'élément peut être au-dessus de l'écran : on repart du haut, puis on descend
-    final vScrollable = find.byType(Scrollable).first;
+    // Première liste verticale : la grille des calculs a aussi une rangée de puces horizontale
+    final vScrollable = find
+        .byWidgetPredicate(
+          (pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down,
+        )
+        .first;
     pTester.state<ScrollableState>(vScrollable).position.jumpTo(0);
     await pTester.pumpAndSettle();
     if (pFinder.evaluate().isEmpty) {
@@ -172,6 +177,12 @@ void main() {
     await tapAndSettle(pTester, find.text('Gestes de base'));
     await tapAndSettle(pTester, find.text('Scier droit'));
     await capture('24-geste-scier');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Caisse à outils du débutant'));
+    await capture('26-caisse-outils');
     capturesDone();
   });
 
