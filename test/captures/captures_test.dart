@@ -199,6 +199,17 @@ void main() {
     await tapAndSettle(pTester, find.text('Sécurité par outil'));
     await tapAndSettle(pTester, find.text('Scie circulaire'));
     await capture('42-securite-scie');
+    for (final (vTool, vName) in [
+      ('Défonceuse', 'tmp-defonceuse'),
+      ('Meuleuse d\'angle', 'tmp-meuleuse'),
+      ('Échelle', 'tmp-echelle'),
+      ('Produits de finition', 'tmp-finition'),
+    ]) {
+      pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+      await pTester.pumpAndSettle();
+      await tapAndSettle(pTester, find.text(vTool));
+      await capture(vName);
+    }
     capturesDone();
   });
 

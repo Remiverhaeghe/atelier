@@ -40,16 +40,16 @@ SafetyScene safetyScene(AppLocalizations pText, SafetyTool pTool) {
     // Lame qui dépasse sous la planche, moitié haute sous le carter
     SafetyTool.circularSaw => (
       parts: [
-        Prism.box(0, 120, 0, 30, 0, 4),
-        Prism(_disc(60, 9, 12), 14, 15, role: PartRole.highlight),
-        Prism(_disc(60, 9, 13.5, pFrom: 0, pTo: 180), 12.5, 16.5, role: PartRole.board),
-        Prism.box(38, 82, 4, 26, 4, 5.5, role: PartRole.board),
-        Prism.box(64, 78, 17, 27, 6, 18, role: PartRole.board),
-        Prism.box(44, 56, 18, 22, 22, 28),
+        Prism.box(0, 80, 0, 30, 0, 4),
+        Prism(_disc(40, 6, 12), 4, 5, role: PartRole.highlight),
+        Prism(_disc(40, 6, 13.5, pFrom: 0, pTo: 180), 3, 6, role: PartRole.board),
+        Prism.box(22, 58, 0, 26, 4, 5.5, role: PartRole.board),
+        Prism.box(44, 58, 8, 22, 6, 16, role: PartRole.board),
+        Prism.box(30, 44, 10, 14, 20, 26),
       ],
       callouts: [
-        vLabel(60, 12.5, 22.5, pText.toolSafeSawGuard, const Offset(-80, -40)),
-        vLabel(60, 14, -3, pText.toolSafeSawDepth, const Offset(70, 40)),
+        vLabel(40, 3, 19.5, pText.toolSafeSawGuard, const Offset(-80, -30)),
+        vLabel(40, 4, -6, pText.toolSafeSawDepth, const Offset(70, 30)),
       ],
     ),
     // Défonceuse posée sur la planche, rainure déjà faite derrière elle
