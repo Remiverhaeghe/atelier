@@ -65,6 +65,9 @@ import 'wall_shelf_calculator.dart';
 import 'welding_calculator.dart';
 import 'wood_finish_calculator.dart';
 import 'wood_window_calculator.dart';
+import 'quality_screen.dart';
+import 'tool_safety_screen.dart';
+import 'trades_screen.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 /// Familles de la grille des calculs, pour ne montrer que celle qui sert.
@@ -108,6 +111,27 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.start,
       icon: Icons.home_repair_service_outlined,
       builder: (_) => const StarterToolsScreen(),
+    ),
+    (
+      title: pText.tradesTitle,
+      help: pText.tradesHelp,
+      family: CalcFamily.start,
+      icon: Icons.signpost_outlined,
+      builder: (_) => const TradesScreen(),
+    ),
+    (
+      title: pText.qualityTitle,
+      help: pText.qualityHelp,
+      family: CalcFamily.start,
+      icon: Icons.fact_check_outlined,
+      builder: (_) => const QualityScreen(),
+    ),
+    (
+      title: pText.toolSafetyTitle,
+      help: pText.toolSafetyHelp,
+      family: CalcFamily.start,
+      icon: Icons.health_and_safety_outlined,
+      builder: (_) => const ToolSafetyScreen(),
     ),
     (
       title: pText.shelfTitle,

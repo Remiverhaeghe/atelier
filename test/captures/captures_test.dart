@@ -183,6 +183,22 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Caisse à outils du débutant'));
     await capture('26-caisse-outils');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Par où commencer'));
+    await tapAndSettle(pTester, find.text('Carrelage'));
+    await capture('40-par-ou-commencer');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Contrôles qualité'));
+    await capture('41-controles-qualite');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Sécurité par outil'));
+    await tapAndSettle(pTester, find.text('Scie circulaire'));
+    await capture('42-securite-scie');
     capturesDone();
   });
 
