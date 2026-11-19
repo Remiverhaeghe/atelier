@@ -98,7 +98,7 @@ class _WallLiningCalculatorState extends State<WallLiningCalculator> {
             child: LiningSketch(
               insulantMm: vPlan.layersMm.fold(0, (pSum, pLayer) => pSum + pLayer),
               system: _system,
-              vapor: vPlan.vaporBarrierM2 > 0,
+              vapor: needsVaporBarrier(_insulant),
             ),
           ),
           Card(
@@ -113,6 +113,10 @@ class _WallLiningCalculatorState extends State<WallLiningCalculator> {
                     Icons.speed,
                     vText.insulR(formatDecimal(vPlan.achievedR), formatDecimal(_targetR)),
                   ),
+                  // Rien de coché : pas de quantités à zéro, seulement l'invitation à cocher
+                  if (vPlan.wallM2 <= 0)
+                    IconLine(Icons.touch_app_outlined, vText.iwiPickWalls)
+                  else ...[
                   IconLine(
                     Icons.crop_square,
                     vText.iwiWall(formatSquareMetres(vPlan.wallM2), vPlan.insulantPacks),
@@ -136,7 +140,6 @@ class _WallLiningCalculatorState extends State<WallLiningCalculator> {
                     IconLine(Icons.inventory_2_outlined, vText.iwiAdhesive(vPlan.adhesiveBags)),
                   const Divider(),
                   Text(vText.iwiLostTitle, style: vTheme.textTheme.titleSmall),
-                  if (vPlan.rooms.isEmpty) Text(vText.iwiPickWalls),
                   for (final vRoom in vPlan.rooms)
                     IconLine(
                       Icons.square_foot,
@@ -154,6 +157,7 @@ class _WallLiningCalculatorState extends State<WallLiningCalculator> {
                       vText.iwiReveals(vPlan.rooms.fold(0, (pSum, pRoom) => pSum + pRoom.windows)),
                     ),
                   AddToShoppingButton(items: () => vItems),
+                  ],
                 ],
               ),
             ),

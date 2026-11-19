@@ -260,12 +260,12 @@ class HouseLossSketch extends StatelessWidget {
         (
           at: (x: 3400.0, y: 0.0, z: 1500.0),
           text: vLabel(EnvelopePart.windows),
-          shift: const Offset(30, 60),
+          shift: const Offset(-40, 80),
         ),
         (
           at: (x: vWidth, y: vDepth / 2, z: -125.0),
           text: vLabel(EnvelopePart.floor),
-          shift: const Offset(40, 40),
+          shift: const Offset(60, 20),
         ),
         (
           at: (x: vWidth, y: vDepth, z: vWall / 2),
