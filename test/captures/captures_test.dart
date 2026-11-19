@@ -151,6 +151,14 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Humidité et condensation'));
     await capture('21-condensation');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Faux plafond'));
+    await capture('22-faux-plafond');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Placard sous rampant'));
+    await capture('23-placard-rampant');
     capturesDone();
   });
 
