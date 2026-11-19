@@ -65,6 +65,8 @@ import 'wood_finish_calculator.dart';
 import 'wood_window_calculator.dart';
 import 'project_cutting_screen.dart';
 import 'wood_defects_screen.dart';
+import 'sun_light_screen.dart';
+import 'load_explained_screen.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 /// Familles de la grille des calculs, pour ne montrer que celle qui sert.
@@ -486,6 +488,20 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.search,
       builder: (_) => const WoodDefectsScreen(),
+    ),
+    (
+      title: pText.sunTitle,
+      help: pText.sunHelp,
+      family: CalcFamily.attic,
+      icon: Icons.wb_sunny_outlined,
+      builder: (_) => const SunLightScreen(),
+    ),
+    (
+      title: pText.loadTitle,
+      help: pText.loadHelp,
+      family: CalcFamily.wood,
+      icon: Icons.fitness_center,
+      builder: (_) => const LoadExplainedScreen(),
     ),
   ];
 

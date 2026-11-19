@@ -4,7 +4,11 @@ library;
 import 'dart:io';
 
 import 'package:atelier/app.dart';
+import 'package:atelier/logic/workshop_stock.dart';
+import 'package:atelier/state/workshop_controller.dart';
 import 'package:atelier/state/worksites_controller.dart';
+import 'package:atelier/storage/workshop_store.dart';
+import 'package:atelier/ui/stair_relief_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -212,9 +216,50 @@ void main() {
     await pTester.pumpAndSettle();
     pTester.state<NavigatorState>(find.byType(Navigator)).pop();
     await pTester.pumpAndSettle();
+    // Stock fictif : quelques articles, dont un sous son seuil d'alerte
+    aWorkshop = WorkshopController(
+      MemoryWorkshopStore()
+        ..saved = const [
+          StockItem(
+            id: 'colle',
+            name: 'Colle mastic',
+            category: StockCategory.glue,
+            quantity: 2,
+            minQuantity: 1,
+            link: 'cartridges',
+          ),
+          StockItem(
+            id: 'vis',
+            name: 'Vis 4 × 40',
+            category: StockCategory.screws,
+            quantity: 1,
+            minQuantity: 2,
+          ),
+          StockItem(id: 'abrasif', name: 'Abrasif grain 120', category: StockCategory.abrasive, quantity: 6, minQuantity: 2),
+        ],
+    );
+    await aWorkshop.load();
     await tapAndSettle(pTester, find.text('Maison de démonstration'));
     await tapAndSettle(pTester, find.text('Stock de l\'atelier'));
     await capture('29-stock-atelier');
+    capturesDone();
+  });
+
+  testWidgets('escalier en relief, soleil par la fenêtre de toit, charges en clair', (pTester) async {
+    await openApp(pTester);
+    await tapAndSettle(pTester, find.byTooltip('Calculs'));
+    await tapAndSettle(pTester, find.text('Escalier droit'));
+    await pTester.ensureVisible(find.byType(StairSketch));
+    await pTester.pumpAndSettle();
+    await capture('30-escalier-relief');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Soleil par la fenêtre de toit'));
+    await capture('31-soleil-fenetre-toit');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Charges en clair'));
+    await capture('32-charges-en-clair');
     capturesDone();
   });
 }

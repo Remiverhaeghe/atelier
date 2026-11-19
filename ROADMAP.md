@@ -15,7 +15,7 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Validés le 18 novembre 2026. Faits : 169 à 176, 181 à 183, 186 et 192 (voir le CHANGELOG). Restent, dans l'ordre :
+Validés le 18 novembre 2026. Faits : 169 à 176, 181 à 183, 186, 191 à 194 (voir le CHANGELOG). Restent, dans l'ordre :
 
 - 177. **Par où commencer** : fiche de niveau par type de travaux (facile, moyen, à confier à un pro), outillage minimal à acheter ou louer, temps réaliste pour un débutant, erreurs classiques.
 - 178. **Contrôles qualité** : diagonales pour l'équerrage, niveau et fil à plomb, planéité à la règle de 2 m, tolérances ; à cocher, avec photo.
@@ -27,9 +27,6 @@ Validés le 18 novembre 2026. Faits : 169 à 176, 181 à 183, 186 et 192 (voir l
 - 188. **Mode atelier** : écran toujours allumé, très gros chiffres, commandes pour mains gantées, chronomètre et étapes en plein écran.
 - 189. **Projets modèles** de bout en bout : étagère murale, châssis fixe à la place d'un plexi, mezzanine simple, embrasure de fenêtre de toit.
 - 190. **Sauvegarde et partage** d'un projet complet dans un fichier chiffré.
-- 191. **Escaliers en relief**, avec giron, hauteur de marche et échappée (alerte sous une trémie).
-- 193. **Simulateur de lumière** : tache de soleil d'une fenêtre de toit selon l'heure et la saison.
-- 194. **Charges en clair** : ce que porte une étagère, une mezzanine ou une poutre en objets du quotidien, flèche exagérée sur le croquis.
 - 195. **Le bon outil** : manuel ou électrique, budget, acheter, louer ou emprunter selon le nombre d'utilisations.
 - 196. **Outillage loué** : date de retour, caution, coût par jour, rappel la veille.
 - 197. **Bruit et voisinage** : horaires habituels des travaux bruyants, à confirmer avec la mairie, rappel avant le week-end.
