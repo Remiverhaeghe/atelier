@@ -11,6 +11,7 @@ import 'drywall_calculator.dart';
 import 'acoustics_calculator.dart';
 import 'blown_insulation_calculator.dart';
 import 'concrete_calculator.dart';
+import 'condensation_calculator.dart';
 import 'debris_calculator.dart';
 import 'diy_calculator.dart';
 import 'exterior_calculator.dart';
@@ -56,6 +57,7 @@ import 'wardrobe_calculator.dart';
 import 'ventilation_calculator.dart';
 import 'wall_shelf_calculator.dart';
 import 'welding_calculator.dart';
+import 'wood_finish_calculator.dart';
 import 'wood_window_calculator.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
@@ -137,6 +139,18 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.liningHelp,
       icon: Icons.light_mode_outlined,
       builder: (_) => const RoofLiningCalculator(),
+    ),
+    (
+      title: pText.finishTitle,
+      help: pText.finishHelp,
+      icon: Icons.brush_outlined,
+      builder: (_) => const WoodFinishCalculator(),
+    ),
+    (
+      title: pText.dewTitle,
+      help: pText.dewHelp,
+      icon: Icons.water_drop_outlined,
+      builder: (_) => const CondensationCalculator(),
     ),
     (
       title: pText.largeHeatTitle,
