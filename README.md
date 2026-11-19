@@ -4,6 +4,10 @@ Application Android pour préparer ses travaux sans erreur : coupes, quantités 
 
 Tout reste sur le téléphone, sans compte ni connexion : l'appli n'a pas la permission Internet.
 
+## Sur iPhone
+
+Atelier existe aussi en version web : https://remiverhaeghe.github.io/atelier/. Dans Safari, bouton Partager, puis « Sur l'écran d'accueil » : l'appli s'ouvre alors en plein écran, comme une appli installée, et marche hors ligne après la première ouverture. Les chantiers restent dans le navigateur de l'iPhone ; pour les passer d'un appareil à l'autre, utiliser l'export de chantier. Photos, télémètre Bluetooth, rappels et widget ne sont disponibles que sur Android pour l'instant.
+
 ## Aperçu
 
 | Chantier | Reprises | Parquet | Plan de pose | Plinthes |
@@ -14,7 +18,11 @@ Tout reste sur le téléphone, sans compte ni connexion : l'appli n'a pas la per
 |---|---|---|---|
 | ![Peinture](docs/captures/11-peinture.png) | ![Conseil](docs/captures/12-conseil.png) | ![Calculs](docs/captures/13-calculs.png) | ![Étagère](docs/captures/14-etagere.png) |
 
-Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage.
+| Pièce sous rampants | Fenêtre bois | Faux plafond | Placard sous rampant | Scier droit |
+|---|---|---|---|---|
+| ![Pièce sous rampants](docs/captures/15-rampants.png) | ![Fenêtre bois](docs/captures/16-fenetre-bois.png) | ![Faux plafond](docs/captures/22-faux-plafond.png) | ![Placard sous rampant](docs/captures/23-placard-rampant.png) | ![Scier droit](docs/captures/24-geste-scier.png) |
+
+Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage. Le portfolio recopie celles de `docs/captures/` à chaque publication : un nom de fichier qui change doit y être reporté.
 
 ## Ce que fait l'appli
 
@@ -24,9 +32,9 @@ Le détail, version par version, est dans [CHANGELOG.md](CHANGELOG.md).
 |---|---|
 | Pièces et plan | Saisie mur par mur ou décalque d'un plan papier, plafonds rampants à un ou deux pans, plusieurs niveaux et mezzanine, plan de la maison, vue 3D avec les meubles, export glTF et Home Assistant |
 | Parquet et plinthes | Quantités, plan de pose rangée par rangée, diagonale et point de Hongrie, coupes de plinthes en schéma, barres optimisées, chutes réutilisables, mode chantier avec lecture à voix haute et commandes vocales |
-| Calculs | Peinture, carrelage et faïence, placo et isolation, isolation des murs par l'intérieur avec la surface perdue, diagnostic thermique et rénovation énergétique pas à pas, isolation phonique, enduit et ragréage, électricité avec prises et éclairage placés sur le plan de chaque pièce, plomberie, ventilation, chauffage, douche de plain-pied et salle d'eau (volumes de sécurité, pente, étanchéité liquide), cuisine (triangle d'activité, hotte, implantation), escalier, porte, charpente et couverture, fenêtre de toit, fenêtre bois et son étanchéité, essences de bois, finitions (lasure, vernis, vitrificateur, huile, cire), humidité et condensation, faux plafond, placard sous rampant, façade et clôture, terrasse, jardin, étagère, armoire, chevilles, soudure, gravats |
+| Calculs | Peinture, carrelage et faïence, placo et isolation, isolation des murs par l'intérieur avec la surface perdue, diagnostic thermique et rénovation énergétique pas à pas, isolation phonique, enduit et ragréage, électricité avec prises et éclairage placés sur le plan de chaque pièce, plomberie, ventilation, chauffage, douche de plain-pied et salle d'eau (volumes de sécurité, pente, étanchéité liquide), cuisine (triangle d'activité, hotte, implantation), escalier, porte, charpente et couverture, fenêtre de toit, fenêtre bois et son étanchéité, essences de bois, finitions (lasure, vernis, vitrificateur, huile, cire), humidité et condensation, faux plafond, placard sous rampant, façade et clôture, terrasse, jardin, étagère, armoire, chevilles, soudure, gravats, électricité, douche de plain-pied, cuisine, panneaux, colles et serrage |
 | Chantier | Budget, courses par magasin, dépenses et tickets, échéancier, planning, temps passé, objectif du jour, attentes avec notification, widget d'écran d'accueil, carnet de la maison en PDF, dossier de revente (réseaux, solives, photos avant fermeture, références posées), avant / après, bilan, recherche dans toute l'appli, chantier partagé par fusion d'exports |
-| Aide | Gestes de base animés (scier, raboter, percer, visser, poncer, mortaiser, mastic, cheville, placo, onglet, laser, joints de carrelage), caisse à outils du débutant, lexique des mots du métier avec schémas en relief, conseils et tutos, erreurs fréquentes, sécurité avant de commencer, réseaux cachés, faire soi-même ou faire faire, niveau et pente au téléphone |
+| Aide | Gestes de base animés (scier, raboter, percer, visser, poncer, mortaiser, mastic, cheville, placo, onglet, laser, joints de carrelage), caisse à outils du débutant, lexique des mots du métier avec schémas en relief, conseils et tutos, erreurs fréquentes, sécurité avant de commencer, réseaux cachés, faire soi-même ou faire faire, niveau et pente au téléphone, par où commencer (niveau, outils, temps et erreurs par type de travaux), contrôles qualité à cocher avec photo, sécurité par outil, « je me suis trompé », mode apprentissage avec petits défis, bruit et voisinage |
 
 La suite est dans [ROADMAP.md](ROADMAP.md). Le format du plan exporté est décrit dans [docs/format-plan.md](docs/format-plan.md), l'export pour Home Assistant dans [docs/home-assistant.md](docs/home-assistant.md).
 
