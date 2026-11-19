@@ -23,9 +23,18 @@ void main() {
     expect(find.text('2,6 m² de surface debout en moins (17 %)'), findsOneWidget);
     expect(find.textContaining('environ 5,7 m²·K/W'), findsOneWidget);
 
-    await scrollToFirst(pTester, find.widgetWithText(TextField, 'Épaisseur contre les jambettes (cm)'));
-    await pTester.enterText(find.widgetWithText(TextField, 'Épaisseur sous les rampants (cm)'), '0');
-    await pTester.enterText(find.widgetWithText(TextField, 'Épaisseur contre les jambettes (cm)'), '0');
+    await scrollToFirst(
+      pTester,
+      find.widgetWithText(TextField, 'Épaisseur contre les jambettes (cm)'),
+    );
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Épaisseur sous les rampants (cm)'),
+      '0',
+    );
+    await pTester.enterText(
+      find.widgetWithText(TextField, 'Épaisseur contre les jambettes (cm)'),
+      '0',
+    );
     await pTester.pump();
     expect(find.text('0 m² de surface debout en moins (0 %)'), findsOneWidget);
   });
@@ -54,7 +63,13 @@ void main() {
     await pTester.pumpWidget(localized(const RoofWindowCalculator()));
     expect(find.textContaining('commande la taille'), findsNothing);
 
-    await pTester.enterText(find.widgetWithText(TextField, 'Référence de la fenêtre en place, sur sa plaque (ex. MK08 ou 308)'), 'MK08');
+    await pTester.enterText(
+      find.widgetWithText(
+        TextField,
+        'Référence de la fenêtre en place, sur sa plaque (ex. MK08 ou 308)',
+      ),
+      'MK08',
+    );
     await pTester.pump();
     expect(find.text('Stores et volets : commande la taille MK08'), findsOneWidget);
     expect(find.textContaining('Posé dedans'), findsOneWidget);

@@ -77,7 +77,8 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
                     vJoist.heightMm,
                     formatCentimetres(_mezzanine.joistSpacingMm),
                   ),
-                if (vPlan.ledgers > 0) vText.mezzanineLedgers(vPlan.ledgers, vPlan.anchorsPerLedger),
+                if (vPlan.ledgers > 0)
+                  vText.mezzanineLedgers(vPlan.ledgers, vPlan.anchorsPerLedger),
                 if (vPlan.beams > 0)
                   if (vBeam == null)
                     vText.mezzanineBeamTooLong

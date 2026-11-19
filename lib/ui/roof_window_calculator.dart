@@ -113,7 +113,10 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(vText.accessoryTitle(vKnown.code), style: Theme.of(context).textTheme.titleMedium),
+                    Text(
+                      vText.accessoryTitle(vKnown.code),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     Wrap(
                       spacing: 8,
                       runSpacing: 4,
@@ -184,10 +187,11 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
   }
 }
 
-String accessoryName(AppLocalizations pText, RoofWindowAccessory pAccessory) => switch (pAccessory) {
-  RoofWindowAccessory.blackout => pText.accessoryBlackout,
-  RoofWindowAccessory.pleated => pText.accessoryPleated,
-  RoofWindowAccessory.venetian => pText.accessoryVenetian,
-  RoofWindowAccessory.awning => pText.accessoryAwning,
-  RoofWindowAccessory.shutter => pText.accessoryShutter,
-};
+String accessoryName(AppLocalizations pText, RoofWindowAccessory pAccessory) =>
+    switch (pAccessory) {
+      RoofWindowAccessory.blackout => pText.accessoryBlackout,
+      RoofWindowAccessory.pleated => pText.accessoryPleated,
+      RoofWindowAccessory.venetian => pText.accessoryVenetian,
+      RoofWindowAccessory.awning => pText.accessoryAwning,
+      RoofWindowAccessory.shutter => pText.accessoryShutter,
+    };
