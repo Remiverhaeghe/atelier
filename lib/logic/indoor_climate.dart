@@ -192,10 +192,11 @@ ClimateImport? parseClimateCsv(String pText) {
   if (vLines.length < 2) {
     return null;
   }
-  final vSeparator = [';', '\t', ','].firstWhere(
-    (pCandidate) => vLines.first.contains(pCandidate),
-    orElse: () => ',',
-  );
+  final vSeparator = [
+    ';',
+    '\t',
+    ',',
+  ].firstWhere((pCandidate) => vLines.first.contains(pCandidate), orElse: () => ',');
   final vHeader = _split(vLines.first, vSeparator).map((pCell) => pCell.toLowerCase()).toList();
   int vColumn(bool Function(String) pTest) => vHeader.indexWhere(pTest);
   final vTime = vColumn(
@@ -208,12 +209,11 @@ ClimateImport? parseClimateCsv(String pText) {
   if (vTime < 0 || vTemp < 0 || vHumidity < 0) {
     return null;
   }
-  final vFahrenheit = vHeader[vTemp].contains('°f') ||
+  final vFahrenheit =
+      vHeader[vTemp].contains('°f') ||
       vHeader[vTemp].contains('fahrenheit') ||
       vHeader[vTemp].contains('(f)');
-  final vRows = [
-    for (final vLine in vLines.skip(1)) _split(vLine, vSeparator),
-  ];
+  final vRows = [for (final vLine in vLines.skip(1)) _split(vLine, vSeparator)];
   final vDayFirst = _dayFirst(vRows.map((pRow) => pRow.length > vTime ? pRow[vTime] : ''));
   final vReadings = <ClimateReading>[];
   var vSkipped = 0;
@@ -236,10 +236,8 @@ ClimateImport? parseClimateCsv(String pText) {
   return rImport;
 }
 
-List<String> _split(String pLine, String pSeparator) => pLine
-    .split(pSeparator)
-    .map((pCell) => pCell.trim().replaceAll('"', ''))
-    .toList();
+List<String> _split(String pLine, String pSeparator) =>
+    pLine.split(pSeparator).map((pCell) => pCell.trim().replaceAll('"', '')).toList();
 
 double? _number(String pText) {
   final vText = pText.replaceAll(RegExp(r'[^0-9,.\-]'), '').replaceAll(',', '.');
@@ -247,7 +245,9 @@ double? _number(String pText) {
   return double.tryParse(vText);
 }
 
-final _aSlashDate = RegExp(r'^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})(?:[ T,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?');
+final _aSlashDate = RegExp(
+  r'^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})(?:[ T,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?',
+);
 
 /// Vrai si les dates à barres sont écrites jour d'abord : un premier nombre au-delà
 /// de 12 ne peut être qu'un jour. Sans indice, la forme française est retenue.

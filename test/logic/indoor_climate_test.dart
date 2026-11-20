@@ -45,8 +45,10 @@ void main() {
     });
 
     test('mois avant le jour quand un second nombre dépasse 12', () {
-      expect(parseClimateCsv('Time,Temp,RH\n12/25/2026 10:00,20,50\n')!.readings.single.at,
-          DateTime(2026, 12, 25, 10));
+      expect(
+        parseClimateCsv('Time,Temp,RH\n12/25/2026 10:00,20,50\n')!.readings.single.at,
+        DateTime(2026, 12, 25, 10),
+      );
       expect(parseReadingTime('01/02/2026', pDayFirst: false), DateTime(2026, 1, 2));
       expect(parseReadingTime('pas une date'), isNull);
     });

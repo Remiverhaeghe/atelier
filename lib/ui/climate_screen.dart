@@ -62,10 +62,7 @@ class _ClimateScreenState extends State<ClimateScreen> {
   (String, String) _texts(AppLocalizations pText, ClimateFinding pFinding, ClimateReport pReport) {
     final vReference = formatDecimal(referenceTempC(_room));
     final rTexts = switch (pFinding) {
-      ClimateFinding.damp => (
-        pText.climateDamp(_percent(pReport.dampShare)),
-        pText.climateDampFix,
-      ),
+      ClimateFinding.damp => (pText.climateDamp(_percent(pReport.dampShare)), pText.climateDampFix),
       ClimateFinding.slowDrying => (
         pText.climateSlowDrying(formatDecimal(pReport.dryingHours ?? 0)),
         pText.climateSlowDryingFix,
@@ -155,7 +152,10 @@ class _ClimateScreenState extends State<ClimateScreen> {
                       style: vTheme.textTheme.titleMedium,
                     ),
                     if (vImport.skipped > 0)
-                      Text(vText.climateSkipped(vImport.skipped), style: vTheme.textTheme.bodySmall),
+                      Text(
+                        vText.climateSkipped(vImport.skipped),
+                        style: vTheme.textTheme.bodySmall,
+                      ),
                     IconLine(
                       Icons.thermostat_outlined,
                       vText.climateTemp(

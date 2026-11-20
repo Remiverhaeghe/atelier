@@ -96,10 +96,8 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
         ),
   ];
 
-  bool get _complete => _rows.every(
-    (pRow) =>
-        (_length(pRow) ?? 0) > 0 && parseDegrees(pRow.angle.text) != null,
-  );
+  bool get _complete =>
+      _rows.every((pRow) => (_length(pRow) ?? 0) > 0 && parseDegrees(pRow.angle.text) != null);
 
   void _setRows(List<Wall> pWalls) => setState(() {
     for (final vRow in _rows) {
@@ -111,7 +109,10 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
   });
 
   Future<void> _rectangle() async {
-    final vSize = await showDialog<(int, int)>(context: context, builder: (_) => const _RectangleDialog());
+    final vSize = await showDialog<(int, int)>(
+      context: context,
+      builder: (_) => const _RectangleDialog(),
+    );
     if (vSize != null) {
       _setRows(rectangleWalls(vSize.$1, vSize.$2));
     }
@@ -238,7 +239,8 @@ class _WallRow extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: vText.wallTitle(number),
                     suffixText: unitName(vText, unit),
-                    errorText: row.length.text.isNotEmpty && parseInUnit(row.length.text, unit) == null
+                    errorText:
+                        row.length.text.isNotEmpty && parseInUnit(row.length.text, unit) == null
                         ? vText.invalidLength
                         : null,
                   ),
