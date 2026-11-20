@@ -46,7 +46,7 @@ final _aUnit = RegExp(r'^(mm|cm|ml|m²|m2|m|kg|g|l)(\s|$)', caseSensitive: false
 
 /// Ce que les reprises pas finies demandent d'acheter et qui n'est pas encore sur la liste :
 /// le champ « à acheter » découpé aux virgules, points-virgules et « + », chaque article une fois.
-List<ExtraItem> touchUpPurchases(List<TouchUp> pTouchUps, List<ExtraItem> pAlready) {
+List<ExtraItem> touchUpShoppingItems(List<TouchUp> pTouchUps, List<ExtraItem> pAlready) {
   final vKnown = {for (final vItem in pAlready) vItem.name.toLowerCase()};
   final rItems = <ExtraItem>[];
   for (final vTouchUp in pTouchUps.where((pTouchUp) => !pTouchUp.done)) {

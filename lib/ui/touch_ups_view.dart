@@ -215,7 +215,7 @@ class _TouchUpsViewState extends State<TouchUpsView> {
             ),
           ),
         ],
-        if (touchUpPurchases(_room.touchUps, widget.shopping) case final vToBuy
+        if (touchUpShoppingItems(_room.touchUps, widget.shopping) case final vToBuy
             when widget.onAddToShopping != null && vToBuy.isNotEmpty)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),

@@ -35,7 +35,7 @@ void main() {
   });
 
   test('courses des reprises : quantités lues, mesures gardées, déjà listé ou fini ignoré', () {
-    final vItems = touchUpPurchases(
+    final vItems = touchUpShoppingItems(
       const [
         TouchUp(id: '1', label: 'Fissure', toBuy: "2 × bande à joint, enduit de rebouchage"),
         TouchUp(
