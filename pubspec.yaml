@@ -23,6 +23,9 @@ dependencies:
   sensors_plus: ">=6.0.0 <8.0.0"
   # Photo d'une reprise, par l'appareil photo du téléphone
   image_picker: ">=1.1.0 <2.0.0"
+  # Filmer une pièce : relecture de la vidéo et image arrêtée gardée comme photo
+  video_player: ^2.9.2
+  get_thumbnail_video: ^0.7.3
   # Import d'un chantier exporté
   file_picker: ^13.3.3
   # Chiffrement de la sauvegarde (AES-GCM, PBKDF2), en Dart pur : aucun accès réseau
