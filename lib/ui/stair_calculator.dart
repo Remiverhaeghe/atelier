@@ -8,6 +8,7 @@ import '../logic/turning_stair.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
 import 'stair_railing_card.dart';
+import 'stair_relief_card.dart';
 import 'theme.dart';
 import 'work_sheet_pdf.dart';
 import 'turning_stair_card.dart';
@@ -112,6 +113,8 @@ class _StairCalculatorState extends State<StairCalculator> {
               ),
             ),
           ),
+          const SizedBox(height: 12),
+          StairReliefCard(riseMm: _rise, widthMm: _width, shape: _shape, tremieMm: _tremie),
           const SizedBox(height: 12),
           TurningStairCard(
             riseMm: _rise,
