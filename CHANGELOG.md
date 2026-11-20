@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Relevé thermique : les températures lues sur l'image (zone froide, mur à côté, pièce, dehors, humidité au choix) donnent le facteur de température de la zone et sa gravité, de « rien de marqué » à « l'eau s'y dépose déjà ». Sous 0,7, la zone risque de moisir et passe en priorité. Le relevé est gardé dans la note de la reprise. Sans 10 °C d'écart entre dedans et dehors, l'appli dit que l'image ne permet pas de conclure
 - Version anglaise (lot 136) : les 3 300 textes ont leur traduction dans `app_en.arb`. L'appli suit la langue du téléphone, ou celle choisie dans « À propos » (téléphone, français, anglais). Les nombres prennent le point en anglais. Les commandes vocales du mode chantier restent en français, et les repères de normes et d'aides restent ceux de la France
 - Version web : le bouton du télémètre explique que Safari n'a pas de Bluetooth et qu'on tape la mesure à la main ; les attentes et les prêts disent qu'il n'y aura pas de notification, et restent signalés à l'ouverture du chantier
 - Version web : les photos (reprises, journal, avant/après, tickets, souvenirs, guides) se prennent et se gardent dans le navigateur de l'iPhone, et apparaissent aussi dans les PDF ; l'export et l'import de chantier marchent depuis Safari (menu de partage, app Fichiers), comme le partage chiffré d'un projet avec ses photos

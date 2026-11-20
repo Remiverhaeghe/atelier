@@ -18,7 +18,7 @@ Les lots 169 à 210, validés le 18 novembre 2026, sont faits, ainsi que la vers
 
 Validés le 20 novembre 2026, dans l'ordre :
 
-- **Filmer une pièce** pour repérer ce qui est à reprendre, et **préconisations à partir d'une image de caméra thermique** (idées « Plus tard »).
+- **Filmer une pièce** pour repérer ce qui est à reprendre (idée « Plus tard »). Les préconisations à partir d'une image de caméra thermique sont faites.
 
 ## Organisation et motivation
 

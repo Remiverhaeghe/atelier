@@ -8,6 +8,7 @@ import '../logic/units.dart';
 import '../logic/window_frame.dart';
 import 'frame_calculator.dart';
 import 'photos.dart';
+import 'thermal_reading.dart';
 
 String thermalIssueLabel(AppLocalizations pText, ThermalIssue pIssue) => switch (pIssue) {
   ThermalIssue.windowFrame => pText.thermalWindow,
@@ -60,6 +61,7 @@ class _ThermalDialogState extends State<_ThermalDialog> {
   final _id = DateTime.now().microsecondsSinceEpoch.toString();
   ThermalIssue? _issue;
   String? _image;
+  String? _reading;
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +121,7 @@ class _ThermalDialogState extends State<_ThermalDialog> {
               if (needsQuote(vIssue))
                 Text(vText.thermalQuote, style: TextStyle(color: vTheme.colorScheme.primary)),
             ],
+            ThermalReadingCard(onNote: (pNote) => _reading = pNote),
             const SizedBox(height: 10),
             OutlinedButton.icon(
               onPressed: () async {
@@ -145,7 +148,7 @@ class _ThermalDialogState extends State<_ThermalDialog> {
                     TouchUp(
                       id: _id,
                       label: thermalIssueLabel(vText, vIssue),
-                      note: vNote,
+                      note: _reading == null ? vNote : '$vNote\n$_reading',
                       toBuy: vBuy,
                       photoPath: _image,
                     ),
