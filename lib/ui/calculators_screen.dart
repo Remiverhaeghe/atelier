@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../logic/room.dart';
+import 'climate_screen.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/layout.dart';
@@ -268,6 +269,13 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.compress,
       builder: (_) => const GlueScreen(),
+    ),
+    (
+      title: pText.climateTitle,
+      help: pText.climateHelp,
+      family: CalcFamily.comfort,
+      icon: Icons.device_thermostat,
+      builder: (_) => const ClimateScreen(),
     ),
     (
       title: pText.dewTitle,

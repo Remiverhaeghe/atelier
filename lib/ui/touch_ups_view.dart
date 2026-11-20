@@ -10,6 +10,7 @@ import 'photos.dart';
 import 'room_plan.dart';
 import 'theme.dart';
 import 'templates_texts.dart';
+import 'climate_screen.dart';
 import 'thermal_dialog.dart';
 import 'touch_up_dialog.dart';
 
@@ -123,6 +124,17 @@ class _TouchUpsViewState extends State<TouchUpsView> {
     final vTouchUp = await addThermalTouchUp(context, pImages: widget.photos, pRoom: _room);
     if (vTouchUp != null) {
       widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps, vTouchUp]));
+    }
+  }
+
+  /// Constats des relevés d'un thermo-hygromètre, gardés comme reprises.
+  Future<void> _addClimate() async {
+    final vTouchUps = await Navigator.push(
+      context,
+      MaterialPageRoute<List<TouchUp>>(builder: (_) => const ClimateScreen(canAddTouchUps: true)),
+    );
+    if (vTouchUps != null && vTouchUps.isNotEmpty) {
+      widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps, ...vTouchUps]));
     }
   }
 
@@ -242,6 +254,11 @@ class _TouchUpsViewState extends State<TouchUpsView> {
                 onPressed: _addThermal,
                 icon: const Icon(Icons.thermostat_outlined),
                 label: Text(vText.thermalTitle),
+              ),
+              OutlinedButton.icon(
+                onPressed: _addClimate,
+                icon: const Icon(Icons.device_thermostat),
+                label: Text(vText.climateMenu),
               ),
             ],
           ),
