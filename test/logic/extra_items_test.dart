@@ -38,7 +38,11 @@ void main() {
     final vItems = touchUpPurchases(
       const [
         TouchUp(id: '1', label: 'Fissure', toBuy: "2 × bande à joint, enduit de rebouchage"),
-        TouchUp(id: '2', label: 'Trous', toBuy: '3 x chevilles; Enduit de rebouchage + 10 mm de joint'),
+        TouchUp(
+          id: '2',
+          label: 'Trous',
+          toBuy: '3 x chevilles; Enduit de rebouchage + 10 mm de joint',
+        ),
         TouchUp(id: '3', label: 'Mur', toBuy: "2,5 kg d'enduit"),
         TouchUp(id: '4', label: 'Fini', passes: 1, donePasses: 1, toBuy: 'Rouleau'),
         TouchUp(id: '5', label: 'Rien'),
@@ -47,14 +51,17 @@ void main() {
       const [ExtraItem(name: 'mastic', quantity: 1)],
     );
 
-    expect([for (final vItem in vItems) (vItem.name, vItem.quantity)], [
-      ('bande à joint', 2),
-      ('enduit de rebouchage', 1),
-      ('chevilles', 3),
-      ('10 mm de joint', 1),
-      ("2,5 kg d'enduit", 1),
-      ('pots', 2),
-      ('0 vis', 1),
-    ]);
+    expect(
+      [for (final vItem in vItems) (vItem.name, vItem.quantity)],
+      [
+        ('bande à joint', 2),
+        ('enduit de rebouchage', 1),
+        ('chevilles', 3),
+        ('10 mm de joint', 1),
+        ("2,5 kg d'enduit", 1),
+        ('pots', 2),
+        ('0 vis', 1),
+      ],
+    );
   });
 }
