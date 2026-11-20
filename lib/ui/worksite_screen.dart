@@ -24,6 +24,7 @@ import 'warranties_screen.dart';
 import 'transfer.dart';
 import 'elec_plan_screen.dart';
 import 'goal_card.dart';
+import 'energy_diagnosis_screen.dart';
 import 'heating_screen.dart';
 import 'house_screen.dart';
 import 'journal_screen.dart';
@@ -253,6 +254,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.local_fire_department_outlined,
         vText.heatTitle,
         () => HeatingScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.thermostat_outlined,
+        vText.energyTitle,
+        () => EnergyDiagnosisScreen(rooms: controller.worksite(worksiteId)?.rooms ?? const []),
       ),
       (
         Icons.water_drop_outlined,

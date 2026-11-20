@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/extra_items.dart';
 import '../logic/roof_window.dart';
 import '../logic/glossary.dart';
 import '../logic/units.dart';
 import 'glossary_view.dart';
 import 'parquet_view.dart';
+import 'shopping_target.dart';
 import 'theme.dart';
 
 /// Remplacer un plexi du toit par une fenêtre de toit : largeur, chevêtre, hauteur, pose.
@@ -23,6 +25,7 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
   var _slopeDeg = 40;
   var _cover = RoofCover.profiledTiles;
   String _reference = '';
+  var _accessory = RoofWindowAccessory.blackout;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +105,50 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
                   ? vText.roofWindowReferenceUnknown
                   : vText.roofWindowReferenceSize(vCm(vKnown.widthMm), vCm(vKnown.heightMm)),
             ),
+          if (vKnown != null)
+            Card(
+              margin: const EdgeInsets.only(top: 8),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      vText.accessoryTitle(roofWindowSizeCode(_reference)!),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      children: [
+                        for (final vAccessory in RoofWindowAccessory.values)
+                          ChoiceChip(
+                            label: Text(accessoryName(vText, vAccessory)),
+                            selected: _accessory == vAccessory,
+                            onSelected: (_) => setState(() => _accessory = vAccessory),
+                          ),
+                      ],
+                    ),
+                    IconLine(
+                      _accessory.outside ? Icons.wb_sunny_outlined : Icons.bedtime_outlined,
+                      _accessory.outside ? vText.accessoryOutside : vText.accessoryInside,
+                    ),
+                    AddToShoppingButton(
+                      items: () => [
+                        ExtraItem(
+                          name: vText.accessoryItem(
+                            accessoryName(vText, _accessory),
+                            roofWindowSizeCode(_reference)!,
+                          ),
+                          quantity: 1,
+                        ),
+                      ],
+                    ),
+                    Text(vText.accessoryHint, style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                ),
+              ),
+            ),
           const SizedBox(height: 12),
           SegmentedButton<RoofCover>(
             segments: [
@@ -142,3 +189,12 @@ class _RoofWindowCalculatorState extends State<RoofWindowCalculator> {
     );
   }
 }
+
+String accessoryName(AppLocalizations pText, RoofWindowAccessory pAccessory) =>
+    switch (pAccessory) {
+      RoofWindowAccessory.blackout => pText.accessoryBlackout,
+      RoofWindowAccessory.pleated => pText.accessoryPleated,
+      RoofWindowAccessory.venetian => pText.accessoryVenetian,
+      RoofWindowAccessory.awning => pText.accessoryAwning,
+      RoofWindowAccessory.shutter => pText.accessoryShutter,
+    };

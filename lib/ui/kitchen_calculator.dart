@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/kitchen.dart';
+import '../logic/room.dart';
 import '../logic/units.dart';
+import 'kitchen_plan_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
 
-/// Cuisine en I ou en L : meubles bas, fileurs, plans de travail et hauteurs de pose.
+/// Cuisine en I ou en L : meubles bas, fileurs, plans de travail, hauteurs de pose, triangle
+/// d'activité, hotte et implantation.
 class KitchenCalculator extends StatefulWidget {
-  const KitchenCalculator({super.key});
+  const KitchenCalculator({super.key, this.rooms = const []});
+
+  /// Pièces saisies : la cuisine donne ses dimensions et son volume.
+  final List<Room> rooms;
 
   @override
   State<KitchenCalculator> createState() => _KitchenCalculatorState();
@@ -85,6 +91,8 @@ class _KitchenCalculatorState extends State<KitchenCalculator> {
             value: _gas,
             onChanged: (pValue) => setState(() => _gas = pValue),
           ),
+          const SizedBox(height: 16),
+          KitchenPlanCard(rooms: widget.rooms),
           const SizedBox(height: 12),
           Text(vText.kitchenHint, style: vTheme.textTheme.bodySmall),
         ],

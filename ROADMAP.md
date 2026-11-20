@@ -15,14 +15,8 @@ Validés le 17 novembre 2026, dans l'ordre prévu :
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Validés le 18 novembre 2026. Faits : 169 à 176, 181 à 183, 186 et 192 (voir le CHANGELOG). Restent, dans l'ordre :
+Validés le 18 novembre 2026. Faits : 169 à 186, 192, 197, 200, 202, 204 à 206 et 208 (voir le CHANGELOG). Restent, dans l'ordre :
 
-- 177. **Par où commencer** : fiche de niveau par type de travaux (facile, moyen, à confier à un pro), outillage minimal à acheter ou louer, temps réaliste pour un débutant, erreurs classiques.
-- 178. **Contrôles qualité** : diagonales pour l'équerrage, niveau et fil à plomb, planéité à la règle de 2 m, tolérances ; à cocher, avec photo.
-- 179. **Sécurité par outil** : scie circulaire, défonceuse, meuleuse, échelle, produits de finition ; protections, gestes interdits, vérifications avant de brancher, schéma en relief.
-- 180. **« Je me suis trompé »** : tenon trop lâche, planche tordue, trou mal placé, coulure de vernis, joint de mastic raté ; cause, réparation, réemploi.
-- 184. **Carnet de la maison** : gaines, tuyaux, solives, photos avant fermeture, références posées ; pièce par pièce, export PDF pour une revente.
-- 185. **Diagnostic thermique simple** : pertes par paroi, travaux les plus rentables, aides à vérifier au moment voulu.
 - 187. **Mesure par photo** avec un objet de taille connue (feuille A4), sans réseau.
 - 188. **Mode atelier** : écran toujours allumé, très gros chiffres, commandes pour mains gantées, chronomètre et étapes en plein écran.
 - 189. **Projets modèles** de bout en bout : étagère murale, châssis fixe à la place d'un plexi, mezzanine simple, embrasure de fenêtre de toit.
@@ -32,18 +26,11 @@ Validés le 18 novembre 2026. Faits : 169 à 176, 181 à 183, 186 et 192 (voir l
 - 194. **Charges en clair** : ce que porte une étagère, une mezzanine ou une poutre en objets du quotidien, flèche exagérée sur le croquis.
 - 195. **Le bon outil** : manuel ou électrique, budget, acheter, louer ou emprunter selon le nombre d'utilisations.
 - 196. **Outillage loué** : date de retour, caution, coût par jour, rappel la veille.
-- 197. **Bruit et voisinage** : horaires habituels des travaux bruyants, à confirmer avec la mairie, rappel avant le week-end.
 - 198. **Déchets de chantier** : quelle benne pour quoi, volumes et trajets.
 - 199. **Coût réel du chantier** : temps passé par tâche, comparé à ce qu'aurait coûté un artisan.
-- 200. **Mode apprentissage** : petits défis guidés (couper d'équerre, faire un tenon, poser un joint), badge discret.
 - 201. **Sols** : ragréage, chape sèche ou liquide, sous-couche, joints de dilatation, séchage avant pose.
-- 202. **Isolation des murs par l'intérieur** : isolant selon la résistance visée, ossature, pare-vapeur, surface perdue pièce par pièce.
 - 203. **Portes** : jeu sous la porte, sens d'ouverture, hauteur de poignée, bloc-porte d'après la mesure du mur.
-- 204. **Prises et éclairage à placer** selon la norme électrique, sur le plan de la pièce.
-- 205. **Salle d'eau** : volumes de sécurité, pente du receveur, étanchéité sous carrelage, ventilation.
-- 206. **Cuisine** : hauteur du plan selon la taille, triangle d'activité, débit de la hotte, implantation.
 - 207. **Peinture des grandes hauteurs** : perche ou échafaudage, quantités, ordre de travail sans reprises.
-- 208. **Rénovation énergétique pas à pas** : toit, fenêtres, murs, chauffage, ventilation, effet sur la facture, aides à vérifier.
 - 209. **Comparaison de devis** poste par poste, avec les oublis courants.
 - 210. **Souvenirs du chantier** : avant et après dans le style carnet, en PDF ou en diaporama.
 

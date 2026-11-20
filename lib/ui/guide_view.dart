@@ -9,6 +9,7 @@ import '../logic/pitfalls.dart';
 import '../logic/room.dart';
 import '../logic/safety.dart';
 import 'photos.dart';
+import 'quality_screen.dart';
 import 'theme.dart';
 import 'tips_screen.dart';
 
@@ -232,6 +233,17 @@ class GuideView extends StatelessWidget {
           trailing: const Icon(Icons.chevron_right),
           onTap: () =>
               Navigator.push(context, MaterialPageRoute<void>(builder: (_) => const TipsScreen())),
+        ),
+        ListTile(
+          leading: Icon(Icons.fact_check_outlined, color: vTheme.colorScheme.primary),
+          title: Text(vText.qualityFromGuide),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (_) => QualityScreen(room: room, onChanged: onChanged, photos: photos),
+            ),
+          ),
         ),
         ListTile(title: Text(vText.guideTools, style: vTheme.textTheme.titleMedium)),
         ListTile(
