@@ -40,7 +40,7 @@ void main() {
         reason: vKey,
       );
     }
-    expect(vEnglish.keys.where((pKey) => !vFrench.containsKey(pKey)), ['@@locale']);
+    expect(vEnglish.keys.where((pKey) => !vFrench.containsKey(pKey)), isEmpty);
   });
 
   testWidgets('téléphone en anglais : appli en anglais, nombres avec un point', (pTester) async {
