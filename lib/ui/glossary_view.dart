@@ -32,6 +32,14 @@ String termLabel(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.countersink => pText.termCountersink,
   Term.furring => pText.termFurring,
   Term.vapourBarrier => pText.termVapourBarrier,
+  Term.sleeper => pText.termSleeper,
+  Term.batten => pText.termBatten,
+  Term.hanger => pText.termHanger,
+  Term.sill => pText.termSill,
+  Term.drip => pText.termDrip,
+  Term.mitre => pText.termMitre,
+  Term.knot => pText.termKnot,
+  Term.split => pText.termSplit,
 };
 
 String termDefinition(AppLocalizations pText, Term pTerm) => switch (pTerm) {
@@ -61,6 +69,14 @@ String termDefinition(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.countersink => pText.termCountersinkText,
   Term.furring => pText.termFurringText,
   Term.vapourBarrier => pText.termVapourBarrierText,
+  Term.sleeper => pText.termSleeperText,
+  Term.batten => pText.termBattenText,
+  Term.hanger => pText.termHangerText,
+  Term.sill => pText.termSillText,
+  Term.drip => pText.termDripText,
+  Term.mitre => pText.termMitreText,
+  Term.knot => pText.termKnotText,
+  Term.split => pText.termSplitText,
 };
 
 String termUse(AppLocalizations pText, Term pTerm) => switch (pTerm) {
@@ -90,6 +106,14 @@ String termUse(AppLocalizations pText, Term pTerm) => switch (pTerm) {
   Term.countersink => pText.termCountersinkUse,
   Term.furring => pText.termFurringUse,
   Term.vapourBarrier => pText.termVapourBarrierUse,
+  Term.sleeper => pText.termSleeperUse,
+  Term.batten => pText.termBattenUse,
+  Term.hanger => pText.termHangerUse,
+  Term.sill => pText.termSillUse,
+  Term.drip => pText.termDripUse,
+  Term.mitre => pText.termMitreUse,
+  Term.knot => pText.termKnotUse,
+  Term.split => pText.termSplitUse,
 };
 
 /// Fiche d'un mot : schéma en relief, à quoi ça sert, puis ce que c'est.

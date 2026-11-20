@@ -5,6 +5,7 @@ import 'baseboard.dart';
 import 'fixtures.dart';
 import 'furniture.dart';
 import 'hidden_networks.dart';
+import 'house_book.dart';
 import 'paint.dart';
 import 'parquet.dart';
 import 'room_json.dart';
@@ -199,6 +200,7 @@ class Room {
     this.furniture = const [],
     this.networks = const [],
     this.stepPhotos = const {},
+    this.behindWalls = const BehindWalls(),
   });
 
   final String id;
@@ -256,6 +258,9 @@ class Room {
   /// Photos prises à chaque étape du guide, pour se faire ses propres tutos : étape, puis chemins.
   final Map<String, List<String>> stepPhotos;
 
+  /// Solives et photos d'avant fermeture : ce qui reste caché derrière le placo.
+  final BehindWalls behindWalls;
+
   Room copyWith({
     String? id,
     String? name,
@@ -283,6 +288,7 @@ class Room {
     List<Furniture>? furniture,
     List<HiddenRun>? networks,
     Map<String, List<String>>? stepPhotos,
+    BehindWalls? behindWalls,
   }) => Room(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -308,6 +314,7 @@ class Room {
     furniture: furniture ?? this.furniture,
     networks: networks ?? this.networks,
     stepPhotos: stepPhotos ?? this.stepPhotos,
+    behindWalls: behindWalls ?? this.behindWalls,
   );
 
   Map<String, Object?> toJson() => roomToJson(this);

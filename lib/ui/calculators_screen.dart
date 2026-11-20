@@ -10,6 +10,7 @@ import 'door_calculator.dart';
 import 'drywall_calculator.dart';
 import 'acoustics_calculator.dart';
 import 'blown_insulation_calculator.dart';
+import 'board_type_screen.dart';
 import 'concrete_calculator.dart';
 import 'condensation_calculator.dart';
 import 'dropped_ceiling_calculator.dart';
@@ -30,6 +31,7 @@ import 'large_room_heat_calculator.dart';
 import 'lighting_calculator.dart';
 import 'reverberation_calculator.dart';
 import 'gestures_screen.dart';
+import 'glue_screen.dart';
 import 'glossary_view.dart';
 import 'niche_shelf_calculator.dart';
 import 'notebook.dart';
@@ -67,6 +69,16 @@ import 'project_cutting_screen.dart';
 import 'wood_defects_screen.dart';
 import 'sun_light_screen.dart';
 import 'load_explained_screen.dart';
+import 'energy_diagnosis_screen.dart';
+import 'renovation_screen.dart';
+import 'wall_lining_calculator.dart';
+import 'quality_screen.dart';
+import 'tool_safety_screen.dart';
+import 'trades_screen.dart';
+import '../state/settings_controller.dart';
+import 'challenges_screen.dart';
+import 'mistakes_screen.dart';
+import 'noise_screen.dart';
 
 /// Une entrée du menu des calculs : titre, explication, icône et écran.
 /// Familles de la grille des calculs, pour ne montrer que celle qui sert.
@@ -87,6 +99,7 @@ class CalculatorsScreen extends StatelessWidget {
     this.rooms = const [],
     this.worksites = const [],
     this.onAddToShopping,
+    this.settings,
   });
 
   /// Pièces de tous les chantiers, dont certains calculs reprennent les surfaces.
@@ -96,7 +109,14 @@ class CalculatorsScreen extends StatelessWidget {
   final List<Worksite> worksites;
   final Future<void> Function(String pWorksiteId, List<ExtraItem> pItems)? onAddToShopping;
 
-  static List<Calculator> entries(AppLocalizations pText, [List<Room> pRooms = const []]) => [
+  /// Réglages de l'appli, où le mode apprentissage garde son carnet ; absent dans les tests.
+  final SettingsController? settings;
+
+  static List<Calculator> entries(
+    AppLocalizations pText, [
+    List<Room> pRooms = const [],
+    SettingsController? pSettings,
+  ]) => [
     (
       title: pText.gesturesTitle,
       help: pText.gesturesHelp,
@@ -110,6 +130,48 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.start,
       icon: Icons.home_repair_service_outlined,
       builder: (_) => const StarterToolsScreen(),
+    ),
+    (
+      title: pText.tradesTitle,
+      help: pText.tradesHelp,
+      family: CalcFamily.start,
+      icon: Icons.signpost_outlined,
+      builder: (_) => const TradesScreen(),
+    ),
+    (
+      title: pText.qualityTitle,
+      help: pText.qualityHelp,
+      family: CalcFamily.start,
+      icon: Icons.fact_check_outlined,
+      builder: (_) => const QualityScreen(),
+    ),
+    (
+      title: pText.toolSafetyTitle,
+      help: pText.toolSafetyHelp,
+      family: CalcFamily.start,
+      icon: Icons.health_and_safety_outlined,
+      builder: (_) => const ToolSafetyScreen(),
+    ),
+    (
+      title: pText.oopsTitle,
+      help: pText.oopsHelp,
+      family: CalcFamily.start,
+      icon: Icons.healing_outlined,
+      builder: (_) => const MistakesScreen(),
+    ),
+    (
+      title: pText.noiseTitle,
+      help: pText.noiseHelp,
+      family: CalcFamily.site,
+      icon: Icons.volume_up_outlined,
+      builder: (_) => const NoiseScreen(),
+    ),
+    (
+      title: pText.learnTitle,
+      help: pText.learnHelp,
+      family: CalcFamily.start,
+      icon: Icons.school_outlined,
+      builder: (_) => ChallengesScreen(settings: pSettings),
     ),
     (
       title: pText.shelfTitle,
@@ -187,6 +249,20 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.brush_outlined,
       builder: (_) => const WoodFinishCalculator(),
+    ),
+    (
+      title: pText.boardTitle,
+      help: pText.boardHelp,
+      family: CalcFamily.wood,
+      icon: Icons.layers_outlined,
+      builder: (_) => const BoardTypeScreen(),
+    ),
+    (
+      title: pText.glueTitle,
+      help: pText.glueHelp,
+      family: CalcFamily.wood,
+      icon: Icons.compress,
+      builder: (_) => const GlueScreen(),
     ),
     (
       title: pText.dewTitle,
@@ -389,7 +465,7 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.kitchenHelp,
       family: CalcFamily.comfort,
       icon: Icons.kitchen_outlined,
-      builder: (_) => const KitchenCalculator(),
+      builder: (_) => KitchenCalculator(rooms: pRooms),
     ),
     (
       title: pText.showerTitle,
@@ -503,6 +579,27 @@ class CalculatorsScreen extends StatelessWidget {
       icon: Icons.fitness_center,
       builder: (_) => const LoadExplainedScreen(),
     ),
+    (
+      title: pText.energyTitle,
+      help: pText.energyHelp,
+      family: CalcFamily.comfort,
+      icon: Icons.thermostat_outlined,
+      builder: (_) => const EnergyDiagnosisScreen(),
+    ),
+    (
+      title: pText.renovTitle,
+      help: pText.renovHelp,
+      family: CalcFamily.comfort,
+      icon: Icons.stairs_outlined,
+      builder: (_) => const RenovationScreen(),
+    ),
+    (
+      title: pText.iwiTitle,
+      help: pText.iwiHelp,
+      family: CalcFamily.walls,
+      icon: Icons.layers_outlined,
+      builder: (_) => WallLiningCalculator(rooms: pRooms),
+    ),
   ];
 
   @override
@@ -524,7 +621,7 @@ class CalculatorsScreen extends StatelessWidget {
         ],
       ),
       body: _CalculatorGrid(
-        entries: entries(vText, rooms),
+        entries: entries(vText, rooms, settings),
         open: (pContext, pEntry) => Navigator.push(
           pContext,
           MaterialPageRoute<void>(

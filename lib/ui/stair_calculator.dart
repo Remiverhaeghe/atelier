@@ -10,6 +10,7 @@ import 'parquet_view.dart';
 import 'stair_railing_card.dart';
 import 'stair_relief_card.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 import 'turning_stair_card.dart';
 
 /// Escalier : coupe dessinée, trémie pour l'échappée, débit des limons et des marches, et
@@ -39,7 +40,34 @@ class _StairCalculatorState extends State<StairCalculator> {
     String vCm(int pMm) => formatCentimetres(pMm);
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.stairTitle)),
+      appBar: AppBar(
+        title: Text(vText.stairTitle),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: vText.stairTitle,
+              intro: vText.stairHint,
+              measures: [
+                (vText.stairRise, vCm(_rise)),
+                (vText.stairWidth, vCm(_width)),
+                if (_tremie != null) (vText.stairTremieField, vCm(_tremie!)),
+              ],
+              results: [
+                vText.stairSteps(vPlan.risers, vCm(vPlan.riserMm)),
+                vText.stairGoing(vCm(vPlan.goingMm), vCm(vPlan.runMm)),
+                vText.stairBlondel(vCm(2 * vPlan.riserMm + vPlan.goingMm)),
+                vText.stairTreads(vDesign.treads, vCm(_width), vCm(vDesign.treadDepthMm)),
+                vText.stairStringers(vCm(vDesign.stringerMm)),
+                vDesign.headroomOk
+                    ? vText.stairTremie(vCm(vDesign.tremieMm))
+                    : vText.stairTremieShort(vCm(vDesign.tremieMm), vCm(_tremie!)),
+              ],
+              buy: const [],
+              steps: const [],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
