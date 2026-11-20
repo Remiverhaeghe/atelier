@@ -35,7 +35,8 @@ void main() {
     await pTester.tap(find.text('Maison de démonstration'));
     await vShot('2-chantier');
     // Les pièces sont sous les tuiles d'accueil : la liste ne les construit qu'en défilant
-    final vRoom = find.text('Salon').first;
+    // Sans .first : un .first sur une liste encore vide échoue avant même de défiler
+    final vRoom = find.text('Salon');
     await pTester.scrollUntilVisible(
       vRoom,
       300,
@@ -46,7 +47,7 @@ void main() {
           .first,
     );
     await pTester.pumpAndSettle();
-    await pTester.tap(vRoom);
+    await pTester.tap(vRoom.first);
     await vShot('3-piece');
     for (final (vTab, vName) in [
       ('Parquet', '4-parquet'),
