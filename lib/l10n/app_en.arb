@@ -3445,5 +3445,8 @@
   "cornerBottomLeft": "Bottom left",
   "cornerBottomRight": "Bottom right",
   "sketchAlso": "Also in the room",
-  "sketchFixtureSize": "{width} × {depth} cm, {area} m²"
+  "sketchFixtureSize": "{width} × {depth} cm, {area} m²",
+  "sketchAddOpening": "Door or window here",
+  "sketchOpening": "{kind} {width} cm wide, {offset} cm from corner {corner}",
+  "sketchOpeningHint": "For a door or window, tap the wall where it is, then “Door or window here”."
 }

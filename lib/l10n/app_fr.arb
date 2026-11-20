@@ -4679,5 +4679,9 @@
   "cornerBottomRight": "En bas à droite",
   "sketchAlso": "Il y a aussi dans la pièce",
   "sketchFixtureSize": "{width} × {depth} cm, {area} m²",
-  "@sketchFixtureSize": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}, "area": {"type": "String"}}}
+  "@sketchFixtureSize": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}, "area": {"type": "String"}}},
+  "sketchAddOpening": "Porte ou fenêtre ici",
+  "sketchOpening": "{kind} de {width} cm, à {offset} cm du coin {corner}",
+  "@sketchOpening": {"placeholders": {"kind": {"type": "String"}, "width": {"type": "String"}, "offset": {"type": "String"}, "corner": {"type": "String"}}},
+  "sketchOpeningHint": "Pour une porte ou une fenêtre, touchez le mur à son emplacement puis « Porte ou fenêtre ici »."
 }

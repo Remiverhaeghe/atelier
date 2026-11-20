@@ -128,4 +128,31 @@ void main() {
     expect(vMezzanine.hasNotch, isTrue);
     expect(vMezzanine.notchCorner, 1);
   });
+
+  testWidgets('porte posée à l\'endroit touché sur le mur', (pTester) async {
+    tallScreen(pTester);
+    final vResult = await openSketch(pTester, vRoom);
+
+    // Milieu du bord du haut : mur 3, à 2 m du coin C sur 4 m
+    final vBox = pTester.getRect(find.byType(ShapeSketch));
+    final vScale = [
+      (vBox.width - 72) / 4000,
+      (vBox.height - 72) / 3000,
+    ].reduce((pA, pB) => pA < pB ? pA : pB);
+    final vTop = (vBox.height - 3000 * vScale) / 2;
+    await pTester.tapAt(Offset(vBox.center.dx, vBox.top + vTop));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.text('Porte ou fenêtre ici'));
+    await pTester.pumpAndSettle();
+    await pTester.tap(find.widgetWithText(FilledButton, 'Enregistrer'));
+    await pTester.pumpAndSettle();
+
+    expect(find.textContaining('Porte de 83 cm, à '), findsOneWidget);
+    await pTester.tap(find.widgetWithText(TextButton, 'Enregistrer'));
+    await pTester.pumpAndSettle();
+    final vDoor = vResult()!.walls[2].openings.single;
+    expect(vDoor.kind, OpeningKind.door);
+    expect(vDoor.offsetMm, closeTo(1585, 10));
+    expect(vResult()!.walls[0].openings, isEmpty);
+  });
 }
