@@ -3338,5 +3338,20 @@
   "loansWebNote": "In the web version, no reminder the day before the return: upcoming pickups and returns stay flagged here, in red when they're late.",
   "languageSystem": "Phone language",
   "languageFrench": "Français",
-  "languageEnglish": "English"
+  "languageEnglish": "English",
+  "thermalReadTitle": "Temperatures read on the image",
+  "thermalReadHelp": "Read on the image the lowest temperature of the cold area and that of the wall next to it, then those of the room and outdoors at the time of the survey.",
+  "thermalSpot": "Cold area (°C)",
+  "thermalWallTemp": "Wall next to it (°C)",
+  "thermalInside": "In the room (°C)",
+  "thermalOutside": "Outdoors (°C)",
+  "thermalHumidity": "Room humidity (%), optional",
+  "thermalGapTooSmall": "Less than {gap} °C between inside and outside: the image can't support a conclusion. Redo the survey in colder weather, with the heating on since the day before.",
+  "thermalFactor": "Temperature factor: {factor} (1: as warm as the room, 0: as cold as outdoors)",
+  "thermalNone": "No marked defect: the area is almost as warm as the wall next to it.",
+  "thermalMild": "Area colder than the wall next to it, with no mould risk: fix it when the chance comes.",
+  "thermalMould": "Below {limit}: the area risks growing mould in winter. Deal with it first.",
+  "thermalCondensation": "The area is below the room's dew point: water is already settling on it. Ventilate, and deal with the defect first.",
+  "thermalReadNote": "Survey: {spot} °C in the area, {wall} °C on the wall, {inside} °C inside, {outside} °C outdoors, factor {factor}",
+  "thermalReadHint": "Set the camera's emissivity to 0.95 for a painted or plastered surface, and aim square at the surface: glass or shiny metal reflect whatever is in front of them. The 0.7 threshold holds for usual room humidity."
 }
