@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'l10n/gen/app_localizations.dart';
 import 'logic/app_settings.dart';
+import 'logic/units.dart';
 import 'state/settings_controller.dart';
 import 'state/worksites_controller.dart';
 import 'storage/backups.dart';
@@ -48,15 +49,25 @@ class AtelierApp extends StatelessWidget {
         ThemeChoice.light => ThemeMode.light,
         ThemeChoice.dark => ThemeMode.dark,
       },
+      locale: switch (pSettings.language) {
+        LanguageChoice.system => null,
+        LanguageChoice.french => const Locale('fr'),
+        LanguageChoice.english => const Locale('en'),
+      },
       // La taille choisie s'ajoute à celle du téléphone
-      builder: (pContext, pChild) => MediaQuery(
+      builder: (pContext, pChild) {
+        // Les nombres suivent la langue affichée : 2,5 en français, 2.5 en anglais
+        aDecimalSeparator = Localizations.localeOf(pContext).languageCode == 'fr' ? ',' : '.';
+
+        return MediaQuery(
         data: MediaQuery.of(pContext).copyWith(
           textScaler: TextScaler.linear(
             MediaQuery.textScalerOf(pContext).scale(1) * pSettings.textScale,
           ),
         ),
         child: pChild!,
-      ),
+        );
+      },
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

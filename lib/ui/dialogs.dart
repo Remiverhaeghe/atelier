@@ -266,7 +266,7 @@ class _WallDialogState extends State<_WallDialog> {
 String formatAngle(double pAngle) {
   final rText = pAngle == pAngle.roundToDouble()
       ? pAngle.round().toString()
-      : pAngle.toString().replaceAll('.', ',');
+      : pAngle.toString().replaceAll('.', aDecimalSeparator);
 
   return rText;
 }

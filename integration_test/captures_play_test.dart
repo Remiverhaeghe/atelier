@@ -11,6 +11,8 @@ import '../test/support/memory_storage.dart';
 /// `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/captures_play_test.dart`.
 void main() {
   final vBinding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  // Fiche Play Store en français, quelle que soit la langue de l'émulateur
+  vBinding.platformDispatcher.localesTestValue = const [Locale('fr', 'FR')];
 
   testWidgets('captures de la fiche', (pTester) async {
     final vStorage = MemoryStorage()..saved = [demoWorksite()];

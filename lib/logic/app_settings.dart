@@ -1,10 +1,13 @@
-/// Réglages d'affichage de l'application : thème et taille du texte.
+/// Réglages d'affichage de l'application : thème, langue et taille du texte.
 library;
 
 import 'challenges.dart';
 
 /// Thème : celui du téléphone, clair ou sombre.
 enum ThemeChoice { system, light, dark }
+
+/// Langue : celle du téléphone, ou forcée en français ou en anglais.
+enum LanguageChoice { system, french, english }
 
 /// Tailles de texte proposées : normale, grande (lecture de loin), très grande (avec des gants).
 const textScales = [1.0, 1.15, 1.3];
@@ -19,6 +22,7 @@ bool externalBackupDue(DateTime? pLast, DateTime pNow) =>
 class AppSettings {
   const AppSettings({
     this.theme = ThemeChoice.system,
+    this.language = LanguageChoice.system,
     this.textScale = 1.0,
     this.lastExternalBackup,
     this.newsSeen = 0,
@@ -26,6 +30,7 @@ class AppSettings {
   });
 
   final ThemeChoice theme;
+  final LanguageChoice language;
   final double textScale;
 
   /// Dernier envoi de tous les chantiers hors du téléphone.
@@ -39,12 +44,14 @@ class AppSettings {
 
   AppSettings copyWith({
     ThemeChoice? theme,
+    LanguageChoice? language,
     double? textScale,
     DateTime? lastExternalBackup,
     int? newsSeen,
     Map<Challenge, ChallengeRecord>? challenges,
   }) => AppSettings(
     theme: theme ?? this.theme,
+    language: language ?? this.language,
     textScale: textScale ?? this.textScale,
     lastExternalBackup: lastExternalBackup ?? this.lastExternalBackup,
     newsSeen: newsSeen ?? this.newsSeen,
@@ -53,6 +60,7 @@ class AppSettings {
 
   Map<String, Object?> toJson() => {
     'theme': theme.name,
+    if (language != LanguageChoice.system) 'language': language.name,
     'textScale': textScale,
     if (lastExternalBackup != null) 'lastExternalBackup': lastExternalBackup!.toIso8601String(),
     if (newsSeen > 0) 'newsSeen': newsSeen,
@@ -64,9 +72,13 @@ class AppSettings {
     final vTheme = ThemeChoice.values
         .where((pChoice) => pChoice.name == pJson['theme'])
         .firstOrNull;
+    final vLanguage = LanguageChoice.values
+        .where((pChoice) => pChoice.name == pJson['language'])
+        .firstOrNull;
     final vScale = (pJson['textScale'] as num?)?.toDouble();
     final rSettings = AppSettings(
       theme: vTheme ?? ThemeChoice.system,
+      language: vLanguage ?? LanguageChoice.system,
       textScale: textScales.contains(vScale) ? vScale! : 1.0,
       lastExternalBackup: DateTime.tryParse((pJson['lastExternalBackup'] as String?) ?? ''),
       newsSeen: (pJson['newsSeen'] as int?) ?? 0,
