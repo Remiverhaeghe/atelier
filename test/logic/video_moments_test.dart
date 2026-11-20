@@ -10,7 +10,12 @@ void main() {
   test('chaque moment devient une reprise, dans l\'ordre de la vidéo', () {
     final vTouchUps = touchUpsFromMoments(
       [
-        (at: const Duration(seconds: 40), label: 'Plinthe décollée', photoPath: 'b.jpg', marks: const []),
+        (
+          at: const Duration(seconds: 40),
+          label: 'Plinthe décollée',
+          photoPath: 'b.jpg',
+          marks: const [],
+        ),
         (
           at: const Duration(seconds: 12),
           label: 'Trace de rouleau',

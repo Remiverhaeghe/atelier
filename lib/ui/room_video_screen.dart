@@ -43,10 +43,8 @@ class PlayerRoomVideo extends ChangeNotifier implements RoomVideo {
   Future<void> initialize() => _controller.initialize();
 
   @override
-  Widget view() => AspectRatio(
-    aspectRatio: _controller.value.aspectRatio,
-    child: VideoPlayer(_controller),
-  );
+  Widget view() =>
+      AspectRatio(aspectRatio: _controller.value.aspectRatio, child: VideoPlayer(_controller));
 
   @override
   Duration get position => _controller.value.position;
