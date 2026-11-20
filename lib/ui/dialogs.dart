@@ -275,8 +275,7 @@ String formatAngle(double pAngle) {
 Future<Opening?> addOpening(BuildContext pContext, int pWallLengthMm, {int pOffsetMm = 0}) =>
     showDialog<Opening>(
       context: pContext,
-      builder: (pDialogContext) =>
-          _OpeningDialog(wallLengthMm: pWallLengthMm, offsetMm: pOffsetMm),
+      builder: (pDialogContext) => _OpeningDialog(wallLengthMm: pWallLengthMm, offsetMm: pOffsetMm),
     );
 
 class _OpeningDialog extends StatefulWidget {

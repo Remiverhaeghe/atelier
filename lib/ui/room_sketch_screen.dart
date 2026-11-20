@@ -436,6 +436,7 @@ class ShapeSketch extends StatelessWidget {
   final Room room;
   final Set<int> measured;
   final int selected;
+
   /// Mur touché, et l'endroit du toucher le long du mur, de 0 (coin de départ) à 1.
   final void Function(int pWall, double pAlong) onTapWall;
 
