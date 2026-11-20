@@ -198,12 +198,23 @@ class _GestureSketchState extends State<GestureSketch> with SingleTickerProvider
       children: [
         AspectRatio(
           aspectRatio: 1.5,
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder: (pContext, _) {
-              final vScene = gestureScene(vText, widget.gesture, _controller.value);
-              return Sketch3D(parts: vScene.parts, callouts: vScene.callouts);
-            },
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 1),
+            duration: MediaQuery.disableAnimationsOf(context)
+                ? Duration.zero
+                : const Duration(milliseconds: 450),
+            curve: Curves.easeOutBack,
+            builder: (_, pValue, pChild) => Opacity(
+              opacity: pValue.clamp(0, 1),
+              child: Transform.scale(scale: 0.92 + 0.08 * pValue, child: pChild),
+            ),
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (pContext, _) {
+                final vScene = gestureScene(vText, widget.gesture, _controller.value);
+                return Sketch3D(parts: vScene.parts, callouts: vScene.callouts);
+              },
+            ),
           ),
         ),
         Align(

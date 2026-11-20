@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -5,6 +7,40 @@ import '../logic/gestures.dart';
 import 'sketch3d.dart';
 
 typedef GestureScene = ({List<Prism> parts, List<Callout> callouts});
+
+/// Grains de sciure, de ponçage ou copeaux qui partent du point de contact [pX], [pY],
+/// [pZ] : chacun suit sa propre course, s'écarte et retombe, puis repart. Ils ne volent
+/// que pendant que l'outil travaille ([pActive] entre 0 et 1).
+List<Prism> dust(
+  double pPhase,
+  double pX,
+  double pY,
+  double pZ, {
+  double pActive = 1,
+  int pCount = 7,
+  double pSpread = 12,
+  double pFall = 16,
+  double pSize = 1.2,
+}) {
+  final rGrains = <Prism>[];
+  if (pActive <= 0) {
+    return rGrains;
+  }
+  for (var vIndex = 0; vIndex < pCount; vIndex++) {
+    // Départs décalés : il y a toujours des grains en l'air
+    final vT = (pPhase * 1.7 + vIndex / pCount) % 1;
+    final vAngle = vIndex * 2.4;
+    final vSize = pSize * (1 - vT * 0.6) * pActive;
+    final vX = pX + math.cos(vAngle) * pSpread * vT;
+    final vY = pY + math.sin(vAngle) * pSpread * 0.6 * vT;
+    final vZ = pZ + 4 * vT - pFall * vT * vT;
+    rGrains.add(
+      Prism.box(vX, vX + vSize, vY, vY + vSize, vZ, vZ + vSize, role: PartRole.highlight),
+    );
+  }
+
+  return rGrains;
+}
 
 /// Image du geste [pGesture] à l'instant [pPhase] : l'outil avance d'une passe par tour.
 GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhase) {
@@ -30,6 +66,7 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
             role: PartRole.ghost,
           ),
           Prism([vAlong(40, -2), vAlong(52, -2), vAlong(52, 12), vAlong(40, 12)], 12, 17),
+          ...dust(pPhase, 60.7, 2, 8, pSpread: 10, pFall: 18),
         ],
         callouts: [
           vLabel(60.7, 0, 8, pText.gestureSawLine, const Offset(-70, -60)),
@@ -52,6 +89,7 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
           Prism.box(vX, vX + 30, 11, 19, 10, 16, role: PartRole.board),
           Prism.box(vX + 18, vX + 26, 13.5, 16.5, 16, 24),
           Prism.box(vX + 3, vX + 8, 13.5, 16.5, 16, 21),
+          ...dust(pPhase, vX + 22, 15, 16, pCount: 5, pSpread: 6, pFall: 12, pSize: 1.6),
         ],
         callouts: [
           vLabel(90, 0, 5, pText.gesturePlaneGrain, const Offset(30, 40)),
@@ -68,6 +106,7 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
           Prism.box(0, 80, 0, 40, -6, 0, role: PartRole.board),
           Prism.box(36, 44, 16, 24, vTip + 14, vTip + 30, role: PartRole.highlight),
           Prism.box(41, 47, 18, 22, vTip + 20, vTip + 26, role: PartRole.board),
+          ...dust(pPhase, 40, 20, 10, pActive: vStroke, pCount: 6, pSpread: 9, pFall: 6),
         ],
         callouts: [
           vLabel(40, 16, vTip + 22, pText.gestureDrillStraight, const Offset(-80, -20)),
@@ -101,6 +140,7 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
           Prism.box(vX, vX + 22, 12, 28, 6, 9, role: PartRole.board),
           Prism.box(vX + 1, vX + 21, 13, 27, 9, 15, role: PartRole.highlight),
           Prism.box(vX + 8, vX + 14, 18, 22, 15, 20),
+          ...dust(pPhase, vX, 20, 6, pCount: 8, pSpread: 8, pFall: 4, pSize: 0.9),
         ],
         callouts: [
           vLabel(vX + 11, 12, 12, pText.gestureSandWeight, const Offset(-30, -60)),
@@ -118,6 +158,7 @@ GestureScene gestureScene(AppLocalizations pText, Gesture pGesture, double pPhas
           Prism.box(30, 72, 8, 16, 14, 20.2, role: PartRole.ghost),
           Prism.box(vX, vX + 1.5, 8, 16, 20 - vDown, 46 - vDown, role: PartRole.board),
           Prism.box(vX - 2, vX + 3.5, 9, 15, 46 - vDown, 62 - vDown, role: PartRole.highlight),
+          ...dust(pPhase, vX, 12, 20, pActive: vStroke, pCount: 5, pSpread: 10, pFall: 10),
         ],
         callouts: [
           vLabel(50, 8, 20, pText.gestureChiselMortise, const Offset(40, 50)),
