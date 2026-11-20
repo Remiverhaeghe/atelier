@@ -73,7 +73,7 @@ class _PanelCalculatorState extends State<PanelCalculator> {
             AspectRatio(
               aspectRatio: _panelLength / _panelWidth,
               child: CustomPaint(
-                painter: _PanelPainter(
+                painter: PanelCutPainter(
                   panel: vPlan.panels[vIndex],
                   colors: AtelierColors.of(context),
                   style: vTheme.textTheme.labelSmall!,
@@ -131,12 +131,16 @@ class _PanelCalculatorState extends State<PanelCalculator> {
   }
 }
 
-class _PanelPainter extends CustomPainter {
-  _PanelPainter({required this.panel, required this.colors, required this.style});
+/// Panneau vu de dessus, pièces numérotées ; repris par le débit d'un projet entier.
+class PanelCutPainter extends CustomPainter {
+  PanelCutPainter({required this.panel, required this.colors, required this.style, this.label});
 
   final CutPanel panel;
   final AtelierColors colors;
   final TextStyle style;
+
+  /// Numéro affiché sur une pièce ; par défaut, son rang dans la liste des pièces.
+  final String Function(int pPartIndex)? label;
 
   @override
   void paint(Canvas pCanvas, Size pSize) {
@@ -156,7 +160,7 @@ class _PanelPainter extends CustomPainter {
       pCanvas.drawRect(vRect, vStroke);
       final vLabel = TextPainter(
         text: TextSpan(
-          text: '${vPart.partIndex + 1}',
+          text: label?.call(vPart.partIndex) ?? '${vPart.partIndex + 1}',
           style: style.copyWith(color: colors.ink),
         ),
         textDirection: TextDirection.ltr,
@@ -167,7 +171,7 @@ class _PanelPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_PanelPainter pOld) => pOld.panel != panel;
+  bool shouldRepaint(PanelCutPainter pOld) => pOld.panel != panel;
 }
 
 /// Saisie d'une pièce : longueur, largeur et nombre.

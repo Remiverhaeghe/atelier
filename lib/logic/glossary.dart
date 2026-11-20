@@ -29,4 +29,12 @@ enum Term {
   countersink,
   furring,
   vapourBarrier,
+  sleeper,
+  batten,
+  hanger,
+  sill,
+  drip,
+  mitre,
+  knot,
+  split,
 }

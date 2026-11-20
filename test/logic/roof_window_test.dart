@@ -61,4 +61,12 @@ void main() {
     expect(roofWindowFromReference('508'), isNull);
     expect(roofWindowFromReference(''), isNull);
   });
+
+  test('code de taille à donner pour un store : celui de la plaque', () {
+    expect(roofWindowSizeCode('GGL MK08'), 'MK08');
+    expect(roofWindowSizeCode('ck04'), 'CK04');
+    expect(roofWindowSizeCode('S06'), 'S06');
+    expect(roofWindowSizeCode('GGL 308'), '308');
+    expect(roofWindowSizeCode('ZZ99'), isNull);
+  });
 }

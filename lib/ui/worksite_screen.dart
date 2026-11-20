@@ -25,6 +25,7 @@ import 'warranties_screen.dart';
 import 'transfer.dart';
 import 'elec_plan_screen.dart';
 import 'goal_card.dart';
+import 'energy_diagnosis_screen.dart';
 import 'heating_screen.dart';
 import 'house_screen.dart';
 import 'journal_screen.dart';
@@ -37,6 +38,7 @@ import 'quote_pdf.dart';
 import 'journal_pdf.dart';
 import 'reminders_card.dart';
 import 'review_screen.dart';
+import 'workshop_stock_screen.dart';
 
 /// Pièces d'un chantier.
 class WorksiteScreen extends StatelessWidget {
@@ -258,6 +260,11 @@ class _HomeTiles extends StatelessWidget {
         () => HeatingScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
+        Icons.thermostat_outlined,
+        vText.energyTitle,
+        () => EnergyDiagnosisScreen(rooms: controller.worksite(worksiteId)?.rooms ?? const []),
+      ),
+      (
         Icons.water_drop_outlined,
         vText.moistureMenu,
         () => MoistureScreen(controller: controller, worksiteId: worksiteId),
@@ -276,6 +283,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.handshake_outlined,
         vText.loanMenu,
         () => LoansScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.inventory_2_outlined,
+        vText.stockMenu,
+        () => WorkshopStockScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.checklist,

@@ -10,6 +10,7 @@ import 'glossary_view.dart';
 import 'notebook.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'work_sheet_pdf.dart';
 
 /// Embrasure d'une fenêtre de toit : haut horizontal, bas vertical, pour la lumière.
 class RoofLiningCalculator extends StatefulWidget {
@@ -38,7 +39,35 @@ class _RoofLiningCalculatorState extends State<RoofLiningCalculator> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(vText.liningTitle)),
+      appBar: AppBar(
+        title: Text(vText.liningTitle),
+        actions: [
+          PrintSheetButton(
+            sheet: () => (
+              title: vText.liningTitle,
+              intro: vText.liningHelp,
+              measures: [
+                (vText.liningWindowWidth, vCm(_widthMm)),
+                (vText.liningWindowHeight, vCm(_heightMm)),
+                (vText.liningDepth, vCm(_depthMm)),
+                (vText.slopeAngle, '$_slopeDeg'),
+              ],
+              results: [
+                vText.liningOpening(vCm(vLining.ceilingOpeningMm)),
+                vText.liningGain(vCm(vLining.gainMm)),
+                vText.liningTop(vCm(vLining.topMm)),
+                vText.liningBottom(vCm(vLining.bottomMm)),
+              ],
+              buy: const [],
+              steps: [
+                vText.liningWhyTop(vCm(_depthMm), _slopeDeg),
+                vText.liningWhyBottom(_slopeDeg),
+                vText.liningWhyOpening(vCm(_heightMm), vCm(vLining.gainMm)),
+              ],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [

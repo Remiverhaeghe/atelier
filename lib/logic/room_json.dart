@@ -5,6 +5,7 @@ import 'baseboard.dart';
 import 'fixtures.dart';
 import 'furniture.dart';
 import 'hidden_networks.dart';
+import 'house_book.dart';
 import 'paint.dart';
 import 'parquet.dart';
 import 'room.dart';
@@ -39,6 +40,7 @@ Map<String, Object?> roomToJson(Room pRoom) => {
     'furniture': [for (final vItem in pRoom.furniture) vItem.toJson()],
   if (pRoom.networks.isNotEmpty) 'networks': [for (final vRun in pRoom.networks) vRun.toJson()],
   if (pRoom.stepPhotos.isNotEmpty) 'stepPhotos': pRoom.stepPhotos,
+  if (!pRoom.behindWalls.isEmpty) 'behindWalls': pRoom.behindWalls.toJson(),
 };
 
 /// Pièce relue ; un champ absent prend sa valeur par défaut, pour lire les anciens fichiers.
@@ -98,4 +100,7 @@ Room roomFromJson(Map<String, Object?> pJson) => Room(
     for (final vEntry in ((pJson['stepPhotos'] as Map<String, Object?>?) ?? const {}).entries)
       vEntry.key: (vEntry.value! as List<Object?>).cast<String>(),
   },
+  behindWalls: pJson['behindWalls'] == null
+      ? const BehindWalls()
+      : BehindWalls.fromJson(pJson['behindWalls']! as Map<String, Object?>),
 );
