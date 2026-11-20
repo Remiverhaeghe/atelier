@@ -11,15 +11,13 @@ Validés le 16 novembre 2026, dans l'ordre prévu :
 Validés le 17 novembre 2026, dans l'ordre prévu :
 
 - 135. **Textes découpés par domaine** : reporté. Le découpage ajouterait une étape de fusion avant chaque `flutter gen-l10n`, pour un fichier de données qui a droit à l'exception des 1000 lignes.
-- 136. **Version anglaise** : à faire dans une session à part, environ 2 400 textes à traduire et à relire.
 
 Les lots 141 à 163 (assemblages, mezzanine, pergola, escaliers, sauvegarde chiffrée, fenêtre de toit, échafaudage, grands volumes) sont faits : voir le CHANGELOG.
 
-Les lots 169 à 210, validés le 18 novembre 2026, sont faits : voir le CHANGELOG.
+Les lots 169 à 210, validés le 18 novembre 2026, sont faits, ainsi que la version anglaise (lot 136) : voir le CHANGELOG.
 
 Validés le 20 novembre 2026, dans l'ordre :
 
-- **Version anglaise** (lot 136).
 - **Filmer une pièce** pour repérer ce qui est à reprendre, et **préconisations à partir d'une image de caméra thermique** (idées « Plus tard »).
 
 ## Organisation et motivation

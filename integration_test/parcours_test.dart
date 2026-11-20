@@ -11,6 +11,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../test/support/memory_settings.dart';
+
 /// Remplit la boîte de dialogue ouverte et l'enregistre.
 Future<void> fillAndSave(WidgetTester pTester, String pText) async {
   await pTester.pumpAndSettle();
@@ -39,7 +41,7 @@ void main() {
   testWidgets('un chantier saisi est relu au redémarrage', (pTester) async {
     final vController = WorksitesController(WorksiteStore(vFile));
     await vController.load();
-    await pTester.pumpWidget(AtelierApp(controller: vController));
+    await pTester.pumpWidget(AtelierApp(controller: vController, settings: await frenchSettings()));
     await pTester.pumpAndSettle();
 
     await pTester.tap(find.text('Nouveau chantier'));
@@ -82,7 +84,7 @@ void main() {
     );
     final vController = WorksitesController(WorksiteStore(vFile));
     await pTester.runAsync(vController.load);
-    await pTester.pumpWidget(AtelierApp(controller: vController));
+    await pTester.pumpWidget(AtelierApp(controller: vController, settings: await frenchSettings()));
     await pTester.pumpAndSettle();
 
     await pTester.tap(find.text('Maison démo'));
@@ -102,7 +104,7 @@ void main() {
     final vBackups = Backups(vFolder);
     final vController = WorksitesController(WorksiteStore(vFile, backups: vBackups));
     await pTester.runAsync(vController.load);
-    await pTester.pumpWidget(AtelierApp(controller: vController));
+    await pTester.pumpWidget(AtelierApp(controller: vController, settings: await frenchSettings()));
     await pTester.pumpAndSettle();
 
     await pTester.tap(find.text('Nouveau chantier'));

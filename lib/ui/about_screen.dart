@@ -110,6 +110,21 @@ class _DisplaySettings extends StatelessWidget {
                   settings.update(vCurrent.copyWith(theme: pChoice.single)),
             ),
             const SizedBox(height: 12),
+            SegmentedButton<LanguageChoice>(
+              segments: [
+                ButtonSegment(
+                  value: LanguageChoice.system,
+                  icon: const Icon(Icons.translate),
+                  label: Text(vText.languageSystem),
+                ),
+                ButtonSegment(value: LanguageChoice.french, label: Text(vText.languageFrench)),
+                ButtonSegment(value: LanguageChoice.english, label: Text(vText.languageEnglish)),
+              ],
+              selected: {vCurrent.language},
+              onSelectionChanged: (pChoice) =>
+                  settings.update(vCurrent.copyWith(language: pChoice.single)),
+            ),
+            const SizedBox(height: 12),
             SegmentedButton<double>(
               segments: [
                 for (final (vIndex, vScale) in textScales.indexed)

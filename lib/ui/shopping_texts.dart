@@ -37,7 +37,7 @@ String itemLabel(AppLocalizations pText, ShoppingItem pItem) {
 }
 
 /// Prix en euros avec deux décimales : « 30,50 ».
-String formatEuros(double pValue) => pValue.toStringAsFixed(2).replaceAll('.', ',');
+String formatEuros(double pValue) => pValue.toStringAsFixed(2).replaceAll('.', aDecimalSeparator);
 
 /// Détail d'une ligne : quantité, prix et total, ou prix à saisir.
 String lineDetail(AppLocalizations pText, ShoppingLine pLine) => pLine.unitPrice == null
