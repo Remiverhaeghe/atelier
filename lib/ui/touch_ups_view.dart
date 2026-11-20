@@ -209,8 +209,8 @@ class _TouchUpsViewState extends State<TouchUpsView> {
             ),
           ),
         ],
-        if (widget.onAddToShopping != null && touchUpPurchases(_room.touchUps, widget.shopping)
-            case final vToBuy when vToBuy.isNotEmpty)
+        if (touchUpPurchases(_room.touchUps, widget.shopping) case final vToBuy
+            when widget.onAddToShopping != null && vToBuy.isNotEmpty)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: OutlinedButton.icon(
