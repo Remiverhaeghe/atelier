@@ -14,8 +14,15 @@ import '../support/memory_storage.dart';
 import 'display_settings_test.dart' show MemorySettings;
 
 /// Noms des paramètres d'un texte ARB, hors variantes du pluriel (`=1{…}`, `other{…}`).
-Set<String> placeholders(String pText) =>
-    RegExp(r'(?<![=\w])\{(\w+)[,}]').allMatches(pText).map((pMatch) => pMatch.group(1)!).toSet();
+Set<String> placeholders(String pText) {
+  final vCase = RegExp(r'(=\d+|zero|one|two|few|many|other)$');
+  final rNames = {
+    for (final vMatch in RegExp(r'\{(\w+)[,}]').allMatches(pText))
+      if (!vCase.hasMatch(pText.substring(0, vMatch.start))) vMatch.group(1)!,
+  };
+
+  return rNames;
+}
 
 Map<String, Object?> readArb(String pName) =>
     jsonDecode(File('lib/l10n/$pName').readAsStringSync()) as Map<String, Object?>;
