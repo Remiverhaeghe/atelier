@@ -90,7 +90,8 @@ ShapedRoom shapeRoom(RoomShape pShape, Map<int, int> pMeasured, {int? pDiagonalM
   final vAngles = [...shapeAngles[pShape]!];
   final vDirections = _directions(vAngles);
   final vLengths = [
-    for (var vIndex = 0; vIndex < vDefaults.length; vIndex++) pMeasured[vIndex] ?? vDefaults[vIndex],
+    for (var vIndex = 0; vIndex < vDefaults.length; vIndex++)
+      pMeasured[vIndex] ?? vDefaults[vIndex],
   ];
   final vDeduced = <int>{};
   // Un mur symétrique d'un mur mesuré lui ressemble : il compte comme connu
@@ -114,7 +115,10 @@ ShapedRoom shapeRoom(RoomShape pShape, Map<int, int> pMeasured, {int? pDiagonalM
     final vFree = vWalls.where((pIndex) => !vKnown.containsKey(pIndex)).toList();
     if (vFree.isEmpty) {
       // Tout est mesuré sur cet axe : s'il ne se referme pas, la pièce n'est pas d'équerre
-      final vGap = vWalls.fold(0, (pSum, pIndex) => pSum + vDirections[pIndex].sign * vLengths[pIndex]);
+      final vGap = vWalls.fold(
+        0,
+        (pSum, pIndex) => pSum + vDirections[pIndex].sign * vLengths[pIndex],
+      );
       if (vGap.abs() > squareToleranceMm) {
         vNeedsDiagonal = pShape == RoomShape.rectangle;
         vImpossible = pShape != RoomShape.rectangle;

@@ -66,7 +66,10 @@ void main() {
 
     // Le rectangle par défaut fait 4 m sur 3 : le mur 3 est le bord du haut
     final vBox = pTester.getRect(find.byType(ShapeSketch));
-    final vScale = [(vBox.width - 72) / 4000, (vBox.height - 72) / 3000].reduce((pA, pB) => pA < pB ? pA : pB);
+    final vScale = [
+      (vBox.width - 72) / 4000,
+      (vBox.height - 72) / 3000,
+    ].reduce((pA, pB) => pA < pB ? pA : pB);
     final vTop = (vBox.height - 3000 * vScale) / 2;
     await pTester.tapAt(Offset(vBox.center.dx, vBox.top + vTop));
     await pTester.pumpAndSettle();

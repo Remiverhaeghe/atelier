@@ -66,8 +66,7 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
       _measured[pIndex] == null ? '' : formatCentimetres(_measured[pIndex]!);
 
   /// Pièce dessinée : murs de la forme, ouvertures gardées, hauteur et rampants à jour.
-  Room get _drawn =>
-      _room.copyWith(walls: shapeWalls(_shaped, widget.room.walls), closed: true);
+  Room get _drawn => _room.copyWith(walls: shapeWalls(_shaped, widget.room.walls), closed: true);
 
   void _select(int pIndex) => setState(() {
     _selected = pIndex;
@@ -352,7 +351,10 @@ class _ShapePainter extends CustomPainter {
     // Le plan monte vers le haut de l'écran : y inversé
     return [
       for (final vPoint in points)
-        Offset(vLeft + (vPoint.x - vMinX) * vScale, pSize.height - vTop - (vPoint.y - vMinY) * vScale),
+        Offset(
+          vLeft + (vPoint.x - vMinX) * vScale,
+          pSize.height - vTop - (vPoint.y - vMinY) * vScale,
+        ),
     ];
   }
 
@@ -377,8 +379,10 @@ class _ShapePainter extends CustomPainter {
     final vLength = vSegment.distanceSquared;
     final vT = vLength == 0
         ? 0.0
-        : (((pAt - pFrom).dx * vSegment.dx + (pAt - pFrom).dy * vSegment.dy) / vLength)
-              .clamp(0.0, 1.0);
+        : (((pAt - pFrom).dx * vSegment.dx + (pAt - pFrom).dy * vSegment.dy) / vLength).clamp(
+            0.0,
+            1.0,
+          );
 
     return (pAt - (pFrom + vSegment * vT)).distance;
   }
@@ -434,7 +438,14 @@ class _ShapePainter extends CustomPainter {
     }
   }
 
-  void _label(Canvas pCanvas, String pText, Offset pAt, Color pColor, double pSize, FontWeight pWeight) {
+  void _label(
+    Canvas pCanvas,
+    String pText,
+    Offset pAt,
+    Color pColor,
+    double pSize,
+    FontWeight pWeight,
+  ) {
     final vPainter = TextPainter(
       text: TextSpan(
         text: pText,
