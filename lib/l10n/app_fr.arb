@@ -4707,5 +4707,9 @@
   "roomSheetPasses": "Passages faits : {done} sur {passes}",
   "@roomSheetPasses": {"placeholders": {"done": {"type": "String"}, "passes": {"type": "String"}}},
   "roomSheetToBuy": "À acheter : {item}",
-  "@roomSheetToBuy": {"placeholders": {"item": {"type": "String"}}}
+  "@roomSheetToBuy": {"placeholders": {"item": {"type": "String"}}},
+  "touchUpsToShopping": "{count, plural, =1{Ajouter 1 article aux courses} other{Ajouter {count} articles aux courses}}",
+  "@touchUpsToShopping": {"placeholders": {"count": {"type": "int"}}},
+  "touchUpsAddedToShopping": "Ajouté à la liste de courses : {items}",
+  "@touchUpsAddedToShopping": {"placeholders": {"items": {"type": "String"}}}
 }

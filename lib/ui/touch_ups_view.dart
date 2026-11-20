@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/extra_items.dart';
 import '../logic/room.dart';
 import '../logic/touch_up.dart';
 import '../logic/work_templates.dart';
@@ -16,10 +17,23 @@ import 'touch_up_dialog.dart';
 
 /// Reprises de la pièce : liste à cocher passage par passage, repères sur le plan et photos.
 class TouchUpsView extends StatefulWidget {
-  const TouchUpsView({super.key, required this.room, required this.onChanged, this.photos});
+  const TouchUpsView({
+    super.key,
+    required this.room,
+    required this.onChanged,
+    this.photos,
+    this.shopping = const [],
+    this.onAddToShopping,
+  });
 
   final Room room;
   final ValueChanged<Room> onChanged;
+
+  /// Articles déjà sur la liste de courses du chantier.
+  final List<ExtraItem> shopping;
+
+  /// Ajout à la liste de courses du chantier ; bouton caché si absent.
+  final ValueChanged<List<ExtraItem>>? onAddToShopping;
 
   /// Prise de photo ; remplaçable dans les tests.
   final PhotoTaker? photos;
@@ -195,6 +209,28 @@ class _TouchUpsViewState extends State<TouchUpsView> {
             ),
           ),
         ],
+        if (widget.onAddToShopping != null &&
+            touchUpPurchases(_room.touchUps, widget.shopping) case final vToBuy
+            when vToBuy.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: OutlinedButton.icon(
+              icon: const Icon(Icons.add_shopping_cart),
+              label: Text(vText.touchUpsToShopping(vToBuy.length)),
+              onPressed: () {
+                widget.onAddToShopping!(vToBuy);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      vText.touchUpsAddedToShopping(
+                        vToBuy.map((pItem) => '${pItem.quantity} × ${pItem.name}').join(', '),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         if (_room.walls.isNotEmpty)
           Padding(
             padding: const EdgeInsets.all(16),

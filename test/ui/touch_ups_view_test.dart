@@ -1,3 +1,4 @@
+import 'package:atelier/logic/extra_items.dart';
 import 'package:atelier/logic/fixtures.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/touch_up.dart';
@@ -184,5 +185,28 @@ void main() {
     await pTester.tap(find.textContaining('1 plexi de toit'));
     await pTester.pumpAndSettle();
     expect(find.text('2 montants de 97 cm'), findsOneWidget);
+  });
+
+  testWidgets('le matériel des reprises part dans la liste de courses', (pTester) async {
+    tallScreen(pTester);
+    final vAdded = <ExtraItem>[];
+    await pTester.pumpWidget(
+      localized(
+        TouchUpsView(
+          room: rectangleRoom().copyWith(
+            touchUps: const [TouchUp(id: 't', label: 'Fissure', toBuy: '2 × bande, enduit')],
+          ),
+          onChanged: (_) {},
+          shopping: const [ExtraItem(name: 'Enduit', quantity: 1)],
+          onAddToShopping: vAdded.addAll,
+        ),
+      ),
+    );
+    await pTester.pumpAndSettle();
+
+    await pTester.tap(find.text('Ajouter 1 article aux courses'));
+    await pTester.pump();
+    expect([for (final vItem in vAdded) (vItem.name, vItem.quantity)], [('bande', 2)]);
+    expect(find.text('Ajouté à la liste de courses : 2 × bande'), findsOneWidget);
   });
 }

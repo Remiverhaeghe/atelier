@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Courses depuis les reprises : le matériel noté « à acheter » sur les reprises pas finies part d'un bouton dans la liste de courses du chantier (« 2 × bande, enduit » donne deux articles, avec leur quantité), sans doublon avec ce qui y est déjà
 - Fiche de la pièce à imprimer, depuis l'écran de la pièce : plan à l'échelle aux murs numérotés et aux coins lettrés (déduits en pointillés, portes et fenêtres, mezzanine), hauteur sous plafond, sol et tour, rampants, tableau des murs et liste des reprises à cocher avec leurs repères sur le plan
 - Murs déduits retenus : la pièce garde quels murs ont été déduits sur le dessin, le mode chantier rappelle de les mesurer sur place, et retaper une longueur en fait une mesure
 - Portes et fenêtres sur le dessin de la pièce : on touche le mur à l'endroit de la porte, « Porte ou fenêtre ici » la place centrée sur le toucher. Le plan montre l'ouverture, une puce par ouverture sous le mur en cours permet de la retirer

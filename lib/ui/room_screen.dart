@@ -6,6 +6,7 @@ import '../logic/inventory.dart';
 import '../logic/geometry.dart';
 import '../logic/layout.dart';
 import '../logic/room.dart';
+import '../logic/extra_items.dart';
 import '../logic/room_copy.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
@@ -167,7 +168,19 @@ class RoomScreen extends StatelessWidget {
             body: TabBarView(
               children: [
                 RoomWallsView(room: vRoom, onChanged: vSave),
-                TouchUpsView(room: vRoom, onChanged: vSave),
+                TouchUpsView(
+                  room: vRoom,
+                  onChanged: vSave,
+                  shopping: controller.worksite(worksiteId)?.extras ?? const [],
+                  onAddToShopping: (pItems) async {
+                    final vWorksite = controller.worksite(worksiteId);
+                    if (vWorksite != null) {
+                      await controller.updateWorksite(
+                        vWorksite.copyWith(extras: mergeExtras(vWorksite.extras, pItems)),
+                      );
+                    }
+                  },
+                ),
                 ParquetView(room: vRoom, onChanged: vSave),
                 LayingView(room: vRoom, onChanged: vSave),
                 BaseboardView(room: vRoom, onChanged: vSave),

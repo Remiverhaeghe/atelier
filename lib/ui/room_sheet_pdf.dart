@@ -88,15 +88,13 @@ Future<Uint8List> buildRoomSheetPdf(AppLocalizations pText, Room pRoom) async {
             child: pw.Row(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.Text(vTouchUp.donePasses >= vTouchUp.passes ? '[x] ' : '[  ] '),
+                pw.Text(vTouchUp.done ? '[x] ' : '[  ] '),
                 pw.Expanded(
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text(
-                        vTouchUp.markerXMm == null
-                            ? vTouchUp.label
-                            : '${_markerNumber(pRoom, vIndex)}. ${vTouchUp.label}',
+                        '${vIndex + 1}. ${vTouchUp.label}',
                         style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                       ),
                       pw.Text(
@@ -119,10 +117,6 @@ Future<Uint8List> buildRoomSheetPdf(AppLocalizations pText, Room pRoom) async {
 
   return vDocument.save();
 }
-
-/// Numéro d'une reprise placée sur le plan, dans l'ordre des reprises placées.
-int _markerNumber(Room pRoom, int pIndex) =>
-    pRoom.touchUps.take(pIndex + 1).where((pTouchUp) => pTouchUp.markerXMm != null).length;
 
 /// Plan à l'échelle : murs mesurés en trait plein, déduits en pointillés, ouvertures laissées
 /// ouvertes, numéros des murs, lettres des coins et repères des reprises.
@@ -260,10 +254,10 @@ pw.Widget _plan(Room pRoom) {
           vLabel(vPushed(vScreen[vIndex], 11), String.fromCharCode(65 + vIndex)),
         ],
         for (final (vIndex, vTouchUp) in pRoom.touchUps.indexed)
-          if (vTouchUp.markerXMm != null && vTouchUp.markerYMm != null)
+          if (vTouchUp.hasMarker)
             vLabel(
               vAt(vTouchUp.markerXMm!.toDouble(), vTouchUp.markerYMm!.toDouble()),
-              '${_markerNumber(pRoom, vIndex)}',
+              '${vIndex + 1}',
               pCircled: true,
             ),
       ],

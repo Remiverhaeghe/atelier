@@ -3465,5 +3465,7 @@
   "roomSheetTouchUps": "Touch-ups",
   "roomSheetNoTouchUps": "No touch-ups noted.",
   "roomSheetPasses": "Passes done: {done} of {passes}",
-  "roomSheetToBuy": "To buy: {item}"
+  "roomSheetToBuy": "To buy: {item}",
+  "touchUpsToShopping": "{count, plural, =1{Add 1 item to the shopping list} other{Add {count} items to the shopping list}}",
+  "touchUpsAddedToShopping": "Added to the shopping list: {items}"
 }
