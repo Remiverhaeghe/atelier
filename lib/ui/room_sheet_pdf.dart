@@ -95,7 +95,7 @@ Future<Uint8List> buildRoomSheetPdf(AppLocalizations pText, Room pRoom) async {
                     children: [
                       pw.Text(
                         '${vIndex + 1}. ${vTouchUp.label}',
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        style: const pw.TextStyle(fontWeight: pw.FontWeight.bold),
                       ),
                       pw.Text(
                         pText.roomSheetPasses(
