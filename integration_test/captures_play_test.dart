@@ -34,7 +34,19 @@ void main() {
     await vShot('1-chantiers');
     await pTester.tap(find.text('Maison de démonstration'));
     await vShot('2-chantier');
-    await pTester.tap(find.text('Salon').first);
+    // Les pièces sont sous les tuiles d'accueil : la liste ne les construit qu'en défilant
+    final vRoom = find.text('Salon').first;
+    await pTester.scrollUntilVisible(
+      vRoom,
+      300,
+      scrollable: find
+          .byWidgetPredicate(
+            (pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down,
+          )
+          .first,
+    );
+    await pTester.pumpAndSettle();
+    await pTester.tap(vRoom);
     await vShot('3-piece');
     for (final (vTab, vName) in [
       ('Parquet', '4-parquet'),
