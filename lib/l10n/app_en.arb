@@ -2787,7 +2787,7 @@
   "energyWorksTitle": "Most cost-effective work",
   "energyNoWork": "All surfaces are already at a good level: look at the heating settings instead.",
   "energyWork": "{rank}. {part} to “{target}”: {percent}% fewer losses, about €{cost}",
-  "energyCostHint": "Rough costs for work done by a tradesperson, to rank the jobs against each other. Real prices are on quotes.",
+  "energyCostHint": "Estimate: rough costs for work done by a tradesperson, to rank the jobs against each other. Real prices are on quotes.",
   "energyAids": "Possible French grants: MaPrimeRénov', energy bonuses (CEE), zero-interest eco-loan, reduced VAT. Rules and amounts change often: check them on the France Rénov' website or with an adviser at the time of the work, before signing a quote. An RGE-certified tradesperson is often required.",
   "energyHouse": "The house",
   "energyFromRooms": "Floor, roof, windows and volume taken from the rooms entered; the outside walls need measuring.",
@@ -3376,5 +3376,9 @@
   "quickCornerInside": "Inside corner",
   "quickCornerOutside": "Outside corner",
   "quickCornerOther": "Angle",
-  "quickRemoveWall": "Remove this wall"
+  "quickRemoveWall": "Remove this wall",
+  "estimateFromPrices": "Estimate: calculated from the unit prices entered in the shopping list. The real amount depends on the shop, offers and delivery.",
+  "estimateFromRanges": "Estimate: entry-level price ranges in French DIY superstores, set in the app in 2026. They don't follow today's prices: check in the shop or with the hire company.",
+  "estimateFromInputs": "Estimate: calculated only from the amounts entered here. It counts neither surprises nor the value of your time.",
+  "estimateFromRate": "Estimate: the time noted on the project, multiplied by the hourly rate entered and divided by a tradesperson's speed. Only a quote gives the real price."
 }

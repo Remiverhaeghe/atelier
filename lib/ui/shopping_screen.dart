@@ -114,6 +114,7 @@ class ShoppingScreen extends StatelessWidget {
                         children: [
                           BigFigure(vText.budgetTotal(formatEuros(budgetTotal(vLines)))),
                           if (budgetIncomplete(vLines)) Text(vText.budgetIncomplete),
+                          EstimateNote(vText.estimateFromPrices),
                         ],
                       ),
                     ),

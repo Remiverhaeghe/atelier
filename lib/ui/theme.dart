@@ -283,6 +283,37 @@ class IconLine extends StatelessWidget {
   }
 }
 
+/// Rappel qu'un montant est une estimation, et sur quoi il repose.
+class EstimateNote extends StatelessWidget {
+  const EstimateNote(this.basis, {super.key});
+
+  final String basis;
+
+  @override
+  Widget build(BuildContext context) {
+    final vTheme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.info_outline, size: 16, color: vTheme.colorScheme.onSurfaceVariant),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              basis,
+              style: vTheme.textTheme.bodySmall!.copyWith(
+                color: vTheme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// Icônes communes aux onglets, aux résultats et aux listes.
 abstract final class AtelierIcons {
   static const room = Icons.square_foot;

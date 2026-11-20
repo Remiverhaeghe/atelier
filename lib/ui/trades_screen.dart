@@ -22,7 +22,13 @@ class TradesScreen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
-            child: Text(vText.tradesIntro, style: vTheme.textTheme.bodyMedium),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(vText.tradesIntro, style: vTheme.textTheme.bodyMedium),
+                EstimateNote(vText.estimateFromRanges),
+              ],
+            ),
           ),
           for (final MapEntry(key: vLevel, value: vTrades) in tradesByLevel().entries) ...[
             Padding(

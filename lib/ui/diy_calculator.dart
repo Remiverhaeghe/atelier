@@ -95,6 +95,7 @@ class _DiyCalculatorState extends State<DiyCalculator> {
           if (_aidsNeedPro) vField(vText.diyAidAmount, _aid, (pValue) => _aid = pValue),
           const SizedBox(height: 12),
           Text(vText.diyHint, style: vTheme.textTheme.bodySmall),
+          EstimateNote(vText.estimateFromInputs),
         ],
       ),
     );

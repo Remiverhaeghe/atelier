@@ -3938,7 +3938,7 @@
   "energyNoWork": "Toutes les parois sont déjà à un bon niveau : regarde plutôt le réglage du chauffage.",
   "energyWork": "{rank}. {part} vers « {target} » : {percent} % des pertes en moins, environ {cost} €",
   "@energyWork": {"placeholders": {"rank": {"type": "int"}, "part": {"type": "String"}, "target": {"type": "String"}, "percent": {"type": "String"}, "cost": {"type": "String"}}},
-  "energyCostHint": "Coûts indicatifs de travaux faits par un artisan, pour classer les travaux entre eux. Les vrais prix se lisent sur des devis.",
+  "energyCostHint": "Estimation : coûts indicatifs de travaux faits par un artisan, pour classer les travaux entre eux. Les vrais prix se lisent sur des devis.",
   "energyAids": "Aides possibles : MaPrimeRénov', primes énergie (CEE), éco-prêt à taux zéro, TVA réduite. Les règles et les montants changent souvent : vérifie-les sur le site France Rénov' ou auprès d'un conseiller au moment des travaux, avant de signer un devis. Un artisan RGE est souvent exigé.",
   "energyHouse": "La maison",
   "energyFromRooms": "Sol, toit, fenêtres et volume repris des pièces saisies ; les murs donnant dehors sont à mesurer.",
@@ -4594,5 +4594,9 @@
   "quickCornerInside": "Coin rentrant",
   "quickCornerOutside": "Coin sortant",
   "quickCornerOther": "Angle",
-  "quickRemoveWall": "Retirer ce mur"
+  "quickRemoveWall": "Retirer ce mur",
+  "estimateFromPrices": "Estimation : calculée avec les prix unitaires saisis dans les courses. Le montant réel dépend du magasin, des promotions et de la livraison.",
+  "estimateFromRanges": "Estimation : fourchettes de prix d'entrée de gamme en grande surface de bricolage, fixées dans l'appli en 2026. Elles ne suivent pas les prix du jour : vérifie en magasin ou chez le loueur.",
+  "estimateFromInputs": "Estimation : calculée seulement avec les montants saisis ici. Elle ne compte ni les imprévus ni le prix de ton temps.",
+  "estimateFromRate": "Estimation : le temps noté sur le chantier, multiplié par le taux horaire saisi et divisé par la vitesse d'un artisan. Seul un devis donne le vrai prix."
 }
