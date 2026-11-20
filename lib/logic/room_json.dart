@@ -2,6 +2,7 @@
 library;
 
 import 'baseboard.dart';
+import 'climate_history.dart';
 import 'fixtures.dart';
 import 'furniture.dart';
 import 'hidden_networks.dart';
@@ -41,6 +42,8 @@ Map<String, Object?> roomToJson(Room pRoom) => {
   if (pRoom.networks.isNotEmpty) 'networks': [for (final vRun in pRoom.networks) vRun.toJson()],
   if (pRoom.stepPhotos.isNotEmpty) 'stepPhotos': pRoom.stepPhotos,
   if (!pRoom.behindWalls.isEmpty) 'behindWalls': pRoom.behindWalls.toJson(),
+  if (pRoom.climate.days.isNotEmpty || pRoom.climate.worksOn != null)
+    'climate': pRoom.climate.toJson(),
 };
 
 /// Pièce relue ; un champ absent prend sa valeur par défaut, pour lire les anciens fichiers.
@@ -103,4 +106,7 @@ Room roomFromJson(Map<String, Object?> pJson) => Room(
   behindWalls: pJson['behindWalls'] == null
       ? const BehindWalls()
       : BehindWalls.fromJson(pJson['behindWalls']! as Map<String, Object?>),
+  climate: pJson['climate'] == null
+      ? const ClimateLog()
+      : ClimateLog.fromJson(pJson['climate']! as Map<String, Object?>),
 );

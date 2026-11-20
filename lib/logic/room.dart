@@ -2,6 +2,7 @@
 library;
 
 import 'baseboard.dart';
+import 'climate_history.dart';
 import 'fixtures.dart';
 import 'furniture.dart';
 import 'hidden_networks.dart';
@@ -210,6 +211,7 @@ class Room {
     this.networks = const [],
     this.stepPhotos = const {},
     this.behindWalls = const BehindWalls(),
+    this.climate = const ClimateLog(),
   });
 
   final String id;
@@ -270,6 +272,9 @@ class Room {
   /// Solives et photos d'avant fermeture : ce qui reste caché derrière le placo.
   final BehindWalls behindWalls;
 
+  /// Humidité suivie jour par jour d'après les relevés importés, et date des travaux.
+  final ClimateLog climate;
+
   Room copyWith({
     String? id,
     String? name,
@@ -298,6 +303,7 @@ class Room {
     List<HiddenRun>? networks,
     Map<String, List<String>>? stepPhotos,
     BehindWalls? behindWalls,
+    ClimateLog? climate,
   }) => Room(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -324,6 +330,7 @@ class Room {
     networks: networks ?? this.networks,
     stepPhotos: stepPhotos ?? this.stepPhotos,
     behindWalls: behindWalls ?? this.behindWalls,
+    climate: climate ?? this.climate,
   );
 
   Map<String, Object?> toJson() => roomToJson(this);

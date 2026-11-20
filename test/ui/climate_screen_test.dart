@@ -1,3 +1,4 @@
+import 'package:atelier/logic/climate_history.dart';
 import 'package:atelier/logic/touch_up.dart';
 import 'package:atelier/ui/climate_screen.dart';
 import 'package:flutter/material.dart';
@@ -58,5 +59,39 @@ void main() {
 
     expect(find.textContaining('Fichier illisible'), findsOneWidget);
     expect(find.byType(Checkbox), findsNothing);
+  });
+
+  testWidgets('chaque import s\'ajoute au suivi de la pièce, avec la date des travaux', (
+    pTester,
+  ) async {
+    tallScreen(pTester);
+    ClimateLog? vKept;
+    await pTester.pumpWidget(
+      localized(
+        ClimateScreen(
+          canAddTouchUps: true,
+          pickFile: () async => dampExport(),
+          log: ClimateLog(
+            days: const [],
+            worksOn: DateTime(2026, 11, 20),
+          ),
+          onLog: (pLog) => vKept = pLog,
+        ),
+      ),
+    );
+    await pTester.tap(find.text('Choisir le fichier des relevés'));
+    await pTester.pumpAndSettle();
+
+    expect(vKept!.days, hasLength(2));
+    expect(vKept!.days.first.humidity, 75);
+    expect(find.text('Humidité jour après jour'), findsOneWidget);
+    expect(find.text('2 jours suivis, du 01/12/2026 au 02/12/2026'), findsOneWidget);
+    expect(find.text('Travaux le 20/11/2026'), findsOneWidget);
+    expect(find.textContaining("d'avant et d'après les travaux"), findsOneWidget);
+
+    await pTester.tap(find.text('Retirer la date'));
+    await pTester.pumpAndSettle();
+    expect(vKept!.worksOn, isNull);
+    expect(find.text('Date des travaux'), findsOneWidget);
   });
 }

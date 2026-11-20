@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Humidité suivie dans le temps : depuis les reprises d'une pièce, chaque fichier du thermo-hygromètre ajoute ses journées au suivi (moyennes du jour, deux ans gardés). Courbe jour par jour avec la zone saine, date des travaux marquée, et comparaison avant / après : humidité et température moyennes, jours humides, et si l'air est plus sec, plus humide ou pareil
 - Gestes animés : pause et reprise, ralenti (quatre fois moins vite) et réglette pour avancer le geste au doigt, image par image
 - Courses depuis les reprises : le matériel noté « à acheter » sur les reprises pas finies part d'un bouton dans la liste de courses du chantier (« 2 × bande, enduit » donne deux articles, avec leur quantité), sans doublon avec ce qui y est déjà
 - Fiche de la pièce à imprimer, depuis l'écran de la pièce : plan à l'échelle aux murs numérotés et aux coins lettrés (déduits en pointillés, portes et fenêtres, mezzanine), hauteur sous plafond, sol et tour, rampants, tableau des murs et liste des reprises à cocher avec leurs repères sur le plan

@@ -145,7 +145,13 @@ class _TouchUpsViewState extends State<TouchUpsView> {
   Future<void> _addClimate() async {
     final vTouchUps = await Navigator.push(
       context,
-      MaterialPageRoute<List<TouchUp>>(builder: (_) => const ClimateScreen(canAddTouchUps: true)),
+      MaterialPageRoute<List<TouchUp>>(
+        builder: (_) => ClimateScreen(
+          canAddTouchUps: true,
+          log: _room.climate,
+          onLog: (pLog) => widget.onChanged(_room.copyWith(climate: pLog)),
+        ),
+      ),
     );
     if (vTouchUps != null && vTouchUps.isNotEmpty) {
       widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps, ...vTouchUps]));

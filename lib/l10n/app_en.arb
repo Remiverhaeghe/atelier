@@ -3471,5 +3471,19 @@
   "gesturePause": "Pause",
   "gestureResume": "Resume the gesture",
   "gestureSlow": "Slow motion",
-  "gestureScrub": "Move the gesture with your finger"
+  "gestureScrub": "Move the gesture with your finger",
+  "climateHistoryTitle": "Humidity day by day",
+  "climateHistoryDays": "{count, plural, =1{1 day tracked, on {from}} other{{count} days tracked, from {from} to {to}}}",
+  "climateHistoryChart": "Line of each day's average humidity",
+  "climateHistoryHelp": "Each imported file is added to the room's tracking. Light band: 40 to 60%, the healthy range; thin line: 70%, above which mould sets in. A damp day has an average above 65%.",
+  "climateWorksPick": "Date of the works",
+  "climateWorksOn": "Works on {day}",
+  "climateWorksClear": "Remove the date",
+  "climateNeedBoth": "Readings from before and after the works are needed to compare them: import the file for the other period.",
+  "climatePeriodSummary": "{humidity}% on average, {temp} °C, {damp} damp days out of {days}",
+  "climateBefore": "Before the works: {summary}",
+  "climateAfter": "After: {summary}",
+  "climateDrier": "The air is drier than before: {points} points less humidity.",
+  "climateDamper": "Humidity has risen by {points} points since the works: keep an eye on it and check the ventilation.",
+  "climateSame": "No clear change: less than {points} points apart."
 }
