@@ -6,6 +6,8 @@ import '../logic/parquet.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'direction_picker.dart';
+import 'room_measure_picker.dart';
+import 'shopping_target.dart';
 import 'theme.dart';
 
 /// Nom affiché d'un type de parquet.
@@ -263,11 +265,40 @@ class _NumberFieldState<T> extends State<NumberField<T>> {
   }
 
   void _changed(String pText) {
-    final vValue = widget.parse(pText);
+    // « 2,45 m » tapé dans un champ en cm devient « 245 » : chacun saisit dans son unité
+    final vText = toFieldUnit(pText, unitOfLabel(widget.label));
+    if (vText != pText) {
+      _controller.value = TextEditingValue(
+        text: vText,
+        selection: TextSelection.collapsed(offset: vText.length),
+      );
+    }
+    final vValue = widget.parse(vText);
     setState(() => _error = vValue == null ? AppLocalizations.of(context).invalidNumber : null);
     if (vValue != null) {
       widget.onValue(vValue);
     }
+  }
+
+  /// Bouton qui reprend une cote d'une pièce du chantier, quand le champ annonce une unité.
+  Widget? _measureButton(BuildContext pContext) {
+    final vUnit = unitOfLabel(widget.label);
+    final vRooms = [...?ShoppingTarget.maybeOf(pContext)?.worksites.expand((pSite) => pSite.rooms)];
+    if (vUnit == null || roomsWithMeasures(vRooms, vUnit).isEmpty) {
+      return null;
+    }
+
+    return IconButton(
+      tooltip: AppLocalizations.of(pContext).measuresPick,
+      icon: const Icon(Icons.square_foot),
+      onPressed: () async {
+        final vPicked = await pickRoomMeasure(pContext, vRooms, vUnit);
+        if (vPicked != null && mounted) {
+          _controller.text = vPicked;
+          _changed(vPicked);
+        }
+      },
+    );
   }
 
   @override
@@ -276,7 +307,11 @@ class _NumberFieldState<T> extends State<NumberField<T>> {
     child: TextField(
       controller: _controller,
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(labelText: widget.label, errorText: _error),
+      decoration: InputDecoration(
+        labelText: widget.label,
+        errorText: _error,
+        suffixIcon: _measureButton(context),
+      ),
       onChanged: _changed,
     ),
   );
