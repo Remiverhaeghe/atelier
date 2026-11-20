@@ -60,12 +60,12 @@ class AtelierApp extends StatelessWidget {
         aDecimalSeparator = Localizations.localeOf(pContext).languageCode == 'fr' ? ',' : '.';
 
         return MediaQuery(
-        data: MediaQuery.of(pContext).copyWith(
-          textScaler: TextScaler.linear(
-            MediaQuery.textScalerOf(pContext).scale(1) * pSettings.textScale,
+          data: MediaQuery.of(pContext).copyWith(
+            textScaler: TextScaler.linear(
+              MediaQuery.textScalerOf(pContext).scale(1) * pSettings.textScale,
+            ),
           ),
-        ),
-        child: pChild!,
+          child: pChild!,
         );
       },
       localizationsDelegates: const [

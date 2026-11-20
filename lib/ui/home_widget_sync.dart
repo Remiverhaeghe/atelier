@@ -31,7 +31,10 @@ Locale widgetLocale(List<Locale> pLocales) {
   final vKnown = AppLocalizations.supportedLocales.map((pLocale) => pLocale.languageCode);
   final rLocale = pLocales
       .map((pLocale) => Locale(pLocale.languageCode))
-      .firstWhere((pLocale) => vKnown.contains(pLocale.languageCode), orElse: () => const Locale('fr'));
+      .firstWhere(
+        (pLocale) => vKnown.contains(pLocale.languageCode),
+        orElse: () => const Locale('fr'),
+      );
 
   return rLocale;
 }
