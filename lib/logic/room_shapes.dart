@@ -212,9 +212,10 @@ const traceAngleToleranceDeg = 10.0;
 List<Wall>? shapeFromTrace(List<Wall> pWalls) {
   final vSnapped = <Wall>[];
   for (final vWall in pWalls) {
-    final vRight = [90.0, 270.0].where(
-      (pAngle) => (vWall.angleToNextDeg - pAngle).abs() <= traceAngleToleranceDeg,
-    );
+    final vRight = [
+      90.0,
+      270.0,
+    ].where((pAngle) => (vWall.angleToNextDeg - pAngle).abs() <= traceAngleToleranceDeg);
     if (vRight.isEmpty) {
       return null;
     }

@@ -112,10 +112,7 @@ void main() {
     expect(shapeOf(vWalls), RoomShape.lShape);
     expect(vWalls.map((pWall) => pWall.lengthMm), [4990, 2000, 1990, 2010, 3000, 4010]);
     expect(vWalls.map((pWall) => pWall.deduced), [true, false, false, false, false, true]);
-    expect(
-      closesProperly(Room(id: 'p', name: 'Pièce fictive', walls: vWalls)),
-      isTrue,
-    );
+    expect(closesProperly(Room(id: 'p', name: 'Pièce fictive', walls: vWalls)), isTrue);
   });
 
   test('plan papier sans angle droit ou de forme inconnue : rien de proposé', () {
