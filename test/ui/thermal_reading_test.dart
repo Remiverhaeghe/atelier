@@ -15,10 +15,8 @@ void main() {
       localized(
         Builder(
           builder: (pContext) => TextButton(
-            onPressed: () async => vTouchUp = await addThermalTouchUp(
-              pContext,
-              pImages: (_) async => null,
-            ),
+            onPressed: () async =>
+                vTouchUp = await addThermalTouchUp(pContext, pImages: (_) async => null),
             child: const Text('ouvrir'),
           ),
         ),
