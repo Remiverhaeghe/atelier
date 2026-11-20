@@ -271,23 +271,25 @@ String formatAngle(double pAngle) {
   return rText;
 }
 
-/// Ajout d'une porte ou d'un passage dans un mur de longueur donnée.
-Future<Opening?> addOpening(BuildContext pContext, int pWallLengthMm) => showDialog<Opening>(
-  context: pContext,
-  builder: (pDialogContext) => _OpeningDialog(wallLengthMm: pWallLengthMm),
-);
+/// Ajout d'une porte ou d'un passage dans un mur de longueur donnée, à [pOffsetMm] du début.
+Future<Opening?> addOpening(BuildContext pContext, int pWallLengthMm, {int pOffsetMm = 0}) =>
+    showDialog<Opening>(
+      context: pContext,
+      builder: (pDialogContext) => _OpeningDialog(wallLengthMm: pWallLengthMm, offsetMm: pOffsetMm),
+    );
 
 class _OpeningDialog extends StatefulWidget {
-  const _OpeningDialog({required this.wallLengthMm});
+  const _OpeningDialog({required this.wallLengthMm, this.offsetMm = 0});
 
   final int wallLengthMm;
+  final int offsetMm;
 
   @override
   State<_OpeningDialog> createState() => _OpeningDialogState();
 }
 
 class _OpeningDialogState extends State<_OpeningDialog> {
-  final _offset = TextEditingController(text: '0');
+  late final _offset = TextEditingController(text: formatCentimetres(widget.offsetMm));
   final _width = TextEditingController(text: '83');
   final _height = TextEditingController(
     text: formatCentimetres(defaultOpeningHeightMm(OpeningKind.door)),

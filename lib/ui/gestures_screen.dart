@@ -14,6 +14,9 @@ import 'work_sheet_pdf.dart';
 const gesturePasses = 3.5;
 const gesturePassDuration = Duration(milliseconds: 1800);
 
+/// Le ralenti joue le geste quatre fois moins vite.
+const slowMotionFactor = 4;
+
 /// Les gestes de base, un par carte.
 class GesturesScreen extends StatelessWidget {
   const GesturesScreen({super.key});
@@ -146,7 +149,8 @@ class GestureScreen extends StatelessWidget {
   }
 }
 
-/// Croquis en relief qui joue le geste quelques fois, puis s'arrête ; un bouton le rejoue.
+/// Croquis en relief qui joue le geste quelques fois, puis s'arrête. On peut le mettre en pause,
+/// le ralentir, l'avancer au doigt sur la réglette ou le rejouer.
 class GestureSketch extends StatefulWidget {
   const GestureSketch({super.key, required this.gesture});
 
@@ -165,6 +169,12 @@ class _GestureSketchState extends State<GestureSketch> with SingleTickerProvider
 
   var _started = false;
 
+  /// Ralenti : le geste dure quatre fois plus longtemps.
+  var _slow = false;
+
+  /// Durée de toutes les passes, à la vitesse choisie.
+  Duration get _duration => gesturePassDuration * gesturePasses * (_slow ? slowMotionFactor : 1);
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -182,6 +192,34 @@ class _GestureSketchState extends State<GestureSketch> with SingleTickerProvider
     } else {
       _controller.forward(from: 0);
     }
+  }
+
+  void _pauseOrResume() {
+    if (_controller.isAnimating) {
+      _controller.stop();
+    } else if (_controller.value >= gesturePasses) {
+      _controller.forward(from: 0);
+    } else {
+      _controller.forward();
+    }
+    setState(() {});
+  }
+
+  void _toggleSlow() {
+    setState(() => _slow = !_slow);
+    _controller.duration = _duration;
+    // Une animation en cours repart du même point, à la nouvelle vitesse
+    if (_controller.isAnimating) {
+      _controller.forward();
+    }
+  }
+
+  /// Réglette tirée au doigt : le geste s'arrête et suit le doigt.
+  void _scrub(double pValue) {
+    _controller
+      ..stop()
+      ..value = pValue;
+    setState(() {});
   }
 
   @override
@@ -217,12 +255,42 @@ class _GestureSketchState extends State<GestureSketch> with SingleTickerProvider
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton.icon(
-            onPressed: _play,
-            icon: const Icon(Icons.replay),
-            label: Text(vText.gestureReplay, style: const TextStyle(fontFamily: handFont)),
+        // Réglette et bouton suivent l'animation à chaque image, fin du geste comprise
+        AnimatedBuilder(
+          animation: _controller,
+          builder: (pContext, _) => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Slider(
+                value: _controller.value,
+                max: gesturePasses,
+                semanticFormatterCallback: (_) => vText.gestureScrub,
+                onChanged: _scrub,
+              ),
+              Wrap(
+                alignment: WrapAlignment.end,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 4,
+                children: [
+                  IconButton(
+                    tooltip: _controller.isAnimating ? vText.gesturePause : vText.gestureResume,
+                    icon: Icon(_controller.isAnimating ? Icons.pause : Icons.play_arrow),
+                    onPressed: _pauseOrResume,
+                  ),
+                  FilterChip(
+                    avatar: const Icon(Icons.slow_motion_video, size: 18),
+                    label: Text(vText.gestureSlow),
+                    selected: _slow,
+                    onSelected: (_) => _toggleSlow(),
+                  ),
+                  TextButton.icon(
+                    onPressed: _play,
+                    icon: const Icon(Icons.replay),
+                    label: Text(vText.gestureReplay, style: const TextStyle(fontFamily: handFont)),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ],

@@ -32,6 +32,9 @@ class Fixture {
     this.riseMm,
     this.count = 1,
     this.plexi = false,
+    this.notchWidthMm = 0,
+    this.notchDepthMm = 0,
+    this.notchCorner = 0,
   });
 
   final String id;
@@ -52,7 +55,51 @@ class Fixture {
   /// Fenêtre de toit fermée par un plexi ou un panneau fixe : point faible, à remplacer.
   final bool plexi;
 
-  double get areaM2 => hasArea(kind) ? widthMm * depthMm / 1e6 : 0;
+  /// Mezzanine en L : la découpe laissée à l'escalier, dans un coin du rectangle
+  /// (0 en bas à gauche, 1 en bas à droite, 2 en haut à droite, 3 en haut à gauche).
+  final int notchWidthMm;
+  final int notchDepthMm;
+  final int notchCorner;
+
+  /// Vrai pour une mezzanine en L, dont la découpe tient dans le rectangle.
+  bool get hasNotch =>
+      kind == FixtureKind.mezzanine &&
+      notchWidthMm > 0 &&
+      notchDepthMm > 0 &&
+      notchWidthMm < widthMm &&
+      notchDepthMm < depthMm;
+
+  double get areaM2 =>
+      hasArea(kind) ? (widthMm * depthMm - (hasNotch ? notchWidthMm * notchDepthMm : 0)) / 1e6 : 0;
+
+  /// Contour de l'élément en mm, dans le repère de la pièce : le rectangle, ou le L de la
+  /// mezzanine dont un coin est laissé à l'escalier.
+  List<(double, double)> outlineMm() {
+    final vLeft = xMm - widthMm / 2;
+    final vRight = xMm + widthMm / 2;
+    final vBottom = yMm - depthMm / 2;
+    final vTop = yMm + depthMm / 2;
+    final vCorners = [(vLeft, vBottom), (vRight, vBottom), (vRight, vTop), (vLeft, vTop)];
+    if (!hasNotch) {
+      return vCorners;
+    }
+    // Le coin découpé est remplacé par trois points : on longe la découpe
+    final vCorner = notchCorner % 4;
+    final (vX, vY) = vCorners[vCorner];
+    final vInX = vCorner == 0 || vCorner == 3 ? notchWidthMm : -notchWidthMm;
+    final vInY = vCorner < 2 ? notchDepthMm : -notchDepthMm;
+    // On arrive du coin précédent : par un bord vertical pour les coins pairs, horizontal
+    // pour les impairs
+    final vCut = vCorner.isEven
+        ? [(vX, vY + vInY), (vX + vInX, vY + vInY), (vX + vInX, vY)]
+        : [(vX + vInX, vY), (vX + vInX, vY + vInY), (vX, vY + vInY)];
+    final rOutline = [
+      for (var vIndex = 0; vIndex < 4; vIndex++)
+        if (vIndex == vCorner) ...vCut else vCorners[vIndex],
+    ];
+
+    return rOutline;
+  }
 
   Fixture copyWith({
     int? xMm,
@@ -62,6 +109,9 @@ class Fixture {
     int? riseMm,
     int? count,
     bool? plexi,
+    int? notchWidthMm,
+    int? notchDepthMm,
+    int? notchCorner,
   }) => Fixture(
     id: id,
     kind: kind,
@@ -72,6 +122,9 @@ class Fixture {
     riseMm: riseMm ?? this.riseMm,
     count: count ?? this.count,
     plexi: plexi ?? this.plexi,
+    notchWidthMm: notchWidthMm ?? this.notchWidthMm,
+    notchDepthMm: notchDepthMm ?? this.notchDepthMm,
+    notchCorner: notchCorner ?? this.notchCorner,
   );
 
   Map<String, Object?> toJson() => {
@@ -84,6 +137,9 @@ class Fixture {
     if (riseMm != null) 'riseMm': riseMm,
     if (count != 1) 'count': count,
     if (plexi) 'plexi': true,
+    if (notchWidthMm > 0) 'notchWidthMm': notchWidthMm,
+    if (notchDepthMm > 0) 'notchDepthMm': notchDepthMm,
+    if (notchCorner != 0) 'notchCorner': notchCorner,
   };
 
   static Fixture fromJson(Map<String, Object?> pJson) => Fixture(
@@ -96,6 +152,9 @@ class Fixture {
     riseMm: pJson['riseMm'] as int?,
     count: (pJson['count'] as int?) ?? 1,
     plexi: (pJson['plexi'] as bool?) ?? false,
+    notchWidthMm: (pJson['notchWidthMm'] as int?) ?? 0,
+    notchDepthMm: (pJson['notchDepthMm'] as int?) ?? 0,
+    notchCorner: (pJson['notchCorner'] as int?) ?? 0,
   );
 }
 

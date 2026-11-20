@@ -10,6 +10,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/baseboard.dart';
 import '../logic/laying_plan.dart';
 import '../logic/room.dart';
+import '../logic/room_shapes.dart';
 import '../logic/site_mode.dart';
 import '../logic/units.dart';
 import '../logic/voice_command.dart';
@@ -243,6 +244,12 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
             children: [
               IconLine(Icons.light_mode_outlined, vText.siteModeAwake),
               IconLine(Icons.mic_none, vText.voiceHelp),
+              if (wallsToMeasure(vRoom) case final vWalls when vWalls.isNotEmpty)
+                IconLine(
+                  Icons.straighten,
+                  vText.siteModeDeduced(vWalls.join(', ')),
+                  color: Theme.of(pContext).colorScheme.error,
+                ),
               const SizedBox(height: 12),
               _TaskCard(
                 icon: AtelierIcons.baseboard,

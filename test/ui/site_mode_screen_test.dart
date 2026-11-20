@@ -153,4 +153,41 @@ void main() {
     await pTester.pumpAndSettle();
     expect(vBackground(), isNot(Colors.black));
   });
+
+  testWidgets('les murs déduits sur le dessin sont rappelés à mesurer', (pTester) async {
+    tallScreen(pTester);
+    final vRoom = rectangleRoom();
+    final vStorage = MemoryStorage()
+      ..saved = [
+        Worksite(
+          id: 'w',
+          name: 'Maison démo',
+          rooms: [
+            vRoom.copyWith(
+              walls: [
+                for (final (vIndex, vWall) in vRoom.walls.indexed)
+                  vWall.copyWith(deduced: vIndex >= 2),
+              ],
+            ),
+          ],
+        ),
+      ];
+    final vController = WorksitesController(vStorage);
+    await vController.load();
+    await pTester.pumpWidget(
+      localized(
+        SiteModeScreen(
+          controller: vController,
+          worksiteId: 'w',
+          roomId: 'salon',
+          speaker: (pText) async {},
+          awake: (pOn) async {},
+        ),
+      ),
+    );
+    await pTester.pumpAndSettle();
+
+    expect(find.textContaining('Murs à mesurer sur place : 3, 4.'), findsOneWidget);
+    await pTester.pumpWidget(const SizedBox());
+  });
 }

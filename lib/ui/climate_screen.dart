@@ -4,9 +4,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/climate_history.dart';
 import '../logic/indoor_climate.dart';
 import '../logic/touch_up.dart';
 import '../logic/units.dart';
+import 'climate_history_view.dart';
 import 'theme.dart';
 
 /// Lit le texte d'un fichier choisi par l'utilisateur ; null s'il renonce.
@@ -22,13 +24,24 @@ Future<String?> pickTextFile() async {
 /// Relevés de température et d'humidité d'une pièce : fichier exporté par le
 /// thermo-hygromètre, analyse, et constats à garder comme reprises.
 ///
-/// Ouvert depuis les reprises d'une pièce, l'écran renvoie les reprises cochées ;
-/// ouvert depuis les calculs, il ne fait que l'analyse.
+/// Ouvert depuis les reprises d'une pièce, l'écran renvoie les reprises cochées et garde
+/// l'humidité jour par jour dans le suivi de la pièce ; ouvert depuis les calculs, il ne fait
+/// que l'analyse.
 class ClimateScreen extends StatefulWidget {
-  const ClimateScreen({super.key, this.canAddTouchUps = false, this.pickFile});
+  const ClimateScreen({
+    super.key,
+    this.canAddTouchUps = false,
+    this.pickFile,
+    this.log,
+    this.onLog,
+  });
 
   final bool canAddTouchUps;
   final TextFilePicker? pickFile;
+
+  /// Suivi de la pièce ; sans lui, rien n'est gardé.
+  final ClimateLog? log;
+  final ValueChanged<ClimateLog>? onLog;
 
   @override
   State<ClimateScreen> createState() => _ClimateScreenState();
@@ -39,6 +52,12 @@ class _ClimateScreenState extends State<ClimateScreen> {
   bool _unreadable = false;
   ClimateRoom _room = ClimateRoom.living;
   final _chosen = <ClimateFinding>{};
+  late ClimateLog? _log = widget.log;
+
+  void _keep(ClimateLog pLog) {
+    setState(() => _log = pLog);
+    widget.onLog?.call(pLog);
+  }
 
   Future<void> _load() async {
     final vText = await (widget.pickFile ?? pickTextFile)();
@@ -51,12 +70,15 @@ class _ClimateScreenState extends State<ClimateScreen> {
       _import = _unreadable ? null : vImport;
       _chosen.clear();
     });
+    final vLog = _log;
+    if (vImport != null && vImport.readings.isNotEmpty && vLog != null) {
+      _keep(vLog.copyWith(days: mergeClimateDays(vLog.days, dailyClimate(vImport.readings))));
+    }
   }
 
   String _percent(double pShare) => formatDecimal((pShare * 100).roundToDouble());
 
-  String _day(DateTime pDay) =>
-      '${pDay.day.toString().padLeft(2, '0')}/${pDay.month.toString().padLeft(2, '0')}/${pDay.year}';
+  String _day(DateTime pDay) => climateDayText(pDay);
 
   /// Constat et conseil de chaque situation.
   (String, String) _texts(AppLocalizations pText, ClimateFinding pFinding, ClimateReport pReport) {
@@ -237,6 +259,8 @@ class _ClimateScreenState extends State<ClimateScreen> {
                 ),
               ),
           ],
+          if (_log case final vLog? when vLog.days.isNotEmpty)
+            ClimateHistoryCard(log: vLog, onChanged: _keep),
           const SizedBox(height: 16),
           Text(vText.climateHowTo, style: vTheme.textTheme.bodySmall),
           const SizedBox(height: 6),

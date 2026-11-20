@@ -3,13 +3,17 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/fixtures.dart';
 import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/room_shapes.dart';
 import '../logic/units.dart';
+import 'dialogs.dart' show addOpening;
+import 'fixtures_section.dart';
 import 'laser_screen.dart';
 import 'parquet_view.dart' show NumberField;
 import 'quick_walls_screen.dart';
+import 'room_plan.dart' show PlanFrame;
 import 'slope_editor.dart';
 import 'theme.dart';
 
@@ -41,10 +45,20 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
   /// Longueurs tapées, par numéro de mur à partir de 0.
   late final Map<int, int> _measured = {
     if (shapeOf(widget.room.walls) != null)
-      for (final (vIndex, vWall) in widget.room.walls.indexed) vIndex: vWall.lengthMm,
+      for (final (vIndex, vWall) in widget.room.walls.indexed)
+        if (!vWall.deduced) vIndex: vWall.lengthMm,
   };
   int? _diagonal;
   int _selected = 0;
+
+  /// Portes et fenêtres, par numéro de mur.
+  late final Map<int, List<Opening>> _openings = {
+    for (final (vIndex, vWall) in widget.room.walls.indexed)
+      if (vWall.openings.isNotEmpty) vIndex: vWall.openings,
+  };
+
+  /// Endroit touché sur le mur en cours, depuis son coin de départ, pour y placer une porte.
+  int? _touchedMm;
   late Room _room = widget.room;
   final _length = TextEditingController();
 
@@ -65,13 +79,40 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
   String _lengthText(int pIndex) =>
       _measured[pIndex] == null ? '' : formatCentimetres(_measured[pIndex]!);
 
-  /// Pièce dessinée : murs de la forme, ouvertures gardées, hauteur et rampants à jour.
-  Room get _drawn => _room.copyWith(walls: shapeWalls(_shaped, widget.room.walls), closed: true);
+  /// Pièce dessinée : murs de la forme, ouvertures posées, hauteur et rampants à jour.
+  Room get _drawn => _room.copyWith(
+    walls: [
+      for (final (vIndex, vWall) in shapeWalls(_shaped, widget.room.walls).indexed)
+        vWall.copyWith(openings: _openings[vIndex] ?? const []),
+    ],
+    closed: true,
+  );
 
   void _select(int pIndex) => setState(() {
     _selected = pIndex;
+    _touchedMm = null;
     _length.text = _lengthText(pIndex);
   });
+
+  void _touched(int pWall, double pAlong) {
+    _select(pWall);
+    setState(() => _touchedMm = (pAlong * _shaped.lengths[pWall]).round());
+  }
+
+  /// Porte, passage ou fenêtre centré sur l'endroit touché du mur en cours.
+  Future<void> _addOpening() async {
+    final vLength = _shaped.lengths[_selected];
+    const vDoorWidth = 830;
+    final int vOffset = ((_touchedMm ?? vDoorWidth ~/ 2) - vDoorWidth ~/ 2).clamp(
+      0,
+      math.max(0, vLength - vDoorWidth),
+    );
+    final vWall = _selected;
+    final vOpening = await addOpening(context, vLength, pOffsetMm: vOffset);
+    if (vOpening != null && mounted) {
+      setState(() => _openings[vWall] = [...?_openings[vWall], vOpening]);
+    }
+  }
 
   void _typed(String pText) {
     final vLength = parseCentimetres(pText);
@@ -89,8 +130,43 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
     _measured.clear();
     _diagonal = null;
     _selected = 0;
+    _touchedMm = null;
+    _openings.clear();
     _length.clear();
   });
+
+  /// Mezzanine, escalier, trémie ou fenêtre de toit, posé au milieu de la pièce puis réglé.
+  Future<void> _addFixture(FixtureKind pKind) async {
+    final vPoints = outline(_drawn);
+    final vXs = vPoints.map((pPoint) => pPoint.x);
+    final vYs = vPoints.map((pPoint) => pPoint.y);
+    final vSize = defaultFixtureSize(pKind);
+    final vFixture = await editFixture(
+      context,
+      Fixture(
+        id: 'f${DateTime.now().microsecondsSinceEpoch}',
+        kind: pKind,
+        xMm: ((vXs.reduce(math.min) + vXs.reduce(math.max)) / 2).round(),
+        yMm: ((vYs.reduce(math.min) + vYs.reduce(math.max)) / 2).round(),
+        widthMm: vSize.widthMm,
+        depthMm: vSize.depthMm,
+      ),
+    );
+    if (vFixture != null && mounted) {
+      setState(() => _room = _room.copyWith(fixtures: [..._room.fixtures, vFixture]));
+    }
+  }
+
+  Future<void> _editFixture(Fixture pFixture) async {
+    final vFixture = await editFixture(context, pFixture);
+    if (vFixture != null && mounted) {
+      setState(
+        () => _room = _room.copyWith(
+          fixtures: [for (final vOld in _room.fixtures) vOld.id == pFixture.id ? vFixture : vOld],
+        ),
+      );
+    }
+  }
 
   Future<void> _freeShape() async {
     final vWalls = await editAllWalls(context, _drawn);
@@ -148,7 +224,7 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
               room: _drawn,
               measured: _measured.keys.toSet(),
               selected: _selected,
-              onTapWall: _select,
+              onTapWall: _touched,
             ),
           ),
           Text(
@@ -203,13 +279,56 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton.icon(
-                      onPressed: () => _select((_selected + 1) % vCount),
-                      icon: const Icon(Icons.arrow_forward),
-                      label: Text(vText.nextWall),
+                  if ((_openings[_selected] ?? const []).isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(vText.sketchOpeningHint, style: vTheme.textTheme.bodySmall),
                     ),
+                  Wrap(
+                    spacing: 6,
+                    children: [
+                      for (final vOpening in _openings[_selected] ?? const <Opening>[])
+                        InputChip(
+                          avatar: Icon(
+                            vOpening.kind == OpeningKind.window
+                                ? Icons.window_outlined
+                                : Icons.door_front_door_outlined,
+                            size: 18,
+                          ),
+                          label: Text(
+                            vText.sketchOpening(
+                              switch (vOpening.kind) {
+                                OpeningKind.door => vText.openingDoor,
+                                OpeningKind.passage => vText.openingPassage,
+                                OpeningKind.window => vText.openingWindow,
+                              },
+                              formatCentimetres(vOpening.widthMm),
+                              formatCentimetres(vOpening.offsetMm),
+                              cornerLetter(_selected),
+                            ),
+                          ),
+                          onDeleted: () => setState(() {
+                            final vWall = _selected;
+                            _openings[vWall] = [...?_openings[vWall]]..remove(vOpening);
+                          }),
+                        ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton.icon(
+                          onPressed: _addOpening,
+                          icon: const Icon(Icons.door_front_door_outlined),
+                          label: Text(vText.sketchAddOpening),
+                        ),
+                      ),
+                      TextButton.icon(
+                        onPressed: () => _select((_selected + 1) % vCount),
+                        icon: const Icon(Icons.arrow_forward),
+                        label: Text(vText.nextWall),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -248,6 +367,45 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
               }
             },
           ),
+          const SizedBox(height: 12),
+          Text(vText.sketchAlso, style: vTheme.textTheme.titleSmall),
+          Wrap(
+            spacing: 6,
+            children: [
+              for (final vKind in [
+                FixtureKind.mezzanine,
+                FixtureKind.stairs,
+                FixtureKind.stairwell,
+                FixtureKind.roofWindow,
+              ])
+                ActionChip(
+                  avatar: Icon(fixtureIcon(vKind), size: 18),
+                  label: Text(fixtureLabel(vText, vKind)),
+                  onPressed: () => _addFixture(vKind),
+                ),
+            ],
+          ),
+          for (final vFixture in _room.fixtures.where((pFixture) => hasArea(pFixture.kind)))
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Icon(fixtureIcon(vFixture.kind)),
+              title: Text(fixtureLabel(vText, vFixture.kind)),
+              subtitle: Text(
+                vText.sketchFixtureSize(
+                  formatCentimetres(vFixture.widthMm),
+                  formatCentimetres(vFixture.depthMm),
+                  formatSquareMetres(vFixture.areaM2),
+                ),
+              ),
+              onTap: () => _editFixture(vFixture),
+              trailing: IconButton(
+                tooltip: vText.delete,
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () => setState(
+                  () => _room = _room.copyWith(fixtures: [..._room.fixtures]..remove(vFixture)),
+                ),
+              ),
+            ),
           SlopeEditor(
             room: _drawn,
             onChanged: (pRoom) => setState(
@@ -279,7 +437,9 @@ class ShapeSketch extends StatelessWidget {
   final Room room;
   final Set<int> measured;
   final int selected;
-  final ValueChanged<int> onTapWall;
+
+  /// Mur touché, et l'endroit du toucher le long du mur, de 0 (coin de départ) à 1.
+  final void Function(int pWall, double pAlong) onTapWall;
 
   @override
   Widget build(BuildContext context) {
@@ -289,6 +449,7 @@ class ShapeSketch extends StatelessWidget {
       builder: (pContext, pBox) {
         final vSize = pBox.biggest;
         final vPainter = _ShapePainter(
+          room: room,
           points: outline(room),
           measured: measured,
           selected: selected,
@@ -300,9 +461,9 @@ class ShapeSketch extends StatelessWidget {
 
         return GestureDetector(
           onTapUp: (pDetails) {
-            final vWall = vPainter.wallAt(pDetails.localPosition, vSize);
-            if (vWall != null) {
-              onTapWall(vWall);
+            final vTouch = vPainter.wallAt(pDetails.localPosition, vSize);
+            if (vTouch != null) {
+              onTapWall(vTouch.wall, vTouch.along);
             }
           },
           child: CustomPaint(size: vSize, painter: vPainter),
@@ -314,6 +475,7 @@ class ShapeSketch extends StatelessWidget {
 
 class _ShapePainter extends CustomPainter {
   _ShapePainter({
+    required this.room,
     required this.points,
     required this.measured,
     required this.selected,
@@ -323,6 +485,7 @@ class _ShapePainter extends CustomPainter {
     required this.paper,
   });
 
+  final Room room;
   final List<PlanPoint> points;
   final Set<int> measured;
   final int selected;
@@ -333,58 +496,46 @@ class _ShapePainter extends CustomPainter {
 
   static const _margin = 36.0;
 
+  /// Passage du plan à l'écran, le même que celui du plan de la pièce.
+  PlanFrame _frame(Size pSize) => PlanFrame(room, pSize, pMargin: _margin);
+
   /// Sommets à l'écran : la forme centrée, à la plus grande échelle qui tient.
   List<Offset> _screen(Size pSize) {
-    final vXs = points.map((pPoint) => pPoint.x);
-    final vYs = points.map((pPoint) => pPoint.y);
-    final vMinX = vXs.reduce(math.min);
-    final vMinY = vYs.reduce(math.min);
-    final vWidth = math.max(vXs.reduce(math.max) - vMinX, 1);
-    final vHeight = math.max(vYs.reduce(math.max) - vMinY, 1);
-    final vScale = math.min(
-      (pSize.width - 2 * _margin) / vWidth,
-      (pSize.height - 2 * _margin) / vHeight,
-    );
-    final vLeft = (pSize.width - vWidth * vScale) / 2;
-    final vTop = (pSize.height - vHeight * vScale) / 2;
+    final vFrame = _frame(pSize);
 
-    // Le plan monte vers le haut de l'écran : y inversé
-    return [
-      for (final vPoint in points)
-        Offset(
-          vLeft + (vPoint.x - vMinX) * vScale,
-          pSize.height - vTop - (vPoint.y - vMinY) * vScale,
-        ),
-    ];
+    return [for (final vPoint in points) vFrame.toScreen(vPoint.x, vPoint.y)];
   }
 
-  /// Mur le plus proche d'un toucher, à 40 points au plus ; null sinon.
-  int? wallAt(Offset pAt, Size pSize) {
+  /// Mur le plus proche d'un toucher, à 40 points au plus, et l'endroit touché le long du mur ;
+  /// null sinon.
+  ({int wall, double along})? wallAt(Offset pAt, Size pSize) {
     final vPoints = _screen(pSize);
-    int? rWall;
+    ({int wall, double along})? rTouch;
     var vBest = 40.0;
     for (var vIndex = 0; vIndex < vPoints.length - 1; vIndex++) {
-      final vDistance = _distanceToSegment(pAt, vPoints[vIndex], vPoints[vIndex + 1]);
+      final vAlong = _along(pAt, vPoints[vIndex], vPoints[vIndex + 1]);
+      final vSegment = vPoints[vIndex + 1] - vPoints[vIndex];
+      final vDistance = (pAt - (vPoints[vIndex] + vSegment * vAlong)).distance;
       if (vDistance < vBest) {
         vBest = vDistance;
-        rWall = vIndex;
+        rTouch = (wall: vIndex, along: vAlong);
       }
     }
 
-    return rWall;
+    return rTouch;
   }
 
-  static double _distanceToSegment(Offset pAt, Offset pFrom, Offset pTo) {
+  /// Projection du toucher sur le segment, de 0 au départ à 1 à l'arrivée.
+  static double _along(Offset pAt, Offset pFrom, Offset pTo) {
     final vSegment = pTo - pFrom;
     final vLength = vSegment.distanceSquared;
-    final vT = vLength == 0
+
+    return vLength == 0
         ? 0.0
         : (((pAt - pFrom).dx * vSegment.dx + (pAt - pFrom).dy * vSegment.dy) / vLength).clamp(
             0.0,
             1.0,
           );
-
-    return (pAt - (pFrom + vSegment * vT)).distance;
   }
 
   @override
@@ -418,6 +569,46 @@ class _ShapePainter extends CustomPainter {
           ..strokeWidth = 2,
       );
       _label(pCanvas, '${vIndex + 1}', vBadge, vSelected ? onTape : ink, 15, FontWeight.w700);
+    }
+    // Portes et fenêtres : le mur s'ouvre, un trait fin au milieu pour une fenêtre
+    for (var vIndex = 0; vIndex < vPoints.length - 1 && vIndex < room.walls.length; vIndex++) {
+      final vWall = room.walls[vIndex];
+      if (vWall.lengthMm == 0) {
+        continue;
+      }
+      final vStep = (vPoints[vIndex + 1] - vPoints[vIndex]) / vWall.lengthMm.toDouble();
+      for (final vOpening in vWall.openings) {
+        final vStart = vPoints[vIndex] + vStep * vOpening.offsetMm.toDouble();
+        final vEnd = vStart + vStep * vOpening.widthMm.toDouble();
+        pCanvas.drawLine(
+          vStart,
+          vEnd,
+          Paint()
+            ..color = paper
+            ..strokeWidth = 8,
+        );
+        final vMark = Paint()
+          ..color = ink
+          ..strokeWidth = 1.5;
+        if (vOpening.kind == OpeningKind.window) {
+          pCanvas.drawLine(vStart, vEnd, vMark);
+        }
+        for (final vEdge in [vStart, vEnd]) {
+          final vSide = Offset(-vStep.dy, vStep.dx) / math.max(vStep.distance, 1e-9) * 6;
+          pCanvas.drawLine(vEdge - vSide, vEdge + vSide, vMark..strokeWidth = 2);
+        }
+      }
+    }
+    // Mezzanine, escalier, trémie : leur contour en tirets fins, à l'échelle du plan
+    final vFrame = _frame(pSize);
+    final vThin = Paint()
+      ..color = ink.withValues(alpha: 0.6)
+      ..strokeWidth = 1.5;
+    for (final vFixture in room.fixtures.where((pFixture) => hasArea(pFixture.kind))) {
+      final vOutline = [for (final (vX, vY) in vFixture.outlineMm()) vFrame.toScreen(vX, vY)];
+      for (var vIndex = 0; vIndex < vOutline.length; vIndex++) {
+        _dashed(pCanvas, vOutline[vIndex], vOutline[(vIndex + 1) % vOutline.length], vThin);
+      }
     }
     // Lettres des coins, juste à l'extérieur
     for (var vIndex = 0; vIndex < vPoints.length - 1; vIndex++) {
@@ -458,5 +649,5 @@ class _ShapePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_ShapePainter pOld) =>
-      pOld.points != points || pOld.selected != selected || pOld.measured != measured;
+      pOld.room != room || pOld.selected != selected || pOld.measured != measured;
 }

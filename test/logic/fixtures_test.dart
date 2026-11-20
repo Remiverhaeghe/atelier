@@ -120,4 +120,42 @@ void main() {
       'depth': 980,
     });
   });
+
+  test('mezzanine en L : la place de l\'escalier retirée de la surface et du contour', () {
+    const vMezzanine = Fixture(
+      id: 'm',
+      kind: FixtureKind.mezzanine,
+      xMm: 1500,
+      yMm: 1000,
+      widthMm: 3000,
+      depthMm: 2000,
+      notchWidthMm: 900,
+      notchDepthMm: 1200,
+      notchCorner: 1,
+    );
+
+    expect(vMezzanine.hasNotch, isTrue);
+    expect(vMezzanine.areaM2, closeTo(6 - 1.08, 1e-9));
+    // Coin en bas à droite : le contour longe la découpe
+    expect(vMezzanine.outlineMm(), [
+      (0.0, 0.0),
+      (2100.0, 0.0),
+      (2100.0, 1200.0),
+      (3000.0, 1200.0),
+      (3000.0, 2000.0),
+      (0.0, 2000.0),
+    ]);
+    expect(Fixture.fromJson(vMezzanine.toJson()).outlineMm(), vMezzanine.outlineMm());
+    // Coin en bas à gauche : on arrive par le bord gauche
+    expect(vMezzanine.copyWith(notchCorner: 0).outlineMm().take(3), [
+      (0.0, 1200.0),
+      (900.0, 1200.0),
+      (900.0, 0.0),
+    ]);
+    // Découpe plus grande que la mezzanine : rectangle simple
+    final vTooBig = vMezzanine.copyWith(notchWidthMm: 3500);
+    expect(vTooBig.hasNotch, isFalse);
+    expect(vTooBig.areaM2, 6);
+    expect(vTooBig.outlineMm(), hasLength(4));
+  });
 }

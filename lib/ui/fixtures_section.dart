@@ -255,6 +255,14 @@ class _FixtureDialogState extends State<_FixtureDialog> {
   );
   late final _count = TextEditingController(text: '${widget.fixture.count}');
   late bool _plexi = widget.fixture.plexi;
+  late bool _lShape = widget.fixture.hasNotch;
+  late final _notchWidth = TextEditingController(
+    text: widget.fixture.notchWidthMm == 0 ? '' : formatCentimetres(widget.fixture.notchWidthMm),
+  );
+  late final _notchDepth = TextEditingController(
+    text: widget.fixture.notchDepthMm == 0 ? '' : formatCentimetres(widget.fixture.notchDepthMm),
+  );
+  late int _notchCorner = widget.fixture.notchCorner;
   String? _error;
 
   @override
@@ -263,6 +271,8 @@ class _FixtureDialogState extends State<_FixtureDialog> {
     _depth.dispose();
     _rise.dispose();
     _count.dispose();
+    _notchWidth.dispose();
+    _notchDepth.dispose();
     super.dispose();
   }
 
@@ -297,9 +307,25 @@ class _FixtureDialogState extends State<_FixtureDialog> {
       setState(() => _error = vText.invalidLength);
       return;
     }
+    // Mezzanine en L : la découpe doit tenir dans le rectangle
+    final vNotchWidth = _lShape ? parseCentimetres(_notchWidth.text) ?? 0 : 0;
+    final vNotchDepth = _lShape ? parseCentimetres(_notchDepth.text) ?? 0 : 0;
+    if (_lShape &&
+        (vNotchWidth == 0 || vNotchDepth == 0 || vNotchWidth >= vWidth || vNotchDepth >= vDepth)) {
+      setState(() => _error = vText.mezzanineNotchInvalid);
+      return;
+    }
     Navigator.pop(
       context,
-      vFixture.copyWith(widthMm: vWidth, depthMm: vDepth, riseMm: vRise, plexi: _plexi),
+      vFixture.copyWith(
+        widthMm: vWidth,
+        depthMm: vDepth,
+        riseMm: vRise,
+        plexi: _plexi,
+        notchWidthMm: vNotchWidth,
+        notchDepthMm: vNotchDepth,
+        notchCorner: _notchCorner,
+      ),
     );
   }
 
@@ -359,6 +385,50 @@ class _FixtureDialogState extends State<_FixtureDialog> {
                     suffixText: vText.unitCm,
                   ),
                 ),
+              if (vKind == FixtureKind.mezzanine) ...[
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(vText.mezzanineLShape),
+                  value: _lShape,
+                  onChanged: (pValue) => setState(() => _lShape = pValue),
+                ),
+                if (_lShape) ...[
+                  TextField(
+                    controller: _notchWidth,
+                    keyboardType: vNumbers,
+                    decoration: InputDecoration(
+                      labelText: vText.mezzanineNotchWidth,
+                      suffixText: vText.unitCm,
+                    ),
+                  ),
+                  TextField(
+                    controller: _notchDepth,
+                    keyboardType: vNumbers,
+                    decoration: InputDecoration(
+                      labelText: vText.mezzanineNotchDepth,
+                      suffixText: vText.unitCm,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(vText.mezzanineNotchCorner),
+                  Wrap(
+                    spacing: 6,
+                    children: [
+                      for (final (vCorner, vLabel) in [
+                        (3, vText.cornerTopLeft),
+                        (2, vText.cornerTopRight),
+                        (0, vText.cornerBottomLeft),
+                        (1, vText.cornerBottomRight),
+                      ])
+                        ChoiceChip(
+                          label: Text(vLabel),
+                          selected: _notchCorner == vCorner,
+                          onSelected: (_) => setState(() => _notchCorner = vCorner),
+                        ),
+                    ],
+                  ),
+                ],
+              ],
             ],
           ],
         ),

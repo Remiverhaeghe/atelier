@@ -70,4 +70,37 @@ void main() {
     await pTester.pump();
     expect(pTester.binding.hasScheduledFrame, isFalse);
   });
+
+  testWidgets('geste en pause, au ralenti ou avancé au doigt', (pTester) async {
+    tallScreen(pTester);
+    await pTester.pumpWidget(localized(const GestureScreen(gesture: Gesture.saw)));
+    await pTester.pump(gesturePassDuration);
+
+    await pTester.tap(find.byTooltip('Mettre en pause'));
+    await pTester.pump();
+    final vPaused = pTester.widget<Slider>(find.byType(Slider)).value;
+    await pTester.pump(gesturePassDuration);
+    expect(pTester.widget<Slider>(find.byType(Slider)).value, vPaused);
+    expect(find.byTooltip('Reprendre le geste'), findsOneWidget);
+
+    // Au ralenti, une passe avance quatre fois moins
+    await pTester.tap(find.text('Ralenti'));
+    await pTester.tap(find.byTooltip('Reprendre le geste'));
+    await pTester.pump();
+    await pTester.pump(gesturePassDuration);
+    expect(
+      pTester.widget<Slider>(find.byType(Slider)).value,
+      closeTo(vPaused + 1 / slowMotionFactor, 0.05),
+    );
+
+    await pTester.drag(find.byType(Slider), const Offset(-2000, 0));
+    await pTester.pump();
+    expect(pTester.widget<Slider>(find.byType(Slider)).value, 0);
+    expect(find.byTooltip('Reprendre le geste'), findsOneWidget);
+
+    await pTester.tap(find.byTooltip('Reprendre le geste'));
+    await pTester.pumpAndSettle();
+    expect(pTester.widget<Slider>(find.byType(Slider)).value, gesturePasses);
+    expect(find.byTooltip('Reprendre le geste'), findsOneWidget);
+  });
 }

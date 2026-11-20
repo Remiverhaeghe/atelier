@@ -2,6 +2,7 @@
 library;
 
 import 'baseboard.dart';
+import 'climate_history.dart';
 import 'fixtures.dart';
 import 'furniture.dart';
 import 'hidden_networks.dart';
@@ -131,9 +132,13 @@ class Wall {
     this.angleToNextDeg = 90,
     this.openings = const [],
     this.freeEndAfter = false,
+    this.deduced = false,
   });
 
   final int lengthMm;
+
+  /// Longueur déduite des autres murs sur le dessin de la pièce, pas encore mesurée.
+  final bool deduced;
   final double angleToNextDeg;
   final List<Opening> openings;
 
@@ -148,11 +153,14 @@ class Wall {
     double? angleToNextDeg,
     List<Opening>? openings,
     bool? freeEndAfter,
+    bool? deduced,
   }) => Wall(
     lengthMm: lengthMm ?? this.lengthMm,
     angleToNextDeg: angleToNextDeg ?? this.angleToNextDeg,
     openings: openings ?? this.openings,
     freeEndAfter: freeEndAfter ?? this.freeEndAfter,
+    // Une longueur retapée ailleurs que sur le dessin est une mesure
+    deduced: deduced ?? (lengthMm == null && this.deduced),
   );
 
   Map<String, Object?> toJson() => {
@@ -160,6 +168,7 @@ class Wall {
     'angleToNextDeg': angleToNextDeg,
     'openings': [for (final vOpening in openings) vOpening.toJson()],
     'freeEndAfter': freeEndAfter,
+    if (deduced) 'deduced': true,
   };
 
   static Wall fromJson(Map<String, Object?> pJson) => Wall(
@@ -170,6 +179,7 @@ class Wall {
         Opening.fromJson(vOpening! as Map<String, Object?>),
     ],
     freeEndAfter: (pJson['freeEndAfter'] as bool?) ?? false,
+    deduced: (pJson['deduced'] as bool?) ?? false,
   );
 }
 
@@ -201,6 +211,7 @@ class Room {
     this.networks = const [],
     this.stepPhotos = const {},
     this.behindWalls = const BehindWalls(),
+    this.climate = const ClimateLog(),
   });
 
   final String id;
@@ -261,6 +272,9 @@ class Room {
   /// Solives et photos d'avant fermeture : ce qui reste caché derrière le placo.
   final BehindWalls behindWalls;
 
+  /// Humidité suivie jour par jour d'après les relevés importés, et date des travaux.
+  final ClimateLog climate;
+
   Room copyWith({
     String? id,
     String? name,
@@ -289,6 +303,7 @@ class Room {
     List<HiddenRun>? networks,
     Map<String, List<String>>? stepPhotos,
     BehindWalls? behindWalls,
+    ClimateLog? climate,
   }) => Room(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -315,6 +330,7 @@ class Room {
     networks: networks ?? this.networks,
     stepPhotos: stepPhotos ?? this.stepPhotos,
     behindWalls: behindWalls ?? this.behindWalls,
+    climate: climate ?? this.climate,
   );
 
   Map<String, Object?> toJson() => roomToJson(this);

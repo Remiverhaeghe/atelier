@@ -190,5 +190,61 @@ List<Wall> shapeWalls(ShapedRoom pShaped, List<Wall> pPrevious) => [
     (vIndex < pPrevious.length ? pPrevious[vIndex] : const Wall(lengthMm: 0)).copyWith(
       lengthMm: pShaped.lengths[vIndex],
       angleToNextDeg: pShaped.angles[vIndex],
+      deduced: pShaped.deduced.contains(vIndex),
     ),
 ];
+
+/// Numéros (à partir de 1) des murs dont la longueur a été déduite sur le dessin.
+List<int> wallsToMeasure(Room pRoom) => [
+  for (final (vIndex, vWall) in pRoom.walls.indexed)
+    if (vWall.deduced) vIndex + 1,
+];
+
+/// Écart toléré entre un angle tracé sur un plan papier et l'angle droit (ou le coin sortant).
+const traceAngleToleranceDeg = 10.0;
+
+/// Forme reconnue dans des murs tracés sur la photo d'un plan papier, ou null.
+///
+/// Les angles proches de 90° ou 270° sont redressés, le tour est repris au coin où la forme
+/// commence, et les longueurs lues sur le plan servent de mesures. Sur chaque direction, le mur
+/// le plus long est laissé déduit : le tracé n'est jamais juste au millimètre, la pièce se
+/// referme par lui et il reste en pointillés, à mesurer.
+List<Wall>? shapeFromTrace(List<Wall> pWalls) {
+  final vSnapped = <Wall>[];
+  for (final vWall in pWalls) {
+    final vRight = [
+      90.0,
+      270.0,
+    ].where((pAngle) => (vWall.angleToNextDeg - pAngle).abs() <= traceAngleToleranceDeg);
+    if (vRight.isEmpty) {
+      return null;
+    }
+    vSnapped.add(vWall.copyWith(angleToNextDeg: vRight.first));
+  }
+  for (var vStart = 0; vStart < vSnapped.length; vStart++) {
+    final vTurned = [...vSnapped.sublist(vStart), ...vSnapped.sublist(0, vStart)];
+    final vShape = shapeOf(vTurned);
+    if (vShape == null) {
+      continue;
+    }
+    // Murs pairs dans une direction, impairs dans l'autre : on laisse le plus long de chacune
+    final vLeft = <int>{
+      for (final vParity in [0, 1])
+        [
+          for (var vIndex = vParity; vIndex < vTurned.length; vIndex += 2) vIndex,
+        ].reduce((pA, pB) => vTurned[pB].lengthMm > vTurned[pA].lengthMm ? pB : pA),
+    };
+    final vShaped = shapeRoom(vShape, {
+      for (final (vIndex, vWall) in vTurned.indexed)
+        if (!vLeft.contains(vIndex)) vIndex: vWall.lengthMm,
+    });
+    if (vShaped.impossible) {
+      return null;
+    }
+    final rWalls = shapeWalls(vShaped, vTurned);
+
+    return rWalls;
+  }
+
+  return null;
+}
