@@ -257,28 +257,28 @@ class _GestureSketchState extends State<GestureSketch> with SingleTickerProvider
                 onChanged: _scrub,
               ),
               Wrap(
-          alignment: WrapAlignment.end,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: 4,
-          children: [
-            IconButton(
-              tooltip: _controller.isAnimating ? vText.gesturePause : vText.gestureResume,
-              icon: Icon(_controller.isAnimating ? Icons.pause : Icons.play_arrow),
-              onPressed: _pauseOrResume,
-            ),
-            FilterChip(
-              avatar: const Icon(Icons.slow_motion_video, size: 18),
-              label: Text(vText.gestureSlow),
-              selected: _slow,
-              onSelected: (_) => _toggleSlow(),
-            ),
-            TextButton.icon(
-              onPressed: _play,
-              icon: const Icon(Icons.replay),
-              label: Text(vText.gestureReplay, style: const TextStyle(fontFamily: handFont)),
-            ),
-          ],
-        ),
+                alignment: WrapAlignment.end,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 4,
+                children: [
+                  IconButton(
+                    tooltip: _controller.isAnimating ? vText.gesturePause : vText.gestureResume,
+                    icon: Icon(_controller.isAnimating ? Icons.pause : Icons.play_arrow),
+                    onPressed: _pauseOrResume,
+                  ),
+                  FilterChip(
+                    avatar: const Icon(Icons.slow_motion_video, size: 18),
+                    label: Text(vText.gestureSlow),
+                    selected: _slow,
+                    onSelected: (_) => _toggleSlow(),
+                  ),
+                  TextButton.icon(
+                    onPressed: _play,
+                    icon: const Icon(Icons.replay),
+                    label: Text(vText.gestureReplay, style: const TextStyle(fontFamily: handFont)),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
