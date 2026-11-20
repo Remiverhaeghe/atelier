@@ -638,7 +638,7 @@
   "slopeInvalid": "The low side must be lower than the ceiling, and the slope must have a width.",
   "slopeStanding": "{area} where you can stand (1.80 m and over)",
   "levelGround": "Ground floor",
-  "levelUpper": "{level, plural, =1{1st floor} =2{2nd floor} =3{3rd floor} other{{level}th floor}}",
+  "levelUpper": "{level, plural, other{Floor {level}}}",
   "levelBasement": "{level, plural, =1{Basement} other{Basement {level}}}",
   "levelAdd": "Floor",
   "levelUp": "Go up a level",
