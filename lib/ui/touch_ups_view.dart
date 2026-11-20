@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -6,6 +5,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/room.dart';
 import '../logic/touch_up.dart';
 import '../logic/work_templates.dart';
+import '../storage/photo_store.dart';
 import 'photo_annotator.dart';
 import 'photos.dart';
 import 'room_plan.dart';
@@ -343,8 +343,7 @@ class _TouchUpCard extends StatelessWidget {
                   onTap: () => showPhoto(context, vPhoto),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.file(
-                      File(vPhoto),
+                    child: Image(image: photoProvider(vPhoto),
                       width: 56,
                       height: 56,
                       fit: BoxFit.cover,

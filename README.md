@@ -6,7 +6,7 @@ Tout reste sur le téléphone, sans compte ni connexion : l'appli n'a pas la per
 
 ## Sur iPhone
 
-Atelier existe aussi en version web : https://remiverhaeghe.github.io/atelier/. Dans Safari, bouton Partager, puis « Sur l'écran d'accueil » : l'appli s'ouvre alors en plein écran, comme une appli installée, et marche hors ligne après la première ouverture. Les chantiers restent dans le navigateur de l'iPhone ; pour les passer d'un appareil à l'autre, utiliser l'export de chantier. Photos, télémètre Bluetooth, rappels et widget ne sont disponibles que sur Android pour l'instant.
+Atelier existe aussi en version web : https://remiverhaeghe.github.io/atelier/. Dans Safari, bouton Partager, puis « Sur l'écran d'accueil » : l'appli s'ouvre alors en plein écran, comme une appli installée, et marche hors ligne après la première ouverture. Chantiers, photos et stock de l'atelier restent dans le navigateur de l'iPhone. Pour passer d'un appareil à l'autre : exporter le chantier (ou la sauvegarde complète) par le menu de partage, puis l'importer depuis l'app Fichiers. Le télémètre Bluetooth, les rappels programmés et le widget ne sont disponibles que sur Android pour l'instant.
 
 ## Aperçu
 

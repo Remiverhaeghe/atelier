@@ -3,6 +3,8 @@
 ## Non publié
 
 ### Ajouté
+- Version web : les photos (reprises, journal, avant/après, tickets, souvenirs, guides) se prennent et se gardent dans le navigateur de l'iPhone, et apparaissent aussi dans les PDF ; l'export et l'import de chantier marchent depuis Safari (menu de partage, app Fichiers), comme le partage chiffré d'un projet avec ses photos
+- Sauvegarde complète (fichier daté ou chiffré) : le stock de l'atelier part avec les chantiers ; à l'import, les articles absents de l'appareil sont ajoutés
 - Préparer un sol (lot 201) : chape sèche, fluide anhydrite ou ciment avec la commande (plaques et granulats, sacs ou volume coulé), l'attente avant la pose et l'humidité à atteindre, la sous-couche selon le revêtement, le jeu aux murs, les joints aux seuils et le fractionnement des grandes pièces. Le calcul du ragréage en sacs existait déjà (Enduit et ragréage)
 - Portes (lot 203) : jeu sous la porte et recoupe quand le sol monte, hauteur de poignée, sens d'ouverture trouvé depuis l'un ou l'autre côté. Le bloc-porte d'après l'ouverture et le choix du sens existaient déjà
 - Peindre une grande hauteur (lot 207) : manche télescopique, escabeau ou échafaudage roulant selon la hauteur, quantités mur et plafond en pots de 10 L, ordre de travail sans reprise

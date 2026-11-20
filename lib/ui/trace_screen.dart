@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -7,6 +6,7 @@ import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/tracing.dart';
 import '../logic/units.dart';
+import '../storage/photo_store.dart';
 import 'parquet_view.dart';
 import 'photos.dart';
 import 'theme.dart';
@@ -21,7 +21,7 @@ Future<List<Wall>?> tracePaperPlan(BuildContext pContext, {PhotoTaker? pImages})
   return Navigator.push<List<Wall>>(
     pContext,
     MaterialPageRoute(
-      builder: (_) => TraceScreen(picture: Image.file(File(vPath), fit: BoxFit.contain)),
+      builder: (_) => TraceScreen(picture: Image(image: photoProvider(vPath), fit: BoxFit.contain)),
     ),
   );
 }

@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/data_format.dart';
@@ -16,64 +13,50 @@ import '../logic/house.dart';
 import '../logic/house_export.dart';
 import '../logic/project_bundle.dart';
 import '../logic/worksite.dart';
+import '../state/workshop_controller.dart';
 import '../state/worksites_controller.dart';
 import '../storage/worksite_store.dart';
 import 'encrypted_transfer.dart';
+import 'share_file.dart';
 
 /// Envoie le chantier dans un fichier JSON, pour une sauvegarde ou un autre téléphone.
 Future<void> exportWorksite(Worksite pWorksite) async {
-  final vFolder = await getTemporaryDirectory();
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  final vFile = File('${vFolder.path}/atelier_$vName.json');
-  await vFile.writeAsString(WorksiteStore.encode([pWorksite]));
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile('atelier_$vName.json', WorksiteStore.encode([pWorksite]), pMime: 'application/json');
 }
 
 /// Tous les chantiers dans un seul fichier daté, à envoyer hors du téléphone (Drive, carte SD).
 Future<void> exportAllWorksites(List<Worksite> pWorksites, DateTime pDay) async {
-  final vFolder = await getTemporaryDirectory();
   final vDate = pDay.toIso8601String().substring(0, 10);
-  final vFile = File('${vFolder.path}/atelier_sauvegarde_$vDate.json');
-  await vFile.writeAsString(WorksiteStore.encode(pWorksites));
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile(
+    'atelier_sauvegarde_$vDate.json',
+    // Sauvegarde complète : le stock de l'atelier part avec les chantiers
+    WorksiteStore.encode(pWorksites, pWorkshop: aWorkshop.items),
+  );
 }
 
 /// Envoie le plan du chantier au format documenté (docs/format-plan.md), pour la domotique.
 Future<void> exportPlanFile(Worksite pWorksite) async {
-  final vFolder = await getTemporaryDirectory();
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  final vFile = File('${vFolder.path}/plan_$vName.json');
-  await vFile.writeAsString(const JsonEncoder.withIndent('  ').convert(exportPlan(pWorksite)));
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile('plan_$vName.json', const JsonEncoder.withIndent('  ').convert(exportPlan(pWorksite)), pMime: 'application/json');
 }
 
 /// Étages et pièces pour Home Assistant, partagés comme fichier JSON (voir docs/home-assistant.md).
 Future<void> exportHomeAssistantFile(Worksite pWorksite) async {
-  final vFolder = await getTemporaryDirectory();
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  final vFile = File('${vFolder.path}/home_assistant_$vName.json');
-  await vFile.writeAsString(
-    const JsonEncoder.withIndent('  ').convert(exportHomeAssistant(pWorksite)),
-  );
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile('home_assistant_$vName.json', const JsonEncoder.withIndent('  ').convert(exportHomeAssistant(pWorksite)), pMime: 'application/json');
 }
 
 /// Maison en 3D au format glTF, partagée comme fichier .gltf (Blender, visualiseurs web).
 Future<void> exportGltfFile(Worksite pWorksite) async {
-  final vFolder = await getTemporaryDirectory();
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  final vFile = File('${vFolder.path}/maison_$vName.gltf');
-  await vFile.writeAsString(jsonEncode(buildGltf(houseRooms(pWorksite))));
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile('maison_$vName.gltf', jsonEncode(buildGltf(houseRooms(pWorksite))), pMime: 'model/gltf+json');
 }
 
 /// Plan de la maison en DXF, pour un logiciel de dessin, envoyé par le partage du téléphone.
 Future<void> exportDxfFile(Worksite pWorksite) async {
-  final vFolder = await getTemporaryDirectory();
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  final vFile = File('${vFolder.path}/plan_$vName.dxf');
-  await vFile.writeAsString(buildDxf(houseRooms(pWorksite)));
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile('plan_$vName.dxf', buildDxf(houseRooms(pWorksite)), pMime: 'application/dxf');
 }
 
 /// Ajoute les chantiers d'un fichier exporté, choisi par l'utilisateur.
@@ -102,6 +85,15 @@ Future<void> importWorksites(BuildContext pContext, WorksitesController pControl
       vContent = await unpackProject(vContent);
     }
     final vWorksites = WorksiteStore.decode(vContent);
+    // Stock d'une sauvegarde complète : seuls les articles absents de ce téléphone sont ajoutés
+    final vStock = WorksiteStore.decodeWorkshop(vContent);
+    if (vStock != null) {
+      for (final vItem in vStock) {
+        if (!aWorkshop.items.any((pOwned) => pOwned.id == vItem.id)) {
+          await aWorkshop.upsert(vItem);
+        }
+      }
+    }
     if (pController.sharesWorksite(vWorksites) && pContext.mounted) {
       final vMerge = await askMerge(pContext);
       if (vMerge == null) {

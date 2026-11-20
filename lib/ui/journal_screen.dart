@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
@@ -12,6 +11,7 @@ import '../logic/time_tracking.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
+import '../storage/photo_store.dart';
 import 'before_after.dart';
 import 'house_book_pdf.dart';
 import 'journal_pdf.dart';
@@ -249,8 +249,7 @@ class _JournalScreenState extends State<JournalScreen> {
                                 onTap: () => showPhoto(context, vPath),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
-                                  child: Image.file(
-                                    File(vPath),
+                                  child: Image(image: photoProvider(vPath),
                                     width: 48,
                                     height: 48,
                                     fit: BoxFit.cover,

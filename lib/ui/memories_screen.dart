@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
@@ -7,13 +6,13 @@ import 'package:printing/printing.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/memories.dart';
 import '../logic/worksite.dart';
+import '../storage/photo_store.dart';
 import 'memories_pdf.dart';
 import 'notebook.dart';
 import 'theme.dart';
 
 /// Photo du téléphone, ou un cadre vide si elle a disparu.
-Widget memoryPhoto(String pPath) => Image.file(
-  File(pPath),
+Widget memoryPhoto(String pPath) => Image(image: photoProvider(pPath),
   fit: BoxFit.cover,
   errorBuilder: (_, _, _) => const ColoredBox(
     color: Colors.black12,

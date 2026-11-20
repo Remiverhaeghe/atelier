@@ -1,8 +1,8 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../storage/photo_store.dart';
 
 typedef PhotoMark = ({double x, double y});
 
@@ -28,8 +28,7 @@ class MarkedPhoto extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.file(
-            File(path),
+          Image(image: photoProvider(path),
             fit: BoxFit.fill,
             errorBuilder: (_, _, _) => const ColoredBox(color: Colors.black12),
           ),

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +9,7 @@ import '../logic/receipt.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
+import '../storage/photo_store.dart';
 import 'photos.dart';
 import 'shopping_texts.dart';
 import 'theme.dart';
@@ -74,8 +74,7 @@ class ExpensesSection extends StatelessWidget {
                         onTap: () => showPhoto(context, vExpense.receiptPath!),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
-                          child: Image.file(
-                            File(vExpense.receiptPath!),
+                          child: Image(image: photoProvider(vExpense.receiptPath!),
                             width: 40,
                             height: 40,
                             fit: BoxFit.cover,

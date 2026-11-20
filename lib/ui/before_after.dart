@@ -1,8 +1,8 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../storage/photo_store.dart';
 
 /// Avant / après : les deux photos superposées, la séparation suit le doigt.
 Future<void> showBeforeAfter(BuildContext pContext, String pBefore, String pAfter) =>
@@ -27,8 +27,7 @@ class _BeforeAfterScreenState extends State<BeforeAfterScreen> {
   /// Part de l'image montrée « avant », depuis la gauche.
   double _split = 0.5;
 
-  Widget _image(String pPath) => Image.file(
-    File(pPath),
+  Widget _image(String pPath) => Image(image: photoProvider(pPath),
     fit: BoxFit.cover,
     errorBuilder: (_, _, _) => const ColoredBox(
       color: Colors.black12,
