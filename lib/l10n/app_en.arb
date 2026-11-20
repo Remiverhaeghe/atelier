@@ -3434,5 +3434,16 @@
   "sketchImpossible": "These lengths don't close the room: check the last measurement typed.",
   "sketchDiagonal": "Opposite walls aren't the same length: the room isn't quite square. Measure across, from corner A to corner C: the app works out the angles from it.",
   "sketchDiagonalField": "Diagonal from corner A to corner C (cm)",
-  "sketchAngles": "Calculated angles: {angles}"
+  "sketchAngles": "Calculated angles: {angles}",
+  "mezzanineLShape": "L-shaped: one corner left for the stairs",
+  "mezzanineNotchWidth": "Stair corner: width (cm)",
+  "mezzanineNotchDepth": "Stair corner: length (cm)",
+  "mezzanineNotchCorner": "Where the stairs are, seen on the plan",
+  "mezzanineNotchInvalid": "The stair corner must be smaller than the mezzanine.",
+  "cornerTopLeft": "Top left",
+  "cornerTopRight": "Top right",
+  "cornerBottomLeft": "Bottom left",
+  "cornerBottomRight": "Bottom right",
+  "sketchAlso": "Also in the room",
+  "sketchFixtureSize": "{width} × {depth} cm, {area} m²"
 }

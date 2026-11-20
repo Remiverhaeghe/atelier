@@ -408,7 +408,21 @@ class _RoomPlanPainter extends CustomPainter {
           pCanvas.drawLine(Offset(vRect.left, vYStep), Offset(vRect.right, vYStep), vStroke);
         }
       case FixtureKind.mezzanine:
-        _paintDashed(pCanvas, vRect, vStroke);
+        if (pFixture.hasNotch) {
+          // Mezzanine en L : le contour longe la découpe laissée à l'escalier
+          final vOutline = [for (final (vPx, vPy) in pFixture.outlineMm()) pAt(vPx, vPy)];
+          for (var vIndex = 0; vIndex < vOutline.length; vIndex++) {
+            _paintDashedLine(
+              pCanvas,
+              vOutline[vIndex],
+              vOutline[(vIndex + 1) % vOutline.length],
+              vStroke,
+              compact ? 3 : 6,
+            );
+          }
+        } else {
+          _paintDashed(pCanvas, vRect, vStroke);
+        }
       case FixtureKind.roofWindow:
         pCanvas.drawRect(vRect, Paint()..color = colors.grid);
         pCanvas.drawRect(vRect, vStroke);

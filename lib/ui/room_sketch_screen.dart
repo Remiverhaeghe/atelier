@@ -3,13 +3,16 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/fixtures.dart';
 import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/room_shapes.dart';
 import '../logic/units.dart';
+import 'fixtures_section.dart';
 import 'laser_screen.dart';
 import 'parquet_view.dart' show NumberField;
 import 'quick_walls_screen.dart';
+import 'room_plan.dart' show PlanFrame;
 import 'slope_editor.dart';
 import 'theme.dart';
 
@@ -91,6 +94,41 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
     _selected = 0;
     _length.clear();
   });
+
+  /// Mezzanine, escalier, trémie ou fenêtre de toit, posé au milieu de la pièce puis réglé.
+  Future<void> _addFixture(FixtureKind pKind) async {
+    final vPoints = outline(_drawn);
+    final vXs = vPoints.map((pPoint) => pPoint.x);
+    final vYs = vPoints.map((pPoint) => pPoint.y);
+    final vSize = defaultFixtureSize(pKind);
+    final vFixture = await editFixture(
+      context,
+      Fixture(
+        id: 'f${DateTime.now().microsecondsSinceEpoch}',
+        kind: pKind,
+        xMm: ((vXs.reduce(math.min) + vXs.reduce(math.max)) / 2).round(),
+        yMm: ((vYs.reduce(math.min) + vYs.reduce(math.max)) / 2).round(),
+        widthMm: vSize.widthMm,
+        depthMm: vSize.depthMm,
+      ),
+    );
+    if (vFixture != null && mounted) {
+      setState(() => _room = _room.copyWith(fixtures: [..._room.fixtures, vFixture]));
+    }
+  }
+
+  Future<void> _editFixture(Fixture pFixture) async {
+    final vFixture = await editFixture(context, pFixture);
+    if (vFixture != null && mounted) {
+      setState(
+        () => _room = _room.copyWith(
+          fixtures: [
+            for (final vOld in _room.fixtures) vOld.id == pFixture.id ? vFixture : vOld,
+          ],
+        ),
+      );
+    }
+  }
 
   Future<void> _freeShape() async {
     final vWalls = await editAllWalls(context, _drawn);
@@ -248,6 +286,47 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
               }
             },
           ),
+          const SizedBox(height: 12),
+          Text(vText.sketchAlso, style: vTheme.textTheme.titleSmall),
+          Wrap(
+            spacing: 6,
+            children: [
+              for (final vKind in [
+                FixtureKind.mezzanine,
+                FixtureKind.stairs,
+                FixtureKind.stairwell,
+                FixtureKind.roofWindow,
+              ])
+                ActionChip(
+                  avatar: Icon(fixtureIcon(vKind), size: 18),
+                  label: Text(fixtureLabel(vText, vKind)),
+                  onPressed: () => _addFixture(vKind),
+                ),
+            ],
+          ),
+          for (final vFixture in _room.fixtures.where((pFixture) => hasArea(pFixture.kind)))
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Icon(fixtureIcon(vFixture.kind)),
+              title: Text(fixtureLabel(vText, vFixture.kind)),
+              subtitle: Text(
+                vText.sketchFixtureSize(
+                  formatCentimetres(vFixture.widthMm),
+                  formatCentimetres(vFixture.depthMm),
+                  formatSquareMetres(vFixture.areaM2),
+                ),
+              ),
+              onTap: () => _editFixture(vFixture),
+              trailing: IconButton(
+                tooltip: vText.delete,
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () => setState(
+                  () => _room = _room.copyWith(
+                    fixtures: [..._room.fixtures]..remove(vFixture),
+                  ),
+                ),
+              ),
+            ),
           SlopeEditor(
             room: _drawn,
             onChanged: (pRoom) => setState(
@@ -289,6 +368,7 @@ class ShapeSketch extends StatelessWidget {
       builder: (pContext, pBox) {
         final vSize = pBox.biggest;
         final vPainter = _ShapePainter(
+          room: room,
           points: outline(room),
           measured: measured,
           selected: selected,
@@ -314,6 +394,7 @@ class ShapeSketch extends StatelessWidget {
 
 class _ShapePainter extends CustomPainter {
   _ShapePainter({
+    required this.room,
     required this.points,
     required this.measured,
     required this.selected,
@@ -323,6 +404,7 @@ class _ShapePainter extends CustomPainter {
     required this.paper,
   });
 
+  final Room room;
   final List<PlanPoint> points;
   final Set<int> measured;
   final int selected;
@@ -333,29 +415,14 @@ class _ShapePainter extends CustomPainter {
 
   static const _margin = 36.0;
 
+  /// Passage du plan à l'écran, le même que celui du plan de la pièce.
+  PlanFrame _frame(Size pSize) => PlanFrame(room, pSize, pMargin: _margin);
+
   /// Sommets à l'écran : la forme centrée, à la plus grande échelle qui tient.
   List<Offset> _screen(Size pSize) {
-    final vXs = points.map((pPoint) => pPoint.x);
-    final vYs = points.map((pPoint) => pPoint.y);
-    final vMinX = vXs.reduce(math.min);
-    final vMinY = vYs.reduce(math.min);
-    final vWidth = math.max(vXs.reduce(math.max) - vMinX, 1);
-    final vHeight = math.max(vYs.reduce(math.max) - vMinY, 1);
-    final vScale = math.min(
-      (pSize.width - 2 * _margin) / vWidth,
-      (pSize.height - 2 * _margin) / vHeight,
-    );
-    final vLeft = (pSize.width - vWidth * vScale) / 2;
-    final vTop = (pSize.height - vHeight * vScale) / 2;
+    final vFrame = _frame(pSize);
 
-    // Le plan monte vers le haut de l'écran : y inversé
-    return [
-      for (final vPoint in points)
-        Offset(
-          vLeft + (vPoint.x - vMinX) * vScale,
-          pSize.height - vTop - (vPoint.y - vMinY) * vScale,
-        ),
-    ];
+    return [for (final vPoint in points) vFrame.toScreen(vPoint.x, vPoint.y)];
   }
 
   /// Mur le plus proche d'un toucher, à 40 points au plus ; null sinon.
@@ -419,6 +486,17 @@ class _ShapePainter extends CustomPainter {
       );
       _label(pCanvas, '${vIndex + 1}', vBadge, vSelected ? onTape : ink, 15, FontWeight.w700);
     }
+    // Mezzanine, escalier, trémie : leur contour en tirets fins, à l'échelle du plan
+    final vFrame = _frame(pSize);
+    final vThin = Paint()
+      ..color = ink.withValues(alpha: 0.6)
+      ..strokeWidth = 1.5;
+    for (final vFixture in room.fixtures.where((pFixture) => hasArea(pFixture.kind))) {
+      final vOutline = [for (final (vX, vY) in vFixture.outlineMm()) vFrame.toScreen(vX, vY)];
+      for (var vIndex = 0; vIndex < vOutline.length; vIndex++) {
+        _dashed(pCanvas, vOutline[vIndex], vOutline[(vIndex + 1) % vOutline.length], vThin);
+      }
+    }
     // Lettres des coins, juste à l'extérieur
     for (var vIndex = 0; vIndex < vPoints.length - 1; vIndex++) {
       final vOutward = vPoints[vIndex] - vCentre;
@@ -458,5 +536,5 @@ class _ShapePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_ShapePainter pOld) =>
-      pOld.points != points || pOld.selected != selected || pOld.measured != measured;
+      pOld.room != room || pOld.selected != selected || pOld.measured != measured;
 }

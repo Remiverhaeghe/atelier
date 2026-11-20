@@ -4667,5 +4667,17 @@
   "sketchDiagonal": "Les murs d'en face n'ont pas la même longueur : la pièce n'est pas tout à fait d'équerre. Mesure en travers, du coin A au coin C : l'appli en déduit les angles.",
   "sketchDiagonalField": "Diagonale du coin A au coin C (cm)",
   "sketchAngles": "Angles calculés : {angles}",
-  "@sketchAngles": {"placeholders": {"angles": {"type": "String"}}}
+  "@sketchAngles": {"placeholders": {"angles": {"type": "String"}}},
+  "mezzanineLShape": "Forme en L : un coin laissé à l'escalier",
+  "mezzanineNotchWidth": "Coin de l'escalier : largeur (cm)",
+  "mezzanineNotchDepth": "Coin de l'escalier : longueur (cm)",
+  "mezzanineNotchCorner": "Où est l'escalier, vu sur le plan",
+  "mezzanineNotchInvalid": "Le coin de l'escalier doit être plus petit que la mezzanine.",
+  "cornerTopLeft": "En haut à gauche",
+  "cornerTopRight": "En haut à droite",
+  "cornerBottomLeft": "En bas à gauche",
+  "cornerBottomRight": "En bas à droite",
+  "sketchAlso": "Il y a aussi dans la pièce",
+  "sketchFixtureSize": "{width} × {depth} cm, {area} m²",
+  "@sketchFixtureSize": {"placeholders": {"width": {"type": "String"}, "depth": {"type": "String"}, "area": {"type": "String"}}}
 }
