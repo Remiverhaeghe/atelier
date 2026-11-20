@@ -131,9 +131,13 @@ class Wall {
     this.angleToNextDeg = 90,
     this.openings = const [],
     this.freeEndAfter = false,
+    this.deduced = false,
   });
 
   final int lengthMm;
+
+  /// Longueur déduite des autres murs sur le dessin de la pièce, pas encore mesurée.
+  final bool deduced;
   final double angleToNextDeg;
   final List<Opening> openings;
 
@@ -148,11 +152,14 @@ class Wall {
     double? angleToNextDeg,
     List<Opening>? openings,
     bool? freeEndAfter,
+    bool? deduced,
   }) => Wall(
     lengthMm: lengthMm ?? this.lengthMm,
     angleToNextDeg: angleToNextDeg ?? this.angleToNextDeg,
     openings: openings ?? this.openings,
     freeEndAfter: freeEndAfter ?? this.freeEndAfter,
+    // Une longueur retapée ailleurs que sur le dessin est une mesure
+    deduced: deduced ?? (lengthMm == null && this.deduced),
   );
 
   Map<String, Object?> toJson() => {
@@ -160,6 +167,7 @@ class Wall {
     'angleToNextDeg': angleToNextDeg,
     'openings': [for (final vOpening in openings) vOpening.toJson()],
     'freeEndAfter': freeEndAfter,
+    if (deduced) 'deduced': true,
   };
 
   static Wall fromJson(Map<String, Object?> pJson) => Wall(
@@ -170,6 +178,7 @@ class Wall {
         Opening.fromJson(vOpening! as Map<String, Object?>),
     ],
     freeEndAfter: (pJson['freeEndAfter'] as bool?) ?? false,
+    deduced: (pJson['deduced'] as bool?) ?? false,
   );
 }
 

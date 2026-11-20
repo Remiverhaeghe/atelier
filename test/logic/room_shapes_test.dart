@@ -71,4 +71,17 @@ void main() {
     expect(vKept.first.openings, [vDoor]);
     expect(vKept.first.lengthMm, 4000);
   });
+
+  test('murs déduits gardés dans la pièce, effacés quand on retape la longueur', () {
+    final vWalls = shapeWalls(shapeRoom(RoomShape.rectangle, const {0: 4200, 1: 3100}), const []);
+    expect(vWalls.map((pWall) => pWall.deduced), [false, false, true, true]);
+    final vRoom = Room(id: 'p', name: 'Pièce fictive', walls: vWalls);
+    expect(wallsToMeasure(vRoom), [3, 4]);
+
+    final vBack = Wall.fromJson(vWalls[2].toJson());
+    expect(vBack.deduced, isTrue);
+    expect(vWalls[0].toJson().containsKey('deduced'), isFalse);
+    expect(vWalls[2].copyWith(lengthMm: 4210).deduced, isFalse);
+    expect(vWalls[2].copyWith(angleToNextDeg: 91).deduced, isTrue);
+  });
 }

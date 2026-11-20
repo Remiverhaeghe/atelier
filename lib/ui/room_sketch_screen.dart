@@ -45,7 +45,8 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
   /// Longueurs tapées, par numéro de mur à partir de 0.
   late final Map<int, int> _measured = {
     if (shapeOf(widget.room.walls) != null)
-      for (final (vIndex, vWall) in widget.room.walls.indexed) vIndex: vWall.lengthMm,
+      for (final (vIndex, vWall) in widget.room.walls.indexed)
+        if (!vWall.deduced) vIndex: vWall.lengthMm,
   };
   int? _diagonal;
   int _selected = 0;

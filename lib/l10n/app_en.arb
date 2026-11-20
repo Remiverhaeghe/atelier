@@ -3448,5 +3448,6 @@
   "sketchFixtureSize": "{width} × {depth} cm, {area} m²",
   "sketchAddOpening": "Door or window here",
   "sketchOpening": "{kind} {width} cm wide, {offset} cm from corner {corner}",
-  "sketchOpeningHint": "For a door or window, tap the wall where it is, then “Door or window here”."
+  "sketchOpeningHint": "For a door or window, tap the wall where it is, then “Door or window here”.",
+  "siteModeDeduced": "Walls to measure on site: {walls}. Their length was worked out on the sketch, and the cuts depend on it."
 }

@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Murs déduits retenus : la pièce garde quels murs ont été déduits sur le dessin, le mode chantier rappelle de les mesurer sur place, et retaper une longueur en fait une mesure
 - Portes et fenêtres sur le dessin de la pièce : on touche le mur à l'endroit de la porte, « Porte ou fenêtre ici » la place centrée sur le toucher. Le plan montre l'ouverture, une puce par ouverture sous le mur en cours permet de la retirer
 - Mezzanine en L sur le plan : une encoche (largeur, profondeur, coin) laisse la place de l'escalier, la surface la retire et le plan la dessine en pointillés. Depuis « Dessiner la pièce », « Il y a aussi dans la pièce » ajoute une mezzanine, un escalier, une trémie ou une fenêtre de toit
 - Relevés d'un thermo-hygromètre (ThermoPro ou autre) : le fichier CSV exporté par son appli (colonnes date, température et humidité reconnues à leur titre, °F converti, dates françaises, ISO ou américaines) donne la moyenne, les écarts et ce qu'ils annoncent : air trop humide (VMC, aération), humidité qui met plus de 2 h à partir après une douche (bouche d'extraction, détalonnage), chaleur perdue la nuit (isolation, fuites d'air), pièce froide, surchauffée ou à l'air sec. Repères écrits sous l'analyse. Depuis les reprises d'une pièce, les constats cochés deviennent des reprises

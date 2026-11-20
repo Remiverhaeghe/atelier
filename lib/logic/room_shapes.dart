@@ -190,5 +190,12 @@ List<Wall> shapeWalls(ShapedRoom pShaped, List<Wall> pPrevious) => [
     (vIndex < pPrevious.length ? pPrevious[vIndex] : const Wall(lengthMm: 0)).copyWith(
       lengthMm: pShaped.lengths[vIndex],
       angleToNextDeg: pShaped.angles[vIndex],
+      deduced: pShaped.deduced.contains(vIndex),
     ),
+];
+
+/// Numéros (à partir de 1) des murs dont la longueur a été déduite sur le dessin.
+List<int> wallsToMeasure(Room pRoom) => [
+  for (final (vIndex, vWall) in pRoom.walls.indexed)
+    if (vWall.deduced) vIndex + 1,
 ];
