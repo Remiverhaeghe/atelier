@@ -122,9 +122,7 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
     if (vFixture != null && mounted) {
       setState(
         () => _room = _room.copyWith(
-          fixtures: [
-            for (final vOld in _room.fixtures) vOld.id == pFixture.id ? vFixture : vOld,
-          ],
+          fixtures: [for (final vOld in _room.fixtures) vOld.id == pFixture.id ? vFixture : vOld],
         ),
       );
     }
@@ -321,9 +319,7 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
                 tooltip: vText.delete,
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () => setState(
-                  () => _room = _room.copyWith(
-                    fixtures: [..._room.fixtures]..remove(vFixture),
-                  ),
+                  () => _room = _room.copyWith(fixtures: [..._room.fixtures]..remove(vFixture)),
                 ),
               ),
             ),

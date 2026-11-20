@@ -311,10 +311,7 @@ class _FixtureDialogState extends State<_FixtureDialog> {
     final vNotchWidth = _lShape ? parseCentimetres(_notchWidth.text) ?? 0 : 0;
     final vNotchDepth = _lShape ? parseCentimetres(_notchDepth.text) ?? 0 : 0;
     if (_lShape &&
-        (vNotchWidth == 0 ||
-            vNotchDepth == 0 ||
-            vNotchWidth >= vWidth ||
-            vNotchDepth >= vDepth)) {
+        (vNotchWidth == 0 || vNotchDepth == 0 || vNotchWidth >= vWidth || vNotchDepth >= vDepth)) {
       setState(() => _error = vText.mezzanineNotchInvalid);
       return;
     }

@@ -109,8 +109,14 @@ void main() {
     await pTester.pumpAndSettle();
     await pTester.tap(find.text("Forme en L : un coin laissé à l'escalier"));
     await pTester.pumpAndSettle();
-    await pTester.enterText(find.widgetWithText(TextField, "Coin de l'escalier : largeur (cm)"), '90');
-    await pTester.enterText(find.widgetWithText(TextField, "Coin de l'escalier : longueur (cm)"), '120');
+    await pTester.enterText(
+      find.widgetWithText(TextField, "Coin de l'escalier : largeur (cm)"),
+      '90',
+    );
+    await pTester.enterText(
+      find.widgetWithText(TextField, "Coin de l'escalier : longueur (cm)"),
+      '120',
+    );
     await pTester.tap(find.text('En bas à droite'));
     await pTester.tap(find.widgetWithText(FilledButton, 'Enregistrer'));
     await pTester.pumpAndSettle();

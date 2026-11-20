@@ -69,9 +69,8 @@ class Fixture {
       notchWidthMm < widthMm &&
       notchDepthMm < depthMm;
 
-  double get areaM2 => hasArea(kind)
-      ? (widthMm * depthMm - (hasNotch ? notchWidthMm * notchDepthMm : 0)) / 1e6
-      : 0;
+  double get areaM2 =>
+      hasArea(kind) ? (widthMm * depthMm - (hasNotch ? notchWidthMm * notchDepthMm : 0)) / 1e6 : 0;
 
   /// Contour de l'élément en mm, dans le repère de la pièce : le rectangle, ou le L de la
   /// mezzanine dont un coin est laissé à l'escalier.
