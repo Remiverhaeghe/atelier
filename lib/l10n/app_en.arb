@@ -3467,5 +3467,9 @@
   "roomSheetPasses": "Passes done: {done} of {passes}",
   "roomSheetToBuy": "To buy: {item}",
   "touchUpsToShopping": "{count, plural, =1{Add 1 item to the shopping list} other{Add {count} items to the shopping list}}",
-  "touchUpsAddedToShopping": "Added to the shopping list: {items}"
+  "touchUpsAddedToShopping": "Added to the shopping list: {items}",
+  "gesturePause": "Pause",
+  "gestureResume": "Resume the gesture",
+  "gestureSlow": "Slow motion",
+  "gestureScrub": "Move the gesture with your finger"
 }

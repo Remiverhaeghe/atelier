@@ -4711,5 +4711,9 @@
   "touchUpsToShopping": "{count, plural, =1{Ajouter 1 article aux courses} other{Ajouter {count} articles aux courses}}",
   "@touchUpsToShopping": {"placeholders": {"count": {"type": "int"}}},
   "touchUpsAddedToShopping": "Ajouté à la liste de courses : {items}",
-  "@touchUpsAddedToShopping": {"placeholders": {"items": {"type": "String"}}}
+  "@touchUpsAddedToShopping": {"placeholders": {"items": {"type": "String"}}},
+  "gesturePause": "Mettre en pause",
+  "gestureResume": "Reprendre le geste",
+  "gestureSlow": "Ralenti",
+  "gestureScrub": "Avancer le geste au doigt"
 }
