@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../support/platform_limits.dart';
 import '../logic/goals.dart';
 import '../logic/loans.dart';
 import '../logic/units.dart';
@@ -218,6 +219,12 @@ class LoansScreen extends StatelessWidget {
           body: ListView(
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 96),
             children: [
+              // Safari ne programme pas de notification : le retour reste noté et signalé ici
+              if (aOnWeb)
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: IconLine(Icons.notifications_off_outlined, vText.loansWebNote),
+                ),
               if (vLoans.isEmpty)
                 Padding(padding: const EdgeInsets.all(8), child: Text(vText.loanEmpty)),
               for (final vLoan in vLoans)

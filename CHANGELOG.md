@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Version web : le bouton du télémètre explique que Safari n'a pas de Bluetooth et qu'on tape la mesure à la main ; les attentes et les prêts disent qu'il n'y aura pas de notification, et restent signalés à l'ouverture du chantier
 - Version web : les photos (reprises, journal, avant/après, tickets, souvenirs, guides) se prennent et se gardent dans le navigateur de l'iPhone, et apparaissent aussi dans les PDF ; l'export et l'import de chantier marchent depuis Safari (menu de partage, app Fichiers), comme le partage chiffré d'un projet avec ses photos
 - Sauvegarde complète (fichier daté ou chiffré) : le stock de l'atelier part avec les chantiers ; à l'import, les articles absents de l'appareil sont ajoutés
 - Préparer un sol (lot 201) : chape sèche, fluide anhydrite ou ciment avec la commande (plaques et granulats, sacs ou volume coulé), l'attente avant la pose et l'humidité à atteindre, la sous-couche selon le revêtement, le jeu aux murs, les joints aux seuils et le fractionnement des grandes pièces. Le calcul du ragréage en sacs existait déjà (Enduit et ragréage)

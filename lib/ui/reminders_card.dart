@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../support/platform_limits.dart';
 import '../logic/noise.dart';
 import '../logic/reminders.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
 import 'reminder_alarm.dart';
+import 'theme.dart';
 
 String waitLabel(AppLocalizations pText, WaitKind pKind) => switch (pKind) {
   WaitKind.acclimatise => pText.waitAcclimatise,
@@ -75,6 +77,8 @@ class RemindersCard extends StatelessWidget {
                 ),
               ],
             ),
+            // Safari ne programme pas de notification : l'attente reste notée ici
+            if (aOnWeb) IconLine(Icons.notifications_off_outlined, vText.remindersWebNote),
             if (worksite.reminders.isEmpty) Text(vText.remindersEmpty),
             for (final vReminder in sortedReminders(worksite.reminders))
               ListTile(

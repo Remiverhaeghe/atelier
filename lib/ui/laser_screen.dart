@@ -4,14 +4,33 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/units.dart';
+import '../support/platform_limits.dart';
 import 'laser_link.dart';
 import 'theme.dart';
 
 /// Ouvre la mesure au télémètre et renvoie la distance choisie, en millimètres.
-Future<int?> measureWithLaser(BuildContext pContext, {LaserLink? pLink}) => Navigator.push<int>(
-  pContext,
-  MaterialPageRoute(builder: (_) => LaserScreen(link: pLink ?? BleLaserLink())),
-);
+///
+/// Dans la version web, Safari ne donne pas accès au Bluetooth : un mot l'explique, et la
+/// mesure se tape à la main.
+Future<int?> measureWithLaser(BuildContext pContext, {LaserLink? pLink}) async {
+  if (aOnWeb) {
+    final vText = AppLocalizations.of(pContext);
+    await showDialog<void>(
+      context: pContext,
+      builder: (pDialog) => AlertDialog(
+        title: Text(vText.laserTitle),
+        content: Text(vText.laserWebUnavailable),
+        actions: [TextButton(onPressed: () => Navigator.pop(pDialog), child: Text(vText.close))],
+      ),
+    );
+    return null;
+  }
+
+  return Navigator.push<int>(
+    pContext,
+    MaterialPageRoute(builder: (_) => LaserScreen(link: pLink ?? BleLaserLink())),
+  );
+}
 
 /// Télémètre Bosch en Bluetooth : choisir l'appareil, mesurer avec son bouton, reprendre la
 /// distance.
