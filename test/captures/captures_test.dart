@@ -4,7 +4,11 @@ library;
 import 'dart:io';
 
 import 'package:atelier/app.dart';
+import 'package:atelier/logic/workshop_stock.dart';
+import 'package:atelier/state/workshop_controller.dart';
 import 'package:atelier/state/worksites_controller.dart';
+import 'package:atelier/storage/workshop_store.dart';
+import 'package:atelier/ui/stair_relief_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -66,6 +70,13 @@ Future<void> openApp(WidgetTester pTester) async {
 }
 
 void capturesDone() => debugDisableShadows = true;
+
+/// Première liste verticale de l'écran : les champs de saisie ont aussi leur défilement.
+Finder _vertical() => find
+    .byWidgetPredicate(
+      (pWidget) => pWidget is Scrollable && pWidget.axisDirection == AxisDirection.down,
+    )
+    .first;
 
 Future<void> tapAndSettle(WidgetTester pTester, Finder pFinder) async {
   // Une liste ne construit que ce qui est à l'écran : sous les tuiles d'accueil, les pièces
@@ -183,6 +194,75 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Caisse à outils du débutant'));
     await capture('26-caisse-outils');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Diagnostic thermique'));
+    await capture('27-diagnostic-thermique');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text("Isolation des murs par l'intérieur"));
+    await capture('28-isolation-murs');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Par où commencer'));
+    await tapAndSettle(pTester, find.text('Carrelage'));
+    await capture('40-par-ou-commencer');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Contrôles qualité'));
+    await capture('41-controles-qualite');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Sécurité par outil'));
+    await tapAndSettle(pTester, find.text('Scie circulaire'));
+    await capture('42-securite-scie');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Je me suis trompé'));
+    await tapAndSettle(pTester, find.text('Coulure de vernis'));
+    await capture('43-je-me-suis-trompe');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Bruit et voisinage'));
+    await capture('44-bruit-voisinage');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Mode apprentissage'));
+    await capture('45-mode-apprentissage');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Douche de plain-pied'));
+    await pTester.scrollUntilVisible(
+      find.text('Volumes de sécurité'),
+      300,
+      scrollable: _vertical(),
+    );
+    await pTester.pumpAndSettle();
+    await capture('29-salle-eau');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Cuisine'));
+    await pTester.scrollUntilVisible(
+      find.text("Triangle d'activité"),
+      300,
+      scrollable: _vertical(),
+    );
+    await pTester.pumpAndSettle();
+    await capture('30-cuisine');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Maison de démonstration'));
+    await tapAndSettle(pTester, find.byTooltip('Électricité du plan'));
+    await tapAndSettle(pTester, find.text('Salon'));
+    await capture('31-prises-eclairage');
     capturesDone();
   });
 
@@ -193,6 +273,77 @@ void main() {
     await tapAndSettle(pTester, find.text('Maison de démonstration'));
     await tapAndSettle(pTester, find.text('Chambre'));
     await capture('09-piece-sombre');
+    capturesDone();
+  });
+
+  testWidgets('bois : débit d\'un projet, défauts au magasin, stock de l\'atelier', (
+    pTester,
+  ) async {
+    await openApp(pTester);
+    await tapAndSettle(pTester, find.byTooltip('Calculs'));
+    await tapAndSettle(pTester, find.text('Débit dans le commerce'));
+    await capture('50-debit-projet');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Défauts du bois'));
+    await tapAndSettle(pTester, find.widgetWithText(ChoiceChip, 'Bois tors'));
+    await capture('51-defauts-bois');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    // Stock fictif : quelques articles, dont un sous son seuil d'alerte
+    aWorkshop = WorkshopController(
+      MemoryWorkshopStore()
+        ..saved = const [
+          StockItem(
+            id: 'colle',
+            name: 'Colle mastic',
+            category: StockCategory.glue,
+            quantity: 2,
+            minQuantity: 1,
+            link: 'cartridges',
+          ),
+          StockItem(
+            id: 'vis',
+            name: 'Vis 4 × 40',
+            category: StockCategory.screws,
+            quantity: 1,
+            minQuantity: 2,
+          ),
+          StockItem(
+            id: 'abrasif',
+            name: 'Abrasif grain 120',
+            category: StockCategory.abrasive,
+            quantity: 6,
+            minQuantity: 2,
+          ),
+        ],
+    );
+    await aWorkshop.load();
+    await tapAndSettle(pTester, find.text('Maison de démonstration'));
+    await tapAndSettle(pTester, find.text('Stock de l\'atelier'));
+    await capture('52-stock-atelier');
+    capturesDone();
+  });
+
+  testWidgets('escalier en relief, soleil par la fenêtre de toit, charges en clair', (
+    pTester,
+  ) async {
+    await openApp(pTester);
+    await tapAndSettle(pTester, find.byTooltip('Calculs'));
+    await tapAndSettle(pTester, find.text('Escalier droit'));
+    await pTester.ensureVisible(find.byType(StairSketch));
+    await pTester.pumpAndSettle();
+    await capture('53-escalier-relief');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Soleil par la fenêtre de toit'));
+    await capture('54-soleil-fenetre-toit');
+    pTester.state<NavigatorState>(find.byType(Navigator)).pop();
+    await pTester.pumpAndSettle();
+    await tapAndSettle(pTester, find.text('Charges en clair'));
+    await capture('55-charges-en-clair');
     capturesDone();
   });
 }

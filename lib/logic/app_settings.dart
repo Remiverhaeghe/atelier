@@ -1,6 +1,8 @@
 /// Réglages d'affichage de l'application : thème et taille du texte.
 library;
 
+import 'challenges.dart';
+
 /// Thème : celui du téléphone, clair ou sombre.
 enum ThemeChoice { system, light, dark }
 
@@ -20,6 +22,7 @@ class AppSettings {
     this.textScale = 1.0,
     this.lastExternalBackup,
     this.newsSeen = 0,
+    this.challenges = const {},
   });
 
   final ThemeChoice theme;
@@ -31,16 +34,21 @@ class AppSettings {
   /// Dernières nouveautés montrées (voir `newsVersion`).
   final int newsSeen;
 
+  /// Défis du mode apprentissage : essais et réussites.
+  final Map<Challenge, ChallengeRecord> challenges;
+
   AppSettings copyWith({
     ThemeChoice? theme,
     double? textScale,
     DateTime? lastExternalBackup,
     int? newsSeen,
+    Map<Challenge, ChallengeRecord>? challenges,
   }) => AppSettings(
     theme: theme ?? this.theme,
     textScale: textScale ?? this.textScale,
     lastExternalBackup: lastExternalBackup ?? this.lastExternalBackup,
     newsSeen: newsSeen ?? this.newsSeen,
+    challenges: challenges ?? this.challenges,
   );
 
   Map<String, Object?> toJson() => {
@@ -48,6 +56,7 @@ class AppSettings {
     'textScale': textScale,
     if (lastExternalBackup != null) 'lastExternalBackup': lastExternalBackup!.toIso8601String(),
     if (newsSeen > 0) 'newsSeen': newsSeen,
+    if (challenges.isNotEmpty) 'challenges': challengesToJson(challenges),
   };
 
   /// Un fichier abîmé ou d'une autre version redonne les réglages de départ, sans planter.
@@ -61,6 +70,7 @@ class AppSettings {
       textScale: textScales.contains(vScale) ? vScale! : 1.0,
       lastExternalBackup: DateTime.tryParse((pJson['lastExternalBackup'] as String?) ?? ''),
       newsSeen: (pJson['newsSeen'] as int?) ?? 0,
+      challenges: challengesFromJson(pJson['challenges']),
     );
 
     return rSettings;

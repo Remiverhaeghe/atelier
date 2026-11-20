@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/bathroom.dart';
 import '../logic/units.dart';
+import 'bathroom_safety_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
 
@@ -96,6 +97,8 @@ class _ShowerCalculatorState extends State<ShowerCalculator> {
             selected: {_shower.walls},
             onSelectionChanged: (pWalls) => _set(pWalls: pWalls.single),
           ),
+          const SizedBox(height: 16),
+          BathroomSafetyCard(shower: _shower),
           const SizedBox(height: 12),
           IconLine(Icons.lightbulb_outline, vText.showerTip),
           Text(vText.showerHint, style: vTheme.textTheme.bodySmall),

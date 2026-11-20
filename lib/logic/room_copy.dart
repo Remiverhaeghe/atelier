@@ -2,9 +2,11 @@
 /// symétrique de l'autre côté du couloir.
 library;
 
+import 'house_book.dart';
 import 'room.dart';
 
-/// Même pièce sous un nouveau nom, avancement remis à zéro (rangées, coupes, reprises, photos).
+/// Même pièce sous un nouveau nom, avancement remis à zéro (rangées, coupes, reprises, photos,
+/// solives et photos d'avant fermeture, propres à la pièce d'origine).
 Room duplicateRoom(Room pRoom, {required String pId, required String pName}) => pRoom.copyWith(
   id: pId,
   name: pName,
@@ -13,6 +15,7 @@ Room duplicateRoom(Room pRoom, {required String pId, required String pName}) => 
   doneSteps: const [],
   touchUps: const [],
   stepPhotos: const {},
+  behindWalls: const BehindWalls(),
 );
 
 /// Pièce retournée comme dans un miroir : les murs dans l'ordre inverse, chaque angle passé au
