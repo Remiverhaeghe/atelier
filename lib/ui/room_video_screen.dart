@@ -180,27 +180,10 @@ class _RoomVideoScreenState extends State<RoomVideoScreen> {
     });
   }
 
-  Future<String?> _askLabel(AppLocalizations pText) {
-    final vController = TextEditingController(text: pText.videoDefaultLabel);
-
-    return showDialog<String>(
-      context: context,
-      builder: (pDialogContext) => AlertDialog(
-        title: Text(pText.touchUpLabel),
-        content: TextField(controller: vController, autofocus: true),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(pDialogContext), child: Text(pText.cancel)),
-          FilledButton(
-            onPressed: () => Navigator.pop(
-              pDialogContext,
-              vController.text.trim().isEmpty ? pText.videoDefaultLabel : vController.text.trim(),
-            ),
-            child: Text(pText.save),
-          ),
-        ],
-      ),
-    ).whenComplete(vController.dispose);
-  }
+  Future<String?> _askLabel(AppLocalizations pText) => showDialog<String>(
+    context: context,
+    builder: (_) => _LabelDialog(initial: pText.videoDefaultLabel),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -307,6 +290,46 @@ class _RoomVideoScreenState extends State<RoomVideoScreen> {
           );
         },
       ),
+    );
+  }
+}
+
+/// Libellé du défaut repéré ; le champ vit avec la boîte, jusqu'à la fin de sa fermeture.
+class _LabelDialog extends StatefulWidget {
+  const _LabelDialog({required this.initial});
+
+  final String initial;
+
+  @override
+  State<_LabelDialog> createState() => _LabelDialogState();
+}
+
+class _LabelDialogState extends State<_LabelDialog> {
+  late final _controller = TextEditingController(text: widget.initial);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+
+    return AlertDialog(
+      title: Text(vText.touchUpLabel),
+      content: TextField(controller: _controller, autofocus: true),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(vText.cancel)),
+        FilledButton(
+          onPressed: () => Navigator.pop(
+            context,
+            _controller.text.trim().isEmpty ? widget.initial : _controller.text.trim(),
+          ),
+          child: Text(vText.save),
+        ),
+      ],
     );
   }
 }
