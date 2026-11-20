@@ -39,6 +39,7 @@ import 'roof_lining_calculator.dart';
 import 'roof_window_calculator.dart';
 import 'outdoor_weather_calculator.dart';
 import 'photo_measure_screen.dart';
+import 'ready_projects_screen.dart';
 import 'sheet_flooring_calculator.dart';
 import 'shower_calculator.dart';
 import 'wallpaper_calculator.dart';
@@ -65,6 +66,10 @@ import 'wall_shelf_calculator.dart';
 import 'welding_calculator.dart';
 import 'wood_finish_calculator.dart';
 import 'wood_window_calculator.dart';
+import 'project_cutting_screen.dart';
+import 'wood_defects_screen.dart';
+import 'sun_light_screen.dart';
+import 'load_explained_screen.dart';
 import 'energy_diagnosis_screen.dart';
 import 'renovation_screen.dart';
 import 'wall_lining_calculator.dart';
@@ -461,7 +466,7 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.kitchenHelp,
       family: CalcFamily.comfort,
       icon: Icons.kitchen_outlined,
-      builder: (_) => const KitchenCalculator(),
+      builder: (_) => KitchenCalculator(rooms: pRooms),
     ),
     (
       title: pText.showerTitle,
@@ -546,6 +551,42 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.wood,
       icon: Icons.window_outlined,
       builder: (_) => const FrameCalculator(),
+    ),
+    // Lots 187 à 210 : projets, chantier et finitions
+    (
+      title: pText.readyTitle,
+      help: pText.readyHelp,
+      family: CalcFamily.start,
+      icon: Icons.assignment_outlined,
+      builder: (_) => const ReadyProjectsScreen(),
+    ),
+    (
+      title: pText.cutPlanTitle,
+      help: pText.cutPlanHelp,
+      family: CalcFamily.wood,
+      icon: Icons.content_cut,
+      builder: (_) => const ProjectCuttingScreen(),
+    ),
+    (
+      title: pText.defectTitle,
+      help: pText.defectHelp,
+      family: CalcFamily.wood,
+      icon: Icons.search,
+      builder: (_) => const WoodDefectsScreen(),
+    ),
+    (
+      title: pText.sunTitle,
+      help: pText.sunHelp,
+      family: CalcFamily.attic,
+      icon: Icons.wb_sunny_outlined,
+      builder: (_) => const SunLightScreen(),
+    ),
+    (
+      title: pText.loadTitle,
+      help: pText.loadHelp,
+      family: CalcFamily.wood,
+      icon: Icons.fitness_center,
+      builder: (_) => const LoadExplainedScreen(),
     ),
     (
       title: pText.energyTitle,

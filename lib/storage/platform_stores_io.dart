@@ -8,6 +8,7 @@ import '../ui/reminder_alarm.dart';
 import 'backups.dart';
 import 'platform_stores_common.dart';
 import 'settings_store.dart';
+import 'workshop_store.dart';
 import 'worksite_store.dart';
 
 export 'platform_stores_common.dart';
@@ -21,6 +22,7 @@ Future<PlatformStores> openPlatformStores() async {
     backups: vBackups,
     worksites: WorksiteStore(File('${vFolder.path}/chantiers.json'), backups: vBackups),
     settings: SettingsFileStore(File('${vFolder.path}/reglages.json')),
+    workshop: WorkshopFileStore(File('${vFolder.path}/atelier.json')),
     alarm: LocalReminderAlarm(),
     onChange: (pWorksites) => publishHomeWidget(vFolder, pWorksites, DateTime.now()),
   );

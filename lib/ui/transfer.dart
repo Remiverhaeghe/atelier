@@ -14,6 +14,7 @@ import '../logic/gltf.dart';
 import '../logic/home_assistant.dart';
 import '../logic/house.dart';
 import '../logic/house_export.dart';
+import '../logic/project_bundle.dart';
 import '../logic/worksite.dart';
 import '../state/worksites_controller.dart';
 import '../storage/worksite_store.dart';
@@ -95,6 +96,10 @@ Future<void> importWorksites(BuildContext pContext, WorksitesController pControl
         return;
       }
       vContent = await decryptBackup(vContent, vPassword);
+    }
+    // Projet partagé seul : ses photos sont dans le fichier, à recopier sur ce téléphone
+    if (isProjectBundle(vContent)) {
+      vContent = await unpackProject(vContent);
     }
     final vWorksites = WorksiteStore.decode(vContent);
     if (pController.sharesWorksite(vWorksites) && pContext.mounted) {

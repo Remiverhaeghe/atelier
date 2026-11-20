@@ -27,4 +27,26 @@ void main() {
     await pTester.pump();
     expect(find.textContaining('deux bouts de ce que vous mesurez'), findsOneWidget);
   });
+
+  testWidgets('une feuille A4 comme étalon, avec la marge d\'erreur', (pTester) async {
+    tallScreen(pTester);
+    await pTester.pumpWidget(
+      localized(const PhotoMeasureScreen(picture: ColoredBox(color: Colors.white))),
+    );
+    await pTester.tap(find.text('A4, grand côté'));
+    await pTester.pump();
+    expect(find.textContaining('grand côté de la feuille A4'), findsOneWidget);
+    final vOrigin = pTester.getTopLeft(find.byKey(const ValueKey('measure-area')));
+    for (final vPoint in const [Offset(10, 10), Offset(10, 307), Offset(20, 20), Offset(320, 20)]) {
+      await pTester.tapAt(vOrigin + vPoint);
+      await pTester.pump();
+    }
+    // 297 points pour 297 mm : 300 points font 30 cm
+    expect(find.text('30 cm environ'), findsOneWidget);
+    expect(find.textContaining('À 0,6 cm près'), findsOneWidget);
+
+    await pTester.tap(find.text('A4, petit côté'));
+    await pTester.pump();
+    expect(find.textContaining('petit côté de la feuille A4'), findsOneWidget);
+  });
 }

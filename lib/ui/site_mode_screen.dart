@@ -16,6 +16,7 @@ import '../logic/voice_command.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
 import 'theme.dart';
+import 'workshop_mode_screen.dart';
 
 /// Lecture d'un texte à voix haute ; remplaçable dans les tests.
 typedef Speaker = Future<void> Function(String pText);
@@ -149,6 +150,37 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
     }
   }
 
+  /// Mode atelier sur les reprises pas encore finies : une étape cochée finit la reprise.
+  void _openWorkshop(Room pRoom) {
+    final vOpen = pRoom.touchUps.where((pTouchUp) => !pTouchUp.done).toList();
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => WorkshopModeScreen(
+          title: pRoom.name,
+          steps: [for (final vTouchUp in vOpen) vTouchUp.label],
+          awake: widget.awake,
+          onStepDone: (pIndex, _) {
+            final vRoom = _room();
+            if (vRoom == null) {
+              return;
+            }
+            final vId = vOpen[pIndex].id;
+            widget.controller.updateRoom(
+              widget.worksiteId,
+              vRoom.copyWith(
+                touchUps: [
+                  for (final vTouchUp in vRoom.touchUps)
+                    vTouchUp.id == vId ? vTouchUp.copyWith(donePasses: vTouchUp.passes) : vTouchUp,
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   Room? _room() => widget.controller
       .worksite(widget.worksiteId)
       ?.rooms
@@ -193,6 +225,11 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
                 tooltip: _night ? vText.nightOff : vText.nightOn,
                 icon: Icon(_night ? Icons.light_mode_outlined : Icons.nightlight_outlined),
                 onPressed: () => setState(() => _night = !_night),
+              ),
+              IconButton(
+                tooltip: vText.workshopTitle,
+                icon: const Icon(Icons.timer_outlined),
+                onPressed: () => _openWorkshop(vRoom),
               ),
               IconButton(
                 tooltip: vText.voiceListen,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'app.dart';
 import 'state/settings_controller.dart';
+import 'state/workshop_controller.dart';
 import 'state/worksites_controller.dart';
 import 'storage/platform_stores.dart';
 import 'ui/reminder_alarm.dart';
@@ -28,6 +29,9 @@ Future<void> main() async {
   // Réglages lus avant le premier affichage : pas d'éclair blanc si le thème sombre est choisi
   final vSettings = SettingsController(vStores.settings);
   await vSettings.load();
+  // Stock de l'atelier, gardé à part des chantiers
+  aWorkshop = WorkshopController(vStores.workshop);
+  await aWorkshop.load();
   runApp(
     AtelierApp(
       controller: vController,

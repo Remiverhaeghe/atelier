@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:web/web.dart' as web;
 
 import '../logic/app_settings.dart';
+import '../logic/workshop_stock.dart';
 import '../logic/worksite.dart';
 import '../ui/reminder_alarm.dart';
 import 'platform_stores_common.dart';
 import 'settings_store.dart';
+import 'workshop_store.dart';
 import 'worksite_store.dart';
 
 export 'platform_stores_common.dart';
@@ -14,6 +16,7 @@ export 'platform_stores_common.dart';
 /// Clés du stockage local du navigateur.
 const worksitesKey = 'atelier.chantiers';
 const settingsKey = 'atelier.reglages';
+const workshopKey = 'atelier.stock';
 
 /// Version web : les données restent dans le navigateur, sur l'appareil, jamais envoyées.
 Future<PlatformStores> openPlatformStores() async {
@@ -24,6 +27,7 @@ Future<PlatformStores> openPlatformStores() async {
     backups: null,
     worksites: BrowserWorksiteStore(),
     settings: BrowserSettingsStore(),
+    workshop: BrowserWorkshopStore(),
     // Pas de notification programmée sur le web
     alarm: const SilentAlarm(),
     onChange: (List<Worksite> _) {},
@@ -69,5 +73,26 @@ class BrowserSettingsStore implements SettingsStorage {
   @override
   Future<void> save(AppSettings pSettings) async {
     web.window.localStorage.setItem(settingsKey, jsonEncode(pSettings.toJson()));
+  }
+}
+
+/// Stock de l'atelier dans le stockage local du navigateur.
+class BrowserWorkshopStore implements WorkshopStorage {
+  @override
+  Future<List<StockItem>> load() async {
+    final vText = web.window.localStorage.getItem(workshopKey);
+    if (vText == null) {
+      return const [];
+    }
+    try {
+      return stockFromJson(jsonDecode(vText));
+    } on FormatException {
+      return const [];
+    }
+  }
+
+  @override
+  Future<void> save(List<StockItem> pItems) async {
+    web.window.localStorage.setItem(workshopKey, jsonEncode(stockToJson(pItems)));
   }
 }
