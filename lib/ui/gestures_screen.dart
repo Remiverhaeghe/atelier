@@ -209,12 +209,12 @@ class _GestureSketchState extends State<GestureSketch> with SingleTickerProvider
               child: Transform.scale(scale: 0.92 + 0.08 * pValue, child: pChild),
             ),
             child: AnimatedBuilder(
-            animation: _controller,
-            builder: (pContext, _) {
-              final vScene = gestureScene(vText, widget.gesture, _controller.value);
-              return Sketch3D(parts: vScene.parts, callouts: vScene.callouts);
-            },
-          ),
+              animation: _controller,
+              builder: (pContext, _) {
+                final vScene = gestureScene(vText, widget.gesture, _controller.value);
+                return Sketch3D(parts: vScene.parts, callouts: vScene.callouts);
+              },
+            ),
           ),
         ),
         Align(

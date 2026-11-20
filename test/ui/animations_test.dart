@@ -20,7 +20,12 @@ void main() {
   testWidgets('le résultat change en remontant, puis seul le nouveau reste', (pTester) async {
     final vText = ValueNotifier('12 m²');
     await pTester.pumpWidget(
-      localized(ValueListenableBuilder(valueListenable: vText, builder: (_, pValue, _) => BigFigure(pValue))),
+      localized(
+        ValueListenableBuilder(
+          valueListenable: vText,
+          builder: (_, pValue, _) => BigFigure(pValue),
+        ),
+      ),
     );
     vText.value = '14 m²';
     await pTester.pump(const Duration(milliseconds: 100));
@@ -33,48 +38,49 @@ void main() {
     expect(find.text('14 m²'), findsOneWidget);
   });
 
-  testWidgets('page tournée à l\'ouverture d\'un écran, simple fondu si les animations sont coupées', (
-    pTester,
-  ) async {
-    await pTester.pumpWidget(
-      localized(
-        Builder(
-          builder: (pContext) => TextButton(
-            onPressed: () => Navigator.push(
-              pContext,
-              MaterialPageRoute<void>(builder: (_) => const Text('page suivante')),
-            ),
-            child: const Text('ouvrir'),
-          ),
-        ),
-      ),
-    );
-    await pTester.tap(find.text('ouvrir'));
-    await pTester.pump(const Duration(milliseconds: 80));
-    expect(find.byType(PageTurn), findsWidgets);
-    await pTester.pumpAndSettle();
-    expect(find.text('page suivante'), findsOneWidget);
-
-    await pTester.pumpWidget(
-      MediaQuery(
-        data: const MediaQueryData(disableAnimations: true),
-        child: localized(
+  testWidgets(
+    'page tournée à l\'ouverture d\'un écran, simple fondu si les animations sont coupées',
+    (pTester) async {
+      await pTester.pumpWidget(
+        localized(
           Builder(
             builder: (pContext) => TextButton(
               onPressed: () => Navigator.push(
                 pContext,
-                MaterialPageRoute<void>(builder: (_) => const Text('sans animation')),
+                MaterialPageRoute<void>(builder: (_) => const Text('page suivante')),
               ),
               child: const Text('ouvrir'),
             ),
           ),
         ),
-      ),
-    );
-    await pTester.tap(find.text('ouvrir'));
-    await pTester.pump(const Duration(milliseconds: 80));
-    expect(find.byType(PageTurn), findsNothing);
-    await pTester.pumpAndSettle();
-    expect(find.text('sans animation'), findsOneWidget);
-  });
+      );
+      await pTester.tap(find.text('ouvrir'));
+      await pTester.pump(const Duration(milliseconds: 80));
+      expect(find.byType(PageTurn), findsWidgets);
+      await pTester.pumpAndSettle();
+      expect(find.text('page suivante'), findsOneWidget);
+
+      await pTester.pumpWidget(
+        MediaQuery(
+          data: const MediaQueryData(disableAnimations: true),
+          child: localized(
+            Builder(
+              builder: (pContext) => TextButton(
+                onPressed: () => Navigator.push(
+                  pContext,
+                  MaterialPageRoute<void>(builder: (_) => const Text('sans animation')),
+                ),
+                child: const Text('ouvrir'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await pTester.tap(find.text('ouvrir'));
+      await pTester.pump(const Duration(milliseconds: 80));
+      expect(find.byType(PageTurn), findsNothing);
+      await pTester.pumpAndSettle();
+      expect(find.text('sans animation'), findsOneWidget);
+    },
+  );
 }

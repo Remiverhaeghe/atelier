@@ -253,10 +253,8 @@ class BigFigure extends StatelessWidget {
           : const Duration(milliseconds: 260),
       switchInCurve: Curves.easeOutCubic,
       switchOutCurve: Curves.easeInCubic,
-      layoutBuilder: (pCurrent, pPrevious) => Stack(
-        alignment: Alignment.centerLeft,
-        children: [...pPrevious, ?pCurrent],
-      ),
+      layoutBuilder: (pCurrent, pPrevious) =>
+          Stack(alignment: Alignment.centerLeft, children: [...pPrevious, ?pCurrent]),
       transitionBuilder: (pChild, pAnimation) => FadeTransition(
         opacity: pAnimation,
         child: SlideTransition(

@@ -130,9 +130,7 @@ class PageTurn extends StatelessWidget {
           transform: vTurn..scaleByDouble(vBack, vBack, 1, 1),
           child: DecoratedBox(
             position: DecorationPosition.foreground,
-            decoration: BoxDecoration(
-              color: Colors.black.withValues(alpha: 0.10 * vBehind.value),
-            ),
+            decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.10 * vBehind.value)),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 boxShadow: [
