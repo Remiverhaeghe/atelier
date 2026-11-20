@@ -10,8 +10,8 @@ import 'package:atelier/ui/home_widget_sync.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../support/memory_settings.dart';
 import '../support/memory_storage.dart';
-import 'display_settings_test.dart' show MemorySettings;
 
 /// Noms des paramètres d'un texte ARB, hors variantes du pluriel (`=1{…}`, `other{…}`).
 Set<String> placeholders(String pText) {
