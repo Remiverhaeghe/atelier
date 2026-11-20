@@ -428,7 +428,7 @@ class _ObstacleDialog extends StatefulWidget {
 }
 
 class _ObstacleDialogState extends State<_ObstacleDialog> {
-  late final _offset = TextEditingController(text: formatCentimetres(widget.offsetMm));
+  final _offset = TextEditingController(text: '0');
   final _width = TextEditingController();
   final _depth = TextEditingController(text: '0');
   ObstacleKind _kind = ObstacleKind.radiator;

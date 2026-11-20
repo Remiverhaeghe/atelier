@@ -103,7 +103,7 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
   Future<void> _addOpening() async {
     final vLength = _shaped.lengths[_selected];
     const vDoorWidth = 830;
-    final vOffset = ((_touchedMm ?? vDoorWidth ~/ 2) - vDoorWidth ~/ 2).clamp(
+    final int vOffset = ((_touchedMm ?? vDoorWidth ~/ 2) - vDoorWidth ~/ 2).clamp(
       0,
       math.max(0, vLength - vDoorWidth),
     );
