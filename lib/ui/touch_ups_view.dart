@@ -5,12 +5,14 @@ import '../logic/room.dart';
 import '../logic/touch_up.dart';
 import '../logic/work_templates.dart';
 import '../storage/photo_store.dart';
+import '../support/platform_limits.dart';
 import 'photo_annotator.dart';
 import 'photos.dart';
+import 'climate_screen.dart';
+import 'room_video_screen.dart';
 import 'room_plan.dart';
 import 'theme.dart';
 import 'templates_texts.dart';
-import 'climate_screen.dart';
 import 'thermal_dialog.dart';
 import 'touch_up_dialog.dart';
 
@@ -124,6 +126,14 @@ class _TouchUpsViewState extends State<TouchUpsView> {
     final vTouchUp = await addThermalTouchUp(context, pImages: widget.photos, pRoom: _room);
     if (vTouchUp != null) {
       widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps, vTouchUp]));
+    }
+  }
+
+  /// Défauts repérés en relisant la vidéo de la pièce.
+  Future<void> _addFromVideo() async {
+    final vTouchUps = await filmRoom(context);
+    if (vTouchUps != null && vTouchUps.isNotEmpty) {
+      widget.onChanged(_room.copyWith(touchUps: [..._room.touchUps, ...vTouchUps]));
     }
   }
 
@@ -250,6 +260,14 @@ class _TouchUpsViewState extends State<TouchUpsView> {
                 icon: const Icon(Icons.playlist_add),
                 label: Text(vText.templateTitle),
               ),
+              // Pas de vidéo dans la version web : l'image arrêtée d'une vidéo n'y est pas
+              // assurée dans Safari
+              if (!aOnWeb)
+                OutlinedButton.icon(
+                  onPressed: _addFromVideo,
+                  icon: const Icon(Icons.videocam_outlined),
+                  label: Text(vText.videoMenu),
+                ),
               OutlinedButton.icon(
                 onPressed: _addThermal,
                 icon: const Icon(Icons.thermostat_outlined),
