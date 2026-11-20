@@ -4545,5 +4545,8 @@
   "accessoryOutside": "Posé dehors : il arrête le soleil avant la vitre, c'est lui qui garde les combles frais l'été.",
   "accessoryItem": "{name}, taille {code}",
   "@accessoryItem": {"placeholders": {"name": {"type": "String"}, "code": {"type": "String"}}},
-  "accessoryHint": "Le code de taille est sur la plaque de la fenêtre, ouvrant ouvert. Les stores d'une autre marque existent souvent aux mêmes tailles : vérifie la compatibilité avant d'acheter."
+  "accessoryHint": "Le code de taille est sur la plaque de la fenêtre, ouvrant ouvert. Les stores d'une autre marque existent souvent aux mêmes tailles : vérifie la compatibilité avant d'acheter.",
+  "laserWebUnavailable": "Safari ne donne pas accès au Bluetooth : le télémètre ne se relie pas à la version web. Mesure avec lui, puis tape la distance dans le champ. Sur Android, l'appli la reçoit directement.",
+  "remindersWebNote": "Dans la version web, pas de notification : les attentes restent notées ici, avec leur date, à regarder en ouvrant le chantier.",
+  "loansWebNote": "Dans la version web, pas de rappel la veille du retour : les retraits et retours à venir restent signalés ici, en rouge quand ils sont en retard."
 }

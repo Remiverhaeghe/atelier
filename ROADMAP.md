@@ -19,8 +19,6 @@ Les lots 169 à 210, validés le 18 novembre 2026, sont faits : voir le CHANGELO
 
 Validés le 20 novembre 2026, dans l'ordre :
 
-- **Version web complète** : photos gardées dans le navigateur, export et import de chantier depuis Safari, stock de l'atelier dans les sauvegardes complètes.
-- **Télémètre et rappels sur la version web**, là où Safari le permet ; sinon l'appli le dit clairement.
 - **Version anglaise** (lot 136).
 - **Filmer une pièce** pour repérer ce qui est à reprendre, et **préconisations à partir d'une image de caméra thermique** (idées « Plus tard »).
 
