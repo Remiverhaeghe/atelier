@@ -87,7 +87,9 @@ class ClimateHistoryCard extends StatelessWidget {
                   onPressed: () => _pickWorks(context),
                   icon: const Icon(Icons.event_outlined),
                   label: Text(
-                    vWorks == null ? vText.climateWorksPick : vText.climateWorksOn(climateDayText(vWorks)),
+                    vWorks == null
+                        ? vText.climateWorksPick
+                        : vText.climateWorksOn(climateDayText(vWorks)),
                   ),
                 ),
                 if (vWorks != null)
@@ -192,7 +194,9 @@ class _HumidityPainter extends CustomPainter {
 
     final vWorks = worksOn;
     if (vWorks != null) {
-      final vAt = vX(DateTime(vWorks.year, vWorks.month, vWorks.day)).clamp(0.0, pSize.width).toDouble();
+      final vAt = vX(
+        DateTime(vWorks.year, vWorks.month, vWorks.day),
+      ).clamp(0.0, pSize.width).toDouble();
       final vPaint = Paint()
         ..color = works
         ..strokeWidth = 3;

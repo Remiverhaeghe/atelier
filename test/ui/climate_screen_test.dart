@@ -71,10 +71,7 @@ void main() {
         ClimateScreen(
           canAddTouchUps: true,
           pickFile: () async => dampExport(),
-          log: ClimateLog(
-            days: const [],
-            worksOn: DateTime(2026, 11, 20),
-          ),
+          log: ClimateLog(days: const [], worksOn: DateTime(2026, 11, 20)),
           onLog: (pLog) => vKept = pLog,
         ),
       ),
