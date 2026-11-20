@@ -23,6 +23,7 @@ La CI vérifie à chaque construction les permissions de l'APK (`aapt2 dump perm
 
 ## Ce que l'appli ne fait pas
 
+- `android.permission.ACCESS_NETWORK_STATE`, ajoutée par le lecteur vidéo, est retirée dans le manifeste (`tools:node="remove"`) : la vidéo d'une pièce est lue sur le téléphone, sans réseau.
 - Pas de permission caméra ni galerie : une photo passe par l'appareil photo ou le sélecteur d'Android, à la demande.
 - Pas de traceur, de publicité ni de mesure d'audience. Le journal des plantages reste sur le téléphone et ne part que si l'utilisateur le partage.
 - La reconnaissance vocale passe par le service du téléphone. Chez Google, elle peut partir vers ses serveurs si le français n'est pas installé hors ligne ; Atelier ne garde que l'action comprise.
