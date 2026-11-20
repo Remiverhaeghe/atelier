@@ -43,6 +43,7 @@ class _RentBuyCalculatorState extends State<RentBuyCalculator> {
                     Icons.shopping_bag_outlined,
                     vText.buyCost(formatEuros(vResult.buyCost)),
                   ),
+                  EstimateNote(vText.estimateFromInputs),
                   if (vResult.breakEvenDays != null) ...[
                     IconLine(Icons.balance, vText.rentBreakEven(vResult.breakEvenDays!)),
                     const SizedBox(height: 8),

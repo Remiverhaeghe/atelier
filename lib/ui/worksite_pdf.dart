@@ -31,6 +31,7 @@ Future<Uint8List> buildWorksitePdf(AppLocalizations pText, Worksite pWorksite) a
           pw.Bullet(text: '${itemLabel(pText, vLine.item)} : ${lineDetail(pText, vLine)}'),
         pw.Paragraph(text: pText.budgetTotal(formatEuros(budgetTotal(vLines)))),
         if (budgetIncomplete(vLines)) pw.Paragraph(text: pText.budgetIncomplete),
+        pw.Paragraph(text: pText.estimateFromPrices),
         for (final vRoom in pWorksite.rooms) ..._roomSection(pText, vRoom),
       ],
     ),

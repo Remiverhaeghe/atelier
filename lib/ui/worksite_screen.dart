@@ -370,6 +370,7 @@ class _Summary extends StatelessWidget {
             IconLine(Icons.door_front_door_outlined, vText.roomCount(worksite.rooms.length)),
             if (worksite.prices.isNotEmpty)
               IconLine(Icons.euro, vText.budgetTotal(formatEuros(budgetTotal(vLines)))),
+            if (worksite.prices.isNotEmpty) EstimateNote(vText.estimateFromPrices),
             const SizedBox(height: 8),
             FilledButton.tonalIcon(
               onPressed: onShopping,

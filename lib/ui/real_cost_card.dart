@@ -42,6 +42,7 @@ class _RealCostCardState extends State<RealCostCard> {
           children: [
             Text(vText.realCostTitle, style: vTheme.textTheme.titleMedium),
             Text(vText.realCostIntro, style: vTheme.textTheme.bodySmall),
+            EstimateNote(vText.estimateFromRate),
             NumberField<double>(
               label: vText.realCostRate,
               initial: '',

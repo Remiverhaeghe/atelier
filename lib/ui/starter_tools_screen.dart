@@ -84,6 +84,7 @@ class _StarterToolsScreenState extends State<StarterToolsScreen> {
           ],
           const SizedBox(height: 8),
           Text(vText.toolsHint, style: vTheme.textTheme.bodySmall),
+          EstimateNote(vText.estimateFromRanges),
         ],
       ),
     );

@@ -74,6 +74,7 @@ class _RightToolScreenState extends State<RightToolScreen> {
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
           Text(vText.rightToolIntro, style: vTheme.textTheme.bodyMedium),
+          EstimateNote(vText.estimateFromRanges),
           const SizedBox(height: 8),
           DropdownButtonFormField<ToolTask>(
             isExpanded: true,

@@ -61,4 +61,29 @@ void main() {
     expect(formatDecimal(15), '15');
     expect(formatDecimal(2.5), '2,5');
   });
+
+  test('longueur tapée avec son unité, quelle que soit celle du champ', () {
+    expect(parseCentimetres('2,45 m'), 2450);
+    expect(parseCentimetres('2450mm'), 2450);
+    expect(parseCentimetres('245 cm'), 2450);
+    expect(parseCentimetres('245'), 2450);
+    expect(typedLengthMm('245'), isNull);
+    expect(parseInUnit('2,45', FieldUnit.m), 2450);
+    expect(parseInUnit('2450', FieldUnit.mm), 2450);
+    expect(parseInUnit('30 cm', FieldUnit.m), 300);
+    expect(parseInUnit('', FieldUnit.cm), isNull);
+  });
+
+  test('unité lue dans le libellé, saisie ramenée à cette unité', () {
+    expect(unitOfLabel('Hauteur (cm)'), FieldUnit.cm);
+    expect(unitOfLabel('Surface (m²)'), FieldUnit.m2);
+    expect(unitOfLabel('Épaisseur (mm), si connue'), FieldUnit.mm);
+    expect(unitOfLabel('Nombre de tablettes'), isNull);
+    expect(toFieldUnit('2,45 m', FieldUnit.cm), '245');
+    expect(toFieldUnit('2,45 m', FieldUnit.mm), '2450');
+    expect(toFieldUnit('245 cm', FieldUnit.m), '2,45');
+    expect(toFieldUnit('12', FieldUnit.cm), '12');
+    expect(toFieldUnit('2 m', FieldUnit.m2), '2 m');
+    expect(lengthInUnit(2455, FieldUnit.m), '2,455');
+  });
 }

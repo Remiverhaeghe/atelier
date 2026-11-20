@@ -65,6 +65,7 @@ class ReviewScreen extends StatelessWidget {
                         vText.reviewPlanned(formatEuros(vReview.plannedCost)) +
                             (vReview.plannedIncomplete ? vText.reviewPlannedIncomplete : ''),
                       ),
+                      EstimateNote(vText.estimateFromPrices),
                       if (vOverrun != null)
                         IconLine(
                           vOverrun > 0 ? Icons.trending_up : Icons.trending_down,

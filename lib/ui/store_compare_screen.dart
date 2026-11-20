@@ -75,6 +75,7 @@ class StoreCompareScreen extends StatelessWidget {
                       children: [
                         Text(vText.storeBasket, style: vTheme.textTheme.titleMedium),
                         BigFigure('${formatEuros(vBasket.total)} €'),
+                        EstimateNote(vText.estimateFromPrices),
                         if (vCheapest != null && vBasket.missing == 0)
                           IconLine(
                             Icons.savings_outlined,

@@ -20,6 +20,7 @@ import 'behind_walls_section.dart';
 import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
+import 'quick_walls_screen.dart';
 import 'room_plan.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
@@ -325,6 +326,28 @@ class RoomWallsView extends StatelessWidget {
           onChanged: (pValue) => onChanged(room.copyWith(closed: pValue)),
         ),
         ListTile(title: Text(vText.wallsTitle, style: vTheme.textTheme.titleMedium)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: FilledButton.tonalIcon(
+            onPressed: () async {
+              final vWalls = await editAllWalls(context, room);
+              if (vWalls != null) {
+                // Un obstacle posé sur un mur retiré n'a plus de place
+                onChanged(
+                  room.copyWith(
+                    walls: vWalls,
+                    obstacles: [
+                      for (final vObstacle in room.obstacles)
+                        if (vObstacle.wallIndex < vWalls.length) vObstacle,
+                    ],
+                  ),
+                );
+              }
+            },
+            icon: const Icon(Icons.edit_note),
+            label: Text(vText.quickWallsOpen),
+          ),
+        ),
         if (room.walls.isEmpty) ...[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
