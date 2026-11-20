@@ -65,10 +65,11 @@ class _GridPainter extends CustomPainter {
 
 /// Transitions de page qui posent chaque écran sur sa propre feuille du carnet : les écrans
 /// ont un fond transparent, la feuille est opaque, l'écran du dessous ne se voit jamais.
+///
+/// La nouvelle feuille arrive de la droite, un peu inclinée comme une page qu'on tourne,
+/// avec son ombre ; celle du dessous recule et s'assombrit à peine.
 class NotebookPageTransitionsBuilder extends PageTransitionsBuilder {
   const NotebookPageTransitionsBuilder();
-
-  static const _base = ZoomPageTransitionsBuilder();
 
   @override
   Widget buildTransitions<T>(
@@ -77,13 +78,79 @@ class NotebookPageTransitionsBuilder extends PageTransitionsBuilder {
     Animation<double> pAnimation,
     Animation<double> pSecondaryAnimation,
     Widget pChild,
-  ) => _base.buildTransitions(
-    pRoute,
-    pContext,
-    pAnimation,
-    pSecondaryAnimation,
-    NotebookPaper(child: pChild),
-  );
+  ) {
+    final vPage = NotebookPaper(child: pChild);
+    if (MediaQuery.disableAnimationsOf(pContext)) {
+      return FadeTransition(opacity: pAnimation, child: vPage);
+    }
+
+    return PageTurn(animation: pAnimation, secondaryAnimation: pSecondaryAnimation, child: vPage);
+  }
+}
+
+/// Page tournée : [animation] amène la feuille, [secondaryAnimation] la fait reculer
+/// quand une autre la recouvre.
+class PageTurn extends StatelessWidget {
+  const PageTurn({
+    super.key,
+    required this.animation,
+    required this.secondaryAnimation,
+    required this.child,
+  });
+
+  final Animation<double> animation;
+  final Animation<double> secondaryAnimation;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final vIn = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOutCubic,
+      reverseCurve: Curves.easeInCubic,
+    );
+    final vBehind = CurvedAnimation(parent: secondaryAnimation, curve: Curves.easeOutCubic);
+
+    return AnimatedBuilder(
+      animation: Listenable.merge([vIn, vBehind]),
+      child: child,
+      builder: (pContext, pChild) {
+        final vComing = 1 - vIn.value;
+        final vWidth = MediaQuery.sizeOf(pContext).width;
+        // Feuille qui arrive : glisse, pivote de quelques degrés autour du bord gauche
+        final vTurn = Matrix4.identity()
+          ..setEntry(3, 2, 0.0012)
+          ..translateByDouble(vWidth * 0.9 * vComing, 0, 0, 1)
+          ..rotateY(-0.35 * vComing);
+        // Feuille du dessous : recule un peu, comme posée sous la nouvelle
+        final vBack = 1 - 0.04 * vBehind.value;
+
+        return Transform(
+          alignment: Alignment.centerLeft,
+          transform: vTurn..scaleByDouble(vBack, vBack, 1, 1),
+          child: DecoratedBox(
+            position: DecorationPosition.foreground,
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.10 * vBehind.value),
+            ),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  if (vComing > 0)
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.25 * (1 - vComing)),
+                      blurRadius: 18,
+                      offset: const Offset(-6, 0),
+                    ),
+                ],
+              ),
+              child: pChild,
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 /// Trait de crayon : un très léger tremblé, toujours le même pour une même ligne, pour que le
