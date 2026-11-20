@@ -33,4 +33,22 @@ void main() {
     expect(vPlan.bins, isEmpty);
     expect((vPlan.bigBags, vPlan.trips, vPlan.kg), (0, 0, 0.0));
   });
+
+  test('chaque déchet a sa benne, le bois traité à part du bois brut', () {
+    expect(binFor(DebrisKind.rubble), DisposalBin.inert);
+    expect(binFor(DebrisKind.plaster), DisposalBin.plaster);
+    expect(binFor(DebrisKind.wood), DisposalBin.wood);
+    expect(binFor(DebrisKind.treatedWood), DisposalBin.treatedWood);
+    expect(binFor(DebrisKind.insulation), DisposalBin.insulation);
+    expect(binFor(DebrisKind.metal), DisposalBin.metal);
+    expect(binFor(DebrisKind.mixed), DisposalBin.mixed);
+  });
+
+  test('pots de peinture et kilomètres jusqu\'à la déchetterie', () {
+    expect(paintPotsM3(4), closeTo(0.01, 1e-9));
+    expect(debrisDrivingKm(3, 12.5), 75);
+    final vPlan = debrisPlan(const [(kind: DebrisKind.treatedWood, areaM2: 4, thicknessMm: 25)]);
+    expect(vPlan.bins.single.kind, DebrisKind.treatedWood);
+    expect(vPlan.trips, 1);
+  });
 }

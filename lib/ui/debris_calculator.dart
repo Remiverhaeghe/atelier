@@ -13,6 +13,18 @@ String debrisKindLabel(AppLocalizations pText, DebrisKind pKind) => switch (pKin
   DebrisKind.insulation => pText.debrisInsulation,
   DebrisKind.metal => pText.debrisMetal,
   DebrisKind.mixed => pText.debrisMixed,
+  DebrisKind.treatedWood => pText.debrisTreatedWood,
+};
+
+String disposalBinLabel(AppLocalizations pText, DisposalBin pBin) => switch (pBin) {
+  DisposalBin.inert => pText.binInert,
+  DisposalBin.plaster => pText.binPlaster,
+  DisposalBin.wood => pText.binWood,
+  DisposalBin.treatedWood => pText.binTreatedWood,
+  DisposalBin.insulation => pText.binInsulation,
+  DisposalBin.metal => pText.binMetal,
+  DisposalBin.mixed => pText.binMixed,
+  DisposalBin.hazardous => pText.binHazardous,
 };
 
 /// Gravats à évacuer : ce qu'on démolit, puis volume, poids, big bags et voyages par benne.
@@ -27,6 +39,8 @@ class _DebrisCalculatorState extends State<DebrisCalculator> {
   // Chaque ligne garde un numéro pour que ses champs ne se mélangent pas à la suppression
   final _lines = <(int, DebrisLine)>[(0, (kind: DebrisKind.rubble, areaM2: 10, thicknessMm: 60))];
   var _next = 1;
+  var _paintPots = 0;
+  var _distanceKm = 0.0;
 
   void _set(int pIndex, DebrisLine pLine) =>
       setState(() => _lines[pIndex] = (_lines[pIndex].$1, pLine));
@@ -53,13 +67,34 @@ class _DebrisCalculatorState extends State<DebrisCalculator> {
                   IconLine(Icons.scale_outlined, vText.debrisWeight(vPlan.kg.round())),
                   IconLine(Icons.shopping_bag_outlined, vText.debrisBags(vPlan.bigBags)),
                   IconLine(Icons.rv_hookup, vText.debrisTrips(vPlan.trips)),
-                  for (final vBin in vPlan.bins)
+                  if (_distanceKm > 0 && vPlan.trips > 0)
+                    IconLine(
+                      Icons.route_outlined,
+                      vText.debrisKm(formatDecimal(debrisDrivingKm(vPlan.trips, _distanceKm))),
+                    ),
+                  for (final vBin in vPlan.bins) ...[
                     IconLine(
                       Icons.delete_outline,
                       vText.debrisBin(
                         debrisKindLabel(vText, vBin.kind),
                         formatDecimal(vBin.bulkM3),
                         vBin.kg.round(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32),
+                      child: Text(
+                        vText.debrisWhere(disposalBinLabel(vText, binFor(vBin.kind))),
+                        style: vTheme.textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                  if (_paintPots > 0)
+                    IconLine(
+                      AtelierIcons.warning,
+                      vText.debrisPaintLine(
+                        _paintPots,
+                        formatDecimal(paintPotsM3(_paintPots) * 1000),
                       ),
                     ),
                 ],
@@ -77,6 +112,7 @@ class _DebrisCalculatorState extends State<DebrisCalculator> {
                       children: [
                         Expanded(
                           child: DropdownButtonFormField<DebrisKind>(
+                            isExpanded: true,
                             initialValue: vLine.kind,
                             decoration: InputDecoration(labelText: vText.debrisKind),
                             items: [
@@ -134,8 +170,22 @@ class _DebrisCalculatorState extends State<DebrisCalculator> {
             icon: const Icon(Icons.add),
             label: Text(vText.debrisAdd),
           ),
+          NumberField<int>(
+            label: vText.debrisPaintPots,
+            initial: '0',
+            parse: parseWhole,
+            onValue: (pValue) => setState(() => _paintPots = pValue),
+          ),
+          NumberField<double>(
+            label: vText.debrisDistance,
+            initial: '0',
+            parse: parseDecimal,
+            onValue: (pValue) => setState(() => _distanceKm = pValue),
+          ),
           const SizedBox(height: 12),
           Text(vText.debrisHint, style: vTheme.textTheme.bodySmall),
+          const SizedBox(height: 4),
+          Text(vText.debrisBinsHint, style: vTheme.textTheme.bodySmall),
         ],
       ),
     );

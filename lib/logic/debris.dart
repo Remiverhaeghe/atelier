@@ -12,7 +12,8 @@ enum DebrisKind {
   wood(600, 1.6),
   insulation(30, 1.2),
   metal(800, 2),
-  mixed(300, 1.3);
+  mixed(300, 1.3),
+  treatedWood(600, 1.6);
 
   const DebrisKind(this.densityKg, this.bulking);
 
@@ -83,3 +84,28 @@ DebrisPlan debrisPlan(List<DebrisLine> pLines) {
 
   return rPlan;
 }
+
+/// Bennes de la déchetterie. Les consignes changent d'une déchetterie à l'autre : à vérifier
+/// sur place ou sur le site de la collectivité.
+enum DisposalBin { inert, plaster, wood, treatedWood, insulation, metal, mixed, hazardous }
+
+/// Benne où va chaque déchet : le plâtre à part des gravats, le bois traité (autoclave, créosote,
+/// traverses) à part du bois brut.
+DisposalBin binFor(DebrisKind pKind) => switch (pKind) {
+  DebrisKind.rubble => DisposalBin.inert,
+  DebrisKind.plaster => DisposalBin.plaster,
+  DebrisKind.wood => DisposalBin.wood,
+  DebrisKind.treatedWood => DisposalBin.treatedWood,
+  DebrisKind.insulation => DisposalBin.insulation,
+  DebrisKind.metal => DisposalBin.metal,
+  DebrisKind.mixed => DisposalBin.mixed,
+};
+
+/// Pot de peinture courant, en litres ; vide ou plein, il va aux déchets dangereux.
+const paintPotLitres = 2.5;
+
+/// Volume des pots de peinture à déposer aux déchets dangereux, en mètres cubes.
+double paintPotsM3(int pPots) => pPots * paintPotLitres / 1000;
+
+/// Kilomètres à rouler pour [pTrips] allers et retours à une déchetterie à [pOneWayKm].
+double debrisDrivingKm(int pTrips, double pOneWayKm) => pTrips * 2 * pOneWayKm;

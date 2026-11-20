@@ -31,6 +31,15 @@ void main() {
     await vBack(pTester);
     await tapAndSettle(pTester, find.text('Mesure par photo'));
     await capture('43-mesure-photo-a4');
+    await vBack(pTester);
+    await tapAndSettle(pTester, find.text('Le bon outil'));
+    await capture('44-bon-outil');
+    await vBack(pTester);
+    await tapAndSettle(pTester, find.text('Comparer des devis'));
+    await capture('45-comparer-devis');
+    await vBack(pTester);
+    await tapAndSettle(pTester, find.text('Gravats et déchetterie'));
+    await capture('46-dechets');
     capturesDone();
   });
 }
