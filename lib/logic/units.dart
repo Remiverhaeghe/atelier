@@ -63,11 +63,12 @@ int? typedLengthMm(String pText) {
 String lengthInUnit(int pMillimetres, FieldUnit pUnit) {
   final rText = switch (pUnit) {
     FieldUnit.mm => '$pMillimetres',
-    FieldUnit.m => (pMillimetres / 1000)
-        .toStringAsFixed(3)
-        .replaceFirst(RegExp(r'0+$'), '')
-        .replaceFirst(RegExp(r'\.$'), '')
-        .replaceAll('.', aDecimalSeparator),
+    FieldUnit.m =>
+      (pMillimetres / 1000)
+          .toStringAsFixed(3)
+          .replaceFirst(RegExp(r'0+$'), '')
+          .replaceFirst(RegExp(r'\.$'), '')
+          .replaceAll('.', aDecimalSeparator),
     _ => formatCentimetres(pMillimetres),
   };
 

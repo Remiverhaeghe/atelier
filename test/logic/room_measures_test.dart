@@ -7,7 +7,9 @@ import '../support/rooms.dart';
 
 void main() {
   test('cotes d\'une pièce de 4 × 3 m sous 2,50 m', () {
-    final vMeasures = {for (final vMeasure in roomMeasures(rectangleRoom())) vMeasure.key: vMeasure.value};
+    final vMeasures = {
+      for (final vMeasure in roomMeasures(rectangleRoom())) vMeasure.key: vMeasure.value,
+    };
     expect(vMeasures[RoomMeasureKey.length], 4000);
     expect(vMeasures[RoomMeasureKey.width], 3000);
     expect(vMeasures[RoomMeasureKey.height], 2500);

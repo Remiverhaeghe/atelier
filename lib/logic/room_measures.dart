@@ -41,10 +41,7 @@ List<RoomMeasure> roomMeasures(Room pRoom) {
     (key: RoomMeasureKey.height, value: vHeight.toDouble()),
     (key: RoomMeasureKey.perimeter, value: perimeterMm(pRoom).toDouble()),
     (key: RoomMeasureKey.floor, value: vFloor),
-    (
-      key: RoomMeasureKey.walls,
-      value: math.max(0, perimeterMm(pRoom) * vHeight / 1e6 - vOpenings),
-    ),
+    (key: RoomMeasureKey.walls, value: math.max(0, perimeterMm(pRoom) * vHeight / 1e6 - vOpenings)),
     (key: RoomMeasureKey.volume, value: vFloor * vHeight / 1000),
   ];
 
