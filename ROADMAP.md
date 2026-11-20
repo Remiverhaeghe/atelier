@@ -20,6 +20,8 @@ Validés le 20 novembre 2026, dans l'ordre :
 
 - **Filmer une pièce** pour repérer ce qui est à reprendre (idée « Plus tard »). Les préconisations à partir d'une image de caméra thermique sont faites.
 
+Faits le 20 novembre 2026 : mezzanine en L, portes et fenêtres posées sur le dessin, forme proposée depuis un plan papier, humidité suivie avant et après travaux, murs déduits rappelés en mode chantier, fiche de la pièce, courses depuis les reprises, gestes en pause et au ralenti.
+
 ## Organisation et motivation
 
 - Objectif du jour, SMART : précis, mesurable (« poser les rangées 4 à 8 »), atteignable avec le temps et le matériel du jour, utile au chantier, daté.
