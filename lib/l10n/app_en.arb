@@ -3449,5 +3449,21 @@
   "sketchAddOpening": "Door or window here",
   "sketchOpening": "{kind} {width} cm wide, {offset} cm from corner {corner}",
   "sketchOpeningHint": "For a door or window, tap the wall where it is, then “Door or window here”.",
-  "siteModeDeduced": "Walls to measure on site: {walls}. Their length was worked out on the sketch, and the cuts depend on it."
+  "siteModeDeduced": "Walls to measure on site: {walls}. Their length was worked out on the sketch, and the cuts depend on it.",
+  "roomSheetPrint": "Print the room sheet",
+  "roomSheetTitle": "Room sheet: {room}",
+  "roomSheetHelp": "Walls are numbered, corners lettered. Dotted: walls worked out on the sketch, to measure on site. Round numbers inside the room point to the touch-ups.",
+  "roomSheetHeight": "Ceiling height: {height} cm",
+  "roomSheetArea": "Floor: {area} m², around the walls: {perimeter} cm",
+  "roomSheetSlope": "Sloped ceiling along wall {wall}: knee wall {low} cm, slope over {run} cm of floor",
+  "roomSheetWalls": "Walls",
+  "roomSheetWall": "Wall",
+  "roomSheetFromTo": "Corner to corner",
+  "roomSheetAngle": "Angle at next corner",
+  "roomSheetOpenings": "Doors and windows",
+  "roomSheetDeduced": "worked out",
+  "roomSheetTouchUps": "Touch-ups",
+  "roomSheetNoTouchUps": "No touch-ups noted.",
+  "roomSheetPasses": "Passes done: {done} of {passes}",
+  "roomSheetToBuy": "To buy: {item}"
 }

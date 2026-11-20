@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Fiche de la pièce à imprimer, depuis l'écran de la pièce : plan à l'échelle aux murs numérotés et aux coins lettrés (déduits en pointillés, portes et fenêtres, mezzanine), hauteur sous plafond, sol et tour, rampants, tableau des murs et liste des reprises à cocher avec leurs repères sur le plan
 - Murs déduits retenus : la pièce garde quels murs ont été déduits sur le dessin, le mode chantier rappelle de les mesurer sur place, et retaper une longueur en fait une mesure
 - Portes et fenêtres sur le dessin de la pièce : on touche le mur à l'endroit de la porte, « Porte ou fenêtre ici » la place centrée sur le toucher. Le plan montre l'ouverture, une puce par ouverture sous le mur en cours permet de la retirer
 - Mezzanine en L sur le plan : une encoche (largeur, profondeur, coin) laisse la place de l'escalier, la surface la retire et le plan la dessine en pointillés. Depuis « Dessiner la pièce », « Il y a aussi dans la pièce » ajoute une mezzanine, un escalier, une trémie ou une fenêtre de toit
