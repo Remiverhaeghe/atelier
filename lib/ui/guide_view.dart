@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -206,7 +205,8 @@ class GuideView extends StatelessWidget {
                         onTap: () => showPhoto(context, vPath),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
-                          child: Image(image: photoProvider(vPath),
+                          child: Image(
+                            image: photoProvider(vPath),
                             width: 64,
                             height: 64,
                             fit: BoxFit.cover,

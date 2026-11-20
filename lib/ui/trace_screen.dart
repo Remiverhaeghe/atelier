@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -21,7 +20,9 @@ Future<List<Wall>?> tracePaperPlan(BuildContext pContext, {PhotoTaker? pImages})
   return Navigator.push<List<Wall>>(
     pContext,
     MaterialPageRoute(
-      builder: (_) => TraceScreen(picture: Image(image: photoProvider(vPath), fit: BoxFit.contain)),
+      builder: (_) => TraceScreen(
+        picture: Image(image: photoProvider(vPath), fit: BoxFit.contain),
+      ),
     ),
   );
 }

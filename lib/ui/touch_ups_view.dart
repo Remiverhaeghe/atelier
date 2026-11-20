@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -343,7 +342,8 @@ class _TouchUpCard extends StatelessWidget {
                   onTap: () => showPhoto(context, vPhoto),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image(image: photoProvider(vPhoto),
+                    child: Image(
+                      image: photoProvider(vPhoto),
                       width: 56,
                       height: 56,
                       fit: BoxFit.cover,

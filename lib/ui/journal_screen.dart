@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
@@ -249,7 +248,8 @@ class _JournalScreenState extends State<JournalScreen> {
                                 onTap: () => showPhoto(context, vPath),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
-                                  child: Image(image: photoProvider(vPath),
+                                  child: Image(
+                                    image: photoProvider(vPath),
                                     width: 48,
                                     height: 48,
                                     fit: BoxFit.cover,

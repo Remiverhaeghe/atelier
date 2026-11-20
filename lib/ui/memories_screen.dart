@@ -12,7 +12,8 @@ import 'notebook.dart';
 import 'theme.dart';
 
 /// Photo du téléphone, ou un cadre vide si elle a disparu.
-Widget memoryPhoto(String pPath) => Image(image: photoProvider(pPath),
+Widget memoryPhoto(String pPath) => Image(
+  image: photoProvider(pPath),
   fit: BoxFit.cover,
   errorBuilder: (_, _, _) => const ColoredBox(
     color: Colors.black12,
