@@ -563,6 +563,7 @@ class CalculatorsScreen extends StatelessWidget {
       family: CalcFamily.start,
       icon: Icons.assignment_outlined,
       builder: (_) => const ReadyProjectsScreen(),
+    ),
     (
       title: pText.cutPlanTitle,
       help: pText.cutPlanHelp,
