@@ -245,11 +245,30 @@ class BigFigure extends StatelessWidget {
   Widget build(BuildContext context) {
     final vTheme = Theme.of(context);
 
-    return Text(
-      text,
-      style: vTheme.textTheme.headlineMedium!.copyWith(
-        color: vTheme.colorScheme.primary,
-        fontFeatures: const [FontFeature.tabularFigures()],
+    // Le nouveau résultat remonte en place pendant que l'ancien s'efface : on voit
+    // que le calcul a suivi la saisie
+    return AnimatedSwitcher(
+      duration: MediaQuery.disableAnimationsOf(context)
+          ? Duration.zero
+          : const Duration(milliseconds: 260),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      layoutBuilder: (pCurrent, pPrevious) =>
+          Stack(alignment: Alignment.centerLeft, children: [...pPrevious, ?pCurrent]),
+      transitionBuilder: (pChild, pAnimation) => FadeTransition(
+        opacity: pAnimation,
+        child: SlideTransition(
+          position: Tween(begin: const Offset(0, 0.35), end: Offset.zero).animate(pAnimation),
+          child: pChild,
+        ),
+      ),
+      child: Text(
+        text,
+        key: ValueKey(text),
+        style: vTheme.textTheme.headlineMedium!.copyWith(
+          color: vTheme.colorScheme.primary,
+          fontFeatures: const [FontFeature.tabularFigures()],
+        ),
       ),
     );
   }
