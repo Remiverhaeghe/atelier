@@ -3419,5 +3419,20 @@
   "climateHealthy": "Temperature and humidity stay within the guidelines: no work to plan from these readings.",
   "climateAdd": "{count, plural, =1{Add 1 finding to the touch-ups} other{Add {count} findings to the touch-ups}}",
   "climateHowTo": "In the thermometer's app (ThermoPro or other), a device's history usually offers to export the data as CSV: keep the file on the phone, then choose it here. If the app can't export it, a hand-typed file with date, temperature and humidity columns works too.",
-  "climateBasis": "Guidelines: 40 to 60% humidity for a healthy room, mould above 70%, dry air below 30%; 19 °C on average for a heated living room (French Energy Code, article R241-26), 17 °C in a bedroom. These are signals to confirm, not a diagnosis."
+  "climateBasis": "Guidelines: 40 to 60% humidity for a healthy room, mould above 70%, dry air below 30%; 19 °C on average for a heated living room (French Energy Code, article R241-26), 17 °C in a bedroom. These are signals to confirm, not a diagnosis.",
+  "sketchTitle": "Draw the room",
+  "sketchRectangle": "Rectangle",
+  "sketchLShape": "L-shaped",
+  "sketchTShape": "T-shaped",
+  "sketchFree": "Other shape, with angles",
+  "sketchHelp": "Tap a wall on the plan, then type its length. Dotted walls are worked out from the others: measure them too, a wall is rarely perfect.",
+  "sketchProgress": "{done} walls measured out of {total}",
+  "sketchWall": "Wall {number}: measure from corner {from} to corner {to}",
+  "sketchDeduced": "Worked out from the other walls: {length} cm. Measure it to check.",
+  "sketchToMeasure": "Not measured yet.",
+  "sketchUnits": "In cm, or type “2.45 m” or “2450 mm”",
+  "sketchImpossible": "These lengths don't close the room: check the last measurement typed.",
+  "sketchDiagonal": "Opposite walls aren't the same length: the room isn't quite square. Measure across, from corner A to corner C: the app works out the angles from it.",
+  "sketchDiagonalField": "Diagonal from corner A to corner C (cm)",
+  "sketchAngles": "Calculated angles: {angles}"
 }

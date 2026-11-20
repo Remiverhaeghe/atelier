@@ -21,6 +21,7 @@ import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'quick_walls_screen.dart';
+import 'room_sketch_screen.dart';
 import 'room_plan.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
@@ -326,9 +327,31 @@ class RoomWallsView extends StatelessWidget {
           onChanged: (pValue) => onChanged(room.copyWith(closed: pValue)),
         ),
         ListTile(title: Text(vText.wallsTitle, style: vTheme.textTheme.titleMedium)),
+        // La façon la plus simple : une forme toute faite, on touche un mur, on tape sa
+        // longueur ; hauteur et rampants sur le même écran
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: FilledButton.icon(
+            onPressed: () async {
+              final vDrawn = await sketchRoom(context, room);
+              if (vDrawn != null) {
+                onChanged(
+                  vDrawn.copyWith(
+                    obstacles: [
+                      for (final vObstacle in vDrawn.obstacles)
+                        if (vObstacle.wallIndex < vDrawn.walls.length) vObstacle,
+                    ],
+                  ),
+                );
+              }
+            },
+            icon: const Icon(Icons.crop_square),
+            label: Text(vText.sketchTitle),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: FilledButton.tonalIcon(
+          child: OutlinedButton.icon(
             onPressed: () async {
               final vWalls = await editAllWalls(context, room);
               if (vWalls != null) {
