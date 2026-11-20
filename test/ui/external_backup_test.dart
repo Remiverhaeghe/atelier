@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../support/localized.dart';
 import '../support/memory_storage.dart';
-import 'display_settings_test.dart' show MemorySettings;
+import '../support/memory_settings.dart';
 
 void main() {
   final vNow = DateTime(2026, 11, 16, 10);
