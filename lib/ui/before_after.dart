@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -27,7 +26,8 @@ class _BeforeAfterScreenState extends State<BeforeAfterScreen> {
   /// Part de l'image montrée « avant », depuis la gauche.
   double _split = 0.5;
 
-  Widget _image(String pPath) => Image(image: photoProvider(pPath),
+  Widget _image(String pPath) => Image(
+    image: photoProvider(pPath),
     fit: BoxFit.cover,
     errorBuilder: (_, _, _) => const ColoredBox(
       color: Colors.black12,

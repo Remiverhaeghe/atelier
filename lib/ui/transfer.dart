@@ -22,7 +22,11 @@ import 'share_file.dart';
 /// Envoie le chantier dans un fichier JSON, pour une sauvegarde ou un autre téléphone.
 Future<void> exportWorksite(Worksite pWorksite) async {
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  await shareTextFile('atelier_$vName.json', WorksiteStore.encode([pWorksite]), pMime: 'application/json');
+  await shareTextFile(
+    'atelier_$vName.json',
+    WorksiteStore.encode([pWorksite]),
+    pMime: 'application/json',
+  );
 }
 
 /// Tous les chantiers dans un seul fichier daté, à envoyer hors du téléphone (Drive, carte SD).
@@ -38,19 +42,31 @@ Future<void> exportAllWorksites(List<Worksite> pWorksites, DateTime pDay) async 
 /// Envoie le plan du chantier au format documenté (docs/format-plan.md), pour la domotique.
 Future<void> exportPlanFile(Worksite pWorksite) async {
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  await shareTextFile('plan_$vName.json', const JsonEncoder.withIndent('  ').convert(exportPlan(pWorksite)), pMime: 'application/json');
+  await shareTextFile(
+    'plan_$vName.json',
+    const JsonEncoder.withIndent('  ').convert(exportPlan(pWorksite)),
+    pMime: 'application/json',
+  );
 }
 
 /// Étages et pièces pour Home Assistant, partagés comme fichier JSON (voir docs/home-assistant.md).
 Future<void> exportHomeAssistantFile(Worksite pWorksite) async {
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  await shareTextFile('home_assistant_$vName.json', const JsonEncoder.withIndent('  ').convert(exportHomeAssistant(pWorksite)), pMime: 'application/json');
+  await shareTextFile(
+    'home_assistant_$vName.json',
+    const JsonEncoder.withIndent('  ').convert(exportHomeAssistant(pWorksite)),
+    pMime: 'application/json',
+  );
 }
 
 /// Maison en 3D au format glTF, partagée comme fichier .gltf (Blender, visualiseurs web).
 Future<void> exportGltfFile(Worksite pWorksite) async {
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  await shareTextFile('maison_$vName.gltf', jsonEncode(buildGltf(houseRooms(pWorksite))), pMime: 'model/gltf+json');
+  await shareTextFile(
+    'maison_$vName.gltf',
+    jsonEncode(buildGltf(houseRooms(pWorksite))),
+    pMime: 'model/gltf+json',
+  );
 }
 
 /// Plan de la maison en DXF, pour un logiciel de dessin, envoyé par le partage du téléphone.

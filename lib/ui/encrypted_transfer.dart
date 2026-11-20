@@ -74,9 +74,16 @@ Future<void> exportEncryptedBackup(
   if (vPassword == null) {
     return;
   }
-  final vEnvelope = await encryptBackup(WorksiteStore.encode(pWorksites, pWorkshop: aWorkshop.items), vPassword);
+  final vEnvelope = await encryptBackup(
+    WorksiteStore.encode(pWorksites, pWorkshop: aWorkshop.items),
+    vPassword,
+  );
   final vDate = pDay.toIso8601String().substring(0, 10);
-  await shareTextFile('atelier_sauvegarde_$vDate.atelier', vEnvelope, pMime: 'application/octet-stream');
+  await shareTextFile(
+    'atelier_sauvegarde_$vDate.atelier',
+    vEnvelope,
+    pMime: 'application/octet-stream',
+  );
 }
 
 /// Un seul chantier, avec ses croquis, son débit, ses notes et ses photos, chiffré dans un
@@ -97,7 +104,11 @@ Future<void> exportEncryptedProject(BuildContext pContext, Worksite pWorksite) a
   }
   final vEnvelope = await encryptBackup(encodeProjectBundle(vJson, vFiles), vPassword);
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  await shareTextFile('atelier_projet_$vName.atelier', vEnvelope, pMime: 'application/octet-stream');
+  await shareTextFile(
+    'atelier_projet_$vName.atelier',
+    vEnvelope,
+    pMime: 'application/octet-stream',
+  );
 }
 
 /// Recopie les photos d'un projet reçu dans le dossier de l'application et renvoie le JSON

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -28,7 +27,8 @@ class MarkedPhoto extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image(image: photoProvider(path),
+          Image(
+            image: photoProvider(path),
             fit: BoxFit.fill,
             errorBuilder: (_, _, _) => const ColoredBox(color: Colors.black12),
           ),

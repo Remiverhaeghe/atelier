@@ -20,9 +20,7 @@ Future<int?> measureWithLaser(BuildContext pContext, {LaserLink? pLink}) async {
       builder: (pDialog) => AlertDialog(
         title: Text(vText.laserTitle),
         content: Text(vText.laserWebUnavailable),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(pDialog), child: Text(vText.close)),
-        ],
+        actions: [TextButton(onPressed: () => Navigator.pop(pDialog), child: Text(vText.close))],
       ),
     );
     return null;

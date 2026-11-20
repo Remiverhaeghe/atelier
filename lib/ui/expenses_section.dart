@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -74,7 +73,8 @@ class ExpensesSection extends StatelessWidget {
                         onTap: () => showPhoto(context, vExpense.receiptPath!),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
-                          child: Image(image: photoProvider(vExpense.receiptPath!),
+                          child: Image(
+                            image: photoProvider(vExpense.receiptPath!),
                             width: 40,
                             height: 40,
                             fit: BoxFit.cover,
