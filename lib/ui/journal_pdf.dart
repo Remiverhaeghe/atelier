@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -7,6 +6,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../l10n/gen/app_localizations.dart';
 import '../logic/journal.dart';
 import '../logic/worksite.dart';
+import '../storage/photo_store.dart';
 import 'pdf_fonts.dart';
 import 'shopping_texts.dart';
 
@@ -14,11 +14,7 @@ import 'shopping_texts.dart';
 typedef PhotoReader = Uint8List? Function(String pPath);
 
 /// Lecture d'une photo du téléphone ; null si le fichier n'existe plus.
-Uint8List? readPhotoFile(String pPath) {
-  final vFile = File(pPath);
-
-  return vFile.existsSync() ? vFile.readAsBytesSync() : null;
-}
+Uint8List? readPhotoFile(String pPath) => readPhoto(pPath);
 
 /// Carnet de la maison à imprimer ou à joindre à une vente : pièce par pièce, produits,
 /// références, coûts, photos d'avant et d'après, factures.

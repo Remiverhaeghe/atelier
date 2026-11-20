@@ -1,15 +1,16 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/encrypted_backup.dart';
 import '../logic/project_bundle.dart';
 import '../logic/worksite.dart';
+import '../state/workshop_controller.dart';
 import '../storage/worksite_store.dart';
+import '../storage/photo_store.dart';
+
+import 'share_file.dart';
 
 /// Mot de passe de la sauvegarde ; avec [pConfirm], demandé deux fois pour éviter une faute.
 Future<String?> askBackupPassword(BuildContext pContext, {bool pConfirm = false}) {
@@ -73,12 +74,16 @@ Future<void> exportEncryptedBackup(
   if (vPassword == null) {
     return;
   }
-  final vEnvelope = await encryptBackup(WorksiteStore.encode(pWorksites), vPassword);
-  final vFolder = await getTemporaryDirectory();
+  final vEnvelope = await encryptBackup(
+    WorksiteStore.encode(pWorksites, pWorkshop: aWorkshop.items),
+    vPassword,
+  );
   final vDate = pDay.toIso8601String().substring(0, 10);
-  final vFile = File('${vFolder.path}/atelier_sauvegarde_$vDate.atelier');
-  await vFile.writeAsString(vEnvelope);
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile(
+    'atelier_sauvegarde_$vDate.atelier',
+    vEnvelope,
+    pMime: 'application/octet-stream',
+  );
 }
 
 /// Un seul chantier, avec ses croquis, son débit, ses notes et ses photos, chiffré dans un
@@ -91,32 +96,29 @@ Future<void> exportEncryptedProject(BuildContext pContext, Worksite pWorksite) a
   final vJson = WorksiteStore.encode([pWorksite]);
   final vFiles = <String, List<int>>{};
   for (final vPath in attachedPaths(jsonDecode(vJson))) {
-    final vFile = File(vPath);
     // Une photo effacée du téléphone ne bloque pas le partage du reste
-    if (vFile.existsSync()) {
-      vFiles[vPath] = await vFile.readAsBytes();
+    final vBytes = readPhoto(vPath);
+    if (vBytes != null) {
+      vFiles[vPath] = vBytes;
     }
   }
   final vEnvelope = await encryptBackup(encodeProjectBundle(vJson, vFiles), vPassword);
-  final vFolder = await getTemporaryDirectory();
   final vName = pWorksite.name.replaceAll(RegExp(r'[^A-Za-z0-9_-]+'), '_');
-  final vFile = File('${vFolder.path}/atelier_projet_$vName.atelier');
-  await vFile.writeAsString(vEnvelope);
-  await SharePlus.instance.share(ShareParams(files: [XFile(vFile.path)]));
+  await shareTextFile(
+    'atelier_projet_$vName.atelier',
+    vEnvelope,
+    pMime: 'application/octet-stream',
+  );
 }
 
 /// Recopie les photos d'un projet reçu dans le dossier de l'application et renvoie le JSON
 /// des chantiers, aux nouveaux chemins.
 Future<String> unpackProject(String pContent) async {
   final vBundle = decodeProjectBundle(pContent);
-  final vFolder = Directory('${(await getApplicationDocumentsDirectory()).path}/photos');
-  await vFolder.create(recursive: true);
   final vStamp = '${DateTime.now().millisecondsSinceEpoch}';
   final vMoves = <String, String>{};
   for (final vEntry in vBundle.files.entries) {
-    final vPath = '${vFolder.path}/${importedName(vEntry.key, vStamp)}';
-    await File(vPath).writeAsBytes(vEntry.value);
-    vMoves[vEntry.key] = vPath;
+    vMoves[vEntry.key] = await keepPhoto(importedName(vEntry.key, vStamp), vEntry.value);
   }
   final rJson = jsonEncode(relocatePaths(vBundle.worksites, vMoves));
 

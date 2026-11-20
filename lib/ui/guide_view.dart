@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -8,6 +6,7 @@ import '../logic/inventory.dart';
 import '../logic/pitfalls.dart';
 import '../logic/room.dart';
 import '../logic/safety.dart';
+import '../storage/photo_store.dart';
 import 'photos.dart';
 import 'quality_screen.dart';
 import 'theme.dart';
@@ -206,8 +205,8 @@ class GuideView extends StatelessWidget {
                         onTap: () => showPhoto(context, vPath),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
-                          child: Image.file(
-                            File(vPath),
+                          child: Image(
+                            image: photoProvider(vPath),
                             width: 64,
                             height: 64,
                             fit: BoxFit.cover,

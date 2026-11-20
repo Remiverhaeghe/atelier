@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/geometry.dart';
 import '../logic/photo_measure.dart';
 import '../logic/units.dart';
+import '../storage/photo_store.dart';
 import 'photos.dart';
 import 'theme.dart';
 
@@ -33,7 +32,7 @@ class _PhotoMeasureScreenState extends State<PhotoMeasureScreen> {
     final vPath = await (widget.images ?? pickImage)('mesure');
     if (vPath != null) {
       setState(() {
-        _picture = Image.file(File(vPath), fit: BoxFit.contain);
+        _picture = Image(image: photoProvider(vPath), fit: BoxFit.contain);
         _points.clear();
       });
     }

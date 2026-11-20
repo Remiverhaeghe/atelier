@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -7,6 +5,7 @@ import '../logic/expenses.dart';
 import '../logic/shopping.dart';
 import '../logic/units.dart';
 import '../logic/worksite.dart';
+import '../storage/photo_store.dart';
 import 'parquet_view.dart';
 import 'shopping_texts.dart';
 
@@ -67,7 +66,7 @@ class ShoppingLineCard extends StatelessWidget {
                         icon: const Icon(Icons.receipt_long_outlined),
                         onPressed: () => showDialog<void>(
                           context: context,
-                          builder: (_) => Dialog(child: Image.file(File(vPath))),
+                          builder: (_) => Dialog(child: Image(image: photoProvider(vPath))),
                         ),
                       ),
                       null => null,

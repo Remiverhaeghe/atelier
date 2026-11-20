@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../logic/data_format.dart';
+import '../logic/workshop_stock.dart';
 import '../logic/worksite.dart';
 import 'backups.dart';
 
@@ -55,13 +56,26 @@ class WorksiteStore implements WorksiteStorage {
     await backups?.record(vContent);
   }
 
-  static String encode(List<Worksite> pWorksites) {
+  /// [pWorkshop] : stock de l'atelier, ajouté seulement aux sauvegardes complètes.
+  static String encode(List<Worksite> pWorksites, {List<StockItem>? pWorkshop}) {
     final rText = const JsonEncoder.withIndent('  ').convert({
       'formatVersion': formatVersion,
       'worksites': [for (final vWorksite in pWorksites) vWorksite.toJson()],
+      if (pWorkshop != null) 'workshop': stockToJson(pWorkshop),
     });
 
     return rText;
+  }
+
+  /// Stock de l'atelier d'une sauvegarde complète, ou null si le fichier n'en contient pas.
+  static List<StockItem>? decodeWorkshop(String pText) {
+    final vRaw = jsonDecode(pText);
+    if (vRaw is! Map<String, Object?> || vRaw['workshop'] == null) {
+      return null;
+    }
+    final rItems = stockFromJson(vRaw['workshop']);
+
+    return rItems;
   }
 
   /// Lit un contenu exporté ; lève FormatException s'il n'est pas reconnu.

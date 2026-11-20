@@ -6,6 +6,7 @@ import '../logic/app_settings.dart';
 import '../logic/workshop_stock.dart';
 import '../logic/worksite.dart';
 import '../ui/reminder_alarm.dart';
+import 'photo_store_web.dart';
 import 'platform_stores_common.dart';
 import 'settings_store.dart';
 import 'workshop_store.dart';
@@ -20,6 +21,8 @@ const workshopKey = 'atelier.stock';
 
 /// Version web : les données restent dans le navigateur, sur l'appareil, jamais envoyées.
 Future<PlatformStores> openPlatformStores() async {
+  // Photos lues une fois pour toutes : l'affichage et les PDF les veulent sans attendre
+  await loadPhotos();
   final rStores = (
     // Pas de fichier sur le web : pas de journal des plantages
     crashLog: null,

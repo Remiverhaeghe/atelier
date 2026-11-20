@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+
+import '../storage/photo_store.dart';
 
 /// Prend une photo pour la reprise [pId] et renvoie son chemin, ou null si annulée.
 typedef PhotoTaker = Future<String?> Function(String pId);
@@ -20,10 +19,10 @@ Future<String?> _keepPhoto(String pId, ImageSource pSource) async {
   if (vPicked == null) {
     return null;
   }
-  final vFolder = Directory('${(await getApplicationDocumentsDirectory()).path}/photos');
-  await vFolder.create(recursive: true);
-  final rPath = '${vFolder.path}/$pId-${DateTime.now().millisecondsSinceEpoch}.jpg';
-  await File(vPicked.path).copy(rPath);
+  final rPath = await keepPhoto(
+    '$pId-${DateTime.now().millisecondsSinceEpoch}.jpg',
+    await vPicked.readAsBytes(),
+  );
 
   return rPath;
 }
@@ -33,6 +32,6 @@ Future<void> showPhoto(BuildContext pContext, String pPath) => showDialog<void>(
   context: pContext,
   builder: (pDialogContext) => GestureDetector(
     onTap: () => Navigator.pop(pDialogContext),
-    child: InteractiveViewer(child: Image.file(File(pPath))),
+    child: InteractiveViewer(child: Image(image: photoProvider(pPath))),
   ),
 );

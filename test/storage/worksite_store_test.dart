@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:atelier/logic/worksite.dart';
+import 'package:atelier/logic/workshop_stock.dart';
+import 'package:atelier/storage/photo_store.dart';
 import 'package:atelier/storage/worksite_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -62,5 +64,24 @@ void main() {
 
     await expectLater(vStore.load(), throwsFormatException);
     expect(File('${vFile.path}.illisible').readAsStringSync(), contains('"formatVersion": 99'));
+  });
+
+  test('sauvegarde complète : le stock de l\'atelier part avec les chantiers', () {
+    const vStock = [StockItem(id: 'vis-4x40', name: 'Vis 4 × 40', quantity: 2, minQuantity: 1)];
+    final vText = WorksiteStore.encode(const [], pWorkshop: vStock);
+    final vBack = WorksiteStore.decodeWorkshop(vText)!;
+    expect(vBack.single.id, 'vis-4x40');
+    expect(vBack.single.quantity, 2);
+    // Les chantiers se relisent comme avant
+    expect(WorksiteStore.decode(vText), isEmpty);
+  });
+
+  test('un export de chantier ou un ancien fichier n\'a pas de stock', () {
+    expect(WorksiteStore.decodeWorkshop(WorksiteStore.encode(const [])), isNull);
+    expect(WorksiteStore.decodeWorkshop('[1, 2]'), isNull);
+  });
+
+  test('photo effacée du téléphone : rien à lire', () {
+    expect(readPhoto('/dossier/qui/nexiste/pas.jpg'), isNull);
   });
 }
