@@ -4737,5 +4737,6 @@
   "climateDamper": "L'humidité a monté de {points} points depuis les travaux : à surveiller, et à vérifier du côté de l'aération.",
   "@climateDamper": {"placeholders": {"points": {"type": "String"}}},
   "climateSame": "Pas de changement net : moins de {points} points d'écart.",
-  "@climateSame": {"placeholders": {"points": {"type": "String"}}}
+  "@climateSame": {"placeholders": {"points": {"type": "String"}}},
+  "traceShapeFound": "Forme reconnue sur le plan papier. Les murs en pointillés en sont déduits : mesurez-les sur place."
 }

@@ -84,4 +84,52 @@ void main() {
     expect(vWalls[2].copyWith(lengthMm: 4210).deduced, isFalse);
     expect(vWalls[2].copyWith(angleToNextDeg: 91).deduced, isTrue);
   });
+
+  test('plan papier tracé : rectangle redressé, mur le plus long de chaque sens déduit', () {
+    final vWalls = shapeFromTrace(const [
+      Wall(lengthMm: 4010, angleToNextDeg: 88),
+      Wall(lengthMm: 2995, angleToNextDeg: 92),
+      Wall(lengthMm: 3990, angleToNextDeg: 89),
+      Wall(lengthMm: 3005, angleToNextDeg: 91),
+    ])!;
+
+    expect(vWalls.map((pWall) => pWall.angleToNextDeg), everyElement(90));
+    expect(vWalls.map((pWall) => pWall.lengthMm), [3990, 2995, 3990, 2995]);
+    expect(vWalls.map((pWall) => pWall.deduced), [true, false, false, true]);
+    expect(shapeOf(vWalls), RoomShape.rectangle);
+  });
+
+  test('plan papier tracé en L, commencé à un autre coin : le tour est repris', () {
+    final vWalls = shapeFromTrace(const [
+      Wall(lengthMm: 1990, angleToNextDeg: 273),
+      Wall(lengthMm: 2010, angleToNextDeg: 89),
+      Wall(lengthMm: 3000, angleToNextDeg: 91),
+      Wall(lengthMm: 4005, angleToNextDeg: 90),
+      Wall(lengthMm: 4995, angleToNextDeg: 87),
+      Wall(lengthMm: 2000, angleToNextDeg: 92),
+    ])!;
+
+    expect(shapeOf(vWalls), RoomShape.lShape);
+    expect(vWalls.map((pWall) => pWall.lengthMm), [4990, 2000, 1990, 2010, 3000, 4010]);
+    expect(vWalls.map((pWall) => pWall.deduced), [true, false, false, false, false, true]);
+    expect(
+      closesProperly(Room(id: 'p', name: 'Pièce fictive', walls: vWalls)),
+      isTrue,
+    );
+  });
+
+  test('plan papier sans angle droit ou de forme inconnue : rien de proposé', () {
+    expect(
+      shapeFromTrace(const [
+        Wall(lengthMm: 3000, angleToNextDeg: 60),
+        Wall(lengthMm: 3000, angleToNextDeg: 60),
+        Wall(lengthMm: 3000, angleToNextDeg: 60),
+      ]),
+      isNull,
+    );
+    expect(
+      shapeFromTrace([for (var vIndex = 0; vIndex < 5; vIndex++) const Wall(lengthMm: 2000)]),
+      isNull,
+    );
+  });
 }

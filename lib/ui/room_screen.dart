@@ -8,6 +8,7 @@ import '../logic/layout.dart';
 import '../logic/room.dart';
 import '../logic/extra_items.dart';
 import '../logic/room_copy.dart';
+import '../logic/room_shapes.dart';
 import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
@@ -403,9 +404,21 @@ class RoomWallsView extends StatelessWidget {
             child: OutlinedButton.icon(
               onPressed: () async {
                 final vWalls = await tracePaperPlan(context);
-                if (vWalls != null) {
-                  onChanged(room.copyWith(walls: vWalls, closed: true));
+                if (vWalls == null || !context.mounted) {
+                  return;
                 }
+                // Rectangle, L ou T reconnu : on finit sur le dessin, murs à vérifier en
+                // pointillés ; sinon les murs tracés sont gardés tels quels
+                final vShaped = shapeFromTrace(vWalls);
+                final vTraced = room.copyWith(walls: vShaped ?? vWalls, closed: true);
+                if (vShaped == null) {
+                  onChanged(vTraced);
+                  return;
+                }
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(vText.traceShapeFound)));
+                onChanged(await sketchRoom(context, vTraced) ?? vTraced);
               },
               icon: const Icon(Icons.document_scanner_outlined),
               label: Text(vText.traceMenu),
