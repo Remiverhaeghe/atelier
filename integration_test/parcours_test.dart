@@ -25,12 +25,12 @@ Future<void> fillAndSave(WidgetTester pTester, String pText) async {
 /// Parcours sur un vrai téléphone (émulateur en CI) : saisie, fichier écrit, relecture.
 void main() {
   final vBinding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // Le parcours lit les textes français, quelle que soit la langue de l'émulateur
-  vBinding.platformDispatcher.localesTestValue = const [Locale('fr', 'FR')];
 
   late File vFile;
 
   setUp(() async {
+    // Le parcours lit les textes français, quelle que soit la langue de l'émulateur
+    vBinding.platformDispatcher.localesTestValue = const [Locale('fr', 'FR')];
     final vFolder = await getTemporaryDirectory();
     vFile = File('${vFolder.path}/parcours/chantiers.json');
     if (vFile.existsSync()) {
