@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:io';
-import 'dart:ui' show Locale, PlatformDispatcher;
+import 'dart:ui' show Locale;
+
+import 'package:flutter/widgets.dart' show WidgetsBinding;
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/home_summary.dart';
@@ -45,7 +47,7 @@ const homeWidgetFile = 'widget.json';
 /// Écrit les lignes du widget ; Android les relit toutes les 30 minutes ou quand on le pose.
 Future<void> publishHomeWidget(Directory pFolder, List<Worksite> pWorksites, DateTime pNow) async {
   final vLines = homeWidgetLines(
-    lookupAppLocalizations(widgetLocale(PlatformDispatcher.instance.locales)),
+    lookupAppLocalizations(widgetLocale(WidgetsBinding.instance.platformDispatcher.locales)),
     homeSummary(pWorksites, pNow),
   );
   final vFile = File('${pFolder.path}/$homeWidgetFile');
