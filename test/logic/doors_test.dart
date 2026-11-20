@@ -24,4 +24,23 @@ void main() {
     expect(vMatch.heightGapMm, -50);
     expect(vMatch.adjustableFrame, isTrue);
   });
+
+  test('jeu sous la porte : on recoupe ce que le nouveau sol mange', () {
+    // 12 mm de jeu, parquet de 14 mm : il faut 12 mm de moins pour garder 1 cm
+    expect(doorTrimMm(pCurrentGapMm: 12, pNewFloorMm: 14), 12);
+    expect(doorTrimMm(pCurrentGapMm: 30, pNewFloorMm: 8), 0);
+  });
+
+  test('poignée confortable entre 90 et 130 cm du sol fini', () {
+    expect(handleHeightOk(handleHeightMm), isTrue);
+    expect(handleHeightOk(850), isFalse);
+    expect(handleHeightOk(1350), isFalse);
+  });
+
+  test('sens d\'ouverture déduit des paumelles et du côté où l\'on se tient', () {
+    expect(doorHandFrom(pHingesRight: true, pPushing: true), DoorHand.pushRight);
+    expect(doorHandFrom(pHingesRight: true, pPushing: false), DoorHand.pushLeft);
+    expect(doorHandFrom(pHingesRight: false, pPushing: true), DoorHand.pushLeft);
+    expect(doorHandFrom(pHingesRight: false, pPushing: false), DoorHand.pushRight);
+  });
 }

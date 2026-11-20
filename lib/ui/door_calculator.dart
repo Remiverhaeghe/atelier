@@ -19,6 +19,11 @@ class _DoorCalculatorState extends State<DoorCalculator> {
   int _height = 2120;
   int _wall = 72;
   DoorHand _hand = DoorHand.pushRight;
+  int _gap = 10;
+  int _newFloor = 0;
+  int _handle = handleHeightMm;
+  bool _hingesRight = true;
+  bool _pushing = true;
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +102,63 @@ class _DoorCalculatorState extends State<DoorCalculator> {
           const SizedBox(height: 8),
           IconLine(Icons.info_outline, vText.doorHandHowTo),
           IconLine(Icons.straighten, vText.doorMeasureHowTo),
+          const SizedBox(height: 12),
+          Text(vText.doorFindHand, style: vTheme.textTheme.titleMedium),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(vText.doorHingesRight),
+            value: _hingesRight,
+            onChanged: (pValue) => setState(() => _hingesRight = pValue),
+          ),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(vText.doorPushing),
+            value: _pushing,
+            onChanged: (pValue) => setState(() => _pushing = pValue),
+          ),
+          IconLine(
+            Icons.sync_alt,
+            vText.doorHandFound(
+              doorHandFrom(pHingesRight: _hingesRight, pPushing: _pushing) == DoorHand.pushRight
+                  ? vText.doorPushRightShort
+                  : vText.doorPushLeftShort,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(vText.doorBottomTitle, style: vTheme.textTheme.titleMedium),
+          NumberField<int>(
+            label: vText.doorCurrentGap,
+            initial: '$_gap',
+            parse: parseWhole,
+            onValue: (pValue) => setState(() => _gap = pValue),
+          ),
+          NumberField<int>(
+            label: vText.doorNewFloor,
+            initial: '$_newFloor',
+            parse: parseWhole,
+            onValue: (pValue) => setState(() => _newFloor = pValue),
+          ),
+          IconLine(
+            Icons.content_cut,
+            doorTrimMm(pCurrentGapMm: _gap, pNewFloorMm: _newFloor) == 0
+                ? vText.doorNoTrim
+                : vText.doorTrim(doorTrimMm(pCurrentGapMm: _gap, pNewFloorMm: _newFloor)),
+          ),
+          NumberField<int>(
+            label: vText.doorHandle,
+            initial: formatCentimetres(_handle),
+            parse: parseCentimetres,
+            onValue: (pValue) => setState(() => _handle = pValue),
+          ),
+          IconLine(
+            handleHeightOk(_handle) ? Icons.check : AtelierIcons.warning,
+            handleHeightOk(_handle)
+                ? vText.doorHandleOk
+                : vText.doorHandleOff(
+                    formatCentimetres(handleMinMm),
+                    formatCentimetres(handleMaxMm),
+                  ),
+          ),
         ],
       ),
     );

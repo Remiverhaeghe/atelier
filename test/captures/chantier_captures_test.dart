@@ -40,6 +40,12 @@ void main() {
     await vBack(pTester);
     await tapAndSettle(pTester, find.text('Gravats et déchetterie'));
     await capture('46-dechets');
+    await vBack(pTester);
+    await tapAndSettle(pTester, find.text('Préparer un sol'));
+    await capture('47-preparer-sol');
+    await vBack(pTester);
+    await tapAndSettle(pTester, find.text('Peindre une grande hauteur'));
+    await capture('48-grande-hauteur');
     capturesDone();
   });
 }
