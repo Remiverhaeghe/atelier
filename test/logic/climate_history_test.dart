@@ -117,10 +117,7 @@ void main() {
         ClimateLog(days: [for (final vE in pHumidity.entries) day(vE.key, vE.value)]);
 
     test('seuls les jours relevés dans les deux pièces comptent', () {
-      final vResult = compareRoomsClimate(
-        log({1: 50, 2: 55, 3: 90}),
-        log({2: 70, 3: 70, 4: 99}),
-      )!;
+      final vResult = compareRoomsClimate(log({1: 50, 2: 55, 3: 90}), log({2: 70, 3: 70, 4: 99}))!;
 
       expect(vResult.first.days, 2);
       expect(vResult.second.days, 2);

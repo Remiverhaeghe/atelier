@@ -205,10 +205,7 @@ extension on _ClimateHistoryCardState {
       pPeriod.days,
     );
     final rLines = <Widget>[
-      IconLine(
-        Icons.show_chart,
-        pText.climateCompareLegend(pText.climateCompareThis, pOther.name),
-      ),
+      IconLine(Icons.show_chart, pText.climateCompareLegend(pText.climateCompareThis, pOther.name)),
     ];
     if (vComparison == null) {
       rLines.add(IconLine(Icons.info_outline, pText.climateCompareNoCommon));
@@ -227,25 +224,22 @@ extension on _ClimateHistoryCardState {
       )
       ..add(IconLine(Icons.home_work_outlined, '${pOther.name} : ${vPeriod(vComparison.second)}'))
       ..add(
-        IconLine(
-          Icons.compare_arrows,
-          switch (roomGap(vComparison)) {
-            RoomGap.firstDrier => pText.climateCompareDrier(
-              pText.climateCompareThis,
-              vPoints,
-              vComparison.first.days,
-            ),
-            RoomGap.secondDrier => pText.climateCompareDrier(
-              pOther.name,
-              vPoints,
-              vComparison.first.days,
-            ),
-            RoomGap.same => pText.climateCompareSame(
-              formatDecimal(climateTrendPoints),
-              vComparison.first.days,
-            ),
-          },
-        ),
+        IconLine(Icons.compare_arrows, switch (roomGap(vComparison)) {
+          RoomGap.firstDrier => pText.climateCompareDrier(
+            pText.climateCompareThis,
+            vPoints,
+            vComparison.first.days,
+          ),
+          RoomGap.secondDrier => pText.climateCompareDrier(
+            pOther.name,
+            vPoints,
+            vComparison.first.days,
+          ),
+          RoomGap.same => pText.climateCompareSame(
+            formatDecimal(climateTrendPoints),
+            vComparison.first.days,
+          ),
+        }),
       );
 
     return rLines;
