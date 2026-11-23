@@ -9,9 +9,12 @@ import 'theme.dart';
 /// dessinés dans l'ordre de la coupe avec leur longueur, les traits de scie entre eux, et la
 /// chute en grisé, comme les lames du parquet sur le plan de pose.
 class BarsDiagram extends StatelessWidget {
-  const BarsDiagram({super.key, required this.plan});
+  const BarsDiagram({super.key, required this.plan, this.labels = const []});
 
   final BarPlan plan;
+
+  /// Texte de chaque morceau dans l'ordre des morceaux ; sans lui, la longueur prise dans la barre.
+  final List<String> labels;
 
   /// Hauteur d'une barre dessinée.
   static const barHeight = 28.0;
@@ -35,6 +38,7 @@ class BarsDiagram extends StatelessWidget {
           size: Size.infinite,
           painter: BarsPainter(
             plan: plan,
+            labels: labels,
             colors: AtelierColors.of(context),
             line: vTheme.colorScheme.onSurface,
             label: vTheme.textTheme.labelSmall!.copyWith(color: vTheme.colorScheme.onSurface),
@@ -46,9 +50,16 @@ class BarsDiagram extends StatelessWidget {
 }
 
 class BarsPainter extends CustomPainter {
-  BarsPainter({required this.plan, required this.colors, required this.line, required this.label});
+  BarsPainter({
+    required this.plan,
+    required this.labels,
+    required this.colors,
+    required this.line,
+    required this.label,
+  });
 
   final BarPlan plan;
+  final List<String> labels;
   final AtelierColors colors;
   final Color line;
   final TextStyle label;
@@ -78,7 +89,12 @@ class BarsPainter extends CustomPainter {
         pCanvas
           ..drawRect(vRect, vWood)
           ..drawRect(vRect, vOutline);
-        _text(pCanvas, formatCentimetres(vCut.pieceLengths[vPiece]), vRect);
+        final vIndex = vCut.pieceIndexes[vPiece];
+        _text(
+          pCanvas,
+          vIndex < labels.length ? labels[vIndex] : formatCentimetres(vCut.pieceLengths[vPiece]),
+          vRect,
+        );
         vX += vWidth;
         // Trait de scie entre deux morceaux, dessiné à son épaisseur réelle au moins 1,5 point
         pCanvas.drawLine(Offset(vX, vTop), Offset(vX, vTop + BarsDiagram.barHeight), vSaw);

@@ -2,6 +2,14 @@
 
 ## Non publié
 
+### Corrigé
+- Plinthes : la barre est comptée sur la longueur réellement à tailler, pas seulement sur la mesure au dos. Un onglet dont la pointe longue est sur la face (coin sortant, bout d'un biseau de jonction) déborde de l'épaisseur de la plinthe fois la tangente de l'angle (15 mm à 45° pour 15 mm d'épaisseur) : un mur de deux barres exactes passe à trois morceaux au lieu de deux morceaux qui ne tenaient pas
+- Épaisseur de la plinthe dans les réglages (15 mm au départ)
+
+### Ajouté
+- Plinthes : « Moins de barres » est activé par défaut sur une pièce neuve ; une pièce déjà enregistrée garde ses morceaux égaux
+- Plinthes : réglage « Moins de barres » (barres entières puis un reste, au lieu de morceaux égaux) : la pièce de 4 × 3 m passe de 8 à 6 barres, avec un joint à une longueur de barre du coin ; un reste de moins de 30 cm ramène aux morceaux égaux
+
 ### Ajouté
 - Achats par pièce : dans la liste de courses, un bloc déplie chaque pièce avec ses articles, ses quantités et son coût (affiché quand le chantier a plusieurs pièces) ; la somme des pièces retombe sur le budget du chantier
 - Devis estimatif des fournitures en PDF, depuis la liste de courses : pièce par pièce, articles, quantités, montants d'après les prix saisis, total, et la mention qu'il s'agit d'une estimation

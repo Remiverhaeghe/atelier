@@ -85,6 +85,7 @@ Map<ShoppingItem, int> roomQuantities(Room pRoom, [Map<String, double> pPrices =
     [for (final vPiece in vPieces) vPiece.lengthMm],
     pRoom.baseboard.barLengthMm,
     pRoom.baseboard.kerfMm,
+    pStock: [for (final vPiece in vPieces) vPiece.stockMm(pRoom.baseboard.thicknessMm)],
   );
   final vFixing = fixingNeeds(vPieces, pRoom.baseboard);
   rQuantities[ShoppingItem.baseboardBars] = vBars.bars.length;

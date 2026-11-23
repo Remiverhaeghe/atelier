@@ -59,17 +59,22 @@ class BarPlan {
 }
 
 /// Les morceaux les plus longs d'abord, chacun dans la première barre où il tient.
-BarPlan planBars(List<int> pLengths, int pBarMm, int pKerfMm) {
+///
+/// [pStock] donne, morceau par morceau, ce que le morceau prend dans la barre quand cela dépasse
+/// sa longueur annoncée (débord des onglets) ; sans lui, c'est la longueur annoncée. Les
+/// longueurs rangées dans les barres sont celles qui sont prises.
+BarPlan planBars(List<int> pLengths, int pBarMm, int pKerfMm, {List<int>? pStock}) {
+  final vTaken = pStock ?? pLengths;
   final vOrder = [for (var vIndex = 0; vIndex < pLengths.length; vIndex++) vIndex]
     ..sort((pA, pB) {
-      final vByLength = pLengths[pB].compareTo(pLengths[pA]);
+      final vByLength = vTaken[pB].compareTo(vTaken[pA]);
 
       return vByLength != 0 ? vByLength : pA.compareTo(pB);
     });
   final vBars = <CutBar>[];
   final vTooLong = <int>[];
   for (final vIndex in vOrder) {
-    final vLength = pLengths[vIndex];
+    final vLength = vTaken[vIndex];
     if (vLength > pBarMm || vLength <= 0) {
       if (vLength > 0) {
         vTooLong.add(vIndex);

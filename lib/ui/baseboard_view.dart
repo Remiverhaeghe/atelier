@@ -74,6 +74,7 @@ class _BaseboardViewState extends State<BaseboardView> {
       [for (final vPiece in vPieces) vPiece.lengthMm],
       vSettings.barLengthMm,
       vSettings.kerfMm,
+      pStock: [for (final vPiece in vPieces) vPiece.stockMm(vSettings.thicknessMm)],
     );
     final vTotal = vPieces.fold<int>(0, (pSum, pPiece) => pSum + pPiece.lengthMm);
     final vDone = _room.cutPieces.where((pIndex) => pIndex < vPieces.length).length;
@@ -128,6 +129,19 @@ class _BaseboardViewState extends State<BaseboardView> {
                 onValue: (pValue) => _update(vSettings.copyWith(barLengthMm: pValue)),
               ),
               NumberField(
+                label: vText.baseboardThickness,
+                initial: '${vSettings.thicknessMm}',
+                parse: parseWhole,
+                onValue: (pValue) => _update(vSettings.copyWith(thicknessMm: pValue)),
+              ),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(vText.fewestBars),
+                subtitle: Text(vText.fewestBarsHelp),
+                value: vSettings.fewestBars,
+                onChanged: (pOn) => _update(vSettings.copyWith(fewestBars: pOn)),
+              ),
+              NumberField(
                 label: vText.kerf,
                 initial: '${vSettings.kerfMm}',
                 parse: parseWhole,
@@ -155,7 +169,10 @@ class _BaseboardViewState extends State<BaseboardView> {
         ListTile(title: Text(vText.barsTitle, style: vTheme.textTheme.titleMedium)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: BarsDiagram(plan: vBars),
+          child: BarsDiagram(
+            plan: vBars,
+            labels: [for (final vPiece in vPieces) formatCentimetres(vPiece.lengthMm)],
+          ),
         ),
         for (var vBar = 0; vBar < vBars.bars.length; vBar++)
           ListTile(
@@ -163,7 +180,10 @@ class _BaseboardViewState extends State<BaseboardView> {
             title: Text(
               vText.barLine(
                 vBar + 1,
-                vBars.bars[vBar].pieceLengths.map(formatCentimetres).join(' + '),
+                [
+                  for (final vIndex in vBars.bars[vBar].pieceIndexes)
+                    formatCentimetres(vPieces[vIndex].lengthMm),
+                ].join(' + '),
               ),
             ),
             subtitle: Text(_offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm))),
