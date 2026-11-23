@@ -57,7 +57,9 @@ void main() {
 
     // Photos lues dans une table : une image, une photo absente, des octets illisibles
     final vPhotos = {
-      'photo-fictive.png': base64Decode('iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAIAAAA7ljmRAAAAEElEQVR4nGM40+ECRww4OQB7hhMhrFvIYAAAAABJRU5ErkJggg=='),
+      'photo-fictive.png': base64Decode(
+        'iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAIAAAA7ljmRAAAAEElEQVR4nGM40+ECRww4OQB7hhMhrFvIYAAAAABJRU5ErkJggg==',
+      ),
       'abimee.png': Uint8List.fromList([1, 2, 3]),
     };
     final vRead = <String>[];
