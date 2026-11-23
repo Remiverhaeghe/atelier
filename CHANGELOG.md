@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Ajouté
+- Fiche de la pièce : la photo de chaque reprise y est reprise sous sa ligne, avec ses cercles ; une photo perdue ou illisible est simplement laissée de côté
 - Plan papier décalqué : quand le tracé ressemble à un rectangle, un L ou un T (angles à 10° près), l'appli redresse les angles et ouvre le dessin de la pièce avec cette forme. Les longueurs lues sur le plan servent de mesures, sauf le mur le plus long de chaque sens, déduit et laissé en pointillés à mesurer. Sinon, les murs tracés sont gardés comme avant
 - Humidité suivie dans le temps : depuis les reprises d'une pièce, chaque fichier du thermo-hygromètre ajoute ses journées au suivi (moyennes du jour, deux ans gardés). Courbe jour par jour avec la zone saine, date des travaux marquée, et comparaison avant / après : humidité et température moyennes, jours humides, et si l'air est plus sec, plus humide ou pareil
 - Gestes animés : pause et reprise, ralenti (quatre fois moins vite) et réglette pour avancer le geste au doigt, image par image
