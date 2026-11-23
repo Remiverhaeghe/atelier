@@ -86,4 +86,12 @@ void main() {
     expect(Room.fromJson(const Room(id: 'p', name: 'Vide').toJson()).climate.days, isEmpty);
     expect(ClimateLog.fromJson(const {}).worksOn, isNull);
   });
+
+  test('la fiche reprend les derniers jours suivis', () {
+    final vDays = [day(1, 70), day(10, 65), day(25, 58), day(30, 55)];
+
+    expect(recentClimateDays(vDays, 20).map((pDay) => pDay.day.day), [25, 30]);
+    expect(recentClimateDays(vDays, sheetClimateDays), hasLength(4));
+    expect(recentClimateDays(const [], sheetClimateDays), isEmpty);
+  });
 }

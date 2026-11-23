@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:atelier/l10n/gen/app_localizations_fr.dart';
+import 'package:atelier/logic/climate_history.dart';
 import 'package:atelier/logic/fixtures.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/slope.dart';
 import 'package:atelier/logic/touch_up.dart';
+import 'package:atelier/ui/room_sheet_climate.dart';
 import 'package:atelier/ui/room_sheet_pdf.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -69,10 +71,32 @@ void main() {
       return vPhotos[pPath];
     }
 
-    for (final vSheet in [vFull, const Room(id: 'v', name: 'Pièce vide')]) {
+    // Trois semaines de suivi fictif, travaux au milieu : courbe et comparaison sur la fiche
+    final vClimate = vFull.copyWith(
+      climate: ClimateLog(
+        worksOn: DateTime(2026, 10, 11),
+        days: [
+          for (var vDay = 1; vDay <= 21; vDay++)
+            ClimateDay(
+              day: DateTime(2026, 10, vDay),
+              tempC: 19,
+              humidity: vDay < 11 ? 72 : 58,
+              maxHumidity: 80,
+              count: 24,
+            ),
+        ],
+      ),
+    );
+    final vLines = climateSheetSection(AppLocalizationsFr(), vClimate.climate);
+    expect(vLines, hasLength(9));
+    expect(climateSheetSection(AppLocalizationsFr(), const ClimateLog()), isEmpty);
+
+    for (final vSheet in [vFull, vClimate, const Room(id: 'v', name: 'Pièce vide')]) {
       final vBytes = await buildRoomSheetPdf(AppLocalizationsFr(), vSheet, pPhotos: vPhoto);
       expect(String.fromCharCodes(vBytes.take(5)), '%PDF-');
     }
-    expect(vRead, ['photo-fictive.png', 'absente.png', 'abimee.png']);
+    expect(vRead, [
+      for (var vRun = 0; vRun < 2; vRun++) ...['photo-fictive.png', 'absente.png', 'abimee.png'],
+    ]);
   });
 }

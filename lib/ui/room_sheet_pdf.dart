@@ -12,10 +12,11 @@ import '../logic/slope.dart';
 import '../logic/units.dart';
 import '../storage/photo_store.dart';
 import 'pdf_fonts.dart';
+import 'room_sheet_climate.dart';
 
-/// Fiche d'une pièce à emporter sur le chantier : plan coté, murs, hauteur, rampants, reprises
-/// avec leur photo et ses cercles. [pPhotos] lit une photo gardée (le stockage de l'appli par
-/// défaut, une autre source dans les tests).
+/// Fiche d'une pièce à emporter sur le chantier : plan coté, murs, hauteur, rampants, reprises avec
+/// leur photo et ses cercles, puis l'humidité des derniers jours suivis. [pPhotos] lit une photo
+/// gardée (le stockage de l'appli par défaut, une autre source dans les tests).
 Future<Uint8List> buildRoomSheetPdf(
   AppLocalizations pText,
   Room pRoom, {
@@ -121,6 +122,7 @@ Future<Uint8List> buildRoomSheetPdf(
               ],
             ),
           ),
+        ...climateSheetSection(pText, pRoom.climate),
       ],
     ),
   );

@@ -3498,5 +3498,6 @@
   "climateDrier": "The air is drier than before: {points} points less humidity.",
   "climateDamper": "Humidity has risen by {points} points since the works: keep an eye on it and check the ventilation.",
   "climateSame": "No clear change: less than {points} points apart.",
-  "traceShapeFound": "Shape recognised on the paper plan. Dotted walls are worked out from it: measure them on site."
+  "traceShapeFound": "Shape recognised on the paper plan. Dotted walls are worked out from it: measure them on site.",
+  "roomSheetClimate": "Humidity over the last {days} days"
 }

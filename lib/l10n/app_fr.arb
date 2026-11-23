@@ -4752,5 +4752,7 @@
   "@climateDamper": {"placeholders": {"points": {"type": "String"}}},
   "climateSame": "Pas de changement net : moins de {points} points d'écart.",
   "@climateSame": {"placeholders": {"points": {"type": "String"}}},
-  "traceShapeFound": "Forme reconnue sur le plan papier. Les murs en pointillés en sont déduits : mesurez-les sur place."
+  "traceShapeFound": "Forme reconnue sur le plan papier. Les murs en pointillés en sont déduits : mesurez-les sur place.",
+  "roomSheetClimate": "Humidité des {days} derniers jours",
+  "@roomSheetClimate": {"placeholders": {"days": {"type": "int"}}}
 }
