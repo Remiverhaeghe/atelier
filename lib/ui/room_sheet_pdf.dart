@@ -10,10 +10,17 @@ import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/slope.dart';
 import '../logic/units.dart';
+import '../storage/photo_store.dart';
 import 'pdf_fonts.dart';
 
-/// Fiche d'une pièce à emporter sur le chantier : plan coté, murs, hauteur, rampants, reprises.
-Future<Uint8List> buildRoomSheetPdf(AppLocalizations pText, Room pRoom) async {
+/// Fiche d'une pièce à emporter sur le chantier : plan coté, murs, hauteur, rampants, reprises
+/// avec leur photo et ses cercles. [pPhotos] lit une photo gardée (le stockage de l'appli par
+/// défaut, une autre source dans les tests).
+Future<Uint8List> buildRoomSheetPdf(
+  AppLocalizations pText,
+  Room pRoom, {
+  Uint8List? Function(String pPath) pPhotos = readPhoto,
+}) async {
   final vDocument = pw.Document(title: pText.roomSheetTitle(pRoom.name), theme: await pdfTheme());
   final vCount = pRoom.walls.length;
   String vCorner(int pIndex) => String.fromCharCode(65 + pIndex % math.max(vCount, 1));
@@ -105,6 +112,9 @@ Future<Uint8List> buildRoomSheetPdf(AppLocalizations pText, Room pRoom) async {
                       ),
                       if (vTouchUp.note.isNotEmpty) pw.Text(vTouchUp.note),
                       if (vTouchUp.toBuy.isNotEmpty) pw.Text(pText.roomSheetToBuy(vTouchUp.toBuy)),
+                      if (_photo(vTouchUp.photoPath, vTouchUp.photoMarks, pPhotos)
+                          case final vPhoto?)
+                        pw.Padding(padding: const pw.EdgeInsets.only(top: 4), child: vPhoto),
                     ],
                   ),
                 ),
@@ -116,6 +126,54 @@ Future<Uint8List> buildRoomSheetPdf(AppLocalizations pText, Room pRoom) async {
   );
 
   return vDocument.save();
+}
+
+/// Largeur d'une photo de reprise sur la fiche, en points.
+const sheetPhotoWidth = 220.0;
+
+/// Photo d'une reprise avec ses cercles, ou null sans photo lisible : une photo perdue ou
+/// abîmée ne bloque pas la fiche.
+pw.Widget? _photo(
+  String? pPath,
+  List<({double x, double y})> pMarks,
+  Uint8List? Function(String pPath) pPhotos,
+) {
+  final vBytes = pPath == null ? null : pPhotos(pPath);
+  if (vBytes == null || vBytes.isEmpty) {
+    return null;
+  }
+  final pw.MemoryImage vImage;
+  try {
+    vImage = pw.MemoryImage(vBytes);
+  } on Object {
+    return null;
+  }
+  final vRatio = (vImage.width ?? 4) / math.max(vImage.height ?? 3, 1);
+  final vHeight = sheetPhotoWidth / vRatio;
+  const vRing = 16.0;
+
+  return pw.SizedBox(
+    width: sheetPhotoWidth,
+    height: vHeight,
+    child: pw.Stack(
+      children: [
+        pw.Image(vImage, width: sheetPhotoWidth, height: vHeight, fit: pw.BoxFit.fill),
+        for (final vMark in pMarks)
+          pw.Positioned(
+            left: vMark.x * sheetPhotoWidth - vRing / 2,
+            top: vMark.y * vHeight - vRing / 2,
+            child: pw.Container(
+              width: vRing,
+              height: vRing,
+              decoration: pw.BoxDecoration(
+                shape: pw.BoxShape.circle,
+                border: pw.Border.all(color: PdfColors.red, width: 2),
+              ),
+            ),
+          ),
+      ],
+    ),
+  );
 }
 
 /// Plan à l'échelle : murs mesurés en trait plein, déduits en pointillés, ouvertures laissées
