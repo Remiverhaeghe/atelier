@@ -193,7 +193,7 @@ class Room {
     this.obstacles = const [],
     this.parquet = const ParquetSettings(),
     this.laidRows = const [],
-    this.baseboard = const BaseboardSettings(),
+    this.baseboard = const BaseboardSettings(fewestBars: true),
     this.cutPieces = const [],
     this.doneSteps = const [],
     this.touchUps = const [],

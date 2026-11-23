@@ -7,6 +7,7 @@
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
 
 ### Ajouté
+- Plinthes : « Moins de barres » est activé par défaut sur une pièce neuve ; une pièce déjà enregistrée garde ses morceaux égaux
 - Plinthes : réglage « Moins de barres » (barres entières puis un reste, au lieu de morceaux égaux) : la pièce de 4 × 3 m passe de 8 à 6 barres, avec un joint à une longueur de barre du coin ; un reste de moins de 30 cm ramène aux morceaux égaux
 
 ### Ajouté

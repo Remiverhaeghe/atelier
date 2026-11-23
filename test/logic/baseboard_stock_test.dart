@@ -1,6 +1,7 @@
 import 'package:atelier/logic/bar_cutting.dart';
 import 'package:atelier/logic/baseboard.dart';
 import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/room_json.dart';
 import 'package:atelier/logic/shopping.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -137,6 +138,13 @@ void main() {
   });
 
   group('réglages', () {
+    test('une pièce neuve coupe en moins de barres, une pièce enregistrée avant garde ses morceaux égaux', () {
+      final vSaved = roomToJson(rectangleRoom())..remove('baseboard');
+
+      expect(rectangleRoom().baseboard.fewestBars, isTrue);
+      expect(roomFromJson(vSaved).baseboard.fewestBars, isFalse);
+    });
+
     test('épaisseur et moins de barres font l\'aller-retour', () {
       const vSettings = BaseboardSettings(thicknessMm: 18, fewestBars: true);
       final vBack = BaseboardSettings.fromJson(vSettings.toJson());
