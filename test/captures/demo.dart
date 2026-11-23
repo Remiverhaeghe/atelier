@@ -86,14 +86,15 @@ Room demoSketchRoom() {
   );
 }
 
-/// Salon avec une mezzanine en L : le coin découpé laisse passer l'escalier.
+/// Salon avec une mezzanine en L le long du mur du fond (position donnée par son centre) : le
+/// coin découpé laisse passer l'escalier.
 Room demoMezzanineRoom() => demoWorksite().rooms[0].copyWith(
   fixtures: const [
     Fixture(
       id: 'mezz',
       kind: FixtureKind.mezzanine,
-      xMm: 0,
-      yMm: 0,
+      xMm: 2100,
+      yMm: 2700,
       widthMm: 4200,
       depthMm: 1800,
       riseMm: 2400,
