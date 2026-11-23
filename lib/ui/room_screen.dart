@@ -183,7 +183,6 @@ class RoomScreen extends StatelessWidget {
                     }
                   },
                 ),
-                Room3dCard(room: vRoom),
                 ParquetView(room: vRoom, onChanged: vSave),
                 LayingView(room: vRoom, onChanged: vSave),
                 BaseboardView(room: vRoom, onChanged: vSave),
@@ -319,6 +318,7 @@ class RoomWallsView extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 96),
       children: [
         if (room.walls.isNotEmpty && !vWide) vPlan,
+        Room3dCard(room: room),
         if (room.closed && room.walls.length >= 3)
           ListTile(
             leading: Icon(
