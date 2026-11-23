@@ -25,6 +25,7 @@ import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'quick_walls_screen.dart';
 import 'room_sketch_screen.dart';
+import 'room_3d_card.dart';
 import 'room_plan.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
@@ -182,6 +183,7 @@ class RoomScreen extends StatelessWidget {
                     }
                   },
                 ),
+                Room3dCard(room: vRoom),
                 ParquetView(room: vRoom, onChanged: vSave),
                 LayingView(room: vRoom, onChanged: vSave),
                 BaseboardView(room: vRoom, onChanged: vSave),
