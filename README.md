@@ -26,6 +26,10 @@ L'appli est en français et en anglais (`lib/l10n/app_fr.arb`, modèle des texte
 |---|---|---|---|---|
 | ![Pièce sous rampants](docs/captures/15-rampants.png) | ![Fenêtre bois](docs/captures/16-fenetre-bois.png) | ![Faux plafond](docs/captures/22-faux-plafond.png) | ![Placard sous rampant](docs/captures/23-placard-rampant.png) | ![Scier droit](docs/captures/24-geste-scier.png) |
 
+| Dessin de la pièce | Mezzanine en L | Suivi de l'humidité |
+|---|---|---|
+| ![Dessin de la pièce](docs/captures/56-dessin-piece.png) | ![Mezzanine en L](docs/captures/57-mezzanine-en-l.png) | ![Suivi de l'humidité](docs/captures/58-suivi-humidite.png) |
+
 Captures faites sur un chantier fictif par le workflow Captures (`test/captures/`), à chaque changement d'interface. Les nouvelles versions sont dans l'artefact `captures` de son dernier passage. Le portfolio recopie celles de `docs/captures/` à chaque publication : un nom de fichier qui change doit y être reporté.
 
 ## Ce que fait l'appli
