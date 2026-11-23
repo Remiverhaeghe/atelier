@@ -6,7 +6,6 @@ import 'package:pdf/widgets.dart' as pw;
 import '../l10n/gen/app_localizations.dart';
 import '../logic/goals.dart';
 import '../logic/room_shopping.dart';
-import '../logic/shopping.dart';
 import '../logic/worksite.dart';
 import 'pdf_fonts.dart';
 import 'shopping_texts.dart';
