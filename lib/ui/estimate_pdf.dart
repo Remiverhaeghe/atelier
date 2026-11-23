@@ -18,7 +18,10 @@ Future<Uint8List> buildEstimatePdf(
   Worksite pWorksite, {
   required DateTime pToday,
 }) async {
-  final vDocument = pw.Document(title: pText.estimateTitle(pWorksite.name), theme: await pdfTheme());
+  final vDocument = pw.Document(
+    title: pText.estimateTitle(pWorksite.name),
+    theme: await pdfTheme(),
+  );
   final vRooms = shoppingByRoom(pWorksite);
   final vTotal = vRooms.fold<double>(0, (pSum, pItem) => pSum + pItem.cost);
   final vIncomplete = vRooms.any((pItem) => pItem.incomplete);
