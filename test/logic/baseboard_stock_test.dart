@@ -6,8 +6,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../support/rooms.dart';
 
-Room openWall(int pLengthMm) =>
-    Room(id: 'r', name: 'R', walls: [Wall(lengthMm: pLengthMm)], closed: false);
+Room openWall(int pLengthMm) => Room(
+  id: 'r',
+  name: 'R',
+  walls: [Wall(lengthMm: pLengthMm)],
+  closed: false,
+);
 
 void main() {
   group('débord des onglets', () {

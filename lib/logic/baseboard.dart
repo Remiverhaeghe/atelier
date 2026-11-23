@@ -145,7 +145,9 @@ class BaseboardPiece {
   /// Longueur à tailler dans la barre : la mesure au dos plus le débord des onglets dont la pointe
   /// longue est sur la face (coin sortant, bout d'un biseau de jonction).
   int stockMm(int pThicknessMm) =>
-      lengthMm + _faceOverhang(startCut, false, pThicknessMm) + _faceOverhang(endCut, true, pThicknessMm);
+      lengthMm +
+      _faceOverhang(startCut, false, pThicknessMm) +
+      _faceOverhang(endCut, true, pThicknessMm);
 }
 
 /// Débord de la pointe longue côté face, 0 quand elle est au dos ou que la coupe est droite.
@@ -254,7 +256,11 @@ List<BaseboardPiece> _equalPieces(int pWallNumber, _Segment pSegment, int pCount
 
 /// Barres entières à la suite, le reste au bout ; null si le reste serait trop court pour être
 /// posé proprement (moins de [reusableOffcutMm]) : on retombe alors sur des morceaux égaux.
-List<BaseboardPiece>? _fewestPieces(int pWallNumber, _Segment pSegment, BaseboardSettings pSettings) {
+List<BaseboardPiece>? _fewestPieces(
+  int pWallNumber,
+  _Segment pSegment,
+  BaseboardSettings pSettings,
+) {
   final vBar = pSettings.barLengthMm;
   final vThickness = pSettings.thicknessMm;
   final rPieces = <BaseboardPiece>[];
@@ -274,7 +280,8 @@ List<BaseboardPiece>? _fewestPieces(int pWallNumber, _Segment pSegment, Baseboar
       return vLeft >= reusableOffcutMm || rPieces.length == 1 ? rPieces : null;
     }
     // Pièce pleine : le débord de son début et de son biseau de jonction est pris sur la barre
-    final vFull = vBar - _faceOverhang(vStart, false, vThickness) - _faceOverhang(_scarf, true, vThickness);
+    final vFull =
+        vBar - _faceOverhang(vStart, false, vThickness) - _faceOverhang(_scarf, true, vThickness);
     if (vFull <= 0 || vFull >= vLeft) {
       return null;
     }
