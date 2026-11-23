@@ -3,6 +3,7 @@ library;
 
 import 'dart:math' as math;
 
+import 'bar_cutting.dart';
 import 'room.dart';
 
 /// Fixation des plinthes.
