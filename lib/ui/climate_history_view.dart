@@ -14,11 +14,49 @@ String climateDayText(DateTime pDay) =>
 
 /// Suivi de la pièce : courbe de l'humidité par jour, date des travaux et comparaison
 /// avant / après.
-class ClimateHistoryCard extends StatelessWidget {
-  const ClimateHistoryCard({super.key, required this.log, required this.onChanged});
+class ClimateHistoryCard extends StatefulWidget {
+  const ClimateHistoryCard({
+    super.key,
+    required this.log,
+    required this.onChanged,
+    this.others = const [],
+  });
 
   final ClimateLog log;
   final ValueChanged<ClimateLog> onChanged;
+
+  /// Autres pièces du chantier qui ont un suivi, à comparer à celle-ci.
+  final List<NamedClimate> others;
+
+  @override
+  State<ClimateHistoryCard> createState() => _ClimateHistoryCardState();
+}
+
+class _ClimateHistoryCardState extends State<ClimateHistoryCard> {
+  NamedClimate? _other;
+
+  ClimateLog get log => widget.log;
+  ValueChanged<ClimateLog> get onChanged => widget.onChanged;
+
+  Future<void> _pickOther(BuildContext pContext) async {
+    final vText = AppLocalizations.of(pContext);
+    final vPicked = await showDialog<NamedClimate>(
+      context: pContext,
+      builder: (pDialog) => SimpleDialog(
+        title: Text(vText.climateCompareTitle),
+        children: [
+          for (final vOther in widget.others)
+            SimpleDialogOption(
+              onPressed: () => Navigator.pop(pDialog, vOther),
+              child: Text(vOther.name),
+            ),
+        ],
+      ),
+    );
+    if (vPicked != null) {
+      setState(() => _other = vPicked);
+    }
+  }
 
   Future<void> _pickWorks(BuildContext pContext) async {
     final vDays = log.days;
@@ -75,6 +113,8 @@ class ClimateHistoryCard extends StatelessWidget {
                     band: vTheme.colorScheme.primaryContainer,
                     ink: AtelierColors.of(context).ink,
                     works: AtelierColors.of(context).tape,
+                    other: _other?.log.days,
+                    otherLine: vTheme.colorScheme.tertiary,
                   ),
                 ),
               ),
@@ -104,8 +144,20 @@ class ClimateHistoryCard extends StatelessWidget {
                   icon: const Icon(Icons.ios_share),
                   label: Text(vText.climateExportCsv),
                 ),
+                if (widget.others.isNotEmpty)
+                  _other == null
+                      ? OutlinedButton.icon(
+                          onPressed: () => _pickOther(context),
+                          icon: const Icon(Icons.compare_arrows),
+                          label: Text(vText.climateCompareButton),
+                        )
+                      : TextButton(
+                          onPressed: () => setState(() => _other = null),
+                          child: Text(vText.climateCompareClear),
+                        ),
               ],
             ),
+            if (_other case final vOther?) ..._roomLines(vText, vTheme, vOther),
             if (vWorks != null && vComparison == null)
               IconLine(Icons.info_outline, vText.climateNeedBoth),
             if (vComparison != null) ...[
@@ -142,6 +194,64 @@ class ClimateHistoryCard extends StatelessWidget {
   }
 }
 
+extension on _ClimateHistoryCardState {
+  /// Légende des deux courbes, puis ce que la comparaison des jours communs en dit.
+  List<Widget> _roomLines(AppLocalizations pText, ThemeData pTheme, NamedClimate pOther) {
+    final vComparison = compareRoomsClimate(log, pOther.log);
+    String vPeriod(ClimatePeriod pPeriod) => pText.climatePeriodSummary(
+      formatDecimal(pPeriod.humidity.roundToDouble()),
+      formatDecimal((pPeriod.tempC * 10).roundToDouble() / 10),
+      pPeriod.dampDays,
+      pPeriod.days,
+    );
+    final rLines = <Widget>[
+      IconLine(
+        Icons.show_chart,
+        pText.climateCompareLegend(pText.climateCompareThis, pOther.name),
+      ),
+    ];
+    if (vComparison == null) {
+      rLines.add(IconLine(Icons.info_outline, pText.climateCompareNoCommon));
+
+      return rLines;
+    }
+    final vPoints = formatDecimal(
+      (vComparison.first.humidity - vComparison.second.humidity).abs().roundToDouble(),
+    );
+    rLines
+      ..add(
+        IconLine(
+          Icons.home_outlined,
+          '${pText.climateCompareThis} : ${vPeriod(vComparison.first)}',
+        ),
+      )
+      ..add(IconLine(Icons.home_work_outlined, '${pOther.name} : ${vPeriod(vComparison.second)}'))
+      ..add(
+        IconLine(
+          Icons.compare_arrows,
+          switch (roomGap(vComparison)) {
+            RoomGap.firstDrier => pText.climateCompareDrier(
+              pText.climateCompareThis,
+              vPoints,
+              vComparison.first.days,
+            ),
+            RoomGap.secondDrier => pText.climateCompareDrier(
+              pOther.name,
+              vPoints,
+              vComparison.first.days,
+            ),
+            RoomGap.same => pText.climateCompareSame(
+              formatDecimal(climateTrendPoints),
+              vComparison.first.days,
+            ),
+          },
+        ),
+      );
+
+    return rLines;
+  }
+}
+
 /// Humidité moyenne par jour, sur une échelle de 20 à 100 % ; bande de la zone saine et trait
 /// vertical le jour des travaux.
 class _HumidityPainter extends CustomPainter {
@@ -152,7 +262,13 @@ class _HumidityPainter extends CustomPainter {
     required this.band,
     required this.ink,
     required this.works,
+    this.other,
+    this.otherLine = Colors.teal,
   });
+
+  /// Jours d'une autre pièce, tracés sur la même échelle de dates.
+  final List<ClimateDay>? other;
+  final Color otherLine;
 
   final List<ClimateDay> days;
   final DateTime? worksOn;
@@ -166,8 +282,14 @@ class _HumidityPainter extends CustomPainter {
 
   @override
   void paint(Canvas pCanvas, Size pSize) {
-    final vFirst = days.first.day;
-    final vSpan = math.max(days.last.day.difference(vFirst).inDays, 1);
+    final vOther = other ?? const <ClimateDay>[];
+    final vFirst = vOther.isEmpty || days.first.day.isBefore(vOther.first.day)
+        ? days.first.day
+        : vOther.first.day;
+    final vLast = vOther.isEmpty || days.last.day.isAfter(vOther.last.day)
+        ? days.last.day
+        : vOther.last.day;
+    final vSpan = math.max(vLast.difference(vFirst).inDays, 1);
     double vX(DateTime pDay) => pDay.difference(vFirst).inDays / vSpan * pSize.width;
     double vY(double pHumidity) =>
         pSize.height * (1 - ((pHumidity.clamp(_low, _high) - _low) / (_high - _low)));
@@ -181,23 +303,37 @@ class _HumidityPainter extends CustomPainter {
       ..strokeWidth = 1;
     pCanvas.drawLine(Offset(0, vY(dampHumidity)), Offset(pSize.width, vY(dampHumidity)), vGrid);
 
-    final vPath = Path();
-    for (final (vIndex, vDay) in days.indexed) {
-      final vPoint = Offset(vX(vDay.day), vY(vDay.humidity));
-      if (vIndex == 0) {
-        vPath.moveTo(vPoint.dx, vPoint.dy);
-      } else {
-        vPath.lineTo(vPoint.dx, vPoint.dy);
+    void curve(List<ClimateDay> pDays, Color pColor, {bool pSquare = false}) {
+      final vPath = Path();
+      for (final (vIndex, vDay) in pDays.indexed) {
+        final vPoint = Offset(vX(vDay.day), vY(vDay.humidity));
+        if (vIndex == 0) {
+          vPath.moveTo(vPoint.dx, vPoint.dy);
+        } else {
+          vPath.lineTo(vPoint.dx, vPoint.dy);
+        }
+        if (pSquare) {
+          pCanvas.drawRect(
+            Rect.fromCenter(center: vPoint, width: 5, height: 5),
+            Paint()..color = pColor,
+          );
+        } else {
+          pCanvas.drawCircle(vPoint, 2.5, Paint()..color = pColor);
+        }
       }
-      pCanvas.drawCircle(vPoint, 2.5, Paint()..color = line);
+      pCanvas.drawPath(
+        vPath,
+        Paint()
+          ..color = pColor
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
     }
-    pCanvas.drawPath(
-      vPath,
-      Paint()
-        ..color = line
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2,
-    );
+
+    curve(days, line);
+    if (vOther.isNotEmpty) {
+      curve(vOther, otherLine, pSquare: true);
+    }
 
     final vWorks = worksOn;
     if (vWorks != null) {
@@ -218,5 +354,6 @@ class _HumidityPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_HumidityPainter pOld) => pOld.days != days || pOld.worksOn != worksOn;
+  bool shouldRepaint(_HumidityPainter pOld) =>
+      pOld.days != days || pOld.worksOn != worksOn || pOld.other != other;
 }

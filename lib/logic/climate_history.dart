@@ -198,3 +198,34 @@ ClimateTrend climateTrend(({ClimatePeriod before, ClimatePeriod after}) pCompari
 
   return rTrend;
 }
+
+/// Une autre pièce du chantier et son suivi, pour la comparer à la pièce ouverte.
+typedef NamedClimate = ({String name, ClimateLog log});
+
+/// Deux pièces sur les seuls jours relevés dans les deux, pour comparer ce qui se compare ;
+/// null quand elles n'ont aucun jour en commun.
+({ClimatePeriod first, ClimatePeriod second})? compareRoomsClimate(
+  ClimateLog pFirst,
+  ClimateLog pSecond,
+) {
+  final vFirstDays = {for (final vDay in pFirst.days) vDay.day};
+  final vSecondDays = {for (final vDay in pSecond.days) vDay.day};
+  final vFirst = _period(pFirst.days.where((pDay) => vSecondDays.contains(pDay.day)));
+  final vSecond = _period(pSecond.days.where((pDay) => vFirstDays.contains(pDay.day)));
+  final rComparison = vFirst == null || vSecond == null ? null : (first: vFirst, second: vSecond);
+
+  return rComparison;
+}
+
+/// Quelle pièce est la plus sèche.
+enum RoomGap { firstDrier, secondDrier, same }
+
+/// Écart d'humidité moyenne entre deux pièces, avec la même tolérance qu'avant / après.
+RoomGap roomGap(({ClimatePeriod first, ClimatePeriod second}) pComparison) {
+  final vChange = pComparison.second.humidity - pComparison.first.humidity;
+  final rGap = vChange >= climateTrendPoints
+      ? RoomGap.firstDrier
+      : (vChange <= -climateTrendPoints ? RoomGap.secondDrier : RoomGap.same);
+
+  return rGap;
+}

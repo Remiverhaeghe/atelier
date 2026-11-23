@@ -91,4 +91,84 @@ void main() {
     expect(vKept!.worksOn, isNull);
     expect(find.text('Date des travaux'), findsOneWidget);
   });
+
+  group('comparer deux pièces', () {
+    ClimateLog suivi(double pHumidity, {int pFrom = 1}) => ClimateLog(
+      days: [
+        for (var vDay = pFrom; vDay < pFrom + 3; vDay++)
+          ClimateDay(
+            day: DateTime(2026, 12, vDay),
+            tempC: 19,
+            humidity: pHumidity,
+            maxHumidity: pHumidity + 5,
+            count: 24,
+          ),
+      ],
+    );
+
+    Widget ecran(List<NamedClimate> pOthers) =>
+        localized(ClimateScreen(log: suivi(50), onLog: (_) {}, others: pOthers));
+
+    testWidgets('sans autre pièce suivie, le bouton n\'est pas proposé', (pTester) async {
+      tallScreen(pTester);
+      await pTester.pumpWidget(ecran(const []));
+
+      expect(find.text('Comparer avec une autre pièce'), findsNothing);
+    });
+
+    testWidgets('une pièce choisie : résumés et pièce la plus sèche', (pTester) async {
+      tallScreen(pTester);
+      await pTester.pumpWidget(ecran([(name: 'Salle de bain', log: suivi(72))]));
+      await pTester.tap(find.text('Comparer avec une autre pièce'));
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('Salle de bain'));
+      await pTester.pumpAndSettle();
+
+      expect(find.textContaining('Cette pièce : 50 % en moyenne'), findsOneWidget);
+      expect(find.textContaining('Salle de bain : 72 % en moyenne'), findsOneWidget);
+      expect(
+        find.textContaining('Cette pièce : plus sèche de 22 points sur les 3 jours'),
+        findsOneWidget,
+      );
+
+      await pTester.tap(find.text('Retirer la comparaison'));
+      await pTester.pumpAndSettle();
+      expect(find.textContaining('plus sèche de'), findsNothing);
+      expect(find.text('Comparer avec une autre pièce'), findsOneWidget);
+    });
+
+    testWidgets('l\'autre pièce plus sèche', (pTester) async {
+      tallScreen(pTester);
+      await pTester.pumpWidget(ecran([(name: 'Chambre', log: suivi(30))]));
+      await pTester.tap(find.text('Comparer avec une autre pièce'));
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('Chambre'));
+      await pTester.pumpAndSettle();
+
+      expect(find.textContaining('Chambre : plus sèche de 20 points'), findsOneWidget);
+    });
+
+    testWidgets('deux pièces à moins de trois points : même humidité', (pTester) async {
+      tallScreen(pTester);
+      await pTester.pumpWidget(ecran([(name: 'Bureau', log: suivi(51))]));
+      await pTester.tap(find.text('Comparer avec une autre pièce'));
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('Bureau'));
+      await pTester.pumpAndSettle();
+
+      expect(find.textContaining('Même humidité dans les deux pièces'), findsOneWidget);
+    });
+
+    testWidgets('sans jour en commun : message clair, pas de chiffres', (pTester) async {
+      tallScreen(pTester);
+      await pTester.pumpWidget(ecran([(name: 'Cave', log: suivi(80, pFrom: 20))]));
+      await pTester.tap(find.text('Comparer avec une autre pièce'));
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('Cave'));
+      await pTester.pumpAndSettle();
+
+      expect(find.textContaining('aucun jour relevé en même temps'), findsOneWidget);
+      expect(find.textContaining('plus sèche de'), findsNothing);
+    });
+  });
 }
