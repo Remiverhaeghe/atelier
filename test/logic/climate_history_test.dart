@@ -94,4 +94,21 @@ void main() {
     expect(recentClimateDays(vDays, sheetClimateDays), hasLength(4));
     expect(recentClimateDays(const [], sheetClimateDays), isEmpty);
   });
+
+  test('le suivi part en CSV et se réimporte tel quel', () {
+    final vLog = ClimateLog(days: [day(1, 61.25), day(2, 58)]);
+    final vCsv = climateCsv(vLog);
+
+    expect(vCsv.split('\n').first, startsWith('date;température'));
+    expect(vCsv, contains('2026-11-01;19,0;61,3;66,3;24'));
+
+    final vBack = parseClimateCsv(vCsv)!;
+    expect(vBack.skipped, 0);
+    expect(vBack.readings.map((pReading) => pReading.humidity), [61.3, 58.0]);
+    expect(vBack.readings.first.at, DateTime(2026, 11, 1));
+    expect(
+      climateCsv(const ClimateLog()).split('\n').where((pLine) => pLine.isNotEmpty),
+      hasLength(1),
+    );
+  });
 }

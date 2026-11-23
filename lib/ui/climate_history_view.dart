@@ -6,6 +6,7 @@ import '../l10n/gen/app_localizations.dart';
 import '../logic/climate_history.dart';
 import '../logic/indoor_climate.dart';
 import '../logic/units.dart';
+import 'share_file.dart';
 import 'theme.dart';
 
 String climateDayText(DateTime pDay) =>
@@ -97,6 +98,12 @@ class ClimateHistoryCard extends StatelessWidget {
                     onPressed: () => onChanged(log.copyWith(clearWorks: true)),
                     child: Text(vText.climateWorksClear),
                   ),
+                TextButton.icon(
+                  onPressed: () =>
+                      shareTextFile('suivi-humidite.csv', climateCsv(log), pMime: 'text/csv'),
+                  icon: const Icon(Icons.ios_share),
+                  label: Text(vText.climateExportCsv),
+                ),
               ],
             ),
             if (vWorks != null && vComparison == null)
