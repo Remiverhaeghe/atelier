@@ -9,6 +9,7 @@ import 'dialogs.dart';
 import 'parquet_view.dart';
 import 'room_plan.dart';
 import 'theme.dart';
+import 'bars_diagram.dart';
 import 'cut_diagram.dart';
 
 /// Texte d'une coupe de bout de plinthe.
@@ -152,6 +153,10 @@ class _BaseboardViewState extends State<BaseboardView> {
           ),
         ),
         ListTile(title: Text(vText.barsTitle, style: vTheme.textTheme.titleMedium)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: BarsDiagram(plan: vBars),
+        ),
         for (var vBar = 0; vBar < vBars.bars.length; vBar++)
           ListTile(
             dense: true,

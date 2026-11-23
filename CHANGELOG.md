@@ -5,6 +5,8 @@
 ### Ajouté
 - Achats par pièce : dans la liste de courses, un bloc déplie chaque pièce avec ses articles, ses quantités et son coût (affiché quand le chantier a plusieurs pièces) ; la somme des pièces retombe sur le budget du chantier
 - Devis estimatif des fournitures en PDF, depuis la liste de courses : pièce par pièce, articles, quantités, montants d'après les prix saisis, total, et la mention qu'il s'agit d'une estimation
+- Découpe des plinthes dessinée : chaque barre à l'échelle avec ses morceaux dans l'ordre de la coupe (longueur écrite dessus), les traits de scie et la chute grisée, sa longueur écrite quand elle peut resservir
+- La pièce en 3D dans l'écran de la pièce, comme une maquette d'architecte : murs, sol et ouvertures, à faire tourner d'un glissement du doigt (à partir de trois murs)
 
 ### Documentation
 - Trois captures de plus dans le README (`docs/captures/56` à `58`) : la chambre en L dessinée avec un mur déduit, le salon avec une mezzanine en L, la courbe d'humidité avant et après travaux, sur des relevés fictifs

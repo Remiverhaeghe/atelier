@@ -25,6 +25,7 @@ import 'laying_view.dart';
 import 'parquet_view.dart';
 import 'quick_walls_screen.dart';
 import 'room_sketch_screen.dart';
+import 'room_3d_card.dart';
 import 'room_plan.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
@@ -321,6 +322,7 @@ class RoomWallsView extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 96),
       children: [
         if (room.walls.isNotEmpty && !vWide) vPlan,
+        Room3dCard(room: room),
         if (room.closed && room.walls.length >= 3)
           ListTile(
             leading: Icon(
