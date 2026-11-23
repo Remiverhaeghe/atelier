@@ -139,13 +139,13 @@ void main() {
 
     testWidgets('l\'autre pièce plus sèche', (pTester) async {
       tallScreen(pTester);
-      await pTester.pumpWidget(ecran([(name: 'Chambre', log: suivi(30))]));
+      await pTester.pumpWidget(ecran([(name: 'Garage', log: suivi(30))]));
       await pTester.tap(find.text('Comparer avec une autre pièce'));
       await pTester.pumpAndSettle();
-      await pTester.tap(find.text('Chambre'));
+      await pTester.tap(find.text('Garage'));
       await pTester.pumpAndSettle();
 
-      expect(find.textContaining('Chambre : plus sèche de 20 points'), findsOneWidget);
+      expect(find.textContaining('Garage : plus sèche de 20 points'), findsOneWidget);
     });
 
     testWidgets('deux pièces à moins de trois points : même humidité', (pTester) async {
