@@ -1,6 +1,8 @@
 /// Plinthes : morceaux mur par mur, coupes à chaque bout, fixations.
 library;
 
+import 'dart:math' as math;
+
 import 'room.dart';
 
 /// Fixation des plinthes.
@@ -55,6 +57,8 @@ class BaseboardSettings {
     this.fixing = BaseboardFixing.glued,
     this.glueMetresPerCartridge = 10,
     this.fixingSpacingMm = 400,
+    this.thicknessMm = 15,
+    this.fewestBars = false,
   });
 
   final int barLengthMm;
@@ -69,18 +73,30 @@ class BaseboardSettings {
   /// Écart entre deux clous, vis ou clips.
   final int fixingSpacingMm;
 
+  /// Épaisseur de la plinthe : un onglet déborde de cette épaisseur fois la tangente de l'angle,
+  /// côté face pour un coin sortant ou un biseau de jonction.
+  final int thicknessMm;
+
+  /// Murs plus longs qu'une barre : barres entières puis un reste, au lieu de morceaux égaux.
+  /// Moins de barres, mais un joint à une longueur de barre du coin.
+  final bool fewestBars;
+
   BaseboardSettings copyWith({
     int? barLengthMm,
     int? kerfMm,
     BaseboardFixing? fixing,
     double? glueMetresPerCartridge,
     int? fixingSpacingMm,
+    int? thicknessMm,
+    bool? fewestBars,
   }) => BaseboardSettings(
     barLengthMm: barLengthMm ?? this.barLengthMm,
     kerfMm: kerfMm ?? this.kerfMm,
     fixing: fixing ?? this.fixing,
     glueMetresPerCartridge: glueMetresPerCartridge ?? this.glueMetresPerCartridge,
     fixingSpacingMm: fixingSpacingMm ?? this.fixingSpacingMm,
+    thicknessMm: thicknessMm ?? this.thicknessMm,
+    fewestBars: fewestBars ?? this.fewestBars,
   );
 
   Map<String, Object?> toJson() => {
@@ -89,6 +105,8 @@ class BaseboardSettings {
     'fixing': fixing.name,
     'glueMetresPerCartridge': glueMetresPerCartridge,
     'fixingSpacingMm': fixingSpacingMm,
+    'thicknessMm': thicknessMm,
+    'fewestBars': fewestBars,
   };
 
   static BaseboardSettings fromJson(Map<String, Object?> pJson) {
@@ -102,6 +120,8 @@ class BaseboardSettings {
       glueMetresPerCartridge:
           (pJson['glueMetresPerCartridge'] as num?)?.toDouble() ?? vBase.glueMetresPerCartridge,
       fixingSpacingMm: (pJson['fixingSpacingMm'] as int?) ?? vBase.fixingSpacingMm,
+      thicknessMm: (pJson['thicknessMm'] as int?) ?? vBase.thicknessMm,
+      fewestBars: (pJson['fewestBars'] as bool?) ?? vBase.fewestBars,
     );
 
     return rSettings;
@@ -121,6 +141,19 @@ class BaseboardPiece {
   final int lengthMm;
   final EndCut startCut;
   final EndCut endCut;
+
+  /// Longueur à tailler dans la barre : la mesure au dos plus le débord des onglets dont la pointe
+  /// longue est sur la face (coin sortant, bout d'un biseau de jonction).
+  int stockMm(int pThicknessMm) =>
+      lengthMm + _faceOverhang(startCut, false, pThicknessMm) + _faceOverhang(endCut, true, pThicknessMm);
+}
+
+/// Débord de la pointe longue côté face, 0 quand elle est au dos ou que la coupe est droite.
+int _faceOverhang(EndCut pCut, bool pIsEnd, int pThicknessMm) {
+  final vFaceLonger =
+      pCut.kind == EndCutKind.outsideMiter || (pIsEnd && pCut.kind == EndCutKind.scarf);
+
+  return vFaceLonger ? (pThicknessMm * math.tan(pCut.sawAngleDeg * math.pi / 180)).round() : 0;
 }
 
 /// Morceaux de plinthe de toute la pièce, dans l'ordre du tour.
@@ -139,7 +172,7 @@ List<BaseboardPiece> baseboardPieces(Room pRoom, BaseboardSettings pSettings) {
         ? EndCut.square
         : cornerCut(vWall.angleToNextDeg);
     for (final vSegment in _segments(vWall, vStartCut, vEndCut)) {
-      rPieces.addAll(_splitToBars(vIndex + 1, vSegment, pSettings.barLengthMm));
+      rPieces.addAll(_splitToBars(vIndex + 1, vSegment, pSettings));
     }
   }
 
@@ -175,24 +208,82 @@ List<_Segment> _segments(Wall pWall, EndCut pStartCut, EndCut pEndCut) {
   return rSegments;
 }
 
-/// Un mur plus long qu'une barre se fait en morceaux égaux, joints en biseau.
-List<BaseboardPiece> _splitToBars(int pWallNumber, _Segment pSegment, int pBarMm) {
-  final vCount = pBarMm <= 0 ? 1 : (pSegment.lengthMm + pBarMm - 1) ~/ pBarMm;
-  final vBase = pSegment.lengthMm ~/ vCount;
-  final vExtra = pSegment.lengthMm - vBase * vCount;
-  const vScarf = EndCut(EndCutKind.scarf, 45);
+/// Un mur plus long qu'une barre se fait en morceaux joints en biseau, jamais plus longs qu'une
+/// barre une fois le débord des onglets compté : égaux par défaut, ou barres entières et un reste.
+List<BaseboardPiece> _splitToBars(int pWallNumber, _Segment pSegment, BaseboardSettings pSettings) {
+  final vBar = pSettings.barLengthMm;
+  if (vBar <= 0) {
+    return _equalPieces(pWallNumber, pSegment, 1);
+  }
+  if (pSettings.fewestBars) {
+    final vFewest = _fewestPieces(pWallNumber, pSegment, pSettings);
+    if (vFewest != null) {
+      return vFewest;
+    }
+  }
+  var vCount = (pSegment.lengthMm + vBar - 1) ~/ vBar;
+  var rPieces = _equalPieces(pWallNumber, pSegment, vCount);
+  // Un morceau plus long qu'une barre avec son débord d'onglet : un morceau de plus
+  while (vCount < pSegment.lengthMm &&
+      rPieces.any((pPiece) => pPiece.stockMm(pSettings.thicknessMm) > vBar)) {
+    vCount++;
+    rPieces = _equalPieces(pWallNumber, pSegment, vCount);
+  }
+
+  return rPieces;
+}
+
+const _scarf = EndCut(EndCutKind.scarf, 45);
+
+List<BaseboardPiece> _equalPieces(int pWallNumber, _Segment pSegment, int pCount) {
+  final vBase = pSegment.lengthMm ~/ pCount;
+  final vExtra = pSegment.lengthMm - vBase * pCount;
   final rPieces = [
-    for (var vIndex = 0; vIndex < vCount; vIndex++)
+    for (var vIndex = 0; vIndex < pCount; vIndex++)
       BaseboardPiece(
         wallNumber: pWallNumber,
         // Les millimètres qui restent vont au premier morceau.
         lengthMm: vBase + (vIndex == 0 ? vExtra : 0),
-        startCut: vIndex == 0 ? pSegment.startCut : vScarf,
-        endCut: vIndex == vCount - 1 ? pSegment.endCut : vScarf,
+        startCut: vIndex == 0 ? pSegment.startCut : _scarf,
+        endCut: vIndex == pCount - 1 ? pSegment.endCut : _scarf,
       ),
   ];
 
   return rPieces;
+}
+
+/// Barres entières à la suite, le reste au bout ; null si le reste serait trop court pour être
+/// posé proprement (moins de [reusableOffcutMm]) : on retombe alors sur des morceaux égaux.
+List<BaseboardPiece>? _fewestPieces(int pWallNumber, _Segment pSegment, BaseboardSettings pSettings) {
+  final vBar = pSettings.barLengthMm;
+  final vThickness = pSettings.thicknessMm;
+  final rPieces = <BaseboardPiece>[];
+  var vLeft = pSegment.lengthMm;
+  var vStart = pSegment.startCut;
+
+  while (true) {
+    final vLast = BaseboardPiece(
+      wallNumber: pWallNumber,
+      lengthMm: vLeft,
+      startCut: vStart,
+      endCut: pSegment.endCut,
+    );
+    if (vLast.stockMm(vThickness) <= vBar) {
+      rPieces.add(vLast);
+
+      return vLeft >= reusableOffcutMm || rPieces.length == 1 ? rPieces : null;
+    }
+    // Pièce pleine : le débord de son début et de son biseau de jonction est pris sur la barre
+    final vFull = vBar - _faceOverhang(vStart, false, vThickness) - _faceOverhang(_scarf, true, vThickness);
+    if (vFull <= 0 || vFull >= vLeft) {
+      return null;
+    }
+    rPieces.add(
+      BaseboardPiece(wallNumber: pWallNumber, lengthMm: vFull, startCut: vStart, endCut: _scarf),
+    );
+    vLeft -= vFull;
+    vStart = _scarf;
+  }
 }
 
 /// Fournitures de fixation pour une longueur de plinthes.
