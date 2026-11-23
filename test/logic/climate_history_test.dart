@@ -106,6 +106,9 @@ void main() {
     expect(vBack.skipped, 0);
     expect(vBack.readings.map((pReading) => pReading.humidity), [61.3, 58.0]);
     expect(vBack.readings.first.at, DateTime(2026, 11, 1));
-    expect(climateCsv(const ClimateLog()).split('\n').where((pLine) => pLine.isNotEmpty), hasLength(1));
+    expect(
+      climateCsv(const ClimateLog()).split('\n').where((pLine) => pLine.isNotEmpty),
+      hasLength(1),
+    );
   });
 }
