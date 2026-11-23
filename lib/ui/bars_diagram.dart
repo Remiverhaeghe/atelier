@@ -104,7 +104,10 @@ class BarsPainter extends CustomPainter {
     if (vPainter.width + 4 <= pRect.width) {
       vPainter.paint(
         pCanvas,
-        Offset(pRect.left + (pRect.width - vPainter.width) / 2, pRect.center.dy - vPainter.height / 2),
+        Offset(
+          pRect.left + (pRect.width - vPainter.width) / 2,
+          pRect.center.dy - vPainter.height / 2,
+        ),
       );
     }
   }

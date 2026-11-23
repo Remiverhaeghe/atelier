@@ -23,7 +23,11 @@ void main() {
 
   testWidgets('sans barre, le diagramme ne prend aucune place', (pTester) async {
     await pTester.pumpWidget(
-      localized(const BarsDiagram(plan: BarPlan(bars: [], kerfMm: 3, tooLong: []))),
+      localized(
+        const BarsDiagram(
+          plan: BarPlan(bars: [], kerfMm: 3, tooLong: []),
+        ),
+      ),
     );
 
     expect(pTester.getSize(find.byType(BarsDiagram)), Size.zero);
@@ -35,7 +39,11 @@ void main() {
     expect(find.text('La pièce en 3D'), findsOneWidget);
 
     await pTester.pumpWidget(
-      localized(const Room3dCard(room: Room(id: 'v', name: 'Vide', walls: [Wall(lengthMm: 3000)]))),
+      localized(
+        const Room3dCard(
+          room: Room(id: 'v', name: 'Vide', walls: [Wall(lengthMm: 3000)]),
+        ),
+      ),
     );
 
     expect(find.text('La pièce en 3D'), findsNothing);
