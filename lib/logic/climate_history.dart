@@ -115,6 +115,20 @@ List<ClimateDay> mergeClimateDays(List<ClimateDay> pKept, List<ClimateDay> pAdde
   return rDays;
 }
 
+/// Jours suivis repris sur la fiche imprimée de la pièce.
+const sheetClimateDays = 30;
+
+/// Derniers jours du suivi : ceux des [pDaysBack] jours qui finissent au dernier relevé.
+List<ClimateDay> recentClimateDays(List<ClimateDay> pDays, int pDaysBack) {
+  if (pDays.isEmpty) {
+    return const [];
+  }
+  final vFrom = pDays.last.day.subtract(Duration(days: pDaysBack));
+  final rDays = pDays.where((pDay) => pDay.day.isAfter(vFrom)).toList();
+
+  return rDays;
+}
+
 /// Moyennes d'une période : humidité, température, jours humides (moyenne au-dessus de 65 %).
 typedef ClimatePeriod = ({int days, double humidity, double tempC, int dampDays});
 
