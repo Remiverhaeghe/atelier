@@ -5,9 +5,11 @@ import 'package:share_plus/share_plus.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/aisles.dart';
 import '../logic/inventory.dart';
+import '../logic/room_shopping.dart';
 import '../logic/shopping.dart';
 import '../state/worksites_controller.dart';
 import 'budget_schedule_card.dart';
+import 'estimate_pdf.dart';
 import 'delivery_card.dart';
 import 'aisle_label.dart';
 import 'expenses_section.dart';
@@ -88,6 +90,17 @@ class ShoppingScreen extends StatelessWidget {
                       ),
               ),
               IconButton(
+                tooltip: vText.estimatePdf,
+                icon: const Icon(Icons.request_quote_outlined),
+                onPressed: vLines.isEmpty
+                    ? null
+                    : () => Printing.layoutPdf(
+                        name: vWorksite.name,
+                        onLayout: (_) =>
+                            buildEstimatePdf(vText, vWorksite, pToday: now ?? DateTime.now()),
+                      ),
+              ),
+              IconButton(
                 tooltip: vText.printSheet,
                 icon: const Icon(Icons.picture_as_pdf_outlined),
                 onPressed: () => Printing.layoutPdf(
@@ -118,6 +131,29 @@ class ShoppingScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    if (shoppingByRoom(vWorksite).length > 1)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: ExpansionTile(
+                          title: Text(vText.roomShoppingTitle),
+                          children: [
+                            for (final vRoom in shoppingByRoom(vWorksite))
+                              ExpansionTile(
+                                title: Text(
+                                  vText.roomShoppingRoom(vRoom.room.name, formatEuros(vRoom.cost)),
+                                ),
+                                children: [
+                                  for (final vLine in vRoom.lines)
+                                    ListTile(
+                                      dense: true,
+                                      title: Text(itemLabel(vText, vLine.item)),
+                                      trailing: Text('${vLine.quantity}'),
+                                    ),
+                                ],
+                              ),
+                          ],
+                        ),
+                      ),
                     if (vWorksite.extras.isNotEmpty)
                       ExtraItemsCard(worksite: vWorksite, onChanged: controller.updateWorksite),
                     ExpensesSection(
