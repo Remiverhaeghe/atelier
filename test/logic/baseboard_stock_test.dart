@@ -138,12 +138,15 @@ void main() {
   });
 
   group('réglages', () {
-    test('une pièce neuve coupe en moins de barres, une pièce enregistrée avant garde ses morceaux égaux', () {
-      final vSaved = roomToJson(rectangleRoom())..remove('baseboard');
+    test(
+      'une pièce neuve coupe en moins de barres, une pièce enregistrée avant garde ses morceaux égaux',
+      () {
+        final vSaved = roomToJson(rectangleRoom())..remove('baseboard');
 
-      expect(rectangleRoom().baseboard.fewestBars, isTrue);
-      expect(roomFromJson(vSaved).baseboard.fewestBars, isFalse);
-    });
+        expect(rectangleRoom().baseboard.fewestBars, isTrue);
+        expect(roomFromJson(vSaved).baseboard.fewestBars, isFalse);
+      },
+    );
 
     test('épaisseur et moins de barres font l\'aller-retour', () {
       const vSettings = BaseboardSettings(thicknessMm: 18, fewestBars: true);
