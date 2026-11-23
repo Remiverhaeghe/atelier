@@ -32,7 +32,11 @@ List<pw.Widget> climateSheetSection(AppLocalizations pText, ClimateLog pLog) {
         climateDayText(vDays.last.day),
       ),
     ),
-    pw.SizedBox(width: sheetClimateWidth, height: sheetClimateWidth / 3, child: _curve(vDays, vWorks)),
+    pw.SizedBox(
+      width: sheetClimateWidth,
+      height: sheetClimateWidth / 3,
+      child: _curve(vDays, vWorks),
+    ),
     pw.SizedBox(height: 6),
     pw.Paragraph(text: pText.climateHistoryHelp),
     if (vWorks != null) pw.Paragraph(text: pText.climateWorksOn(climateDayText(vWorks))),
@@ -42,10 +46,14 @@ List<pw.Widget> climateSheetSection(AppLocalizations pText, ClimateLog pLog) {
       pw.Paragraph(
         text: switch (climateTrend(vComparison)) {
           ClimateTrend.drier => pText.climateDrier(
-            formatDecimal((vComparison.before.humidity - vComparison.after.humidity).roundToDouble()),
+            formatDecimal(
+              (vComparison.before.humidity - vComparison.after.humidity).roundToDouble(),
+            ),
           ),
           ClimateTrend.damper => pText.climateDamper(
-            formatDecimal((vComparison.after.humidity - vComparison.before.humidity).roundToDouble()),
+            formatDecimal(
+              (vComparison.after.humidity - vComparison.before.humidity).roundToDouble(),
+            ),
           ),
           ClimateTrend.same => pText.climateSame(formatDecimal(climateTrendPoints)),
         },
@@ -70,8 +78,7 @@ pw.Widget _curve(List<ClimateDay> pDays, DateTime? pWorks) => pw.CustomPaint(
     final vSpan = pDays.last.day.difference(vFirst).inDays;
     double vX(DateTime pDay) =>
         vSpan == 0 ? pSize.x / 2 : pDay.difference(vFirst).inDays / vSpan * pSize.x;
-    double vY(double pHumidity) =>
-        (pHumidity.clamp(vLow, vHigh) - vLow) / (vHigh - vLow) * pSize.y;
+    double vY(double pHumidity) => (pHumidity.clamp(vLow, vHigh) - vLow) / (vHigh - vLow) * pSize.y;
 
     pCanvas
       ..setFillColor(PdfColors.green50)

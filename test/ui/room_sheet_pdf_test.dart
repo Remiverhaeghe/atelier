@@ -95,6 +95,8 @@ void main() {
       final vBytes = await buildRoomSheetPdf(AppLocalizationsFr(), vSheet, pPhotos: vPhoto);
       expect(String.fromCharCodes(vBytes.take(5)), '%PDF-');
     }
-    expect(vRead, [for (var vRun = 0; vRun < 2; vRun++) ...['photo-fictive.png', 'absente.png', 'abimee.png']]);
+    expect(vRead, [
+      for (var vRun = 0; vRun < 2; vRun++) ...['photo-fictive.png', 'absente.png', 'abimee.png'],
+    ]);
   });
 }
