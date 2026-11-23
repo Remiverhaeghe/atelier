@@ -111,4 +111,41 @@ void main() {
       hasLength(1),
     );
   });
+
+  group('deux pièces', () {
+    ClimateLog log(Map<int, double> pHumidity) =>
+        ClimateLog(days: [for (final vE in pHumidity.entries) day(vE.key, vE.value)]);
+
+    test('seuls les jours relevés dans les deux pièces comptent', () {
+      final vResult = compareRoomsClimate(log({1: 50, 2: 55, 3: 90}), log({2: 70, 3: 70, 4: 99}))!;
+
+      expect(vResult.first.days, 2);
+      expect(vResult.second.days, 2);
+      expect(vResult.first.humidity, 72.5);
+      expect(vResult.second.humidity, 70);
+    });
+
+    test('sans jour en commun ou sans relevé, rien à comparer', () {
+      expect(compareRoomsClimate(log({1: 50}), log({2: 50})), isNull);
+      expect(compareRoomsClimate(const ClimateLog(), log({2: 50})), isNull);
+    });
+
+    test('la pièce la plus sèche, avec trois points de tolérance', () {
+      RoomGap gap(double pA, double pB) =>
+          roomGap(compareRoomsClimate(log({1: pA}), log({1: pB}))!);
+
+      expect(gap(50, 60), RoomGap.firstDrier);
+      expect(gap(60, 50), RoomGap.secondDrier);
+      expect(gap(50, 52.9), RoomGap.same);
+      expect(gap(50, 53), RoomGap.firstDrier);
+      expect(gap(53, 50), RoomGap.secondDrier);
+    });
+
+    test('les jours humides se comptent par pièce sur les jours communs', () {
+      final vResult = compareRoomsClimate(log({1: 80, 2: 40, 3: 80}), log({1: 40, 2: 40}))!;
+
+      expect(vResult.first.dampDays, 1);
+      expect(vResult.second.dampDays, 0);
+    });
+  });
 }

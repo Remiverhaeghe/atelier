@@ -4755,5 +4755,16 @@
   "traceShapeFound": "Forme reconnue sur le plan papier. Les murs en pointillés en sont déduits : mesurez-les sur place.",
   "roomSheetClimate": "Humidité des {days} derniers jours",
   "@roomSheetClimate": {"placeholders": {"days": {"type": "int"}}},
-  "climateExportCsv": "Exporter en CSV"
+  "climateExportCsv": "Exporter en CSV",
+  "climateCompareButton": "Comparer avec une autre pièce",
+  "climateCompareClear": "Retirer la comparaison",
+  "climateCompareTitle": "Comparer avec quelle pièce ?",
+  "climateCompareThis": "Cette pièce",
+  "climateCompareLegend": "{first} : points ronds. {second} : points carrés.",
+  "@climateCompareLegend": {"placeholders": {"first": {"type": "String"}, "second": {"type": "String"}}},
+  "climateCompareNoCommon": "Les deux pièces n'ont aucun jour relevé en même temps : leurs courbes ne se comparent pas.",
+  "climateCompareDrier": "{name} : plus sèche de {points} points sur les {days} jours relevés dans les deux pièces.",
+  "@climateCompareDrier": {"placeholders": {"name": {"type": "String"}, "points": {"type": "String"}, "days": {"type": "int"}}},
+  "climateCompareSame": "Même humidité dans les deux pièces : moins de {points} points d'écart sur les {days} jours relevés dans les deux.",
+  "@climateCompareSame": {"placeholders": {"points": {"type": "String"}, "days": {"type": "int"}}}
 }

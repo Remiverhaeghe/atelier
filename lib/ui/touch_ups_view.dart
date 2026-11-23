@@ -26,6 +26,7 @@ class TouchUpsView extends StatefulWidget {
     this.photos,
     this.shopping = const [],
     this.onAddToShopping,
+    this.otherRooms = const [],
   });
 
   final Room room;
@@ -36,6 +37,9 @@ class TouchUpsView extends StatefulWidget {
 
   /// Ajout à la liste de courses du chantier ; bouton caché si absent.
   final ValueChanged<List<ExtraItem>>? onAddToShopping;
+
+  /// Autres pièces du chantier, dont le suivi d'humidité peut se comparer à celui-ci.
+  final List<Room> otherRooms;
 
   /// Prise de photo ; remplaçable dans les tests.
   final PhotoTaker? photos;
@@ -160,6 +164,10 @@ class _TouchUpsViewState extends State<TouchUpsView> {
           canAddTouchUps: true,
           log: _room.climate,
           onLog: (pLog) => widget.onChanged(_room.copyWith(climate: pLog)),
+          others: [
+            for (final vOther in widget.otherRooms)
+              if (vOther.climate.days.isNotEmpty) (name: vOther.name, log: vOther.climate),
+          ],
         ),
       ),
     );

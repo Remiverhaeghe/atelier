@@ -3500,5 +3500,13 @@
   "climateSame": "No clear change: less than {points} points apart.",
   "traceShapeFound": "Shape recognised on the paper plan. Dotted walls are worked out from it: measure them on site.",
   "roomSheetClimate": "Humidity over the last {days} days",
-  "climateExportCsv": "Export as CSV"
+  "climateExportCsv": "Export as CSV",
+  "climateCompareButton": "Compare with another room",
+  "climateCompareClear": "Remove the comparison",
+  "climateCompareTitle": "Compare with which room?",
+  "climateCompareThis": "This room",
+  "climateCompareLegend": "{first}: round dots. {second}: square dots.",
+  "climateCompareNoCommon": "The two rooms have no day recorded at the same time: their curves cannot be compared.",
+  "climateCompareDrier": "{name}: drier by {points} points over the {days} days recorded in both rooms.",
+  "climateCompareSame": "Same humidity in both rooms: less than {points} points apart over the {days} days recorded in both."
 }

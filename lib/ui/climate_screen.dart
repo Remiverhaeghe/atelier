@@ -34,6 +34,7 @@ class ClimateScreen extends StatefulWidget {
     this.pickFile,
     this.log,
     this.onLog,
+    this.others = const [],
   });
 
   final bool canAddTouchUps;
@@ -42,6 +43,9 @@ class ClimateScreen extends StatefulWidget {
   /// Suivi de la pièce ; sans lui, rien n'est gardé.
   final ClimateLog? log;
   final ValueChanged<ClimateLog>? onLog;
+
+  /// Suivis des autres pièces du chantier, pour les comparer.
+  final List<NamedClimate> others;
 
   @override
   State<ClimateScreen> createState() => _ClimateScreenState();
@@ -260,7 +264,7 @@ class _ClimateScreenState extends State<ClimateScreen> {
               ),
           ],
           if (_log case final vLog? when vLog.days.isNotEmpty)
-            ClimateHistoryCard(log: vLog, onChanged: _keep),
+            ClimateHistoryCard(log: vLog, onChanged: _keep, others: widget.others),
           const SizedBox(height: 16),
           Text(vText.climateHowTo, style: vTheme.textTheme.bodySmall),
           const SizedBox(height: 6),

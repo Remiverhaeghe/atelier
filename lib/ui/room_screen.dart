@@ -172,6 +172,10 @@ class RoomScreen extends StatelessWidget {
                 TouchUpsView(
                   room: vRoom,
                   onChanged: vSave,
+                  otherRooms: [
+                    for (final vOther in controller.worksite(worksiteId)?.rooms ?? const <Room>[])
+                      if (vOther.id != roomId) vOther,
+                  ],
                   shopping: controller.worksite(worksiteId)?.extras ?? const [],
                   onAddToShopping: (pItems) async {
                     final vWorksite = controller.worksite(worksiteId);
