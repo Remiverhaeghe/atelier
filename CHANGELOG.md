@@ -6,6 +6,7 @@
 - Trois captures de plus dans le README (`docs/captures/56` à `58`) : la chambre en L dessinée avec un mur déduit, le salon avec une mezzanine en L, la courbe d'humidité avant et après travaux, sur des relevés fictifs
 
 ### Ajouté
+- Suivi d'humidité exporté en CSV depuis sa carte (un jour par ligne, point-virgule et virgule décimale pour un tableur) ; le fichier se réimporte dans le suivi d'une autre pièce
 - Fiche de la pièce : l'humidité des 30 derniers jours suivis, en courbe avec la zone saine et le jour des travaux, puis la comparaison avant / après quand elle existe
 - Fiche de la pièce : la photo de chaque reprise y est reprise sous sa ligne, avec ses cercles ; une photo perdue ou illisible est simplement laissée de côté
 - Plan papier décalqué : quand le tracé ressemble à un rectangle, un L ou un T (angles à 10° près), l'appli redresse les angles et ouvre le dessin de la pièce avec cette forme. Les longueurs lues sur le plan servent de mesures, sauf le mur le plus long de chaque sens, déduit et laissé en pointillés à mesurer. Sinon, les murs tracés sont gardés comme avant

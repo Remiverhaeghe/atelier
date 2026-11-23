@@ -115,6 +115,23 @@ List<ClimateDay> mergeClimateDays(List<ClimateDay> pKept, List<ClimateDay> pAdde
   return rDays;
 }
 
+/// Suivi en CSV, un jour par ligne : point-virgule et virgule décimale pour un tableur français.
+/// Les titres de colonnes sont ceux que [parseClimateCsv] reconnaît, le fichier se réimporte.
+String climateCsv(ClimateLog pLog) {
+  String vNumber(double pValue) => pValue.toStringAsFixed(1).replaceAll('.', ',');
+  final rCsv = StringBuffer(
+    'date;température (°C);humidité moyenne (%);humidité maximale (%);relevés\n',
+  );
+  for (final vDay in pLog.days) {
+    rCsv.write(
+      '${_dayText(vDay.day)};${vNumber(vDay.tempC)};${vNumber(vDay.humidity)};'
+      '${vNumber(vDay.maxHumidity)};${vDay.count}\n',
+    );
+  }
+
+  return rCsv.toString();
+}
+
 /// Jours suivis repris sur la fiche imprimée de la pièce.
 const sheetClimateDays = 30;
 
