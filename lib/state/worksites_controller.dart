@@ -5,6 +5,7 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
 
+import '../logic/baseboard.dart';
 import '../logic/merge.dart';
 import '../logic/room.dart';
 import '../logic/undo_history.dart';
@@ -68,7 +69,12 @@ class WorksitesController extends ChangeNotifier {
   ]);
 
   Future<Room> addRoom(String pWorksiteId, String pName) async {
-    final rRoom = Room(id: newId(), name: pName.trim());
+    // Une pièce neuve coupe les plinthes en moins de barres ; les pièces enregistrées gardent leur réglage
+    final rRoom = Room(
+      id: newId(),
+      name: pName.trim(),
+      baseboard: const BaseboardSettings(fewestBars: true),
+    );
     final vWorksite = worksite(pWorksiteId)!;
     await updateWorksite(vWorksite.copyWith(rooms: [...vWorksite.rooms, rRoom]));
 

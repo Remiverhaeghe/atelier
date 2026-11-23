@@ -21,6 +21,15 @@ void main() {
   });
   tearDown(() => vFolder.deleteSync(recursive: true));
 
+  test('une pièce neuve coupe les plinthes en moins de barres', () async {
+    await vController.load();
+    final vWorksite = await vController.addWorksite('Maison');
+
+    final vRoom = await vController.addRoom(vWorksite.id, 'Salon');
+
+    expect(vRoom.baseboard.fewestBars, isTrue);
+  });
+
   test('chantiers et pièces sont ajoutés, modifiés, supprimés et enregistrés', () async {
     await vController.load();
     expect(vController.loaded, isTrue);
