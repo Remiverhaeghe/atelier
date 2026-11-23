@@ -1,6 +1,7 @@
 @Tags(['captures'])
 library;
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:atelier/app.dart';
@@ -8,6 +9,9 @@ import 'package:atelier/logic/workshop_stock.dart';
 import 'package:atelier/state/workshop_controller.dart';
 import 'package:atelier/state/worksites_controller.dart';
 import 'package:atelier/storage/workshop_store.dart';
+import 'package:atelier/ui/climate_history_view.dart';
+import 'package:atelier/ui/climate_screen.dart';
+import 'package:atelier/ui/room_sketch_screen.dart';
 import 'package:atelier/ui/stair_relief_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -344,6 +348,43 @@ void main() {
     await pTester.pumpAndSettle();
     await tapAndSettle(pTester, find.text('Charges en clair'));
     await capture('55-charges-en-clair');
+    capturesDone();
+  });
+
+  testWidgets('dessin de la pièce, mezzanine en L, suivi de l\'humidité', (pTester) async {
+    await openApp(pTester);
+    final vNavigator = pTester.state<NavigatorState>(find.byType(Navigator));
+    unawaited(
+      vNavigator.push(
+        MaterialPageRoute<void>(builder: (_) => RoomSketchScreen(room: demoSketchRoom())),
+      ),
+    );
+    await pTester.pumpAndSettle();
+    await capture('56-dessin-piece');
+    vNavigator.pop();
+    await pTester.pumpAndSettle();
+    unawaited(
+      vNavigator.push(
+        MaterialPageRoute<void>(builder: (_) => RoomSketchScreen(room: demoMezzanineRoom())),
+      ),
+    );
+    await pTester.pumpAndSettle();
+    await capture('57-mezzanine-en-l');
+    vNavigator.pop();
+    await pTester.pumpAndSettle();
+    unawaited(
+      vNavigator.push(
+        MaterialPageRoute<void>(
+          builder: (_) => ClimateScreen(log: demoClimate(), onLog: (_) {}),
+        ),
+      ),
+    );
+    await pTester.pumpAndSettle();
+    await pTester.ensureVisible(find.byType(ClimateHistoryCard));
+    await pTester.pumpAndSettle();
+    await capture('58-suivi-humidite');
+    vNavigator.pop();
+    await pTester.pumpAndSettle();
     capturesDone();
   });
 }

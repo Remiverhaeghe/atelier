@@ -1,3 +1,5 @@
+import 'package:atelier/logic/climate_history.dart';
+import 'package:atelier/logic/fixtures.dart';
 import 'package:atelier/logic/paint.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/touch_up.dart';
@@ -72,3 +74,51 @@ Worksite demoWorksite() => const Worksite(
   ],
   prices: {'parquetPacks': 32.9, 'underlayRolls': 19.9, 'baseboardBars': 6.5, 'cartridges': 7.9},
 );
+
+/// Chambre en L du dessin : le grand mur du bas n'est pas mesuré, le dessin le déduit.
+Room demoSketchRoom() {
+  final vChambre = demoWorksite().rooms[1];
+  return vChambre.copyWith(
+    walls: [
+      for (final (vIndex, vWall) in vChambre.walls.indexed)
+        vIndex == 0 ? Wall(lengthMm: vWall.lengthMm, deduced: true) : vWall,
+    ],
+  );
+}
+
+/// Salon avec une mezzanine en L le long du mur du fond (position donnée par son centre) : le
+/// coin découpé laisse passer l'escalier.
+Room demoMezzanineRoom() => demoWorksite().rooms[0].copyWith(
+  fixtures: const [
+    Fixture(
+      id: 'mezz',
+      kind: FixtureKind.mezzanine,
+      xMm: 2100,
+      yMm: 2700,
+      widthMm: 4200,
+      depthMm: 1800,
+      riseMm: 2400,
+      notchWidthMm: 1500,
+      notchDepthMm: 900,
+      notchCorner: 1,
+    ),
+  ],
+);
+
+/// Trois semaines de relevés fictifs : l'humidité baisse après la pose d'une VMC.
+ClimateLog demoClimate() {
+  final vStart = DateTime(2026, 10, 1);
+  return ClimateLog(
+    worksOn: DateTime(2026, 10, 11),
+    days: [
+      for (var vDay = 0; vDay < 21; vDay++)
+        ClimateDay(
+          day: vStart.add(Duration(days: vDay)),
+          tempC: 18.5 + (vDay % 3) * 0.4,
+          humidity: vDay < 10 ? 71.0 - (vDay % 4) : 60.0 - (vDay - 10) * 0.6,
+          maxHumidity: vDay < 10 ? 79.0 - (vDay % 3) : 66.0 - (vDay - 10) * 0.5,
+          count: 24,
+        ),
+    ],
+  );
+}
