@@ -183,29 +183,29 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
             GestureDetector(
               onHorizontalDragEnd: _swipe,
               child: Card(
-              margin: EdgeInsets.zero,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _run.finished
-                          ? vText.workshopFinished
-                          : vText.workshopStepOf(_run.current + 1, vSteps.length),
-                      style: vTheme.textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    if (!_run.finished)
+                margin: EdgeInsets.zero,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        vSteps[_run.current],
-                        style: vTheme.textTheme.headlineMedium!.copyWith(fontFamily: handFont),
+                        _run.finished
+                            ? vText.workshopFinished
+                            : vText.workshopStepOf(_run.current + 1, vSteps.length),
+                        style: vTheme.textTheme.titleLarge,
                       ),
-                    if (!_run.finished) ..._dryingLines(vText, vTheme, vNow),
-                  ],
+                      const SizedBox(height: 8),
+                      if (!_run.finished)
+                        Text(
+                          vSteps[_run.current],
+                          style: vTheme.textTheme.headlineMedium!.copyWith(fontFamily: handFont),
+                        ),
+                      if (!_run.finished) ..._dryingLines(vText, vTheme, vNow),
+                    ],
+                  ),
                 ),
               ),
-            ),
             ),
             const SizedBox(height: 12),
             Row(
@@ -303,7 +303,9 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
     return [
       const SizedBox(height: 12),
       Text(
-        vLeft == Duration.zero ? pText.workshopDryingDone : pText.workshopDryingLeft(formatChrono(vLeft)),
+        vLeft == Duration.zero
+            ? pText.workshopDryingDone
+            : pText.workshopDryingLeft(formatChrono(vLeft)),
         style: pTheme.textTheme.headlineSmall,
       ),
       TextButton(
@@ -318,5 +320,4 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
 }
 
 /// « 15 min », « 1 h », « 24 h » : durée d'un bouton de séchage.
-String formatDryingPreset(int pMinutes) =>
-    pMinutes < 60 ? '$pMinutes min' : '${pMinutes ~/ 60} h';
+String formatDryingPreset(int pMinutes) => pMinutes < 60 ? '$pMinutes min' : '${pMinutes ~/ 60} h';

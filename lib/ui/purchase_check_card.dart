@@ -43,7 +43,9 @@ class PurchaseCheckCard extends StatelessWidget {
               ),
             for (final vTool in vCheck.tools)
               IconLine(
-                vTool.choice == ToolChoice.rent ? Icons.handyman_outlined : Icons.shopping_bag_outlined,
+                vTool.choice == ToolChoice.rent
+                    ? Icons.handyman_outlined
+                    : Icons.shopping_bag_outlined,
                 (vTool.choice == ToolChoice.rent
                     ? vText.purchaseCheckRent
                     : vText.purchaseCheckBuy)(

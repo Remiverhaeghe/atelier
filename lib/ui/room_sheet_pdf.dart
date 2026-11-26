@@ -88,53 +88,53 @@ List<pw.Widget> roomSheetGeometry(AppLocalizations pText, Room pRoom) {
   );
 
   return [
-        if (vCount >= 3) ...[
-          pw.Paragraph(text: pText.roomSheetHelp),
-          pw.Center(child: _plan(pRoom)),
-          pw.SizedBox(height: 8),
+    if (vCount >= 3) ...[
+      pw.Paragraph(text: pText.roomSheetHelp),
+      pw.Center(child: _plan(pRoom)),
+      pw.SizedBox(height: 8),
+    ],
+    pw.Paragraph(text: pText.roomSheetHeight(formatCentimetres(pRoom.ceilingHeightMm))),
+    if (vCount >= 3)
+      pw.Paragraph(
+        text: pText.roomSheetArea(
+          formatSquareMetres(floorAreaM2(pRoom)),
+          formatCentimetres(perimeterMm(pRoom)),
+        ),
+      ),
+    for (final vSlopeOf in [pRoom.slope, pRoom.slope2])
+      if (vSlopeOf != null) pw.Paragraph(text: vSlope(vSlopeOf)),
+    if (vCount > 0) ...[
+      pw.Header(level: 1, text: pText.roomSheetWalls),
+      pw.TableHelper.fromTextArray(
+        headers: [
+          pText.roomSheetWall,
+          pText.roomSheetFromTo,
+          pText.cutListLength,
+          pText.roomSheetAngle,
+          pText.roomSheetOpenings,
         ],
-        pw.Paragraph(text: pText.roomSheetHeight(formatCentimetres(pRoom.ceilingHeightMm))),
-        if (vCount >= 3)
-          pw.Paragraph(
-            text: pText.roomSheetArea(
-              formatSquareMetres(floorAreaM2(pRoom)),
-              formatCentimetres(perimeterMm(pRoom)),
-            ),
-          ),
-        for (final vSlopeOf in [pRoom.slope, pRoom.slope2])
-          if (vSlopeOf != null) pw.Paragraph(text: vSlope(vSlopeOf)),
-        if (vCount > 0) ...[
-          pw.Header(level: 1, text: pText.roomSheetWalls),
-          pw.TableHelper.fromTextArray(
-            headers: [
-              pText.roomSheetWall,
-              pText.roomSheetFromTo,
-              pText.cutListLength,
-              pText.roomSheetAngle,
-              pText.roomSheetOpenings,
+        data: [
+          for (final (vIndex, vWall) in pRoom.walls.indexed)
+            [
+              '${vIndex + 1}',
+              '${vCorner(vIndex)} → ${vCorner(vIndex + 1)}',
+              vWall.deduced
+                  ? '${formatCentimetres(vWall.lengthMm)} cm (${pText.roomSheetDeduced})'
+                  : '${formatCentimetres(vWall.lengthMm)} cm',
+              '${formatDecimal(vWall.angleToNextDeg)}°',
+              [
+                for (final vOpening in vWall.openings)
+                  pText.sketchOpening(
+                    vKind(vOpening.kind),
+                    formatCentimetres(vOpening.widthMm),
+                    formatCentimetres(vOpening.offsetMm),
+                    vCorner(vIndex),
+                  ),
+              ].join('\n'),
             ],
-            data: [
-              for (final (vIndex, vWall) in pRoom.walls.indexed)
-                [
-                  '${vIndex + 1}',
-                  '${vCorner(vIndex)} → ${vCorner(vIndex + 1)}',
-                  vWall.deduced
-                      ? '${formatCentimetres(vWall.lengthMm)} cm (${pText.roomSheetDeduced})'
-                      : '${formatCentimetres(vWall.lengthMm)} cm',
-                  '${formatDecimal(vWall.angleToNextDeg)}°',
-                  [
-                    for (final vOpening in vWall.openings)
-                      pText.sketchOpening(
-                        vKind(vOpening.kind),
-                        formatCentimetres(vOpening.widthMm),
-                        formatCentimetres(vOpening.offsetMm),
-                        vCorner(vIndex),
-                      ),
-                  ].join('\n'),
-                ],
-            ],
-          ),
         ],
+      ),
+    ],
   ];
 }
 

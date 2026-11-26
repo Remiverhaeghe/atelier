@@ -97,7 +97,9 @@ class _DayLogScreenState extends State<DayLogScreen> {
                       child: Text(
                         vText.dayLogSummary(
                           daysWorked(vLines),
-                          formatDuration(vLines.fold<int>(0, (pSum, pLine) => pSum + pLine.minutes)),
+                          formatDuration(
+                            vLines.fold<int>(0, (pSum, pLine) => pSum + pLine.minutes),
+                          ),
                         ),
                         style: vTheme.textTheme.bodyMedium,
                       ),
@@ -122,10 +124,7 @@ class _DayLogScreenState extends State<DayLogScreen> {
                           '${vLine.day} · ${vLine.minutes > 0 ? formatDuration(vLine.minutes) : vText.dayLogNoHours}',
                         ),
                         subtitle: Text(
-                          [
-                            if (vLine.done.isNotEmpty) vLine.done,
-                            ...vLine.works,
-                          ].join('\n'),
+                          [if (vLine.done.isNotEmpty) vLine.done, ...vLine.works].join('\n'),
                         ),
                         isThreeLine: vLine.done.isNotEmpty && vLine.works.isNotEmpty,
                       ),

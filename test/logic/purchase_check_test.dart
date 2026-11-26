@@ -34,7 +34,9 @@ void main() {
       name: 'Maison',
       rooms: [for (var vIndex = 0; vIndex < 8; vIndex++) rectangleRoom().copyWith(id: 'p$vIndex')],
     );
-    final vTool = purchaseCheck(vSite).tools.singleWhere((pTool) => pTool.task == ToolTask.mitreCuts);
+    final vTool = purchaseCheck(
+      vSite,
+    ).tools.singleWhere((pTool) => pTool.task == ToolTask.mitreCuts);
 
     expect(vTool.choice, ToolChoice.rent);
     expect(vTool.days, greaterThanOrEqualTo(3));

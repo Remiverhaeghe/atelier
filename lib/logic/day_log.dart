@@ -99,5 +99,6 @@ List<DayNote> withDayNote(List<DayNote> pNotes, DayNote pNote) {
 }
 
 /// Jours où l'on a travaillé : au moins une minute, ou une note.
-int daysWorked(List<DayLine> pLines) =>
-    pLines.where((pLine) => pLine.minutes > 0 || pLine.done.isNotEmpty || pLine.works.isNotEmpty).length;
+int daysWorked(List<DayLine> pLines) => pLines
+    .where((pLine) => pLine.minutes > 0 || pLine.done.isNotEmpty || pLine.works.isNotEmpty)
+    .length;

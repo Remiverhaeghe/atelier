@@ -54,7 +54,11 @@ void main() {
     expect(String.fromCharCodes(vBytes.take(5)), '%PDF-');
     expect(vRead, ['abimee.png', 'ok.png']);
     // Sans contrainte ni photo ni contenu, la fiche se fait quand même
-    final vEmpty = await buildProBriefPdf(AppLocalizationsFr(), rectangleRoom(), pTrade: 'Plomberie');
+    final vEmpty = await buildProBriefPdf(
+      AppLocalizationsFr(),
+      rectangleRoom(),
+      pTrade: 'Plomberie',
+    );
     expect(String.fromCharCodes(vEmpty.take(5)), '%PDF-');
   });
 

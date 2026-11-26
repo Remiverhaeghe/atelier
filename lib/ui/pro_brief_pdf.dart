@@ -55,7 +55,9 @@ Future<Uint8List> buildProBriefPdf(
         pw.Header(level: 0, text: pText.proBriefTitle(pRoom.name)),
         pw.Paragraph(text: pText.proBriefTrade(pTrade)),
         pw.Header(level: 1, text: pText.proBriefConstraints),
-        pw.Paragraph(text: pConstraints.trim().isEmpty ? pText.proBriefNoConstraints : pConstraints),
+        pw.Paragraph(
+          text: pConstraints.trim().isEmpty ? pText.proBriefNoConstraints : pConstraints,
+        ),
         pw.Header(level: 1, text: pText.proBriefMeasures),
         ...roomSheetGeometry(pText, pRoom),
         if (vFixtures.isNotEmpty) ...[

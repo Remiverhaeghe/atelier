@@ -137,9 +137,7 @@ class RemindersCard extends StatelessWidget {
                   ].where((pPart) => pPart.isNotEmpty).join(', '),
                 ),
                 subtitle: Text(
-                  hoursLeft(vReminder, now) == 0
-                      ? vText.reminderReady
-                      : _left(vText, vReminder),
+                  hoursLeft(vReminder, now) == 0 ? vText.reminderReady : _left(vText, vReminder),
                 ),
                 trailing: IconButton(
                   tooltip: vText.delete,
@@ -324,9 +322,8 @@ class _MaintenanceDialogState extends State<_MaintenanceDialog> {
                 value: _chosen.contains(vTask),
                 title: Text(maintenanceLabel(vText, vTask)),
                 subtitle: Text(vText.maintenanceEvery(vTask.months)),
-                onChanged: (pOn) => setState(
-                  () => pOn ?? false ? _chosen.add(vTask) : _chosen.remove(vTask),
-                ),
+                onChanged: (pOn) =>
+                    setState(() => pOn ?? false ? _chosen.add(vTask) : _chosen.remove(vTask)),
               ),
             if (widget.worksite.rooms.isNotEmpty)
               DropdownButtonFormField<String?>(

@@ -92,9 +92,7 @@ void main() {
 
   testWidgets('journal quotidien', (pTester) async {
     tallScreen(pTester);
-    await pTester.pumpWidget(
-      localized(DayLogScreen(controller: await vSite(), worksiteId: 'w')),
-    );
+    await pTester.pumpWidget(localized(DayLogScreen(controller: await vSite(), worksiteId: 'w')));
     await pTester.pumpAndSettle();
     await _checkGuidelines(pTester);
   });

@@ -84,16 +84,16 @@ class _TilingCalculatorState extends State<TilingCalculator> {
             label: vText.tilingChart(_patternName(vText, _design.pattern), vNeeds.tiles),
             image: true,
             child: SizedBox(
-            height: 220,
-            child: CustomPaint(
-              size: Size.infinite,
-              painter: _TilingPainter(
-                design: _design,
-                needs: vNeeds,
-                colors: AtelierColors.of(context),
+              height: 220,
+              child: CustomPaint(
+                size: Size.infinite,
+                painter: _TilingPainter(
+                  design: _design,
+                  needs: vNeeds,
+                  colors: AtelierColors.of(context),
+                ),
               ),
             ),
-          ),
           ),
           const SizedBox(height: 12),
           Card(

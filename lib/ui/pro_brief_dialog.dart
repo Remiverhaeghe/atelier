@@ -5,11 +5,10 @@ import '../logic/trades.dart';
 import 'trades_screen.dart' show tradeName;
 
 /// Travaux qu'on confie : tous ceux qui ne sont pas de niveau facile, du plus délicat au moins.
-List<Trade> tradesToHandOver() =>
-    [
-      for (final vTrade in Trade.values)
-        if (vTrade.level != TradeLevel.easy) vTrade,
-    ]..sort((pA, pB) => pB.level.index.compareTo(pA.level.index));
+List<Trade> tradesToHandOver() => [
+  for (final vTrade in Trade.values)
+    if (vTrade.level != TradeLevel.easy) vTrade,
+]..sort((pA, pB) => pB.level.index.compareTo(pA.level.index));
 
 /// Choix du métier et des contraintes à écrire sur la fiche ; null si on annule.
 Future<({Trade trade, String constraints})?> askProBrief(BuildContext pContext) =>

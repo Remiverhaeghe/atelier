@@ -34,13 +34,18 @@ void main() {
 
   test('les heures saisies à la main passent avant le chronomètre', () {
     final vLines = dayLines(
-      notes: const [DayNote(day: '2026-11-10', done: 'Ponçage', minutes: 200, photoPath: '/p/a.jpg')],
+      notes: const [
+        DayNote(day: '2026-11-10', done: 'Ponçage', minutes: 200, photoPath: '/p/a.jpg'),
+      ],
       timeEntries: vTime,
       journal: vJournal,
     );
     final vDay = vLines.last;
 
-    expect((vDay.minutes, vDay.minutesTyped, vDay.done, vDay.photoPath), (200, true, 'Ponçage', '/p/a.jpg'));
+    expect(
+      (vDay.minutes, vDay.minutesTyped, vDay.done, vDay.photoPath),
+      (200, true, 'Ponçage', '/p/a.jpg'),
+    );
   });
 
   test('une note remplace celle du même jour ; une note vide est retirée', () {
@@ -56,7 +61,9 @@ void main() {
     final vSite = Worksite(
       id: 'w',
       name: 'Maison',
-      dayNotes: const [DayNote(day: '2026-11-10', done: 'Ponçage', minutes: 90, photoPath: '/p.jpg')],
+      dayNotes: const [
+        DayNote(day: '2026-11-10', done: 'Ponçage', minutes: 90, photoPath: '/p.jpg'),
+      ],
     );
     final vBack = Worksite.fromJson(vSite.toJson());
 
