@@ -14,7 +14,7 @@ Suite des évolutions décidées le 26 novembre 2026, dans l'ordre. Cocher au fi
 - [x] Journal de chantier quotidien
 - [x] Mode « grosses mains » (gros boutons, balayage, minuteur de séchage)
 - [x] Contrôle avant achat ou location
-- [ ] Fiche « à confier à un pro »
+- [x] Fiche « à confier à un pro »
 - [ ] Rappels d'entretien après travaux
 - [ ] Revue d'accessibilité
 

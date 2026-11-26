@@ -23,6 +23,57 @@ Future<Uint8List> buildRoomSheetPdf(
   Uint8List? Function(String pPath) pPhotos = readPhoto,
 }) async {
   final vDocument = pw.Document(title: pText.roomSheetTitle(pRoom.name), theme: await pdfTheme());
+  vDocument.addPage(
+    pw.MultiPage(
+      pageFormat: PdfPageFormat.a4,
+      build: (_) => [
+        pw.Header(level: 0, text: pText.roomSheetTitle(pRoom.name)),
+        ...roomSheetGeometry(pText, pRoom),
+        pw.Header(level: 1, text: pText.roomSheetTouchUps),
+        if (pRoom.touchUps.isEmpty) pw.Paragraph(text: pText.roomSheetNoTouchUps),
+        for (final (vIndex, vTouchUp) in pRoom.touchUps.indexed)
+          pw.Padding(
+            padding: const pw.EdgeInsets.only(bottom: 6),
+            child: pw.Row(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Text(vTouchUp.done ? '[x] ' : '[  ] '),
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(
+                        '${vIndex + 1}. ${vTouchUp.label}',
+                        style: const pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                      ),
+                      pw.Text(
+                        pText.roomSheetPasses(
+                          vTouchUp.donePasses.toString(),
+                          vTouchUp.passes.toString(),
+                        ),
+                      ),
+                      if (vTouchUp.note.isNotEmpty) pw.Text(vTouchUp.note),
+                      if (vTouchUp.toBuy.isNotEmpty) pw.Text(pText.roomSheetToBuy(vTouchUp.toBuy)),
+                      if (_photo(vTouchUp.photoPath, vTouchUp.photoMarks, pPhotos)
+                          case final vPhoto?)
+                        pw.Padding(padding: const pw.EdgeInsets.only(top: 4), child: vPhoto),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ...climateSheetSection(pText, pRoom.climate),
+      ],
+    ),
+  );
+
+  return vDocument.save();
+}
+
+/// Plan coté, hauteur, surface, rampants et tableau des murs avec leurs ouvertures : ce qui
+/// décrit la pièce, repris par la fiche de la pièce et la fiche à remettre à un artisan.
+List<pw.Widget> roomSheetGeometry(AppLocalizations pText, Room pRoom) {
   final vCount = pRoom.walls.length;
   String vCorner(int pIndex) => String.fromCharCode(65 + pIndex % math.max(vCount, 1));
   String vKind(OpeningKind pKind) => switch (pKind) {
@@ -36,11 +87,7 @@ Future<Uint8List> buildRoomSheetPdf(
     formatCentimetres(pSlope.runMm),
   );
 
-  vDocument.addPage(
-    pw.MultiPage(
-      pageFormat: PdfPageFormat.a4,
-      build: (_) => [
-        pw.Header(level: 0, text: pText.roomSheetTitle(pRoom.name)),
+  return [
         if (vCount >= 3) ...[
           pw.Paragraph(text: pText.roomSheetHelp),
           pw.Center(child: _plan(pRoom)),
@@ -88,46 +135,7 @@ Future<Uint8List> buildRoomSheetPdf(
             ],
           ),
         ],
-        pw.Header(level: 1, text: pText.roomSheetTouchUps),
-        if (pRoom.touchUps.isEmpty) pw.Paragraph(text: pText.roomSheetNoTouchUps),
-        for (final (vIndex, vTouchUp) in pRoom.touchUps.indexed)
-          pw.Padding(
-            padding: const pw.EdgeInsets.only(bottom: 6),
-            child: pw.Row(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Text(vTouchUp.done ? '[x] ' : '[  ] '),
-                pw.Expanded(
-                  child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text(
-                        '${vIndex + 1}. ${vTouchUp.label}',
-                        style: const pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                      ),
-                      pw.Text(
-                        pText.roomSheetPasses(
-                          vTouchUp.donePasses.toString(),
-                          vTouchUp.passes.toString(),
-                        ),
-                      ),
-                      if (vTouchUp.note.isNotEmpty) pw.Text(vTouchUp.note),
-                      if (vTouchUp.toBuy.isNotEmpty) pw.Text(pText.roomSheetToBuy(vTouchUp.toBuy)),
-                      if (_photo(vTouchUp.photoPath, vTouchUp.photoMarks, pPhotos)
-                          case final vPhoto?)
-                        pw.Padding(padding: const pw.EdgeInsets.only(top: 4), child: vPhoto),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ...climateSheetSection(pText, pRoom.climate),
-      ],
-    ),
-  );
-
-  return vDocument.save();
+  ];
 }
 
 /// Largeur d'une photo de reprise sur la fiche, en points.

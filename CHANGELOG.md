@@ -7,6 +7,7 @@
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
 
 ### Ajouté
+- Fiche « à confier à un pro » depuis la pièce : métier, contraintes à signaler, plan et mesures, éléments de la pièce et photos du carnet, en PDF à remettre à l'artisan
 - Contrôle avant achat en tête de la liste de courses : articles déjà en stock (avec la valeur évitée si les prix sont saisis) et, pour les plinthes et le parquet prévus, l'outil à louer plutôt qu'acheter, ou l'inverse, avec l'économie estimée
 - Mode atelier : un minuteur de séchage lié à l'étape (15 min à 24 h, temps restant sur l'étape et dans la liste, vibration à la fin) et le balayage du doigt pour passer d'une étape à l'autre
 - Carrelage et mosaïque : sept poses (droite, décalée ½ ou ⅓, diagonale, chevrons, hexagones, plaques de mosaïque) dessinées dans le contour de la pièce choisie, avec la perte de coupe propre à chaque pose et le nombre de plaques de mosaïque
