@@ -121,8 +121,6 @@ void main() {
       await pTester.pumpWidget(ecran([(name: 'Salle de bain', log: suivi(72))]));
       await pTester.tap(find.text('Comparer avec une autre pièce'));
       await pTester.pumpAndSettle();
-      await pTester.tap(find.text('Salle de bain'));
-      await pTester.pumpAndSettle();
 
       expect(find.textContaining('Cette pièce : 50 % en moyenne'), findsOneWidget);
       expect(find.textContaining('Salle de bain : 72 % en moyenne'), findsOneWidget);
@@ -137,12 +135,23 @@ void main() {
       expect(find.text('Comparer avec une autre pièce'), findsOneWidget);
     });
 
+    testWidgets('plusieurs autres pièces : on choisit laquelle comparer', (pTester) async {
+      tallScreen(pTester);
+      await pTester.pumpWidget(
+        ecran([(name: 'Garage', log: suivi(30)), (name: 'Cave', log: suivi(80))]),
+      );
+      await pTester.tap(find.text('Comparer avec une autre pièce'));
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('Cave'));
+      await pTester.pumpAndSettle();
+
+      expect(find.textContaining('Cave : 80 % en moyenne'), findsOneWidget);
+    });
+
     testWidgets('l\'autre pièce plus sèche', (pTester) async {
       tallScreen(pTester);
       await pTester.pumpWidget(ecran([(name: 'Garage', log: suivi(30))]));
       await pTester.tap(find.text('Comparer avec une autre pièce'));
-      await pTester.pumpAndSettle();
-      await pTester.tap(find.text('Garage'));
       await pTester.pumpAndSettle();
 
       expect(find.textContaining('Garage : plus sèche de 20 points'), findsOneWidget);
@@ -153,8 +162,6 @@ void main() {
       await pTester.pumpWidget(ecran([(name: 'Bureau', log: suivi(51))]));
       await pTester.tap(find.text('Comparer avec une autre pièce'));
       await pTester.pumpAndSettle();
-      await pTester.tap(find.text('Bureau'));
-      await pTester.pumpAndSettle();
 
       expect(find.textContaining('Même humidité dans les deux pièces'), findsOneWidget);
     });
@@ -163,8 +170,6 @@ void main() {
       tallScreen(pTester);
       await pTester.pumpWidget(ecran([(name: 'Cave', log: suivi(80, pFrom: 20))]));
       await pTester.tap(find.text('Comparer avec une autre pièce'));
-      await pTester.pumpAndSettle();
-      await pTester.tap(find.text('Cave'));
       await pTester.pumpAndSettle();
 
       expect(find.textContaining('aucun jour relevé en même temps'), findsOneWidget);

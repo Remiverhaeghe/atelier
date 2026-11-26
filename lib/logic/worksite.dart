@@ -1,6 +1,7 @@
 /// Chantier : un nom et des pièces.
 library;
 
+import 'day_log.dart';
 import 'expenses.dart';
 import 'extra_items.dart';
 import 'goals.dart';
@@ -33,6 +34,7 @@ class Worksite {
     this.timeEntries = const [],
     this.timer,
     this.journal = const [],
+    this.dayNotes = const [],
     this.lessons = const [],
     this.reminders = const [],
     this.monthlyBudget,
@@ -90,6 +92,9 @@ class Worksite {
   /// Carnet de la maison : travaux faits, produits, photos et factures.
   final List<JournalEntry> journal;
 
+  /// Notes du journal quotidien (un jour = une note).
+  final List<DayNote> dayNotes;
+
   /// Leçons notées au bilan, à relire avant le prochain chantier.
   final List<String> lessons;
 
@@ -134,6 +139,7 @@ class Worksite {
     RunningTimer? timer,
     bool clearTimer = false,
     List<JournalEntry>? journal,
+    List<DayNote>? dayNotes,
     List<String>? lessons,
     List<Reminder>? reminders,
     double? monthlyBudget,
@@ -161,6 +167,7 @@ class Worksite {
     timeEntries: timeEntries ?? this.timeEntries,
     timer: clearTimer ? null : timer ?? this.timer,
     journal: journal ?? this.journal,
+    dayNotes: dayNotes ?? this.dayNotes,
     lessons: lessons ?? this.lessons,
     reminders: reminders ?? this.reminders,
     monthlyBudget: monthlyBudget ?? this.monthlyBudget,
@@ -190,6 +197,7 @@ class Worksite {
     if (timeEntries.isNotEmpty) 'timeEntries': [for (final vEntry in timeEntries) vEntry.toJson()],
     if (timer != null) 'timer': timer!.toJson(),
     if (journal.isNotEmpty) 'journal': [for (final vEntry in journal) vEntry.toJson()],
+    if (dayNotes.isNotEmpty) 'dayNotes': [for (final vNote in dayNotes) vNote.toJson()],
     if (lessons.isNotEmpty) 'lessons': lessons,
     if (reminders.isNotEmpty) 'reminders': [for (final vReminder in reminders) vReminder.toJson()],
     if (monthlyBudget != null) 'monthlyBudget': monthlyBudget,
@@ -250,6 +258,10 @@ class Worksite {
     journal: [
       for (final vEntry in (pJson['journal'] as List<Object?>?) ?? const [])
         JournalEntry.fromJson(vEntry! as Map<String, Object?>),
+    ],
+    dayNotes: [
+      for (final vNote in (pJson['dayNotes'] as List<Object?>?) ?? const [])
+        DayNote.fromJson(vNote! as Map<String, Object?>),
     ],
     lessons: [
       for (final vLesson in (pJson['lessons'] as List<Object?>?) ?? const []) vLesson! as String,

@@ -8,6 +8,8 @@
 
 ### Ajouté
 - Carrelage et mosaïque : sept poses (droite, décalée ½ ou ⅓, diagonale, chevrons, hexagones, plaques de mosaïque) dessinées dans le contour de la pièce choisie, avec la perte de coupe propre à chaque pose et le nombre de plaques de mosaïque
+- Journal de chantier quotidien : une ligne par jour avec les heures (reprises du chronomètre si on ne les tape pas), ce qui est fait et une photo ; les travaux du carnet s'y inscrivent tout seuls, et le bilan du chantier compte les jours travaillés
+- Comparer l'humidité de deux pièces en un geste quand le chantier n'a qu'une autre pièce suivie
 - Plinthes : « Moins de barres » est activé par défaut sur une pièce neuve ; une pièce déjà enregistrée garde ses morceaux égaux
 - Plinthes : réglage « Moins de barres » (barres entières puis un reste, au lieu de morceaux égaux) : la pièce de 4 × 3 m passe de 8 à 6 barres, avec un joint à une longueur de barre du coin ; un reste de moins de 30 cm ramène aux morceaux égaux
 

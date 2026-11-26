@@ -1,6 +1,7 @@
 /// Bilan de fin de chantier : coût prévu et réel, temps, chutes gardées, reprises et leçons.
 library;
 
+import 'day_log.dart';
 import 'expenses.dart';
 import 'planning.dart';
 import 'shopping.dart';
@@ -18,6 +19,7 @@ typedef WorksiteReview = ({
   int touchUpsDone,
   int touchUpsTotal,
   int journalEntries,
+  int daysWorked,
 });
 
 /// Bilan chiffré du chantier ; le dépassement n'a de sens qu'avec un budget prévu.
@@ -46,6 +48,13 @@ WorksiteReview reviewWorksite(Worksite pWorksite) {
     touchUpsDone: vTouchUps.where((pTouchUp) => pTouchUp.done).length,
     touchUpsTotal: vTouchUps.length,
     journalEntries: pWorksite.journal.length,
+    daysWorked: daysWorked(
+      dayLines(
+        notes: pWorksite.dayNotes,
+        timeEntries: pWorksite.timeEntries,
+        journal: pWorksite.journal,
+      ),
+    ),
   );
 
   return rReview;
