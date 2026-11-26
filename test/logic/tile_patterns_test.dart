@@ -65,7 +65,8 @@ void main() {
 
     expect(vHexagon, hasLength(6));
     final vSides = [
-      for (var vIndex = 0; vIndex < 6; vIndex++) vHexagon[vIndex].distanceTo(vHexagon[(vIndex + 1) % 6]),
+      for (var vIndex = 0; vIndex < 6; vIndex++)
+        vHexagon[vIndex].distanceTo(vHexagon[(vIndex + 1) % 6]),
     ];
     for (final vSide in vSides) {
       expect(vSide, closeTo(vSides.first, 0.001));
@@ -75,7 +76,12 @@ void main() {
   test('dimensions fausses ou trop de carreaux : rien n\'est dessiné', () {
     expect(tileShapes(TilePattern.straight, 0, 2000, _gauge), isEmpty);
     expect(
-      tileShapes(TilePattern.mosaic, 3000, 2000, (lengthMm: 600, widthMm: 0, jointMm: 3, sheetMm: 300)),
+      tileShapes(TilePattern.mosaic, 3000, 2000, (
+        lengthMm: 600,
+        widthMm: 0,
+        jointMm: 3,
+        sheetMm: 300,
+      )),
       isEmpty,
     );
     expect(
@@ -90,8 +96,14 @@ void main() {
   });
 
   test('la perte de coupe recommandée est plus forte en diagonale qu\'en pose droite', () {
-    expect(recommendedWastePercent(TilePattern.diagonal), greaterThan(recommendedWastePercent(TilePattern.straight)));
-    expect(recommendedWastePercent(TilePattern.mosaic), lessThan(recommendedWastePercent(TilePattern.hexagon)));
+    expect(
+      recommendedWastePercent(TilePattern.diagonal),
+      greaterThan(recommendedWastePercent(TilePattern.straight)),
+    );
+    expect(
+      recommendedWastePercent(TilePattern.mosaic),
+      lessThan(recommendedWastePercent(TilePattern.hexagon)),
+    );
   });
 
   test('plaques de mosaïque : le nombre se déduit de la surface avec la perte', () {

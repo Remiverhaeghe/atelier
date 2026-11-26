@@ -54,12 +54,7 @@ bool _touches(TileShape pShape, double pLength, double pWidth) {
 /// Carreaux (polygones, en mm) qui recouvrent un rectangle de [pLengthMm] sur [pWidthMm]
 /// à partir du coin (0, 0). Ils débordent du rectangle : le dessin les découpe au contour.
 /// Liste vide si les dimensions sont fausses ou si les carreaux seraient trop nombreux.
-List<TileShape> tileShapes(
-  TilePattern pPattern,
-  int pLengthMm,
-  int pWidthMm,
-  TileGauge pGauge,
-) {
+List<TileShape> tileShapes(TilePattern pPattern, int pLengthMm, int pWidthMm, TileGauge pGauge) {
   if (pLengthMm <= 0 || pWidthMm <= 0 || pGauge.lengthMm <= 0 || pGauge.widthMm <= 0) {
     return const [];
   }

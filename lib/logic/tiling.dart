@@ -49,12 +49,8 @@ class TilingDesign {
   /// Contour de la pièce, dans le repère du plan ; vide pour un simple rectangle.
   final List<PlanPoint> outline;
 
-  TileGauge get gauge => (
-    lengthMm: tileLengthMm,
-    widthMm: tileWidthMm,
-    jointMm: jointMm,
-    sheetMm: sheetMm,
-  );
+  TileGauge get gauge =>
+      (lengthMm: tileLengthMm, widthMm: tileWidthMm, jointMm: jointMm, sheetMm: sheetMm);
 
   TilingDesign copyWith({
     int? lengthMm,

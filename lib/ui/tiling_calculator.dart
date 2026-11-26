@@ -257,7 +257,8 @@ class _TilingPainter extends CustomPainter {
 
   /// Poses autres que droite, ou pièce non rectangulaire : tous les carreaux, découpés au contour.
   void _paintPattern(Canvas pCanvas, double pScale, double pLeft, double pTop) {
-    Offset vToScreen(PlanPoint pPoint) => Offset(pLeft + pPoint.x * pScale, pTop + pPoint.y * pScale);
+    Offset vToScreen(PlanPoint pPoint) =>
+        Offset(pLeft + pPoint.x * pScale, pTop + pPoint.y * pScale);
     final vOutline = design.outline.length >= 3
         ? design.outline
         : [
@@ -276,7 +277,10 @@ class _TilingPainter extends CustomPainter {
     );
     final vFill = Paint()..color = colors.grid;
     for (final vShape in vShapes) {
-      pCanvas.drawPath(Path()..addPolygon([for (final vPoint in vShape) vToScreen(vPoint)], true), vFill);
+      pCanvas.drawPath(
+        Path()..addPolygon([for (final vPoint in vShape) vToScreen(vPoint)], true),
+        vFill,
+      );
     }
     pCanvas.restore();
     pCanvas.drawPath(
