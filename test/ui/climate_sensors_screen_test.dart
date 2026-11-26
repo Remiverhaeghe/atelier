@@ -2,7 +2,6 @@ import 'package:atelier/logic/room.dart';
 import 'package:atelier/logic/worksite.dart';
 import 'package:atelier/state/worksites_controller.dart';
 import 'package:atelier/ui/climate_sensors_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/localized.dart';
