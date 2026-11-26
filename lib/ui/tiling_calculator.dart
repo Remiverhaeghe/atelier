@@ -80,7 +80,10 @@ class _TilingCalculatorState extends State<TilingCalculator> {
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
           RoomSourcePicker(rooms: widget.rooms, value: _room?.id, onChanged: _fromRoom),
-          SizedBox(
+          Semantics(
+            label: vText.tilingChart(_patternName(vText, _design.pattern), vNeeds.tiles),
+            image: true,
+            child: SizedBox(
             height: 220,
             child: CustomPaint(
               size: Size.infinite,
@@ -90,6 +93,7 @@ class _TilingCalculatorState extends State<TilingCalculator> {
                 colors: AtelierColors.of(context),
               ),
             ),
+          ),
           ),
           const SizedBox(height: 12),
           Card(

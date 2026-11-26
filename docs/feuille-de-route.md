@@ -16,7 +16,7 @@ Suite des évolutions décidées le 26 novembre 2026, dans l'ordre. Cocher au fi
 - [x] Contrôle avant achat ou location
 - [x] Fiche « à confier à un pro »
 - [x] Rappels d'entretien après travaux
-- [ ] Revue d'accessibilité
+- [x] Revue d'accessibilité (plans décrits au lecteur d'écran, contrôles automatiques et texte à 200 % sur les écrans récents)
 
 ## Tremplin
 
