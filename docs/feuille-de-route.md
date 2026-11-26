@@ -15,7 +15,7 @@ Suite des évolutions décidées le 26 novembre 2026, dans l'ordre. Cocher au fi
 - [x] Mode « grosses mains » (gros boutons, balayage, minuteur de séchage)
 - [x] Contrôle avant achat ou location
 - [x] Fiche « à confier à un pro »
-- [ ] Rappels d'entretien après travaux
+- [x] Rappels d'entretien après travaux
 - [ ] Revue d'accessibilité
 
 ## Tremplin

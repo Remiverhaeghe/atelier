@@ -7,6 +7,7 @@
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
 
 ### Ajouté
+- Entretien après travaux : des rappels loin dans le temps (silicone, joints de carrelage, parquet, mastic des fenêtres, lasure, filtres de ventilation) posés dans la carte Rappels du chantier, avec notification, et des délais dits en jours ou en mois
 - Fiche « à confier à un pro » depuis la pièce : métier, contraintes à signaler, plan et mesures, éléments de la pièce et photos du carnet, en PDF à remettre à l'artisan
 - Contrôle avant achat en tête de la liste de courses : articles déjà en stock (avec la valeur évitée si les prix sont saisis) et, pour les plinthes et le parquet prévus, l'outil à louer plutôt qu'acheter, ou l'inverse, avec l'économie estimée
 - Mode atelier : un minuteur de séchage lié à l'étape (15 min à 24 h, temps restant sur l'étape et dans la liste, vibration à la fin) et le balayage du doigt pour passer d'une étape à l'autre
