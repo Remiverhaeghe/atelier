@@ -29,7 +29,7 @@ import 'pro_brief_pdf.dart';
 import 'quick_walls_screen.dart';
 import 'room_sketch_screen.dart';
 import 'room_3d_card.dart';
-import 'room_plan.dart';
+import 'room_plan_switcher.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
 import 'trace_screen.dart';
@@ -348,7 +348,7 @@ class RoomWallsView extends StatelessWidget {
     final vWide = isWideWidth(MediaQuery.sizeOf(context).width) && room.walls.isNotEmpty;
     final vPlan = Padding(
       padding: const EdgeInsets.all(16),
-      child: RoomPlan(room: room),
+      child: RoomPlanSwitcher(room: room),
     );
     final vList = ListView(
       padding: const EdgeInsets.only(bottom: 96),

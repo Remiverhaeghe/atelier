@@ -64,6 +64,7 @@ class RoomPlan extends StatelessWidget {
     this.markers = const [],
     this.onTapPlan,
     this.wallNumbers = true,
+    this.simple = false,
   });
 
   final Room room;
@@ -74,6 +75,10 @@ class RoomPlan extends StatelessWidget {
 
   /// Pastilles des numéros de mur ; masquées quand les repères des reprises en portent déjà.
   final bool wallNumbers;
+
+  /// Plan allégé : murs, ouvertures et cotes seulement, sans quadrillage, éléments fixes, meubles
+  /// ni lettres de coins.
+  final bool simple;
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +99,7 @@ class RoomPlan extends StatelessWidget {
       compact: compact,
       markers: markers,
       wallNumbers: wallNumbers,
+      simple: simple,
       markerColor: vTheme.colorScheme.error,
       doneColor: vTheme.colorScheme.primary,
     );
@@ -154,6 +160,7 @@ class _RoomPlanPainter extends CustomPainter {
     required this.compact,
     required this.markers,
     required this.wallNumbers,
+    required this.simple,
     required this.markerColor,
     required this.doneColor,
     this.highlightWall,
@@ -161,6 +168,7 @@ class _RoomPlanPainter extends CustomPainter {
 
   final List<PlanMarker> markers;
   final bool wallNumbers;
+  final bool simple;
   final Color markerColor;
   final Color doneColor;
   final Room room;
@@ -184,7 +192,7 @@ class _RoomPlanPainter extends CustomPainter {
     final vScale = vFrame.scale;
     Offset vAt(double pX, double pY) => vFrame.toScreen(pX, pY);
 
-    if (!compact) {
+    if (!compact && !simple) {
       _paintGrid(pCanvas, pSize, vAt(vFrame.minX, vFrame.minY), 1000 * vScale);
     }
 
@@ -291,7 +299,7 @@ class _RoomPlanPainter extends CustomPainter {
 
       if (!compact) {
         final vMiddle = vLength / 2;
-        if (wallNumbers) {
+        if (wallNumbers && !simple) {
           _paintNumber(pCanvas, vAlong(vMiddle, 26 / vScale), '${vIndex + 1}', vHighlighted);
         }
         _paintTape(
@@ -302,12 +310,12 @@ class _RoomPlanPainter extends CustomPainter {
       }
     }
 
-    for (final vFixture in room.fixtures) {
+    for (final vFixture in simple ? const <Fixture>[] : room.fixtures) {
       _paintFixture(pCanvas, vFixture, vAt);
     }
 
     // Meubles à l'échelle, et le débattement des portes pour voir ce qui gêne
-    if (room.furniture.isNotEmpty && !compact) {
+    if (room.furniture.isNotEmpty && !compact && !simple) {
       for (var vWall = 0; vWall < room.walls.length; vWall++) {
         for (final vDoor in room.walls[vWall].openings.where(
           (pOpening) => pOpening.kind == OpeningKind.door,
@@ -333,7 +341,7 @@ class _RoomPlanPainter extends CustomPainter {
         }
       }
     }
-    for (final vItem in room.furniture) {
+    for (final vItem in room.furniture.where((pItem) => !simple)) {
       final vPath = Path()
         ..addPolygon([for (final vCorner in vItem.corners) vAt(vCorner.x, vCorner.y)], true);
       pCanvas.drawPath(vPath, Paint()..color = colors.wood.withValues(alpha: 0.8));
@@ -346,7 +354,7 @@ class _RoomPlanPainter extends CustomPainter {
       );
     }
 
-    if (!compact && wallNumbers) {
+    if (!compact && !simple && wallNumbers) {
       // Lettres des coins, reprises dans la saisie guidée : « du coin A au coin B ».
       // Une pièce qui se referme ne répète pas le coin A à la fin du dernier mur.
       final vLast = room.closed && room.walls.length >= 3 && closesProperly(room)
@@ -610,5 +618,6 @@ class _RoomPlanPainter extends CustomPainter {
       pOld.markers != markers ||
       pOld.colors != colors ||
       pOld.compact != compact ||
-      pOld.unit != unit;
+      pOld.unit != unit ||
+      pOld.simple != simple;
 }

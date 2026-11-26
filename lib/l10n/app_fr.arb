@@ -910,6 +910,8 @@
   "sensorsNoRoom": "{sensor} : aucune pièce de ce nom, choisissez laquelle",
   "@sensorsNoRoom": {"placeholders": {"sensor": {"type": "String"}}},
   "sensorsPickRoom": "Choisir la pièce",
+  "planSimple": "Simple",
+  "planFull": "Complet",
   "dayLogMenu": "Journal quotidien",
   "dayLogTitle": "Journal de chantier",
   "dayLogToday": "Noter aujourd'hui",
