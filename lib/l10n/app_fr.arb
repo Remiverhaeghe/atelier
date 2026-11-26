@@ -787,6 +787,9 @@
       "angles": {"type": "String"}
     }
   },
+  "nextCutTitle": "Prochaine coupe",
+  "nextCutDone": "Coupée, suivante",
+  "allCutDone": "Toutes les pièces sont coupées.",
   "closureGap": "Le contour ne se referme pas : il manque {gap} cm. Vérifie une longueur ou un angle.",
   "@closureGap": {
     "placeholders": {

@@ -109,6 +109,14 @@ class _BaseboardViewState extends State<BaseboardView> {
             ),
           ),
         ),
+        _NextCut(
+          pieces: vPieces,
+          done: _room.cutPieces,
+          onCut: (pIndex) {
+            setState(() => _highlight = vPieces[pIndex].wallNumber - 1);
+            _toggle(pIndex, true);
+          },
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -227,6 +235,54 @@ class _BaseboardViewState extends State<BaseboardView> {
             ),
           ),
       ],
+    );
+  }
+}
+
+/// La seule pièce à couper maintenant : longueur, deux coupes, dessin et un bouton.
+class _NextCut extends StatelessWidget {
+  const _NextCut({required this.pieces, required this.done, required this.onCut});
+
+  final List<BaseboardPiece> pieces;
+  final List<int> done;
+  final ValueChanged<int> onCut;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+    final vTheme = Theme.of(context);
+    final vNext = [for (var vIndex = 0; vIndex < pieces.length; vIndex++) vIndex].where(
+      (pIndex) => !done.contains(pIndex),
+    );
+
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: vNext.isEmpty
+            ? IconLine(Icons.check_circle_outline, vText.allCutDone)
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(vText.nextCutTitle, style: vTheme.textTheme.titleMedium),
+                  BigFigure('${formatCentimetres(pieces[vNext.first].lengthMm)} ${vText.unitCm}'),
+                  Text(
+                    vText.pieceCuts(
+                      cutLabel(vText, pieces[vNext.first].startCut),
+                      cutLabel(vText, pieces[vNext.first].endCut),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  CutDiagram(piece: pieces[vNext.first]),
+                  const SizedBox(height: 8),
+                  FilledButton.icon(
+                    onPressed: () => onCut(vNext.first),
+                    icon: const Icon(Icons.content_cut),
+                    label: Text(vText.nextCutDone),
+                  ),
+                ],
+              ),
+      ),
     );
   }
 }

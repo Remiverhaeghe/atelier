@@ -454,6 +454,9 @@
       "angles": {"type": "String"}
     }
   },
+  "nextCutTitle": "Next cut",
+  "nextCutDone": "Cut, next one",
+  "allCutDone": "All pieces are cut.",
   "closureGap": "The outline doesn't close: {gap} cm are missing. Check a length or an angle.",
   "totalArea": "{area} m²",
   "areaSummary": "Floor area: {area} m²",
