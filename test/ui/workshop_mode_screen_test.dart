@@ -141,7 +141,7 @@ void main() {
 
     await pTester.tap(find.text('1 h'));
     await pTester.pump();
-    expect(find.text('Séchage : encore 60:00'), findsOneWidget);
+    expect(find.text('Séchage : encore 1:00:00'), findsOneWidget);
 
     vNow = vNow.add(const Duration(minutes: 20));
     await pTester.pump(const Duration(seconds: 1));
