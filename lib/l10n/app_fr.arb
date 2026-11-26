@@ -781,6 +781,12 @@
   "invalidAngle": "Angle entre 1 et 359°.",
   "roomClosed": "Pièce fermée (le dernier mur rejoint le premier)",
   "closureOk": "Le contour se referme : les mesures sont cohérentes.",
+  "cornersFitted": "Les coins ne sont pas droits : angles calculés tout seuls à partir des quatre murs ({angles}).",
+  "@cornersFitted": {
+    "placeholders": {
+      "angles": {"type": "String"}
+    }
+  },
   "closureGap": "Le contour ne se referme pas : il manque {gap} cm. Vérifie une longueur ou un angle.",
   "@closureGap": {
     "placeholders": {
@@ -1333,7 +1339,7 @@
   "diagonalOpposite": "Murs {first} et {second} : {gap} cm d'écart alors que la pièce est saisie d'équerre. Remesurez-les, ou mesurez la diagonale pour trouver les vrais angles.",
   "@diagonalOpposite": {"placeholders": {"first": {"type": "int"}, "second": {"type": "int"}, "gap": {"type": "String"}}},
   "diagonalMeasured": "Diagonale mesurée",
-  "diagonalPlan": "D'après le plan : {length} cm",
+  "diagonalPlan": "D'après le plan : {length}",
   "@diagonalPlan": {"placeholders": {"length": {"type": "String"}}},
   "diagonalOk": "Le plan et la pièce concordent.",
   "diagonalGap": "{gap} cm d'écart : un angle n'est pas celui saisi, ou une longueur est fausse.",

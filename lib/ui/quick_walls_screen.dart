@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../logic/auto_corners.dart';
 import '../logic/geometry.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
@@ -87,7 +88,7 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
   }
 
   /// Murs lisibles des lignes ; une ligne vide ou fausse est laissée de côté.
-  List<Wall> _walls() => [
+  List<Wall> _typedWalls() => [
     for (final vRow in _rows)
       if (_length(vRow) case final int vLength when vLength > 0)
         vRow.wall.copyWith(
@@ -118,11 +119,16 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
     }
   }
 
+  String _fittedSummary(List<Wall> pWalls) =>
+      pWalls.map((pWall) => '${pWall.angleToNextDeg.toStringAsFixed(1)}°').join(' · ');
+
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
-    final vWalls = _walls();
+    final vTyped = _typedWalls();
+    final vWalls = withFittedCorners(vTyped);
+    final vFitted = !identical(vWalls, vTyped);
     final vRoom = widget.room.copyWith(walls: vWalls, closed: true);
     final vDrawable = vWalls.length >= 2;
 
@@ -160,6 +166,8 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
                   : vText.closureGap(formatCentimetres(closureGapMm(vRoom).round())),
               color: closesProperly(vRoom) ? null : vTheme.colorScheme.error,
             ),
+          if (vFitted)
+            IconLine(Icons.auto_fix_high, vText.cornersFitted(_fittedSummary(vWalls))),
           const SizedBox(height: 8),
           SegmentedButton<FieldUnit>(
             segments: [
