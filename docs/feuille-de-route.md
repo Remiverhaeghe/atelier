@@ -12,7 +12,7 @@ Suite des évolutions décidées le 26 novembre 2026, dans l'ordre. Cocher au fi
 - [ ] 3D et plans simplifiés au maximum, en partant de ce qui existe
 - [x] Humidité de deux pièces côte à côte
 - [x] Journal de chantier quotidien
-- [ ] Mode « grosses mains » (gros boutons)
+- [x] Mode « grosses mains » (gros boutons, balayage, minuteur de séchage)
 - [ ] Contrôle avant achat ou location
 - [ ] Fiche « à confier à un pro »
 - [ ] Rappels d'entretien après travaux

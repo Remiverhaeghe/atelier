@@ -119,3 +119,41 @@ class WorkshopRun {
   /// Décoche une étape, pour la refaire.
   WorkshopRun reopen(int pIndex) => _copy(done: {...done}..remove(pIndex));
 }
+
+/// Durées de séchage proposées sous une étape, en minutes.
+const dryingPresetMinutes = [15, 30, 60, 240, 1440];
+
+/// Minuteurs de séchage liés aux étapes : chacun finit à un instant précis, même écran éteint.
+class DryingTimers {
+  const DryingTimers([this.endsAt = const {}]);
+
+  /// Instant de fin du séchage de chaque étape (indice de l'étape).
+  final Map<int, DateTime> endsAt;
+
+  bool get isEmpty => endsAt.isEmpty;
+
+  DryingTimers start(int pStep, DateTime pNow, Duration pDuration) =>
+      DryingTimers({...endsAt, pStep: pNow.add(pDuration)});
+
+  DryingTimers cancel(int pStep) => DryingTimers({...endsAt}..remove(pStep));
+
+  /// Temps qu'il reste, ou null s'il n'y a pas de minuteur sur cette étape ; zéro une fois fini.
+  Duration? remaining(int pStep, DateTime pNow) {
+    final vEnd = endsAt[pStep];
+    if (vEnd == null) {
+      return null;
+    }
+    final vLeft = vEnd.difference(pNow);
+
+    return vLeft.isNegative ? Duration.zero : vLeft;
+  }
+
+  /// Étapes dont le séchage vient de finir.
+  List<int> finished(DateTime pNow) => [
+    for (final vEntry in endsAt.entries)
+      if (!vEntry.value.isAfter(pNow)) vEntry.key,
+  ]..sort();
+
+  /// Vrai tant qu'un minuteur n'est pas fini : l'écran doit se redessiner chaque seconde.
+  bool anyRunning(DateTime pNow) => endsAt.values.any((pEnd) => pEnd.isAfter(pNow));
+}

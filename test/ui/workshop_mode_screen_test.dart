@@ -123,4 +123,36 @@ void main() {
     final vTouchUp = vStorage.saved.single.rooms.single.touchUps.first;
     expect(vTouchUp.done, isTrue);
   });
+
+  testWidgets('séchage lié à l\'étape, et balayage vers l\'étape suivante', (pTester) async {
+    tallScreen(pTester);
+    var vNow = DateTime(2026, 11, 26, 9);
+    await pTester.pumpWidget(
+      localized(
+        WorkshopModeScreen(
+          title: 'Mur',
+          steps: const ['Sous-couche', 'Peinture'],
+          awake: (_) async {},
+          clock: () => vNow,
+        ),
+      ),
+    );
+    await pTester.pump();
+
+    await pTester.tap(find.text('1 h'));
+    await pTester.pump();
+    expect(find.text('Séchage : encore 60:00'), findsOneWidget);
+
+    vNow = vNow.add(const Duration(minutes: 20));
+    await pTester.pump(const Duration(seconds: 1));
+    expect(find.text('Séchage : encore 40:00'), findsWidgets);
+
+    // Un balayage vers la gauche passe à l'étape suivante, sans minuteur dessus
+    await pTester.fling(find.text('Sous-couche').first, const Offset(-300, 0), 1000);
+    await pTester.pump();
+    expect(find.text('Étape 2 sur 2'), findsOneWidget);
+    expect(find.text('Minuteur de séchage'), findsOneWidget);
+
+    await pTester.pumpWidget(const SizedBox());
+  });
 }

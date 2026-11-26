@@ -7,6 +7,7 @@
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
 
 ### Ajouté
+- Mode atelier : un minuteur de séchage lié à l'étape (15 min à 24 h, temps restant sur l'étape et dans la liste, vibration à la fin) et le balayage du doigt pour passer d'une étape à l'autre
 - Carrelage et mosaïque : sept poses (droite, décalée ½ ou ⅓, diagonale, chevrons, hexagones, plaques de mosaïque) dessinées dans le contour de la pièce choisie, avec la perte de coupe propre à chaque pose et le nombre de plaques de mosaïque
 - Journal de chantier quotidien : une ligne par jour avec les heures (reprises du chronomètre si on ne les tape pas), ce qui est fait et une photo ; les travaux du carnet s'y inscrivent tout seuls, et le bilan du chantier compte les jours travaillés
 - Comparer l'humidité de deux pièces en un geste quand le chantier n'a qu'une autre pièce suivie

@@ -44,6 +44,7 @@ class WorkshopModeScreen extends StatefulWidget {
 class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
   late WorkshopRun _run = WorkshopRun(stepCount: widget.steps.length);
   Timer? _ticker;
+  var _drying = const DryingTimers();
 
   DateTime _now() => (widget.clock ?? DateTime.now)();
 
@@ -84,11 +85,40 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
   void _toggleChrono() {
     final vNow = _now();
     setState(() => _run = _run.chrono.running ? _run.pause(vNow) : _run.start(vNow));
+    _syncTicker();
+  }
+
+  /// L'horloge ne tourne que si le chrono ou un séchage est en cours : rien ne redessine l'écran
+  /// pour rien.
+  void _syncTicker() {
     _ticker?.cancel();
-    // L'horloge ne tourne que chrono en marche : rien ne redessine l'écran pour rien
-    _ticker = _run.chrono.running
-        ? Timer.periodic(const Duration(seconds: 1), (_) => setState(() {}))
+    _ticker = _run.chrono.running || _drying.anyRunning(_now())
+        ? Timer.periodic(const Duration(seconds: 1), (_) {
+            final vWasRunning = _drying.anyRunning(_now().subtract(const Duration(seconds: 1)));
+            if (vWasRunning && !_drying.anyRunning(_now())) {
+              HapticFeedback.heavyImpact();
+            }
+            setState(() {});
+            if (!_run.chrono.running && !_drying.anyRunning(_now())) {
+              _ticker?.cancel();
+              _ticker = null;
+            }
+          })
         : null;
+  }
+
+  void _startDrying(int pMinutes) {
+    setState(() => _drying = _drying.start(_run.current, _now(), Duration(minutes: pMinutes)));
+    _syncTicker();
+  }
+
+  void _swipe(DragEndDetails pDetails) {
+    final vVelocity = pDetails.primaryVelocity ?? 0;
+    if (vVelocity < -300 && _run.current < widget.steps.length - 1) {
+      setState(() => _run = _run.goTo(_run.current + 1, _now()));
+    } else if (vVelocity > 300 && _run.current > 0) {
+      setState(() => _run = _run.goTo(_run.current - 1, _now()));
+    }
   }
 
   void _done() {
@@ -150,7 +180,9 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
           if (vSteps.isEmpty)
             Text(vText.workshopNoSteps, style: vTheme.textTheme.headlineSmall)
           else ...[
-            Card(
+            GestureDetector(
+              onHorizontalDragEnd: _swipe,
+              child: Card(
               margin: EdgeInsets.zero,
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -169,9 +201,11 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
                         vSteps[_run.current],
                         style: vTheme.textTheme.headlineMedium!.copyWith(fontFamily: handFont),
                       ),
+                    if (!_run.finished) ..._dryingLines(vText, vTheme, vNow),
                   ],
                 ),
               ),
+            ),
             ),
             const SizedBox(height: 12),
             Row(
@@ -223,9 +257,7 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
                   size: 36,
                 ),
                 title: Text('${vIndex + 1}. $vStep', style: vTheme.textTheme.titleLarge),
-                subtitle: _run.stepTimes[vIndex] == null
-                    ? null
-                    : Text(vText.workshopStepTime(formatChrono(_run.stepTimes[vIndex]!))),
+                subtitle: _stepSubtitle(vText, vIndex, vNow),
                 onTap: () => setState(() => _run = _run.reopen(vIndex).goTo(vIndex, _now())),
               ),
           ],
@@ -233,4 +265,58 @@ class _WorkshopModeScreenState extends State<WorkshopModeScreen> {
       ),
     );
   }
+
+  /// Temps passé sur l'étape et séchage en cours, sous son titre dans la liste.
+  Widget? _stepSubtitle(AppLocalizations pText, int pIndex, DateTime pNow) {
+    final vLines = [
+      if (_run.stepTimes[pIndex] != null)
+        pText.workshopStepTime(formatChrono(_run.stepTimes[pIndex]!)),
+      if (_drying.remaining(pIndex, pNow) case final Duration vLeft)
+        vLeft == Duration.zero
+            ? pText.workshopDryingDone
+            : pText.workshopDryingLeft(formatChrono(vLeft)),
+    ];
+
+    return vLines.isEmpty ? null : Text(vLines.join(' · '));
+  }
+
+  /// Minuteur de séchage de l'étape en cours : choix de la durée, ou temps qu'il reste.
+  List<Widget> _dryingLines(AppLocalizations pText, ThemeData pTheme, DateTime pNow) {
+    final vLeft = _drying.remaining(_run.current, pNow);
+    if (vLeft == null) {
+      return [
+        const SizedBox(height: 12),
+        Text(pText.workshopDrying, style: pTheme.textTheme.titleMedium),
+        Wrap(
+          spacing: 8,
+          children: [
+            for (final vMinutes in dryingPresetMinutes)
+              ActionChip(
+                label: Text(formatDryingPreset(vMinutes)),
+                onPressed: () => _startDrying(vMinutes),
+              ),
+          ],
+        ),
+      ];
+    }
+
+    return [
+      const SizedBox(height: 12),
+      Text(
+        vLeft == Duration.zero ? pText.workshopDryingDone : pText.workshopDryingLeft(formatChrono(vLeft)),
+        style: pTheme.textTheme.headlineSmall,
+      ),
+      TextButton(
+        onPressed: () {
+          setState(() => _drying = _drying.cancel(_run.current));
+          _syncTicker();
+        },
+        child: Text(pText.workshopDryingCancel),
+      ),
+    ];
+  }
 }
+
+/// « 15 min », « 1 h », « 24 h » : durée d'un bouton de séchage.
+String formatDryingPreset(int pMinutes) =>
+    pMinutes < 60 ? '$pMinutes min' : '${pMinutes ~/ 60} h';
