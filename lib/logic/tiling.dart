@@ -1,6 +1,9 @@
 /// Carrelage et faïence : calepinage (carreaux entiers et coupes), quantités, colle, joints.
 library;
 
+import 'geometry.dart';
+import 'tile_patterns.dart';
+
 /// Une coupe en bord plus étroite que ce tiers de carreau se voit et casse : on recentre.
 const minEdgeFraction = 1 / 3;
 
@@ -16,6 +19,9 @@ class TilingDesign {
     this.marginPercent = 10,
     this.glueKgPerM2 = 5,
     this.centered = true,
+    this.pattern = TilePattern.straight,
+    this.sheetMm = 300,
+    this.outline = const [],
   });
 
   /// Surface à carreler : sol de la pièce ou pan de mur.
@@ -34,6 +40,22 @@ class TilingDesign {
   /// Calepinage centré : la même coupe des deux côtés ; sinon on part d'un bord.
   final bool centered;
 
+  /// Pose choisie : droite, décalée, diagonale, chevrons, hexagones ou plaques de mosaïque.
+  final TilePattern pattern;
+
+  /// Côté d'une plaque de mosaïque.
+  final int sheetMm;
+
+  /// Contour de la pièce, dans le repère du plan ; vide pour un simple rectangle.
+  final List<PlanPoint> outline;
+
+  TileGauge get gauge => (
+    lengthMm: tileLengthMm,
+    widthMm: tileWidthMm,
+    jointMm: jointMm,
+    sheetMm: sheetMm,
+  );
+
   TilingDesign copyWith({
     int? lengthMm,
     int? widthMm,
@@ -45,6 +67,9 @@ class TilingDesign {
     int? marginPercent,
     double? glueKgPerM2,
     bool? centered,
+    TilePattern? pattern,
+    int? sheetMm,
+    List<PlanPoint>? outline,
   }) => TilingDesign(
     lengthMm: lengthMm ?? this.lengthMm,
     widthMm: widthMm ?? this.widthMm,
@@ -56,6 +81,9 @@ class TilingDesign {
     marginPercent: marginPercent ?? this.marginPercent,
     glueKgPerM2: glueKgPerM2 ?? this.glueKgPerM2,
     centered: centered ?? this.centered,
+    pattern: pattern ?? this.pattern,
+    sheetMm: sheetMm ?? this.sheetMm,
+    outline: outline ?? this.outline,
   );
 }
 
@@ -96,12 +124,15 @@ typedef TilingNeeds = ({
   int glueKg,
   double jointKg,
   int spacers,
+  int sheets,
 });
 
 int _ceil(double pValue) => (pValue - 1e-9).ceil();
 
 TilingNeeds tilingNeeds(TilingDesign pDesign) {
-  final vArea = pDesign.lengthMm * pDesign.widthMm / 1e6;
+  final vArea = pDesign.outline.length >= 3
+      ? polygonAreaM2(pDesign.outline)
+      : pDesign.lengthMm * pDesign.widthMm / 1e6;
   final vTileArea = pDesign.tileLengthMm * pDesign.tileWidthMm / 1e6;
   final vWithMargin = vArea * (1 + pDesign.marginPercent / 100);
   final vTiles = vTileArea <= 0 ? 0 : _ceil(vWithMargin / vTileArea);
@@ -131,6 +162,9 @@ TilingNeeds tilingNeeds(TilingDesign pDesign) {
     jointKg: (vArea * vJointPerM2 * 10).ceil() / 10,
     // Un croisillon par carreau, chacun partagé entre quatre angles
     spacers: vTiles,
+    sheets: pDesign.pattern == TilePattern.mosaic && pDesign.sheetMm > 0
+        ? _ceil(vWithMargin / (pDesign.sheetMm * pDesign.sheetMm / 1e6))
+        : 0,
   );
 
   return rNeeds;

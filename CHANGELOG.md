@@ -7,6 +7,7 @@
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
 
 ### Ajouté
+- Carrelage et mosaïque : sept poses (droite, décalée ½ ou ⅓, diagonale, chevrons, hexagones, plaques de mosaïque) dessinées dans le contour de la pièce choisie, avec la perte de coupe propre à chaque pose et le nombre de plaques de mosaïque
 - Plinthes : « Moins de barres » est activé par défaut sur une pièce neuve ; une pièce déjà enregistrée garde ses morceaux égaux
 - Plinthes : réglage « Moins de barres » (barres entières puis un reste, au lieu de morceaux égaux) : la pièce de 4 × 3 m passe de 8 à 6 barres, avec un joint à une longueur de barre du coin ; un reste de moins de 30 cm ramène aux morceaux égaux
 

@@ -359,7 +359,7 @@ class CalculatorsScreen extends StatelessWidget {
       help: pText.tilingHelp,
       family: CalcFamily.walls,
       icon: Icons.grid_on,
-      builder: (_) => const TilingCalculator(),
+      builder: (_) => TilingCalculator(rooms: pRooms),
     ),
     (
       title: pText.elecTitle,
