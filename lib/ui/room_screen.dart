@@ -104,18 +104,18 @@ class RoomScreen extends StatelessWidget {
                     onLayout: (_) => buildCutListPdf(vText, vRoom),
                   ),
                 ),
-                IconButton(
+                PopupMenuButton<bool>(
                   tooltip: vText.roomSheetPrint,
                   icon: const Icon(Icons.print_outlined),
-                  onPressed: () => Printing.layoutPdf(
-                    name: vText.roomSheetTitle(vRoom.name),
-                    onLayout: (_) => buildRoomSheetPdf(vText, vRoom),
-                  ),
-                ),
-                IconButton(
-                  tooltip: vText.proBriefMenu,
-                  icon: const Icon(Icons.engineering_outlined),
-                  onPressed: () async {
+                  onSelected: (pForPro) async {
+                    if (!pForPro) {
+                      await Printing.layoutPdf(
+                        name: vText.roomSheetTitle(vRoom.name),
+                        onLayout: (_) => buildRoomSheetPdf(vText, vRoom),
+                      );
+
+                      return;
+                    }
                     final vChoice = await askProBrief(pContext);
                     if (vChoice == null) {
                       return;
@@ -135,6 +135,10 @@ class RoomScreen extends StatelessWidget {
                       ),
                     );
                   },
+                  itemBuilder: (_) => [
+                    PopupMenuItem(value: false, child: Text(vText.roomSheetPrint)),
+                    PopupMenuItem(value: true, child: Text(vText.proBriefMenu)),
+                  ],
                 ),
                 PopupMenuButton<bool>(
                   tooltip: vText.copyRoomMenu,
