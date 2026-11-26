@@ -61,9 +61,7 @@ void main() {
     const vSite = Worksite(
       id: 'w',
       name: 'Maison',
-      dayNotes: [
-        DayNote(day: '2026-11-10', done: 'Ponçage', minutes: 90, photoPath: '/p.jpg'),
-      ],
+      dayNotes: [DayNote(day: '2026-11-10', done: 'Ponçage', minutes: 90, photoPath: '/p.jpg')],
     );
     final vBack = Worksite.fromJson(vSite.toJson());
 
