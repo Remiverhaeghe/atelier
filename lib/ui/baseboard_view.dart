@@ -251,9 +251,9 @@ class _NextCut extends StatelessWidget {
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
-    final vNext = [for (var vIndex = 0; vIndex < pieces.length; vIndex++) vIndex].where(
-      (pIndex) => !done.contains(pIndex),
-    );
+    final vNext = [
+      for (var vIndex = 0; vIndex < pieces.length; vIndex++) vIndex,
+    ].where((pIndex) => !done.contains(pIndex));
 
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),

@@ -19,7 +19,9 @@ void main() {
   });
 
   test('un vrai rectangle reste à 90 degrés', () {
-    final vWalls = [for (final vLength in [4000, 3000, 4000, 3000]) Wall(lengthMm: vLength)];
+    final vWalls = [
+      for (final vLength in [4000, 3000, 4000, 3000]) Wall(lengthMm: vLength),
+    ];
 
     expect(withFittedCorners(vWalls), same(vWalls));
   });
@@ -34,8 +36,12 @@ void main() {
   });
 
   test('pas quatre murs, ou longueurs impossibles : rien n\'est ajusté', () {
-    final vThree = [for (final vLength in [3000, 4000, 5000]) Wall(lengthMm: vLength)];
-    final vImpossible = [for (final vLength in [1000, 1000, 1000, 5000]) Wall(lengthMm: vLength)];
+    final vThree = [
+      for (final vLength in [3000, 4000, 5000]) Wall(lengthMm: vLength),
+    ];
+    final vImpossible = [
+      for (final vLength in [1000, 1000, 1000, 5000]) Wall(lengthMm: vLength),
+    ];
 
     expect(withFittedCorners(vThree), same(vThree));
     expect(withFittedCorners(vImpossible), same(vImpossible));

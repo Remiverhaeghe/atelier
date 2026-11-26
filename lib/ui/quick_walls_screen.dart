@@ -166,8 +166,7 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
                   : vText.closureGap(formatCentimetres(closureGapMm(vRoom).round())),
               color: closesProperly(vRoom) ? null : vTheme.colorScheme.error,
             ),
-          if (vFitted)
-            IconLine(Icons.auto_fix_high, vText.cornersFitted(_fittedSummary(vWalls))),
+          if (vFitted) IconLine(Icons.auto_fix_high, vText.cornersFitted(_fittedSummary(vWalls))),
           const SizedBox(height: 8),
           SegmentedButton<FieldUnit>(
             segments: [

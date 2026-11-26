@@ -284,7 +284,11 @@ class _RoomPlanPainter extends CustomPainter {
         if (wallNumbers) {
           _paintNumber(pCanvas, vAlong(vMiddle, 26 / vScale), '${vIndex + 1}', vHighlighted);
         }
-        _paintTape(pCanvas, vAlong(vMiddle, -22 / vScale), '${formatCentimetres(vWall.lengthMm)} $unit');
+        _paintTape(
+          pCanvas,
+          vAlong(vMiddle, -22 / vScale),
+          '${formatCentimetres(vWall.lengthMm)} $unit',
+        );
       }
     }
 
