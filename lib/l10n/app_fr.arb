@@ -393,6 +393,18 @@
       }
     }
   },
+  "purchaseCheckTitle": "Contrôle avant achat",
+  "purchaseCheckEstimate": "Durées et prix d'outils estimés : à vérifier en magasin.",
+  "purchaseCheckStock": "{lines, plural, =1{1 article déjà en stock} other{{lines} articles déjà en stock}} ({units} à ne pas racheter).",
+  "@purchaseCheckStock": {"placeholders": {"lines": {"type": "int"}, "units": {"type": "int"}}},
+  "purchaseCheckStockValue": "{lines, plural, =1{1 article déjà en stock} other{{lines} articles déjà en stock}} ({units} à ne pas racheter) : {value} € d'achats évités.",
+  "@purchaseCheckStockValue": {"placeholders": {"lines": {"type": "int"}, "units": {"type": "int"}, "value": {"type": "String"}}},
+  "purchaseCheckRent": "{task} : loue l'outil {days, plural, =1{1 jour} other{{days} jours}} ({chosen} €) plutôt que l'acheter ({other} €), {saving} € d'économie.",
+  "@purchaseCheckRent": {"placeholders": {"task": {"type": "String"}, "days": {"type": "int"}, "chosen": {"type": "int"}, "other": {"type": "int"}, "saving": {"type": "int"}}},
+  "purchaseCheckBuy": "{task} : sur {days, plural, =1{1 jour} other{{days} jours}}, acheter l'outil ({chosen} €) revient moins cher que le louer ({other} €), {saving} € d'économie.",
+  "@purchaseCheckBuy": {"placeholders": {"task": {"type": "String"}, "days": {"type": "int"}, "chosen": {"type": "int"}, "other": {"type": "int"}, "saving": {"type": "int"}}},
+  "purchaseCheckSaving": "Économie estimée en choisissant bien : {euros} €.",
+  "@purchaseCheckSaving": {"placeholders": {"euros": {"type": "int"}}},
   "toolsToGet": "Outils à te procurer",
   "stockField": "Déjà en stock",
   "lineInStock": "{count} pris dans le stock",

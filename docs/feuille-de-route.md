@@ -13,7 +13,7 @@ Suite des évolutions décidées le 26 novembre 2026, dans l'ordre. Cocher au fi
 - [x] Humidité de deux pièces côte à côte
 - [x] Journal de chantier quotidien
 - [x] Mode « grosses mains » (gros boutons, balayage, minuteur de séchage)
-- [ ] Contrôle avant achat ou location
+- [x] Contrôle avant achat ou location
 - [ ] Fiche « à confier à un pro »
 - [ ] Rappels d'entretien après travaux
 - [ ] Revue d'accessibilité
