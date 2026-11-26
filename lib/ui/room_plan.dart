@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/gen/app_localizations.dart';
 import '../logic/fixtures.dart';
 import '../logic/furniture.dart';
 import '../logic/geometry.dart';

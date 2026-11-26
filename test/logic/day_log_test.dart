@@ -58,10 +58,10 @@ void main() {
   });
 
   test('la note se range et se relit avec le chantier', () {
-    final vSite = Worksite(
+    const vSite = Worksite(
       id: 'w',
       name: 'Maison',
-      dayNotes: const [
+      dayNotes: [
         DayNote(day: '2026-11-10', done: 'Ponçage', minutes: 90, photoPath: '/p.jpg'),
       ],
     );
@@ -72,12 +72,12 @@ void main() {
   });
 
   test('le bilan compte les jours de chantier', () {
-    final vSite = Worksite(
+    const vSite = Worksite(
       id: 'w',
       name: 'Maison',
       timeEntries: vTime,
       journal: vJournal,
-      dayNotes: const [DayNote(day: '2026-11-20', done: 'Rangement')],
+      dayNotes: [DayNote(day: '2026-11-20', done: 'Rangement')],
     );
 
     expect(reviewWorksite(vSite).daysWorked, 3);

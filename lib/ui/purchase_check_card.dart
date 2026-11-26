@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/purchase_check.dart';
 import '../logic/right_tool.dart';
-import '../logic/units.dart';
 import '../logic/worksite.dart';
 import 'right_tool_screen.dart';
+import 'shopping_texts.dart';
 import 'theme.dart';
 
 /// Contrôle avant achat : ce que le stock couvre et les outils à louer plutôt qu'acheter.

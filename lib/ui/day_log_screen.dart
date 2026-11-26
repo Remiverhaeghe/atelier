@@ -7,7 +7,6 @@ import '../logic/units.dart';
 import '../state/worksites_controller.dart';
 import '../storage/photo_store.dart';
 import 'photos.dart';
-import 'theme.dart';
 
 /// Journal quotidien : une ligne par jour avec les heures, ce qui est fait et une photo.
 class DayLogScreen extends StatefulWidget {
