@@ -64,21 +64,24 @@ void main() {
       expect(vBack.single.readings.first.at, DateTime(2026, 12, 1));
     });
 
-    test('un JSON d\'une autre version ou abîmé est refusé, les relevés invalides sont ignorés', () {
-      expect(readSensorFile('a.json', '{"version": 2, "sensors": []}'), isEmpty);
-      expect(readSensorFile('a.json', '{pas du json'), isEmpty);
-      expect(
-        readSensorFile(
-          'a.json',
-          '{"version": 1, "sensors": [{"name": "Cuisine", "readings": ['
-          '{"at": "2026-12-01T08:00:00", "temp": 20, "humidity": 50},'
-          '{"at": "pas une date", "temp": 20, "humidity": 50},'
-          '{"at": "2026-12-01T09:00:00", "temp": "x", "humidity": 50}]},'
-          '{"name": "", "readings": []}]}',
-        ).single.readings,
-        hasLength(1),
-      );
-    });
+    test(
+      'un JSON d\'une autre version ou abîmé est refusé, les relevés invalides sont ignorés',
+      () {
+        expect(readSensorFile('a.json', '{"version": 2, "sensors": []}'), isEmpty);
+        expect(readSensorFile('a.json', '{pas du json'), isEmpty);
+        expect(
+          readSensorFile(
+            'a.json',
+            '{"version": 1, "sensors": [{"name": "Cuisine", "readings": ['
+                '{"at": "2026-12-01T08:00:00", "temp": 20, "humidity": 50},'
+                '{"at": "pas une date", "temp": 20, "humidity": 50},'
+                '{"at": "2026-12-01T09:00:00", "temp": "x", "humidity": 50}]},'
+                '{"name": "", "readings": []}]}',
+          ).single.readings,
+          hasLength(1),
+        );
+      },
+    );
   });
 
   group('rangement dans le chantier', () {
@@ -108,7 +111,10 @@ void main() {
       );
 
       expect(vResult.unmatched, isEmpty);
-      expect(vResult.worksite.rooms.firstWhere((pRoom) => pRoom.id == 'ch').climate.days, hasLength(2));
+      expect(
+        vResult.worksite.rooms.firstWhere((pRoom) => pRoom.id == 'ch').climate.days,
+        hasLength(2),
+      );
     });
 
     test('un nouvel import du même capteur remplace les journées, sans les doubler', () {

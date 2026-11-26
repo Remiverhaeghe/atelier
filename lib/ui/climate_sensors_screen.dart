@@ -96,10 +96,16 @@ class _ClimateSensorsScreenState extends State<ClimateSensorsScreen> {
           ),
           if (_unreadable) ...[
             const SizedBox(height: 12),
-            Text(vText.sensorsUnreadable, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            Text(
+              vText.sensorsUnreadable,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
           ],
           for (final vRouted in _routed)
-            IconLine(Icons.check_circle_outline, vText.sensorsRouted(vRouted.sensor, vRouted.room, vRouted.days)),
+            IconLine(
+              Icons.check_circle_outline,
+              vText.sensorsRouted(vRouted.sensor, vRouted.room, vRouted.days),
+            ),
           for (final vSensor in _waiting)
             ListTile(
               contentPadding: EdgeInsets.zero,
@@ -109,7 +115,8 @@ class _ClimateSensorsScreenState extends State<ClimateSensorsScreen> {
                 icon: const Icon(Icons.meeting_room_outlined),
                 onSelected: (pRoomId) => _route([vSensor], {vSensor.name: pRoomId}),
                 itemBuilder: (_) => [
-                  for (final vRoom in vRooms) PopupMenuItem(value: vRoom.id, child: Text(vRoom.name)),
+                  for (final vRoom in vRooms)
+                    PopupMenuItem(value: vRoom.id, child: Text(vRoom.name)),
                 ],
               ),
             ),

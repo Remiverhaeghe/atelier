@@ -50,7 +50,8 @@ Room? roomForSensor(String pSensor, List<Room> pRooms) {
   }
   final vInside = vKeyed.where((pEntry) => vSensor.contains(pEntry.key)).toList()
     ..sort((pA, pB) => pB.key.length.compareTo(pA.key.length));
-  final rRoom = vInside.isEmpty || (vInside.length > 1 && vInside[0].key.length == vInside[1].key.length)
+  final rRoom =
+      vInside.isEmpty || (vInside.length > 1 && vInside[0].key.length == vInside[1].key.length)
       ? null
       : vInside.first.room;
 
@@ -69,7 +70,9 @@ List<SensorReadings> readSensorFile(String pFileName, String pText) {
     return const [];
   }
 
-  return [(name: pFileName.replaceFirst(RegExp(r'\.[A-Za-z0-9]+$'), ''), readings: vImport.readings)];
+  return [
+    (name: pFileName.replaceFirst(RegExp(r'\.[A-Za-z0-9]+$'), ''), readings: vImport.readings),
+  ];
 }
 
 List<SensorReadings> _readExchange(String pText) {
