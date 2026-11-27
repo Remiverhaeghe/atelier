@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/mezzanine_height.dart';
-import '../logic/units.dart';
 import 'stair_calculator.dart';
 import 'theme.dart';
 import 'plan_unit.dart';
