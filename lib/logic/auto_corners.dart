@@ -86,16 +86,55 @@ List<double>? bestFitCorners(List<int> pLengthsMm) {
   return rBest;
 }
 
-/// Murs dont les angles sont ajustés pour que la pièce se ferme, quand c'est utile : quatre murs,
-/// tous les coins laissés à 90° (rien de saisi à la main) et un contour qui ne se referme pas.
-/// Les autres cas sont rendus tels quels.
+/// Précision supposée d'une longueur mesurée dans une vraie pièce encombrée, en millimètres.
+const measureToleranceMm = 10;
+
+/// De combien chaque angle peut varier, en degrés, quand chaque longueur est fausse de
+/// [pToleranceMm] au plus. Null quand les angles ne se déduisent pas des longueurs.
+List<double>? cornerUncertainty(List<int> pLengthsMm, {int pToleranceMm = measureToleranceMm}) {
+  final vBase = bestFitCorners(pLengthsMm);
+  if (vBase == null) {
+    return null;
+  }
+  final rSpread = List<double>.filled(vBase.length, 0);
+  for (var vMask = 0; vMask < 1 << pLengthsMm.length; vMask++) {
+    final vShifted = [
+      for (final (vIndex, vLength) in pLengthsMm.indexed)
+        vLength + (vMask >> vIndex & 1 == 1 ? pToleranceMm : -pToleranceMm),
+    ];
+    final vAngles = bestFitCorners(vShifted);
+    if (vAngles == null) {
+      continue;
+    }
+    for (var vCorner = 0; vCorner < vBase.length; vCorner++) {
+      rSpread[vCorner] = math.max(rSpread[vCorner], (vAngles[vCorner] - vBase[vCorner]).abs());
+    }
+  }
+
+  return rSpread;
+}
+
+/// Murs dont les angles sont déduits des longueurs : quatre murs fermés, où chaque coin est resté
+/// à 90° ou a déjà été calculé par l'appli (jamais un angle tapé à la main). Un contour qui se
+/// referme à 90° reste un rectangle ; sinon les angles sont ajustés, et recalculés à chaque
+/// changement de longueur. Les autres cas sont rendus tels quels.
 List<Wall> withFittedCorners(List<Wall> pWalls) {
-  if (pWalls.length != 4 || pWalls.any((pWall) => pWall.angleToNextDeg != 90)) {
+  if (pWalls.length != 4 ||
+      pWalls.any(
+        (pWall) =>
+            pWall.freeEndAfter || pWall.deduced || (pWall.angleToNextDeg != 90 && !pWall.angleAuto),
+      )) {
     return pWalls;
   }
-  final vSquare = Room(id: '', name: '', walls: pWalls, closed: true);
+  final vSquareWalls = [
+    for (final vWall in pWalls)
+      vWall.angleToNextDeg == 90 && !vWall.angleAuto
+          ? vWall
+          : vWall.copyWith(angleToNextDeg: 90, angleAuto: false),
+  ];
+  final vSquare = Room(id: '', name: '', walls: vSquareWalls, closed: true);
   if (closesProperly(vSquare)) {
-    return pWalls;
+    return pWalls.any((pWall) => pWall.angleAuto) ? vSquareWalls : pWalls;
   }
   final vAngles = bestFitCorners([for (final vWall in pWalls) vWall.lengthMm]);
   if (vAngles == null) {
@@ -103,6 +142,23 @@ List<Wall> withFittedCorners(List<Wall> pWalls) {
   }
 
   return [
-    for (final (vIndex, vWall) in pWalls.indexed) vWall.copyWith(angleToNextDeg: vAngles[vIndex]),
+    for (final (vIndex, vWall) in pWalls.indexed)
+      vWall.copyWith(angleToNextDeg: vAngles[vIndex], angleAuto: true),
   ];
+}
+
+/// La pièce avec ses angles déduits des longueurs quand c'est possible : c'est la reprise d'une
+/// pièce déjà saisie, sans rien retaper.
+Room refitRoom(Room pRoom) {
+  if (!pRoom.closed) {
+    return pRoom;
+  }
+  final vWalls = withFittedCorners(pRoom.walls);
+  final vChanged = [
+    for (final (vIndex, vWall) in vWalls.indexed)
+      vWall.angleAuto != pRoom.walls[vIndex].angleAuto ||
+          (vWall.angleToNextDeg - pRoom.walls[vIndex].angleToNextDeg).abs() > 1e-9,
+  ].any((pDifferent) => pDifferent);
+
+  return vChanged ? pRoom.copyWith(walls: vWalls) : pRoom;
 }

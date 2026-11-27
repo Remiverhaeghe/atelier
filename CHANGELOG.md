@@ -2,6 +2,14 @@
 
 ## Non publié
 
+### Modifié
+- Pièces dont rien n'est droit : les angles des quatre murs se déduisent des seules longueurs et se recalculent quand une longueur est corrigée ; un angle tapé à la main n'est jamais écrasé
+- Pièces déjà saisies : à l'ouverture, les angles sont repris à partir des longueurs enregistrées, sans rien retaper
+- Marge d'erreur affichée : avec des mesures à 1 cm près, de combien chaque angle peut varier
+- Plan des pièces : unité des cotes au choix (mm, cm ou m) dans À propos, le centimètre au départ
+- Pièce : « Tous les murs » est le bouton principal de la saisie, avant le dessin ; la liste des murs écrit l'unité des longueurs
+- Message de fermeture du contour plus simple quand les mesures sont approximatives
+
 ### Corrigé
 - Plinthes : la barre est comptée sur la longueur réellement à tailler, pas seulement sur la mesure au dos. Un onglet dont la pointe longue est sur la face (coin sortant, bout d'un biseau de jonction) déborde de l'épaisseur de la plinthe fois la tangente de l'angle (15 mm à 45° pour 15 mm d'épaisseur) : un mur de deux barres exactes passe à trois morceaux au lieu de deux morceaux qui ne tenaient pas
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)

@@ -122,4 +122,68 @@ void main() {
     await vUndo.redo();
     expect(vUndo.worksite(vSite.id)!.rooms.single.name, 'Salon');
   });
+
+  group('reprise des pièces déjà saisies', () {
+    const vMeasured = [3089, 4225, 2831, 4163];
+
+    Worksite saved() => Worksite(
+      id: 'w',
+      name: 'Maison',
+      rooms: [
+        Room(
+          id: 'r',
+          name: 'Salon',
+          walls: [for (final vLength in vMeasured) Wall(lengthMm: vLength)],
+        ),
+        const Room(id: 'ouverte', name: 'Couloir', walls: [Wall(lengthMm: 3000)]),
+      ],
+    );
+
+    test('à l\'ouverture, les angles sont déduits et enregistrés une seule fois', () async {
+      await WorksiteStore(vFile).save([saved()]);
+
+      await vController.load();
+
+      expect(vController.refittedRooms, 1);
+      final vRoom = vController.worksite('w')!.rooms.first;
+      expect(vRoom.walls.every((pWall) => pWall.angleAuto), isTrue);
+      expect(vController.worksite('w')!.rooms.last.walls.single.angleAuto, isFalse);
+
+      final vReloaded = WorksitesController(WorksiteStore(vFile));
+      await vReloaded.load();
+      expect(vReloaded.refittedRooms, 0);
+      expect(vReloaded.worksite('w')!.rooms.first.walls.first.angleAuto, isTrue);
+    });
+
+    test('sans pièce à reprendre, rien n\'est réécrit', () async {
+      await vController.load();
+
+      expect(vController.refittedRooms, 0);
+    });
+
+    test('une pièce modifiée est reprise à l\'enregistrement', () async {
+      await WorksiteStore(vFile).save([
+        const Worksite(
+          id: 'w',
+          name: 'Maison',
+          rooms: [Room(id: 'r', name: 'Salon')],
+        ),
+      ]);
+      await vController.load();
+
+      await vController.updateRoom(
+        'w',
+        Room(
+          id: 'r',
+          name: 'Salon',
+          walls: [for (final vLength in vMeasured) Wall(lengthMm: vLength)],
+        ),
+      );
+
+      expect(
+        vController.worksite('w')!.rooms.single.walls.every((pWall) => pWall.angleAuto),
+        isTrue,
+      );
+    });
+  });
 }
