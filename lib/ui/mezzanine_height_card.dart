@@ -65,7 +65,9 @@ class MezzanineHeightCard extends StatelessWidget {
                 if (postHeightMm != split.clearBelowMm)
                   OutlinedButton(
                     onPressed: onApplyPosts,
-                    child: Text(vText.heightSplitApply(lengthText(vText, split.clearBelowMm, vUnit))),
+                    child: Text(
+                      vText.heightSplitApply(lengthText(vText, split.clearBelowMm, vUnit)),
+                    ),
                   ),
                 OutlinedButton(
                   onPressed: () => Navigator.of(context).push(

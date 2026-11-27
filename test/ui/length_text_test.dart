@@ -38,7 +38,10 @@ void main() {
   });
 
   test('les textes de la mezzanine et de la toiture ne portent plus d\'unité en dur', () {
-    expect(vText.heightSplitBelow('2 m'), '2 m libres dessous, sous la poutre : de quoi passer debout');
+    expect(
+      vText.heightSplitBelow('2 m'),
+      '2 m libres dessous, sous la poutre : de quoi passer debout',
+    );
     expect(vText.heightSplitApply('220 cm'), 'Poteaux de 220 cm');
     expect(vText.roofRafters(8, '3,2 m'), '8 chevrons de 3,2 m');
     expect(

@@ -51,7 +51,10 @@ class _RoofingCalculatorState extends State<RoofingCalculator> {
                   Text(vText.roofArea(formatSquareMetres(vNeeds.areaM2))),
                   IconLine(
                     Icons.view_week_outlined,
-                    vText.roofRafters(vNeeds.rafters, lengthText(vText, vNeeds.rafterLengthMm, vUnit)),
+                    vText.roofRafters(
+                      vNeeds.rafters,
+                      lengthText(vText, vNeeds.rafterLengthMm, vUnit),
+                    ),
                   ),
                   IconLine(
                     Icons.vertical_align_center,
