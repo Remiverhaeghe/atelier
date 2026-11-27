@@ -175,7 +175,10 @@ void main() {
       final vFine = cornerUncertainty(vMeasured, pToleranceMm: 5)!;
       final vRough = cornerUncertainty(vMeasured, pToleranceMm: 30)!;
 
-      expect(vRough.reduce((a, b) => a > b ? a : b), greaterThan(vFine.reduce((a, b) => a > b ? a : b)));
+      expect(
+        vRough.reduce((a, b) => a > b ? a : b),
+        greaterThan(vFine.reduce((a, b) => a > b ? a : b)),
+      );
     });
 
     test('sans précision supposée, la marge est nulle', () {

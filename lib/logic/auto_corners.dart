@@ -122,9 +122,7 @@ List<Wall> withFittedCorners(List<Wall> pWalls) {
   if (pWalls.length != 4 ||
       pWalls.any(
         (pWall) =>
-            pWall.freeEndAfter ||
-            pWall.deduced ||
-            (pWall.angleToNextDeg != 90 && !pWall.angleAuto),
+            pWall.freeEndAfter || pWall.deduced || (pWall.angleToNextDeg != 90 && !pWall.angleAuto),
       )) {
     return pWalls;
   }

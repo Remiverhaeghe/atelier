@@ -163,7 +163,11 @@ void main() {
 
     test('une pièce modifiée est reprise à l\'enregistrement', () async {
       await WorksiteStore(vFile).save([
-        const Worksite(id: 'w', name: 'Maison', rooms: [Room(id: 'r', name: 'Salon')]),
+        const Worksite(
+          id: 'w',
+          name: 'Maison',
+          rooms: [Room(id: 'r', name: 'Salon')],
+        ),
       ]);
       await vController.load();
 
@@ -176,7 +180,10 @@ void main() {
         ),
       );
 
-      expect(vController.worksite('w')!.rooms.single.walls.every((pWall) => pWall.angleAuto), isTrue);
+      expect(
+        vController.worksite('w')!.rooms.single.walls.every((pWall) => pWall.angleAuto),
+        isTrue,
+      );
     });
   });
 }
