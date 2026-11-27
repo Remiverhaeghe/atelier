@@ -262,11 +262,12 @@ class _WallDialogState extends State<_WallDialog> {
   }
 }
 
-/// Angle sans décimale inutile : 90 plutôt que 90.0.
+/// Angle à une décimale au plus, sans zéro inutile : 90 plutôt que 90.0, 44,7 plutôt que 44.69999.
 String formatAngle(double pAngle) {
-  final rText = pAngle == pAngle.roundToDouble()
-      ? pAngle.round().toString()
-      : pAngle.toString().replaceAll('.', aDecimalSeparator);
+  final vRounded = (pAngle * 10).round() / 10;
+  final rText = vRounded == vRounded.roundToDouble()
+      ? vRounded.round().toString()
+      : vRounded.toString().replaceAll('.', aDecimalSeparator);
 
   return rText;
 }
