@@ -9,7 +9,8 @@ Suite des évolutions décidées le 26 novembre 2026, dans l'ordre. Cocher au fi
 - [ ] Carrelage et mosaïque posés comme le parquet : plusieurs poses (droite, décalée, diagonale, chevrons, hexagones, plaques)
 - [x] Relevés de thermo-hygromètres repris automatiquement dans toutes les pièces, avec un stockage commun alimenté aussi par le futur projet domotique (fichier d'échange JSON dans `docs/echange-climat.md`)
 - [ ] Animations reprises
-- [ ] 3D et plans simplifiés au maximum, en partant de ce qui existe
+- [x] Plan de la pièce en deux niveaux, Simple et Complet
+- [ ] 3D plus sobre, en partant de ce qui existe
 - [x] Humidité de deux pièces côte à côte
 - [x] Journal de chantier quotidien
 - [x] Mode « grosses mains » (gros boutons, balayage, minuteur de séchage)
