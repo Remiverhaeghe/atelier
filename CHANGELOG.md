@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Modifié
+- Plinthes : « Prochaine coupe » suit l'ordre des barres (une barre sciée jusqu'au bout), indique la barre et le nombre de coupes qui lui restent, et écrit la longueur dans l'unité choisie
 - Unités : les résultats du faux plafond et de la porte (bloc-porte, jeux, poignée) suivent l'unité choisie dans les réglages
 - Unités : les coupes du carrelage et de la faïence, les rangées de pose, la liste de coupe de l'étagère et du placard suivent l'unité choisie dans les réglages
 - Unités : la liste des plinthes (morceaux, barres, chutes), le mode chantier et la fiche des murs suivent l'unité choisie dans les réglages

@@ -119,6 +119,7 @@ class _BaseboardViewState extends State<BaseboardView> {
         ),
         _NextCut(
           pieces: vPieces,
+          bars: vBars,
           done: _room.cutPieces,
           onCut: (pIndex) {
             setState(() => _highlight = vPieces[pIndex].wallNumber - 1);
@@ -246,9 +247,15 @@ class _BaseboardViewState extends State<BaseboardView> {
 
 /// La seule pièce à couper maintenant : longueur, deux coupes, dessin et un bouton.
 class _NextCut extends StatelessWidget {
-  const _NextCut({required this.pieces, required this.done, required this.onCut});
+  const _NextCut({
+    required this.pieces,
+    required this.bars,
+    required this.done,
+    required this.onCut,
+  });
 
   final List<BaseboardPiece> pieces;
+  final BarPlan bars;
   final List<int> done;
   final ValueChanged<int> onCut;
 
@@ -256,9 +263,9 @@ class _NextCut extends StatelessWidget {
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
-    final vNext = [
-      for (var vIndex = 0; vIndex < pieces.length; vIndex++) vIndex,
-    ].where((pIndex) => !done.contains(pIndex));
+    final vUnit = PlanUnit.of(context);
+    final vNext = bars.cutOrder(pieces.length).where((pIndex) => !done.contains(pIndex));
+    final vBar = vNext.isEmpty ? null : bars.barOf(vNext.first);
 
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
@@ -270,7 +277,9 @@ class _NextCut extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(vText.nextCutTitle, style: vTheme.textTheme.titleMedium),
-                  BigFigure('${formatCentimetres(pieces[vNext.first].lengthMm)} ${vText.unitCm}'),
+                  BigFigure(lengthText(vText, pieces[vNext.first].lengthMm, vUnit)),
+                  if (vBar != null)
+                    Text(vText.nextCutBar(vBar, bars.remainingInBar(vBar, done))),
                   Text(
                     vText.pieceCuts(
                       cutLabel(vText, pieces[vNext.first].startCut),

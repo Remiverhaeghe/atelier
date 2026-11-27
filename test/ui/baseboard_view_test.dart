@@ -61,6 +61,18 @@ void main() {
     expect(find.text('Prochaine coupe'), findsOneWidget);
   });
 
+  testWidgets('la prochaine coupe donne la barre et suit l\'unité choisie', (pTester) async {
+    await pTester.pumpWidget(
+      PlanUnit(
+        unit: FieldUnit.mm,
+        child: localized(BaseboardView(room: rectangleRoom(), onChanged: (_) {})),
+      ),
+    );
+
+    expect(find.text('2000 mm'), findsWidgets);
+    expect(find.textContaining('Barre 1 : '), findsOneWidget);
+  });
+
   testWidgets('sans murs, la vue demande de saisir la pièce', (pTester) async {
     await pTester.pumpWidget(
       localized(

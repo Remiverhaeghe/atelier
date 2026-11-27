@@ -51,6 +51,21 @@ class BarPlan {
     return null;
   }
 
+  /// Ordre de coupe : une barre après l'autre jusqu'au bout, puis les morceaux sans barre.
+  List<int> cutOrder(int pPieceCount) {
+    final rOrder = [for (final vBar in bars) ...vBar.pieceIndexes];
+    rOrder.addAll([
+      for (var vIndex = 0; vIndex < pPieceCount; vIndex++)
+        if (!rOrder.contains(vIndex)) vIndex,
+    ]);
+
+    return rOrder;
+  }
+
+  /// Morceaux de la barre numéro [pBar] (à partir de 1) qui ne sont pas encore coupés.
+  int remainingInBar(int pBar, Iterable<int> pDone) =>
+      bars[pBar - 1].pieceIndexes.where((pIndex) => !pDone.contains(pIndex)).length;
+
   /// Chutes assez longues pour resservir.
   List<int> get reusableOffcuts => [
     for (final vBar in bars)

@@ -483,6 +483,8 @@
     }
   },
   "nextCutTitle": "Next cut",
+  "nextCutBar": "Length {number}: {remaining, plural, =1{last cut} other{{remaining} cuts to go}}",
+  "@nextCutBar": {"placeholders": {"number": {"type": "int"}, "remaining": {"type": "int"}}},
   "nextCutDone": "Cut, next one",
   "allCutDone": "All pieces are cut.",
   "closureGap": "The walls don't quite meet: {gap} cm gap. With rough measurements that is common: recheck the lengths first.",
