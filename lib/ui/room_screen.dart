@@ -3,6 +3,7 @@ import 'package:printing/printing.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/inventory.dart';
+import '../logic/journal.dart';
 import '../logic/geometry.dart';
 import '../logic/layout.dart';
 import '../logic/room.dart';
@@ -23,6 +24,8 @@ import 'behind_walls_section.dart';
 import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
+import 'pro_brief_dialog.dart';
+import 'pro_brief_pdf.dart';
 import 'quick_walls_screen.dart';
 import 'room_sketch_screen.dart';
 import 'room_3d_card.dart';
@@ -31,6 +34,7 @@ import 'site_mode_screen.dart';
 import 'theme.dart';
 import 'trace_screen.dart';
 import 'touch_ups_view.dart';
+import 'trades_screen.dart' show tradeName;
 import 'paint_view.dart';
 
 /// Une pièce : plan, murs et obstacles.
@@ -100,13 +104,41 @@ class RoomScreen extends StatelessWidget {
                     onLayout: (_) => buildCutListPdf(vText, vRoom),
                   ),
                 ),
-                IconButton(
+                PopupMenuButton<bool>(
                   tooltip: vText.roomSheetPrint,
                   icon: const Icon(Icons.print_outlined),
-                  onPressed: () => Printing.layoutPdf(
-                    name: vText.roomSheetTitle(vRoom.name),
-                    onLayout: (_) => buildRoomSheetPdf(vText, vRoom),
-                  ),
+                  onSelected: (pForPro) async {
+                    if (!pForPro) {
+                      await Printing.layoutPdf(
+                        name: vText.roomSheetTitle(vRoom.name),
+                        onLayout: (_) => buildRoomSheetPdf(vText, vRoom),
+                      );
+
+                      return;
+                    }
+                    final vChoice = await askProBrief(pContext);
+                    if (vChoice == null) {
+                      return;
+                    }
+                    final vJournal = journalOf(
+                      controller.worksite(worksiteId)?.journal ?? const [],
+                      pRoomId: vRoom.id,
+                    );
+                    await Printing.layoutPdf(
+                      name: vText.proBriefTitle(vRoom.name),
+                      onLayout: (_) => buildProBriefPdf(
+                        vText,
+                        vRoom,
+                        pTrade: tradeName(vText, vChoice.trade),
+                        pConstraints: vChoice.constraints,
+                        pJournal: vJournal,
+                      ),
+                    );
+                  },
+                  itemBuilder: (_) => [
+                    PopupMenuItem(value: false, child: Text(vText.roomSheetPrint)),
+                    PopupMenuItem(value: true, child: Text(vText.proBriefMenu)),
+                  ],
                 ),
                 PopupMenuButton<bool>(
                   tooltip: vText.copyRoomMenu,

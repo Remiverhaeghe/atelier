@@ -28,6 +28,7 @@ import 'goal_card.dart';
 import 'energy_diagnosis_screen.dart';
 import 'heating_screen.dart';
 import 'house_screen.dart';
+import 'day_log_screen.dart';
 import 'journal_screen.dart';
 import 'living_area_screen.dart';
 import 'loans_screen.dart';
@@ -248,6 +249,11 @@ class _HomeTiles extends StatelessWidget {
         Icons.menu_book_outlined,
         vText.journalMenu,
         () => JournalScreen(controller: controller, worksiteId: worksiteId),
+      ),
+      (
+        Icons.edit_calendar_outlined,
+        vText.dayLogMenu,
+        () => DayLogScreen(controller: controller, worksiteId: worksiteId),
       ),
       (
         Icons.electrical_services,

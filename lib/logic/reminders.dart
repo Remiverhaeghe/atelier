@@ -12,6 +12,9 @@ enum WaitKind {
   /// Rappel avant d'utiliser un outil bruyant le week-end : l'heure suit les horaires du
   /// voisinage (voir `weekendNoiseReminder`), pas une durée.
   noisyWeekend(0),
+
+  /// Entretien après travaux : la date vient de l'intervalle choisi, en mois.
+  maintenance(0),
   custom(0);
 
   const WaitKind(this.hours);

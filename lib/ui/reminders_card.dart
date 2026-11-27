@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../support/platform_limits.dart';
+import '../logic/maintenance.dart';
 import '../logic/noise.dart';
 import '../logic/reminders.dart';
 import '../logic/units.dart';
@@ -16,6 +17,7 @@ String waitLabel(AppLocalizations pText, WaitKind pKind) => switch (pKind) {
   WaitKind.paintCoat => pText.waitPaintCoat,
   WaitKind.glue => pText.waitGlue,
   WaitKind.noisyWeekend => pText.waitNoisyWeekend,
+  WaitKind.maintenance => pText.waitMaintenance,
   WaitKind.custom => pText.waitCustom,
 };
 
@@ -54,6 +56,42 @@ class RemindersCard extends StatelessWidget {
     }
   }
 
+  /// Temps restant dit à l'échelle de l'attente : heures, jours, puis mois.
+  String _left(AppLocalizations pText, Reminder pReminder) {
+    final vDays = daysLeft(pReminder, now);
+
+    return vDays >= monthsFromDays
+        ? pText.reminderLeftMonths((vDays / 30).round())
+        : vDays > 3
+        ? pText.reminderLeftDays(vDays)
+        : pText.reminderLeft(hoursLeft(pReminder, now));
+  }
+
+  Future<void> _addMaintenance(BuildContext pContext) async {
+    final vChoice = await showDialog<({List<MaintenanceTask> tasks, String? roomId})>(
+      context: pContext,
+      builder: (_) => _MaintenanceDialog(worksite: worksite),
+    );
+    if (vChoice == null || vChoice.tasks.isEmpty || !pContext.mounted) {
+      return;
+    }
+    final vText = AppLocalizations.of(pContext);
+    final vReminders = [
+      for (final vTask in vChoice.tasks)
+        maintenanceReminder(
+          pId: '${now.microsecondsSinceEpoch}-${vTask.name}',
+          pTask: vTask,
+          pLabel: maintenanceLabel(vText, vTask),
+          pFrom: now,
+          pRoomId: vChoice.roomId,
+        ),
+    ];
+    onChanged(worksite.copyWith(reminders: [...worksite.reminders, ...vReminders]));
+    for (final vReminder in vReminders) {
+      await aReminderAlarm.schedule(vReminder, vText.reminderNotifyTitle, vReminder.label);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
@@ -70,6 +108,11 @@ class RemindersCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: Text(vText.remindersTitle, style: vTheme.textTheme.titleMedium)),
+                IconButton(
+                  tooltip: vText.maintenanceTitle,
+                  icon: const Icon(Icons.build_circle_outlined),
+                  onPressed: () => _addMaintenance(context),
+                ),
                 IconButton(
                   tooltip: vText.reminderAdd,
                   icon: const Icon(Icons.alarm_add_outlined),
@@ -94,9 +137,7 @@ class RemindersCard extends StatelessWidget {
                   ].where((pPart) => pPart.isNotEmpty).join(', '),
                 ),
                 subtitle: Text(
-                  hoursLeft(vReminder, now) == 0
-                      ? vText.reminderReady
-                      : vText.reminderLeft(hoursLeft(vReminder, now)),
+                  hoursLeft(vReminder, now) == 0 ? vText.reminderReady : _left(vText, vReminder),
                 ),
                 trailing: IconButton(
                   tooltip: vText.delete,
@@ -189,7 +230,8 @@ class _WaitDialogState extends State<_WaitDialog> {
               initialValue: _kind,
               items: [
                 for (final vKind in WaitKind.values)
-                  DropdownMenuItem(value: vKind, child: Text(waitLabel(vText, vKind))),
+                  if (vKind != WaitKind.maintenance)
+                    DropdownMenuItem(value: vKind, child: Text(waitLabel(vText, vKind))),
               ],
               onChanged: (pKind) => setState(() {
                 _kind = pKind!;
@@ -239,3 +281,75 @@ String noisyReminderAt(AppLocalizations pText, DateTime pAt) => pText.waitNoisyW
   pAt.weekday == DateTime.saturday ? pText.noiseSaturdayDay : pText.noiseSundayDay,
   pText.noiseClock(pAt.hour, pAt.minute.toString().padLeft(2, '0')),
 );
+
+String maintenanceLabel(AppLocalizations pText, MaintenanceTask pTask) => switch (pTask) {
+  MaintenanceTask.silicone => pText.maintenanceSilicone,
+  MaintenanceTask.grout => pText.maintenanceGrout,
+  MaintenanceTask.parquetCare => pText.maintenanceParquet,
+  MaintenanceTask.windowSeals => pText.maintenanceWindows,
+  MaintenanceTask.woodStain => pText.maintenanceStain,
+  MaintenanceTask.ventFilters => pText.maintenanceVent,
+};
+
+/// Choix des entretiens à planifier après les travaux, chacun avec son intervalle.
+class _MaintenanceDialog extends StatefulWidget {
+  const _MaintenanceDialog({required this.worksite});
+
+  final Worksite worksite;
+
+  @override
+  State<_MaintenanceDialog> createState() => _MaintenanceDialogState();
+}
+
+class _MaintenanceDialogState extends State<_MaintenanceDialog> {
+  final _chosen = <MaintenanceTask>{};
+  String? _roomId;
+
+  @override
+  Widget build(BuildContext context) {
+    final vText = AppLocalizations.of(context);
+
+    return AlertDialog(
+      title: Text(vText.maintenanceTitle),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(vText.maintenanceHelp),
+            for (final vTask in MaintenanceTask.values)
+              CheckboxListTile(
+                contentPadding: EdgeInsets.zero,
+                value: _chosen.contains(vTask),
+                title: Text(maintenanceLabel(vText, vTask)),
+                subtitle: Text(vText.maintenanceEvery(vTask.months)),
+                onChanged: (pOn) =>
+                    setState(() => pOn ?? false ? _chosen.add(vTask) : _chosen.remove(vTask)),
+              ),
+            if (widget.worksite.rooms.isNotEmpty)
+              DropdownButtonFormField<String?>(
+                initialValue: _roomId,
+                items: [
+                  DropdownMenuItem(value: null, child: Text(vText.reminderWholeSite)),
+                  for (final vRoom in widget.worksite.rooms)
+                    DropdownMenuItem(value: vRoom.id, child: Text(vRoom.name)),
+                ],
+                onChanged: (pId) => setState(() => _roomId = pId),
+              ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(vText.cancel)),
+        FilledButton(
+          onPressed: _chosen.isEmpty
+              ? null
+              : () => Navigator.pop(context, (
+                  tasks: MaintenanceTask.values.where(_chosen.contains).toList(),
+                  roomId: _roomId,
+                )),
+          child: Text(vText.save),
+        ),
+      ],
+    );
+  }
+}

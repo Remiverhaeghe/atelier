@@ -10,13 +10,13 @@ Suite des évolutions décidées le 26 novembre 2026, dans l'ordre. Cocher au fi
 - [ ] Relevés de thermo-hygromètres repris automatiquement dans toutes les pièces, avec un stockage commun alimenté aussi par le futur projet domotique
 - [ ] Animations reprises
 - [ ] 3D et plans simplifiés au maximum, en partant de ce qui existe
-- [ ] Humidité de deux pièces côte à côte
-- [ ] Journal de chantier quotidien
-- [ ] Mode « grosses mains » (gros boutons)
-- [ ] Contrôle avant achat ou location
-- [ ] Fiche « à confier à un pro »
-- [ ] Rappels d'entretien après travaux
-- [ ] Revue d'accessibilité
+- [x] Humidité de deux pièces côte à côte
+- [x] Journal de chantier quotidien
+- [x] Mode « grosses mains » (gros boutons, balayage, minuteur de séchage)
+- [x] Contrôle avant achat ou location
+- [x] Fiche « à confier à un pro »
+- [x] Rappels d'entretien après travaux
+- [x] Revue d'accessibilité (plans décrits au lecteur d'écran, contrôles automatiques et texte à 200 % sur les écrans récents)
 
 ## Tremplin
 

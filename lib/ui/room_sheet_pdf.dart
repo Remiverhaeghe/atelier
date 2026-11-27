@@ -23,71 +23,12 @@ Future<Uint8List> buildRoomSheetPdf(
   Uint8List? Function(String pPath) pPhotos = readPhoto,
 }) async {
   final vDocument = pw.Document(title: pText.roomSheetTitle(pRoom.name), theme: await pdfTheme());
-  final vCount = pRoom.walls.length;
-  String vCorner(int pIndex) => String.fromCharCode(65 + pIndex % math.max(vCount, 1));
-  String vKind(OpeningKind pKind) => switch (pKind) {
-    OpeningKind.door => pText.openingDoor,
-    OpeningKind.passage => pText.openingPassage,
-    OpeningKind.window => pText.openingWindow,
-  };
-  String vSlope(Slope pSlope) => pText.roomSheetSlope(
-    pSlope.wallIndex + 1,
-    formatCentimetres(pSlope.lowMm),
-    formatCentimetres(pSlope.runMm),
-  );
-
   vDocument.addPage(
     pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       build: (_) => [
         pw.Header(level: 0, text: pText.roomSheetTitle(pRoom.name)),
-        if (vCount >= 3) ...[
-          pw.Paragraph(text: pText.roomSheetHelp),
-          pw.Center(child: _plan(pRoom)),
-          pw.SizedBox(height: 8),
-        ],
-        pw.Paragraph(text: pText.roomSheetHeight(formatCentimetres(pRoom.ceilingHeightMm))),
-        if (vCount >= 3)
-          pw.Paragraph(
-            text: pText.roomSheetArea(
-              formatSquareMetres(floorAreaM2(pRoom)),
-              formatCentimetres(perimeterMm(pRoom)),
-            ),
-          ),
-        for (final vSlopeOf in [pRoom.slope, pRoom.slope2])
-          if (vSlopeOf != null) pw.Paragraph(text: vSlope(vSlopeOf)),
-        if (vCount > 0) ...[
-          pw.Header(level: 1, text: pText.roomSheetWalls),
-          pw.TableHelper.fromTextArray(
-            headers: [
-              pText.roomSheetWall,
-              pText.roomSheetFromTo,
-              pText.cutListLength,
-              pText.roomSheetAngle,
-              pText.roomSheetOpenings,
-            ],
-            data: [
-              for (final (vIndex, vWall) in pRoom.walls.indexed)
-                [
-                  '${vIndex + 1}',
-                  '${vCorner(vIndex)} → ${vCorner(vIndex + 1)}',
-                  vWall.deduced
-                      ? '${formatCentimetres(vWall.lengthMm)} cm (${pText.roomSheetDeduced})'
-                      : '${formatCentimetres(vWall.lengthMm)} cm',
-                  '${formatDecimal(vWall.angleToNextDeg)}°',
-                  [
-                    for (final vOpening in vWall.openings)
-                      pText.sketchOpening(
-                        vKind(vOpening.kind),
-                        formatCentimetres(vOpening.widthMm),
-                        formatCentimetres(vOpening.offsetMm),
-                        vCorner(vIndex),
-                      ),
-                  ].join('\n'),
-                ],
-            ],
-          ),
-        ],
+        ...roomSheetGeometry(pText, pRoom),
         pw.Header(level: 1, text: pText.roomSheetTouchUps),
         if (pRoom.touchUps.isEmpty) pw.Paragraph(text: pText.roomSheetNoTouchUps),
         for (final (vIndex, vTouchUp) in pRoom.touchUps.indexed)
@@ -128,6 +69,73 @@ Future<Uint8List> buildRoomSheetPdf(
   );
 
   return vDocument.save();
+}
+
+/// Plan coté, hauteur, surface, rampants et tableau des murs avec leurs ouvertures : ce qui
+/// décrit la pièce, repris par la fiche de la pièce et la fiche à remettre à un artisan.
+List<pw.Widget> roomSheetGeometry(AppLocalizations pText, Room pRoom) {
+  final vCount = pRoom.walls.length;
+  String vCorner(int pIndex) => String.fromCharCode(65 + pIndex % math.max(vCount, 1));
+  String vKind(OpeningKind pKind) => switch (pKind) {
+    OpeningKind.door => pText.openingDoor,
+    OpeningKind.passage => pText.openingPassage,
+    OpeningKind.window => pText.openingWindow,
+  };
+  String vSlope(Slope pSlope) => pText.roomSheetSlope(
+    pSlope.wallIndex + 1,
+    formatCentimetres(pSlope.lowMm),
+    formatCentimetres(pSlope.runMm),
+  );
+
+  return [
+    if (vCount >= 3) ...[
+      pw.Paragraph(text: pText.roomSheetHelp),
+      pw.Center(child: _plan(pRoom)),
+      pw.SizedBox(height: 8),
+    ],
+    pw.Paragraph(text: pText.roomSheetHeight(formatCentimetres(pRoom.ceilingHeightMm))),
+    if (vCount >= 3)
+      pw.Paragraph(
+        text: pText.roomSheetArea(
+          formatSquareMetres(floorAreaM2(pRoom)),
+          formatCentimetres(perimeterMm(pRoom)),
+        ),
+      ),
+    for (final vSlopeOf in [pRoom.slope, pRoom.slope2])
+      if (vSlopeOf != null) pw.Paragraph(text: vSlope(vSlopeOf)),
+    if (vCount > 0) ...[
+      pw.Header(level: 1, text: pText.roomSheetWalls),
+      pw.TableHelper.fromTextArray(
+        headers: [
+          pText.roomSheetWall,
+          pText.roomSheetFromTo,
+          pText.cutListLength,
+          pText.roomSheetAngle,
+          pText.roomSheetOpenings,
+        ],
+        data: [
+          for (final (vIndex, vWall) in pRoom.walls.indexed)
+            [
+              '${vIndex + 1}',
+              '${vCorner(vIndex)} → ${vCorner(vIndex + 1)}',
+              vWall.deduced
+                  ? '${formatCentimetres(vWall.lengthMm)} cm (${pText.roomSheetDeduced})'
+                  : '${formatCentimetres(vWall.lengthMm)} cm',
+              '${formatDecimal(vWall.angleToNextDeg)}°',
+              [
+                for (final vOpening in vWall.openings)
+                  pText.sketchOpening(
+                    vKind(vOpening.kind),
+                    formatCentimetres(vOpening.widthMm),
+                    formatCentimetres(vOpening.offsetMm),
+                    vCorner(vIndex),
+                  ),
+              ].join('\n'),
+            ],
+        ],
+      ),
+    ],
+  ];
 }
 
 /// Largeur d'une photo de reprise sur la fiche, en points.

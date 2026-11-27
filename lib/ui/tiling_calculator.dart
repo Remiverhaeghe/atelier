@@ -80,14 +80,18 @@ class _TilingCalculatorState extends State<TilingCalculator> {
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
           RoomSourcePicker(rooms: widget.rooms, value: _room?.id, onChanged: _fromRoom),
-          SizedBox(
-            height: 220,
-            child: CustomPaint(
-              size: Size.infinite,
-              painter: _TilingPainter(
-                design: _design,
-                needs: vNeeds,
-                colors: AtelierColors.of(context),
+          Semantics(
+            label: vText.tilingChart(_patternName(vText, _design.pattern), vNeeds.tiles),
+            image: true,
+            child: SizedBox(
+              height: 220,
+              child: CustomPaint(
+                size: Size.infinite,
+                painter: _TilingPainter(
+                  design: _design,
+                  needs: vNeeds,
+                  colors: AtelierColors.of(context),
+                ),
               ),
             ),
           ),

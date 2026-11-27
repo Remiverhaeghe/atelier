@@ -101,32 +101,42 @@ class RoomPlan extends StatelessWidget {
       return CustomPaint(painter: vPainter);
     }
 
-    return AspectRatio(
-      aspectRatio: 4 / 3,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: vTheme.colorScheme.surfaceContainerLowest,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: vTheme.colorScheme.outlineVariant),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: onTapPlan == null || room.walls.isEmpty
-              ? CustomPaint(painter: vPainter)
-              : LayoutBuilder(
-                  builder: (pContext, pConstraints) => GestureDetector(
-                    onTapUp: (pDetails) {
-                      final vFrame = PlanFrame(
-                        room,
-                        pConstraints.biggest,
-                        pMargin: _margin(compact),
-                      );
-                      final vPoint = vFrame.toPlan(pDetails.localPosition);
-                      onTapPlan!(vPoint.xMm, vPoint.yMm);
-                    },
-                    child: CustomPaint(painter: vPainter, size: pConstraints.biggest),
+    final vText = AppLocalizations.of(context);
+
+    return Semantics(
+      label: vText.planSemantics(
+        room.name,
+        room.walls.length,
+        room.walls.length >= 3 ? formatSquareMetres(floorAreaM2(room)) : '0',
+      ),
+      image: true,
+      child: AspectRatio(
+        aspectRatio: 4 / 3,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: vTheme.colorScheme.surfaceContainerLowest,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: vTheme.colorScheme.outlineVariant),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: onTapPlan == null || room.walls.isEmpty
+                ? CustomPaint(painter: vPainter)
+                : LayoutBuilder(
+                    builder: (pContext, pConstraints) => GestureDetector(
+                      onTapUp: (pDetails) {
+                        final vFrame = PlanFrame(
+                          room,
+                          pConstraints.biggest,
+                          pMargin: _margin(compact),
+                        );
+                        final vPoint = vFrame.toPlan(pDetails.localPosition);
+                        onTapPlan!(vPoint.xMm, vPoint.yMm);
+                      },
+                      child: CustomPaint(painter: vPainter, size: pConstraints.biggest),
+                    ),
                   ),
-                ),
+          ),
         ),
       ),
     );

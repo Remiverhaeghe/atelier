@@ -7,7 +7,14 @@
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
 
 ### Ajouté
+- Accessibilité : le plan de la pièce et le calepinage du carrelage sont décrits au lecteur d'écran ; contrôles automatiques (cibles, contraste, noms) et texte à 200 % sur le journal quotidien, le carrelage, le mode atelier et la saisie rapide des murs
+- Entretien après travaux : des rappels loin dans le temps (silicone, joints de carrelage, parquet, mastic des fenêtres, lasure, filtres de ventilation) posés dans la carte Rappels du chantier, avec notification, et des délais dits en jours ou en mois
+- Fiche « à confier à un pro » depuis la pièce : métier, contraintes à signaler, plan et mesures, éléments de la pièce et photos du carnet, en PDF à remettre à l'artisan
+- Contrôle avant achat en tête de la liste de courses : articles déjà en stock (avec la valeur évitée si les prix sont saisis) et, pour les plinthes et le parquet prévus, l'outil à louer plutôt qu'acheter, ou l'inverse, avec l'économie estimée
+- Mode atelier : un minuteur de séchage lié à l'étape (15 min à 24 h, temps restant sur l'étape et dans la liste, vibration à la fin) et le balayage du doigt pour passer d'une étape à l'autre
 - Carrelage et mosaïque : sept poses (droite, décalée ½ ou ⅓, diagonale, chevrons, hexagones, plaques de mosaïque) dessinées dans le contour de la pièce choisie, avec la perte de coupe propre à chaque pose et le nombre de plaques de mosaïque
+- Journal de chantier quotidien : une ligne par jour avec les heures (reprises du chronomètre si on ne les tape pas), ce qui est fait et une photo ; les travaux du carnet s'y inscrivent tout seuls, et le bilan du chantier compte les jours travaillés
+- Comparer l'humidité de deux pièces en un geste quand le chantier n'a qu'une autre pièce suivie
 - Plinthes : « Moins de barres » est activé par défaut sur une pièce neuve ; une pièce déjà enregistrée garde ses morceaux égaux
 - Plinthes : réglage « Moins de barres » (barres entières puis un reste, au lieu de morceaux égaux) : la pièce de 4 × 3 m passe de 8 à 6 barres, avec un joint à une longueur de barre du coin ; un reste de moins de 30 cm ramène aux morceaux égaux
 

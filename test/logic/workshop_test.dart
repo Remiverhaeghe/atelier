@@ -60,4 +60,37 @@ void main() {
     expect(vRun.stepStart, Duration.zero);
     expect(vRun.stepTimes[0], const Duration(seconds: 20));
   });
+
+  group('minuteurs de séchage', () {
+    final vStart = DateTime(2026, 11, 26, 9);
+
+    test('un séchage lancé à une étape finit à l\'heure voulue, les autres sont intactes', () {
+      final vTimers = const DryingTimers().start(1, vStart, const Duration(hours: 4));
+
+      expect(vTimers.remaining(1, vStart.add(const Duration(hours: 1))), const Duration(hours: 3));
+      expect(vTimers.remaining(0, vStart), isNull);
+      expect(vTimers.isEmpty, isFalse);
+    });
+
+    test('une fois fini, il reste zéro et l\'étape est signalée', () {
+      final vTimers = const DryingTimers().start(2, vStart, const Duration(minutes: 30));
+      final vAfter = vStart.add(const Duration(minutes: 31));
+
+      expect(vTimers.remaining(2, vAfter), Duration.zero);
+      expect(vTimers.finished(vAfter), [2]);
+      expect(vTimers.finished(vStart), isEmpty);
+      expect(vTimers.anyRunning(vStart), isTrue);
+      expect(vTimers.anyRunning(vAfter), isFalse);
+    });
+
+    test('on arrête un minuteur sans toucher aux autres', () {
+      final vTimers = const DryingTimers()
+          .start(0, vStart, const Duration(hours: 1))
+          .start(1, vStart, const Duration(hours: 2))
+          .cancel(0);
+
+      expect(vTimers.remaining(0, vStart), isNull);
+      expect(vTimers.remaining(1, vStart), const Duration(hours: 2));
+    });
+  });
 }

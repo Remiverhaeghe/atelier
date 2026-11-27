@@ -16,6 +16,7 @@ import 'expenses_section.dart';
 import 'extra_items_card.dart';
 import 'guide_view.dart';
 import 'photos.dart';
+import 'purchase_check_card.dart';
 import 'shopping_line_card.dart';
 import 'shopping_texts.dart';
 import 'store_compare_screen.dart';
@@ -131,6 +132,7 @@ class ShoppingScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    PurchaseCheckCard(worksite: vWorksite),
                     if (shoppingByRoom(vWorksite).length > 1)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),

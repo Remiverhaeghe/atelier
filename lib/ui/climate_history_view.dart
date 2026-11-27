@@ -39,6 +39,12 @@ class _ClimateHistoryCardState extends State<ClimateHistoryCard> {
   ValueChanged<ClimateLog> get onChanged => widget.onChanged;
 
   Future<void> _pickOther(BuildContext pContext) async {
+    // Une seule autre pièce : pas de choix à faire, un geste suffit.
+    if (widget.others.length == 1) {
+      setState(() => _other = widget.others.single);
+
+      return;
+    }
     final vText = AppLocalizations.of(pContext);
     final vPicked = await showDialog<NamedClimate>(
       context: pContext,

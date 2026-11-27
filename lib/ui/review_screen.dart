@@ -91,6 +91,8 @@ class ReviewScreen extends StatelessWidget {
                   vText.reviewTouchUps(vReview.touchUpsDone, vReview.touchUpsTotal),
                 ),
               IconLine(Icons.menu_book_outlined, vText.reviewJournal(vReview.journalEntries)),
+              if (vReview.daysWorked > 0)
+                IconLine(Icons.event_available_outlined, vText.reviewDays(vReview.daysWorked)),
               const SizedBox(height: 12),
               Text(vText.reviewLessons, style: vTheme.textTheme.titleMedium),
               if (vWorksite.lessons.isEmpty) Text(vText.reviewLessonsEmpty),
