@@ -1,4 +1,6 @@
+import 'package:atelier/logic/units.dart';
 import 'package:atelier/ui/calculators_screen.dart';
+import 'package:atelier/ui/plan_unit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/localized.dart';
@@ -12,10 +14,26 @@ void main() {
     await pTester.pumpAndSettle();
 
     expect(find.text('5 cartons'), findsOneWidget);
-    expect(find.text('Longueur : 4 carreaux entiers, coupes de 29,2 et 29,3 cm'), findsOneWidget);
+    expect(
+      find.text('Longueur : 4 carreaux entiers, coupes de 29,2 cm et 29,3 cm'),
+      findsOneWidget,
+    );
 
     await pTester.tap(find.text('Calepinage centré'));
     await pTester.pump();
     expect(find.text('Longueur : 4 carreaux entiers, une coupe de 58,8 cm'), findsOneWidget);
+  });
+
+  testWidgets('carrelage : les coupes s\'écrivent dans l\'unité choisie', (pTester) async {
+    tallScreen(pTester);
+    // Au-dessus du MaterialApp, comme dans l'appli : l'écran ouvert par la liste le lit aussi
+    await pTester.pumpWidget(
+      PlanUnit(unit: FieldUnit.mm, child: localized(const CalculatorsScreen())),
+    );
+    await scrollToTile(pTester, 'Carrelage et faïence');
+    await pTester.tap(find.text('Carrelage et faïence'));
+    await pTester.pumpAndSettle();
+
+    expect(find.text('Longueur : 4 carreaux entiers, coupes de 292 mm et 293 mm'), findsOneWidget);
   });
 }

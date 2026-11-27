@@ -7,6 +7,8 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import 'laying_preview.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText, unitName;
 
 /// Plan de pose du parquet, rangée par rangée, à cocher au fur et à mesure.
 class LayingView extends StatelessWidget {
@@ -24,6 +26,7 @@ class LayingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vPlan = planLaying(room, room.parquet);
     if (vPlan == null && room.parquet.type == ParquetType.herringbone && room.walls.length >= 3) {
@@ -72,12 +75,17 @@ class LayingView extends StatelessWidget {
           CheckboxListTile(
             value: room.laidRows.contains(vRow.number),
             onChanged: (pValue) => _toggle(vRow.number, pValue ?? false),
-            title: Text(vText.layingRowTitle(vRow.number, formatCentimetres(vRow.widthMm))),
+            title: Text(vText.layingRowTitle(vRow.number, lengthText(vText, vRow.widthMm, vUnit))),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 for (final vRun in vRow.runs) ...[
-                  Text(vText.layingPieces(vRun.pieces.map(formatCentimetres).join(' + '))),
+                  Text(
+                    vText.layingPieces(
+                      '${vRun.pieces.map((pPiece) => lengthInUnit(pPiece, vUnit)).join(' + ')} '
+                      '${unitName(vText, vUnit)}',
+                    ),
+                  ),
                   if (vRun.startsWithOffcut) Text(vText.layingOffcutStart),
                   if (!vRun.jointsOk)
                     Text(vText.layingProblem, style: TextStyle(color: vTheme.colorScheme.error)),

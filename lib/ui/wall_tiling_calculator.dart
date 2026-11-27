@@ -9,6 +9,8 @@ import '../logic/wall_tiling.dart';
 import 'parquet_view.dart';
 import 'room_source.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Faïence et crédence : pan de mur, ouverture, prises, profilés et silicone.
 class WallTilingCalculator extends StatefulWidget {
@@ -55,6 +57,7 @@ class _WallTilingCalculatorState extends State<WallTilingCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vNeeds = wallTilingNeeds(_wall);
     final vDesign = _wall.design;
@@ -81,7 +84,7 @@ class _WallTilingCalculatorState extends State<WallTilingCalculator> {
                     Icons.table_rows_outlined,
                     vTopCut <= 0
                         ? vText.wallTileRowsExact(vRow.fullTiles)
-                        : vText.wallTileRows(vRow.fullTiles, formatCentimetres(vTopCut)),
+                        : vText.wallTileRows(vRow.fullTiles, lengthText(vText, vTopCut, vUnit)),
                   ),
                   IconLine(Icons.format_paint_outlined, vText.tilingGlue(vNeeds.glueKg)),
                   IconLine(Icons.grid_on, vText.tilingJoint(formatDecimal(vNeeds.jointKg))),
@@ -90,12 +93,12 @@ class _WallTilingCalculatorState extends State<WallTilingCalculator> {
                   if (vNeeds.profileMm > 0)
                     IconLine(
                       Icons.border_outer,
-                      vText.wallTileProfile(formatCentimetres(vNeeds.profileMm)),
+                      vText.wallTileProfile(lengthText(vText, vNeeds.profileMm, vUnit)),
                     ),
                   if (vNeeds.siliconeMm > 0)
                     IconLine(
                       Icons.water_drop_outlined,
-                      vText.wallTileSilicone(formatCentimetres(vNeeds.siliconeMm)),
+                      vText.wallTileSilicone(lengthText(vText, vNeeds.siliconeMm, vUnit)),
                     ),
                 ],
               ),

@@ -16,7 +16,7 @@ void main() {
 
     await pTester.tap(find.text('Ajouter un compartiment'));
     await pTester.pump();
-    expect(find.text('2 × séparation de 216,4 × 60 cm'), findsOneWidget);
+    expect(find.text('2 × séparation de 216,4 cm × 60 cm'), findsOneWidget);
 
     await pTester.tap(find.text('Penderie').last);
     await pTester.pump();

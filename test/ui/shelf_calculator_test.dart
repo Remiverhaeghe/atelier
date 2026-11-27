@@ -14,12 +14,12 @@ void main() {
     await pTester.tap(find.text('Étagère sur mesure'));
     await pTester.pumpAndSettle();
 
-    expect(find.text('5 × tablette de 76,4 × 30 cm'), findsOneWidget);
+    expect(find.text('5 × tablette de 76,4 cm × 30 cm'), findsOneWidget);
     expect(find.textContaining('Tablette trop large'), findsOneWidget);
 
     await pTester.enterText(find.widgetWithText(TextField, 'Largeur (cm)'), '60');
     await pTester.pump();
-    expect(find.text('5 × tablette de 56,4 × 30 cm'), findsOneWidget);
+    expect(find.text('5 × tablette de 56,4 cm × 30 cm'), findsOneWidget);
     expect(find.textContaining('Tablette trop large'), findsNothing);
   });
 
