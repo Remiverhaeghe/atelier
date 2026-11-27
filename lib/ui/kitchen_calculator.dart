@@ -7,6 +7,8 @@ import '../logic/units.dart';
 import 'kitchen_plan_card.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Cuisine en I ou en L : meubles bas, fileurs, plans de travail, hauteurs de pose, triangle
 /// d'activité, hotte et implantation.
@@ -34,6 +36,7 @@ class _KitchenCalculatorState extends State<KitchenCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vRuns = [_run1, _run2].where((pRun) => pRun > 0).toList();
     final vHeights = kitchenHeights(_person, pGas: _gas);
@@ -70,13 +73,13 @@ class _KitchenCalculatorState extends State<KitchenCalculator> {
                   ),
                   IconLine(
                     Icons.height,
-                    vText.kitchenWorktopHeight(formatCentimetres(vHeights.worktopMm)),
+                    vText.kitchenWorktopHeight(lengthText(vText, vHeights.worktopMm, vUnit)),
                   ),
                   IconLine(
                     Icons.vertical_align_top,
-                    vText.kitchenWallUnits(formatCentimetres(vHeights.wallUnitsMm)),
+                    vText.kitchenWallUnits(lengthText(vText, vHeights.wallUnitsMm, vUnit)),
                   ),
-                  IconLine(Icons.air, vText.kitchenHood(formatCentimetres(vHeights.hoodMm))),
+                  IconLine(Icons.air, vText.kitchenHood(lengthText(vText, vHeights.hoodMm, vUnit))),
                 ],
               ),
             ),

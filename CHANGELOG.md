@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Modifié
+- Unités : la pergola (espacements des chevrons et des poteaux), les hauteurs de la cuisine et la distance du lit dans le calcul de soleil suivent l'unité choisie dans les réglages
 - Unités : la mezzanine (hauteurs, solives, poteaux, poutre) et les chevrons de toiture suivent l'unité choisie dans les réglages
 - Unités : les résultats du faux plafond et de la porte (bloc-porte, jeux, poignée) suivent l'unité choisie dans les réglages
 - Unités : les coupes du carrelage et de la faïence, les rangées de pose, la liste de coupe de l'étagère et du placard suivent l'unité choisie dans les réglages

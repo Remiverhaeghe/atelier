@@ -9,6 +9,8 @@ import 'parquet_view.dart';
 import 'shopping_target.dart';
 import 'theme.dart';
 import 'wood_species_card.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 String pergolaCoverLabel(AppLocalizations pText, PergolaCover pCover) => switch (pCover) {
   PergolaCover.open => pText.pergolaCoverOpen,
@@ -31,6 +33,7 @@ class _PergolaCalculatorState extends State<PergolaCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vPlan = planPergola(_pergola);
     final vRafter = vPlan.rafter;
@@ -58,7 +61,7 @@ class _PergolaCalculatorState extends State<PergolaCalculator> {
                             vPlan.rafters,
                             vRafter.widthMm,
                             vRafter.heightMm,
-                            formatCentimetres(_pergola.rafterSpacingMm),
+                            lengthText(vText, _pergola.rafterSpacingMm, vUnit),
                           ),
                     color: vRafter == null ? vTheme.colorScheme.error : null,
                   ),
@@ -75,7 +78,7 @@ class _PergolaCalculatorState extends State<PergolaCalculator> {
                         : vText.pergolaPosts(
                             vPlan.postsPerBeam * vPlan.beams,
                             vPostSide,
-                            formatCentimetres(vPlan.postSpacingMm),
+                            lengthText(vText, vPlan.postSpacingMm, vUnit),
                           ),
                   ),
                   IconLine(Icons.foundation, vText.pergolaFootings(vPlan.concreteLitres)),

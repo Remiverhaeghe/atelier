@@ -8,6 +8,8 @@ import '../logic/units.dart';
 import 'parquet_view.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Demi-largeur de la pièce dessinée, de part et d'autre de la fenêtre.
 const _roomHalfMm = 1500.0;
@@ -73,6 +75,7 @@ class _SunLightScreenState extends State<SunLightScreen> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vSun = sunPosition(pDayOfYear: _season.dayOfYear, pHour: _hour, pLatitudeDeg: _latitude);
     final vPatch = sunPatch(_room, vSun);
@@ -143,9 +146,9 @@ class _SunLightScreenState extends State<SunLightScreen> {
                   IconLine(
                     Icons.bed_outlined,
                     vRanges.isEmpty
-                        ? vText.sunSpotNone(formatCentimetres(_spotMm))
+                        ? vText.sunSpotNone(lengthText(vText, _spotMm, vUnit))
                         : vText.sunSpotHours(
-                            formatCentimetres(_spotMm),
+                            lengthText(vText, _spotMm, vUnit),
                             [
                               for (final vRange in vRanges)
                                 vText.sunRange(formatHour(vRange.from), formatHour(vRange.to)),

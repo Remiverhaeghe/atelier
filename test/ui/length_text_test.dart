@@ -50,6 +50,18 @@ void main() {
     );
   });
 
+  test('les textes de la pergola, de la cuisine et du soleil ne portent plus d\'unité en dur', () {
+    expect(
+      vText.pergolaRafters(8, 45, 145, '600 mm'),
+      '8 chevrons de 45 × 145 mm en C24, tous les 600 mm',
+    );
+    expect(vText.kitchenWorktopHeight('0,9 m'), 'Dessus du plan de travail à 0,9 m');
+    expect(
+      vText.sunSpotNone('160 cm'),
+      'Lit ou bureau à 160 cm du mur de genou : pas de soleil direct ce jour-là',
+    );
+  });
+
   test('fiche de pièce et liste de coupes se construisent dans chaque unité', () async {
     for (final vUnit in [FieldUnit.mm, FieldUnit.cm, FieldUnit.m]) {
       final vSheet = await buildRoomSheetPdf(vText, rectangleRoom(), pUnit: vUnit);
