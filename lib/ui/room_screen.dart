@@ -113,7 +113,8 @@ class RoomScreen extends StatelessWidget {
                     if (!pForPro) {
                       await Printing.layoutPdf(
                         name: vText.roomSheetTitle(vRoom.name),
-                        onLayout: (_) => buildRoomSheetPdf(vText, vRoom, pUnit: PlanUnit.of(pContext)),
+                        onLayout: (_) =>
+                            buildRoomSheetPdf(vText, vRoom, pUnit: PlanUnit.of(pContext)),
                       );
 
                       return;

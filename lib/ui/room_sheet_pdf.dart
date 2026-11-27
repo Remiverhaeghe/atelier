@@ -88,11 +88,8 @@ List<pw.Widget> roomSheetGeometry(
     OpeningKind.passage => pText.openingPassage,
     OpeningKind.window => pText.openingWindow,
   };
-  String vSlope(Slope pSlope) => pText.roomSheetSlope(
-    pSlope.wallIndex + 1,
-    vLength(pSlope.lowMm),
-    vLength(pSlope.runMm),
-  );
+  String vSlope(Slope pSlope) =>
+      pText.roomSheetSlope(pSlope.wallIndex + 1, vLength(pSlope.lowMm), vLength(pSlope.runMm));
 
   return [
     if (vCount >= 3) ...[

@@ -18,7 +18,10 @@ void main() {
 
   test('les textes des PDF ne portent plus d\'unité en dur', () {
     expect(vText.roomSheetHeight('2,5 m'), 'Hauteur sous plafond : 2,5 m');
-    expect(vText.sketchOpening('Porte', '90 cm', '30 cm', 'A'), 'Porte de 90 cm, à 30 cm du coin A');
+    expect(
+      vText.sketchOpening('Porte', '90 cm', '30 cm', 'A'),
+      'Porte de 90 cm, à 30 cm du coin A',
+    );
     expect(
       vText.roomSheetSlope(2, '1 m', '2 m'),
       'Rampant le long du mur 2 : jambette de 1 m, pente sur 2 m au sol',
