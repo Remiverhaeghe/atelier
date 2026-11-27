@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Modifié
+- Plinthes : quand les angles d'une pièce sont déduits de mesures approximatives, chaque coupe d'onglet affiche sa marge d'erreur (± quelques dixièmes de degré)
 - Licence : PolyForm Strict 1.0.0 à la place de MIT, comme Home. Les copies déjà obtenues sous MIT restent sous MIT
 - Pièces dont rien n'est droit : les angles des quatre murs se déduisent des seules longueurs et se recalculent quand une longueur est corrigée ; un angle tapé à la main n'est jamais écrasé
 - Pièces déjà saisies : à l'ouverture, les angles sont repris à partir des longueurs enregistrées, sans rien retaper

@@ -598,6 +598,14 @@
   "pieceTitle": "Wall {wall} · {length} cm",
   "pieceCuts": "Start: {start} · End: {end}",
   "cutSquare": "square cut",
+  "cutMargin": "± {margin}°, approximate measurements",
+  "@cutMargin": {
+    "placeholders": {
+      "margin": {
+        "type": "String"
+      }
+    }
+  },
   "cutInside": "{angle}° mitre, long point against the wall",
   "cutOutside": "{angle}° mitre, long point towards the room",
   "cutScarf": "45° scarf to join the next piece",

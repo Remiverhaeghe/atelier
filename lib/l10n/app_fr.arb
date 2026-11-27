@@ -1128,6 +1128,14 @@
     }
   },
   "cutSquare": "coupe droite",
+  "cutMargin": "± {margin}°, mesures approximatives",
+  "@cutMargin": {
+    "placeholders": {
+      "margin": {
+        "type": "String"
+      }
+    }
+  },
   "cutInside": "onglet {angle}°, pointe longue contre le mur",
   "@cutInside": {
     "placeholders": {

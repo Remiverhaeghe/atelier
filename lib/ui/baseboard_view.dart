@@ -13,12 +13,17 @@ import 'bars_diagram.dart';
 import 'cut_diagram.dart';
 
 /// Texte d'une coupe de bout de plinthe.
-String cutLabel(AppLocalizations pText, EndCut pCut) => switch (pCut.kind) {
-  EndCutKind.square => pText.cutSquare,
-  EndCutKind.insideMiter => pText.cutInside(formatAngle(pCut.sawAngleDeg)),
-  EndCutKind.outsideMiter => pText.cutOutside(formatAngle(pCut.sawAngleDeg)),
-  EndCutKind.scarf => pText.cutScarf,
-};
+String cutLabel(AppLocalizations pText, EndCut pCut) {
+  final vBase = switch (pCut.kind) {
+    EndCutKind.square => pText.cutSquare,
+    EndCutKind.insideMiter => pText.cutInside(formatAngle(pCut.sawAngleDeg)),
+    EndCutKind.outsideMiter => pText.cutOutside(formatAngle(pCut.sawAngleDeg)),
+    EndCutKind.scarf => pText.cutScarf,
+  };
+
+  // Moins d'un dixième de degré, la marge n'apprend rien à celui qui règle la scie
+  return pCut.marginDeg < 0.1 ? vBase : '$vBase (${pText.cutMargin(formatAngle(pCut.marginDeg))})';
+}
 
 String fixingLabel(AppLocalizations pText, BaseboardFixing pFixing) => switch (pFixing) {
   BaseboardFixing.glued => pText.fixingGlued,

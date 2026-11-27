@@ -3,6 +3,7 @@ library;
 
 import 'dart:math' as math;
 
+import 'auto_corners.dart';
 import 'bar_cutting.dart';
 import 'room.dart';
 
@@ -25,7 +26,7 @@ enum EndCutKind {
 }
 
 class EndCut {
-  const EndCut(this.kind, this.sawAngleDeg);
+  const EndCut(this.kind, this.sawAngleDeg, [this.marginDeg = 0]);
 
   static const square = EndCut(EndCutKind.square, 0);
 
@@ -33,19 +34,24 @@ class EndCut {
 
   /// Angle à régler sur la scie à onglet, 0 pour une coupe droite.
   final double sawAngleDeg;
+
+  /// Incertitude de l'angle de scie, en degrés : non nulle quand l'angle du coin est déduit de
+  /// mesures approximatives plutôt que mesuré.
+  final double marginDeg;
 }
 
 /// Angle de scie d'un coin : la moitié de l'écart à un mur droit (90° donne 45°, 88° donne 46°).
 double miterAngle(double pInteriorAngleDeg) => (180 - pInteriorAngleDeg).abs() / 2;
 
 /// Coupe d'un coin d'angle intérieur [pInteriorAngleDeg] ; coupe droite pour un mur dans le prolongement.
-EndCut cornerCut(double pInteriorAngleDeg) {
+EndCut cornerCut(double pInteriorAngleDeg, {double pMarginDeg = 0}) {
   if ((pInteriorAngleDeg - 180).abs() < 0.5) {
     return EndCut.square;
   }
   final rCut = EndCut(
     pInteriorAngleDeg > 180 ? EndCutKind.outsideMiter : EndCutKind.insideMiter,
     miterAngle(pInteriorAngleDeg),
+    pMarginDeg,
   );
 
   return rCut;
@@ -159,21 +165,40 @@ int _faceOverhang(EndCut pCut, bool pIsEnd, int pThicknessMm) {
   return vFaceLonger ? (pThicknessMm * math.tan(pCut.sawAngleDeg * math.pi / 180)).round() : 0;
 }
 
+/// Incertitude de l'angle de scie de chaque coin (celui qui suit chaque mur), en degrés. Zéro pour
+/// un coin mesuré ou resté à 90° : seuls les angles déduits des longueurs sont incertains. L'angle
+/// de scie varie de moitié moins que l'angle du coin.
+List<double> cornerMargins(Room pRoom) {
+  final vWalls = pRoom.walls;
+  final vSpread = vWalls.length == 4
+      ? cornerUncertainty([for (final vWall in vWalls) vWall.lengthMm])
+      : null;
+
+  return [
+    for (final (vIndex, vWall) in vWalls.indexed)
+      vWall.angleAuto && vSpread != null ? vSpread[vIndex] / 2 : 0.0,
+  ];
+}
+
 /// Morceaux de plinthe de toute la pièce, dans l'ordre du tour.
 List<BaseboardPiece> baseboardPieces(Room pRoom, BaseboardSettings pSettings) {
   final vWalls = pRoom.walls;
+  final vMargins = cornerMargins(pRoom);
   final rPieces = <BaseboardPiece>[];
   for (var vIndex = 0; vIndex < vWalls.length; vIndex++) {
     final vWall = vWalls[vIndex];
     final vHasPrevious = vIndex > 0 || pRoom.closed;
     final vPrevious = vWalls[(vIndex - 1 + vWalls.length) % vWalls.length];
     final vStartCut = vHasPrevious && !vPrevious.freeEndAfter
-        ? cornerCut(vPrevious.angleToNextDeg)
+        ? cornerCut(
+            vPrevious.angleToNextDeg,
+            pMarginDeg: vMargins[(vIndex - 1 + vWalls.length) % vWalls.length],
+          )
         : EndCut.square;
     final vIsLast = vIndex == vWalls.length - 1;
     final vEndCut = vWall.freeEndAfter || (vIsLast && !pRoom.closed)
         ? EndCut.square
-        : cornerCut(vWall.angleToNextDeg);
+        : cornerCut(vWall.angleToNextDeg, pMarginDeg: vMargins[vIndex]);
     for (final vSegment in _segments(vWall, vStartCut, vEndCut)) {
       rPieces.addAll(_splitToBars(vIndex + 1, vSegment, pSettings));
     }

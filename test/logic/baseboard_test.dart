@@ -1,3 +1,4 @@
+import 'package:atelier/logic/auto_corners.dart';
 import 'package:atelier/logic/baseboard.dart';
 import 'package:atelier/logic/room.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -164,5 +165,51 @@ void main() {
     expect(vCopy.cutPieces, [0, 3]);
     expect(BaseboardSettings.fromJson(const {}).barLengthMm, 2400);
     expect(Room.fromJson({'id': 'r', 'name': 'R'}).cutPieces, isEmpty);
+  });
+
+  group('marge d\'erreur des coupes', () {
+    Room irregular() => refitRoom(
+      const Room(
+        id: 'r',
+        name: 'Salon',
+        walls: [
+          Wall(lengthMm: 3089),
+          Wall(lengthMm: 4225),
+          Wall(lengthMm: 2831),
+          Wall(lengthMm: 4163),
+        ],
+      ),
+    );
+
+    test('une pièce mesurée à angles droits n\'a aucune incertitude', () {
+      expect(cornerMargins(rectangleRoom()), everyElement(0));
+      for (final vPiece in baseboardPieces(rectangleRoom(), const BaseboardSettings())) {
+        expect(vPiece.startCut.marginDeg, 0);
+        expect(vPiece.endCut.marginDeg, 0);
+      }
+    });
+
+    test('des angles déduits de mesures approximatives gardent une marge', () {
+      final vMargins = cornerMargins(irregular());
+
+      expect(vMargins, hasLength(4));
+      expect(vMargins.any((pMargin) => pMargin > 0), isTrue);
+    });
+
+    test('la marge est portée par les coupes des coins déduits', () {
+      final vCuts = [
+        for (final vPiece in baseboardPieces(irregular(), const BaseboardSettings())) ...[
+          vPiece.startCut,
+          vPiece.endCut,
+        ],
+      ].where((pCut) => pCut.kind != EndCutKind.scarf);
+
+      expect(vCuts.any((pCut) => pCut.marginDeg > 0), isTrue);
+    });
+
+    test('une coupe droite n\'a pas de marge', () {
+      expect(cornerCut(180, pMarginDeg: 1).marginDeg, 0);
+      expect(cornerCut(88, pMarginDeg: 0.4).marginDeg, 0.4);
+    });
   });
 }
