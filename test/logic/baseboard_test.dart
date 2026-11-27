@@ -198,8 +198,10 @@ void main() {
 
     test('la marge est portée par les coupes des coins déduits', () {
       final vCuts = [
-        for (final vPiece in baseboardPieces(irregular(), const BaseboardSettings()))
-          ...[vPiece.startCut, vPiece.endCut],
+        for (final vPiece in baseboardPieces(irregular(), const BaseboardSettings())) ...[
+          vPiece.startCut,
+          vPiece.endCut,
+        ],
       ].where((pCut) => pCut.kind != EndCutKind.scarf);
 
       expect(vCuts.any((pCut) => pCut.marginDeg > 0), isTrue);
