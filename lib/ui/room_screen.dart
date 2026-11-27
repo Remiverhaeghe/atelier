@@ -24,11 +24,13 @@ import 'behind_walls_section.dart';
 import 'guide_view.dart';
 import 'laying_view.dart';
 import 'parquet_view.dart';
+import 'plan_unit.dart';
 import 'pro_brief_dialog.dart';
 import 'pro_brief_pdf.dart';
 import 'quick_walls_screen.dart';
 import 'room_sketch_screen.dart';
 import 'room_3d_card.dart';
+import 'room_measure_picker.dart' show unitName;
 import 'room_plan_switcher.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
@@ -388,31 +390,11 @@ class RoomWallsView extends StatelessWidget {
           onChanged: (pValue) => onChanged(room.copyWith(closed: pValue)),
         ),
         ListTile(title: Text(vText.wallsTitle, style: vTheme.textTheme.titleMedium)),
-        // La façon la plus simple : une forme toute faite, on touche un mur, on tape sa
-        // longueur ; hauteur et rampants sur le même écran
+        // La façon la plus simple : les longueurs des murs sur un seul écran, les angles se
+        // déduisent tout seuls. Le dessin d'une forme toute faite reste en second.
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           child: FilledButton.icon(
-            onPressed: () async {
-              final vDrawn = await sketchRoom(context, room);
-              if (vDrawn != null) {
-                onChanged(
-                  vDrawn.copyWith(
-                    obstacles: [
-                      for (final vObstacle in vDrawn.obstacles)
-                        if (vObstacle.wallIndex < vDrawn.walls.length) vObstacle,
-                    ],
-                  ),
-                );
-              }
-            },
-            icon: const Icon(Icons.crop_square),
-            label: Text(vText.sketchTitle),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: OutlinedButton.icon(
             onPressed: () async {
               final vWalls = await editAllWalls(context, room);
               if (vWalls != null) {
@@ -430,6 +412,26 @@ class RoomWallsView extends StatelessWidget {
             },
             icon: const Icon(Icons.edit_note),
             label: Text(vText.quickWallsOpen),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: OutlinedButton.icon(
+            onPressed: () async {
+              final vDrawn = await sketchRoom(context, room);
+              if (vDrawn != null) {
+                onChanged(
+                  vDrawn.copyWith(
+                    obstacles: [
+                      for (final vObstacle in vDrawn.obstacles)
+                        if (vObstacle.wallIndex < vDrawn.walls.length) vObstacle,
+                    ],
+                  ),
+                );
+              }
+            },
+            icon: const Icon(Icons.crop_square),
+            label: Text(vText.sketchTitle),
           ),
         ),
         if (room.walls.isEmpty) ...[
@@ -465,7 +467,10 @@ class RoomWallsView extends StatelessWidget {
         ],
         for (var vIndex = 0; vIndex < room.walls.length; vIndex++)
           ListTile(
-            leading: TapeLabel(formatCentimetres(room.walls[vIndex].lengthMm)),
+            leading: TapeLabel(
+              '${lengthInUnit(room.walls[vIndex].lengthMm, PlanUnit.of(context))} '
+              '${unitName(vText, PlanUnit.of(context))}',
+            ),
             title: Text(vText.wallTitle(vIndex + 1)),
             subtitle: Text(_wallSummary(vText, room.walls[vIndex])),
             onTap: () => _editWall(context, vIndex),

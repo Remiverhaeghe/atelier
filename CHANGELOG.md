@@ -7,6 +7,7 @@
 - Pièces déjà saisies : à l'ouverture, les angles sont repris à partir des longueurs enregistrées, sans rien retaper
 - Marge d'erreur affichée : avec des mesures à 1 cm près, de combien chaque angle peut varier
 - Plan des pièces : unité des cotes au choix (mm, cm ou m) dans À propos, le centimètre au départ
+- Pièce : « Tous les murs » est le bouton principal de la saisie, avant le dessin ; la liste des murs écrit l'unité des longueurs
 - Message de fermeture du contour plus simple quand les mesures sont approximatives
 
 ### Corrigé
