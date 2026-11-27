@@ -60,7 +60,7 @@ List<pw.Widget> _roomSection(AppLocalizations pText, Room pRoom) {
       for (final vRow in vPlan.rows)
         pw.Bullet(
           text:
-              '${pText.layingRowTitle(vRow.number, formatCentimetres(vRow.widthMm))} : '
+              '${pText.layingRowTitle(vRow.number, lengthText(pText, vRow.widthMm, FieldUnit.cm))} : '
               '${vRow.runs.map((pRun) => pRun.pieces.map(formatCentimetres).join(' + ')).join(' / ')} cm',
         ),
     pw.Header(level: 2, text: pText.pdfBaseboard),

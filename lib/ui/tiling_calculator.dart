@@ -9,6 +9,8 @@ import '../logic/units.dart';
 import 'parquet_view.dart';
 import 'room_source.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Carrelage et faïence : calepinage dessiné, coupes de bord, quantités, colle et joint.
 class TilingCalculator extends StatefulWidget {
@@ -64,14 +66,15 @@ class _TilingCalculatorState extends State<TilingCalculator> {
     final vTheme = Theme.of(context);
     final vNeeds = tilingNeeds(_design);
     void vSet(TilingDesign pDesign) => setState(() => _design = pDesign);
+    final vUnit = PlanUnit.of(context);
     String vCuts(AxisLayout pAxis) => pAxis.startCutMm == 0 && pAxis.endCutMm == 0
         ? vText.tilingNoCut(pAxis.fullTiles)
         : pAxis.startCutMm == 0
-        ? vText.tilingOneCut(pAxis.fullTiles, formatCentimetres(pAxis.endCutMm))
+        ? vText.tilingOneCut(pAxis.fullTiles, lengthText(vText, pAxis.endCutMm, vUnit))
         : vText.tilingCuts(
             pAxis.fullTiles,
-            formatCentimetres(pAxis.startCutMm),
-            formatCentimetres(pAxis.endCutMm),
+            lengthText(vText, pAxis.startCutMm, vUnit),
+            lengthText(vText, pAxis.endCutMm, vUnit),
           );
 
     return Scaffold(

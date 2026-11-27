@@ -8,6 +8,8 @@ import 'parquet_view.dart';
 import 'shelf_joinery_card.dart';
 import 'shelf_preview.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 String shelfMaterialLabel(AppLocalizations pText, ShelfMaterial pMaterial) => switch (pMaterial) {
   ShelfMaterial.particleBoard => pText.materialParticleBoard,
@@ -38,6 +40,7 @@ class _ShelfCalculatorState extends State<ShelfCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vPlan = planShelf(_design);
     void vSet(ShelfDesign pDesign) => setState(() => _design = pDesign);
@@ -63,8 +66,8 @@ class _ShelfCalculatorState extends State<ShelfCalculator> {
                       vText.cutListLine(
                         vPart.count,
                         shelfPartLabel(vText, vPart.name),
-                        formatCentimetres(vPart.lengthMm),
-                        formatCentimetres(vPart.widthMm),
+                        lengthText(vText, vPart.lengthMm, vUnit),
+                        lengthText(vText, vPart.widthMm, vUnit),
                       ),
                     ),
                   IconLine(Icons.layers_outlined, vText.shelfBoards(vPlan.boards)),
