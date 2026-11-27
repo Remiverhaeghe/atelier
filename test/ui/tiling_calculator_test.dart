@@ -26,8 +26,9 @@ void main() {
 
   testWidgets('carrelage : les coupes s\'écrivent dans l\'unité choisie', (pTester) async {
     tallScreen(pTester);
+    // Au-dessus du MaterialApp, comme dans l'appli : l'écran ouvert par la liste le lit aussi
     await pTester.pumpWidget(
-      localized(const PlanUnit(unit: FieldUnit.mm, child: CalculatorsScreen())),
+      PlanUnit(unit: FieldUnit.mm, child: localized(const CalculatorsScreen())),
     );
     await scrollToTile(pTester, 'Carrelage et faïence');
     await pTester.tap(find.text('Carrelage et faïence'));

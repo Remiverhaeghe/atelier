@@ -8,7 +8,7 @@ import '../logic/units.dart';
 import 'laying_preview.dart';
 import 'theme.dart';
 import 'plan_unit.dart';
-import 'room_measure_picker.dart' show lengthInUnit, lengthText, unitName;
+import 'room_measure_picker.dart' show lengthText, unitName;
 
 /// Plan de pose du parquet, rangée par rangée, à cocher au fur et à mesure.
 class LayingView extends StatelessWidget {
