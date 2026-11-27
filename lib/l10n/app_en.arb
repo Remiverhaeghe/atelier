@@ -741,6 +741,8 @@
   "siteModeAwake": "The screen stays on while this mode is open.",
   "siteModeCut": "Next cut",
   "siteModeCutText": "Skirting {number}, wall {wall}: {length}. Start: {start}. End: {end}.",
+  "siteModeCutBar": "Length {bar}, to cut from this length: {lengths}.",
+  "@siteModeCutBar": {"placeholders": {"bar": {"type": "int"}, "lengths": {"type": "String"}}},
   "siteModeCutsDone": "All the skirting boards are cut.",
   "siteModeRow": "Next row",
   "siteModeRowText": "Row {number}: {pieces} cm.",

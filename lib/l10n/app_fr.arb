@@ -1423,6 +1423,8 @@
   "siteModeCut": "Coupe suivante",
   "siteModeCutText": "Plinthe {number}, mur {wall} : {length}. Début : {start}. Fin : {end}.",
   "@siteModeCutText": {"placeholders": {"number": {"type": "int"}, "wall": {"type": "int"}, "length": {"type": "String"}, "start": {"type": "String"}, "end": {"type": "String"}}},
+  "siteModeCutBar": "Barre {bar}, à couper dans cette barre : {lengths}.",
+  "@siteModeCutBar": {"placeholders": {"bar": {"type": "int"}, "lengths": {"type": "String"}}},
   "siteModeCutsDone": "Toutes les plinthes sont coupées.",
   "siteModeRow": "Rangée suivante",
   "siteModeRowText": "Rangée {number} : {pieces} cm.",

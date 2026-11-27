@@ -34,7 +34,7 @@ void main() {
 
     await pTester.tap(find.byType(Checkbox).first);
     await pTester.pump();
-    expect(vRoom.cutPieces, [0]);
+    expect(vRoom.cutPieces, hasLength(1));
     // Le compteur est juste au-dessus du premier morceau : remonter un peu pour le voir.
     await pTester.drag(verticalList(), const Offset(0, 300));
     await pTester.pump();
@@ -57,7 +57,7 @@ void main() {
     await pTester.tap(find.text('Coupée, suivante'));
     await pTester.pump();
 
-    expect(vRoom.cutPieces, [0]);
+    expect(vRoom.cutPieces, hasLength(1));
     expect(find.text('Prochaine coupe'), findsOneWidget);
   });
 

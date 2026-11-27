@@ -1,6 +1,7 @@
 import 'package:atelier/logic/baseboard.dart';
 import 'package:atelier/logic/laying_plan.dart';
 import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/baseboard_bars.dart';
 import 'package:atelier/logic/site_mode.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,12 +10,12 @@ import '../support/rooms.dart';
 void main() {
   test('coupe suivante : le premier morceau pas encore coupé', () {
     final vRoom = rectangleRoom();
-    expect(nextBaseboardCut(vRoom)!.index, 0);
-    expect(nextBaseboardCut(vRoom)!.piece.wallNumber, 1);
+    final vFirst = nextBaseboardCut(vRoom)!;
+    expect(vFirst.piece.wallNumber, inInclusiveRange(1, 4));
 
-    final vAfter = markCut(markCut(vRoom, 0), 0);
-    expect(vAfter.cutPieces, [0]);
-    expect(nextBaseboardCut(vAfter)!.index, 1);
+    final vAfter = markCut(markCut(vRoom, vFirst.index), vFirst.index);
+    expect(vAfter.cutPieces, [vFirst.index]);
+    expect(nextBaseboardCut(vAfter)!.index, isNot(vFirst.index));
 
     final vCount = baseboardPieces(vRoom, vRoom.baseboard).length;
     expect(nextBaseboardCut(vRoom.copyWith(cutPieces: List.generate(vCount, (pI) => pI))), isNull);

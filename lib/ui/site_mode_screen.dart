@@ -11,6 +11,7 @@ import '../logic/baseboard.dart';
 import '../logic/laying_plan.dart';
 import '../logic/room.dart';
 import '../logic/room_shapes.dart';
+import '../logic/baseboard_bars.dart';
 import '../logic/site_mode.dart';
 import '../logic/units.dart';
 import '../logic/voice_command.dart';
@@ -140,7 +141,7 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
     void vSave(Room pRoom) => widget.controller.updateRoom(widget.worksiteId, pRoom);
     switch ((vTarget, vCommand.action)) {
       case (VoiceTarget.cut, VoiceAction.read) when vCut != null:
-        await _say(_cutText(vText, vCut.index, vCut.piece, vUnit));
+        await _say(_cutText(vText, vCut, vUnit));
       case (VoiceTarget.cut, VoiceAction.done) when vCut != null:
         vSave(markCut(vRoom, vCut.index));
         await _say(vText.voiceNoted);
@@ -191,14 +192,21 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
       .where((pRoom) => pRoom.id == widget.roomId)
       .firstOrNull;
 
-  String _cutText(AppLocalizations pText, int pIndex, BaseboardPiece pPiece, FieldUnit pUnit) =>
-      pText.siteModeCutText(
-        pIndex + 1,
-        pPiece.wallNumber,
-        lengthText(pText, pPiece.lengthMm, pUnit),
-        cutLabel(pText, pPiece.startCut),
-        cutLabel(pText, pPiece.endCut),
-      );
+  String _cutText(AppLocalizations pText, NextBaseboardCut pCut, FieldUnit pUnit) {
+    final vPiece = pCut.piece;
+    final vText = pText.siteModeCutText(
+      pCut.index + 1,
+      vPiece.wallNumber,
+      lengthText(pText, vPiece.lengthMm, pUnit),
+      cutLabel(pText, vPiece.startCut),
+      cutLabel(pText, vPiece.endCut),
+    );
+    final vBar = pCut.bar;
+
+    return vBar == null
+        ? vText
+        : '$vText ${pText.siteModeCutBar(vBar, pCut.leftInBar.map((pPiece) => lengthText(pText, pPiece.lengthMm, pUnit)).join(', '))}';
+  }
 
   String _rowText(AppLocalizations pText, LayingRow pRow) => pText.siteModeRowText(
     pRow.number,
@@ -259,10 +267,10 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
                 title: vText.siteModeCut,
                 text: vCut == null
                     ? vText.siteModeCutsDone
-                    : _cutText(vText, vCut.index, vCut.piece, PlanUnit.of(context)),
+                    : _cutText(vText, vCut, PlanUnit.of(context)),
                 onSpeak: vCut == null
                     ? null
-                    : () => _say(_cutText(vText, vCut.index, vCut.piece, PlanUnit.of(context))),
+                    : () => _say(_cutText(vText, vCut, PlanUnit.of(context))),
                 onDone: vCut == null ? null : () => vSave(markCut(vRoom, vCut.index)),
               ),
               const SizedBox(height: 16),

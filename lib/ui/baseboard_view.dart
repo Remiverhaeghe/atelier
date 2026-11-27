@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/bar_cutting.dart';
 import '../logic/baseboard.dart';
+import '../logic/baseboard_bars.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'dialogs.dart';
@@ -33,7 +34,7 @@ String fixingLabel(AppLocalizations pText, BaseboardFixing pFixing) => switch (p
   BaseboardFixing.clips => pText.fixingClips,
 };
 
-String _offcutLabel(AppLocalizations pText, int pOffcutMm, FieldUnit pUnit) => pOffcutMm == 0
+String offcutLabel(AppLocalizations pText, int pOffcutMm, FieldUnit pUnit) => pOffcutMm == 0
     ? pText.barNoOffcut
     : pOffcutMm >= reusableOffcutMm
     ? pText.barOffcutReusable(lengthText(pText, pOffcutMm, pUnit))
@@ -78,12 +79,7 @@ class _BaseboardViewState extends State<BaseboardView> {
     final vSettings = _room.baseboard;
     final vPieces = baseboardPieces(_room, vSettings);
     final vNeeds = fixingNeeds(vPieces, vSettings);
-    final vBars = planBars(
-      [for (final vPiece in vPieces) vPiece.lengthMm],
-      vSettings.barLengthMm,
-      vSettings.kerfMm,
-      pStock: [for (final vPiece in vPieces) vPiece.stockMm(vSettings.thicknessMm)],
-    );
+    final vBars = planBaseboardBars(vPieces, vSettings);
     final vTotal = vPieces.fold<int>(0, (pSum, pPiece) => pSum + pPiece.lengthMm);
     final vDone = _room.cutPieces.where((pIndex) => pIndex < vPieces.length).length;
 
@@ -200,7 +196,7 @@ class _BaseboardViewState extends State<BaseboardView> {
                 '${[for (final vIndex in vBars.bars[vBar].pieceIndexes) lengthInUnit(vPieces[vIndex].lengthMm, vUnit)].join(' + ')} ${unitName(vText, vUnit)}',
               ),
             ),
-            subtitle: Text(_offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm), vUnit)),
+            subtitle: Text(offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm), vUnit)),
           ),
         Padding(
           padding: const EdgeInsets.all(16),
@@ -279,6 +275,8 @@ class _NextCut extends StatelessWidget {
                   Text(vText.nextCutTitle, style: vTheme.textTheme.titleMedium),
                   BigFigure(lengthText(vText, pieces[vNext.first].lengthMm, vUnit)),
                   if (vBar != null) Text(vText.nextCutBar(vBar, bars.remainingInBar(vBar, done))),
+                  if (vBar != null)
+                    Text(offcutLabel(vText, bars.bars[vBar - 1].offcutMm(bars.kerfMm), vUnit)),
                   Text(
                     vText.pieceCuts(
                       cutLabel(vText, pieces[vNext.first].startCut),
