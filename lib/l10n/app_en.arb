@@ -448,6 +448,15 @@
   "invalidAngle": "Angle between 1 and 359°.",
   "roomClosed": "Closed room (the last wall joins the first)",
   "closureOk": "The outline closes: the measurements are consistent.",
+  "cornersFitted": "The corners aren't square: angles worked out automatically from the four walls ({angles}).",
+  "@cornersFitted": {
+    "placeholders": {
+      "angles": {"type": "String"}
+    }
+  },
+  "nextCutTitle": "Next cut",
+  "nextCutDone": "Cut, next one",
+  "allCutDone": "All pieces are cut.",
   "closureGap": "The outline doesn't close: {gap} cm are missing. Check a length or an angle.",
   "totalArea": "{area} m²",
   "areaSummary": "Floor area: {area} m²",
@@ -655,7 +664,7 @@
   "diagonalHint": "Measure across the room, from corner {from} to corner {to}, at floor level.",
   "diagonalOpposite": "Walls {first} and {second}: {gap} cm apart while the room is entered as square. Measure them again, or measure the diagonal to find the real angles.",
   "diagonalMeasured": "Measured diagonal",
-  "diagonalPlan": "From the plan: {length} cm",
+  "diagonalPlan": "From the plan: {length}",
   "diagonalOk": "The plan and the room match.",
   "diagonalGap": "{gap} cm apart: an angle isn't the one entered, or a length is wrong.",
   "diagonalAngles": "Angles from the diagonal: {angles}",

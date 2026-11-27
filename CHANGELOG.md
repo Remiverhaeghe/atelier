@@ -21,6 +21,7 @@
 
 ### Ajouté
 - Suivi d'humidité : « Comparer avec une autre pièce » ajoute la courbe d'une autre pièce du chantier (points carrés) sur la même échelle de dates. La comparaison ne porte que sur les jours relevés dans les deux pièces : humidité et température moyennes, jours humides, et quelle pièce est la plus sèche (à 3 points près, comme avant / après). Sans jour en commun, l'écran le dit au lieu d'afficher des chiffres
+- Quatre murs mesurés au mètre, rien d'équerre : les angles des coins se calculent tout seuls pour refermer le contour (le plus proche possible de 90°), avec un message qui les affiche ; un angle saisi à la main n'est jamais touché
 - Suivi d'humidité exporté en CSV depuis sa carte (un jour par ligne, point-virgule et virgule décimale pour un tableur) ; le fichier se réimporte dans le suivi d'une autre pièce
 - Fiche de la pièce : l'humidité des 30 derniers jours suivis, en courbe avec la zone saine et le jour des travaux, puis la comparaison avant / après quand elle existe
 - Fiche de la pièce : la photo de chaque reprise y est reprise sous sa ligne, avec ses cercles ; une photo perdue ou illisible est simplement laissée de côté

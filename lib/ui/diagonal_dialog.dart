@@ -6,6 +6,8 @@ import '../logic/fixtures.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'dialogs.dart';
+import 'quick_walls_screen.dart' show wallUnits;
+import 'room_measure_picker.dart' show unitName;
 import 'theme.dart';
 
 /// Contrôle par la diagonale ; renvoie la pièce aux angles corrigés, ou null.
@@ -25,6 +27,7 @@ class _DiagonalDialog extends StatefulWidget {
 
 class _DiagonalDialogState extends State<_DiagonalDialog> {
   final _measured = TextEditingController();
+  var _unit = FieldUnit.cm;
 
   @override
   void dispose() {
@@ -38,7 +41,7 @@ class _DiagonalDialogState extends State<_DiagonalDialog> {
     final vColors = Theme.of(context).colorScheme;
     final vRoom = widget.room;
     final vPlan = planDiagonalMm(vRoom)!;
-    final vMeasured = parseCentimetres(_measured.text);
+    final vMeasured = parseInUnit(_measured.text, _unit);
     final vGap = vMeasured == null || vMeasured == 0 ? null : diagonalGapMm(vRoom, vMeasured)!;
     final vOk = vGap != null && vGap.abs() <= diagonalToleranceMm;
     final vAngles = vGap == null || vOk ? null : anglesFromDiagonal(vRoom, vMeasured!);
@@ -64,9 +67,26 @@ class _DiagonalDialogState extends State<_DiagonalDialog> {
               onChanged: (_) => setState(() {}),
               decoration: InputDecoration(
                 labelText: vText.diagonalMeasured,
-                suffixText: vText.unitCm,
-                helperText: vText.diagonalPlan(formatCentimetres(vPlan.round())),
+                suffixText: unitName(vText, _unit),
+                helperText: vText.diagonalPlan(
+                  '${lengthInUnit(vPlan.round(), _unit)} ${unitName(vText, _unit)}',
+                ),
               ),
+            ),
+            const SizedBox(height: 8),
+            SegmentedButton<FieldUnit>(
+              segments: [
+                for (final vUnit in wallUnits)
+                  ButtonSegment(value: vUnit, label: Text(unitName(vText, vUnit))),
+              ],
+              selected: {_unit},
+              onSelectionChanged: (pUnit) => setState(() {
+                final vValue = parseInUnit(_measured.text, _unit);
+                _unit = pUnit.single;
+                if (vValue != null) {
+                  _measured.text = lengthInUnit(vValue, _unit);
+                }
+              }),
             ),
             if (vGap != null)
               Padding(

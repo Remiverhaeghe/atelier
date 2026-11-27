@@ -39,6 +39,26 @@ void main() {
     expect(find.text('1 morceau coupé sur 8'), findsOneWidget);
   });
 
+  testWidgets('la carte « Prochaine coupe » passe d\'une pièce à la suivante', (pTester) async {
+    var vRoom = rectangleRoom();
+    await pTester.pumpWidget(
+      StatefulBuilder(
+        builder: (pContext, pSetState) => localized(
+          BaseboardView(room: vRoom, onChanged: (pRoom) => pSetState(() => vRoom = pRoom)),
+        ),
+      ),
+    );
+
+    expect(find.text('Prochaine coupe'), findsOneWidget);
+    expect(find.text('200 cm'), findsOneWidget);
+
+    await pTester.tap(find.text('Coupée, suivante'));
+    await pTester.pump();
+
+    expect(vRoom.cutPieces, [0]);
+    expect(find.text('Prochaine coupe'), findsOneWidget);
+  });
+
   testWidgets('sans murs, la vue demande de saisir la pièce', (pTester) async {
     await pTester.pumpWidget(
       localized(

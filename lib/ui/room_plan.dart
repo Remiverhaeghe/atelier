@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/gen/app_localizations.dart';
 import '../logic/fixtures.dart';
 import '../logic/furniture.dart';
 import '../logic/geometry.dart';
@@ -80,6 +81,7 @@ class RoomPlan extends StatelessWidget {
     final vColors = AtelierColors.of(context);
     final vPainter = _RoomPlanPainter(
       room: room,
+      unit: AppLocalizations.of(context).unitCm,
       colors: vColors,
       highlightColor: vTheme.colorScheme.primary,
       paper: vTheme.colorScheme.surfaceContainerLowest,
@@ -134,6 +136,7 @@ class RoomPlan extends StatelessWidget {
 class _RoomPlanPainter extends CustomPainter {
   _RoomPlanPainter({
     required this.room,
+    required this.unit,
     required this.colors,
     required this.highlightColor,
     required this.paper,
@@ -151,6 +154,9 @@ class _RoomPlanPainter extends CustomPainter {
   final Color markerColor;
   final Color doneColor;
   final Room room;
+
+  /// Unité écrite après chaque longueur cotée.
+  final String unit;
   final AtelierColors colors;
   final Color highlightColor;
   final Color paper;
@@ -278,7 +284,11 @@ class _RoomPlanPainter extends CustomPainter {
         if (wallNumbers) {
           _paintNumber(pCanvas, vAlong(vMiddle, 26 / vScale), '${vIndex + 1}', vHighlighted);
         }
-        _paintTape(pCanvas, vAlong(vMiddle, -22 / vScale), formatCentimetres(vWall.lengthMm));
+        _paintTape(
+          pCanvas,
+          vAlong(vMiddle, -22 / vScale),
+          '${formatCentimetres(vWall.lengthMm)} $unit',
+        );
       }
     }
 
@@ -589,5 +599,6 @@ class _RoomPlanPainter extends CustomPainter {
       pOld.highlightWall != highlightWall ||
       pOld.markers != markers ||
       pOld.colors != colors ||
-      pOld.compact != compact;
+      pOld.compact != compact ||
+      pOld.unit != unit;
 }

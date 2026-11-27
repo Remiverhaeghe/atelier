@@ -44,9 +44,12 @@ void main() {
     expect(find.text('4'), findsNWidgets(2));
     await pTester.enterText(find.widgetWithText(TextField, 'Mur 1'), '4,2');
     await pTester.pumpAndSettle();
-    expect(find.textContaining('Le contour ne se referme pas'), findsOneWidget);
+    // Quatre murs qui ne forment pas un rectangle : les angles se calculent tout seuls.
+    expect(find.textContaining('angles calculés tout seuls'), findsOneWidget);
+    expect(find.textContaining('Le contour se referme'), findsOneWidget);
     await pTester.enterText(find.widgetWithText(TextField, 'Mur 3'), '4,2');
     await pTester.pumpAndSettle();
+    expect(find.textContaining('angles calculés tout seuls'), findsNothing);
 
     await pTester.tap(find.widgetWithText(TextButton, 'Enregistrer'));
     await pTester.pumpAndSettle();
