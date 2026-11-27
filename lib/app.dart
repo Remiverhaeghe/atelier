@@ -5,6 +5,7 @@ import 'l10n/gen/app_localizations.dart';
 import 'logic/app_settings.dart';
 import 'logic/units.dart';
 import 'state/settings_controller.dart';
+import 'ui/plan_unit.dart';
 import 'state/worksites_controller.dart';
 import 'storage/backups.dart';
 import 'support/crash_log.dart';
@@ -59,13 +60,16 @@ class AtelierApp extends StatelessWidget {
         // Les nombres suivent la langue affichée : 2,5 en français, 2.5 en anglais
         aDecimalSeparator = Localizations.localeOf(pContext).languageCode == 'fr' ? ',' : '.';
 
-        return MediaQuery(
-          data: MediaQuery.of(pContext).copyWith(
-            textScaler: TextScaler.linear(
-              MediaQuery.textScalerOf(pContext).scale(1) * pSettings.textScale,
+        return PlanUnit(
+          unit: pSettings.planUnit,
+          child: MediaQuery(
+            data: MediaQuery.of(pContext).copyWith(
+              textScaler: TextScaler.linear(
+                MediaQuery.textScalerOf(pContext).scale(1) * pSettings.textScale,
+              ),
             ),
+            child: pChild!,
           ),
-          child: pChild!,
         );
       },
       localizationsDelegates: const [

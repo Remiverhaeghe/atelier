@@ -10,6 +10,8 @@ import '../logic/room.dart';
 import '../logic/slope.dart';
 import '../logic/units.dart';
 import 'networks_section.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show unitName;
 import 'theme.dart';
 
 /// Repère sur le plan : numéro de la reprise et position en millimètres.
@@ -86,7 +88,8 @@ class RoomPlan extends StatelessWidget {
     final vColors = AtelierColors.of(context);
     final vPainter = _RoomPlanPainter(
       room: room,
-      unit: AppLocalizations.of(context).unitCm,
+      unit: unitName(AppLocalizations.of(context), PlanUnit.of(context)),
+      lengthUnit: PlanUnit.of(context),
       colors: vColors,
       highlightColor: vTheme.colorScheme.primary,
       paper: vTheme.colorScheme.surfaceContainerLowest,
@@ -153,6 +156,7 @@ class _RoomPlanPainter extends CustomPainter {
   _RoomPlanPainter({
     required this.room,
     required this.unit,
+    required this.lengthUnit,
     required this.colors,
     required this.highlightColor,
     required this.paper,
@@ -175,6 +179,9 @@ class _RoomPlanPainter extends CustomPainter {
 
   /// Unité écrite après chaque longueur cotée.
   final String unit;
+
+  /// Unité dans laquelle les longueurs cotées sont écrites.
+  final FieldUnit lengthUnit;
   final AtelierColors colors;
   final Color highlightColor;
   final Color paper;
@@ -305,7 +312,7 @@ class _RoomPlanPainter extends CustomPainter {
         _paintTape(
           pCanvas,
           vAlong(vMiddle, -22 / vScale),
-          '${formatCentimetres(vWall.lengthMm)} $unit',
+          '${lengthInUnit(vWall.lengthMm, lengthUnit)} $unit',
         );
       }
     }
@@ -619,5 +626,6 @@ class _RoomPlanPainter extends CustomPainter {
       pOld.colors != colors ||
       pOld.compact != compact ||
       pOld.unit != unit ||
-      pOld.simple != simple;
+      pOld.simple != simple ||
+      pOld.lengthUnit != lengthUnit;
 }

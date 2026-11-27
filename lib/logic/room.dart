@@ -133,9 +133,14 @@ class Wall {
     this.openings = const [],
     this.freeEndAfter = false,
     this.deduced = false,
+    this.angleAuto = false,
   });
 
   final int lengthMm;
+
+  /// Angle calculé par l'appli à partir des longueurs : il se recalcule quand une longueur change.
+  /// Un angle tapé à la main n'est jamais automatique.
+  final bool angleAuto;
 
   /// Longueur déduite des autres murs sur le dessin de la pièce, pas encore mesurée.
   final bool deduced;
@@ -154,6 +159,7 @@ class Wall {
     List<Opening>? openings,
     bool? freeEndAfter,
     bool? deduced,
+    bool? angleAuto,
   }) => Wall(
     lengthMm: lengthMm ?? this.lengthMm,
     angleToNextDeg: angleToNextDeg ?? this.angleToNextDeg,
@@ -161,6 +167,8 @@ class Wall {
     freeEndAfter: freeEndAfter ?? this.freeEndAfter,
     // Une longueur retapée ailleurs que sur le dessin est une mesure
     deduced: deduced ?? (lengthMm == null && this.deduced),
+    // Un angle retapé est un choix : il ne se recalcule plus
+    angleAuto: angleAuto ?? (angleToNextDeg == null && this.angleAuto),
   );
 
   Map<String, Object?> toJson() => {
@@ -169,6 +177,7 @@ class Wall {
     'openings': [for (final vOpening in openings) vOpening.toJson()],
     'freeEndAfter': freeEndAfter,
     if (deduced) 'deduced': true,
+    if (angleAuto) 'angleAuto': true,
   };
 
   static Wall fromJson(Map<String, Object?> pJson) => Wall(
@@ -180,6 +189,7 @@ class Wall {
     ],
     freeEndAfter: (pJson['freeEndAfter'] as bool?) ?? false,
     deduced: (pJson['deduced'] as bool?) ?? false,
+    angleAuto: (pJson['angleAuto'] as bool?) ?? false,
   );
 }
 

@@ -5,6 +5,7 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
 
+import '../logic/auto_corners.dart';
 import '../logic/baseboard.dart';
 import '../logic/merge.dart';
 import '../logic/room.dart';
@@ -30,6 +31,10 @@ class WorksitesController extends ChangeNotifier {
   List<Worksite> get worksites => _worksites;
   bool get loaded => _loaded;
 
+  /// Pièces dont les angles ont été recalculés à l'ouverture, d'après leurs longueurs déjà saisies.
+  int get refittedRooms => _refittedRooms;
+  var _refittedRooms = 0;
+
   Future<void> load() async {
     try {
       _worksites = await store.load();
@@ -38,8 +43,35 @@ class WorksitesController extends ChangeNotifier {
       developer.log('Chantiers illisibles : $vError', name: 'atelier.storage');
       _worksites = const [];
     }
+    final (vFitted, vCount) = _refitAll(_worksites);
+    _refittedRooms = vCount;
+    if (vCount > 0) {
+      _worksites = vFitted;
+      await store.save(_worksites);
+    }
     _loaded = true;
     notifyListeners();
+  }
+
+  /// Reprise des pièces déjà saisies : angles déduits des longueurs, sans rien retaper.
+  (List<Worksite>, int) _refitAll(List<Worksite> pWorksites) {
+    var rCount = 0;
+    final rWorksites = <Worksite>[];
+    for (final vWorksite in pWorksites) {
+      var vChanged = false;
+      final vRooms = <Room>[];
+      for (final vRoom in vWorksite.rooms) {
+        final vFitted = refitRoom(vRoom);
+        if (!identical(vFitted, vRoom)) {
+          vChanged = true;
+          rCount++;
+        }
+        vRooms.add(vFitted);
+      }
+      rWorksites.add(vChanged ? vWorksite.copyWith(rooms: vRooms) : vWorksite);
+    }
+
+    return (rWorksites, rCount);
   }
 
   Worksite? worksite(String pId) {
@@ -86,7 +118,9 @@ class WorksitesController extends ChangeNotifier {
 
     return updateWorksite(
       vWorksite.copyWith(
-        rooms: [for (final vRoom in vWorksite.rooms) vRoom.id == pRoom.id ? pRoom : vRoom],
+        rooms: [
+          for (final vRoom in vWorksite.rooms) vRoom.id == pRoom.id ? refitRoom(pRoom) : vRoom,
+        ],
       ),
     );
   }

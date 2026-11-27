@@ -807,16 +807,18 @@
   "invalidAngle": "Angle entre 1 et 359°.",
   "roomClosed": "Pièce fermée (le dernier mur rejoint le premier)",
   "closureOk": "Le contour se referme : les mesures sont cohérentes.",
-  "cornersFitted": "Les coins ne sont pas droits : angles calculés tout seuls à partir des quatre murs ({angles}).",
+  "cornersFitted": "Les coins ne sont pas droits : angles calculés tout seuls à partir des quatre murs ({angles}). Avec des mesures à ± {tolerance} cm près, un angle peut varier d'environ ± {margin}°.",
   "@cornersFitted": {
     "placeholders": {
-      "angles": {"type": "String"}
+      "angles": {"type": "String"},
+      "tolerance": {"type": "String"},
+      "margin": {"type": "String"}
     }
   },
   "nextCutTitle": "Prochaine coupe",
   "nextCutDone": "Coupée, suivante",
   "allCutDone": "Toutes les pièces sont coupées.",
-  "closureGap": "Le contour ne se referme pas : il manque {gap} cm. Vérifie une longueur ou un angle.",
+  "closureGap": "Les murs ne se rejoignent pas tout à fait : écart de {gap} cm. Avec des mesures approximatives, c'est courant : revérifie surtout les longueurs.",
   "@closureGap": {
     "placeholders": {
       "gap": {
@@ -1450,6 +1452,7 @@
   "themeSystem": "Téléphone",
   "themeLight": "Clair",
   "themeDark": "Sombre",
+  "planUnitLabel": "Unité des cotes sur le plan",
   "textNormal": "Normal",
   "textLarge": "Grand",
   "textHuge": "Très grand",

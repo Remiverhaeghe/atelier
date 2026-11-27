@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -46,12 +48,16 @@ class _Row {
     : length = TextEditingController(
         text: wall.lengthMm == 0 ? '' : lengthInUnit(wall.lengthMm, pUnit),
       ),
-      angle = TextEditingController(text: formatAngle(wall.angleToNextDeg));
+      angle = TextEditingController(text: formatAngle(wall.angleToNextDeg)),
+      autoAngleText = wall.angleAuto ? formatAngle(wall.angleToNextDeg) : null;
 
   /// Mur d'origine : ses ouvertures et son bout libre sont gardés.
   final Wall wall;
   final TextEditingController length;
   final TextEditingController angle;
+
+  /// Angle tel que l'appli l'a calculé : tant que le champ n'a pas bougé, il reste automatique.
+  final String? autoAngleText;
 
   void dispose() {
     length.dispose();
@@ -94,6 +100,7 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
         vRow.wall.copyWith(
           lengthMm: vLength,
           angleToNextDeg: parseDegrees(vRow.angle.text) ?? insideCornerDeg,
+          angleAuto: vRow.autoAngleText != null && vRow.angle.text == vRow.autoAngleText,
         ),
   ];
 
@@ -121,6 +128,13 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
 
   String _fittedSummary(List<Wall> pWalls) =>
       pWalls.map((pWall) => '${pWall.angleToNextDeg.toStringAsFixed(1)}°').join(' · ');
+
+  /// Variation maximale d'un angle quand les longueurs sont fausses de la précision supposée.
+  String _fittedMargin(List<Wall> pWalls) {
+    final vSpread = cornerUncertainty([for (final vWall in pWalls) vWall.lengthMm]);
+
+    return (vSpread == null ? 0.0 : vSpread.reduce(math.max)).toStringAsFixed(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +180,15 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
                   : vText.closureGap(formatCentimetres(closureGapMm(vRoom).round())),
               color: closesProperly(vRoom) ? null : vTheme.colorScheme.error,
             ),
-          if (vFitted) IconLine(Icons.auto_fix_high, vText.cornersFitted(_fittedSummary(vWalls))),
+          if (vFitted)
+            IconLine(
+              Icons.auto_fix_high,
+              vText.cornersFitted(
+                _fittedSummary(vWalls),
+                formatCentimetres(measureToleranceMm),
+                _fittedMargin(vWalls),
+              ),
+            ),
           const SizedBox(height: 8),
           SegmentedButton<FieldUnit>(
             segments: [
