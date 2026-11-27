@@ -13,11 +13,11 @@ void main() {
     expect(pTester.widget<RoomPlan>(find.byType(RoomPlan)).simple, isTrue);
 
     await pTester.tap(find.text('Complet'));
-    await pTester.pump();
+    await pTester.pumpAndSettle();
     expect(pTester.widget<RoomPlan>(find.byType(RoomPlan)).simple, isFalse);
 
     await pTester.tap(find.text('Simple'));
-    await pTester.pump();
+    await pTester.pumpAndSettle();
     expect(pTester.widget<RoomPlan>(find.byType(RoomPlan)).simple, isTrue);
   });
 }

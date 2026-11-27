@@ -1,35 +1,84 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import '../logic/room.dart';
 import '../logic/view3d.dart';
+import 'motion.dart';
 import 'theme.dart';
 
-/// Maison en 3D, à faire tourner d'un glissement du doigt.
+/// Maison en 3D, à faire tourner d'un glissement du doigt. Elle se pose d'un quart de tour à
+/// l'ouverture, sauf quand le téléphone réduit les animations.
+///
+/// En [simple], seulement le sol, les murs et les ouvertures : ni meubles ni structures.
 class House3d extends StatefulWidget {
-  const House3d({super.key, required this.rooms});
+  const House3d({super.key, required this.rooms, this.simple = false});
 
   final List<Room> rooms;
+  final bool simple;
 
   @override
   State<House3d> createState() => _House3dState();
 }
 
-class _House3dState extends State<House3d> {
-  var _yaw = 30.0;
+class _House3dState extends State<House3d> with SingleTickerProviderStateMixin {
+  static const _restYaw = 30.0;
+  static const _introTurn = 70.0;
+
+  late final AnimationController _intro = AnimationController(vsync: this);
+  var _touched = false;
+
+  /// Angle de vue : l'angle de repos, plus ce qui reste du quart de tour d'arrivée.
+  double get _yaw => _touched
+      ? _dragYaw
+      : _restYaw + _introTurn * (1 - Curves.easeOutCubic.transform(_intro.value));
+  var _dragYaw = _restYaw;
+
+  @override
+  void initState() {
+    super.initState();
+    _intro.addListener(() => setState(() {}));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final vDuration = motionDuration(context, 700);
+    if (vDuration == Duration.zero) {
+      _intro.value = 1;
+    } else if (!_intro.isAnimating && _intro.value == 0) {
+      unawaited(_intro.animateTo(1, duration: vDuration));
+    }
+  }
+
+  @override
+  void dispose() {
+    _intro.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final vTheme = Theme.of(context);
 
     return GestureDetector(
+      onHorizontalDragStart: (_) {
+        _dragYaw = _yaw;
+        _touched = true;
+        _intro.stop();
+      },
       onHorizontalDragUpdate: (pDetails) =>
-          setState(() => _yaw = (_yaw + pDetails.delta.dx * 0.5) % 360),
+          setState(() => _dragYaw = (_dragYaw + pDetails.delta.dx * 0.5) % 360),
       child: CustomPaint(
         size: Size.infinite,
         painter: _House3dPainter(
-          faces: houseFaces(widget.rooms, _yaw),
+          faces: [
+            for (final vFace in houseFaces(widget.rooms, _yaw))
+              if (!widget.simple ||
+                  vFace.kind != FaceKind.furniture && vFace.kind != FaceKind.structure)
+                vFace,
+          ],
           yaw: _yaw,
           colors: AtelierColors.of(context),
           wall: vTheme.colorScheme.surfaceContainerLowest,
