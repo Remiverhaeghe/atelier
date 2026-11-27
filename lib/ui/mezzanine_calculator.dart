@@ -14,6 +14,8 @@ import 'parquet_view.dart';
 import 'theme.dart';
 import 'work_sheet_pdf.dart';
 import 'wood_species_card.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 String mezzanineUseLabel(AppLocalizations pText, MezzanineUse pUse) => switch (pUse) {
   MezzanineUse.living => pText.mezzanineUseLiving,
@@ -46,6 +48,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vPlan = planMezzanine(_mezzanine);
     final vJoist = vPlan.joist;
@@ -75,7 +78,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
                     vPlan.joists,
                     vJoist.widthMm,
                     vJoist.heightMm,
-                    formatCentimetres(_mezzanine.joistSpacingMm),
+                    lengthText(vText, _mezzanine.joistSpacingMm, FieldUnit.cm),
                   ),
                 if (vPlan.ledgers > 0)
                   vText.mezzanineLedgers(vPlan.ledgers, vPlan.anchorsPerLedger),
@@ -90,7 +93,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
                       : vText.mezzaninePosts(
                           vPlan.postsPerBeam * vPlan.beams,
                           vPostSide,
-                          formatCentimetres(vPlan.postSpacingMm),
+                          lengthText(vText, vPlan.postSpacingMm, FieldUnit.cm),
                           vPlan.postLoadKn.round(),
                         ),
                 vText.mezzanineHangers(vPlan.hangers),
@@ -126,7 +129,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
                         vPlan.joists,
                         vJoist.widthMm,
                         vJoist.heightMm,
-                        formatCentimetres(_mezzanine.joistSpacingMm),
+                        lengthText(vText, _mezzanine.joistSpacingMm, vUnit),
                       ),
                     ),
                   if (vPlan.ledgers > 0)
@@ -154,7 +157,7 @@ class _MezzanineCalculatorState extends State<MezzanineCalculator> {
                           : vText.mezzaninePosts(
                               vPlan.postsPerBeam * vPlan.beams,
                               vPostSide,
-                              formatCentimetres(vPlan.postSpacingMm),
+                              lengthText(vText, vPlan.postSpacingMm, vUnit),
                               vPlan.postLoadKn.round(),
                             ),
                       color: vPostSide == null ? vTheme.colorScheme.error : null,
