@@ -816,6 +816,8 @@
     }
   },
   "nextCutTitle": "Prochaine coupe",
+  "nextCutBar": "Barre {number} : {remaining, plural, =1{dernière coupe} other{{remaining} coupes à faire}}",
+  "@nextCutBar": {"placeholders": {"number": {"type": "int"}, "remaining": {"type": "int"}}},
   "nextCutDone": "Coupée, suivante",
   "allCutDone": "Toutes les pièces sont coupées.",
   "closureGap": "Les murs ne se rejoignent pas tout à fait : écart de {gap} cm. Avec des mesures approximatives, c'est courant : revérifie surtout les longueurs.",
@@ -1421,6 +1423,8 @@
   "siteModeCut": "Coupe suivante",
   "siteModeCutText": "Plinthe {number}, mur {wall} : {length}. Début : {start}. Fin : {end}.",
   "@siteModeCutText": {"placeholders": {"number": {"type": "int"}, "wall": {"type": "int"}, "length": {"type": "String"}, "start": {"type": "String"}, "end": {"type": "String"}}},
+  "siteModeCutBar": "Barre {bar}, à couper dans cette barre : {lengths}.",
+  "@siteModeCutBar": {"placeholders": {"bar": {"type": "int"}, "lengths": {"type": "String"}}},
   "siteModeCutsDone": "Toutes les plinthes sont coupées.",
   "siteModeRow": "Rangée suivante",
   "siteModeRowText": "Rangée {number} : {pieces} cm.",
