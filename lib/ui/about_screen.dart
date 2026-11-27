@@ -3,11 +3,13 @@ import 'package:share_plus/share_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/app_settings.dart';
+import '../logic/units.dart';
 import '../state/settings_controller.dart';
 import '../state/worksites_controller.dart';
 import '../storage/backups.dart';
 import '../support/crash_log.dart';
 import 'backups_screen.dart';
+import 'room_measure_picker.dart' show unitName;
 
 /// À propos, et journal des plantages à partager si quelque chose ne va pas.
 class AboutScreen extends StatelessWidget {
@@ -139,6 +141,18 @@ class _DisplaySettings extends StatelessWidget {
               selected: {vCurrent.textScale},
               onSelectionChanged: (pScale) =>
                   settings.update(vCurrent.copyWith(textScale: pScale.single)),
+            ),
+            const SizedBox(height: 12),
+            Text(vText.planUnitLabel),
+            const SizedBox(height: 4),
+            SegmentedButton<FieldUnit>(
+              segments: [
+                for (final vUnit in const [FieldUnit.mm, FieldUnit.cm, FieldUnit.m])
+                  ButtonSegment(value: vUnit, label: Text(unitName(vText, vUnit))),
+              ],
+              selected: {vCurrent.planUnit},
+              onSelectionChanged: (pUnit) =>
+                  settings.update(vCurrent.copyWith(planUnit: pUnit.single)),
             ),
           ],
         );

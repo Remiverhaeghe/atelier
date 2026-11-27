@@ -1452,6 +1452,7 @@
   "themeSystem": "Téléphone",
   "themeLight": "Clair",
   "themeDark": "Sombre",
+  "planUnitLabel": "Unité des cotes sur le plan",
   "textNormal": "Normal",
   "textLarge": "Grand",
   "textHuge": "Très grand",

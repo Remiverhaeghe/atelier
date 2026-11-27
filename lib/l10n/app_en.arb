@@ -763,6 +763,7 @@
   "themeSystem": "Phone",
   "themeLight": "Light",
   "themeDark": "Dark",
+  "planUnitLabel": "Unit of the dimensions on the plan",
   "textNormal": "Normal",
   "textLarge": "Large",
   "textHuge": "Very large",

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:atelier/logic/app_settings.dart';
+import 'package:atelier/logic/units.dart';
 import 'package:atelier/storage/settings_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -41,5 +42,20 @@ void main() {
     expect(AppSettings.fromJson(const AppSettings(newsSeen: 3).toJson()).newsSeen, 3);
     expect(const AppSettings().toJson().containsKey('newsSeen'), isFalse);
     expect(vBack.copyWith(theme: ThemeChoice.dark).lastExternalBackup, vNow);
+  });
+
+  test('unité des cotes du plan : mm, cm ou m, le centimètre au départ', () {
+    expect(const AppSettings().planUnit, FieldUnit.cm);
+    expect(const AppSettings().toJson().containsKey('planUnit'), isFalse);
+    for (final vUnit in [FieldUnit.mm, FieldUnit.cm, FieldUnit.m]) {
+      expect(AppSettings.fromJson(AppSettings(planUnit: vUnit).toJson()).planUnit, vUnit);
+    }
+    expect(AppSettings.fromJson(const {'planUnit': 'm2'}).planUnit, FieldUnit.cm);
+    expect(AppSettings.fromJson(const {'planUnit': 3}).planUnit, FieldUnit.cm);
+    expect(const AppSettings().copyWith(planUnit: FieldUnit.m).planUnit, FieldUnit.m);
+    expect(
+      const AppSettings(planUnit: FieldUnit.mm).copyWith(theme: ThemeChoice.dark).planUnit,
+      FieldUnit.mm,
+    );
   });
 }
