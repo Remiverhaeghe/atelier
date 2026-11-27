@@ -278,8 +278,7 @@ class _NextCut extends StatelessWidget {
                 children: [
                   Text(vText.nextCutTitle, style: vTheme.textTheme.titleMedium),
                   BigFigure(lengthText(vText, pieces[vNext.first].lengthMm, vUnit)),
-                  if (vBar != null)
-                    Text(vText.nextCutBar(vBar, bars.remainingInBar(vBar, done))),
+                  if (vBar != null) Text(vText.nextCutBar(vBar, bars.remainingInBar(vBar, done))),
                   Text(
                     vText.pieceCuts(
                       cutLabel(vText, pieces[vNext.first].startCut),
