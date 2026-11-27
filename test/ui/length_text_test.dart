@@ -37,6 +37,19 @@ void main() {
     expect(vText.cutListLine(2, 'Montant', '80 cm', '5 cm'), '2 × Montant de 80 cm × 5 cm');
   });
 
+  test('les textes de la mezzanine et de la toiture ne portent plus d\'unité en dur', () {
+    expect(
+      vText.heightSplitBelow('2 m'),
+      '2 m libres dessous, sous la poutre : de quoi passer debout',
+    );
+    expect(vText.heightSplitApply('220 cm'), 'Poteaux de 220 cm');
+    expect(vText.roofRafters(8, '3,2 m'), '8 chevrons de 3,2 m');
+    expect(
+      vText.mezzanineJoists(9, 45, 145, '400 mm'),
+      '9 solives de 45 × 145 mm en C24, tous les 400 mm',
+    );
+  });
+
   test('fiche de pièce et liste de coupes se construisent dans chaque unité', () async {
     for (final vUnit in [FieldUnit.mm, FieldUnit.cm, FieldUnit.m]) {
       final vSheet = await buildRoomSheetPdf(vText, rectangleRoom(), pUnit: vUnit);

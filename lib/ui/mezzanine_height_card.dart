@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../logic/mezzanine_height.dart';
-import '../logic/units.dart';
 import 'stair_calculator.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Hauteur du plancher dans une pièce haute, avec la hauteur des poteaux et l'escalier.
 class MezzanineHeightCard extends StatelessWidget {
@@ -24,6 +25,7 @@ class MezzanineHeightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
 
     return Card(
@@ -37,21 +39,21 @@ class MezzanineHeightCard extends StatelessWidget {
             IconLine(
               Icons.height,
               vText.heightSplitFloor(
-                formatCentimetres(split.floorTopMm),
-                formatCentimetres(split.structureMm),
+                lengthText(vText, split.floorTopMm, vUnit),
+                lengthText(vText, split.structureMm, vUnit),
               ),
             ),
             IconLine(
               Icons.arrow_downward,
-              vText.heightSplitBelow(formatCentimetres(split.clearBelowMm)),
+              vText.heightSplitBelow(lengthText(vText, split.clearBelowMm, vUnit)),
             ),
             IconLine(
               split.fits ? Icons.arrow_upward : Icons.warning_amber,
               split.fits
                   ? (split.standingAbove
-                        ? vText.heightSplitStanding(formatCentimetres(split.clearAboveMm))
-                        : vText.heightSplitHabitable(formatCentimetres(split.clearAboveMm)))
-                  : vText.heightSplitTooLow(formatCentimetres(split.clearAboveMm)),
+                        ? vText.heightSplitStanding(lengthText(vText, split.clearAboveMm, vUnit))
+                        : vText.heightSplitHabitable(lengthText(vText, split.clearAboveMm, vUnit)))
+                  : vText.heightSplitTooLow(lengthText(vText, split.clearAboveMm, vUnit)),
               color: split.fits ? null : vTheme.colorScheme.error,
             ),
             const SizedBox(height: 8),
@@ -62,7 +64,9 @@ class MezzanineHeightCard extends StatelessWidget {
                 if (postHeightMm != split.clearBelowMm)
                   OutlinedButton(
                     onPressed: onApplyPosts,
-                    child: Text(vText.heightSplitApply(formatCentimetres(split.clearBelowMm))),
+                    child: Text(
+                      vText.heightSplitApply(lengthText(vText, split.clearBelowMm, vUnit)),
+                    ),
                   ),
                 OutlinedButton(
                   onPressed: () => Navigator.of(context).push(
