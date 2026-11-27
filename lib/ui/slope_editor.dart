@@ -5,6 +5,7 @@ import '../logic/room.dart';
 import '../logic/slope.dart';
 import '../logic/level.dart';
 import '../logic/units.dart';
+import 'dialogs.dart' show formatAngle;
 import 'level_screen.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
@@ -184,7 +185,7 @@ class _PanEditorState extends State<_PanEditor> {
           if (_angleDeg != null)
             IconLine(
               Icons.straighten,
-              vText.slopeRunFromAngle(formatDecimal(_angleDeg!), formatCentimetres(_slope.runMm)),
+              vText.slopeRunFromAngle(formatAngle(_angleDeg!), formatCentimetres(_slope.runMm)),
             ),
           NumberField<int>(
             key: ValueKey('run-${_angleDeg ?? 0}'),

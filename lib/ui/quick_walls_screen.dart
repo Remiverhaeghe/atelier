@@ -127,13 +127,13 @@ class _QuickWallsScreenState extends State<QuickWallsScreen> {
   }
 
   String _fittedSummary(List<Wall> pWalls) =>
-      pWalls.map((pWall) => '${pWall.angleToNextDeg.toStringAsFixed(1)}°').join(' · ');
+      pWalls.map((pWall) => '${formatAngle(pWall.angleToNextDeg)}°').join(' · ');
 
   /// Variation maximale d'un angle quand les longueurs sont fausses de la précision supposée.
   String _fittedMargin(List<Wall> pWalls) {
     final vSpread = cornerUncertainty([for (final vWall in pWalls) vWall.lengthMm]);
 
-    return (vSpread == null ? 0.0 : vSpread.reduce(math.max)).toStringAsFixed(1);
+    return formatAngle(vSpread == null ? 0.0 : vSpread.reduce(math.max));
   }
 
   @override
