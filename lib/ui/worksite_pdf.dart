@@ -15,6 +15,7 @@ import '../logic/units.dart';
 import '../logic/worksite.dart';
 import 'baseboard_view.dart';
 import 'pdf_fonts.dart';
+import 'room_measure_picker.dart' show lengthText;
 import 'shopping_texts.dart';
 
 /// Fiche du chantier à imprimer : liste de courses, puis plan, parquet et plinthes de chaque pièce.
@@ -66,7 +67,7 @@ List<pw.Widget> _roomSection(AppLocalizations pText, Room pRoom) {
     for (final vPiece in vPieces)
       pw.Bullet(
         text:
-            '${pText.pieceTitle(vPiece.wallNumber, formatCentimetres(vPiece.lengthMm))} : '
+            '${pText.pieceTitle(vPiece.wallNumber, lengthText(pText, vPiece.lengthMm, FieldUnit.cm))} : '
             '${pText.pieceCuts(cutLabel(pText, vPiece.startCut), cutLabel(pText, vPiece.endCut))}',
       ),
   ];

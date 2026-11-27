@@ -775,7 +775,7 @@
       }
     }
   },
-  "wallSummary": "{length} cm, coin de {angle}° {kind}",
+  "wallSummary": "{length}, coin de {angle}° {kind}",
   "@wallSummary": {
     "placeholders": {
       "length": {
@@ -791,7 +791,7 @@
   },
   "cornerInside": "rentrant",
   "cornerOutside": "sortant",
-  "freeEndSummary": "{length} cm, bout libre",
+  "freeEndSummary": "{length}, bout libre",
   "@freeEndSummary": {
     "placeholders": {
       "length": {
@@ -868,7 +868,7 @@
   "obstacleStairFoot": "Pied d'escalier",
   "obstacleWall": "Le long du mur",
   "obstacleDepth": "Profondeur sans parquet (cm)",
-  "obstacleSummary": "{kind}, mur {wall}, {width} cm",
+  "obstacleSummary": "{kind}, mur {wall}, {width}",
   "@obstacleSummary": {
     "placeholders": {
       "kind": {
@@ -1105,7 +1105,7 @@
     }
   },
   "baseboardHelp": "Longueurs mesurées au dos de la plinthe, côté mur. Coche chaque morceau une fois coupé.",
-  "pieceTitle": "Mur {wall} · {length} cm",
+  "pieceTitle": "Mur {wall} · {length}",
   "@pieceTitle": {
     "placeholders": {
       "wall": {
@@ -1179,7 +1179,7 @@
   "fewestBarsHelp": "Un mur plus long qu'une barre est coupé en barres entières et un reste, au lieu de morceaux égaux : moins de barres à acheter, mais un joint à une longueur de barre du coin.",
   "room3dTitle": "La pièce en 3D",
   "room3dHelp": "Fais tourner la pièce d'un glissement du doigt pour voir les murs, le sol et les ouvertures.",
-  "barLine": "Barre {number} : {pieces} cm",
+  "barLine": "Barre {number} : {pieces}",
   "@barLine": {
     "placeholders": {
       "number": {
@@ -1190,7 +1190,7 @@
       }
     }
   },
-  "barOffcut": "chute de {length} cm",
+  "barOffcut": "chute de {length}",
   "@barOffcut": {
     "placeholders": {
       "length": {
@@ -1198,7 +1198,7 @@
       }
     }
   },
-  "barOffcutReusable": "chute de {length} cm, à garder",
+  "barOffcutReusable": "chute de {length}, à garder",
   "@barOffcutReusable": {
     "placeholders": {
       "length": {
@@ -1419,7 +1419,7 @@
   "siteModeTitle": "Mode chantier",
   "siteModeAwake": "L'écran reste allumé tant que ce mode est ouvert.",
   "siteModeCut": "Coupe suivante",
-  "siteModeCutText": "Plinthe {number}, mur {wall} : {length} cm. Début : {start}. Fin : {end}.",
+  "siteModeCutText": "Plinthe {number}, mur {wall} : {length}. Début : {start}. Fin : {end}.",
   "@siteModeCutText": {"placeholders": {"number": {"type": "int"}, "wall": {"type": "int"}, "length": {"type": "String"}, "start": {"type": "String"}, "end": {"type": "String"}}},
   "siteModeCutsDone": "Toutes les plinthes sont coupées.",
   "siteModeRow": "Rangée suivante",

@@ -1,5 +1,7 @@
 import 'package:atelier/logic/room.dart';
+import 'package:atelier/logic/units.dart';
 import 'package:atelier/ui/baseboard_view.dart';
+import 'package:atelier/ui/plan_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -70,5 +72,22 @@ void main() {
     );
 
     expect(find.textContaining('Saisis d\'abord les murs'), findsOneWidget);
+  });
+
+  testWidgets('les morceaux et les barres suivent l\'unité choisie dans les réglages', (
+    pTester,
+  ) async {
+    final vRoom = rectangleRoom();
+    await pTester.pumpWidget(
+      PlanUnit(
+        unit: FieldUnit.mm,
+        child: localized(BaseboardView(room: vRoom, onChanged: (_) {})),
+      ),
+    );
+
+    await scrollToFirst(pTester, find.text('Mur 1 · 2000 mm'));
+
+    expect(find.text('Mur 1 · 2000 mm'), findsOneWidget);
+    expect(find.textContaining(' cm'), findsNothing);
   });
 }
