@@ -56,18 +56,19 @@ void main() {
   });
 
   testWidgets('la maison se pose d\'un quart de tour, ou tout de suite si réduit', (pTester) async {
-    await pTester.pumpWidget(MaterialApp(home: House3d(rooms: [rectangleRoom()])));
-    // Mi-parcours : l'animation tourne encore
+    tallScreen(pTester);
+    await pTester.pumpWidget(localized(House3d(rooms: [rectangleRoom()])));
     await pTester.pump(const Duration(milliseconds: 100));
     expect(pTester.hasRunningAnimations, isTrue);
     await pTester.pumpAndSettle();
     expect(pTester.hasRunningAnimations, isFalse);
 
+    await pTester.pumpWidget(const SizedBox());
     await pTester.pumpWidget(
-      MaterialApp(
-        home: MediaQuery(
+      localized(
+        MediaQuery(
           data: const MediaQueryData(disableAnimations: true),
-          child: House3d(rooms: [rectangleRoom()], key: const ValueKey('reduit')),
+          child: House3d(rooms: [rectangleRoom()]),
         ),
       ),
     );
