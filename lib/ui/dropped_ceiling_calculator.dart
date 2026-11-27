@@ -71,7 +71,8 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
                 (vText.ceilingWanted, formatCentimetres(_wantedMm)),
               ],
               results: [
-                if (vPlan.tooLow) vText.ceilingTooLow(lengthText(vText, minLivingHeightMm, FieldUnit.cm)),
+                if (vPlan.tooLow)
+                  vText.ceilingTooLow(lengthText(vText, minLivingHeightMm, FieldUnit.cm)),
                 vText.ceilingPlenum(lengthText(vText, vPlan.plenumMm, FieldUnit.cm)),
                 vHanging,
                 vText.ceilingSaved(formatDecimal(vPlan.savedVolumeM3), vShare),

@@ -51,7 +51,10 @@ class _DoorCalculatorState extends State<DoorCalculator> {
                     IconLine(AtelierIcons.warning, vText.doorTooNarrow)
                   else ...[
                     BigFigure(
-                      vText.doorLeaf(lengthText(vText, vLeaf, vUnit), lengthText(vText, doorLeafHeightMm, vUnit)),
+                      vText.doorLeaf(
+                        lengthText(vText, vLeaf, vUnit),
+                        lengthText(vText, doorLeafHeightMm, vUnit),
+                      ),
                     ),
                     Text(
                       _hand == DoorHand.pushRight ? vText.doorPushRight : vText.doorPushLeft,
@@ -69,7 +72,10 @@ class _DoorCalculatorState extends State<DoorCalculator> {
                         : vText.doorHeightShort(lengthText(vText, -vMatch.heightGapMm, vUnit)),
                   ),
                   if (vMatch.adjustableFrame)
-                    IconLine(Icons.width_wide, vText.doorAdjustable(lengthText(vText, _wall, vUnit))),
+                    IconLine(
+                      Icons.width_wide,
+                      vText.doorAdjustable(lengthText(vText, _wall, vUnit)),
+                    ),
                 ],
               ),
             ),
