@@ -87,7 +87,8 @@ void main() {
 
     await scrollToFirst(pTester, find.text('Mur 1 · 2000 mm'));
 
-    expect(find.text('Mur 1 · 2000 mm'), findsOneWidget);
-    expect(find.textContaining(' cm'), findsNothing);
+    // Le mur de 4 m est coupé en deux morceaux de 2 m : deux lignes portent ce titre
+    expect(find.text('Mur 1 · 2000 mm'), findsWidgets);
+    expect(find.text('Mur 1 · 200 cm'), findsNothing);
   });
 }
