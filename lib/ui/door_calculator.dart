@@ -5,6 +5,8 @@ import '../logic/doors.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Porte intérieure à changer : bloc-porte standard, jeu à reprendre, sens d'ouverture.
 class DoorCalculator extends StatefulWidget {
@@ -28,6 +30,7 @@ class _DoorCalculatorState extends State<DoorCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vMatch = matchDoor(pOpeningWidthMm: _width, pOpeningHeightMm: _height, pWallMm: _wall);
     final vLeaf = vMatch.leafWidthMm;
@@ -48,7 +51,7 @@ class _DoorCalculatorState extends State<DoorCalculator> {
                     IconLine(AtelierIcons.warning, vText.doorTooNarrow)
                   else ...[
                     BigFigure(
-                      vText.doorLeaf(formatCentimetres(vLeaf), formatCentimetres(doorLeafHeightMm)),
+                      vText.doorLeaf(lengthText(vText, vLeaf, vUnit), lengthText(vText, doorLeafHeightMm, vUnit)),
                     ),
                     Text(
                       _hand == DoorHand.pushRight ? vText.doorPushRight : vText.doorPushLeft,
@@ -56,17 +59,17 @@ class _DoorCalculatorState extends State<DoorCalculator> {
                     ),
                     IconLine(
                       Icons.swap_horiz,
-                      vText.doorWidthGap(formatCentimetres(vMatch.widthGapMm)),
+                      vText.doorWidthGap(lengthText(vText, vMatch.widthGapMm, vUnit)),
                     ),
                   ],
                   IconLine(
                     vMatch.heightFits ? Icons.check : AtelierIcons.warning,
                     vMatch.heightFits
-                        ? vText.doorHeightOk(formatCentimetres(vMatch.heightGapMm))
-                        : vText.doorHeightShort(formatCentimetres(-vMatch.heightGapMm)),
+                        ? vText.doorHeightOk(lengthText(vText, vMatch.heightGapMm, vUnit))
+                        : vText.doorHeightShort(lengthText(vText, -vMatch.heightGapMm, vUnit)),
                   ),
                   if (vMatch.adjustableFrame)
-                    IconLine(Icons.width_wide, vText.doorAdjustable(formatCentimetres(_wall))),
+                    IconLine(Icons.width_wide, vText.doorAdjustable(lengthText(vText, _wall, vUnit))),
                 ],
               ),
             ),
@@ -155,8 +158,8 @@ class _DoorCalculatorState extends State<DoorCalculator> {
             handleHeightOk(_handle)
                 ? vText.doorHandleOk
                 : vText.doorHandleOff(
-                    formatCentimetres(handleMinMm),
-                    formatCentimetres(handleMaxMm),
+                    lengthText(vText, handleMinMm, vUnit),
+                    lengthText(vText, handleMaxMm, vUnit),
                   ),
           ),
         ],
