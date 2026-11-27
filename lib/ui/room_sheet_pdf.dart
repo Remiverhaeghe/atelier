@@ -12,6 +12,7 @@ import '../logic/slope.dart';
 import '../logic/units.dart';
 import '../storage/photo_store.dart';
 import 'pdf_fonts.dart';
+import 'room_measure_picker.dart' show lengthText;
 import 'room_sheet_climate.dart';
 
 /// Fiche d'une pièce à emporter sur le chantier : plan coté, murs, hauteur, rampants, reprises avec
@@ -21,6 +22,7 @@ Future<Uint8List> buildRoomSheetPdf(
   AppLocalizations pText,
   Room pRoom, {
   Uint8List? Function(String pPath) pPhotos = readPhoto,
+  FieldUnit pUnit = FieldUnit.cm,
 }) async {
   final vDocument = pw.Document(title: pText.roomSheetTitle(pRoom.name), theme: await pdfTheme());
   vDocument.addPage(
@@ -28,7 +30,7 @@ Future<Uint8List> buildRoomSheetPdf(
       pageFormat: PdfPageFormat.a4,
       build: (_) => [
         pw.Header(level: 0, text: pText.roomSheetTitle(pRoom.name)),
-        ...roomSheetGeometry(pText, pRoom),
+        ...roomSheetGeometry(pText, pRoom, pUnit: pUnit),
         pw.Header(level: 1, text: pText.roomSheetTouchUps),
         if (pRoom.touchUps.isEmpty) pw.Paragraph(text: pText.roomSheetNoTouchUps),
         for (final (vIndex, vTouchUp) in pRoom.touchUps.indexed)
@@ -73,7 +75,12 @@ Future<Uint8List> buildRoomSheetPdf(
 
 /// Plan coté, hauteur, surface, rampants et tableau des murs avec leurs ouvertures : ce qui
 /// décrit la pièce, repris par la fiche de la pièce et la fiche à remettre à un artisan.
-List<pw.Widget> roomSheetGeometry(AppLocalizations pText, Room pRoom) {
+List<pw.Widget> roomSheetGeometry(
+  AppLocalizations pText,
+  Room pRoom, {
+  FieldUnit pUnit = FieldUnit.cm,
+}) {
+  String vLength(int pMm) => lengthText(pText, pMm, pUnit);
   final vCount = pRoom.walls.length;
   String vCorner(int pIndex) => String.fromCharCode(65 + pIndex % math.max(vCount, 1));
   String vKind(OpeningKind pKind) => switch (pKind) {
@@ -83,8 +90,8 @@ List<pw.Widget> roomSheetGeometry(AppLocalizations pText, Room pRoom) {
   };
   String vSlope(Slope pSlope) => pText.roomSheetSlope(
     pSlope.wallIndex + 1,
-    formatCentimetres(pSlope.lowMm),
-    formatCentimetres(pSlope.runMm),
+    vLength(pSlope.lowMm),
+    vLength(pSlope.runMm),
   );
 
   return [
@@ -93,12 +100,12 @@ List<pw.Widget> roomSheetGeometry(AppLocalizations pText, Room pRoom) {
       pw.Center(child: _plan(pRoom)),
       pw.SizedBox(height: 8),
     ],
-    pw.Paragraph(text: pText.roomSheetHeight(formatCentimetres(pRoom.ceilingHeightMm))),
+    pw.Paragraph(text: pText.roomSheetHeight(vLength(pRoom.ceilingHeightMm))),
     if (vCount >= 3)
       pw.Paragraph(
         text: pText.roomSheetArea(
           formatSquareMetres(floorAreaM2(pRoom)),
-          formatCentimetres(perimeterMm(pRoom)),
+          vLength(perimeterMm(pRoom)),
         ),
       ),
     for (final vSlopeOf in [pRoom.slope, pRoom.slope2])
@@ -119,15 +126,15 @@ List<pw.Widget> roomSheetGeometry(AppLocalizations pText, Room pRoom) {
               '${vIndex + 1}',
               '${vCorner(vIndex)} → ${vCorner(vIndex + 1)}',
               vWall.deduced
-                  ? '${formatCentimetres(vWall.lengthMm)} cm (${pText.roomSheetDeduced})'
-                  : '${formatCentimetres(vWall.lengthMm)} cm',
+                  ? '${vLength(vWall.lengthMm)} (${pText.roomSheetDeduced})'
+                  : vLength(vWall.lengthMm),
               '${formatDecimal(vWall.angleToNextDeg)}°',
               [
                 for (final vOpening in vWall.openings)
                   pText.sketchOpening(
                     vKind(vOpening.kind),
-                    formatCentimetres(vOpening.widthMm),
-                    formatCentimetres(vOpening.offsetMm),
+                    vLength(vOpening.widthMm),
+                    vLength(vOpening.offsetMm),
                     vCorner(vIndex),
                   ),
               ].join('\n'),

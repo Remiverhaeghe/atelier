@@ -15,6 +15,10 @@ String measureName(AppLocalizations pText, RoomMeasureKey pKey) => switch (pKey)
   RoomMeasureKey.volume => pText.measureVolume,
 };
 
+/// Longueur avec son unité, dans celle que l'utilisateur a choisie : « 245 cm », « 2,45 m ».
+String lengthText(AppLocalizations pText, int pMillimetres, FieldUnit pUnit) =>
+    '${lengthInUnit(pMillimetres, pUnit)} ${unitName(pText, pUnit)}';
+
 String unitName(AppLocalizations pText, FieldUnit pUnit) => switch (pUnit) {
   FieldUnit.mm => pText.unitMm,
   FieldUnit.cm => pText.unitCm,

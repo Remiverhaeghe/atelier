@@ -103,7 +103,7 @@ class RoomScreen extends StatelessWidget {
                   icon: const Icon(Icons.content_cut),
                   onPressed: () => Printing.layoutPdf(
                     name: vText.roomCutsTitle(vRoom.name),
-                    onLayout: (_) => buildCutListPdf(vText, vRoom),
+                    onLayout: (_) => buildCutListPdf(vText, vRoom, pUnit: PlanUnit.of(pContext)),
                   ),
                 ),
                 PopupMenuButton<bool>(
@@ -113,7 +113,7 @@ class RoomScreen extends StatelessWidget {
                     if (!pForPro) {
                       await Printing.layoutPdf(
                         name: vText.roomSheetTitle(vRoom.name),
-                        onLayout: (_) => buildRoomSheetPdf(vText, vRoom),
+                        onLayout: (_) => buildRoomSheetPdf(vText, vRoom, pUnit: PlanUnit.of(pContext)),
                       );
 
                       return;

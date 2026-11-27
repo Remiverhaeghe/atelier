@@ -9,9 +9,14 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import 'baseboard_view.dart';
 import 'pdf_fonts.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Liste de coupes d'une pièce à imprimer : une case à cocher par longueur, la plus longue d'abord.
-Future<Uint8List> buildCutListPdf(AppLocalizations pText, Room pRoom) async {
+Future<Uint8List> buildCutListPdf(
+  AppLocalizations pText,
+  Room pRoom, {
+  FieldUnit pUnit = FieldUnit.cm,
+}) async {
   final vDocument = pw.Document(title: pText.roomCutsTitle(pRoom.name), theme: await pdfTheme());
   final vBaseboard = baseboardCutList(pRoom);
   final vPlanks = plankCutList(pRoom);
@@ -23,13 +28,13 @@ Future<Uint8List> buildCutListPdf(AppLocalizations pText, Room pRoom) async {
         pw.Paragraph(text: pText.cutListHelp),
         if (vBaseboard.isNotEmpty) ...[
           pw.Header(level: 1, text: pText.pdfBaseboard),
-          _table(pText, vBaseboard, pText.cutListWalls, (pLine) {
+          _table(pText, vBaseboard, pText.cutListWalls, pUnit, (pLine) {
             return '${cutLabel(pText, pLine.startCut!)} / ${cutLabel(pText, pLine.endCut!)}';
           }),
         ],
         if (vPlanks.isNotEmpty) ...[
           pw.Header(level: 1, text: pText.pdfParquet),
-          _table(pText, vPlanks, pText.cutListRows, (_) => pText.cutSquare),
+          _table(pText, vPlanks, pText.cutListRows, pUnit, (_) => pText.cutSquare),
         ],
         if (vBaseboard.isEmpty && vPlanks.isEmpty) pw.Paragraph(text: pText.cutListEmpty),
       ],
@@ -43,6 +48,7 @@ pw.Widget _table(
   AppLocalizations pText,
   List<CutLine> pLines,
   String Function(String) pPlaces,
+  FieldUnit pUnit,
   String Function(CutLine) pCuts,
 ) => pw.TableHelper.fromTextArray(
   headers: ['', pText.cutListLength, pText.cutListCount, pText.cutListCuts, pText.cutListWhere],
@@ -50,7 +56,7 @@ pw.Widget _table(
     for (final vLine in pLines)
       [
         '[  ]',
-        '${formatCentimetres(vLine.lengthMm)} cm',
+        lengthText(pText, vLine.lengthMm, pUnit),
         '× ${vLine.count}',
         pCuts(vLine),
         pPlaces(vLine.places.join(', ')),

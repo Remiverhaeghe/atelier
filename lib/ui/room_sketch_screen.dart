@@ -12,7 +12,9 @@ import 'dialogs.dart' show addOpening;
 import 'fixtures_section.dart';
 import 'laser_screen.dart';
 import 'parquet_view.dart' show NumberField;
+import 'plan_unit.dart';
 import 'quick_walls_screen.dart';
+import 'room_measure_picker.dart' show lengthText;
 import 'room_plan.dart' show PlanFrame;
 import 'slope_editor.dart';
 import 'theme.dart';
@@ -302,8 +304,8 @@ class _RoomSketchScreenState extends State<RoomSketchScreen> {
                                 OpeningKind.passage => vText.openingPassage,
                                 OpeningKind.window => vText.openingWindow,
                               },
-                              formatCentimetres(vOpening.widthMm),
-                              formatCentimetres(vOpening.offsetMm),
+                              lengthText(vText, vOpening.widthMm, PlanUnit.of(context)),
+                              lengthText(vText, vOpening.offsetMm, PlanUnit.of(context)),
                               cornerLetter(_selected),
                             ),
                           ),
