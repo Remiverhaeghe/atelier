@@ -52,4 +52,20 @@ void main() {
   test('sans morceau, aucune barre', () {
     expect(planBars(const [], 2400, 2).bars, isEmpty);
   });
+
+  test('l\'ordre de coupe suit les barres, une barre jusqu\'au bout', () {
+    final vPlan = planBars([2000, 1500, 1500, 800, 400, 300], 2400, 2);
+
+    expect(vPlan.cutOrder(6), [0, 5, 1, 3, 2, 4]);
+    expect(vPlan.remainingInBar(1, const []), 2);
+    expect(vPlan.remainingInBar(1, [0]), 1);
+    expect(vPlan.remainingInBar(2, [0, 5, 1, 3]), 0);
+  });
+
+  test('un morceau trop long pour une barre passe en dernier dans l\'ordre de coupe', () {
+    final vPlan = planBars([3000, 1000, 500], 2400, 2);
+
+    expect(vPlan.tooLong, [0]);
+    expect(vPlan.cutOrder(3), [1, 2, 0]);
+  });
 }

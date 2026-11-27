@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../logic/bar_cutting.dart';
 import '../logic/baseboard.dart';
+import '../logic/baseboard_bars.dart';
 import '../logic/room.dart';
 import '../logic/units.dart';
 import 'dialogs.dart';
@@ -33,7 +34,7 @@ String fixingLabel(AppLocalizations pText, BaseboardFixing pFixing) => switch (p
   BaseboardFixing.clips => pText.fixingClips,
 };
 
-String _offcutLabel(AppLocalizations pText, int pOffcutMm, FieldUnit pUnit) => pOffcutMm == 0
+String offcutLabel(AppLocalizations pText, int pOffcutMm, FieldUnit pUnit) => pOffcutMm == 0
     ? pText.barNoOffcut
     : pOffcutMm >= reusableOffcutMm
     ? pText.barOffcutReusable(lengthText(pText, pOffcutMm, pUnit))
@@ -78,12 +79,7 @@ class _BaseboardViewState extends State<BaseboardView> {
     final vSettings = _room.baseboard;
     final vPieces = baseboardPieces(_room, vSettings);
     final vNeeds = fixingNeeds(vPieces, vSettings);
-    final vBars = planBars(
-      [for (final vPiece in vPieces) vPiece.lengthMm],
-      vSettings.barLengthMm,
-      vSettings.kerfMm,
-      pStock: [for (final vPiece in vPieces) vPiece.stockMm(vSettings.thicknessMm)],
-    );
+    final vBars = planBaseboardBars(vPieces, vSettings);
     final vTotal = vPieces.fold<int>(0, (pSum, pPiece) => pSum + pPiece.lengthMm);
     final vDone = _room.cutPieces.where((pIndex) => pIndex < vPieces.length).length;
 
@@ -119,6 +115,7 @@ class _BaseboardViewState extends State<BaseboardView> {
         ),
         _NextCut(
           pieces: vPieces,
+          bars: vBars,
           done: _room.cutPieces,
           onCut: (pIndex) {
             setState(() => _highlight = vPieces[pIndex].wallNumber - 1);
@@ -199,7 +196,7 @@ class _BaseboardViewState extends State<BaseboardView> {
                 '${[for (final vIndex in vBars.bars[vBar].pieceIndexes) lengthInUnit(vPieces[vIndex].lengthMm, vUnit)].join(' + ')} ${unitName(vText, vUnit)}',
               ),
             ),
-            subtitle: Text(_offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm), vUnit)),
+            subtitle: Text(offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm), vUnit)),
           ),
         Padding(
           padding: const EdgeInsets.all(16),
@@ -246,9 +243,15 @@ class _BaseboardViewState extends State<BaseboardView> {
 
 /// La seule pièce à couper maintenant : longueur, deux coupes, dessin et un bouton.
 class _NextCut extends StatelessWidget {
-  const _NextCut({required this.pieces, required this.done, required this.onCut});
+  const _NextCut({
+    required this.pieces,
+    required this.bars,
+    required this.done,
+    required this.onCut,
+  });
 
   final List<BaseboardPiece> pieces;
+  final BarPlan bars;
   final List<int> done;
   final ValueChanged<int> onCut;
 
@@ -256,9 +259,9 @@ class _NextCut extends StatelessWidget {
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
     final vTheme = Theme.of(context);
-    final vNext = [
-      for (var vIndex = 0; vIndex < pieces.length; vIndex++) vIndex,
-    ].where((pIndex) => !done.contains(pIndex));
+    final vUnit = PlanUnit.of(context);
+    final vNext = bars.cutOrder(pieces.length).where((pIndex) => !done.contains(pIndex));
+    final vBar = vNext.isEmpty ? null : bars.barOf(vNext.first);
 
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
@@ -270,7 +273,10 @@ class _NextCut extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(vText.nextCutTitle, style: vTheme.textTheme.titleMedium),
-                  BigFigure('${formatCentimetres(pieces[vNext.first].lengthMm)} ${vText.unitCm}'),
+                  BigFigure(lengthText(vText, pieces[vNext.first].lengthMm, vUnit)),
+                  if (vBar != null) Text(vText.nextCutBar(vBar, bars.remainingInBar(vBar, done))),
+                  if (vBar != null)
+                    Text(offcutLabel(vText, bars.bars[vBar - 1].offcutMm(bars.kerfMm), vUnit)),
                   Text(
                     vText.pieceCuts(
                       cutLabel(vText, pieces[vNext.first].startCut),

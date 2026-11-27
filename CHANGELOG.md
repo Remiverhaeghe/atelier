@@ -4,6 +4,8 @@
 
 ### Modifié
 - Unités : la pergola (espacements des chevrons et des poteaux), les hauteurs de la cuisine et la distance du lit dans le calcul de soleil suivent l'unité choisie dans les réglages
+- Plinthes : « Prochaine coupe » suit l'ordre des barres (une barre sciée jusqu'au bout), indique la barre et le nombre de coupes qui lui restent, et écrit la longueur dans l'unité choisie
+- Plinthes : la carte « Prochaine coupe » donne la chute de la barre en cours ; le mode chantier (lu à voix haute aussi) suit le même ordre et énumère ce qui reste à couper dans la barre ; la liste de coupes en PDF ajoute le détail des barres avec leurs chutes
 - Unités : la mezzanine (hauteurs, solives, poteaux, poutre) et les chevrons de toiture suivent l'unité choisie dans les réglages
 - Unités : les résultats du faux plafond et de la porte (bloc-porte, jeux, poignée) suivent l'unité choisie dans les réglages
 - Unités : les coupes du carrelage et de la faïence, les rangées de pose, la liste de coupe de l'étagère et du placard suivent l'unité choisie dans les réglages

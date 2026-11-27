@@ -1,21 +1,8 @@
 /// Mode chantier : la prochaine coupe de plinthe et la prochaine rangée de parquet.
 library;
 
-import 'baseboard.dart';
 import 'laying_plan.dart';
 import 'room.dart';
-
-/// Prochain morceau de plinthe pas encore coupé, avec son rang dans la liste ; null s'il n'en reste plus.
-({int index, BaseboardPiece piece})? nextBaseboardCut(Room pRoom) {
-  final vPieces = baseboardPieces(pRoom, pRoom.baseboard);
-  for (var vIndex = 0; vIndex < vPieces.length; vIndex++) {
-    if (!pRoom.cutPieces.contains(vIndex)) {
-      return (index: vIndex, piece: vPieces[vIndex]);
-    }
-  }
-
-  return null;
-}
 
 /// Prochaine rangée de parquet pas encore posée ; null sans plan de pose ou si tout est posé.
 LayingRow? nextLayingRow(Room pRoom) {

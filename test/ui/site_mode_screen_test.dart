@@ -43,7 +43,10 @@ void main() {
 
     await pTester.tap(find.text('Fait').first);
     await pTester.pumpAndSettle();
-    expect(find.textContaining('Plinthe 2'), findsOneWidget);
+    // La coupe suivante suit l'ordre des barres : un autre morceau, avec sa barre
+    expect(find.textContaining('Plinthe 1, mur 1'), findsNothing);
+    expect(find.textContaining('Plinthe '), findsOneWidget);
+    expect(find.textContaining('Barre '), findsOneWidget);
     expect(vStorage.saved.single.rooms.single.cutPieces, [0]);
 
     await pTester.tap(find.text('Fait').last);

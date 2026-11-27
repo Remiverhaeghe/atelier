@@ -34,7 +34,7 @@ void main() {
 
     await pTester.tap(find.byType(Checkbox).first);
     await pTester.pump();
-    expect(vRoom.cutPieces, [0]);
+    expect(vRoom.cutPieces, hasLength(1));
     // Le compteur est juste au-dessus du premier morceau : remonter un peu pour le voir.
     await pTester.drag(verticalList(), const Offset(0, 300));
     await pTester.pump();
@@ -57,8 +57,20 @@ void main() {
     await pTester.tap(find.text('Coupée, suivante'));
     await pTester.pump();
 
-    expect(vRoom.cutPieces, [0]);
+    expect(vRoom.cutPieces, hasLength(1));
     expect(find.text('Prochaine coupe'), findsOneWidget);
+  });
+
+  testWidgets('la prochaine coupe donne la barre et suit l\'unité choisie', (pTester) async {
+    await pTester.pumpWidget(
+      PlanUnit(
+        unit: FieldUnit.mm,
+        child: localized(BaseboardView(room: rectangleRoom(), onChanged: (_) {})),
+      ),
+    );
+
+    expect(find.text('2000 mm'), findsWidgets);
+    expect(find.textContaining('Barre 1 : '), findsOneWidget);
   });
 
   testWidgets('sans murs, la vue demande de saisir la pièce', (pTester) async {
