@@ -113,4 +113,4 @@ Tests de mutation sur `lib/logic` : `python3 tool/mutation.py --max 60` (workflo
 
 ## Licence
 
-[MIT](LICENSE)
+[PolyForm Strict 1.0.0](LICENSE) : le code se lit et s'utilise, il ne se redistribue ni ne se modifie. Les polices embarquées gardent leur licence OFL (`assets/fonts/`).

@@ -2,6 +2,9 @@
 
 ## Non publié
 
+### Modifié
+- Licence : PolyForm Strict 1.0.0 à la place de MIT, comme Home. Les copies déjà obtenues sous MIT restent sous MIT
+
 ### Corrigé
 - Plinthes : la barre est comptée sur la longueur réellement à tailler, pas seulement sur la mesure au dos. Un onglet dont la pointe longue est sur la face (coin sortant, bout d'un biseau de jonction) déborde de l'épaisseur de la plinthe fois la tangente de l'angle (15 mm à 45° pour 15 mm d'épaisseur) : un mur de deux barres exactes passe à trois morceaux au lieu de deux morceaux qui ne tenaient pas
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
