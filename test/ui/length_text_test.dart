@@ -30,7 +30,10 @@ void main() {
 
   test('les textes du carrelage et des listes de coupe ne portent plus d\'unité en dur', () {
     expect(vText.layingRowTitle(2, '19 cm'), 'Rangée 2 · largeur 19 cm');
-    expect(vText.wallTileRows(5, '12 cm'), '5 rangées entières depuis le bas, coupe de 12 cm en haut');
+    expect(
+      vText.wallTileRows(5, '12 cm'),
+      '5 rangées entières depuis le bas, coupe de 12 cm en haut',
+    );
     expect(vText.cutListLine(2, 'Montant', '80 cm', '5 cm'), '2 × Montant de 80 cm × 5 cm');
   });
 

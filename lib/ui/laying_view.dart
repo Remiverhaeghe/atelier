@@ -80,10 +80,12 @@ class LayingView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 for (final vRun in vRow.runs) ...[
-                  Text(vText.layingPieces(
+                  Text(
+                    vText.layingPieces(
                       '${vRun.pieces.map((pPiece) => lengthInUnit(pPiece, vUnit)).join(' + ')} '
                       '${unitName(vText, vUnit)}',
-                    )),
+                    ),
+                  ),
                   if (vRun.startsWithOffcut) Text(vText.layingOffcutStart),
                   if (!vRun.jointsOk)
                     Text(vText.layingProblem, style: TextStyle(color: vTheme.colorScheme.error)),

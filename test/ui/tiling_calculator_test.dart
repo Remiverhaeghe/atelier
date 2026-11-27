@@ -14,7 +14,10 @@ void main() {
     await pTester.pumpAndSettle();
 
     expect(find.text('5 cartons'), findsOneWidget);
-    expect(find.text('Longueur : 4 carreaux entiers, coupes de 29,2 cm et 29,3 cm'), findsOneWidget);
+    expect(
+      find.text('Longueur : 4 carreaux entiers, coupes de 29,2 cm et 29,3 cm'),
+      findsOneWidget,
+    );
 
     await pTester.tap(find.text('Calepinage centré'));
     await pTester.pump();
