@@ -34,10 +34,7 @@ void main() {
   test('la coupe suivante dit ce qui reste dans la barre et sa chute', () {
     final vRoom = rectangleRoom();
     final vCut = nextBaseboardCut(vRoom)!;
-    final vBars = planBaseboardBars(
-      baseboardPieces(vRoom, vRoom.baseboard),
-      vRoom.baseboard,
-    );
+    final vBars = planBaseboardBars(baseboardPieces(vRoom, vRoom.baseboard), vRoom.baseboard);
 
     expect(vCut.bar, 1);
     expect(vCut.leftInBar, hasLength(vBars.bars.first.pieceIndexes.length));
