@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Modifié
+- Unités : la liste des plinthes (morceaux, barres, chutes), le mode chantier et la fiche des murs suivent l'unité choisie dans les réglages
 - Unités : la fiche de pièce en PDF, la liste de coupes et les ouvertures de l'esquisse suivent l'unité choisie dans les réglages (mm, cm ou m) au lieu du centimètre seul
 - Plinthes : quand les angles d'une pièce sont déduits de mesures approximatives, chaque coupe d'onglet affiche sa marge d'erreur (± quelques dixièmes de degré)
 - Licence : PolyForm Strict 1.0.0 à la place de MIT, comme Home. Les copies déjà obtenues sous MIT restent sous MIT

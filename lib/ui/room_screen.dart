@@ -30,7 +30,7 @@ import 'pro_brief_pdf.dart';
 import 'quick_walls_screen.dart';
 import 'room_sketch_screen.dart';
 import 'room_3d_card.dart';
-import 'room_measure_picker.dart' show unitName;
+import 'room_measure_picker.dart' show lengthText, unitName;
 import 'room_plan_switcher.dart';
 import 'site_mode_screen.dart';
 import 'theme.dart';
@@ -262,8 +262,8 @@ class RoomWallsView extends StatelessWidget {
   final Room room;
   final ValueChanged<Room> onChanged;
 
-  String _wallSummary(AppLocalizations pText, Wall pWall) {
-    final vLength = formatCentimetres(pWall.lengthMm);
+  String _wallSummary(AppLocalizations pText, Wall pWall, FieldUnit pUnit) {
+    final vLength = lengthText(pText, pWall.lengthMm, pUnit);
     final vKind = pWall.isOutsideCornerAfter ? pText.cornerOutside : pText.cornerInside;
     final vSummary = pWall.freeEndAfter
         ? pText.freeEndSummary(vLength)
@@ -473,7 +473,7 @@ class RoomWallsView extends StatelessWidget {
               '${unitName(vText, PlanUnit.of(context))}',
             ),
             title: Text(vText.wallTitle(vIndex + 1)),
-            subtitle: Text(_wallSummary(vText, room.walls[vIndex])),
+            subtitle: Text(_wallSummary(vText, room.walls[vIndex], PlanUnit.of(context))),
             onTap: () => _editWall(context, vIndex),
             trailing: PopupMenuButton<String>(
               onSelected: (pAction) {
@@ -516,7 +516,7 @@ class RoomWallsView extends StatelessWidget {
               vText.obstacleSummary(
                 obstacleLabel(vText, room.obstacles[vIndex].kind),
                 room.obstacles[vIndex].wallIndex + 1,
-                formatCentimetres(room.obstacles[vIndex].widthMm),
+                lengthText(vText, room.obstacles[vIndex].widthMm, PlanUnit.of(context)),
               ),
             ),
             trailing: IconButton(

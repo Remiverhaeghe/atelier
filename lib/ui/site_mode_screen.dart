@@ -16,6 +16,8 @@ import '../logic/units.dart';
 import '../logic/voice_command.dart';
 import '../state/worksites_controller.dart';
 import 'baseboard_view.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 import 'theme.dart';
 import 'workshop_mode_screen.dart';
 
@@ -113,6 +115,7 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
   /// Une phrase au micro : relire ou cocher la coupe ou la rangée en cours.
   Future<void> _voice() async {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vMessenger = ScaffoldMessenger.of(context);
     String? vHeard;
     try {
@@ -137,7 +140,7 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
     void vSave(Room pRoom) => widget.controller.updateRoom(widget.worksiteId, pRoom);
     switch ((vTarget, vCommand.action)) {
       case (VoiceTarget.cut, VoiceAction.read) when vCut != null:
-        await _say(_cutText(vText, vCut.index, vCut.piece));
+        await _say(_cutText(vText, vCut.index, vCut.piece, vUnit));
       case (VoiceTarget.cut, VoiceAction.done) when vCut != null:
         vSave(markCut(vRoom, vCut.index));
         await _say(vText.voiceNoted);
@@ -188,11 +191,11 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
       .where((pRoom) => pRoom.id == widget.roomId)
       .firstOrNull;
 
-  String _cutText(AppLocalizations pText, int pIndex, BaseboardPiece pPiece) =>
+  String _cutText(AppLocalizations pText, int pIndex, BaseboardPiece pPiece, FieldUnit pUnit) =>
       pText.siteModeCutText(
         pIndex + 1,
         pPiece.wallNumber,
-        formatCentimetres(pPiece.lengthMm),
+        lengthText(pText, pPiece.lengthMm, pUnit),
         cutLabel(pText, pPiece.startCut),
         cutLabel(pText, pPiece.endCut),
       );
@@ -256,8 +259,10 @@ class _SiteModeScreenState extends State<SiteModeScreen> {
                 title: vText.siteModeCut,
                 text: vCut == null
                     ? vText.siteModeCutsDone
-                    : _cutText(vText, vCut.index, vCut.piece),
-                onSpeak: vCut == null ? null : () => _say(_cutText(vText, vCut.index, vCut.piece)),
+                    : _cutText(vText, vCut.index, vCut.piece, PlanUnit.of(context)),
+                onSpeak: vCut == null
+                    ? null
+                    : () => _say(_cutText(vText, vCut.index, vCut.piece, PlanUnit.of(context))),
                 onDone: vCut == null ? null : () => vSave(markCut(vRoom, vCut.index)),
               ),
               const SizedBox(height: 16),

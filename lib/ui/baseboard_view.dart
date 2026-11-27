@@ -7,6 +7,8 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import 'dialogs.dart';
 import 'parquet_view.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText, unitName;
 import 'room_plan.dart';
 import 'theme.dart';
 import 'bars_diagram.dart';
@@ -31,11 +33,11 @@ String fixingLabel(AppLocalizations pText, BaseboardFixing pFixing) => switch (p
   BaseboardFixing.clips => pText.fixingClips,
 };
 
-String _offcutLabel(AppLocalizations pText, int pOffcutMm) => pOffcutMm == 0
+String _offcutLabel(AppLocalizations pText, int pOffcutMm, FieldUnit pUnit) => pOffcutMm == 0
     ? pText.barNoOffcut
     : pOffcutMm >= reusableOffcutMm
-    ? pText.barOffcutReusable(formatCentimetres(pOffcutMm))
-    : pText.barOffcut(formatCentimetres(pOffcutMm));
+    ? pText.barOffcutReusable(lengthText(pText, pOffcutMm, pUnit))
+    : pText.barOffcut(lengthText(pText, pOffcutMm, pUnit));
 
 /// Plinthes de la pièce : réglages, fournitures et liste des coupes à cocher.
 class BaseboardView extends StatefulWidget {
@@ -66,6 +68,7 @@ class _BaseboardViewState extends State<BaseboardView> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     if (_room.walls.isEmpty) {
       return Center(
@@ -184,7 +187,7 @@ class _BaseboardViewState extends State<BaseboardView> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: BarsDiagram(
             plan: vBars,
-            labels: [for (final vPiece in vPieces) formatCentimetres(vPiece.lengthMm)],
+            labels: [for (final vPiece in vPieces) lengthInUnit(vPiece.lengthMm, vUnit)],
           ),
         ),
         for (var vBar = 0; vBar < vBars.bars.length; vBar++)
@@ -193,13 +196,10 @@ class _BaseboardViewState extends State<BaseboardView> {
             title: Text(
               vText.barLine(
                 vBar + 1,
-                [
-                  for (final vIndex in vBars.bars[vBar].pieceIndexes)
-                    formatCentimetres(vPieces[vIndex].lengthMm),
-                ].join(' + '),
+                '${[for (final vIndex in vBars.bars[vBar].pieceIndexes) lengthInUnit(vPieces[vIndex].lengthMm, vUnit)].join(' + ')} ${unitName(vText, vUnit)}',
               ),
             ),
-            subtitle: Text(_offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm))),
+            subtitle: Text(_offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm), vUnit)),
           ),
         Padding(
           padding: const EdgeInsets.all(16),
@@ -219,7 +219,7 @@ class _BaseboardViewState extends State<BaseboardView> {
             title: Text(
               vText.pieceTitle(
                 vPieces[vIndex].wallNumber,
-                formatCentimetres(vPieces[vIndex].lengthMm),
+                lengthText(vText, vPieces[vIndex].lengthMm, vUnit),
               ),
             ),
             subtitle: Column(
