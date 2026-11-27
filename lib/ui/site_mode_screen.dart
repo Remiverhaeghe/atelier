@@ -7,7 +7,6 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../l10n/gen/app_localizations.dart';
-import '../logic/baseboard.dart';
 import '../logic/laying_plan.dart';
 import '../logic/room.dart';
 import '../logic/room_shapes.dart';

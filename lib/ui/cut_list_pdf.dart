@@ -11,7 +11,7 @@ import '../logic/room.dart';
 import '../logic/units.dart';
 import 'baseboard_view.dart';
 import 'pdf_fonts.dart';
-import 'room_measure_picker.dart' show lengthInUnit, lengthText, unitName;
+import 'room_measure_picker.dart' show lengthText, unitName;
 
 /// Liste de coupes d'une pièce à imprimer : une case à cocher par longueur, la plus longue d'abord.
 Future<Uint8List> buildCutListPdf(
