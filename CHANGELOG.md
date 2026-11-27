@@ -7,6 +7,8 @@
 - Épaisseur de la plinthe dans les réglages (15 mm au départ)
 
 ### Ajouté
+- Animations : le plan Simple/Complet se fond d'un état à l'autre, la maison 3D se pose d'un quart de tour à l'ouverture. Tout s'arrête net quand le téléphone réduit les animations (`lib/ui/motion.dart`)
+- 3D de la pièce sobre au départ (sol, murs, ouvertures) ; « Détails » ajoute les meubles et les structures
 - Plan de la pièce en deux niveaux : « Simple » au départ (murs, ouvertures et cotes) et « Complet » (quadrillage, éléments fixes, meubles, lettres des coins), à basculer sous le plan
 - Capteurs de la maison : un écran du chantier range les relevés de plusieurs thermo-hygromètres d'un coup. Chaque fichier va dans la pièce qui porte son nom (« Salle de bain.csv » dans « Salle de bain »), le reste se range à la main ; un fichier d'échange JSON peut contenir plusieurs capteurs, format décrit dans `docs/echange-climat.md` pour le futur projet de domotique
 - Accessibilité : le plan de la pièce et le calepinage du carrelage sont décrits au lecteur d'écran ; contrôles automatiques (cibles, contraste, noms) et texte à 200 % sur le journal quotidien, le carrelage, le mode atelier et la saisie rapide des murs

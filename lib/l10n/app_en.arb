@@ -537,6 +537,7 @@
   "@sensorsNoRoom": {"placeholders": {"sensor": {"type": "String"}}},
   "sensorsPickRoom": "Pick the room",
   "planSimple": "Simple",
+  "room3dDetails": "Details",
   "planFull": "Full",
   "dayLogMenu": "Daily log",
   "dayLogTitle": "Worksite log",

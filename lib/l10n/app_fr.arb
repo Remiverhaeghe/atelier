@@ -911,6 +911,7 @@
   "@sensorsNoRoom": {"placeholders": {"sensor": {"type": "String"}}},
   "sensorsPickRoom": "Choisir la pièce",
   "planSimple": "Simple",
+  "room3dDetails": "Détails",
   "planFull": "Complet",
   "dayLogMenu": "Journal quotidien",
   "dayLogTitle": "Journal de chantier",
