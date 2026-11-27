@@ -51,7 +51,7 @@
   "diagonalLaying": "Pose en diagonale",
   "diagonalLayingHelp": "Lames à 45° du mur choisi : plus élégant, mais plus de coupes ; 5 % de chute en plus.",
   "herringboneLaying": "Le point de Hongrie se pose depuis un axe tracé au cordeau au centre de la pièce, lames gauches et droites en alternance ; les coupes se font contre les murs. Le plan rangée par rangée ne s'applique pas à ce motif.",
-  "tilingOneCut": "{full} carreaux entiers, une coupe de {cut} cm",
+  "tilingOneCut": "{full} carreaux entiers, une coupe de {cut}",
   "@tilingOneCut": {"placeholders": {"full": {"type": "int"}, "cut": {"type": "String"}}},
   "patternStraight": "Droite",
   "patternBrick": "Décalée ½",
@@ -82,7 +82,7 @@
   "@tilingBoxes": {"placeholders": {"count": {"type": "int"}}},
   "tilingTiles": "{count} carreaux pour {area} m², marge comprise",
   "@tilingTiles": {"placeholders": {"count": {"type": "int"}, "area": {"type": "String"}}},
-  "tilingCuts": "{full} carreaux entiers, coupes de {start} et {end} cm",
+  "tilingCuts": "{full} carreaux entiers, coupes de {start} et {end}",
   "@tilingCuts": {"placeholders": {"full": {"type": "int"}, "start": {"type": "String"}, "end": {"type": "String"}}},
   "tilingNoCut": "{full} carreaux entiers, sans coupe",
   "@tilingNoCut": {"placeholders": {"full": {"type": "int"}}},
@@ -218,7 +218,7 @@
   "compartmentShelves": "Étagères",
   "compartmentAdd": "Ajouter un compartiment",
   "wardrobeDoors": "Portes battantes",
-  "railLine": "{count} × tringle de {length} cm",
+  "railLine": "{count} × tringle de {length}",
   "@railLine": {"placeholders": {"count": {"type": "int"}, "length": {"type": "String"}}},
   "hinges": "{count} charnières, selon la hauteur des portes",
   "@hinges": {"placeholders": {"count": {"type": "int"}}},
@@ -291,7 +291,7 @@
   "shelfThickness": "Épaisseur du panneau (cm)",
   "shelfCount": "Tablettes, dessus et dessous compris",
   "shelfBack": "Fond cloué au dos",
-  "cutListLine": "{count} × {part} de {length} × {width} cm",
+  "cutListLine": "{count} × {part} de {length} × {width}",
   "@cutListLine": {"placeholders": {"count": {"type": "int"}, "part": {"type": "String"}, "length": {"type": "String"}, "width": {"type": "String"}}},
   "shelfBoards": "{count, plural, =1{1 panneau de 250 × 125 cm} other{{count} panneaux de 250 × 125 cm}}",
   "@shelfBoards": {"placeholders": {"count": {"type": "int"}}},
@@ -1037,7 +1037,7 @@
       }
     }
   },
-  "layingRowTitle": "Rangée {number} · largeur {width} cm",
+  "layingRowTitle": "Rangée {number} · largeur {width}",
   "@layingRowTitle": {
     "placeholders": {
       "number": {
@@ -1048,7 +1048,7 @@
       }
     }
   },
-  "layingPieces": "{pieces} cm",
+  "layingPieces": "{pieces}",
   "@layingPieces": {
     "placeholders": {
       "pieces": {
@@ -1652,15 +1652,15 @@
   "wallTileExposed": "Bords verticaux visibles",
   "wallTileTop": "Haut visible (pas de meuble ni de plafond au-dessus)",
   "wallTileWorktop": "Posée sur un plan de travail",
-  "wallTileRows": "{rows} rangées entières depuis le bas, coupe de {cut} cm en haut",
+  "wallTileRows": "{rows} rangées entières depuis le bas, coupe de {cut} en haut",
   "@wallTileRows": {"placeholders": {"rows": {"type": "int"}, "cut": {"type": "String"}}},
   "wallTileRowsExact": "{rows} rangées entières, sans coupe",
   "@wallTileRowsExact": {"placeholders": {"rows": {"type": "int"}}},
   "wallTileHoles": "{count, plural, =1{1 découpe} other{{count} découpes}} à la scie cloche de {diameter} mm, et autant de rehausses de boîte",
   "@wallTileHoles": {"placeholders": {"count": {"type": "int"}, "diameter": {"type": "int"}}},
-  "wallTileProfile": "Profilé de finition : {length} cm",
+  "wallTileProfile": "Profilé de finition : {length}",
   "@wallTileProfile": {"placeholders": {"length": {"type": "String"}}},
-  "wallTileSilicone": "Joint silicone sanitaire en pied : {length} cm, pas de joint ciment contre le plan",
+  "wallTileSilicone": "Joint silicone sanitaire en pied : {length}, pas de joint ciment contre le plan",
   "@wallTileSilicone": {"placeholders": {"length": {"type": "String"}}},
   "wallTileHint": "Courant coupé avant de découper autour des prises. Partez d'une règle fixée de niveau sous la première rangée : le plan de travail n'est jamais parfaitement droit.",
   "screedTitle": "Enduit et ragréage",

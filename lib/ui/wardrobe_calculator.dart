@@ -7,6 +7,8 @@ import '../logic/wardrobe.dart';
 import 'parquet_view.dart';
 import 'shelf_calculator.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 String wardrobePartLabel(AppLocalizations pText, String pName) => switch (pName) {
   topBottomPart => pText.partTopBottom,
@@ -37,6 +39,7 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vPlan = planWardrobe(_design);
 
@@ -74,12 +77,12 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                     IconLine(
                       vPart.name == railPart ? Icons.horizontal_rule : Icons.straighten,
                       vPart.name == railPart
-                          ? vText.railLine(vPart.count, formatCentimetres(vPart.lengthMm))
+                          ? vText.railLine(vPart.count, lengthText(vText, vPart.lengthMm, vUnit))
                           : vText.cutListLine(
                               vPart.count,
                               wardrobePartLabel(vText, vPart.name),
-                              formatCentimetres(vPart.lengthMm),
-                              formatCentimetres(vPart.widthMm),
+                              lengthText(vText, vPart.lengthMm, vUnit),
+                              lengthText(vText, vPart.widthMm, vUnit),
                             ),
                     ),
                   if (vPlan.hinges > 0)
@@ -94,7 +97,7 @@ class _WardrobeCalculatorState extends State<WardrobeCalculator> {
                   for (final vPart in vPlan.parts.where((pPart) => pPart.name == slidePart))
                     IconLine(
                       Icons.swap_vert,
-                      vText.drawerSlides(vPart.count, formatCentimetres(vPart.lengthMm)),
+                      vText.drawerSlides(vPart.count, lengthText(vText, vPart.lengthMm, vUnit)),
                     ),
                   if (vPlan.tooWide)
                     IconLine(
