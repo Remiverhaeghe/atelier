@@ -196,10 +196,7 @@ class _BaseboardViewState extends State<BaseboardView> {
             title: Text(
               vText.barLine(
                 vBar + 1,
-                '${[
-                  for (final vIndex in vBars.bars[vBar].pieceIndexes)
-                    lengthInUnit(vPieces[vIndex].lengthMm, vUnit),
-                ].join(' + ')} ${unitName(vText, vUnit)}',
+                '${[for (final vIndex in vBars.bars[vBar].pieceIndexes) lengthInUnit(vPieces[vIndex].lengthMm, vUnit)].join(' + ')} ${unitName(vText, vUnit)}',
               ),
             ),
             subtitle: Text(_offcutLabel(vText, vBars.bars[vBar].offcutMm(vBars.kerfMm), vUnit)),
