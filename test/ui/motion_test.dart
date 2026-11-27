@@ -56,9 +56,7 @@ void main() {
   });
 
   testWidgets('la maison se pose d\'un quart de tour, ou tout de suite si réduit', (pTester) async {
-    await pTester.pumpWidget(
-      MaterialApp(home: House3d(rooms: [rectangleRoom()])),
-    );
+    await pTester.pumpWidget(MaterialApp(home: House3d(rooms: [rectangleRoom()])));
     // Mi-parcours : l'animation tourne encore
     await pTester.pump(const Duration(milliseconds: 100));
     expect(pTester.hasRunningAnimations, isTrue);

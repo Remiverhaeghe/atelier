@@ -37,7 +37,9 @@ class _Room3dCardState extends State<Room3dCard> {
           ),
           SizedBox(
             height: 260,
-            child: ClipRect(child: House3d(rooms: [widget.room], simple: _simple)),
+            child: ClipRect(
+              child: House3d(rooms: [widget.room], simple: _simple),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(12),
