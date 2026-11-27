@@ -66,7 +66,7 @@ void main() {
       '80',
     );
     await pTester.pump();
-    expect(find.textContaining('entre 90 et 130 cm du sol'), findsOneWidget);
+    expect(find.textContaining('entre 90 cm et 130 cm du sol'), findsOneWidget);
   });
 
   testWidgets('grande hauteur : manche, escabeau, échafaudage et ordre de travail', (

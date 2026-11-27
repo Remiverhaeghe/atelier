@@ -11,6 +11,8 @@ import 'shopping_target.dart';
 import 'sketch3d.dart';
 import 'theme.dart';
 import 'work_sheet_pdf.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Faux plafond : abaisser une pièce trop haute, l'ossature à acheter et le volume gagné.
 class DroppedCeilingCalculator extends StatefulWidget {
@@ -29,6 +31,7 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vPlan = planDroppedCeiling(
       pLengthMm: _lengthMm,
@@ -68,8 +71,9 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
                 (vText.ceilingWanted, formatCentimetres(_wantedMm)),
               ],
               results: [
-                if (vPlan.tooLow) vText.ceilingTooLow(formatCentimetres(minLivingHeightMm)),
-                vText.ceilingPlenum(formatCentimetres(vPlan.plenumMm)),
+                if (vPlan.tooLow)
+                  vText.ceilingTooLow(lengthText(vText, minLivingHeightMm, FieldUnit.cm)),
+                vText.ceilingPlenum(lengthText(vText, vPlan.plenumMm, FieldUnit.cm)),
                 vHanging,
                 vText.ceilingSaved(formatDecimal(vPlan.savedVolumeM3), vShare),
               ],
@@ -97,10 +101,13 @@ class _DroppedCeilingCalculatorState extends State<DroppedCeilingCalculator> {
                   if (vPlan.tooLow)
                     IconLine(
                       Icons.warning_amber,
-                      vText.ceilingTooLow(formatCentimetres(minLivingHeightMm)),
+                      vText.ceilingTooLow(lengthText(vText, minLivingHeightMm, vUnit)),
                       color: vTheme.colorScheme.error,
                     ),
-                  IconLine(Icons.height, vText.ceilingPlenum(formatCentimetres(vPlan.plenumMm))),
+                  IconLine(
+                    Icons.height,
+                    vText.ceilingPlenum(lengthText(vText, vPlan.plenumMm, vUnit)),
+                  ),
                   IconLine(Icons.link, vHanging),
                   IconLine(
                     Icons.horizontal_rule,

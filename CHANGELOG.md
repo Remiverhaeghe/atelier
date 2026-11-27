@@ -3,6 +3,7 @@
 ## Non publié
 
 ### Modifié
+- Unités : les résultats du faux plafond et de la porte (bloc-porte, jeux, poignée) suivent l'unité choisie dans les réglages
 - Unités : les coupes du carrelage et de la faïence, les rangées de pose, la liste de coupe de l'étagère et du placard suivent l'unité choisie dans les réglages
 - Unités : la liste des plinthes (morceaux, barres, chutes), le mode chantier et la fiche des murs suivent l'unité choisie dans les réglages
 - Unités : la fiche de pièce en PDF, la liste de coupes et les ouvertures de l'esquisse suivent l'unité choisie dans les réglages (mm, cm ou m) au lieu du centimètre seul
