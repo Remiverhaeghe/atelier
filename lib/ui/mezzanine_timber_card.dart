@@ -9,6 +9,8 @@ import '../logic/units.dart';
 import 'mezzanine_floor_card.dart';
 import 'shopping_target.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 /// Longueurs à couper, regroupées : « 1 × 300 cm, 9 × 200 cm ».
 String groupedPieces(List<int> pPieces) {
@@ -41,6 +43,7 @@ class MezzanineTimberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vBeam = plan.beam;
 
@@ -73,7 +76,7 @@ class MezzanineTimberCard extends StatelessWidget {
             if (vBeam != null && plan.beams > 0)
               IconLine(
                 Icons.straighten,
-                vText.timberBeam(plan.beams, formatCentimetres(mezzanine.lengthMm)),
+                vText.timberBeam(plan.beams, lengthText(vText, mezzanine.lengthMm, vUnit)),
               ),
             AddToShoppingButton(items: () => _shopping(vText)),
           ],

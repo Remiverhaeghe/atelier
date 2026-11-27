@@ -5,6 +5,8 @@ import '../logic/roofing.dart';
 import '../logic/units.dart';
 import 'parquet_view.dart';
 import 'theme.dart';
+import 'plan_unit.dart';
+import 'room_measure_picker.dart' show lengthText;
 
 String roofCoveringLabel(AppLocalizations pText, RoofCovering pCovering) => switch (pCovering) {
   RoofCovering.interlockingTile => pText.roofTileInterlocking,
@@ -26,6 +28,7 @@ class _RoofingCalculatorState extends State<RoofingCalculator> {
   @override
   Widget build(BuildContext context) {
     final vText = AppLocalizations.of(context);
+    final vUnit = PlanUnit.of(context);
     final vTheme = Theme.of(context);
     final vNeeds = roofNeeds(_pan);
     void vSet(RoofPan pPan) => setState(() => _pan = pPan);
@@ -48,7 +51,7 @@ class _RoofingCalculatorState extends State<RoofingCalculator> {
                   Text(vText.roofArea(formatSquareMetres(vNeeds.areaM2))),
                   IconLine(
                     Icons.view_week_outlined,
-                    vText.roofRafters(vNeeds.rafters, formatCentimetres(vNeeds.rafterLengthMm)),
+                    vText.roofRafters(vNeeds.rafters, lengthText(vText, vNeeds.rafterLengthMm, vUnit)),
                   ),
                   IconLine(
                     Icons.vertical_align_center,
